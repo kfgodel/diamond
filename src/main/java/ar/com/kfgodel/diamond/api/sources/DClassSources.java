@@ -1,6 +1,6 @@
 package ar.com.kfgodel.diamond.api.sources;
 
-import ar.com.kfgodel.diamond.api.DClass;
+import ar.com.kfgodel.diamond.api.ClassInstance;
 
 /**
  * This type representes the possible sources to get a DClass instance
@@ -8,9 +8,17 @@ import ar.com.kfgodel.diamond.api.DClass;
  */
 public interface DClassSources {
     /**
-     * Retrieves the class representation from its bare class instance
-     * @param objectClass The class instance
+     * Retrieves the class representation in its bare class instance
+     * @param classInstance The class instance
      * @return The class representation of the given class
      */
-    DClass from(Class<?> objectClass);
+    ClassInstance from(Class<?> classInstance);
+
+    /**
+     * Retrieves the class representation of a class by its complete name (package name + class name).<br>
+     *     As you would do it with Class::forName()
+     * @param canonicalClassName The name that uniquely identifies the class
+     * @return The class representation
+     */
+    ClassInstance named(String canonicalClassName);
 }
