@@ -28,11 +28,11 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
             describe("classes", () -> {
                 it("can be obtained from Class instances", () -> {
                     ClassInstance diamondClass = Diamond.classes().from(Object.class);
-                    assertThat(diamondClass.getName()).isEqualTo("Object");
+                    assertThat(diamondClass.name()).isEqualTo("Object");
                 });
                 it("or complete class names", ()->{
                     ClassInstance diamondClass = Diamond.classes().named("java.lang.Object");
-                    assertThat(diamondClass.getName()).isEqualTo("Object");
+                    assertThat(diamondClass.name()).isEqualTo("Object");
                 });
             });
             describe("methods", ()->{
@@ -44,28 +44,28 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
                         throw new RuntimeException("This is why reflection api turns difficult to use",e);
                     }
                     ClassMethod diamondMethod = Diamond.methods().from(methodInstance);
-                    assertThat(diamondMethod.getName()).isEqualTo("equals");
+                    assertThat(diamondMethod.name()).isEqualTo("equals");
                 });
 
                 it("or in a Class instance and a method name", () -> {
                     ClassMethod diamondMethod = Diamond.methods().in(Object.class).identifiedAs("equals", Object.class);
-                    assertThat(diamondMethod.getName()).isEqualTo("equals");
+                    assertThat(diamondMethod.name()).isEqualTo("equals");
                 });
             });
             describe("fields", ()->{
                 it("can be obtained from Field instances", ()->{
                     Field fieldInstance = null;
                     try {
-                        fieldInstance = ClassWithIdField.class.getField("id");
+                        fieldInstance = ClassWithIdField.class.getDeclaredField("id");
                     } catch (NoSuchFieldException e) {
                         throw new RuntimeException("This is why reflection api turns difficult to use",e);
                     }
                     ClassField diamondField = Diamond.fields().from(fieldInstance);
-                    assertThat(diamondField.getName()).isEqualTo("id");
+                    assertThat(diamondField.name()).isEqualTo("id");
                 });
                 it("or in a Class instance and a field name", ()->{
                     ClassField diamondField = Diamond.fields().in(ClassWithIdField.class).named("id");
-                    assertThat(diamondField.getName()).isEqualTo("id");
+                    assertThat(diamondField.name()).isEqualTo("id");
                 });
             });
         });

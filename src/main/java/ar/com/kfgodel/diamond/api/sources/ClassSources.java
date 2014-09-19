@@ -6,7 +6,7 @@ import ar.com.kfgodel.diamond.api.ClassInstance;
  * This type representes the possible sources to get a DClass instance
  * Created by kfgodel on 17/09/14.
  */
-public interface DClassSources {
+public interface ClassSources {
     /**
      * Retrieves the class representation in its bare class instance
      * @param classInstance The class instance

@@ -12,5 +12,5 @@ public interface ClassField extends Named {
      * @return The name of the field
      */
     @Override
-    String getName();
+    String name();
 }

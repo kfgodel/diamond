@@ -9,5 +9,5 @@ public interface Named {
     /**
      * @return The name of this instance
      */
-    String getName();
+    String name();
 }
