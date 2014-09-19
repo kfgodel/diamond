@@ -2,6 +2,7 @@ package ar.com.kfgodel.diamond.impl.reflections;
 
 import ar.com.kfgodel.diamond.api.ClassInstance;
 import ar.com.kfgodel.diamond.api.sources.ClassDefinedClassMethodSource;
+import ar.com.kfgodel.diamond.impl.sources.ClassDefinedClassMethodSourceImpl;
 
 /**
  * This type represents a class instance based on a native class instance
@@ -18,7 +19,7 @@ public class NativeClass implements ClassInstance {
 
     @Override
     public ClassDefinedClassMethodSource methods() {
-        return null;
+        return ClassDefinedClassMethodSourceImpl.create(this);
     }
 
     @Override

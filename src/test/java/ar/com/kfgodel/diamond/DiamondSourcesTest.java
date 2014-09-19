@@ -30,7 +30,7 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
                     ClassInstance diamondClass = Diamond.classes().from(Object.class);
                     assertThat(diamondClass.name()).isEqualTo("Object");
                 });
-                it("or complete class names", ()->{
+                it("can be obtained from complete class names", ()->{
                     ClassInstance diamondClass = Diamond.classes().named("java.lang.Object");
                     assertThat(diamondClass.name()).isEqualTo("Object");
                 });
@@ -47,12 +47,12 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
                     assertThat(diamondMethod.name()).isEqualTo("equals");
                 });
 
-                it("or in a Class instance and a method name", () -> {
+                xit("can be obtained from a Class instance and a method name", () -> {
                     ClassMethod diamondMethod = Diamond.methods().in(Object.class).identifiedAs("equals", Object.class);
                     assertThat(diamondMethod.name()).isEqualTo("equals");
                 });
             });
-            describe("fields", ()->{
+            xdescribe("fields", ()->{
                 it("can be obtained from Field instances", ()->{
                     Field fieldInstance = null;
                     try {
@@ -63,7 +63,7 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
                     ClassField diamondField = Diamond.fields().from(fieldInstance);
                     assertThat(diamondField.name()).isEqualTo("id");
                 });
-                it("or in a Class instance and a field name", ()->{
+                it("can be obtained from a Class instance and a field name", ()->{
                     ClassField diamondField = Diamond.fields().in(ClassWithIdField.class).named("id");
                     assertThat(diamondField.name()).isEqualTo("id");
                 });
