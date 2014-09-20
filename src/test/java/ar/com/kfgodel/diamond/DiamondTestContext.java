@@ -2,6 +2,7 @@ package ar.com.kfgodel.diamond;
 
 import ar.com.dgarcia.javaspec.api.TestContext;
 import ar.com.kfgodel.diamond.api.classes.ClassLineage;
+import ar.com.kfgodel.diamond.api.types.TypeInstance;
 
 import java.util.function.Supplier;
 
@@ -14,4 +15,6 @@ public interface DiamondTestContext extends TestContext {
     ClassLineage lineage();
     void lineage(Supplier<ClassLineage> definition);
 
+    TypeInstance typeInstance();
+    void typeInstance(Supplier<TypeInstance> definition);
 }

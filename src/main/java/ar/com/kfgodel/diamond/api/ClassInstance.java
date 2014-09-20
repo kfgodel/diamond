@@ -1,8 +1,8 @@
 package ar.com.kfgodel.diamond.api;
 
 import ar.com.kfgodel.diamond.api.classes.ClassLineage;
-import ar.com.kfgodel.diamond.api.naming.Named;
 import ar.com.kfgodel.diamond.api.sources.ClassDefinedClassMethodSource;
+import ar.com.kfgodel.diamond.api.types.TypeInstance;
 
 import java.util.Optional;
 
@@ -10,7 +10,7 @@ import java.util.Optional;
  * This type represents a class
  * Created by kfgodel on 17/09/14.
  */
-public interface ClassInstance extends Named {
+public interface ClassInstance extends TypeInstance {
     /**
      * The name of the class without a package prefix
      * @return THe name that identifies this class

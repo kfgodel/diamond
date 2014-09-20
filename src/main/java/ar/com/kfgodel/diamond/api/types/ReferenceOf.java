@@ -17,17 +17,20 @@ public abstract class ReferenceOf<T> {
 
     private final Type referencedType;
 
+    private final AnnotatedType referencedAnnotatedType;
+
     public ReferenceOf() {
         Class<?> concreteSuperClass = getClass().getSuperclass();
         if(!concreteSuperClass.equals(ReferenceOf.class)){
             throw new DiamondException(ReferenceOf.class.getSimpleName() + " should have a direct subclass (no multi-class hierarchy supported");
         }
-        Type genericReferenceType = getClass().getGenericSuperclass();
-        if (!(genericReferenceType instanceof ParameterizedType)) {
+        AnnotatedType annotatedSuperclass = getClass().getAnnotatedSuperclass();
+        if (!(annotatedSuperclass instanceof AnnotatedParameterizedType)) {
             throw new DiamondException(ReferenceOf.class.getSimpleName() + " must be parameterized with a generic type to be used");
         }
-        ParameterizedType parameterizedReferenceType = (ParameterizedType) genericReferenceType;
-        this.referencedType = parameterizedReferenceType.getActualTypeArguments()[0];
+        AnnotatedParameterizedType parameterizedReferenceType = (AnnotatedParameterizedType) annotatedSuperclass;
+        this.referencedAnnotatedType = parameterizedReferenceType.getAnnotatedActualTypeArguments()[0];
+        this.referencedType = this.referencedAnnotatedType.getType();
     }
 
     /**
@@ -128,6 +131,13 @@ public abstract class ReferenceOf<T> {
      */
     public boolean referencesAGenericArrayType(){
         return referencedType instanceof GenericArrayType;
+    }
+
+    /**
+     * @return Returns the annotated type that contains referenced type and its annotations
+     */
+    public AnnotatedType getReferencedAnnotatedType() {
+        return referencedAnnotatedType;
     }
 
 }
