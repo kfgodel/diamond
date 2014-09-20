@@ -59,6 +59,12 @@ public class ClassLineageTest extends JavaSpec<DiamondTestContext> {
                 assertThat(descendant.get().name()).isEqualTo("ChildClass");
             });
 
+            it("does not include Object for primitive types", ()->{
+                Stream<ClassInstance> lineageMembers = Diamond.of(int.class).lineage().allMembers();
+                List<String> memberNames = lineageMembers.map((member) -> member.name()).collect(Collectors.toList());
+                assertThat(memberNames)
+                        .isEqualTo(Arrays.asList("int"));
+            });
 
         });
 
