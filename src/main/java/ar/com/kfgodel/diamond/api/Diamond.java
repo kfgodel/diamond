@@ -16,6 +16,15 @@ public interface Diamond {
      */
     public static final DiamondApi API = DiamondApi.create();
 
+
+    /**
+     * @param nativeClass The native class instance to base on
+     * @return A diamond class instance representation
+     */
+    public static ClassInstance of(Class<?> nativeClass){
+        return classes().from(nativeClass);
+    }
+
     /**
      * @return An accessor to obtain DClass instances in various ways
      */

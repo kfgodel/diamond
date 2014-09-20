@@ -27,8 +27,8 @@ public class ClassMethodSourceImpl {
         return NativeClassMethod.create(methodInstance);
     }
 
-    public ClassMethod inIdentifiedAs(Class<?> classInstance, String methodName, Class<?>... parameterTypes){
-        ClassInstance diamondClass = Diamond.classes().from(classInstance);
+    public ClassMethod inIdentifiedAs(Class<?> nativeClass, String methodName, Class<?>... parameterTypes){
+        ClassInstance diamondClass = Diamond.of(nativeClass);
         return diamondClass.methods().identifiedAs(methodName, parameterTypes);
     }
 }

@@ -9,10 +9,10 @@ import ar.com.kfgodel.diamond.api.ClassInstance;
 public interface ClassSources {
     /**
      * Retrieves the class representation in its bare class instance
-     * @param classInstance The class instance
+     * @param nativeClass The class instance
      * @return The class representation of the given class
      */
-    ClassInstance from(Class<?> classInstance);
+    ClassInstance from(Class<?> nativeClass);
 
     /**
      * Retrieves the class representation of a class by its complete name (package name + class name).<br>

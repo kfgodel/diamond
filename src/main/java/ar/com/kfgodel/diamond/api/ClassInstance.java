@@ -1,7 +1,10 @@
 package ar.com.kfgodel.diamond.api;
 
+import ar.com.kfgodel.diamond.api.classes.ClassLineage;
 import ar.com.kfgodel.diamond.api.naming.Named;
 import ar.com.kfgodel.diamond.api.sources.ClassDefinedClassMethodSource;
+
+import java.util.Optional;
 
 /**
  * This type represents a class
@@ -19,4 +22,15 @@ public interface ClassInstance extends Named {
      * @return The source of methods
      */
     ClassDefinedClassMethodSource methods();
+
+    /**
+     * Return the object that represents this class and the linear relation of their superclasses up to Object
+     * @return The lineage of this class
+     */
+    ClassLineage lineage();
+
+    /**
+     * @return The optional superclass of this instance. Empty for Object
+     */
+    Optional<ClassInstance> getSuperclass();
 }
