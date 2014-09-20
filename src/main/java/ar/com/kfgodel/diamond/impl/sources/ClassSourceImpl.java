@@ -2,7 +2,7 @@ package ar.com.kfgodel.diamond.impl.sources;
 
 import ar.com.kfgodel.diamond.api.ClassInstance;
 import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
-import ar.com.kfgodel.diamond.impl.reflections.NativeClass;
+import ar.com.kfgodel.diamond.impl.reflections.NativeClassInstance;
 
 /**
  * This type is the non fluent implementation of the ClassSource
@@ -17,17 +17,17 @@ public class ClassSourceImpl {
 
     /**
      * Retrieves the diamond class instance from a native class instance
-     * @param classInstance The class to base from
+     * @param nativeClass The class to base from
      * @return The class representation
      */
-    public ClassInstance from(Class<?> classInstance){
-        return NativeClass.create(classInstance);
+    public ClassInstance from(Class<?> nativeClass){
+        return NativeClassInstance.create(nativeClass);
     }
 
     public ClassInstance named(String canonicalName){
         try {
-            Class<?> classInstance = Class.forName(canonicalName);
-            return from(classInstance);
+            Class<?> nativeClass = Class.forName(canonicalName);
+            return from(nativeClass);
         } catch (ClassNotFoundException e) {
             throw new DiamondException("There's no class with the name [" + canonicalName+ "]", e);
         }catch (ExceptionInInitializerError e) {

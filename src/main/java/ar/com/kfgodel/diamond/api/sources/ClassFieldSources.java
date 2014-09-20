@@ -11,10 +11,10 @@ import java.lang.reflect.Field;
 public interface ClassFieldSources {
     /**
      * Defines the class to obtain the field in
-     * @param classInstance The class instance that indicates the source
+     * @param nativeClass The class instance that indicates the source
      * @return The partially defined field source
      */
-    ClassDefinedClassFieldSource in(Class<?> classInstance);
+    ClassDefinedClassFieldSource in(Class<?> nativeClass);
 
     /**
      * Retrieves the class field representation for the given field isntance
