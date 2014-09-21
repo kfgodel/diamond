@@ -6,6 +6,7 @@ import ar.com.kfgodel.diamond.api.sources.TypeSources;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.reflections.NativeClassInstance;
 import ar.com.kfgodel.diamond.impl.types.TypeVariableInstance;
+import ar.com.kfgodel.diamond.impl.types.TypeWildcardInstance;
 
 import java.lang.reflect.*;
 
@@ -27,7 +28,7 @@ public class TypeSourceImpl implements TypeSources {
 
     @Override
     public TypeInstance from(WildcardType wildcardType) {
-        throw new DiamondException("Not implemented yet");
+        return TypeWildcardInstance.createFrom(wildcardType);
     }
 
     @Override
@@ -42,7 +43,8 @@ public class TypeSourceImpl implements TypeSources {
 
     @Override
     public TypeInstance from(AnnotatedWildcardType annotatedWildCard) {
-        throw new DiamondException("Not implemented yet");    }
+        return TypeWildcardInstance.createFrom(annotatedWildCard);
+    }
 
     @Override
     public TypeInstance from(AnnotatedTypeVariable annotatedTypeVariable) {

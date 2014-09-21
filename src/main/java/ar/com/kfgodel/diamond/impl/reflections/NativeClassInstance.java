@@ -11,6 +11,7 @@ import ar.com.kfgodel.diamond.impl.types.TypeInstanceSupport;
 import ar.com.kfgodel.diamond.impl.types.bounds.DoubleTypeBounds;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Type;
 import java.util.Optional;
 
 /**
@@ -74,7 +75,7 @@ public class NativeClassInstance extends TypeInstanceSupport implements ClassIns
 
     @Override
     public TypeBounds bounds() {
-        return DoubleTypeBounds.create(null, null);
+        return DoubleTypeBounds.create(new Type[0], new Type[0]);
     }
 
 }

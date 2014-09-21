@@ -27,7 +27,7 @@ public class UpperOnlyTypeBounds implements TypeBounds {
 
     public static UpperOnlyTypeBounds create(AnnotatedType[] upper) {
         UpperOnlyTypeBounds bounds = new UpperOnlyTypeBounds();
-        bounds.upperBounds = DoubleTypeBounds.adapt(upper);
+        bounds.upperBounds = DoubleTypeBounds.collect(DoubleTypeBounds.streamOf(upper));
         return bounds;
     }
 
