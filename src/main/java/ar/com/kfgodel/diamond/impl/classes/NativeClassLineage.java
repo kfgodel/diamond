@@ -61,6 +61,11 @@ public class NativeClassLineage implements ClassLineage {
         return memberRelativeTo(ancestor, -1);
     }
 
+    @Override
+    public void getActualTypeArgumentsFor(Class<?> member) {
+
+    }
+
     /**
      * Returns a member of this lineage relative in position to given member
      * @param referentClass The referent member

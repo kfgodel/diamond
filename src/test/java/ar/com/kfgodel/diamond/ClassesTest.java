@@ -20,6 +20,13 @@ public class ClassesTest extends JavaSpec<DiamondTestContext> {
                 assertThat(Diamond.of(Object.class))
                         .isEqualTo(Diamond.of(Object.class));
             });
+            it("contains type parameter values", ()->{
+                assertThat(Diamond.of(Object.class))
+                        .isEqualTo(Diamond.of(Object.class));
+            });
+            it("contains type argument values", ()->{
+
+            });
         });
     }
 

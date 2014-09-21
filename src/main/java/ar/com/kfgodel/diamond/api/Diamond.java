@@ -3,6 +3,7 @@ package ar.com.kfgodel.diamond.api;
 import ar.com.kfgodel.diamond.api.sources.ClassFieldSources;
 import ar.com.kfgodel.diamond.api.sources.ClassMethodSources;
 import ar.com.kfgodel.diamond.api.sources.ClassSources;
+import ar.com.kfgodel.diamond.api.sources.TypeSources;
 import ar.com.kfgodel.diamond.impl.DiamondApi;
 
 /**
@@ -45,4 +46,9 @@ public interface Diamond {
     public static ClassFieldSources fields() {
         return API.fields();
     }
+
+    /**
+     * @return An accessor to obtain instances that represent types
+     */
+    public static TypeSources types() { return API.types(); }
 }
