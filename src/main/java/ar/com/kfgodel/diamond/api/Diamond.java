@@ -23,7 +23,7 @@ public interface Diamond {
      * @return A diamond class instance representation
      */
     public static ClassInstance of(Class<?> nativeClass){
-        return classes().from(nativeClass);
+        return types().from(nativeClass);
     }
 
     /**

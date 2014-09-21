@@ -36,7 +36,12 @@ public class ParameterizedTypeTest extends JavaSpec<DiamondTestContext> {
 
             it("has a name", ()->{
                 assertThat(context().typeInstance().name())
-                        .isEqualTo("java.util.Map<java.lang.String, java.lang.Integer>");
+                        .isEqualTo("Map");
+            });
+
+            xit("has a declaration name",()->{
+//                assertThat(context().typeInstance().names().declarationName())
+//                        .isEqualTo("java.util.Map<java.lang.String, java.lang.Integer>");
             });
 
             it("has type arguments", ()->{

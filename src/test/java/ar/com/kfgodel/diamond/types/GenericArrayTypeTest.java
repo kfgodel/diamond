@@ -37,9 +37,15 @@ public class GenericArrayTypeTest extends JavaSpec<DiamondTestContext> {
             });
             it("has component type", ()->{
                 assertThat(context().typeInstance().componentType().get().name())
-                        .isEqualTo("java.util.List<java.lang.Integer>");
+                        .isEqualTo("List");
 
             });
+
+            xit("component declaration name is preserved", ()->{
+//                assertThat(context().typeInstance().componentType().get().names().declarationName())
+//                        .isEqualTo("java.util.List<java.lang.Integer>");
+            });
+
             it("can have attached annotations", ()->{
                 List<Class<? extends Annotation>> annotationTypes = context().typeInstance().annotations()
                         .map((annotation) -> annotation.annotationType())
