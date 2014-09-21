@@ -3,6 +3,7 @@ package ar.com.kfgodel.diamond;
 import ar.com.dgarcia.javaspec.api.TestContext;
 import ar.com.kfgodel.diamond.api.classes.ClassLineage;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.lazyvalue.api.LazyValue;
 
 import java.util.function.Supplier;
 
@@ -17,4 +18,7 @@ public interface DiamondTestContext extends TestContext {
 
     TypeInstance typeInstance();
     void typeInstance(Supplier<TypeInstance> definition);
+
+    LazyValue<Integer> value();
+    void value(Supplier<LazyValue<Integer>> definition);
 }
