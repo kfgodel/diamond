@@ -13,6 +13,7 @@ import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
 
 import java.lang.annotation.Annotation;
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * This type represents a class instance based on a native class instance.<br>
@@ -68,12 +69,25 @@ public class ClassTypeInstance extends TypeInstanceSupport implements ClassInsta
         return builder.toString();
     }
 
+
+    /**
+     * Creates a class instance with its minimum data
+     * @param names The names of the class
+     * @param superclassSupplier The superclass provider
+     * @param annotations The attached annotations
+     * @return The created instance
+     */
+    public static ClassTypeInstance create(ClassDefinedClassNameSource names, Supplier<Optional<ClassInstance>> superclassSupplier, Annotation[] annotations) {
+        ClassTypeInstance classInstance = new ClassTypeInstance();
+        classInstance.names = names;
+        classInstance.superclass = SuppliedValue.create(superclassSupplier);
+        classInstance.setAnnotations(annotations);
+        return classInstance;
+    }
+
+
     public static ClassTypeInstance create(Class<?> nativeClass, Annotation[] annotations) {
-        ClassTypeInstance instance = new ClassTypeInstance();
-        instance.names = ClassNames.create(nativeClass);
-        instance.superclass = SuppliedValue.create(SuperClassSupplier.create(nativeClass));
-        instance.setAnnotations(annotations);
-        return instance;
+        return create(ClassNames.create(nativeClass), SuperClassSupplier.create(nativeClass), annotations);
     }
 
     public static ClassTypeInstance create(Class<?> nativeClass) {

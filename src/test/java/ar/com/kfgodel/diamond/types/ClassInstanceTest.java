@@ -4,6 +4,8 @@ import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.DiamondTestContext;
 import ar.com.kfgodel.diamond.api.Diamond;
+import ar.com.kfgodel.diamond.api.classes.ClassLineage;
+import ar.com.kfgodel.diamond.api.sources.ClassDefinedClassNameSource;
 import org.junit.runner.RunWith;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -18,8 +20,24 @@ public class ClassInstanceTest extends JavaSpec<DiamondTestContext> {
     public void define() {
         describe("a class instance", ()->{
 
+            beforeEach(()->{
+                context().classInstance(()-> Diamond.of(Object.class));
+            });
+
             it("has a simple short name", ()->{
-                assertThat(Diamond.of(Object.class).name())
+                assertThat(context().classInstance().name())
+                        .isEqualTo("Object");
+            });
+
+            it("has additional names", ()->{
+                ClassDefinedClassNameSource classNames = context().classInstance().names();
+                assertThat(classNames.classloaderName())
+                        .isEqualTo("java.lang.Object");
+            });
+
+            it("has a lineage with its ancestors", ()->{
+                ClassLineage classLineage = context().classInstance().lineage();
+                assertThat(classLineage.highestAncestor().name())
                         .isEqualTo("Object");
             });
 
