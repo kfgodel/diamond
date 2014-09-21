@@ -3,8 +3,10 @@ package ar.com.kfgodel.diamond.impl.types;
 import ar.com.kfgodel.diamond.api.ClassInstance;
 import ar.com.kfgodel.diamond.api.classes.ClassLineage;
 import ar.com.kfgodel.diamond.api.sources.ClassDefinedClassMethodSource;
+import ar.com.kfgodel.diamond.api.sources.ClassDefinedClassNameSource;
 import ar.com.kfgodel.diamond.impl.classes.NativeClassLineage;
 import ar.com.kfgodel.diamond.impl.fragments.SuperClassSupplier;
+import ar.com.kfgodel.diamond.impl.naming.ClassNames;
 import ar.com.kfgodel.diamond.impl.sources.ClassDefinedClassMethodSourceImpl;
 import ar.com.kfgodel.lazyvalue.api.LazyValue;
 import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
@@ -23,24 +25,17 @@ import java.util.Optional;
  */
 public class ClassTypeInstance extends TypeInstanceSupport implements ClassInstance{
 
-    private String name;
-    private String completeName;
-    private String declarationName;
+    private ClassDefinedClassNameSource names;
     private LazyValue<Optional<ClassInstance>> superclass;
 
     @Override
     public String name() {
-        return this.name;
+        return this.names.shortName();
     }
 
     @Override
-    public String completeName() {
-        return this.completeName;
-    }
-
-    @Override
-    public String declarationName() {
-        return this.declarationName;
+    public ClassDefinedClassNameSource names() {
+        return this.names;
     }
 
     @Override
@@ -61,7 +56,7 @@ public class ClassTypeInstance extends TypeInstanceSupport implements ClassInsta
     @Override
     public boolean equals(Object obj) {
         if(obj instanceof ClassTypeInstance){
-            return this.declarationName.equals(((ClassTypeInstance) obj).declarationName);
+            return this.names().declarationName().equals(((ClassTypeInstance) obj).names().declarationName());
         }
         return false;
     }
@@ -69,15 +64,13 @@ public class ClassTypeInstance extends TypeInstanceSupport implements ClassInsta
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append(completeName);
+        builder.append(this.names().classloaderName());
         return builder.toString();
     }
 
     public static ClassTypeInstance create(Class<?> nativeClass, Annotation[] annotations) {
         ClassTypeInstance instance = new ClassTypeInstance();
-        instance.name = nativeClass.getSimpleName();
-        instance.completeName = nativeClass.getName();
-        instance.declarationName = instance.completeName;
+        instance.names = ClassNames.create(nativeClass);
         instance.superclass = SuppliedValue.create(SuperClassSupplier.create(nativeClass));
         instance.setAnnotations(annotations);
         return instance;
