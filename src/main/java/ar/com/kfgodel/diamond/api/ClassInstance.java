@@ -13,9 +13,22 @@ import java.util.Optional;
 public interface ClassInstance extends TypeInstance {
     /**
      * The name of the class without a package prefix
-     * @return THe name that identifies this class
+     * @return The name that identifies this class
      */
-    public String name();
+    String name();
+
+    /**
+     * The name prefixed with the package of this instance that identifies the type and can be used to load the native class instance
+     * @return The VM name of the class
+     */
+    String completeName();
+
+    /**
+     * The name that identifies this type with its annotations and generics information.<br> This name could be used to declare
+     * this exact type in source code
+     * @return The name as a full type declaration
+     */
+    String declarationName();
 
     /**
      * Returns the accessor object for class methods of this instance
@@ -33,4 +46,5 @@ public interface ClassInstance extends TypeInstance {
      * @return The optional superclass of this instance. Empty for Object
      */
     Optional<ClassInstance> getSuperclass();
+
 }
