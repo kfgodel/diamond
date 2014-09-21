@@ -5,7 +5,7 @@ import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 import ar.com.kfgodel.diamond.api.sources.TypeSources;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.reflections.NativeClassInstance;
-import ar.com.kfgodel.diamond.impl.types.NativeTypeVariable;
+import ar.com.kfgodel.diamond.impl.types.TypeVariableInstance;
 
 import java.lang.reflect.*;
 
@@ -17,7 +17,7 @@ public class TypeSourceImpl implements TypeSources {
 
     @Override
     public TypeInstance from(TypeVariable<?> typeVariable) {
-        return NativeTypeVariable.create(typeVariable);
+        return TypeVariableInstance.createFrom(typeVariable);
     }
 
     @Override
@@ -46,8 +46,7 @@ public class TypeSourceImpl implements TypeSources {
 
     @Override
     public TypeInstance from(AnnotatedTypeVariable annotatedTypeVariable) {
-        TypeVariable<?> typeVariable = (TypeVariable<?>) annotatedTypeVariable.getType();
-        return NativeTypeVariable.create(typeVariable, annotatedTypeVariable.getAnnotations());
+        return TypeVariableInstance.createFrom(annotatedTypeVariable);
     }
 
     @Override
@@ -78,7 +77,7 @@ public class TypeSourceImpl implements TypeSources {
     @Override
     public TypeInstance fromUnspecific(AnnotatedType annotatedType) {
         if (annotatedType instanceof AnnotatedParameterizedType){
-            return from((AnnotatedParameterizedType)annotatedType);
+            return from((AnnotatedParameterizedType) annotatedType);
         }else if (annotatedType instanceof AnnotatedTypeVariable){
             return from((AnnotatedTypeVariable)annotatedType);
         }else if (annotatedType instanceof AnnotatedWildcardType){

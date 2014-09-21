@@ -7,8 +7,8 @@ import ar.com.kfgodel.diamond.api.sources.ClassDefinedClassMethodSource;
 import ar.com.kfgodel.diamond.api.types.TypeBounds;
 import ar.com.kfgodel.diamond.impl.classes.NativeClassLineage;
 import ar.com.kfgodel.diamond.impl.sources.ClassDefinedClassMethodSourceImpl;
-import ar.com.kfgodel.diamond.impl.types.NativeTypeBounds;
 import ar.com.kfgodel.diamond.impl.types.TypeInstanceSupport;
+import ar.com.kfgodel.diamond.impl.types.bounds.DoubleTypeBounds;
 
 import java.lang.annotation.Annotation;
 import java.util.Optional;
@@ -74,7 +74,7 @@ public class NativeClassInstance extends TypeInstanceSupport implements ClassIns
 
     @Override
     public TypeBounds bounds() {
-        return NativeTypeBounds.create(null,null);
+        return DoubleTypeBounds.create(null, null);
     }
 
 }

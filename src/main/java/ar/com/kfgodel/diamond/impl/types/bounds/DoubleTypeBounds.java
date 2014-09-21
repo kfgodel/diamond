@@ -1,4 +1,4 @@
-package ar.com.kfgodel.diamond.impl.types;
+package ar.com.kfgodel.diamond.impl.types.bounds;
 
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.types.TypeBounds;
@@ -12,10 +12,10 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * This type represents the bounds of a type
+ * This type represents the bounds of a type that has upper and lower boundaries
  * Created by kfgodel on 20/09/14.
  */
-public class NativeTypeBounds implements TypeBounds {
+public class DoubleTypeBounds implements TypeBounds {
 
     private List<TypeInstance> upperBounds;
     private List<TypeInstance> lowerBounds;
@@ -30,8 +30,8 @@ public class NativeTypeBounds implements TypeBounds {
         return lowerBounds.stream();
     }
 
-    public static NativeTypeBounds create(AnnotatedType[] upper, AnnotatedType[] lower) {
-        NativeTypeBounds bounds = new NativeTypeBounds();
+    public static DoubleTypeBounds create(AnnotatedType[] upper, AnnotatedType[] lower) {
+        DoubleTypeBounds bounds = new DoubleTypeBounds();
         bounds.upperBounds = adapt(upper);
         bounds.lowerBounds = adapt(lower);
         return bounds;
@@ -41,7 +41,7 @@ public class NativeTypeBounds implements TypeBounds {
      * @param upper The array of native types
      * @return The list of diamond types
      */
-    private static List<TypeInstance> adapt(AnnotatedType[] upper) {
+    public static List<TypeInstance> adapt(AnnotatedType[] upper) {
         if(upper == null){
             return Collections.emptyList();
         }
