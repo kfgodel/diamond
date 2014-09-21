@@ -15,9 +15,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedType;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -39,7 +37,7 @@ public class TypeVariableTest extends JavaSpec<DiamondTestContext> {
                 assertThat(context().typeInstance().name())
                         .isEqualTo("T");
             });
-            it("has upper bounds", ()->{
+            it("can have upper bounds", ()->{
                 List<String> upperTypeNames = context().typeInstance().bounds().upper().map((upperBound)-> upperBound.name()).collect(Collectors.toList());
                 assertThat(upperTypeNames)
                         .isEqualTo(Arrays.asList("Serializable", "Comparable"));
@@ -54,10 +52,12 @@ public class TypeVariableTest extends JavaSpec<DiamondTestContext> {
                         .isEqualTo(TestAnnotation1.class);
             });
             it("bounds can have attached annotations too", ()->{
-                Optional<TypeInstance> serializableType = context().typeInstance().bounds().upper().findFirst();
-                Stream<Annotation> serializableAnnotations = serializableType.get().annotations();
-                assertThat(serializableAnnotations.findFirst().get().annotationType())
-                        .isEqualTo(TestAnnotation2.class);
+                List<Class<? extends Annotation>> upperBoundAnnotations = context().typeInstance().bounds().upper()
+                        .flatMap((upperBound)-> upperBound.annotations())
+                        .map((annotation) -> annotation.annotationType())
+                        .collect(Collectors.toList());
+                assertThat(upperBoundAnnotations)
+                        .isEqualTo(Arrays.asList(TestAnnotation2.class));
             });
 
         });

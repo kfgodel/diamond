@@ -24,10 +24,6 @@ public abstract class TypeInstanceSupport implements TypeInstance {
      * @param annotations The new annotations
      */
     protected void setAnnotations(Annotation[] annotations) {
-        if(annotations.length == 0){
-            // Let's use only one instance
-            annotations = NO_ANNOTATIONS;
-        }
         this.annotations = annotations;
     }
 

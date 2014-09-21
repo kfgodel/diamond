@@ -5,8 +5,8 @@ import ar.com.kfgodel.diamond.api.types.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 
 import java.lang.reflect.AnnotatedType;
+import java.lang.reflect.Type;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -31,23 +31,30 @@ public class DoubleTypeBounds implements TypeBounds {
     }
 
     public static DoubleTypeBounds create(AnnotatedType[] upper, AnnotatedType[] lower) {
+        return create(streamOf(upper),streamOf(lower));
+    }
+
+    public static DoubleTypeBounds create(Type[] upper, Type[] lower) {
+        return create(streamOf(upper), streamOf(lower));
+    }
+
+    public static DoubleTypeBounds create(Stream<TypeInstance> upper, Stream<TypeInstance> lower) {
         DoubleTypeBounds bounds = new DoubleTypeBounds();
-        bounds.upperBounds = adapt(upper);
-        bounds.lowerBounds = adapt(lower);
+        bounds.upperBounds = collect(upper);
+        bounds.lowerBounds = collect(lower);
         return bounds;
     }
 
-    /**
-     * @param upper The array of native types
-     * @return The list of diamond types
-     */
-    public static List<TypeInstance> adapt(AnnotatedType[] upper) {
-        if(upper == null){
-            return Collections.emptyList();
-        }
-        return Arrays.stream(upper)
-                .map((type)-> Diamond.types().fromUnspecific(type))
-                .collect(Collectors.toList());
+    public static Stream<TypeInstance> streamOf(AnnotatedType[] annotatedTypes) {
+        return Arrays.stream(annotatedTypes).map((annotated) -> Diamond.types().fromUnspecific(annotated));
+    }
+
+    public static Stream<TypeInstance> streamOf(Type[] types) {
+        return Arrays.stream(types).map((type) -> Diamond.types().fromUnspecific(type));
+    }
+
+    public static List<TypeInstance> collect(Stream<TypeInstance> upper) {
+        return upper.collect(Collectors.toList());
     }
 
 }
