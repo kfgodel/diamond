@@ -3,6 +3,8 @@ package ar.com.kfgodel.diamond.api.types;
 import ar.com.kfgodel.diamond.api.annotations.Annotated;
 import ar.com.kfgodel.diamond.api.naming.Named;
 
+import java.util.Optional;
+
 /**
  * This type represents the basic interface common to all types.<br>
  * Instances of this type represent one of the possible type in Java language including type variables and wildcards.<br>
@@ -19,4 +21,9 @@ public interface TypeInstance extends Named, Annotated {
      */
     TypeBounds bounds();
 
+    /**
+     * @return The type of component this container type has.<br>
+     * Component type is only present on arrays that reify their component types
+     */
+    Optional<TypeInstance> componentType();
 }

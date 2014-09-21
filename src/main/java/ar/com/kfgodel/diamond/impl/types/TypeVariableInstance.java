@@ -1,12 +1,14 @@
 package ar.com.kfgodel.diamond.impl.types;
 
 import ar.com.kfgodel.diamond.api.types.TypeBounds;
+import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.types.bounds.UpperOnlyTypeBounds;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedType;
 import java.lang.reflect.AnnotatedTypeVariable;
 import java.lang.reflect.TypeVariable;
+import java.util.Optional;
 
 /**
  * This type represents a type variable
@@ -20,6 +22,11 @@ public class TypeVariableInstance extends TypeInstanceSupport {
     @Override
     public TypeBounds bounds() {
         return variableBounds;
+    }
+
+    @Override
+    public Optional<TypeInstance> componentType() {
+        return Optional.empty();
     }
 
     @Override
