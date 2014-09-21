@@ -2,6 +2,7 @@ package ar.com.kfgodel.diamond.api;
 
 import ar.com.kfgodel.diamond.api.classes.ClassLineage;
 import ar.com.kfgodel.diamond.api.sources.ClassDefinedClassMethodSource;
+import ar.com.kfgodel.diamond.api.sources.ClassDefinedClassNameSource;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 
 import java.util.Optional;
@@ -18,17 +19,10 @@ public interface ClassInstance extends TypeInstance {
     String name();
 
     /**
-     * The name prefixed with the package of this instance that identifies the type and can be used to load the native class instance
-     * @return The VM name of the class
+     * Returns the accessor object for class names (in all their varieties)
+     * @return The source of class names
      */
-    String completeName();
-
-    /**
-     * The name that identifies this type with its annotations and generics information.<br> This name could be used to declare
-     * this exact type in source code
-     * @return The name as a full type declaration
-     */
-    String declarationName();
+    ClassDefinedClassNameSource names();
 
     /**
      * Returns the accessor object for class methods of this instance

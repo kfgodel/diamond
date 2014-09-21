@@ -23,20 +23,6 @@ public class ClassInstanceTest extends JavaSpec<DiamondTestContext> {
                         .isEqualTo("Object");
             });
 
-            it("has a complete name with package prefix (the one used to load the class into runtime)", ()->{
-                assertThat(Diamond.of(Object.class).completeName())
-                        .isEqualTo("java.lang.Object");
-            });
-
-            describe("declaration name", () -> {
-                it("is equal to complete name for basic types", ()->{
-                    assertThat(Diamond.of(Object.class).declarationName())
-                            .isEqualTo("java.lang.Object");
-                });
-                it("includes type arguments for parameterized types");
-                it("includes brackets notation for arrays");
-            });
-
             xit("equality is based on the semantic name", ()->{
                 assertThat(Diamond.of(Object.class))
                         .isEqualTo(Diamond.of(Object.class));
