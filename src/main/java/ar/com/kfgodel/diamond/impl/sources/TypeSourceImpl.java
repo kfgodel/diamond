@@ -1,11 +1,12 @@
 package ar.com.kfgodel.diamond.impl.sources;
 
-import ar.com.kfgodel.diamond.api.Diamond;
+import ar.com.kfgodel.diamond.api.ClassInstance;
 import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 import ar.com.kfgodel.diamond.api.sources.TypeSources;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
-import ar.com.kfgodel.diamond.impl.types.*;
+import ar.com.kfgodel.diamond.impl.types.parts.NativeTypeConverter;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.*;
 
 /**
@@ -16,47 +17,52 @@ public class TypeSourceImpl implements TypeSources {
 
     @Override
     public TypeInstance from(TypeVariable<?> typeVariable) {
-        return TypeVariableInstance.createFrom(typeVariable);
+        return NativeTypeConverter.convert(typeVariable);
     }
 
     @Override
     public TypeInstance from(ParameterizedType parameterizedType) {
-        return ParameterizedTypeInstance.create(parameterizedType);
+        return NativeTypeConverter.convert(parameterizedType);
     }
 
     @Override
     public TypeInstance from(WildcardType wildcardType) {
-        return TypeWildcardInstance.createFrom(wildcardType);
+        return NativeTypeConverter.convert(wildcardType);
     }
 
     @Override
     public TypeInstance from(GenericArrayType genericArrayType) {
-        return GenericArrayTypeInstance.create(genericArrayType);
+        return NativeTypeConverter.convert(genericArrayType);
     }
 
     @Override
-    public TypeInstance from(Class<?> aClass) {
-        return Diamond.of(aClass);
+    public ClassInstance from(Class<?> aClass) {
+        return NativeTypeConverter.convert(aClass);
     }
 
     @Override
     public TypeInstance from(AnnotatedWildcardType annotatedWildCard) {
-        return TypeWildcardInstance.createFrom(annotatedWildCard);
+        return NativeTypeConverter.convert(annotatedWildCard);
     }
 
     @Override
     public TypeInstance from(AnnotatedTypeVariable annotatedTypeVariable) {
-        return TypeVariableInstance.createFrom(annotatedTypeVariable);
+        return NativeTypeConverter.convert(annotatedTypeVariable);
     }
 
     @Override
     public TypeInstance from(AnnotatedParameterizedType annotatedParameterized) {
-        return ParameterizedTypeInstance.create(annotatedParameterized);
+        return NativeTypeConverter.convert(annotatedParameterized);
     }
 
     @Override
     public TypeInstance from(AnnotatedArrayType annotatedArrayType) {
-        return GenericArrayTypeInstance.create(annotatedArrayType);
+        return NativeTypeConverter.convert(annotatedArrayType);
+    }
+
+    @Override
+    public TypeInstance from(Class<?> aClass, Annotation[] annotations) {
+        return NativeTypeConverter.convert(aClass, annotations);
     }
 
     @Override
@@ -88,8 +94,7 @@ public class TypeSourceImpl implements TypeSources {
         }
         Type baseType = annotatedType.getType();
         if(baseType instanceof Class){
-            Class<?> aClass = (Class<?>) baseType;
-            return ClassTypeInstance.create(aClass, annotatedType.getAnnotations());
+            return from((Class<?>) baseType, annotatedType.getAnnotations());
         }
         throw new DiamondException("An annotated type for something that's not a class doesn't have a creation method: " + annotatedType);
     }

@@ -1,7 +1,9 @@
 package ar.com.kfgodel.diamond.api.sources;
 
+import ar.com.kfgodel.diamond.api.ClassInstance;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.*;
 
 /**
@@ -43,7 +45,7 @@ public interface TypeSources {
      * @param aClass The native parameterized type
      * @return The diamond representation
      */
-    TypeInstance from(Class<?> aClass);
+    ClassInstance from(Class<?> aClass);
 
     /**
      * Retrieves a type instance from an object that represents a type wildcard and its annotations
@@ -69,6 +71,14 @@ public interface TypeSources {
      * @return The diamond representation of the type (with its annotations)
      */
     TypeInstance from(AnnotatedArrayType annotatedArrayType);
+
+    /**
+     * Retrieves a type instance from a parameterized type and its attached annotations
+     * @param aClass The native parameterized type
+     * @param annotations The attached annotations
+     * @return The diamond representation
+     */
+    TypeInstance from(Class<?> aClass, Annotation[] annotations);
 
     /**
      * Retrieves a type instance from an unspecific type
