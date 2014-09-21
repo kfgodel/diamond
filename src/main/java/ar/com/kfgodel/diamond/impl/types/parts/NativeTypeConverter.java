@@ -27,11 +27,10 @@ public class NativeTypeConverter {
      * @return The new type variable instance
      */
     public static TypeVariableInstance convert(AnnotatedTypeVariable annotatedTypeVariable) {
-        TypeParts parts = TypeParts.create();
         TypeVariable<?> typeVariable = (TypeVariable<?>) annotatedTypeVariable.getType();
+        TypeParts parts = createPartsWithAnnotationsFrom(annotatedTypeVariable);
         parts.setTypeName(typeVariable.getTypeName());
         parts.setBounds(UpperOnlyTypeBounds.create(annotatedTypeVariable.getAnnotatedBounds()));
-        parts.setAnnotations(annotatedTypeVariable.getAnnotations());
         return TypeVariableInstance.create(parts);
     }
 
@@ -41,11 +40,10 @@ public class NativeTypeConverter {
      * @return The new type variable instance
      */
     public static TypeVariableInstance convert(TypeVariable<?> typeVariable) {
-        TypeParts parts = TypeParts.create();
+        TypeParts parts = createPartsWithoutAnnotations();
         parts.setTypeName(typeVariable.getTypeName());
         // For some reason a type variable knows its annotated bounds (unlike other non-annotated types)
         parts.setBounds(UpperOnlyTypeBounds.create(typeVariable.getAnnotatedBounds()));
-        parts.setAnnotations(TypeInstanceSupport.NO_ANNOTATIONS);
         return TypeVariableInstance.create(parts);
     }
 
@@ -56,7 +54,7 @@ public class NativeTypeConverter {
      * @return The created instance
      */
     public static ClassTypeInstance convert(Class<?> nativeClass, Annotation[] annotations) {
-        TypeParts parts = TypeParts.create();
+        TypeParts parts = createPartsWithoutAnnotations();
         parts.setNames(ClassNames.create(nativeClass));
         parts.setSuperclassSupplier(SuperClassSupplier.create(nativeClass));
         parts.setAnnotations(annotations);
@@ -78,10 +76,9 @@ public class NativeTypeConverter {
      * @return The created instance
      */
     public static GenericArrayTypeInstance convert(GenericArrayType genericArrayType) {
-        TypeParts parts = TypeParts.create();
+        TypeParts parts = createPartsWithoutAnnotations();
         parts.setTypeName(genericArrayType.getTypeName());
         parts.setComponentType(Diamond.types().fromUnspecific(genericArrayType.getGenericComponentType()));
-        parts.setAnnotations(TypeInstanceSupport.NO_ANNOTATIONS);
         return GenericArrayTypeInstance.create(parts);
     }
 
@@ -91,11 +88,10 @@ public class NativeTypeConverter {
      * @return The created instance
      */
     public static GenericArrayTypeInstance convert(AnnotatedArrayType annotatedArrayType) {
-        TypeParts parts = TypeParts.create();
+        TypeParts parts = createPartsWithAnnotationsFrom(annotatedArrayType);
         Type genericArrayType = annotatedArrayType.getType();
         parts.setTypeName(genericArrayType.getTypeName());
         parts.setComponentType(Diamond.types().fromUnspecific(annotatedArrayType.getAnnotatedGenericComponentType()));
-        parts.setAnnotations(annotatedArrayType.getAnnotations());
         return GenericArrayTypeInstance.create(parts);
     }
 
@@ -105,13 +101,12 @@ public class NativeTypeConverter {
      * @return The created instance
      */
     public static ParameterizedTypeInstance convert(AnnotatedParameterizedType annotatedParameterized) {
-        TypeParts parts = TypeParts.create();
+        TypeParts parts = createPartsWithAnnotationsFrom(annotatedParameterized);
         parts.setTypeName(annotatedParameterized.getType().getTypeName());
         List<TypeInstance> typeArguments = Arrays.stream(annotatedParameterized.getAnnotatedActualTypeArguments())
                 .map((annotatedType) -> Diamond.types().fromUnspecific(annotatedType))
                 .collect(Collectors.toList());
         parts.setTypeArguments(typeArguments);
-        parts.setAnnotations(annotatedParameterized.getAnnotations());
         return ParameterizedTypeInstance.create(parts);
     }
 
@@ -121,13 +116,12 @@ public class NativeTypeConverter {
      * @return the created instance
      */
     public static ParameterizedTypeInstance convert(ParameterizedType parameterizedType) {
-        TypeParts parts = TypeParts.create();
+        TypeParts parts = createPartsWithoutAnnotations();
         parts.setTypeName(parameterizedType.getTypeName());
         List<TypeInstance> typeArguments = Arrays.stream(parameterizedType.getActualTypeArguments())
                 .map((typeArgument)-> Diamond.types().fromUnspecific(typeArgument))
                 .collect(Collectors.toList());
         parts.setTypeArguments(typeArguments);
-        parts.setAnnotations(TypeInstanceSupport.NO_ANNOTATIONS);
         return ParameterizedTypeInstance.create(parts);
     }
 
@@ -138,19 +132,38 @@ public class NativeTypeConverter {
      */
     public static TypeWildcardInstance convert(AnnotatedWildcardType annotatedWildCard) {
         WildcardType wildcardType = (WildcardType) annotatedWildCard.getType();
-        TypeParts parts = TypeParts.create();
+        TypeParts parts = createPartsWithAnnotationsFrom(annotatedWildCard);
         parts.setTypeName(wildcardType.getTypeName());
         parts.setBounds(DoubleTypeBounds.create(annotatedWildCard.getAnnotatedUpperBounds(), annotatedWildCard.getAnnotatedLowerBounds()));
-        parts.setAnnotations(annotatedWildCard.getAnnotations());
         return TypeWildcardInstance.create(parts);
     }
 
     public static TypeWildcardInstance convert(WildcardType wildcardType) {
-        TypeParts parts = TypeParts.create();
+        TypeParts parts = createPartsWithoutAnnotations();
         parts.setTypeName(wildcardType.getTypeName());
         parts.setBounds(DoubleTypeBounds.create(wildcardType.getUpperBounds(), wildcardType.getLowerBounds()));
-        parts.setAnnotations(TypeInstanceSupport.NO_ANNOTATIONS);
         return TypeWildcardInstance.create(parts);
     }
 
+
+    /**
+     * Creates a part instance with annotations defined from the annotated type
+     * @param annotated The native mix of a type an its annotations
+     * @return The created parts
+     */
+    private static TypeParts createPartsWithAnnotationsFrom(AnnotatedType annotated){
+        TypeParts parts = createPartsWithoutAnnotations();
+        parts.setAnnotations(annotated.getAnnotations());
+        return parts;
+    }
+
+    /**
+     * Creates a part with empty annotations
+     * @return The created part
+     */
+    private static TypeParts createPartsWithoutAnnotations(){
+        TypeParts parts = TypeParts.create();
+        parts.setAnnotations(TypeInstanceSupport.NO_ANNOTATIONS);
+        return parts;
+    }
 }
