@@ -2,8 +2,8 @@ package ar.com.kfgodel.diamond.impl.types;
 
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.diamond.impl.types.parts.TypeParts;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedParameterizedType;
 import java.lang.reflect.ParameterizedType;
 import java.util.Arrays;
@@ -32,16 +32,14 @@ public class ParameterizedTypeInstance extends TypeInstanceSupport {
 
     /**
      * Creates a parameterized type representation with its minimum data
-     * @param typeName The name of the type
-     * @param arguments The type arguments for each parameter
-     * @param annotations The attached annotations
+     * @param parts The parts needed to create the instance
      * @return The created instance
      */
-    public static ParameterizedTypeInstance create(String typeName, List<TypeInstance> arguments, Annotation[] annotations) {
+    public static ParameterizedTypeInstance create(TypeParts parts) {
         ParameterizedTypeInstance parameterized = new ParameterizedTypeInstance();
-        parameterized.typeName = typeName;
-        parameterized.typeArguments = arguments;
-        parameterized.setAnnotations(annotations);
+        parameterized.typeName = parts.getTypeName();
+        parameterized.typeArguments = parts.getTypeArguments();
+        parameterized.setAnnotations(parts.getAnnotations());
         return parameterized;
     }
 
@@ -51,12 +49,14 @@ public class ParameterizedTypeInstance extends TypeInstanceSupport {
      * @return The created instance
      */
     public static ParameterizedTypeInstance create(AnnotatedParameterizedType annotatedParameterized) {
-        String typeName = annotatedParameterized.getType().getTypeName();
+        TypeParts parts = TypeParts.create();
+        parts.setTypeName(annotatedParameterized.getType().getTypeName());
         List<TypeInstance> typeArguments = Arrays.stream(annotatedParameterized.getAnnotatedActualTypeArguments())
                 .map((annotatedType) -> Diamond.types().fromUnspecific(annotatedType))
                 .collect(Collectors.toList());
-        Annotation[] annotations = annotatedParameterized.getAnnotations();
-        return create(typeName, typeArguments, annotations );
+        parts.setTypeArguments(typeArguments);
+        parts.setAnnotations(annotatedParameterized.getAnnotations());
+        return create(parts);
     }
 
     /**
@@ -65,11 +65,14 @@ public class ParameterizedTypeInstance extends TypeInstanceSupport {
      * @return the created instance
      */
     public static ParameterizedTypeInstance create(ParameterizedType parameterizedType) {
-        String typeName = parameterizedType.getTypeName();
+        TypeParts parts = TypeParts.create();
+        parts.setTypeName(parameterizedType.getTypeName());
         List<TypeInstance> typeArguments = Arrays.stream(parameterizedType.getActualTypeArguments())
                 .map((typeArgument)-> Diamond.types().fromUnspecific(typeArgument))
                 .collect(Collectors.toList());
-        return create(typeName, typeArguments, NO_ANNOTATIONS);
+        parts.setTypeArguments(typeArguments);
+        parts.setAnnotations(NO_ANNOTATIONS);
+        return create(parts);
     }
 
 

@@ -2,9 +2,8 @@ package ar.com.kfgodel.diamond.impl.types;
 
 import ar.com.kfgodel.diamond.api.types.TypeBounds;
 import ar.com.kfgodel.diamond.impl.types.bounds.UpperOnlyTypeBounds;
+import ar.com.kfgodel.diamond.impl.types.parts.TypeParts;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.AnnotatedType;
 import java.lang.reflect.AnnotatedTypeVariable;
 import java.lang.reflect.TypeVariable;
 
@@ -29,16 +28,14 @@ public class TypeVariableInstance extends TypeInstanceSupport {
 
     /**
      * Creates a type variable from its minimum data
-     * @param variableName The name of the variable
-     * @param bounds The bounds of this type variable
-     * @param variableAnnotations The optional annotations on this type
+     * @param parts The parts needed to crete the instance
      * @return The new type variable instance
      */
-    public static TypeVariableInstance create(String variableName, TypeBounds bounds, Annotation[] variableAnnotations) {
+    public static TypeVariableInstance create(TypeParts parts) {
         TypeVariableInstance typeVariable = new TypeVariableInstance();
-        typeVariable.variableName = variableName;
-        typeVariable.variableBounds = bounds;
-        typeVariable.setAnnotations(variableAnnotations);
+        typeVariable.variableName = parts.getTypeName();
+        typeVariable.variableBounds = parts.getBounds();
+        typeVariable.setAnnotations(parts.getAnnotations());
         return typeVariable;
     }
 
@@ -48,8 +45,12 @@ public class TypeVariableInstance extends TypeInstanceSupport {
      * @return The new type variable instance
      */
     public static TypeVariableInstance createFrom(AnnotatedTypeVariable annotatedTypeVariable) {
+        TypeParts parts = TypeParts.create();
         TypeVariable<?> typeVariable = (TypeVariable<?>) annotatedTypeVariable.getType();
-        return create(typeVariable, annotatedTypeVariable.getAnnotatedBounds(), annotatedTypeVariable.getAnnotations());
+        parts.setTypeName(typeVariable.getTypeName());
+        parts.setBounds(UpperOnlyTypeBounds.create(annotatedTypeVariable.getAnnotatedBounds()));
+        parts.setAnnotations(annotatedTypeVariable.getAnnotations());
+        return create(parts);
     }
 
     /**
@@ -58,15 +59,12 @@ public class TypeVariableInstance extends TypeInstanceSupport {
      * @return The new type variable instance
      */
     public static TypeVariableInstance createFrom(TypeVariable<?> typeVariable) {
+        TypeParts parts = TypeParts.create();
+        parts.setTypeName(typeVariable.getTypeName());
         // For some reason a type variable knows its annotated bounds (unlike other non-annotated types)
-        return create(typeVariable, typeVariable.getAnnotatedBounds(), NO_ANNOTATIONS);
+        parts.setBounds(UpperOnlyTypeBounds.create(typeVariable.getAnnotatedBounds()));
+        parts.setAnnotations(NO_ANNOTATIONS);
+        return create(parts);
     }
-
-    private static TypeVariableInstance create(TypeVariable<?> typeVariable, AnnotatedType[] bounds, Annotation[] annotations){
-        String variableName = typeVariable.getName();
-        TypeBounds variableBounds = UpperOnlyTypeBounds.create(bounds);
-        return create(variableName, variableBounds, annotations);
-    }
-
 
 }

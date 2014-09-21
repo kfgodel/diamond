@@ -2,8 +2,8 @@ package ar.com.kfgodel.diamond.impl.types;
 
 import ar.com.kfgodel.diamond.api.types.TypeBounds;
 import ar.com.kfgodel.diamond.impl.types.bounds.DoubleTypeBounds;
+import ar.com.kfgodel.diamond.impl.types.parts.TypeParts;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedWildcardType;
 import java.lang.reflect.WildcardType;
 
@@ -28,16 +28,14 @@ public class TypeWildcardInstance extends TypeInstanceSupport {
 
     /**
      * Creates a wildcard type representatin with the minimum data
-     * @param wildcardName The name of the wildcard
-     * @param wildCardBounds The bound for the type
-     * @param annotations The attached annotations
+     * @param parts The parts to create the instance
      * @return The created instance
      */
-    public static TypeWildcardInstance create(String wildcardName, TypeBounds wildCardBounds, Annotation[] annotations) {
+    public static TypeWildcardInstance create(TypeParts parts) {
         TypeWildcardInstance wildcardInstance = new TypeWildcardInstance();
-        wildcardInstance.wildcardName = wildcardName;
-        wildcardInstance.bounds = wildCardBounds;
-        wildcardInstance.setAnnotations(annotations);
+        wildcardInstance.wildcardName = parts.getTypeName();
+        wildcardInstance.bounds = parts.getBounds();
+        wildcardInstance.setAnnotations(parts.getAnnotations());
         return wildcardInstance;
     }
 
@@ -48,14 +46,19 @@ public class TypeWildcardInstance extends TypeInstanceSupport {
      */
     public static TypeWildcardInstance createFrom(AnnotatedWildcardType annotatedWildCard) {
         WildcardType wildcardType = (WildcardType) annotatedWildCard.getType();
-        DoubleTypeBounds wildcardBounds = DoubleTypeBounds.create(annotatedWildCard.getAnnotatedUpperBounds(), annotatedWildCard.getAnnotatedLowerBounds());
-        Annotation[] annotations = annotatedWildCard.getAnnotations();
-        return create(wildcardType.getTypeName(), wildcardBounds, annotations);
+        TypeParts parts = TypeParts.create();
+        parts.setTypeName(wildcardType.getTypeName());
+        parts.setBounds(DoubleTypeBounds.create(annotatedWildCard.getAnnotatedUpperBounds(), annotatedWildCard.getAnnotatedLowerBounds()));
+        parts.setAnnotations(annotatedWildCard.getAnnotations());
+        return create(parts);
     }
 
     public static TypeWildcardInstance createFrom(WildcardType wildcardType) {
-        TypeBounds wildcardBounds = DoubleTypeBounds.create(wildcardType.getUpperBounds(), wildcardType.getLowerBounds());
-        return create(wildcardType.getTypeName(), wildcardBounds, NO_ANNOTATIONS);
+        TypeParts parts = TypeParts.create();
+        parts.setTypeName(wildcardType.getTypeName());
+        parts.setBounds(DoubleTypeBounds.create(wildcardType.getUpperBounds(), wildcardType.getLowerBounds()));
+        parts.setAnnotations(NO_ANNOTATIONS);
+        return create(parts);
     }
 
 

@@ -8,12 +8,12 @@ import ar.com.kfgodel.diamond.impl.classes.NativeClassLineage;
 import ar.com.kfgodel.diamond.impl.fragments.SuperClassSupplier;
 import ar.com.kfgodel.diamond.impl.naming.ClassNames;
 import ar.com.kfgodel.diamond.impl.sources.ClassDefinedClassMethodSourceImpl;
+import ar.com.kfgodel.diamond.impl.types.parts.TypeParts;
 import ar.com.kfgodel.lazyvalue.api.LazyValue;
 import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
 
 import java.lang.annotation.Annotation;
 import java.util.Optional;
-import java.util.function.Supplier;
 
 /**
  * This type represents a class instance based on a native class instance.<br>
@@ -72,22 +72,24 @@ public class ClassTypeInstance extends TypeInstanceSupport implements ClassInsta
 
     /**
      * Creates a class instance with its minimum data
-     * @param names The names of the class
-     * @param superclassSupplier The superclass provider
-     * @param annotations The attached annotations
+     * @param parts the parts needed to create the instance
      * @return The created instance
      */
-    public static ClassTypeInstance create(ClassDefinedClassNameSource names, Supplier<Optional<ClassInstance>> superclassSupplier, Annotation[] annotations) {
+    public static ClassTypeInstance create(TypeParts parts) {
         ClassTypeInstance classInstance = new ClassTypeInstance();
-        classInstance.names = names;
-        classInstance.superclass = SuppliedValue.create(superclassSupplier);
-        classInstance.setAnnotations(annotations);
+        classInstance.names = parts.getNames();
+        classInstance.superclass = SuppliedValue.create(parts.getSuperclassSupplier());
+        classInstance.setAnnotations(parts.getAnnotations());
         return classInstance;
     }
 
 
     public static ClassTypeInstance create(Class<?> nativeClass, Annotation[] annotations) {
-        return create(ClassNames.create(nativeClass), SuperClassSupplier.create(nativeClass), annotations);
+        TypeParts parts = TypeParts.create();
+        parts.setNames(ClassNames.create(nativeClass));
+        parts.setSuperclassSupplier(SuperClassSupplier.create(nativeClass));
+        parts.setAnnotations(annotations);
+        return create(parts);
     }
 
     public static ClassTypeInstance create(Class<?> nativeClass) {
