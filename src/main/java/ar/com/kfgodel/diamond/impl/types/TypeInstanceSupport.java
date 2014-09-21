@@ -1,9 +1,12 @@
 package ar.com.kfgodel.diamond.impl.types;
 
+import ar.com.kfgodel.diamond.api.types.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.diamond.impl.types.bounds.NoBounds;
 
 import java.lang.annotation.Annotation;
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
@@ -30,5 +33,32 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     @Override
     public Stream<Annotation> annotations() {
         return Arrays.stream(this.annotations);
+    }
+
+    /**
+     * Default implementation with no bounds
+     * @return A no bounds instance
+     */
+    @Override
+    public TypeBounds bounds() {
+        return NoBounds.INSTANCE;
+    }
+
+    /**
+     * Default implementation with no component type
+     * @return An empty optional
+     */
+    @Override
+    public Optional<TypeInstance> componentType() {
+        return Optional.empty();
+    }
+
+    /**
+     * Default implementation with no arguments
+     * @return An empty stream
+     */
+    @Override
+    public Stream<TypeInstance> typeArguments() {
+        return Stream.empty();
     }
 }

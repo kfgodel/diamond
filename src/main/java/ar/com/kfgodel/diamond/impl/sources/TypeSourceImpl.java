@@ -5,6 +5,8 @@ import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 import ar.com.kfgodel.diamond.api.sources.TypeSources;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.reflections.NativeClassInstance;
+import ar.com.kfgodel.diamond.impl.types.GenericArrayTypeInstance;
+import ar.com.kfgodel.diamond.impl.types.ParameterizedTypeInstance;
 import ar.com.kfgodel.diamond.impl.types.TypeVariableInstance;
 import ar.com.kfgodel.diamond.impl.types.TypeWildcardInstance;
 
@@ -23,7 +25,7 @@ public class TypeSourceImpl implements TypeSources {
 
     @Override
     public TypeInstance from(ParameterizedType parameterizedType) {
-        throw new DiamondException("Not implemented yet");
+        return ParameterizedTypeInstance.create(parameterizedType);
     }
 
     @Override
@@ -33,7 +35,7 @@ public class TypeSourceImpl implements TypeSources {
 
     @Override
     public TypeInstance from(GenericArrayType genericArrayType) {
-        throw new DiamondException("Not implemented yet");
+        return GenericArrayTypeInstance.create(genericArrayType);
     }
 
     @Override
@@ -53,12 +55,13 @@ public class TypeSourceImpl implements TypeSources {
 
     @Override
     public TypeInstance from(AnnotatedParameterizedType annotatedParameterized) {
-        throw new DiamondException("Not implemented yet");
+        return ParameterizedTypeInstance.create(annotatedParameterized);
     }
 
     @Override
     public TypeInstance from(AnnotatedArrayType annotatedArrayType) {
-        throw new DiamondException("Not implemented yet");    }
+        return GenericArrayTypeInstance.create(annotatedArrayType);
+    }
 
     @Override
     public TypeInstance fromUnspecific(Type type) {
