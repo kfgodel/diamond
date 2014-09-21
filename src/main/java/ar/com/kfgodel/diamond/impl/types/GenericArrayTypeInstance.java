@@ -1,9 +1,7 @@
 package ar.com.kfgodel.diamond.impl.types;
 
 import ar.com.kfgodel.diamond.api.Diamond;
-import ar.com.kfgodel.diamond.api.types.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
-import ar.com.kfgodel.diamond.impl.types.bounds.NoBounds;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedArrayType;
@@ -19,11 +17,6 @@ public class GenericArrayTypeInstance extends TypeInstanceSupport {
 
     private String name;
     private Optional<TypeInstance> componentType;
-
-    @Override
-    public TypeBounds bounds() {
-        return NoBounds.INSTANCE;
-    }
 
     @Override
     public Optional<TypeInstance> componentType() {
@@ -55,7 +48,7 @@ public class GenericArrayTypeInstance extends TypeInstanceSupport {
      * @param genericArrayType The native representation of the generic array
      * @return The created instance
      */
-    public static TypeInstance create(GenericArrayType genericArrayType) {
+    public static GenericArrayTypeInstance create(GenericArrayType genericArrayType) {
         String typeName = genericArrayType.getTypeName();
         TypeInstance componentType = Diamond.types().fromUnspecific(genericArrayType.getGenericComponentType());
         return create(typeName, componentType, NO_ANNOTATIONS);
@@ -66,7 +59,7 @@ public class GenericArrayTypeInstance extends TypeInstanceSupport {
      * @param annotatedArrayType The annotated generic array type
      * @return The created instance
      */
-    public static TypeInstance create(AnnotatedArrayType annotatedArrayType) {
+    public static GenericArrayTypeInstance create(AnnotatedArrayType annotatedArrayType) {
         Type genericArrayType = annotatedArrayType.getType();
         String typeName = genericArrayType.getTypeName();
         TypeInstance componentType = Diamond.types().fromUnspecific(annotatedArrayType.getAnnotatedGenericComponentType());

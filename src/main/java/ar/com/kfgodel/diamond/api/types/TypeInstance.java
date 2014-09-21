@@ -4,6 +4,7 @@ import ar.com.kfgodel.diamond.api.annotations.Annotated;
 import ar.com.kfgodel.diamond.api.naming.Named;
 
 import java.util.Optional;
+import java.util.stream.Stream;
 
 /**
  * This type represents the basic interface common to all types.<br>
@@ -26,4 +27,10 @@ public interface TypeInstance extends Named, Annotated {
      * Component type is only present on arrays that reify their component types
      */
     Optional<TypeInstance> componentType();
+
+    /**
+     * @return The type argumunts used to parameterize this instance (if any).
+     * Parameterized types have actual type arguments that are preserved through reflection (on certain context)
+     */
+    Stream<TypeInstance> typeArguments();
 }

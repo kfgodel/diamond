@@ -6,6 +6,7 @@ import ar.com.kfgodel.diamond.api.sources.TypeSources;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.reflections.NativeClassInstance;
 import ar.com.kfgodel.diamond.impl.types.GenericArrayTypeInstance;
+import ar.com.kfgodel.diamond.impl.types.ParameterizedTypeInstance;
 import ar.com.kfgodel.diamond.impl.types.TypeVariableInstance;
 import ar.com.kfgodel.diamond.impl.types.TypeWildcardInstance;
 
@@ -24,7 +25,7 @@ public class TypeSourceImpl implements TypeSources {
 
     @Override
     public TypeInstance from(ParameterizedType parameterizedType) {
-        throw new DiamondException("Not implemented yet");
+        return ParameterizedTypeInstance.create(parameterizedType);
     }
 
     @Override
@@ -54,7 +55,7 @@ public class TypeSourceImpl implements TypeSources {
 
     @Override
     public TypeInstance from(AnnotatedParameterizedType annotatedParameterized) {
-        throw new DiamondException("Not implemented yet");
+        return ParameterizedTypeInstance.create(annotatedParameterized);
     }
 
     @Override

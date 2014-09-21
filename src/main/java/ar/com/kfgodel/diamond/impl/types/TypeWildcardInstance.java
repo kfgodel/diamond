@@ -1,13 +1,11 @@
 package ar.com.kfgodel.diamond.impl.types;
 
 import ar.com.kfgodel.diamond.api.types.TypeBounds;
-import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.types.bounds.DoubleTypeBounds;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedWildcardType;
 import java.lang.reflect.WildcardType;
-import java.util.Optional;
 
 /**
  * This type represents a type wildcard
@@ -21,11 +19,6 @@ public class TypeWildcardInstance extends TypeInstanceSupport {
     @Override
     public TypeBounds bounds() {
         return bounds;
-    }
-
-    @Override
-    public Optional<TypeInstance> componentType() {
-        return Optional.empty();
     }
 
     @Override
