@@ -11,6 +11,7 @@ import ar.com.kfgodel.diamond.impl.types.bounds.UpperOnlyTypeBounds;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.*;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -57,6 +58,7 @@ public class NativeTypeConverter {
         TypeParts parts = createPartsWithoutAnnotations();
         parts.setNames(ClassNames.create(nativeClass));
         parts.setSuperclassSupplier(SuperClassSupplier.create(nativeClass));
+        parts.setTypeArguments(Collections.emptyList());
         parts.setAnnotations(annotations);
         return ClassTypeInstance.create(parts);
     }
@@ -100,14 +102,19 @@ public class NativeTypeConverter {
      * @param annotatedParameterized The native representation of an annotated type
      * @return The created instance
      */
-    public static ParameterizedTypeInstance convert(AnnotatedParameterizedType annotatedParameterized) {
+    public static ClassTypeInstance convert(AnnotatedParameterizedType annotatedParameterized) {
         TypeParts parts = createPartsWithAnnotationsFrom(annotatedParameterized);
-        parts.setTypeName(annotatedParameterized.getType().getTypeName());
+
+        ParameterizedType parameterizedType = (ParameterizedType) annotatedParameterized.getType();
+        Class<?> rawClass = (Class<?>) parameterizedType.getRawType();
+        parts.setNames(ClassNames.create(rawClass));
+        parts.setSuperclassSupplier(SuperClassSupplier.create(rawClass));
+
         List<TypeInstance> typeArguments = Arrays.stream(annotatedParameterized.getAnnotatedActualTypeArguments())
                 .map((annotatedType) -> Diamond.types().fromUnspecific(annotatedType))
                 .collect(Collectors.toList());
         parts.setTypeArguments(typeArguments);
-        return ParameterizedTypeInstance.create(parts);
+        return ClassTypeInstance.create(parts);
     }
 
     /**
@@ -115,14 +122,18 @@ public class NativeTypeConverter {
      * @param parameterizedType The native representation
      * @return the created instance
      */
-    public static ParameterizedTypeInstance convert(ParameterizedType parameterizedType) {
+    public static ClassTypeInstance convert(ParameterizedType parameterizedType) {
         TypeParts parts = createPartsWithoutAnnotations();
-        parts.setTypeName(parameterizedType.getTypeName());
+
+        Class<?> rawClass = (Class<?>) parameterizedType.getRawType();
+        parts.setNames(ClassNames.create(rawClass));
+        parts.setSuperclassSupplier(SuperClassSupplier.create(rawClass));
+
         List<TypeInstance> typeArguments = Arrays.stream(parameterizedType.getActualTypeArguments())
                 .map((typeArgument)-> Diamond.types().fromUnspecific(typeArgument))
                 .collect(Collectors.toList());
         parts.setTypeArguments(typeArguments);
-        return ParameterizedTypeInstance.create(parts);
+        return ClassTypeInstance.create(parts);
     }
 
     /**

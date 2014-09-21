@@ -4,13 +4,16 @@ import ar.com.kfgodel.diamond.api.ClassInstance;
 import ar.com.kfgodel.diamond.api.classes.ClassLineage;
 import ar.com.kfgodel.diamond.api.sources.ClassDefinedClassMethodSource;
 import ar.com.kfgodel.diamond.api.sources.ClassDefinedClassNameSource;
+import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.classes.NativeClassLineage;
 import ar.com.kfgodel.diamond.impl.sources.ClassDefinedClassMethodSourceImpl;
 import ar.com.kfgodel.diamond.impl.types.parts.TypeParts;
 import ar.com.kfgodel.lazyvalue.api.LazyValue;
 import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 /**
  * This type represents a class instance based on a native class instance.<br>
@@ -25,6 +28,7 @@ public class ClassTypeInstance extends TypeInstanceSupport implements ClassInsta
 
     private ClassDefinedClassNameSource names;
     private LazyValue<Optional<ClassInstance>> superclass;
+    private List<TypeInstance> typeArguments;
 
     @Override
     public String name() {
@@ -44,6 +48,11 @@ public class ClassTypeInstance extends TypeInstanceSupport implements ClassInsta
     @Override
     public ClassLineage lineage() {
         return NativeClassLineage.create(this);
+    }
+
+    @Override
+    public Stream<TypeInstance> typeArguments() {
+        return typeArguments.stream();
     }
 
     @Override
@@ -76,6 +85,7 @@ public class ClassTypeInstance extends TypeInstanceSupport implements ClassInsta
         ClassTypeInstance classInstance = new ClassTypeInstance();
         classInstance.names = parts.getNames();
         classInstance.superclass = SuppliedValue.create(parts.getSuperclassSupplier());
+        classInstance.typeArguments = parts.getTypeArguments();
         classInstance.setAnnotations(parts.getAnnotations());
         return classInstance;
     }
