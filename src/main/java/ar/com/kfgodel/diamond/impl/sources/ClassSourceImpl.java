@@ -1,8 +1,8 @@
 package ar.com.kfgodel.diamond.impl.sources;
 
 import ar.com.kfgodel.diamond.api.ClassInstance;
+import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
-import ar.com.kfgodel.diamond.impl.types.ClassTypeInstance;
 
 /**
  * This type is the non fluent implementation of the ClassSource
@@ -21,7 +21,7 @@ public class ClassSourceImpl {
      * @return The class representation
      */
     public ClassInstance from(Class<?> nativeClass){
-        return ClassTypeInstance.create(nativeClass);
+        return Diamond.types().from(nativeClass);
     }
 
     public ClassInstance named(String canonicalName){

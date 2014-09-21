@@ -27,7 +27,7 @@ public class DiamondApi {
         diamondApi.classes = fluentizer.expressAs(ClassSources.class, ClassSourceImpl.create());
         diamondApi.methods = fluentizer.expressAs(ClassMethodSources.class, ClassMethodSourceImpl.create());
         diamondApi.fields = fluentizer.expressAs(ClassFieldSources.class, ClassFieldSourceImpl.create());
-        diamondApi.types = fluentizer.expressAs(TypeSources.class, TypeSourceImpl.create());
+        diamondApi.types = TypeSourceImpl.create();
         return diamondApi;
     }
 
