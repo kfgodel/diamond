@@ -48,11 +48,12 @@ public class TypeVariableTest extends JavaSpec<DiamondTestContext> {
                 assertThat(context().typeInstance().bounds().lower().count())
                         .isEqualTo(0);
             });
-            it("can have annotations", ()->{
+
+            it("can have attached annotations", ()->{
                 assertThat(context().typeInstance().annotations().findFirst().get().annotationType())
                         .isEqualTo(TestAnnotation1.class);
             });
-            it("bounds can have annotations too", ()->{
+            it("bounds can have attached annotations too", ()->{
                 Optional<TypeInstance> serializableType = context().typeInstance().bounds().upper().findFirst();
                 Stream<Annotation> serializableAnnotations = serializableType.get().annotations();
                 assertThat(serializableAnnotations.findFirst().get().annotationType())
@@ -63,6 +64,11 @@ public class TypeVariableTest extends JavaSpec<DiamondTestContext> {
     }
 
 
+    /**
+     * Creates the representation for a real type variable.<br>
+     * The static keyword is needed to preserve type variable annotation (I don't know why).<br>
+     *     If this method were non-static the annotation TestAnnotation1 is not preserved for reflection
+     */
     public static <T extends @TestAnnotation2 Serializable & Comparable> TypeInstance createTypeVariable() {
         AnnotatedType referencedTypeVariable = new ReferenceOf<@TestAnnotation1 T>() {}.getReferencedAnnotatedType();
         TypeInstance typeInstance = Diamond.types().fromUnspecific(referencedTypeVariable);
