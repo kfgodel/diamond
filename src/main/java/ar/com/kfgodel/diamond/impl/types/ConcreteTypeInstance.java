@@ -16,7 +16,8 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
- * This type represents a class instance based on a native class instance.<br>
+ * This type represents a concrete type that can be instantiated (class, parameterized type, array), excluding
+ * variable types such as type variables or wildcards.<br>
  * <br>
  * Implementation notes:
  * - Due to class being an access point for different uses and data, most of their attributes are implemented lazy
@@ -24,7 +25,7 @@ import java.util.stream.Stream;
  *
  * Created by kfgodel on 18/09/14.
  */
-public class ClassTypeInstance extends TypeInstanceSupport implements ClassInstance{
+public class ConcreteTypeInstance extends TypeInstanceSupport implements ClassInstance{
 
     private ClassDefinedClassNameSource names;
     private LazyValue<Optional<ClassInstance>> superclass;
@@ -68,8 +69,8 @@ public class ClassTypeInstance extends TypeInstanceSupport implements ClassInsta
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof ClassTypeInstance){
-            return this.names().declarationName().equals(((ClassTypeInstance) obj).names().declarationName());
+        if(obj instanceof ConcreteTypeInstance){
+            return this.names().declarationName().equals(((ConcreteTypeInstance) obj).names().declarationName());
         }
         return false;
     }
@@ -87,8 +88,8 @@ public class ClassTypeInstance extends TypeInstanceSupport implements ClassInsta
      * @param parts the parts needed to create the instance
      * @return The created instance
      */
-    public static ClassTypeInstance create(TypeParts parts) {
-        ClassTypeInstance classInstance = new ClassTypeInstance();
+    public static ConcreteTypeInstance create(TypeParts parts) {
+        ConcreteTypeInstance classInstance = new ConcreteTypeInstance();
         classInstance.names = parts.getNames();
         classInstance.superclass = SuppliedValue.create(parts.getSuperclassSupplier());
         classInstance.typeArguments = parts.getTypeArguments();
