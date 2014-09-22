@@ -23,7 +23,7 @@ public class TypeParts {
     private Supplier<Optional<ClassInstance>> superclassSupplier;
     private Annotation[] annotations;
     private String typeName;
-    private TypeInstance componentType;
+    private Optional<TypeInstance> componentType;
     private List<TypeInstance> typeArguments;
     private TypeBounds bounds;
 
@@ -72,14 +72,14 @@ public class TypeParts {
         this.typeName = typeName;
     }
 
-    public TypeInstance getComponentType() {
+    public Optional<TypeInstance> getComponentType() {
         if(componentType == null){
             throw new DiamondException("componentType is needed to create a type instance");
         }
         return componentType;
     }
 
-    public void setComponentType(TypeInstance componentType) {
+    public void setComponentType(Optional<TypeInstance> componentType) {
         this.componentType = componentType;
     }
 

@@ -33,8 +33,14 @@ public class GenericArrayTypeTest extends JavaSpec<DiamondTestContext> {
 
             it("has a name", ()->{
                 assertThat(context().typeInstance().name())
-                        .isEqualTo("java.util.List<java.lang.Integer>[]");
+                        .isEqualTo("List[]");
             });
+
+            xit("has a declaration name", ()->{
+//                assertThat(context().typeInstance().names().declarationName())
+//                        .isEqualTo("java.util.List<java.lang.Integer>[]");
+            });
+
             it("has component type", ()->{
                 assertThat(context().typeInstance().componentType().get().name())
                         .isEqualTo("List");

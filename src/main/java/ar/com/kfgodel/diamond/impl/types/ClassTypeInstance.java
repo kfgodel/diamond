@@ -29,6 +29,7 @@ public class ClassTypeInstance extends TypeInstanceSupport implements ClassInsta
     private ClassDefinedClassNameSource names;
     private LazyValue<Optional<ClassInstance>> superclass;
     private List<TypeInstance> typeArguments;
+    private Optional<TypeInstance> componentType;
 
     @Override
     public String name() {
@@ -53,6 +54,11 @@ public class ClassTypeInstance extends TypeInstanceSupport implements ClassInsta
     @Override
     public Stream<TypeInstance> typeArguments() {
         return typeArguments.stream();
+    }
+
+    @Override
+    public Optional<TypeInstance> componentType() {
+        return componentType;
     }
 
     @Override
@@ -86,6 +92,7 @@ public class ClassTypeInstance extends TypeInstanceSupport implements ClassInsta
         classInstance.names = parts.getNames();
         classInstance.superclass = SuppliedValue.create(parts.getSuperclassSupplier());
         classInstance.typeArguments = parts.getTypeArguments();
+        classInstance.componentType = parts.getComponentType();
         classInstance.setAnnotations(parts.getAnnotations());
         return classInstance;
     }
