@@ -5,6 +5,7 @@ import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.fragments.RawClassExtractor;
 import ar.com.kfgodel.diamond.impl.fragments.SuperClassSupplier;
 import ar.com.kfgodel.diamond.impl.naming.ClassNames;
+import ar.com.kfgodel.diamond.impl.naming.SingleName;
 import ar.com.kfgodel.diamond.impl.types.FixedTypeInstance;
 import ar.com.kfgodel.diamond.impl.types.TypeInstanceSupport;
 import ar.com.kfgodel.diamond.impl.types.VariableTypeInstance;
@@ -34,7 +35,7 @@ public class NativeTypeConverter {
     public static VariableTypeInstance convert(AnnotatedTypeVariable annotatedTypeVariable) {
         TypeVariable<?> typeVariable = (TypeVariable<?>) annotatedTypeVariable.getType();
         TypeParts parts = createPartsWithAnnotationsFrom(annotatedTypeVariable);
-        parts.setTypeName(typeVariable.getTypeName());
+        parts.setNames(SingleName.create(typeVariable.getTypeName()));
         parts.setBounds(UpperOnlyTypeBounds.create(annotatedTypeVariable.getAnnotatedBounds()));
         return VariableTypeInstance.create(parts);
     }
@@ -46,7 +47,7 @@ public class NativeTypeConverter {
      */
     public static VariableTypeInstance convert(TypeVariable<?> typeVariable) {
         TypeParts parts = createPartsWithoutAnnotations();
-        parts.setTypeName(typeVariable.getTypeName());
+        parts.setNames(SingleName.create(typeVariable.getTypeName()));
         // For some reason a type variable knows its annotated bounds (unlike other non-annotated types)
         parts.setBounds(UpperOnlyTypeBounds.create(typeVariable.getAnnotatedBounds()));
         return VariableTypeInstance.create(parts);
@@ -60,7 +61,7 @@ public class NativeTypeConverter {
      */
     public static FixedTypeInstance convert(Class<?> nativeClass, Annotation[] annotations) {
         TypeParts parts = createPartsWithoutAnnotations();
-        parts.setNames(ClassNames.create(nativeClass));
+        parts.setNames(ClassNames.create(nativeClass, nativeClass.getTypeName()));
         parts.setSuperclassSupplier(SuperClassSupplier.create(nativeClass));
         parts.setTypeArguments(Collections.emptyList());
         parts.setComponentType(Optional.empty());
@@ -86,11 +87,10 @@ public class NativeTypeConverter {
         TypeParts parts = createPartsWithoutAnnotations();
 
         Class<?> rawClass = RawClassExtractor.from(genericArrayType);
-        parts.setNames(ClassNames.create(rawClass));
+        parts.setNames(ClassNames.create(rawClass, genericArrayType.getTypeName()));
         parts.setSuperclassSupplier(SuperClassSupplier.create(rawClass));
         parts.setTypeArguments(Collections.emptyList());
 
-        parts.setTypeName(genericArrayType.getTypeName());
         parts.setComponentType(Optional.of(Diamond.types().fromUnspecific(genericArrayType.getGenericComponentType())));
         return FixedTypeInstance.create(parts);
     }
@@ -105,11 +105,10 @@ public class NativeTypeConverter {
         GenericArrayType genericArrayType = (GenericArrayType)annotatedArrayType.getType();
 
         Class<?> rawClass = RawClassExtractor.from(genericArrayType);
-        parts.setNames(ClassNames.create(rawClass));
+        parts.setNames(ClassNames.create(rawClass, genericArrayType.getTypeName()));
         parts.setSuperclassSupplier(SuperClassSupplier.create(rawClass));
         parts.setTypeArguments(Collections.emptyList());
 
-        parts.setTypeName(genericArrayType.getTypeName());
         parts.setComponentType(Optional.of(Diamond.types().fromUnspecific(annotatedArrayType.getAnnotatedGenericComponentType())));
         return FixedTypeInstance.create(parts);
     }
@@ -124,7 +123,7 @@ public class NativeTypeConverter {
 
         ParameterizedType parameterizedType = (ParameterizedType) annotatedParameterized.getType();
         Class<?> rawClass = RawClassExtractor.from(parameterizedType);
-        parts.setNames(ClassNames.create(rawClass));
+        parts.setNames(ClassNames.create(rawClass, parameterizedType.getTypeName()));
         parts.setSuperclassSupplier(SuperClassSupplier.create(rawClass));
         parts.setComponentType(Optional.empty());
 
@@ -144,7 +143,7 @@ public class NativeTypeConverter {
         TypeParts parts = createPartsWithoutAnnotations();
 
         Class<?> rawClass = RawClassExtractor.from(parameterizedType);
-        parts.setNames(ClassNames.create(rawClass));
+        parts.setNames(ClassNames.create(rawClass, parameterizedType.getTypeName()));
         parts.setSuperclassSupplier(SuperClassSupplier.create(rawClass));
         parts.setComponentType(Optional.empty());
 
@@ -163,14 +162,14 @@ public class NativeTypeConverter {
     public static VariableTypeInstance convert(AnnotatedWildcardType annotatedWildCard) {
         WildcardType wildcardType = (WildcardType) annotatedWildCard.getType();
         TypeParts parts = createPartsWithAnnotationsFrom(annotatedWildCard);
-        parts.setTypeName(wildcardType.getTypeName());
+        parts.setNames(SingleName.create(wildcardType.getTypeName()));
         parts.setBounds(DoubleTypeBounds.create(annotatedWildCard.getAnnotatedUpperBounds(), annotatedWildCard.getAnnotatedLowerBounds()));
         return VariableTypeInstance.create(parts);
     }
 
     public static VariableTypeInstance convert(WildcardType wildcardType) {
         TypeParts parts = createPartsWithoutAnnotations();
-        parts.setTypeName(wildcardType.getTypeName());
+        parts.setNames(SingleName.create(wildcardType.getTypeName()));
         parts.setBounds(DoubleTypeBounds.create(wildcardType.getUpperBounds(), wildcardType.getLowerBounds()));
         return VariableTypeInstance.create(parts);
     }

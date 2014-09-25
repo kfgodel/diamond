@@ -2,7 +2,7 @@ package ar.com.kfgodel.diamond.impl.types.parts;
 
 import ar.com.kfgodel.diamond.api.ClassInstance;
 import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
-import ar.com.kfgodel.diamond.api.sources.ClassDefinedClassNameSource;
+import ar.com.kfgodel.diamond.api.sources.TypeDefinedTypeNamesSource;
 import ar.com.kfgodel.diamond.api.types.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 
@@ -19,22 +19,21 @@ import java.util.function.Supplier;
  */
 public class TypeParts {
 
-    private ClassDefinedClassNameSource names;
+    private TypeDefinedTypeNamesSource names;
     private Supplier<Optional<ClassInstance>> superclassSupplier;
     private Annotation[] annotations;
-    private String typeName;
     private Optional<TypeInstance> componentType;
     private List<TypeInstance> typeArguments;
     private TypeBounds bounds;
 
-    public ClassDefinedClassNameSource getNames() {
+    public TypeDefinedTypeNamesSource getNames() {
         if(names == null){
             throw new DiamondException("Names is needed to create a type instance");
         }
         return names;
     }
 
-    public void setNames(ClassDefinedClassNameSource names) {
+    public void setNames(TypeDefinedTypeNamesSource names) {
         this.names = names;
     }
 
@@ -60,17 +59,6 @@ public class TypeParts {
         this.annotations = annotations;
     }
 
-
-    public String getTypeName() {
-        if(typeName == null){
-            throw new DiamondException("typeName is needed to create a type instance");
-        }
-        return typeName;
-    }
-
-    public void setTypeName(String typeName) {
-        this.typeName = typeName;
-    }
 
     public Optional<TypeInstance> getComponentType() {
         if(componentType == null){
