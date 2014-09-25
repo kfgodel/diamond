@@ -25,7 +25,7 @@ import java.util.stream.Stream;
  *
  * Created by kfgodel on 18/09/14.
  */
-public class ConcreteTypeInstance extends TypeInstanceSupport implements ClassInstance{
+public class FixedTypeInstance extends TypeInstanceSupport implements ClassInstance{
 
     private ClassDefinedClassNameSource names;
     private LazyValue<Optional<ClassInstance>> superclass;
@@ -69,8 +69,8 @@ public class ConcreteTypeInstance extends TypeInstanceSupport implements ClassIn
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof ConcreteTypeInstance){
-            return this.names().declarationName().equals(((ConcreteTypeInstance) obj).names().declarationName());
+        if(obj instanceof FixedTypeInstance){
+            return this.names().declarationName().equals(((FixedTypeInstance) obj).names().declarationName());
         }
         return false;
     }
@@ -88,8 +88,8 @@ public class ConcreteTypeInstance extends TypeInstanceSupport implements ClassIn
      * @param parts the parts needed to create the instance
      * @return The created instance
      */
-    public static ConcreteTypeInstance create(TypeParts parts) {
-        ConcreteTypeInstance classInstance = new ConcreteTypeInstance();
+    public static FixedTypeInstance create(TypeParts parts) {
+        FixedTypeInstance classInstance = new FixedTypeInstance();
         classInstance.names = parts.getNames();
         classInstance.superclass = SuppliedValue.create(parts.getSuperclassSupplier());
         classInstance.typeArguments = parts.getTypeArguments();
