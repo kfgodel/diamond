@@ -5,7 +5,7 @@ import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.fragments.RawClassExtractor;
 import ar.com.kfgodel.diamond.impl.fragments.SuperClassSupplier;
 import ar.com.kfgodel.diamond.impl.naming.ClassNames;
-import ar.com.kfgodel.diamond.impl.types.ConcreteTypeInstance;
+import ar.com.kfgodel.diamond.impl.types.FixedTypeInstance;
 import ar.com.kfgodel.diamond.impl.types.TypeInstanceSupport;
 import ar.com.kfgodel.diamond.impl.types.VariableTypeInstance;
 import ar.com.kfgodel.diamond.impl.types.bounds.DoubleTypeBounds;
@@ -58,14 +58,14 @@ public class NativeTypeConverter {
      * @param annotations The class attached annotations
      * @return The created instance
      */
-    public static ConcreteTypeInstance convert(Class<?> nativeClass, Annotation[] annotations) {
+    public static FixedTypeInstance convert(Class<?> nativeClass, Annotation[] annotations) {
         TypeParts parts = createPartsWithoutAnnotations();
         parts.setNames(ClassNames.create(nativeClass));
         parts.setSuperclassSupplier(SuperClassSupplier.create(nativeClass));
         parts.setTypeArguments(Collections.emptyList());
         parts.setComponentType(Optional.empty());
         parts.setAnnotations(annotations);
-        return ConcreteTypeInstance.create(parts);
+        return FixedTypeInstance.create(parts);
     }
 
     /**
@@ -73,7 +73,7 @@ public class NativeTypeConverter {
      * @param nativeClass The native instance
      * @return The crated class
      */
-    public static ConcreteTypeInstance convert(Class<?> nativeClass) {
+    public static FixedTypeInstance convert(Class<?> nativeClass) {
         return convert(nativeClass, TypeInstanceSupport.NO_ANNOTATIONS);
     }
 
@@ -82,7 +82,7 @@ public class NativeTypeConverter {
      * @param genericArrayType The native representation of the generic array
      * @return The created instance
      */
-    public static ConcreteTypeInstance convert(GenericArrayType genericArrayType) {
+    public static FixedTypeInstance convert(GenericArrayType genericArrayType) {
         TypeParts parts = createPartsWithoutAnnotations();
 
         Class<?> rawClass = RawClassExtractor.from(genericArrayType);
@@ -92,7 +92,7 @@ public class NativeTypeConverter {
 
         parts.setTypeName(genericArrayType.getTypeName());
         parts.setComponentType(Optional.of(Diamond.types().fromUnspecific(genericArrayType.getGenericComponentType())));
-        return ConcreteTypeInstance.create(parts);
+        return FixedTypeInstance.create(parts);
     }
 
     /**
@@ -100,7 +100,7 @@ public class NativeTypeConverter {
      * @param annotatedArrayType The annotated generic array type
      * @return The created instance
      */
-    public static ConcreteTypeInstance convert(AnnotatedArrayType annotatedArrayType) {
+    public static FixedTypeInstance convert(AnnotatedArrayType annotatedArrayType) {
         TypeParts parts = createPartsWithAnnotationsFrom(annotatedArrayType);
         GenericArrayType genericArrayType = (GenericArrayType)annotatedArrayType.getType();
 
@@ -111,7 +111,7 @@ public class NativeTypeConverter {
 
         parts.setTypeName(genericArrayType.getTypeName());
         parts.setComponentType(Optional.of(Diamond.types().fromUnspecific(annotatedArrayType.getAnnotatedGenericComponentType())));
-        return ConcreteTypeInstance.create(parts);
+        return FixedTypeInstance.create(parts);
     }
 
     /**
@@ -119,7 +119,7 @@ public class NativeTypeConverter {
      * @param annotatedParameterized The native representation of an annotated type
      * @return The created instance
      */
-    public static ConcreteTypeInstance convert(AnnotatedParameterizedType annotatedParameterized) {
+    public static FixedTypeInstance convert(AnnotatedParameterizedType annotatedParameterized) {
         TypeParts parts = createPartsWithAnnotationsFrom(annotatedParameterized);
 
         ParameterizedType parameterizedType = (ParameterizedType) annotatedParameterized.getType();
@@ -132,7 +132,7 @@ public class NativeTypeConverter {
                 .map((annotatedType) -> Diamond.types().fromUnspecific(annotatedType))
                 .collect(Collectors.toList());
         parts.setTypeArguments(typeArguments);
-        return ConcreteTypeInstance.create(parts);
+        return FixedTypeInstance.create(parts);
     }
 
     /**
@@ -140,7 +140,7 @@ public class NativeTypeConverter {
      * @param parameterizedType The native representation
      * @return the created instance
      */
-    public static ConcreteTypeInstance convert(ParameterizedType parameterizedType) {
+    public static FixedTypeInstance convert(ParameterizedType parameterizedType) {
         TypeParts parts = createPartsWithoutAnnotations();
 
         Class<?> rawClass = RawClassExtractor.from(parameterizedType);
@@ -152,7 +152,7 @@ public class NativeTypeConverter {
                 .map((typeArgument)-> Diamond.types().fromUnspecific(typeArgument))
                 .collect(Collectors.toList());
         parts.setTypeArguments(typeArguments);
-        return ConcreteTypeInstance.create(parts);
+        return FixedTypeInstance.create(parts);
     }
 
     /**
