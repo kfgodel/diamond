@@ -9,13 +9,13 @@ import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.testobjects.TestAnnotation1;
 import ar.com.kfgodel.diamond.testobjects.TestAnnotation2;
 import ar.com.kfgodel.diamond.testobjects.TestAnnotation3;
+import ar.com.kfgodel.diamond.testobjects.lineage.ParentClass;
 import org.junit.runner.RunWith;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedType;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -36,19 +36,20 @@ public class ParameterizedTypeTest extends JavaSpec<DiamondTestContext> {
 
             it("has a name", () -> {
                 assertThat(context().typeInstance().name())
-                        .isEqualTo("Map");
+                        .isEqualTo("ParentClass");
             });
 
             it("has a declaration name", () -> {
                 assertThat(context().typeInstance().names().declarationName())
-                        .isEqualTo("java.util.Map<java.lang.String, java.lang.Integer>");
+                        .isEqualTo("ar.com.kfgodel.diamond.testobjects.lineage.ParentClass<java.lang.String, java.lang.Integer>");
             });
 
             it("has type parameters", ()->{
                 List<String> typeParameterNames = context().typeInstance().typeParameters().map((typeParameter) -> typeParameter.name()).collect(Collectors.toList());
                 assertThat(typeParameterNames)
-                        .isEqualTo(Arrays.asList("K", "V"));
+                        .isEqualTo(Arrays.asList("P1", "P2"));
             });
+
 
             it("has type arguments", ()->{
                 List<String> argumentNames = context().typeInstance().typeArguments().map((typeArgument) -> typeArgument.name()).collect(Collectors.toList());
@@ -80,11 +81,23 @@ public class ParameterizedTypeTest extends JavaSpec<DiamondTestContext> {
                         .isEqualTo(Arrays.asList(TestAnnotation2.class, TestAnnotation3.class));
             });
 
+            /**
+             * This is due to the lack of an annotated type parameters method on the Class instance
+             */
+            it("type parameters can't have attached annotations", ()->{
+                long parameterAnnotationsCount = context().typeInstance().typeParameters()
+                        .flatMap((typeArgument) -> typeArgument.annotations())
+                        .count();
+                // Even though the 1st type parameter has annotations we cannot access it on runtime
+                // with reflection. Limitation from current reflection API
+                assertThat(parameterAnnotationsCount).isEqualTo(0);
+            });
+
         });
     }
 
     private static TypeInstance createParameterizedType() {
-        AnnotatedType annotatedType = new ReferenceOf<@TestAnnotation1 Map<@TestAnnotation2 String, @TestAnnotation3 Integer>>() {}.getReferencedAnnotatedType();
+        AnnotatedType annotatedType = new ReferenceOf<@TestAnnotation1 ParentClass<@TestAnnotation2 String, @TestAnnotation3 Integer>>() {}.getReferencedAnnotatedType();
         TypeInstance typeInstance = Diamond.types().fromUnspecific(annotatedType);
         return typeInstance;
     }
