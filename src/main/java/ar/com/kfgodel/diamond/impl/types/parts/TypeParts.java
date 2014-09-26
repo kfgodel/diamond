@@ -2,7 +2,7 @@ package ar.com.kfgodel.diamond.impl.types.parts;
 
 import ar.com.kfgodel.diamond.api.ClassInstance;
 import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
-import ar.com.kfgodel.diamond.api.sources.TypeDefinedTypeNamesSource;
+import ar.com.kfgodel.diamond.api.sources.TypeNames;
 import ar.com.kfgodel.diamond.api.types.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 
@@ -19,7 +19,7 @@ import java.util.function.Supplier;
  */
 public class TypeParts {
 
-    private TypeDefinedTypeNamesSource names;
+    private TypeNames names;
     private Supplier<Optional<ClassInstance>> superclassSupplier;
     private Annotation[] annotations;
     private Optional<TypeInstance> componentType;
@@ -27,14 +27,14 @@ public class TypeParts {
     private List<TypeInstance> typeArguments;
     private Supplier<List<TypeInstance>> typeParametersSupplier;
 
-    public TypeDefinedTypeNamesSource getNames() {
+    public TypeNames getNames() {
         if(names == null){
             throw new DiamondException("Names is needed to create a type instance");
         }
         return names;
     }
 
-    public void setNames(TypeDefinedTypeNamesSource names) {
+    public void setNames(TypeNames names) {
         this.names = names;
     }
 

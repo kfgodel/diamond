@@ -1,12 +1,12 @@
 package ar.com.kfgodel.diamond.impl.naming;
 
-import ar.com.kfgodel.diamond.api.sources.TypeDefinedTypeNamesSource;
+import ar.com.kfgodel.diamond.api.sources.TypeNames;
 
 /**
  * This type represents the set of class names for a class
  * Created by kfgodel on 21/09/14.
  */
-public class ClassNames implements TypeDefinedTypeNamesSource {
+public class ClassNames implements TypeNames {
     private String shortName;
     private String classloaderName;
     private String canonicalName;

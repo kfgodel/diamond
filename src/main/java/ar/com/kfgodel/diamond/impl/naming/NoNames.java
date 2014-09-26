@@ -1,7 +1,7 @@
 package ar.com.kfgodel.diamond.impl.naming;
 
 import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
-import ar.com.kfgodel.diamond.api.sources.TypeDefinedTypeNamesSource;
+import ar.com.kfgodel.diamond.api.sources.TypeNames;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 
 /**
@@ -9,7 +9,7 @@ import ar.com.kfgodel.diamond.api.types.TypeInstance;
  *     This instance is used as an initial value for undefined names instance
  * Created by kfgodel on 25/09/14.
  */
-public class NoNames implements TypeDefinedTypeNamesSource {
+public class NoNames implements TypeNames {
 
     private TypeInstance ownerType;
 

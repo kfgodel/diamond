@@ -1,6 +1,6 @@
 package ar.com.kfgodel.diamond.impl.types;
 
-import ar.com.kfgodel.diamond.api.sources.TypeDefinedTypeNamesSource;
+import ar.com.kfgodel.diamond.api.sources.TypeNames;
 import ar.com.kfgodel.diamond.api.types.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.naming.NoNames;
@@ -29,7 +29,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     /**
      * Variations on the name for this type
      */
-    private TypeDefinedTypeNamesSource names = NoNames.create(this);
+    private TypeNames names = NoNames.create(this);
 
     /**
      * Use this to override default creation with no annotations
@@ -50,7 +50,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     }
 
     @Override
-    public TypeDefinedTypeNamesSource names() {
+    public TypeNames names() {
         return this.names;
     }
 
@@ -58,7 +58,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
      * Setter available to subclasses to define this instance names
      * @param names The multiple names of this instance
      */
-    protected void setNames(TypeDefinedTypeNamesSource names) {
+    protected void setNames(TypeNames names) {
         this.names = names;
     }
 
