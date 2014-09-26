@@ -29,7 +29,7 @@ public class ClassInstanceTest extends JavaSpec<DiamondTestContext> {
                         .isEqualTo("Object");
             });
 
-            it("has additional names", ()->{
+            it("has other names", ()->{
                 TypeDefinedTypeNamesSource classNames = context().classInstance().names();
                 assertThat(classNames.classloaderName())
                         .isEqualTo("java.lang.Object");

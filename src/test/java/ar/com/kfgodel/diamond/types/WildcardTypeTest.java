@@ -41,6 +41,11 @@ public class WildcardTypeTest extends JavaSpec<DiamondTestContext> {
                         .isEqualTo("? extends java.lang.Number");
             });
 
+            it("has a declaration name", ()->{
+                assertThat(context().typeInstance().names().declarationName())
+                        .isEqualTo("? extends java.lang.Number");
+            });
+
             it("has upper bounds", ()->{
                 List<String> upperTypeNames = context().typeInstance().bounds().upper().map((upperBound)-> upperBound.name()).collect(Collectors.toList());
                 assertThat(upperTypeNames)
