@@ -96,6 +96,10 @@ public class TypeSourceImpl implements TypeSources {
         if(baseType instanceof Class){
             return from((Class<?>) baseType, annotatedType.getAnnotations());
         }
+        if(baseType == null){
+            throw new DiamondException("The annotated type["+annotatedType+"] has a getType() == null. This is bug on earlier version of the JDK 8.\n" +
+                    "Please upgrade your VM of this functionality will not work. Related: https://bugs.openjdk.java.net/browse/JDK-8038994");
+        }
         throw new DiamondException("An annotated type for something that's not a class doesn't have a creation method: " + baseType);
     }
 

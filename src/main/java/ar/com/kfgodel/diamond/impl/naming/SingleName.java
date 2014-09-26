@@ -1,12 +1,12 @@
 package ar.com.kfgodel.diamond.impl.naming;
 
-import ar.com.kfgodel.diamond.api.sources.TypeDefinedTypeNamesSource;
+import ar.com.kfgodel.diamond.api.sources.TypeNames;
 
 /**
  * This type represents a source for types that only have one name
  * Created by kfgodel on 25/09/14.
  */
-public class SingleName implements TypeDefinedTypeNamesSource {
+public class SingleName implements TypeNames {
 
     private String name;
 
