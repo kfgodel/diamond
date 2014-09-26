@@ -96,7 +96,7 @@ public class TypeSourceImpl implements TypeSources {
         if(baseType instanceof Class){
             return from((Class<?>) baseType, annotatedType.getAnnotations());
         }
-        throw new DiamondException("An annotated type for something that's not a class doesn't have a creation method: " + annotatedType);
+        throw new DiamondException("An annotated type for something that's not a class doesn't have a creation method: " + baseType);
     }
 
     public static TypeSourceImpl create() {
