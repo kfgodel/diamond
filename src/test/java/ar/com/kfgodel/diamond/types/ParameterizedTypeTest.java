@@ -34,14 +34,20 @@ public class ParameterizedTypeTest extends JavaSpec<DiamondTestContext> {
                 context().typeInstance(()-> createParameterizedType());
             });
 
-            it("has a name", ()->{
+            it("has a name", () -> {
                 assertThat(context().typeInstance().name())
                         .isEqualTo("Map");
             });
 
-            it("has a declaration name",()->{
+            it("has a declaration name", () -> {
                 assertThat(context().typeInstance().names().declarationName())
                         .isEqualTo("java.util.Map<java.lang.String, java.lang.Integer>");
+            });
+
+            it("has type parameters", ()->{
+                List<String> typeParameterNames = context().typeInstance().typeParameters().map((typeParameter) -> typeParameter.name()).collect(Collectors.toList());
+                assertThat(typeParameterNames)
+                        .isEqualTo(Arrays.asList("K", "V"));
             });
 
             it("has type arguments", ()->{

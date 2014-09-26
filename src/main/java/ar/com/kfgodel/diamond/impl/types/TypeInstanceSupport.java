@@ -88,4 +88,9 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     public Stream<TypeInstance> typeArguments() {
         return Stream.empty();
     }
+
+    @Override
+    public Stream<TypeInstance> typeParameters() {
+        return Stream.empty();
+    }
 }
