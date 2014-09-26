@@ -39,14 +39,22 @@ public class ParameterizedTypeTest extends JavaSpec<DiamondTestContext> {
                         .isEqualTo("Map");
             });
 
-            xit("has a declaration name",()->{
-//                assertThat(context().typeInstance().names().declarationName())
-//                        .isEqualTo("java.util.Map<java.lang.String, java.lang.Integer>");
+            it("has a declaration name",()->{
+                assertThat(context().typeInstance().names().declarationName())
+                        .isEqualTo("java.util.Map<java.lang.String, java.lang.Integer>");
             });
 
             it("has type arguments", ()->{
                 List<String> argumentNames = context().typeInstance().typeArguments().map((typeArgument) -> typeArgument.name()).collect(Collectors.toList());
                 assertThat(argumentNames).isEqualTo(Arrays.asList("String", "Integer"));
+            });
+
+            it("type argument declaration names are preserved", ()->{
+                assertThat(context().typeInstance().typeArguments()
+                            .map((typeArgument)-> typeArgument.names().declarationName())
+                            .collect(Collectors.toList()))
+                        .isEqualTo(Arrays.asList("java.lang.String","java.lang.Integer"));
+
             });
 
             it("can have attached annotations", ()->{

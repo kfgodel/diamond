@@ -37,6 +37,10 @@ public class TypeVariableTest extends JavaSpec<DiamondTestContext> {
                 assertThat(context().typeInstance().name())
                         .isEqualTo("T");
             });
+            it("has a declaration name", ()->{
+                assertThat(context().typeInstance().names().declarationName())
+                        .isEqualTo("T");
+            });
             it("can have upper bounds", ()->{
                 List<String> upperTypeNames = context().typeInstance().bounds().upper().map((upperBound)-> upperBound.name()).collect(Collectors.toList());
                 assertThat(upperTypeNames)
