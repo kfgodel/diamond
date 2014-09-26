@@ -5,7 +5,7 @@ import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.DiamondTestContext;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.classes.ClassLineage;
-import ar.com.kfgodel.diamond.api.sources.ClassDefinedClassNameSource;
+import ar.com.kfgodel.diamond.api.sources.TypeDefinedTypeNamesSource;
 import org.junit.runner.RunWith;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -30,7 +30,7 @@ public class ClassInstanceTest extends JavaSpec<DiamondTestContext> {
             });
 
             it("has additional names", ()->{
-                ClassDefinedClassNameSource classNames = context().classInstance().names();
+                TypeDefinedTypeNamesSource classNames = context().classInstance().names();
                 assertThat(classNames.classloaderName())
                         .isEqualTo("java.lang.Object");
             });

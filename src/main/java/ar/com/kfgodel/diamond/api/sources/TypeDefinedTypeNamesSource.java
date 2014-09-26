@@ -4,7 +4,7 @@ package ar.com.kfgodel.diamond.api.sources;
  * This type represents the sources of class names with the class defined
  * Created by kfgodel on 21/09/14.
  */
-public interface ClassDefinedClassNameSource {
+public interface TypeDefinedTypeNamesSource {
 
     /**
      * The name of the class without the package prefix. This is the shortest version

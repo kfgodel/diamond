@@ -2,6 +2,7 @@ package ar.com.kfgodel.diamond.api.types;
 
 import ar.com.kfgodel.diamond.api.annotations.Annotated;
 import ar.com.kfgodel.diamond.api.naming.Named;
+import ar.com.kfgodel.diamond.api.sources.TypeDefinedTypeNamesSource;
 
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -15,6 +16,12 @@ import java.util.stream.Stream;
  * Created by kfgodel on 20/09/14.
  */
 public interface TypeInstance extends Named, Annotated {
+
+    /**
+     * Returns the accessor object for this type names (in all their varieties)
+     * @return The source of type names for this instance
+     */
+    TypeDefinedTypeNamesSource names();
 
     /**
      * @return The type boundaries of this type (if any)

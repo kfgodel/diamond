@@ -3,7 +3,6 @@ package ar.com.kfgodel.diamond.impl.types;
 import ar.com.kfgodel.diamond.api.ClassInstance;
 import ar.com.kfgodel.diamond.api.classes.ClassLineage;
 import ar.com.kfgodel.diamond.api.sources.ClassDefinedClassMethodSource;
-import ar.com.kfgodel.diamond.api.sources.ClassDefinedClassNameSource;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.classes.NativeClassLineage;
 import ar.com.kfgodel.diamond.impl.sources.ClassDefinedClassMethodSourceImpl;
@@ -27,20 +26,9 @@ import java.util.stream.Stream;
  */
 public class FixedTypeInstance extends TypeInstanceSupport implements ClassInstance{
 
-    private ClassDefinedClassNameSource names;
     private LazyValue<Optional<ClassInstance>> superclass;
     private List<TypeInstance> typeArguments;
     private Optional<TypeInstance> componentType;
-
-    @Override
-    public String name() {
-        return this.names.shortName();
-    }
-
-    @Override
-    public ClassDefinedClassNameSource names() {
-        return this.names;
-    }
 
     @Override
     public ClassDefinedClassMethodSource methods() {
@@ -89,13 +77,13 @@ public class FixedTypeInstance extends TypeInstanceSupport implements ClassInsta
      * @return The created instance
      */
     public static FixedTypeInstance create(TypeParts parts) {
-        FixedTypeInstance classInstance = new FixedTypeInstance();
-        classInstance.names = parts.getNames();
-        classInstance.superclass = SuppliedValue.create(parts.getSuperclassSupplier());
-        classInstance.typeArguments = parts.getTypeArguments();
-        classInstance.componentType = parts.getComponentType();
-        classInstance.setAnnotations(parts.getAnnotations());
-        return classInstance;
+        FixedTypeInstance fixedType = new FixedTypeInstance();
+        fixedType.setNames(parts.getNames());
+        fixedType.superclass = SuppliedValue.create(parts.getSuperclassSupplier());
+        fixedType.typeArguments = parts.getTypeArguments();
+        fixedType.componentType = parts.getComponentType();
+        fixedType.setAnnotations(parts.getAnnotations());
+        return fixedType;
     }
 
 }

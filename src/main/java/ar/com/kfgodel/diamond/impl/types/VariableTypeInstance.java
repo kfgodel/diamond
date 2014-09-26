@@ -9,17 +9,11 @@ import ar.com.kfgodel.diamond.impl.types.parts.TypeParts;
  */
 public class VariableTypeInstance extends TypeInstanceSupport {
 
-    private String typeName;
     private TypeBounds typeBounds;
 
     @Override
     public TypeBounds bounds() {
         return typeBounds;
-    }
-
-    @Override
-    public String name() {
-        return typeName;
     }
 
     /**
@@ -28,11 +22,11 @@ public class VariableTypeInstance extends TypeInstanceSupport {
      * @return The new type variable instance
      */
     public static VariableTypeInstance create(TypeParts parts) {
-        VariableTypeInstance typeVariable = new VariableTypeInstance();
-        typeVariable.typeName = parts.getTypeName();
-        typeVariable.typeBounds = parts.getBounds();
-        typeVariable.setAnnotations(parts.getAnnotations());
-        return typeVariable;
+        VariableTypeInstance variableType = new VariableTypeInstance();
+        variableType.setNames(parts.getNames());
+        variableType.typeBounds = parts.getBounds();
+        variableType.setAnnotations(parts.getAnnotations());
+        return variableType;
     }
 
 }
