@@ -23,8 +23,9 @@ public class TypeParts {
     private Supplier<Optional<ClassInstance>> superclassSupplier;
     private Annotation[] annotations;
     private Optional<TypeInstance> componentType;
-    private List<TypeInstance> typeArguments;
     private TypeBounds bounds;
+    private List<TypeInstance> typeArguments;
+    private Supplier<List<TypeInstance>> typeParametersSupplier;
 
     public TypeDefinedTypeNamesSource getNames() {
         if(names == null){
@@ -91,6 +92,18 @@ public class TypeParts {
 
     public void setBounds(TypeBounds bounds) {
         this.bounds = bounds;
+    }
+
+
+    public Supplier<List<TypeInstance>> getTypeParametersSupplier() {
+        if(typeParametersSupplier == null){
+            throw new DiamondException("type parameters are needed to create a type instance");
+        }
+        return typeParametersSupplier;
+    }
+
+    public void setTypeParametersSupplier(Supplier<List<TypeInstance>> typeParametersSupplier) {
+        this.typeParametersSupplier = typeParametersSupplier;
     }
 
     public static TypeParts create() {

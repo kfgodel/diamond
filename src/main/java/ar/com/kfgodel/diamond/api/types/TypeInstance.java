@@ -36,8 +36,16 @@ public interface TypeInstance extends Named, Annotated {
     Optional<TypeInstance> componentType();
 
     /**
-     * @return The type argumunts used to parameterize this instance (if any).
-     * Parameterized types have actual type arguments that are preserved through reflection (on certain context)
+     * @return The actual type arguments used to parameterize this type (if any).
+     * Parameterized types have type arguments that are preserved through reflection (only on certain cases).<br>
+     *     See typeParameters for the list of type variables that these arguments correspond to
      */
     Stream<TypeInstance> typeArguments();
+
+    /**
+     * @return The generic type parameters this type accepts (if any).
+     * Parameterized classes have type variables that can be parameterized. This is the list of type variables.<br>
+     *     See typeArguments for the actual type values of this variables
+     */
+    Stream<TypeInstance> typeParameters();
 }

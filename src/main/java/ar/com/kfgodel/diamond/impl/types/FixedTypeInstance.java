@@ -27,8 +27,9 @@ import java.util.stream.Stream;
 public class FixedTypeInstance extends TypeInstanceSupport implements ClassInstance{
 
     private LazyValue<Optional<ClassInstance>> superclass;
-    private List<TypeInstance> typeArguments;
     private Optional<TypeInstance> componentType;
+    private List<TypeInstance> typeArguments;
+    private LazyValue<List<TypeInstance>> typeParameters;
 
     @Override
     public ClassDefinedClassMethodSource methods() {
@@ -43,6 +44,11 @@ public class FixedTypeInstance extends TypeInstanceSupport implements ClassInsta
     @Override
     public Stream<TypeInstance> typeArguments() {
         return typeArguments.stream();
+    }
+
+    @Override
+    public Stream<TypeInstance> typeParameters() {
+        return this.typeParameters.get().stream();
     }
 
     @Override
@@ -83,6 +89,7 @@ public class FixedTypeInstance extends TypeInstanceSupport implements ClassInsta
         fixedType.typeArguments = parts.getTypeArguments();
         fixedType.componentType = parts.getComponentType();
         fixedType.setAnnotations(parts.getAnnotations());
+        fixedType.typeParameters = SuppliedValue.create(parts.getTypeParametersSupplier());
         return fixedType;
     }
 

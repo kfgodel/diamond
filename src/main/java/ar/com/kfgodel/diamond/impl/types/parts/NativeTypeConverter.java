@@ -4,6 +4,7 @@ import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.fragments.RawClassExtractor;
 import ar.com.kfgodel.diamond.impl.fragments.SuperClassSupplier;
+import ar.com.kfgodel.diamond.impl.fragments.TypeParametersSupplier;
 import ar.com.kfgodel.diamond.impl.naming.ClassNames;
 import ar.com.kfgodel.diamond.impl.naming.SingleName;
 import ar.com.kfgodel.diamond.impl.types.FixedTypeInstance;
@@ -66,6 +67,7 @@ public class NativeTypeConverter {
         parts.setTypeArguments(Collections.emptyList());
         parts.setComponentType(Optional.empty());
         parts.setAnnotations(annotations);
+        parts.setTypeParametersSupplier(TypeParametersSupplier.create(nativeClass));
         return FixedTypeInstance.create(parts);
     }
 
@@ -90,6 +92,7 @@ public class NativeTypeConverter {
         parts.setNames(ClassNames.create(rawClass, genericArrayType.getTypeName()));
         parts.setSuperclassSupplier(SuperClassSupplier.create(rawClass));
         parts.setTypeArguments(Collections.emptyList());
+        parts.setTypeParametersSupplier(TypeParametersSupplier.create(rawClass));
 
         parts.setComponentType(Optional.of(Diamond.types().fromUnspecific(genericArrayType.getGenericComponentType())));
         return FixedTypeInstance.create(parts);
@@ -108,6 +111,7 @@ public class NativeTypeConverter {
         parts.setNames(ClassNames.create(rawClass, genericArrayType.getTypeName()));
         parts.setSuperclassSupplier(SuperClassSupplier.create(rawClass));
         parts.setTypeArguments(Collections.emptyList());
+        parts.setTypeParametersSupplier(TypeParametersSupplier.create(rawClass));
 
         parts.setComponentType(Optional.of(Diamond.types().fromUnspecific(annotatedArrayType.getAnnotatedGenericComponentType())));
         return FixedTypeInstance.create(parts);
@@ -126,6 +130,8 @@ public class NativeTypeConverter {
         parts.setNames(ClassNames.create(rawClass, parameterizedType.getTypeName()));
         parts.setSuperclassSupplier(SuperClassSupplier.create(rawClass));
         parts.setComponentType(Optional.empty());
+        parts.setTypeParametersSupplier(TypeParametersSupplier.create(rawClass));
+
 
         List<TypeInstance> typeArguments = Arrays.stream(annotatedParameterized.getAnnotatedActualTypeArguments())
                 .map((annotatedType) -> Diamond.types().fromUnspecific(annotatedType))
@@ -146,6 +152,7 @@ public class NativeTypeConverter {
         parts.setNames(ClassNames.create(rawClass, parameterizedType.getTypeName()));
         parts.setSuperclassSupplier(SuperClassSupplier.create(rawClass));
         parts.setComponentType(Optional.empty());
+        parts.setTypeParametersSupplier(TypeParametersSupplier.create(rawClass));
 
         List<TypeInstance> typeArguments = Arrays.stream(parameterizedType.getActualTypeArguments())
                 .map((typeArgument)-> Diamond.types().fromUnspecific(typeArgument))
