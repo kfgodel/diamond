@@ -5,6 +5,7 @@ import ar.com.kfgodel.diamond.api.types.TypeInstance;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.*;
+import java.util.stream.Stream;
 
 /**
  * This type represents the possible sources for a type instance
@@ -73,12 +74,22 @@ public interface TypeSources {
     TypeInstance from(AnnotatedArrayType annotatedArrayType);
 
     /**
-     * Retrieves a type instance from a parameterized type and its attached annotations
+     * Retrieves a type instance from a native class and its attached annotations
      * @param aClass The native parameterized type
      * @param annotations The attached annotations
      * @return The diamond representation
      */
-    TypeInstance from(Class<?> aClass, Annotation[] annotations);
+    ClassInstance from(Class<?> aClass, Annotation[] annotations);
+
+    /**
+     * Retrieves a type instance from a native class and its type arguments.<br>
+     *     As classes don't have type arguments and they come from a different source this method is needed on
+     *     certain scenarios to get the parameterized class
+     * @param aClass The native class representation
+     * @param typeArguments The actual arguments for the class generic parameters
+     * @return The type that represents it
+     */
+    ClassInstance from(Class<?> aClass, Stream<TypeInstance> typeArguments);
 
     /**
      * Retrieves a type instance from an unspecific type

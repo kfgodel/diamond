@@ -1,5 +1,6 @@
 package ar.com.kfgodel.diamond.impl.types.parts;
 
+import ar.com.kfgodel.diamond.api.ClassInstance;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.fragments.RawClassExtractor;
@@ -20,6 +21,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * This type serves as a factory of type instances that know how to map from native to diamond types
@@ -70,6 +72,23 @@ public class NativeTypeConverter {
         parts.setTypeParametersSupplier(TypeParametersSupplier.create(nativeClass));
         return FixedTypeInstance.create(parts);
     }
+
+    /**
+     * Creates a class instance representation from a class and its type arguments
+     * @param nativeClass A parameterizable type
+     * @param typeArguments The actual type arguments
+     * @return The created type
+     */
+    public static ClassInstance convert(Class<?> nativeClass, Stream<TypeInstance> typeArguments) {
+        TypeParts parts = createPartsWithoutAnnotations();
+        parts.setNames(ClassNames.create(nativeClass, nativeClass.getTypeName()));
+        parts.setSuperclassSupplier(SuperClassSupplier.create(nativeClass));
+        parts.setTypeArguments(typeArguments.collect(Collectors.toList()));
+        parts.setComponentType(Optional.empty());
+        parts.setTypeParametersSupplier(TypeParametersSupplier.create(nativeClass));
+        return FixedTypeInstance.create(parts);
+    }
+
 
     /**
      * Creates a class instance representation from its native counter-part
@@ -202,4 +221,5 @@ public class NativeTypeConverter {
         parts.setAnnotations(TypeInstanceSupport.NO_ANNOTATIONS);
         return parts;
     }
+
 }

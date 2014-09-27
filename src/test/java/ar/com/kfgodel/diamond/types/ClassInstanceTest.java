@@ -6,7 +6,12 @@ import ar.com.kfgodel.diamond.DiamondTestContext;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.classes.ClassLineage;
 import ar.com.kfgodel.diamond.api.sources.TypeNames;
+import ar.com.kfgodel.diamond.testobjects.lineage.ChildClass;
 import org.junit.runner.RunWith;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -21,29 +26,59 @@ public class ClassInstanceTest extends JavaSpec<DiamondTestContext> {
         describe("a class instance", ()->{
 
             beforeEach(()->{
-                context().classInstance(()-> Diamond.of(Object.class));
+                context().classInstance(()-> Diamond.of(ChildClass.class));
             });
 
-            it("has a simple short name", ()->{
-                assertThat(context().classInstance().name())
-                        .isEqualTo("Object");
+            describe("naming", () -> {
+                it("has a simple short name", () -> {
+                    assertThat(context().classInstance().name())
+                            .isEqualTo("ChildClass");
+                });
+
+                it("has other names", () -> {
+                    TypeNames classNames = context().classInstance().names();
+                    assertThat(classNames.classloaderName())
+                            .isEqualTo("ar.com.kfgodel.diamond.testobjects.lineage.ChildClass");
+                });
             });
 
-            it("has other names", ()->{
-                TypeNames classNames = context().classInstance().names();
-                assertThat(classNames.classloaderName())
-                        .isEqualTo("java.lang.Object");
+            describe("lineage", () -> {
+                it("has a lineage with its ancestors", () -> {
+                    ClassLineage classLineage = context().classInstance().lineage();
+                    assertThat(classLineage.highestAncestor().name())
+                            .isEqualTo("Object");
+                });
+
+                it("has a super class", () -> {
+                    String superClassName = context().classInstance().superclass().map((superclass) -> superclass.name()).get();
+                    assertThat(superClassName).isEqualTo("ParentClass");
+                });
             });
 
-            it("has type parameters", ()->{
-                assertThat(context().classInstance().typeParameters().count()).isEqualTo(0);
+            describe("generics", () -> {
+                it("has type parameters", () -> {
+                    List<String> parameterNames = context().classInstance().typeParameters()
+                            .map((typeParamenter) -> typeParamenter.name())
+                            .collect(Collectors.toList());
+                    assertThat(parameterNames).isEqualTo(Arrays.asList("C"));
+                });
+
+                it("has type arguments", ()-> {
+                    List<String> parameterNames = context().classInstance().typeArguments()
+                            .map((typeParamenter) -> typeParamenter.name())
+                            .collect(Collectors.toList());
+                    assertThat(parameterNames).isEqualTo(Arrays.asList());
+                });
+
+                it("has correct type arguments for its superclass", ()->{
+                    List<String> parameterNames = context().classInstance().superclass().get().typeParameters()
+                            .map((typeParamenter) -> typeParamenter.name())
+                            .collect(Collectors.toList());
+                    assertThat(parameterNames).isEqualTo(Arrays.asList("C", "Integer"));
+                });
             });
 
-            it("has a lineage with its ancestors", ()->{
-                ClassLineage classLineage = context().classInstance().lineage();
-                assertThat(classLineage.highestAncestor().name())
-                        .isEqualTo("Object");
-            });
+
 
             xit("equality is based on the semantic name", ()->{
                 assertThat(Diamond.of(Object.class))

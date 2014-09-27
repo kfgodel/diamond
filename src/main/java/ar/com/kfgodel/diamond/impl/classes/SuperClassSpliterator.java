@@ -21,7 +21,7 @@ public class SuperClassSpliterator implements Spliterator<ClassInstance> {
         }
         ClassInstance currentInstance = optionalInstance.get();
         action.accept(currentInstance);
-        optionalInstance = currentInstance.getSuperclass();
+        optionalInstance = currentInstance.superclass();
         return true;
     }
 

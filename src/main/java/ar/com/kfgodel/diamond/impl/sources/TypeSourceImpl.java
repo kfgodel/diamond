@@ -8,6 +8,7 @@ import ar.com.kfgodel.diamond.impl.types.parts.NativeTypeConverter;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.*;
+import java.util.stream.Stream;
 
 /**
  * This type implements the spurces for type instances
@@ -61,8 +62,13 @@ public class TypeSourceImpl implements TypeSources {
     }
 
     @Override
-    public TypeInstance from(Class<?> aClass, Annotation[] annotations) {
+    public ClassInstance from(Class<?> aClass, Annotation[] annotations) {
         return NativeTypeConverter.convert(aClass, annotations);
+    }
+
+    @Override
+    public ClassInstance from(Class<?> aClass, Stream<TypeInstance> typeArguments) {
+        return NativeTypeConverter.convert(aClass, typeArguments);
     }
 
     @Override

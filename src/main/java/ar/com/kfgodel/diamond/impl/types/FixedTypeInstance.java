@@ -57,7 +57,7 @@ public class FixedTypeInstance extends TypeInstanceSupport implements ClassInsta
     }
 
     @Override
-    public Optional<ClassInstance> getSuperclass() {
+    public Optional<ClassInstance> superclass() {
         return superclass.get();
     }
 

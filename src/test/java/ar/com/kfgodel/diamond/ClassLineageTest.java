@@ -68,9 +68,14 @@ public class ClassLineageTest extends JavaSpec<DiamondTestContext> {
             });
 
 
-            it("can answer the actual value for a generic type parameter of a member", ()->{
-                context().lineage().getActualTypeArgumentsFor(GrandParentClass.class);
+            it("can answer the actual type value for a generic type parameter of a member", ()->{
+                List<String> typeArgumentNames = context().lineage().getActualTypeArgumentsFor(Diamond.of(GrandParentClass.class))
+                        .map((typeArgument) -> typeArgument.name())
+                        .collect(Collectors.toList());
+                assertThat(typeArgumentNames)
+                        .isEqualTo(Arrays.asList("Integer"));
             });
+
 
         });
 

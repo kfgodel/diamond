@@ -32,6 +32,6 @@ public interface ClassInstance extends TypeInstance {
     /**
      * @return The optional superclass of this instance. Empty for Object
      */
-    Optional<ClassInstance> getSuperclass();
+    Optional<ClassInstance> superclass();
 
 }

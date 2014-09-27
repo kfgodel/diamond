@@ -7,7 +7,7 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 /**
- * This type represents a fragment of code that can extract the superclass of a native class
+ * This type represents a fragment of code that can extract the native superclass of a native class
  * Created by kfgodel on 21/09/14.
  */
 public class SuperClassSupplier implements Supplier<Optional<ClassInstance>> {
