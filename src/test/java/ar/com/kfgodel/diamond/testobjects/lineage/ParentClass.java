@@ -9,9 +9,4 @@ import ar.com.kfgodel.diamond.testobjects.TestAnnotation2;
  */
 public class ParentClass<@TestAnnotation1 P1,P2> extends GrandParentClass<@TestAnnotation2 P2> {
 
-    public static void main(String[] args){
-        Class<ParentClass> clase = ParentClass.class;
-        System.out.println(clase.toGenericString());
-        System.out.println(clase.getTypeParameters()[0].getTypeName());
-    }
 }

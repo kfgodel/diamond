@@ -3,6 +3,7 @@ package ar.com.kfgodel.diamond.impl.types.parts;
 import ar.com.kfgodel.diamond.api.ClassInstance;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.diamond.impl.fragments.ExtendedTypeSupplier;
 import ar.com.kfgodel.diamond.impl.fragments.RawClassExtractor;
 import ar.com.kfgodel.diamond.impl.fragments.SuperClassSupplier;
 import ar.com.kfgodel.diamond.impl.fragments.TypeParametersSupplier;
@@ -66,6 +67,7 @@ public class NativeTypeConverter {
         TypeParts parts = createPartsWithoutAnnotations();
         parts.setNames(ClassNames.create(nativeClass, nativeClass.getTypeName()));
         parts.setSuperclassSupplier(SuperClassSupplier.create(nativeClass));
+        parts.setExtendedTypeSupplier(ExtendedTypeSupplier.create(nativeClass));
         parts.setTypeArguments(Collections.emptyList());
         parts.setComponentType(Optional.empty());
         parts.setAnnotations(annotations);
@@ -83,6 +85,7 @@ public class NativeTypeConverter {
         TypeParts parts = createPartsWithoutAnnotations();
         parts.setNames(ClassNames.create(nativeClass, nativeClass.getTypeName()));
         parts.setSuperclassSupplier(SuperClassSupplier.create(nativeClass));
+        parts.setExtendedTypeSupplier(ExtendedTypeSupplier.create(nativeClass));
         parts.setTypeArguments(typeArguments.collect(Collectors.toList()));
         parts.setComponentType(Optional.empty());
         parts.setTypeParametersSupplier(TypeParametersSupplier.create(nativeClass));
@@ -110,6 +113,7 @@ public class NativeTypeConverter {
         Class<?> rawClass = RawClassExtractor.from(genericArrayType);
         parts.setNames(ClassNames.create(rawClass, genericArrayType.getTypeName()));
         parts.setSuperclassSupplier(SuperClassSupplier.create(rawClass));
+        parts.setExtendedTypeSupplier(ExtendedTypeSupplier.create(rawClass));
         parts.setTypeArguments(Collections.emptyList());
         parts.setTypeParametersSupplier(TypeParametersSupplier.create(rawClass));
 
@@ -129,6 +133,7 @@ public class NativeTypeConverter {
         Class<?> rawClass = RawClassExtractor.from(genericArrayType);
         parts.setNames(ClassNames.create(rawClass, genericArrayType.getTypeName()));
         parts.setSuperclassSupplier(SuperClassSupplier.create(rawClass));
+        parts.setExtendedTypeSupplier(ExtendedTypeSupplier.create(rawClass));
         parts.setTypeArguments(Collections.emptyList());
         parts.setTypeParametersSupplier(TypeParametersSupplier.create(rawClass));
 
@@ -148,6 +153,7 @@ public class NativeTypeConverter {
         Class<?> rawClass = RawClassExtractor.from(parameterizedType);
         parts.setNames(ClassNames.create(rawClass, parameterizedType.getTypeName()));
         parts.setSuperclassSupplier(SuperClassSupplier.create(rawClass));
+        parts.setExtendedTypeSupplier(ExtendedTypeSupplier.create(rawClass));
         parts.setComponentType(Optional.empty());
         parts.setTypeParametersSupplier(TypeParametersSupplier.create(rawClass));
 
@@ -170,6 +176,7 @@ public class NativeTypeConverter {
         Class<?> rawClass = RawClassExtractor.from(parameterizedType);
         parts.setNames(ClassNames.create(rawClass, parameterizedType.getTypeName()));
         parts.setSuperclassSupplier(SuperClassSupplier.create(rawClass));
+        parts.setExtendedTypeSupplier(ExtendedTypeSupplier.create(rawClass));
         parts.setComponentType(Optional.empty());
         parts.setTypeParametersSupplier(TypeParametersSupplier.create(rawClass));
 

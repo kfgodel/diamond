@@ -93,4 +93,9 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     public Stream<TypeInstance> typeParameters() {
         return Stream.empty();
     }
+
+    @Override
+    public Optional<TypeInstance> extendedType() {
+        return Optional.empty();
+    }
 }

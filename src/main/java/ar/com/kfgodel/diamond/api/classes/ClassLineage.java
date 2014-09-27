@@ -1,7 +1,6 @@
 package ar.com.kfgodel.diamond.api.classes;
 
 import ar.com.kfgodel.diamond.api.ClassInstance;
-import ar.com.kfgodel.diamond.api.types.TypeInstance;
 
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -38,9 +37,4 @@ public interface ClassLineage {
      */
     Optional<ClassInstance> descendantOf(ClassInstance ancestor);
 
-    /**
-     * Returns the list of type arguments used to parameterize the given member of this lineage
-     * @param member The class member of this lineage
-     */
-    Stream<TypeInstance> getActualTypeArgumentsFor(ClassInstance member);
 }

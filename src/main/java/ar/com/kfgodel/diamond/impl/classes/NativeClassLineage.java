@@ -2,7 +2,6 @@ package ar.com.kfgodel.diamond.impl.classes;
 
 import ar.com.kfgodel.diamond.api.ClassInstance;
 import ar.com.kfgodel.diamond.api.classes.ClassLineage;
-import ar.com.kfgodel.diamond.api.types.TypeInstance;
 
 import java.util.List;
 import java.util.Optional;
@@ -61,14 +60,6 @@ public class NativeClassLineage implements ClassLineage {
     public Optional<ClassInstance> descendantOf(ClassInstance ancestor) {
         return memberRelativeTo(ancestor, -1);
     }
-
-    @Override
-    public Stream<TypeInstance> getActualTypeArgumentsFor(ClassInstance referent) {
-        Optional<ClassInstance> foundMember = memberRelativeTo(referent, 0);
-        return foundMember.map(TypeInstance::typeArguments)
-                .orElse(Stream.empty());
-    }
-
 
     /**
      * Returns a member of this lineage relative in position to given member

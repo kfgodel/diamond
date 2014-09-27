@@ -21,6 +21,7 @@ public class TypeParts {
 
     private TypeNames names;
     private Supplier<Optional<ClassInstance>> superclassSupplier;
+    private Supplier<Optional<TypeInstance>> extendedTypeSupplier;
     private Annotation[] annotations;
     private Optional<TypeInstance> componentType;
     private TypeBounds bounds;
@@ -104,6 +105,18 @@ public class TypeParts {
 
     public void setTypeParametersSupplier(Supplier<List<TypeInstance>> typeParametersSupplier) {
         this.typeParametersSupplier = typeParametersSupplier;
+    }
+
+
+    public Supplier<Optional<TypeInstance>> getExtendedTypeSupplier() {
+        if(extendedTypeSupplier == null){
+            throw new DiamondException("extended type is needed to create a type instance");
+        }
+        return extendedTypeSupplier;
+    }
+
+    public void setExtendedTypeSupplier(Supplier<Optional<TypeInstance>> extendedTypeSupplier) {
+        this.extendedTypeSupplier = extendedTypeSupplier;
     }
 
     public static TypeParts create() {

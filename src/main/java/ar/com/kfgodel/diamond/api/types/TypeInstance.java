@@ -48,4 +48,14 @@ public interface TypeInstance extends Named, Annotated {
      *     See typeArguments for the actual type values of this variables
      */
     Stream<TypeInstance> typeParameters();
+
+
+    /**
+     * @return The extended supertype of this type (declared with extends). Or empty if this type
+     *  represents either the Object class, an interface type, an array type, a primitive type, void,
+     *  or a variable type (like wildcard).<br>
+     *  The extended type is the parent class with correct type arguments assigned from this type,
+     *  thus is the compile time parent type of this type.
+     */
+    Optional<TypeInstance> extendedType();
 }

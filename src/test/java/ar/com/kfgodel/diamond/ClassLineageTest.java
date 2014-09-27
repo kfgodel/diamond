@@ -5,7 +5,6 @@ import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.api.ClassInstance;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.testobjects.lineage.ChildClass;
-import ar.com.kfgodel.diamond.testobjects.lineage.GrandParentClass;
 import ar.com.kfgodel.diamond.testobjects.lineage.ParentClass;
 import org.junit.runner.RunWith;
 
@@ -67,14 +66,6 @@ public class ClassLineageTest extends JavaSpec<DiamondTestContext> {
                         .isEqualTo(Arrays.asList("int"));
             });
 
-
-            it("can answer the actual type value for a generic type parameter of a member", ()->{
-                List<String> typeArgumentNames = context().lineage().getActualTypeArgumentsFor(Diamond.of(GrandParentClass.class))
-                        .map((typeArgument) -> typeArgument.name())
-                        .collect(Collectors.toList());
-                assertThat(typeArgumentNames)
-                        .isEqualTo(Arrays.asList("Integer"));
-            });
 
 
         });

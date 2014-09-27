@@ -30,7 +30,11 @@ public interface ClassInstance extends TypeInstance {
     ClassLineage lineage();
 
     /**
-     * @return The optional superclass of this instance. Empty for Object
+     * @return The optional superclass of this instance. Or empty if this type
+     *  represents either the Object class, an interface type, an array type, a primitive type, void,
+     *  or a variable type (like wildcard).<br>
+     *     The super class is the un-parameterized (raw) class instance that is the runtime super type of
+     *     this type
      */
     Optional<ClassInstance> superclass();
 
