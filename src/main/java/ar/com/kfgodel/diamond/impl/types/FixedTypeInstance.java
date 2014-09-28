@@ -6,7 +6,7 @@ import ar.com.kfgodel.diamond.api.sources.ClassDefinedClassMethodSource;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.classes.NativeClassLineage;
 import ar.com.kfgodel.diamond.impl.sources.ClassDefinedClassMethodSourceImpl;
-import ar.com.kfgodel.diamond.impl.types.parts.TypeParts;
+import ar.com.kfgodel.diamond.impl.types.parts.FixedTypeParts;
 import ar.com.kfgodel.lazyvalue.api.LazyValue;
 import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
 
@@ -86,7 +86,7 @@ public class FixedTypeInstance extends TypeInstanceSupport implements ClassInsta
      * @param parts the parts needed to create the instance
      * @return The created instance
      */
-    public static FixedTypeInstance create(TypeParts parts) {
+    public static FixedTypeInstance create(FixedTypeParts parts) {
         FixedTypeInstance fixedType = new FixedTypeInstance();
         fixedType.setNames(parts.getNames());
         fixedType.superclass = SuppliedValue.create(parts.getSuperclassSupplier());

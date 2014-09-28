@@ -132,4 +132,15 @@ public class TypeSourceImpl implements TypeSources {
         return source;
     }
 
+    @Override
+    public TypeInstance fromUnspecific(Object type) throws DiamondException {
+        if(type instanceof TypeInstance){
+            return (TypeInstance) type;
+        }else if(type instanceof AnnotatedType){
+            return fromUnspecific((AnnotatedType) type);
+        }else if (type instanceof Type){
+            return fromUnspecific((Type)type);
+        }
+        throw new DiamondException("The object doesn't represent a type: "+ type);
+    }
 }

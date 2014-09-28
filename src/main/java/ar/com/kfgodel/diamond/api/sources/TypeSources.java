@@ -1,6 +1,7 @@
 package ar.com.kfgodel.diamond.api.sources;
 
 import ar.com.kfgodel.diamond.api.ClassInstance;
+import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.generics.X24;
 
@@ -94,6 +95,16 @@ public interface TypeSources {
      * @return The diamond representation of the type (with its annotations)
      */
     TypeInstance fromUnspecific(AnnotatedType annotatedType);
+
+    /**
+     * Retrieves a type instance from an unspecific type whose type is not known.<br>
+     *     This method is needed to be able to treat AnnotatedType and Type with the same signature
+     * @param type The native object that represents a type (AnnotatedType or Type)
+     * @return The type instance that represents the object
+     * @throws ar.com.kfgodel.diamond.api.exceptions.DiamondException if the object doesn't represent a type
+     */
+    TypeInstance fromUnspecific(Object type) throws DiamondException;
+
 
     ClassInstance from(X24 x24);
 }

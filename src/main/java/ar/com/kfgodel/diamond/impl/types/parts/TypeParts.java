@@ -17,7 +17,7 @@ import java.util.function.Supplier;
  * present on construction time
  * Created by kfgodel on 21/09/14.
  */
-public class TypeParts {
+public class TypeParts implements FixedTypeParts, VariableTypeParts {
 
     private TypeNames names;
     private Supplier<Optional<ClassInstance>> superclassSupplier;
