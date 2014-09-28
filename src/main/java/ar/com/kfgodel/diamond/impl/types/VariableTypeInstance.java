@@ -29,4 +29,9 @@ public class VariableTypeInstance extends TypeInstanceSupport {
         return variableType;
     }
 
+    @Override
+    public String toString() {
+        return this.names().declarationName();
+    }
+
 }

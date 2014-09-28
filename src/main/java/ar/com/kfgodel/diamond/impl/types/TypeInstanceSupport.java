@@ -1,5 +1,6 @@
 package ar.com.kfgodel.diamond.impl.types;
 
+import ar.com.kfgodel.diamond.api.ClassInstance;
 import ar.com.kfgodel.diamond.api.sources.TypeNames;
 import ar.com.kfgodel.diamond.api.types.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
@@ -92,5 +93,10 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     @Override
     public Stream<TypeInstance> typeParameters() {
         return Stream.empty();
+    }
+
+    @Override
+    public Optional<ClassInstance> extendedType() {
+        return Optional.empty();
     }
 }

@@ -2,6 +2,7 @@ package ar.com.kfgodel.diamond.api.sources;
 
 import ar.com.kfgodel.diamond.api.ClassInstance;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.diamond.impl.generics.X24;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.*;
@@ -73,12 +74,12 @@ public interface TypeSources {
     TypeInstance from(AnnotatedArrayType annotatedArrayType);
 
     /**
-     * Retrieves a type instance from a parameterized type and its attached annotations
+     * Retrieves a type instance from a native class and its attached annotations
      * @param aClass The native parameterized type
      * @param annotations The attached annotations
      * @return The diamond representation
      */
-    TypeInstance from(Class<?> aClass, Annotation[] annotations);
+    ClassInstance from(Class<?> aClass, Annotation[] annotations);
 
     /**
      * Retrieves a type instance from an unspecific type
@@ -94,5 +95,5 @@ public interface TypeSources {
      */
     TypeInstance fromUnspecific(AnnotatedType annotatedType);
 
-
+    ClassInstance from(X24 x24);
 }

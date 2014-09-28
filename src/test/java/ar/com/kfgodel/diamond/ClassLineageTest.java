@@ -5,8 +5,6 @@ import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.api.ClassInstance;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.testobjects.lineage.ChildClass;
-import ar.com.kfgodel.diamond.testobjects.lineage.GrandParentClass;
-import ar.com.kfgodel.diamond.testobjects.lineage.ParentClass;
 import org.junit.runner.RunWith;
 
 import java.util.Arrays;
@@ -50,13 +48,17 @@ public class ClassLineageTest extends JavaSpec<DiamondTestContext> {
             });
 
             it("can answer the ancestor of a member", ()->{
-                Optional<ClassInstance> ancestor = context().lineage().ancestorOf(Diamond.of(ParentClass.class));
+                ClassInstance childType = context().lineage().lowestDescendant();
+                ClassInstance parentType = context().lineage().ancestorOf(childType).get();
+                Optional<ClassInstance> ancestor = context().lineage().ancestorOf(parentType);
                 assertThat(ancestor.get().name()).isEqualTo("GrandParentClass");
             });
 
 
             it("can answer the descendant of a member", ()->{
-                Optional<ClassInstance> descendant = context().lineage().descendantOf(Diamond.of(ParentClass.class));
+                ClassInstance childType = context().lineage().lowestDescendant();
+                ClassInstance parentType = context().lineage().ancestorOf(childType).get();
+                Optional<ClassInstance> descendant = context().lineage().descendantOf(parentType);
                 assertThat(descendant.get().name()).isEqualTo("ChildClass");
             });
 
@@ -67,9 +69,24 @@ public class ClassLineageTest extends JavaSpec<DiamondTestContext> {
                         .isEqualTo(Arrays.asList("int"));
             });
 
-
-            it("can answer the actual value for a generic type parameter of a member", ()->{
-                context().lineage().getActualTypeArgumentsFor(GrandParentClass.class);
+            describe("generic arguments", ()->{
+                it("start from the lowest descendant", ()->{
+                    List<String> argumentNames = context().lineage().lowestDescendant().typeArguments().map((arg) -> arg.name()).collect(Collectors.toList());
+                    assertThat(argumentNames).isEqualTo(Arrays.asList());
+                });
+                it("bubble up to its parent", ()->{
+                    ClassInstance childType = context().lineage().lowestDescendant();
+                    List<String> argumentNames = context().lineage().ancestorOf(childType).get()
+                            .typeArguments().map((arg) -> arg.name()).collect(Collectors.toList());
+                    assertThat(argumentNames).isEqualTo(Arrays.asList("C", "Integer"));
+                });
+                it("grand parents, and so on", ()->{
+                    ClassInstance childType = context().lineage().lowestDescendant();
+                    ClassInstance parentType = context().lineage().ancestorOf(childType).get();
+                    List<String> argumentNames = context().lineage().ancestorOf(parentType).get()
+                            .typeArguments().map((arg) -> arg.name()).collect(Collectors.toList());
+                    assertThat(argumentNames).isEqualTo(Arrays.asList("Integer"));
+                });
             });
 
         });

@@ -27,6 +27,7 @@ import java.util.stream.Stream;
 public class FixedTypeInstance extends TypeInstanceSupport implements ClassInstance{
 
     private LazyValue<Optional<ClassInstance>> superclass;
+    private LazyValue<Optional<ClassInstance>> extendedType;
     private Optional<TypeInstance> componentType;
     private List<TypeInstance> typeArguments;
     private LazyValue<List<TypeInstance>> typeParameters;
@@ -57,8 +58,13 @@ public class FixedTypeInstance extends TypeInstanceSupport implements ClassInsta
     }
 
     @Override
-    public Optional<ClassInstance> getSuperclass() {
+    public Optional<ClassInstance> superclass() {
         return superclass.get();
+    }
+
+    @Override
+    public Optional<ClassInstance> extendedType() {
+        return this.extendedType.get();
     }
 
     @Override
@@ -71,9 +77,7 @@ public class FixedTypeInstance extends TypeInstanceSupport implements ClassInsta
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append(this.names().classloaderName());
-        return builder.toString();
+        return this.names().declarationName();
     }
 
 
@@ -86,6 +90,7 @@ public class FixedTypeInstance extends TypeInstanceSupport implements ClassInsta
         FixedTypeInstance fixedType = new FixedTypeInstance();
         fixedType.setNames(parts.getNames());
         fixedType.superclass = SuppliedValue.create(parts.getSuperclassSupplier());
+        fixedType.extendedType = SuppliedValue.create(parts.getExtendedTypeSupplier());
         fixedType.typeArguments = parts.getTypeArguments();
         fixedType.componentType = parts.getComponentType();
         fixedType.setAnnotations(parts.getAnnotations());

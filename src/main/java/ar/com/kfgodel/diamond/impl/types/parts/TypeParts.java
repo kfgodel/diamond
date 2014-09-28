@@ -21,11 +21,13 @@ public class TypeParts {
 
     private TypeNames names;
     private Supplier<Optional<ClassInstance>> superclassSupplier;
+    private Supplier<Optional<ClassInstance>> extendedTypeSupplier;
     private Annotation[] annotations;
     private Optional<TypeInstance> componentType;
     private TypeBounds bounds;
-    private List<TypeInstance> typeArguments;
     private Supplier<List<TypeInstance>> typeParametersSupplier;
+    private List<TypeInstance> typeArguments;
+    private List<TypeInstance> subtypeArguments;
 
     public TypeNames getNames() {
         if(names == null){
@@ -104,6 +106,18 @@ public class TypeParts {
 
     public void setTypeParametersSupplier(Supplier<List<TypeInstance>> typeParametersSupplier) {
         this.typeParametersSupplier = typeParametersSupplier;
+    }
+
+
+    public Supplier<Optional<ClassInstance>> getExtendedTypeSupplier() {
+        if(extendedTypeSupplier == null){
+            throw new DiamondException("extended type is needed to create a type instance");
+        }
+        return extendedTypeSupplier;
+    }
+
+    public void setExtendedTypeSupplier(Supplier<Optional<ClassInstance>> extendedTypeSupplier) {
+        this.extendedTypeSupplier = extendedTypeSupplier;
     }
 
     public static TypeParts create() {

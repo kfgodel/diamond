@@ -37,9 +37,4 @@ public interface ClassLineage {
      */
     Optional<ClassInstance> descendantOf(ClassInstance ancestor);
 
-    /**
-     * Returns the list of concrete type arguments used in this lineage for the given member
-     * @param member The class member of this lineage
-     */
-    void getActualTypeArgumentsFor(Class<?> member);
 }
