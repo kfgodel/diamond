@@ -4,11 +4,11 @@ import ar.com.kfgodel.diamond.api.ClassInstance;
 import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 import ar.com.kfgodel.diamond.api.sources.TypeSources;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.diamond.impl.generics.X24;
 import ar.com.kfgodel.diamond.impl.types.parts.NativeTypeConverter;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.*;
-import java.util.stream.Stream;
 
 /**
  * This type implements the spurces for type instances
@@ -43,32 +43,27 @@ public class TypeSourceImpl implements TypeSources {
 
     @Override
     public TypeInstance from(AnnotatedWildcardType annotatedWildCard) {
-        return NativeTypeConverter.convert(annotatedWildCard);
+        return NativeTypeConverter.convert(annotatedWildCard, X24.create());
     }
 
     @Override
     public TypeInstance from(AnnotatedTypeVariable annotatedTypeVariable) {
-        return NativeTypeConverter.convert(annotatedTypeVariable);
+        return NativeTypeConverter.convert(annotatedTypeVariable, X24.create());
     }
 
     @Override
     public TypeInstance from(AnnotatedParameterizedType annotatedParameterized) {
-        return NativeTypeConverter.convert(annotatedParameterized);
+        return NativeTypeConverter.convert(annotatedParameterized, X24.create());
     }
 
     @Override
     public TypeInstance from(AnnotatedArrayType annotatedArrayType) {
-        return NativeTypeConverter.convert(annotatedArrayType);
+        return NativeTypeConverter.convert(annotatedArrayType, X24.create());
     }
 
     @Override
     public ClassInstance from(Class<?> aClass, Annotation[] annotations) {
-        return NativeTypeConverter.convert(aClass, annotations);
-    }
-
-    @Override
-    public ClassInstance from(Class<?> aClass, Stream<TypeInstance> typeArguments) {
-        return NativeTypeConverter.convert(aClass, typeArguments);
+        return NativeTypeConverter.convert(aClass, annotations, X24.create());
     }
 
     @Override
@@ -101,6 +96,29 @@ public class TypeSourceImpl implements TypeSources {
         Type baseType = annotatedType.getType();
         if(baseType instanceof Class){
             return from((Class<?>) baseType, annotatedType.getAnnotations());
+        }
+        if(baseType == null){
+            throw new DiamondException("The annotated type["+annotatedType+"] has a getType() == null. This is bug on earlier version of the JDK 8.\n" +
+                    "Please upgrade your VM of this functionality will not work. Related: https://bugs.openjdk.java.net/browse/JDK-8038994");
+        }
+        throw new DiamondException("An annotated type for something that's not a class doesn't have a creation method: " + baseType);
+    }
+
+    @Override
+    public TypeInstance from(X24 x24) {
+        AnnotatedType annotatedType = x24.getAnnotatedType();
+        if (annotatedType instanceof AnnotatedParameterizedType){
+            return NativeTypeConverter.convert((AnnotatedParameterizedType) annotatedType, x24);
+        }else if (annotatedType instanceof AnnotatedTypeVariable){
+            return NativeTypeConverter.convert((AnnotatedTypeVariable)annotatedType, x24);
+        }else if (annotatedType instanceof AnnotatedWildcardType){
+            return NativeTypeConverter.convert((AnnotatedWildcardType)annotatedType, x24);
+        } else if (annotatedType instanceof AnnotatedArrayType){
+            return NativeTypeConverter.convert((AnnotatedArrayType)annotatedType, x24);
+        }
+        Type baseType = annotatedType.getType();
+        if(baseType instanceof Class){
+            return NativeTypeConverter.convert((Class<?>) baseType, annotatedType.getAnnotations(), x24);
         }
         if(baseType == null){
             throw new DiamondException("The annotated type["+annotatedType+"] has a getType() == null. This is bug on earlier version of the JDK 8.\n" +

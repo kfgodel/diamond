@@ -77,9 +77,7 @@ public class FixedTypeInstance extends TypeInstanceSupport implements ClassInsta
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append(this.names().classloaderName());
-        return builder.toString();
+        return this.names().declarationName();
     }
 
 

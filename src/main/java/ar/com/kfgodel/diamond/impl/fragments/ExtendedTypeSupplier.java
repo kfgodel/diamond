@@ -2,8 +2,11 @@ package ar.com.kfgodel.diamond.impl.fragments;
 
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.diamond.impl.generics.ParametrizationAnalyzer;
+import ar.com.kfgodel.diamond.impl.generics.X24;
 
 import java.lang.reflect.AnnotatedType;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
 
@@ -12,7 +15,9 @@ import java.util.function.Supplier;
  * Created by kfgodel on 27/09/14.
  */
 public class ExtendedTypeSupplier implements Supplier<Optional<TypeInstance>> {
+
     private Class<?> nativeClass;
+    private List<TypeInstance> typeArguments;
 
     @Override
     public Optional<TypeInstance> get() {
@@ -20,12 +25,16 @@ public class ExtendedTypeSupplier implements Supplier<Optional<TypeInstance>> {
         if(annotatedSuperclass == null){
             return Optional.empty();
         }
-        return Optional.of(Diamond.types().fromUnspecific(annotatedSuperclass));
+        X24 x24 = X24.create();
+        x24.setAnnotatedType(annotatedSuperclass);
+        x24.setActualArgumentsReplacer(ActualArgumentReplacer.create(typeArguments, ParametrizationAnalyzer.create(nativeClass).get()));
+        return Optional.of(Diamond.types().from(x24));
     }
 
-    public static ExtendedTypeSupplier create(Class<?> nativeClass) {
+    public static ExtendedTypeSupplier create(Class<?> nativeClass, List<TypeInstance> typeArguments) {
         ExtendedTypeSupplier supplier = new ExtendedTypeSupplier();
         supplier.nativeClass = nativeClass;
+        supplier.typeArguments = typeArguments;
         return supplier;
     }
 

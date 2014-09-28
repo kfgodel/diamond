@@ -87,17 +87,17 @@ public class ClassInstanceTest extends JavaSpec<DiamondTestContext> {
                  * The superclass is its un-parameterized supertype (the one that's used on runtime)
                  */
                 it("has correct type arguments for its superclass", ()->{
-                    List<String> parameterNames = context().classInstance().superclass().get().typeParameters()
+                    List<String> parameterNames = context().classInstance().superclass().get().typeArguments()
                             .map((typeParamenter) -> typeParamenter.name())
                             .collect(Collectors.toList());
-                    assertThat(parameterNames).isEqualTo(Arrays.asList("P1", "P2"));
+                    assertThat(parameterNames).isEqualTo(Arrays.asList());
                 });
 
                 /**
                  * The extended type is its parameterized supertype (the one that's is used on compile time)
                  */
                 it("has correct type arguments for its extended type", ()->{
-                    List<String> parameterNames = context().classInstance().extendedType().get().typeParameters()
+                    List<String> parameterNames = context().classInstance().extendedType().get().typeArguments()
                             .map((typeParamenter) -> typeParamenter.name())
                             .collect(Collectors.toList());
                     assertThat(parameterNames).isEqualTo(Arrays.asList("C", "Integer"));

@@ -25,8 +25,9 @@ public class TypeParts {
     private Annotation[] annotations;
     private Optional<TypeInstance> componentType;
     private TypeBounds bounds;
-    private List<TypeInstance> typeArguments;
     private Supplier<List<TypeInstance>> typeParametersSupplier;
+    private List<TypeInstance> typeArguments;
+    private List<TypeInstance> subtypeArguments;
 
     public TypeNames getNames() {
         if(names == null){

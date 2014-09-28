@@ -2,10 +2,10 @@ package ar.com.kfgodel.diamond.api.sources;
 
 import ar.com.kfgodel.diamond.api.ClassInstance;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.diamond.impl.generics.X24;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.*;
-import java.util.stream.Stream;
 
 /**
  * This type represents the possible sources for a type instance
@@ -82,16 +82,6 @@ public interface TypeSources {
     ClassInstance from(Class<?> aClass, Annotation[] annotations);
 
     /**
-     * Retrieves a type instance from a native class and its type arguments.<br>
-     *     As classes don't have type arguments and they come from a different source this method is needed on
-     *     certain scenarios to get the parameterized class
-     * @param aClass The native class representation
-     * @param typeArguments The actual arguments for the class generic parameters
-     * @return The type that represents it
-     */
-    ClassInstance from(Class<?> aClass, Stream<TypeInstance> typeArguments);
-
-    /**
      * Retrieves a type instance from an unspecific type
      * @param type The type to get the type representation from
      * @return An instance that represents the type
@@ -105,5 +95,5 @@ public interface TypeSources {
      */
     TypeInstance fromUnspecific(AnnotatedType annotatedType);
 
-
+    TypeInstance from(X24 x24);
 }
