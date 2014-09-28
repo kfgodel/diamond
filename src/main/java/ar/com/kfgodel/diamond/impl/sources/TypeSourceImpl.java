@@ -105,14 +105,14 @@ public class TypeSourceImpl implements TypeSources {
     }
 
     @Override
-    public TypeInstance from(X24 x24) {
+    public ClassInstance from(X24 x24) {
         AnnotatedType annotatedType = x24.getAnnotatedType();
         if (annotatedType instanceof AnnotatedParameterizedType){
             return NativeTypeConverter.convert((AnnotatedParameterizedType) annotatedType, x24);
         }else if (annotatedType instanceof AnnotatedTypeVariable){
-            return NativeTypeConverter.convert((AnnotatedTypeVariable)annotatedType, x24);
+            throw new DiamondException("Is ["+annotatedType.getType()+"] a extended type of a class?");
         }else if (annotatedType instanceof AnnotatedWildcardType){
-            return NativeTypeConverter.convert((AnnotatedWildcardType)annotatedType, x24);
+            throw new DiamondException("Is ["+annotatedType.getType()+"] a extended type of a class?");
         } else if (annotatedType instanceof AnnotatedArrayType){
             return NativeTypeConverter.convert((AnnotatedArrayType)annotatedType, x24);
         }

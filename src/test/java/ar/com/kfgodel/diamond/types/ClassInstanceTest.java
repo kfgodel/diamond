@@ -45,7 +45,7 @@ public class ClassInstanceTest extends JavaSpec<DiamondTestContext> {
             });
 
             describe("lineage", () -> {
-                it("has a lineage with its ancestors", () -> {
+                it("has a lineage with its type ancestors", () -> {
                     ClassLineage classLineage = context().classInstance().lineage();
                     assertThat(classLineage.highestAncestor().name())
                             .isEqualTo("Object");

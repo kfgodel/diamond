@@ -23,4 +23,12 @@ public class GenericParameterization implements SupertypeParameterization {
         return parameterization;
     }
 
+    @Override
+    public void parameterizeWith(List<TypeInstance> subtypeArguments, List<TypeInstance> supertypeArgs) {
+        if(subtypeArguments.isEmpty()){
+            // There are no arguments to replace from
+            return;
+        }
+        this.argumentSubstituter.accept(subtypeArguments, supertypeArgs);
+    }
 }

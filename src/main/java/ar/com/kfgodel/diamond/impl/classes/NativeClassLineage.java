@@ -65,7 +65,7 @@ public class NativeClassLineage implements ClassLineage {
      * Returns a member of this lineage relative in position to given member
      * @param referentClass The referent member
      * @param offset The offset position of the asked member
-     * @return The relative member or empty if there's no member on that position or referent doesn't elong to this lineage
+     * @return The relative member or empty if there's no member on that position or referent doesn't belong to this lineage
      */
     private Optional<ClassInstance> memberRelativeTo(ClassInstance referentClass, int offset) {
         int referentIndex = classes.indexOf(referentClass);
@@ -85,7 +85,7 @@ public class NativeClassLineage implements ClassLineage {
 
     public static NativeClassLineage create(ClassInstance lowestDescendant) {
         NativeClassLineage lineage = new NativeClassLineage();
-        lineage.classes = StreamSupport.stream(SuperClassSpliterator.create(lowestDescendant), false).collect(Collectors.toList());
+        lineage.classes = StreamSupport.stream(ExtendedTypeSpliterator.create(lowestDescendant), false).collect(Collectors.toList());
         return lineage;
     }
 

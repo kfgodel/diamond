@@ -1,5 +1,6 @@
 package ar.com.kfgodel.diamond.api.types;
 
+import ar.com.kfgodel.diamond.api.ClassInstance;
 import ar.com.kfgodel.diamond.api.annotations.Annotated;
 import ar.com.kfgodel.diamond.api.naming.Named;
 import ar.com.kfgodel.diamond.api.sources.TypeNames;
@@ -57,5 +58,5 @@ public interface TypeInstance extends Named, Annotated {
      *  The extended type is the parent class with correct type arguments assigned from this type,
      *  thus is the compile time parent type of this type.
      */
-    Optional<TypeInstance> extendedType();
+    Optional<ClassInstance> extendedType();
 }

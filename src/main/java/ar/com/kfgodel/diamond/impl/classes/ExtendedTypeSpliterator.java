@@ -6,10 +6,10 @@ import java.util.Spliterator;
 import java.util.function.Consumer;
 
 /**
- * This type represents the spliterator that traverses the superclases of a class
- * Created by kfgodel on 19/09/14.
+ * This type represents a spliterator that traverses the extended types of a type
+ * Created by kfgodel on 28/09/14.
  */
-public class SuperClassSpliterator implements Spliterator<ClassInstance> {
+public class ExtendedTypeSpliterator implements Spliterator<ClassInstance> {
 
     private TypeSpliterator<ClassInstance> internalSpliterator;
 
@@ -33,10 +33,9 @@ public class SuperClassSpliterator implements Spliterator<ClassInstance> {
         return internalSpliterator.characteristics();
     }
 
-    public static SuperClassSpliterator create(ClassInstance firstInstance) {
-        SuperClassSpliterator spliterator = new SuperClassSpliterator();
-        spliterator.internalSpliterator = TypeSpliterator.create(firstInstance, (instance)-> instance.superclass());
+    public static ExtendedTypeSpliterator create(ClassInstance firstInstance) {
+        ExtendedTypeSpliterator spliterator = new ExtendedTypeSpliterator();
+        spliterator.internalSpliterator = TypeSpliterator.create(firstInstance, (instance)-> instance.extendedType());
         return spliterator;
     }
-
 }

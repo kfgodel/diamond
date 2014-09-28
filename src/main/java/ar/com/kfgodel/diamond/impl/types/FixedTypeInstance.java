@@ -27,7 +27,7 @@ import java.util.stream.Stream;
 public class FixedTypeInstance extends TypeInstanceSupport implements ClassInstance{
 
     private LazyValue<Optional<ClassInstance>> superclass;
-    private LazyValue<Optional<TypeInstance>> extendedType;
+    private LazyValue<Optional<ClassInstance>> extendedType;
     private Optional<TypeInstance> componentType;
     private List<TypeInstance> typeArguments;
     private LazyValue<List<TypeInstance>> typeParameters;
@@ -63,7 +63,7 @@ public class FixedTypeInstance extends TypeInstanceSupport implements ClassInsta
     }
 
     @Override
-    public Optional<TypeInstance> extendedType() {
+    public Optional<ClassInstance> extendedType() {
         return this.extendedType.get();
     }
 

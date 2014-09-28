@@ -95,5 +95,5 @@ public interface TypeSources {
      */
     TypeInstance fromUnspecific(AnnotatedType annotatedType);
 
-    TypeInstance from(X24 x24);
+    ClassInstance from(X24 x24);
 }

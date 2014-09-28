@@ -16,7 +16,8 @@ public class ActualArgumentReplacer implements Consumer<List<TypeInstance>> {
     private SupertypeParameterization parameterization;
 
     @Override
-    public void accept(List<TypeInstance> typeInstances) {
+    public void accept(List<TypeInstance> supertypeArgs) {
+        parameterization.parameterizeWith(subtypeArguments, supertypeArgs);
     }
 
     public static ActualArgumentReplacer create(List<TypeInstance> subtypeArguments, SupertypeParameterization parameterization) {
