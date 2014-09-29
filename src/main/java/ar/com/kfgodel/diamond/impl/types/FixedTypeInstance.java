@@ -89,12 +89,12 @@ public class FixedTypeInstance extends TypeInstanceSupport implements ClassInsta
     public static FixedTypeInstance create(FixedTypeParts parts) {
         FixedTypeInstance fixedType = new FixedTypeInstance();
         fixedType.setNames(parts.getNames());
+        fixedType.setAnnotations(parts.getAnnotations());
         fixedType.superclass = SuppliedValue.create(parts.getSuperclassSupplier());
         fixedType.extendedType = SuppliedValue.create(parts.getExtendedTypeSupplier());
+        fixedType.typeParameters = SuppliedValue.create(parts.getTypeParametersSupplier());
         fixedType.typeArguments = parts.getTypeArguments();
         fixedType.componentType = parts.getComponentType();
-        fixedType.setAnnotations(parts.getAnnotations());
-        fixedType.typeParameters = SuppliedValue.create(parts.getTypeParametersSupplier());
         return fixedType;
     }
 

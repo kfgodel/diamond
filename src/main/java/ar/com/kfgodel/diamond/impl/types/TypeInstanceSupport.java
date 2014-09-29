@@ -6,6 +6,7 @@ import ar.com.kfgodel.diamond.api.types.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.naming.NoNames;
 import ar.com.kfgodel.diamond.impl.types.bounds.NoBounds;
+import ar.com.kfgodel.diamond.impl.types.parts.annotations.NoAnnotationsSupplier;
 
 import java.lang.annotation.Annotation;
 import java.util.Arrays;
@@ -19,14 +20,9 @@ import java.util.stream.Stream;
 public abstract class TypeInstanceSupport implements TypeInstance {
 
     /**
-     * Constant used to indicate the lack of annotations
-     */
-    public static final Annotation[] NO_ANNOTATIONS = new Annotation[0];
-
-    /**
      * Attached type annotations
      */
-    private Annotation[] annotations = NO_ANNOTATIONS;
+    private Annotation[] annotations = NoAnnotationsSupplier.NO_ANNOTATIONS;
     /**
      * Variations on the name for this type
      */

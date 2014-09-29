@@ -72,7 +72,7 @@ public class NativeTypeConverter {
      */
     public static FixedTypeInstance convert(Class<?> nativeClass, Annotation[] annotations, X24 x24) {
         TypePartsHelper helper = TypePartsHelper.create();
-        helper.setNamesFrom(nativeClass);
+        helper.setNamesFrom(nativeClass, nativeClass);
         helper.setSuperclassSupplierFrom(nativeClass);
         helper.setNoTypeArguments();
         helper.setExtendedTypeSupplierFrom(nativeClass);
@@ -89,7 +89,7 @@ public class NativeTypeConverter {
      */
     public static FixedTypeInstance convert(Class<?> nativeClass) {
         TypePartsHelper helper = TypePartsHelper.create();
-        helper.setNamesFrom(nativeClass);
+        helper.setNamesFrom(nativeClass, nativeClass);
         helper.setSuperclassSupplierFrom(nativeClass);
         helper.setNoTypeArguments();
         helper.setExtendedTypeSupplierFrom(nativeClass);
@@ -150,6 +150,7 @@ public class NativeTypeConverter {
     public static FixedTypeInstance convert(AnnotatedParameterizedType annotatedParameterized, X24 x24) {
         TypePartsHelper helper = TypePartsHelper.create();
         helper.setAnnotationsFrom(annotatedParameterized);
+        helper.setActualArgumentsReplacer(x24.getActualArgumentsReplacer());
 
         ParameterizedType parameterizedType = (ParameterizedType) annotatedParameterized.getType();
         Class<?> rawClass = RawClassExtractor.from(parameterizedType);
@@ -158,7 +159,6 @@ public class NativeTypeConverter {
         helper.setNoComponentType();
         helper.setTypeParametersSupplierFrom(rawClass);
 
-        helper.setActualArgumentsReplacer(x24.getActualArgumentsReplacer());
         helper.setTypeArgumentsFrom(annotatedParameterized);
         helper.setExtendedTypeSupplierFrom(rawClass);
         return helper.createFixedType();

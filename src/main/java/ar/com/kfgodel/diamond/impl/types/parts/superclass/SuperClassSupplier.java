@@ -1,4 +1,4 @@
-package ar.com.kfgodel.diamond.impl.fragments;
+package ar.com.kfgodel.diamond.impl.types.parts.superclass;
 
 import ar.com.kfgodel.diamond.api.ClassInstance;
 import ar.com.kfgodel.diamond.api.Diamond;

@@ -1,4 +1,4 @@
-package ar.com.kfgodel.diamond.impl.fragments;
+package ar.com.kfgodel.diamond.impl.types.parts.typeparameters;
 
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;

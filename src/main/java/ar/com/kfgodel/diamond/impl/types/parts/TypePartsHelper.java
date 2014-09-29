@@ -3,16 +3,16 @@ package ar.com.kfgodel.diamond.impl.types.parts;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.sources.TypeNames;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
-import ar.com.kfgodel.diamond.impl.fragments.ExtendedTypeSupplier;
-import ar.com.kfgodel.diamond.impl.fragments.SuperClassSupplier;
-import ar.com.kfgodel.diamond.impl.fragments.TypeParametersSupplier;
 import ar.com.kfgodel.diamond.impl.naming.ClassNames;
 import ar.com.kfgodel.diamond.impl.naming.SingleName;
 import ar.com.kfgodel.diamond.impl.types.FixedTypeInstance;
-import ar.com.kfgodel.diamond.impl.types.TypeInstanceSupport;
 import ar.com.kfgodel.diamond.impl.types.VariableTypeInstance;
 import ar.com.kfgodel.diamond.impl.types.bounds.DoubleTypeBounds;
 import ar.com.kfgodel.diamond.impl.types.bounds.UpperOnlyTypeBounds;
+import ar.com.kfgodel.diamond.impl.types.parts.annotations.NoAnnotationsSupplier;
+import ar.com.kfgodel.diamond.impl.types.parts.extendedtype.ExtendedTypeSupplier;
+import ar.com.kfgodel.diamond.impl.types.parts.superclass.SuperClassSupplier;
+import ar.com.kfgodel.diamond.impl.types.parts.typeparameters.TypeParametersSupplier;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.*;
@@ -42,8 +42,8 @@ public class TypePartsHelper {
         this.setAnnotationsFrom(annotatedType.getAnnotations());
     }
 
-    public void setNamesFrom(Class<?> nativeClass) {
-        setNamesFrom(nativeClass, nativeClass);
+    public void setNamesFrom(Class<?> rawClass, Type type) {
+        setNamesFrom(ClassNames.create(rawClass, type.getTypeName()));
     }
 
     public void setNamesFrom(TypeNames names) {
@@ -57,15 +57,26 @@ public class TypePartsHelper {
     public void setBoundsFrom(AnnotatedTypeVariable annotatedTypeVariable) {
         setBoundsFrom(annotatedTypeVariable.getAnnotatedBounds());
     }
-
-    public void setBoundsFrom(AnnotatedType[] typeBounds) {
-
-        parts.setBounds(UpperOnlyTypeBounds.create(typeListFrom(typeBounds)));
-    }
-
     public void setBoundsFrom(TypeVariable typeVariable) {
         setBoundsFrom(typeVariable.getAnnotatedBounds());
     }
+
+    public void setBoundsFrom(AnnotatedType[] typeBounds) {
+        parts.setBounds(UpperOnlyTypeBounds.create(typeListFrom(typeBounds)));
+    }
+
+
+    public void setBoundsFrom(AnnotatedWildcardType annotatedWildCard) {
+        setBoundsFrom(annotatedWildCard.getAnnotatedUpperBounds(), annotatedWildCard.getAnnotatedLowerBounds());
+    }
+    public void setBoundsFrom(WildcardType wildcardType) {
+        setBoundsFrom(wildcardType.getUpperBounds(), wildcardType.getLowerBounds());
+    }
+
+    private void setBoundsFrom(Object[] upperBounds, Object[] lowerBounds) {
+        parts.setBounds(DoubleTypeBounds.create(typeListFrom(upperBounds), typeListFrom(lowerBounds)));
+    }
+
 
     public TypeParts getParts() {
         return parts;
@@ -112,12 +123,9 @@ public class TypePartsHelper {
     }
 
     public void setNoAnnotations() {
-        this.setAnnotationsFrom(TypeInstanceSupport.NO_ANNOTATIONS);
+        this.setAnnotationsFrom(NoAnnotationsSupplier.NO_ANNOTATIONS);
     }
 
-    public void setNamesFrom(Class<?> rawClass, Type type) {
-        setNamesFrom(ClassNames.create(rawClass, type.getTypeName()));
-    }
 
     public void setComponentTypeFrom(GenericArrayType genericArrayType) {
         setComponentTypeFrom(genericArrayType.getGenericComponentType());
@@ -131,22 +139,11 @@ public class TypePartsHelper {
         parts.setComponentType(Optional.of(Diamond.types().fromUnspecific(componentType)));
     }
 
-    public void setBoundsFrom(AnnotatedWildcardType annotatedWildCard) {
-        setBoundsFrom(annotatedWildCard.getAnnotatedUpperBounds(), annotatedWildCard.getAnnotatedLowerBounds());
-    }
-
-    private void setBoundsFrom(Object[] upperBounds, Object[] lowerBounds) {
-        parts.setBounds(DoubleTypeBounds.create(typeListFrom(upperBounds), typeListFrom(lowerBounds)));
-    }
 
     public static List<TypeInstance> typeListFrom(Object[] types) {
         return Arrays.stream(types)
                 .map((type) -> Diamond.types().fromUnspecific(type))
                 .collect(Collectors.toList());
-    }
-
-    public void setBoundsFrom(WildcardType wildcardType) {
-        setBoundsFrom(wildcardType.getUpperBounds(), wildcardType.getLowerBounds());
     }
 
     public void setActualArgumentsReplacer(Consumer<List<TypeInstance>> actualArgumentsReplacer) {
