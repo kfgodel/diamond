@@ -1,6 +1,6 @@
 package ar.com.kfgodel.diamond.impl.classes;
 
-import ar.com.kfgodel.diamond.api.ClassInstance;
+import ar.com.kfgodel.diamond.api.types.TypeInstance;
 
 import java.util.Spliterator;
 import java.util.function.Consumer;
@@ -9,17 +9,17 @@ import java.util.function.Consumer;
  * This type represents a spliterator that traverses the extended types of a type
  * Created by kfgodel on 28/09/14.
  */
-public class ExtendedTypeSpliterator implements Spliterator<ClassInstance> {
+public class ExtendedTypeSpliterator implements Spliterator<TypeInstance> {
 
-    private TypeSpliterator<ClassInstance> internalSpliterator;
+    private TypeSpliterator<TypeInstance> internalSpliterator;
 
     @Override
-    public boolean tryAdvance(Consumer<? super ClassInstance> action) {
+    public boolean tryAdvance(Consumer<? super TypeInstance> action) {
         return internalSpliterator.tryAdvance(action);
     }
 
     @Override
-    public Spliterator<ClassInstance> trySplit() {
+    public Spliterator<TypeInstance> trySplit() {
         return internalSpliterator.trySplit();
     }
 
@@ -33,7 +33,7 @@ public class ExtendedTypeSpliterator implements Spliterator<ClassInstance> {
         return internalSpliterator.characteristics();
     }
 
-    public static ExtendedTypeSpliterator create(ClassInstance firstInstance) {
+    public static ExtendedTypeSpliterator create(TypeInstance firstInstance) {
         ExtendedTypeSpliterator spliterator = new ExtendedTypeSpliterator();
         spliterator.internalSpliterator = TypeSpliterator.create(firstInstance, (instance)-> instance.extendedType());
         return spliterator;

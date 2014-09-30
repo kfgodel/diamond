@@ -4,6 +4,7 @@ import ar.com.kfgodel.diamond.api.sources.ClassFieldSources;
 import ar.com.kfgodel.diamond.api.sources.ClassMethodSources;
 import ar.com.kfgodel.diamond.api.sources.ClassSources;
 import ar.com.kfgodel.diamond.api.sources.TypeSources;
+import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.DiamondApi;
 
 /**
@@ -22,7 +23,7 @@ public interface Diamond {
      * @param nativeClass The native class instance to base on
      * @return A diamond class instance representation
      */
-    public static ClassInstance of(Class<?> nativeClass){
+    public static TypeInstance of(Class<?> nativeClass){
         return types().from(nativeClass);
     }
 

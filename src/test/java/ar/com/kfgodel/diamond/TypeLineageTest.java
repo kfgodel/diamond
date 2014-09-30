@@ -2,8 +2,8 @@ package ar.com.kfgodel.diamond;
 
 import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
-import ar.com.kfgodel.diamond.api.ClassInstance;
 import ar.com.kfgodel.diamond.api.Diamond;
+import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.testobjects.lineage.ChildClass;
 import org.junit.runner.RunWith;
 
@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Created by kfgodel on 19/09/14.
  */
 @RunWith(JavaSpecRunner.class)
-public class ClassLineageTest extends JavaSpec<DiamondTestContext> {
+public class TypeLineageTest extends JavaSpec<DiamondTestContext> {
     @Override
     public void define() {
 
@@ -41,29 +41,29 @@ public class ClassLineageTest extends JavaSpec<DiamondTestContext> {
             });
 
             it("contains all the classes in between", ()->{
-                Stream<ClassInstance> lineageMembers = context().lineage().allMembers();
+                Stream<TypeInstance> lineageMembers = context().lineage().allMembers();
                 List<String> memberNames = lineageMembers.map((member) -> member.name()).collect(Collectors.toList());
                 assertThat(memberNames)
                         .isEqualTo(Arrays.asList("ChildClass", "ParentClass", "GrandParentClass", "Object"));
             });
 
             it("can answer the ancestor of a member", ()->{
-                ClassInstance childType = context().lineage().lowestDescendant();
-                ClassInstance parentType = context().lineage().ancestorOf(childType).get();
-                Optional<ClassInstance> ancestor = context().lineage().ancestorOf(parentType);
+                TypeInstance childType = context().lineage().lowestDescendant();
+                TypeInstance parentType = context().lineage().ancestorOf(childType).get();
+                Optional<TypeInstance> ancestor = context().lineage().ancestorOf(parentType);
                 assertThat(ancestor.get().name()).isEqualTo("GrandParentClass");
             });
 
 
             it("can answer the descendant of a member", ()->{
-                ClassInstance childType = context().lineage().lowestDescendant();
-                ClassInstance parentType = context().lineage().ancestorOf(childType).get();
-                Optional<ClassInstance> descendant = context().lineage().descendantOf(parentType);
+                TypeInstance childType = context().lineage().lowestDescendant();
+                TypeInstance parentType = context().lineage().ancestorOf(childType).get();
+                Optional<TypeInstance> descendant = context().lineage().descendantOf(parentType);
                 assertThat(descendant.get().name()).isEqualTo("ChildClass");
             });
 
             it("does not include Object for primitive types", ()->{
-                Stream<ClassInstance> lineageMembers = Diamond.of(int.class).lineage().allMembers();
+                Stream<TypeInstance> lineageMembers = Diamond.of(int.class).lineage().allMembers();
                 List<String> memberNames = lineageMembers.map((member) -> member.name()).collect(Collectors.toList());
                 assertThat(memberNames)
                         .isEqualTo(Arrays.asList("int"));
@@ -75,14 +75,14 @@ public class ClassLineageTest extends JavaSpec<DiamondTestContext> {
                     assertThat(argumentNames).isEqualTo(Arrays.asList());
                 });
                 it("bubble up to its parent", ()->{
-                    ClassInstance childType = context().lineage().lowestDescendant();
+                    TypeInstance childType = context().lineage().lowestDescendant();
                     List<String> argumentNames = context().lineage().ancestorOf(childType).get()
                             .typeArguments().map((arg) -> arg.name()).collect(Collectors.toList());
                     assertThat(argumentNames).isEqualTo(Arrays.asList("C", "Integer"));
                 });
                 it("grand parents, and so on", ()->{
-                    ClassInstance childType = context().lineage().lowestDescendant();
-                    ClassInstance parentType = context().lineage().ancestorOf(childType).get();
+                    TypeInstance childType = context().lineage().lowestDescendant();
+                    TypeInstance parentType = context().lineage().ancestorOf(childType).get();
                     List<String> argumentNames = context().lineage().ancestorOf(parentType).get()
                             .typeArguments().map((arg) -> arg.name()).collect(Collectors.toList());
                     assertThat(argumentNames).isEqualTo(Arrays.asList("Integer"));

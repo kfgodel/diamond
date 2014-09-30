@@ -1,11 +1,10 @@
 package ar.com.kfgodel.diamond.impl.types;
 
-import ar.com.kfgodel.diamond.api.ClassInstance;
-import ar.com.kfgodel.diamond.api.classes.ClassLineage;
-import ar.com.kfgodel.diamond.api.sources.ClassDefinedClassMethodSource;
+import ar.com.kfgodel.diamond.api.classes.TypeLineage;
+import ar.com.kfgodel.diamond.api.sources.TypeMethodSource;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
-import ar.com.kfgodel.diamond.impl.classes.NativeClassLineage;
-import ar.com.kfgodel.diamond.impl.sources.ClassDefinedClassMethodSourceImpl;
+import ar.com.kfgodel.diamond.impl.classes.ExtendedTypeLineage;
+import ar.com.kfgodel.diamond.impl.sources.TypeMethodSourceImpl;
 import ar.com.kfgodel.diamond.impl.types.description.TypeDescription;
 import ar.com.kfgodel.lazyvalue.api.LazyValue;
 import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
@@ -24,22 +23,22 @@ import java.util.stream.Stream;
  *
  * Created by kfgodel on 18/09/14.
  */
-public class FixedTypeInstance extends TypeInstanceSupport implements ClassInstance{
+public class FixedTypeInstance extends TypeInstanceSupport {
 
-    private LazyValue<Optional<ClassInstance>> superclass;
-    private LazyValue<Optional<ClassInstance>> extendedType;
+    private LazyValue<Optional<TypeInstance>> superclass;
+    private LazyValue<Optional<TypeInstance>> extendedType;
     private LazyValue<Optional<TypeInstance>> componentType;
     private LazyValue<List<TypeInstance>> typeArguments;
     private LazyValue<List<TypeInstance>> typeParameters;
 
     @Override
-    public ClassDefinedClassMethodSource methods() {
-        return ClassDefinedClassMethodSourceImpl.create(this);
+    public TypeMethodSource methods() {
+        return TypeMethodSourceImpl.create(this);
     }
 
     @Override
-    public ClassLineage lineage() {
-        return NativeClassLineage.create(this);
+    public TypeLineage lineage() {
+        return ExtendedTypeLineage.create(this);
     }
 
     @Override
@@ -58,12 +57,12 @@ public class FixedTypeInstance extends TypeInstanceSupport implements ClassInsta
     }
 
     @Override
-    public Optional<ClassInstance> superclass() {
+    public Optional<TypeInstance> superclass() {
         return superclass.get();
     }
 
     @Override
-    public Optional<ClassInstance> extendedType() {
+    public Optional<TypeInstance> extendedType() {
         return this.extendedType.get();
     }
 

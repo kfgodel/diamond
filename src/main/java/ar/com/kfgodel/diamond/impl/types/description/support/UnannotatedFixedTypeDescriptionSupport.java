@@ -1,6 +1,5 @@
 package ar.com.kfgodel.diamond.impl.types.description.support;
 
-import ar.com.kfgodel.diamond.api.ClassInstance;
 import ar.com.kfgodel.diamond.api.sources.TypeNames;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.generics.RawClassExtractor;
@@ -36,12 +35,12 @@ public abstract class UnannotatedFixedTypeDescriptionSupport extends Unannotated
     }
 
     @Override
-    public Supplier<Optional<ClassInstance>> getSuperclassSupplier() {
+    public Supplier<Optional<TypeInstance>> getSuperclassSupplier() {
         return SuperClassSupplier.create(getRawClass());
     }
 
     @Override
-    public Supplier<Optional<ClassInstance>> getExtendedTypeSupplier() {
+    public Supplier<Optional<TypeInstance>> getExtendedTypeSupplier() {
         return ExtendedTypeSupplier.create(getRawClass(), this.getTypeArguments().get());
     }
 
