@@ -1,4 +1,4 @@
-package ar.com.kfgodel.diamond.impl.fragments;
+package ar.com.kfgodel.diamond.impl.generics;
 
 import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 
@@ -39,7 +39,7 @@ public class RawClassExtractor {
      * @param type The instance to degenerify
      * @return The raw class
      */
-    private static Class<?> fromUnspecific(final Type type) {
+    public static Class<?> fromUnspecific(final Type type) {
         if (Class.class.isInstance(type)) {
             return Class.class.cast(type);
         }
@@ -54,11 +54,11 @@ public class RawClassExtractor {
         }
         if(WildcardType.class.isInstance(type)){
             WildcardType wildcardType = WildcardType.class.cast(type);
-            return defineTypeFromUpperBounds(wildcardType.getUpperBounds());
+            return deduceTypeFromUpperBounds(wildcardType.getUpperBounds());
         }
         if(TypeVariable.class.isInstance(type)){
             TypeVariable typeVariable = TypeVariable.class.cast(type);
-            return defineTypeFromUpperBounds(typeVariable.getBounds());
+            return deduceTypeFromUpperBounds(typeVariable.getBounds());
         }
         throw new DiamondException("The given type["+type+"] is unknown");
     }
@@ -67,7 +67,7 @@ public class RawClassExtractor {
      * Tries to get a raw type from a defined upper bound.<br>
      *     Default to Object for none, or more than one upper bounds
      */
-    private static Class<?> defineTypeFromUpperBounds(Type[] upperBounds) {
+    private static Class<?> deduceTypeFromUpperBounds(Type[] upperBounds) {
         if(upperBounds.length == 1){
             // If there's one, we can use that type as the raw type for the wildcard
             return fromUnspecific(upperBounds[0]);

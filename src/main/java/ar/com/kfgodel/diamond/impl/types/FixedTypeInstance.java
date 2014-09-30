@@ -6,7 +6,7 @@ import ar.com.kfgodel.diamond.api.sources.ClassDefinedClassMethodSource;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.classes.NativeClassLineage;
 import ar.com.kfgodel.diamond.impl.sources.ClassDefinedClassMethodSourceImpl;
-import ar.com.kfgodel.diamond.impl.types.parts.TypeParts;
+import ar.com.kfgodel.diamond.impl.types.description.TypeDescription;
 import ar.com.kfgodel.lazyvalue.api.LazyValue;
 import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
 
@@ -19,8 +19,8 @@ import java.util.stream.Stream;
  * variable types such as type variables or wildcards.<br>
  * <br>
  * Implementation notes:
- * - Due to class being an access point for different uses and data, most of their attributes are implemented lazy
- *   so their don't explode the entire possible tree. LazyValue variables allow ignore aspects of a class until needed
+ * - Due to class being an access point for many different use cases and data, most of their attributes are implemented lazy
+ *   so their don't prematurely explode the entire possible tree. LazyValue variables allow ignoring aspects of a class until needed
  *
  * Created by kfgodel on 18/09/14.
  */
@@ -28,8 +28,8 @@ public class FixedTypeInstance extends TypeInstanceSupport implements ClassInsta
 
     private LazyValue<Optional<ClassInstance>> superclass;
     private LazyValue<Optional<ClassInstance>> extendedType;
-    private Optional<TypeInstance> componentType;
-    private List<TypeInstance> typeArguments;
+    private LazyValue<Optional<TypeInstance>> componentType;
+    private LazyValue<List<TypeInstance>> typeArguments;
     private LazyValue<List<TypeInstance>> typeParameters;
 
     @Override
@@ -44,7 +44,7 @@ public class FixedTypeInstance extends TypeInstanceSupport implements ClassInsta
 
     @Override
     public Stream<TypeInstance> typeArguments() {
-        return typeArguments.stream();
+        return typeArguments.get().stream();
     }
 
     @Override
@@ -54,7 +54,7 @@ public class FixedTypeInstance extends TypeInstanceSupport implements ClassInsta
 
     @Override
     public Optional<TypeInstance> componentType() {
-        return componentType;
+        return componentType.get();
     }
 
     @Override
@@ -75,26 +75,20 @@ public class FixedTypeInstance extends TypeInstanceSupport implements ClassInsta
         return false;
     }
 
-    @Override
-    public String toString() {
-        return this.names().declarationName();
-    }
-
-
     /**
      * Creates a class instance with its minimum data
-     * @param parts the parts needed to create the instance
+     * @param description the description for this type
      * @return The created instance
      */
-    public static FixedTypeInstance create(TypeParts parts) {
+    public static FixedTypeInstance create(TypeDescription description) {
         FixedTypeInstance fixedType = new FixedTypeInstance();
-        fixedType.setNames(parts.getNames());
-        fixedType.superclass = SuppliedValue.create(parts.getSuperclassSupplier());
-        fixedType.extendedType = SuppliedValue.create(parts.getExtendedTypeSupplier());
-        fixedType.typeArguments = parts.getTypeArguments();
-        fixedType.componentType = parts.getComponentType();
-        fixedType.setAnnotations(parts.getAnnotations());
-        fixedType.typeParameters = SuppliedValue.create(parts.getTypeParametersSupplier());
+        fixedType.setNames(description.getNames());
+        fixedType.setAnnotations(description.getAnnotations());
+        fixedType.superclass = SuppliedValue.create(description.getSuperclassSupplier());
+        fixedType.extendedType = SuppliedValue.create(description.getExtendedTypeSupplier());
+        fixedType.typeParameters = SuppliedValue.create(description.getTypeParametersSupplier());
+        fixedType.typeArguments = SuppliedValue.create(description.getTypeArguments());
+        fixedType.componentType = SuppliedValue.create(description.getComponentType());
         return fixedType;
     }
 

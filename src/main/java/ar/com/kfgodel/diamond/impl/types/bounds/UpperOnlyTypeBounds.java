@@ -3,7 +3,6 @@ package ar.com.kfgodel.diamond.impl.types.bounds;
 import ar.com.kfgodel.diamond.api.types.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 
-import java.lang.reflect.AnnotatedType;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -25,9 +24,9 @@ public class UpperOnlyTypeBounds implements TypeBounds {
         return Stream.empty();
     }
 
-    public static UpperOnlyTypeBounds create(AnnotatedType[] upper) {
+    public static UpperOnlyTypeBounds create(List<TypeInstance> upper) {
         UpperOnlyTypeBounds bounds = new UpperOnlyTypeBounds();
-        bounds.upperBounds = DoubleTypeBounds.collect(DoubleTypeBounds.streamOf(upper));
+        bounds.upperBounds = upper;
         return bounds;
     }
 

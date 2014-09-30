@@ -4,12 +4,16 @@ import ar.com.kfgodel.diamond.api.ClassInstance;
 import ar.com.kfgodel.diamond.api.sources.TypeNames;
 import ar.com.kfgodel.diamond.api.types.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
-import ar.com.kfgodel.diamond.impl.naming.NoNames;
 import ar.com.kfgodel.diamond.impl.types.bounds.NoBounds;
+import ar.com.kfgodel.diamond.impl.types.parts.annotations.NoAnnotationsSupplier;
+import ar.com.kfgodel.diamond.impl.types.parts.names.NoNamesSupplier;
+import ar.com.kfgodel.lazyvalue.api.LazyValue;
+import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
 
 import java.lang.annotation.Annotation;
 import java.util.Arrays;
 import java.util.Optional;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 /**
@@ -19,48 +23,43 @@ import java.util.stream.Stream;
 public abstract class TypeInstanceSupport implements TypeInstance {
 
     /**
-     * Constant used to indicate the lack of annotations
-     */
-    public static final Annotation[] NO_ANNOTATIONS = new Annotation[0];
-
-    /**
      * Attached type annotations
      */
-    private Annotation[] annotations = NO_ANNOTATIONS;
+    private LazyValue<Annotation[]> annotations = SuppliedValue.create(NoAnnotationsSupplier.INSTANCE);
     /**
      * Variations on the name for this type
      */
-    private TypeNames names = NoNames.create(this);
+    private LazyValue<TypeNames> names = SuppliedValue.create(NoNamesSupplier.create(this));
 
     /**
      * Use this to override default creation with no annotations
-     * @param annotations The new annotations
+     * @param annotationSupplier The new annotations
      */
-    protected void setAnnotations(Annotation[] annotations) {
-        this.annotations = annotations;
+    protected void setAnnotations(Supplier<Annotation[]> annotationSupplier) {
+        this.annotations = SuppliedValue.create(annotationSupplier);
     }
 
     @Override
     public Stream<Annotation> annotations() {
-        return Arrays.stream(this.annotations);
+        return Arrays.stream(this.annotations.get());
     }
 
     @Override
     public String name() {
-        return this.names.shortName();
+        return this.names().shortName();
     }
 
     @Override
     public TypeNames names() {
-        return this.names;
+        return this.names.get();
     }
 
     /**
      * Setter available to subclasses to define this instance names
-     * @param names The multiple names of this instance
+     * @param namesSupplier The multiple names of this instance
      */
-    protected void setNames(TypeNames names) {
-        this.names = names;
+    protected void setNames(Supplier<TypeNames> namesSupplier) {
+        this.names = SuppliedValue.create(namesSupplier);
     }
 
     /**
@@ -99,4 +98,10 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     public Optional<ClassInstance> extendedType() {
         return Optional.empty();
     }
+
+    @Override
+    public String toString() {
+        return this.names().declarationName();
+    }
+
 }

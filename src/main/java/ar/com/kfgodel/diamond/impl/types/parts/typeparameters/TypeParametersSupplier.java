@@ -1,4 +1,4 @@
-package ar.com.kfgodel.diamond.impl.fragments;
+package ar.com.kfgodel.diamond.impl.types.parts.typeparameters;
 
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
@@ -25,7 +25,7 @@ public class TypeParametersSupplier implements Supplier<List<TypeInstance>> {
             return Collections.emptyList();
         }
         List<TypeInstance> typeParameters = Arrays.stream(nativeParameters)
-                .map((nativeParameter) -> Diamond.types().from(nativeParameter))
+                .map((nativeParameter) -> Diamond.types().<TypeInstance>from(nativeParameter))
                 .collect(Collectors.toList());
         return typeParameters;
     }

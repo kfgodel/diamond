@@ -1,7 +1,6 @@
-package ar.com.kfgodel.diamond.impl.fragments;
+package ar.com.kfgodel.diamond.impl.generics;
 
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
-import ar.com.kfgodel.diamond.impl.generics.SupertypeParameterization;
 
 import java.util.List;
 import java.util.function.Consumer;

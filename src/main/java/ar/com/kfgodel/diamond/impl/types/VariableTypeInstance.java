@@ -1,7 +1,9 @@
 package ar.com.kfgodel.diamond.impl.types;
 
 import ar.com.kfgodel.diamond.api.types.TypeBounds;
-import ar.com.kfgodel.diamond.impl.types.parts.TypeParts;
+import ar.com.kfgodel.diamond.impl.types.description.TypeDescription;
+import ar.com.kfgodel.lazyvalue.api.LazyValue;
+import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
 
 /**
  * This type represents a variable type that can be defined with a concrete type in certain contexts (wildcards and type variables)
@@ -9,29 +11,25 @@ import ar.com.kfgodel.diamond.impl.types.parts.TypeParts;
  */
 public class VariableTypeInstance extends TypeInstanceSupport {
 
-    private TypeBounds typeBounds;
+    private LazyValue<TypeBounds> typeBounds;
 
     @Override
     public TypeBounds bounds() {
-        return typeBounds;
+        return typeBounds.get();
     }
 
     /**
-     * Creates a type variable from its minimum data
-     * @param parts The parts needed to crete the instance
+     * Creates a type variable from its description
+     * @param description The parts needed to crete the instance
      * @return The new type variable instance
      */
-    public static VariableTypeInstance create(TypeParts parts) {
+    public static VariableTypeInstance create(TypeDescription description) {
         VariableTypeInstance variableType = new VariableTypeInstance();
-        variableType.setNames(parts.getNames());
-        variableType.typeBounds = parts.getBounds();
-        variableType.setAnnotations(parts.getAnnotations());
+        variableType.setNames(description.getNames());
+        variableType.setAnnotations(description.getAnnotations());
+        variableType.typeBounds = SuppliedValue.create(description.getBounds());
         return variableType;
     }
 
-    @Override
-    public String toString() {
-        return this.names().declarationName();
-    }
 
 }

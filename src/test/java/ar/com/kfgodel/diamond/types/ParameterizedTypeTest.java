@@ -98,7 +98,7 @@ public class ParameterizedTypeTest extends JavaSpec<DiamondTestContext> {
 
     private static TypeInstance createParameterizedType() {
         AnnotatedType annotatedType = new ReferenceOf<@TestAnnotation1 ParentClass<@TestAnnotation2 String, @TestAnnotation3 Integer>>() {}.getReferencedAnnotatedType();
-        TypeInstance typeInstance = Diamond.types().fromUnspecific(annotatedType);
+        TypeInstance typeInstance = Diamond.types().from(annotatedType);
         return typeInstance;
     }
 }

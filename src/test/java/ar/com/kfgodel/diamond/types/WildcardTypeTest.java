@@ -99,7 +99,7 @@ public class WildcardTypeTest extends JavaSpec<DiamondTestContext> {
                 @TestAnnotation2 ? super @TestAnnotation3 Serializable
                 >>() {}.getReferencedAnnotatedType();
         AnnotatedType annotatedKeyType = selector.apply(annotatedMapType.getAnnotatedActualTypeArguments());
-        return Diamond.types().fromUnspecific(annotatedKeyType);
+        return Diamond.types().from(annotatedKeyType);
     }
 
     private TypeInstance createValueWildcardType() {
