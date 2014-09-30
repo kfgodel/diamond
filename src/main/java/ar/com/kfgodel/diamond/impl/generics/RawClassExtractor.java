@@ -1,4 +1,4 @@
-package ar.com.kfgodel.diamond.impl.fragments;
+package ar.com.kfgodel.diamond.impl.generics;
 
 import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 

@@ -57,5 +57,10 @@ public abstract class DelegatedDescriptionSupport implements TypeDescription {
         return getDelegateDescription().getBounds();
     }
 
+    @Override
+    public boolean isForVariableType() {
+        return getDelegateDescription().isForVariableType();
+    }
+
     protected abstract TypeDescription getDelegateDescription();
 }

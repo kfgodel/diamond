@@ -33,4 +33,10 @@ public interface TypeDescription {
     Supplier<TypeBounds> getBounds();
 
 
+    /**
+     * Indicates if this description is for a type that cannot be statically determined at compile type in every scope
+     * (wildcards and type variables) and for that reason its class representation may be bounded to other type.
+     * @return true if this type represents a type variable, a wildcard or annotated version of them
+     */
+    boolean isForVariableType();
 }

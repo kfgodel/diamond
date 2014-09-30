@@ -71,7 +71,7 @@ public class GenericArrayTypeTest extends JavaSpec<DiamondTestContext> {
 
     private static TypeInstance createGenericArrayType() {
         AnnotatedType annotatedType = new ReferenceOf<@TestAnnotation2 List<Integer> @TestAnnotation1[]>() {}.getReferencedAnnotatedType();
-        TypeInstance typeInstance = Diamond.types().fromUnspecific(annotatedType);
+        TypeInstance typeInstance = Diamond.types().from(annotatedType);
         return typeInstance;
     }
 }

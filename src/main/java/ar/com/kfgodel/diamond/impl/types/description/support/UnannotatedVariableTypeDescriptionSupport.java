@@ -16,6 +16,11 @@ public abstract class UnannotatedVariableTypeDescriptionSupport extends Unannota
         return VariableTypeNamesSupplier.create(getVariableType());
     }
 
+    @Override
+    public boolean isForVariableType() {
+        return true;
+    }
+
     protected abstract Object getVariableType();
 
 }

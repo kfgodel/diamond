@@ -27,7 +27,7 @@ public class GenericArrayComponentTypeSupplier implements Supplier<Optional<Type
         }else{
             throw new DiamondException("The type["+nativeType+"] is not a generic array type representation");
         }
-        return Optional.of(Diamond.types().fromUnspecific(componentType));
+        return Optional.of(Diamond.types().from(componentType));
     }
 
     public static GenericArrayComponentTypeSupplier create(Object nativeType) {

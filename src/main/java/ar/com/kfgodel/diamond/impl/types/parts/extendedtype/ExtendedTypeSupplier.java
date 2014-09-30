@@ -3,10 +3,10 @@ package ar.com.kfgodel.diamond.impl.types.parts.extendedtype;
 import ar.com.kfgodel.diamond.api.ClassInstance;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
-import ar.com.kfgodel.diamond.impl.fragments.ActualArgumentReplacer;
+import ar.com.kfgodel.diamond.impl.generics.ActualArgumentReplacer;
 import ar.com.kfgodel.diamond.impl.generics.ParametrizationAnalyzer;
-import ar.com.kfgodel.diamond.impl.types.description.Descriptor;
 import ar.com.kfgodel.diamond.impl.types.description.TypeDescription;
+import ar.com.kfgodel.diamond.impl.types.description.TypeDescriptor;
 import ar.com.kfgodel.diamond.impl.types.description.extended.ExtendedTypeDescription;
 
 import java.lang.reflect.AnnotatedType;
@@ -30,10 +30,10 @@ public class ExtendedTypeSupplier implements Supplier<Optional<ClassInstance>> {
             // There's no extended type
             return Optional.empty();
         }
-        TypeDescription supertypeDescription = Descriptor.describe(annotatedSuperclass);
+        TypeDescription supertypeDescription = TypeDescriptor.INSTANCE.describe(annotatedSuperclass);
         ActualArgumentReplacer typeArgumentsReplacer = ActualArgumentReplacer.create(typeArguments, ParametrizationAnalyzer.create(nativeClass).get());
         ExtendedTypeDescription extendedTypeDescription = ExtendedTypeDescription.create(supertypeDescription, typeArgumentsReplacer);
-        return Optional.of(Diamond.types().from(extendedTypeDescription));
+        return Optional.of(Diamond.types().fromDescription(extendedTypeDescription));
     }
 
     public static ExtendedTypeSupplier create(Class<?> nativeClass, List<TypeInstance> typeArguments) {

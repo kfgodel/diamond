@@ -75,7 +75,7 @@ public class TypeVariableTest extends JavaSpec<DiamondTestContext> {
      */
     public static <T extends @TestAnnotation2 Serializable & Comparable> TypeInstance createTypeVariable() {
         AnnotatedType referencedTypeVariable = new ReferenceOf<@TestAnnotation1 T>() {}.getReferencedAnnotatedType();
-        TypeInstance typeInstance = Diamond.types().fromUnspecific(referencedTypeVariable);
+        TypeInstance typeInstance = Diamond.types().from(referencedTypeVariable);
         return typeInstance;
     }
 
