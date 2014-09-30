@@ -1,6 +1,6 @@
 package ar.com.kfgodel.diamond.impl.classes;
 
-import ar.com.kfgodel.diamond.api.ClassInstance;
+import ar.com.kfgodel.diamond.api.types.TypeInstance;
 
 import java.util.Spliterator;
 import java.util.function.Consumer;
@@ -9,17 +9,17 @@ import java.util.function.Consumer;
  * This type represents the spliterator that traverses the superclases of a class
  * Created by kfgodel on 19/09/14.
  */
-public class SuperClassSpliterator implements Spliterator<ClassInstance> {
+public class SuperClassSpliterator implements Spliterator<TypeInstance> {
 
-    private TypeSpliterator<ClassInstance> internalSpliterator;
+    private TypeSpliterator<TypeInstance> internalSpliterator;
 
     @Override
-    public boolean tryAdvance(Consumer<? super ClassInstance> action) {
+    public boolean tryAdvance(Consumer<? super TypeInstance> action) {
         return internalSpliterator.tryAdvance(action);
     }
 
     @Override
-    public Spliterator<ClassInstance> trySplit() {
+    public Spliterator<TypeInstance> trySplit() {
         return internalSpliterator.trySplit();
     }
 
@@ -33,7 +33,7 @@ public class SuperClassSpliterator implements Spliterator<ClassInstance> {
         return internalSpliterator.characteristics();
     }
 
-    public static SuperClassSpliterator create(ClassInstance firstInstance) {
+    public static SuperClassSpliterator create(TypeInstance firstInstance) {
         SuperClassSpliterator spliterator = new SuperClassSpliterator();
         spliterator.internalSpliterator = TypeSpliterator.create(firstInstance, (instance)-> instance.superclass());
         return spliterator;

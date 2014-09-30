@@ -3,9 +3,9 @@ package ar.com.kfgodel.diamond;
 import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.api.ClassField;
-import ar.com.kfgodel.diamond.api.ClassInstance;
 import ar.com.kfgodel.diamond.api.ClassMethod;
 import ar.com.kfgodel.diamond.api.Diamond;
+import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.testobjects.ClassWithIdField;
 import org.junit.runner.RunWith;
 
@@ -27,15 +27,15 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
 
             describe("classes", () -> {
                 it("can be obtained from Class instances", () -> {
-                    ClassInstance diamondClass = Diamond.classes().from(Object.class);
+                    TypeInstance diamondClass = Diamond.classes().from(Object.class);
                     assertThat(diamondClass.name()).isEqualTo("Object");
                 });
                 it("can be obtained from complete class names", ()->{
-                    ClassInstance diamondClass = Diamond.classes().named("java.lang.Object");
+                    TypeInstance diamondClass = Diamond.classes().named("java.lang.Object");
                     assertThat(diamondClass.name()).isEqualTo("Object");
                 });
                 it("have a special shortcut", ()->{
-                    ClassInstance diamondClass = Diamond.of(Object.class);
+                    TypeInstance diamondClass = Diamond.of(Object.class);
                     assertThat(diamondClass.name()).isEqualTo("Object");
                 });
             });

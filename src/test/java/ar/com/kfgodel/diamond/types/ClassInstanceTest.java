@@ -3,11 +3,11 @@ package ar.com.kfgodel.diamond.types;
 import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.DiamondTestContext;
-import ar.com.kfgodel.diamond.api.ClassInstance;
 import ar.com.kfgodel.diamond.api.Diamond;
-import ar.com.kfgodel.diamond.api.classes.ClassLineage;
+import ar.com.kfgodel.diamond.api.classes.TypeLineage;
 import ar.com.kfgodel.diamond.api.naming.Named;
 import ar.com.kfgodel.diamond.api.sources.TypeNames;
+import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.testobjects.lineage.ChildClass;
 import org.junit.runner.RunWith;
 
@@ -46,8 +46,8 @@ public class ClassInstanceTest extends JavaSpec<DiamondTestContext> {
 
             describe("lineage", () -> {
                 it("has a lineage with its type ancestors", () -> {
-                    ClassLineage classLineage = context().classInstance().lineage();
-                    assertThat(classLineage.highestAncestor().name())
+                    TypeLineage typeLineage = context().classInstance().lineage();
+                    assertThat(typeLineage.highestAncestor().name())
                             .isEqualTo("Object");
                 });
 
@@ -55,7 +55,7 @@ public class ClassInstanceTest extends JavaSpec<DiamondTestContext> {
                  * This is the runtime parent type
                  */
                 it("has a super class", () -> {
-                    String superClassName = context().classInstance().superclass().map(ClassInstance::name).get();
+                    String superClassName = context().classInstance().superclass().map(TypeInstance::name).get();
                     assertThat(superClassName).isEqualTo("ParentClass");
                 });
 

@@ -1,6 +1,6 @@
 package ar.com.kfgodel.diamond.api.sources;
 
-import ar.com.kfgodel.diamond.api.ClassInstance;
+import ar.com.kfgodel.diamond.api.types.TypeInstance;
 
 /**
  * This type representes the possible sources to get a DClass instance
@@ -12,7 +12,7 @@ public interface ClassSources {
      * @param nativeClass The class instance
      * @return The class representation of the given class
      */
-    ClassInstance from(Class<?> nativeClass);
+    TypeInstance from(Class<?> nativeClass);
 
     /**
      * Retrieves the class representation of a class by its complete name (package name + class name).<br>
@@ -20,5 +20,5 @@ public interface ClassSources {
      * @param canonicalClassName The name that uniquely identifies the class
      * @return The class representation
      */
-    ClassInstance named(String canonicalClassName);
+    TypeInstance named(String canonicalClassName);
 }

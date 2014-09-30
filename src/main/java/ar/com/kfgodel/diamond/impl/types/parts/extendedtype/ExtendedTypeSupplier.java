@@ -1,6 +1,5 @@
 package ar.com.kfgodel.diamond.impl.types.parts.extendedtype;
 
-import ar.com.kfgodel.diamond.api.ClassInstance;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.generics.ActualArgumentReplacer;
@@ -18,13 +17,13 @@ import java.util.function.Supplier;
  * This type represent a fragment of code that can extract the extended type from a native class instance
  * Created by kfgodel on 27/09/14.
  */
-public class ExtendedTypeSupplier implements Supplier<Optional<ClassInstance>> {
+public class ExtendedTypeSupplier implements Supplier<Optional<TypeInstance>> {
 
     private Class<?> nativeClass;
     private List<TypeInstance> typeArguments;
 
     @Override
-    public Optional<ClassInstance> get() {
+    public Optional<TypeInstance> get() {
         AnnotatedType annotatedSuperclass = nativeClass.getAnnotatedSuperclass();
         if(annotatedSuperclass == null){
             // There's no extended type

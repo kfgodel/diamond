@@ -2,7 +2,6 @@ package ar.com.kfgodel.diamond.api;
 
 import ar.com.kfgodel.diamond.api.methods.MethodSignature;
 import ar.com.kfgodel.diamond.api.naming.Named;
-import sun.reflect.generics.tree.MethodTypeSignature;
 
 /**
  * This type represents a method of a class.<br> Similar to Method

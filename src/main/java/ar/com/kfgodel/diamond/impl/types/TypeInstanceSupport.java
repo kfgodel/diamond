@@ -1,9 +1,12 @@
 package ar.com.kfgodel.diamond.impl.types;
 
-import ar.com.kfgodel.diamond.api.ClassInstance;
+import ar.com.kfgodel.diamond.api.classes.TypeLineage;
+import ar.com.kfgodel.diamond.api.sources.TypeMethodSource;
 import ar.com.kfgodel.diamond.api.sources.TypeNames;
 import ar.com.kfgodel.diamond.api.types.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.diamond.impl.classes.SingleTypeLineage;
+import ar.com.kfgodel.diamond.impl.sources.NoMethodsSource;
 import ar.com.kfgodel.diamond.impl.types.bounds.NoBounds;
 import ar.com.kfgodel.diamond.impl.types.parts.annotations.NoAnnotationsSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.names.NoNamesSupplier;
@@ -95,7 +98,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     }
 
     @Override
-    public Optional<ClassInstance> extendedType() {
+    public Optional<TypeInstance> extendedType() {
         return Optional.empty();
     }
 
@@ -104,4 +107,18 @@ public abstract class TypeInstanceSupport implements TypeInstance {
         return this.names().declarationName();
     }
 
+    @Override
+    public Optional<TypeInstance> superclass() {
+        return Optional.empty();
+    }
+
+    @Override
+    public TypeMethodSource methods() {
+        return NoMethodsSource.INSTANCE;
+    }
+
+    @Override
+    public TypeLineage lineage() {
+        return SingleTypeLineage.create(this);
+    }
 }

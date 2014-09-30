@@ -1,8 +1,7 @@
 package ar.com.kfgodel.diamond;
 
 import ar.com.dgarcia.javaspec.api.TestContext;
-import ar.com.kfgodel.diamond.api.ClassInstance;
-import ar.com.kfgodel.diamond.api.classes.ClassLineage;
+import ar.com.kfgodel.diamond.api.classes.TypeLineage;
 import ar.com.kfgodel.diamond.api.sources.TypeNames;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.lazyvalue.api.LazyValue;
@@ -15,8 +14,8 @@ import java.util.function.Supplier;
  */
 public interface DiamondTestContext extends TestContext {
 
-    ClassLineage lineage();
-    void lineage(Supplier<ClassLineage> definition);
+    TypeLineage lineage();
+    void lineage(Supplier<TypeLineage> definition);
 
     TypeInstance typeInstance();
     void typeInstance(Supplier<TypeInstance> definition);
@@ -24,8 +23,8 @@ public interface DiamondTestContext extends TestContext {
     LazyValue<Integer> value();
     void value(Supplier<LazyValue<Integer>> definition);
 
-    ClassInstance classInstance();
-    void classInstance(Supplier<ClassInstance> definition);
+    TypeInstance classInstance();
+    void classInstance(Supplier<TypeInstance> definition);
 
     TypeNames names();
     void names(Supplier<TypeNames> definition);

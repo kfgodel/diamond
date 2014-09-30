@@ -1,8 +1,9 @@
 package ar.com.kfgodel.diamond.api.types;
 
-import ar.com.kfgodel.diamond.api.ClassInstance;
 import ar.com.kfgodel.diamond.api.annotations.Annotated;
+import ar.com.kfgodel.diamond.api.classes.TypeLineage;
 import ar.com.kfgodel.diamond.api.naming.Named;
+import ar.com.kfgodel.diamond.api.sources.TypeMethodSource;
 import ar.com.kfgodel.diamond.api.sources.TypeNames;
 
 import java.util.Optional;
@@ -58,5 +59,28 @@ public interface TypeInstance extends Named, Annotated {
      *  The extended type is the parent class with correct type arguments assigned from this type,
      *  thus is the compile time parent type of this type.
      */
-    Optional<ClassInstance> extendedType();
+    Optional<TypeInstance> extendedType();
+
+    /**
+     * @return The optional superclass of this instance. Or empty if this type
+     *  represents either the Object class, an interface type, an array type, a primitive type, void,
+     *  or a variable type (like wildcard).<br>
+     *     The super class is the un-parameterized (raw) class instance that is the runtime super type of
+     *     this type
+     */
+    Optional<TypeInstance> superclass();
+
+    /**
+     * Returns the accessor object for class methods of this instance
+     * @return The source of methods
+     */
+    TypeMethodSource methods();
+
+    /**
+     * Return the object that represents this class and the linear relation of their superclasses up to Object
+     * @return The lineage of this class
+     */
+    TypeLineage lineage();
+
+
 }

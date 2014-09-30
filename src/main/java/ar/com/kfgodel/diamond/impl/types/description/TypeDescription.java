@@ -1,6 +1,5 @@
 package ar.com.kfgodel.diamond.impl.types.description;
 
-import ar.com.kfgodel.diamond.api.ClassInstance;
 import ar.com.kfgodel.diamond.api.sources.TypeNames;
 import ar.com.kfgodel.diamond.api.types.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
@@ -20,9 +19,9 @@ public interface TypeDescription {
 
     Supplier<Annotation[]> getAnnotations();
 
-    Supplier<Optional<ClassInstance>> getSuperclassSupplier();
+    Supplier<Optional<TypeInstance>> getSuperclassSupplier();
 
-    Supplier<Optional<ClassInstance>> getExtendedTypeSupplier();
+    Supplier<Optional<TypeInstance>> getExtendedTypeSupplier();
 
     Supplier<List<TypeInstance>> getTypeArguments();
 
