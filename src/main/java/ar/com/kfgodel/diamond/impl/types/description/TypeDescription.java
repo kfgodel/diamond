@@ -17,7 +17,7 @@ public interface TypeDescription {
 
     Supplier<TypeNames> getNames();
 
-    Supplier<Annotation[]> getAnnotations();
+    Supplier<Stream<Annotation>> getAnnotations();
 
     Supplier<Optional<TypeInstance>> getSuperclassSupplier();
 

@@ -6,6 +6,7 @@ import ar.com.kfgodel.diamond.impl.types.parts.annotations.AnnotatedTypeAnnotati
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedType;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 /**
  * This type serves as base for annotated types description that are extension of other descriptions
@@ -24,7 +25,7 @@ public abstract class AnnotatedTypeDescriptionSupport extends DelegatedDescripti
     }
 
     @Override
-    public Supplier<Annotation[]> getAnnotations() {
+    public Supplier<Stream<Annotation>> getAnnotations() {
         return AnnotatedTypeAnnotationsSupplier.create(getAnnotatedType());
     }
 
