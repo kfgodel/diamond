@@ -22,7 +22,7 @@ public abstract class DelegatedDescriptionSupport implements TypeDescription {
     }
 
     @Override
-    public Supplier<Annotation[]> getAnnotations() {
+    public Supplier<Stream<Annotation>> getAnnotations() {
         return getDelegateDescription().getAnnotations();
     }
 

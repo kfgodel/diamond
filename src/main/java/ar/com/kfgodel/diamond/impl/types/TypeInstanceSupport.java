@@ -14,7 +14,6 @@ import ar.com.kfgodel.lazyvalue.api.LazyValue;
 import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
 
 import java.lang.annotation.Annotation;
-import java.util.Arrays;
 import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -28,7 +27,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     /**
      * Attached type annotations
      */
-    private LazyValue<Annotation[]> annotations = SuppliedValue.create(NoAnnotationsSupplier.INSTANCE);
+    private LazyValue<Stream<Annotation>> annotations = SuppliedValue.create(NoAnnotationsSupplier.INSTANCE);
     /**
      * Variations on the name for this type
      */
@@ -38,13 +37,13 @@ public abstract class TypeInstanceSupport implements TypeInstance {
      * Use this to override default creation with no annotations
      * @param annotationSupplier The new annotations
      */
-    protected void setAnnotations(Supplier<Annotation[]> annotationSupplier) {
+    protected void setAnnotations(Supplier<Stream<Annotation>> annotationSupplier) {
         this.annotations = SuppliedValue.create(annotationSupplier);
     }
 
     @Override
     public Stream<Annotation> annotations() {
-        return Arrays.stream(this.annotations.get());
+        return this.annotations.get();
     }
 
     @Override

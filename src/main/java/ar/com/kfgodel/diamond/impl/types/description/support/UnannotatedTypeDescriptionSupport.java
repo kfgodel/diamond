@@ -23,7 +23,7 @@ import java.util.stream.Stream;
 public abstract class UnannotatedTypeDescriptionSupport implements TypeDescription {
 
     @Override
-    public Supplier<Annotation[]> getAnnotations() {
+    public Supplier<Stream<Annotation>> getAnnotations() {
         return NoAnnotationsSupplier.INSTANCE;
     }
 
