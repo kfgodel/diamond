@@ -6,8 +6,8 @@ import ar.com.kfgodel.diamond.impl.types.parts.typearguments.ParameterizedTypeAr
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.List;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 /**
  * This type represents the description of an unannotated parameterized native type
@@ -23,7 +23,7 @@ public class ParameterizedTypeDescription extends UnannotatedFixedTypeDescriptio
     }
 
     @Override
-    public Supplier<List<TypeInstance>> getTypeArguments() {
+    public Supplier<Stream<TypeInstance>> getTypeArguments() {
         return ParameterizedTypeArgumentsSupplier.create(nativeType);
     }
 

@@ -9,9 +9,9 @@ import ar.com.kfgodel.diamond.impl.types.parts.superclass.SuperClassSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.typeparameters.TypeParametersSupplier;
 
 import java.lang.reflect.Type;
-import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 /**
  * This type represents a base class for unannotated fixed types
@@ -45,7 +45,7 @@ public abstract class UnannotatedFixedTypeDescriptionSupport extends Unannotated
     }
 
     @Override
-    public Supplier<List<TypeInstance>> getTypeParametersSupplier() {
+    public Supplier<Stream<TypeInstance>> getTypeParametersSupplier() {
         return TypeParametersSupplier.create(getRawClass());
     }
 

@@ -12,6 +12,8 @@ import java.lang.reflect.AnnotatedType;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * This type represent a fragment of code that can extract the extended type from a native class instance
@@ -35,10 +37,10 @@ public class ExtendedTypeSupplier implements Supplier<Optional<TypeInstance>> {
         return Optional.of(Diamond.types().fromDescription(extendedTypeDescription));
     }
 
-    public static ExtendedTypeSupplier create(Class<?> nativeClass, List<TypeInstance> typeArguments) {
+    public static ExtendedTypeSupplier create(Class<?> nativeClass, Stream<TypeInstance> typeArguments) {
         ExtendedTypeSupplier supplier = new ExtendedTypeSupplier();
         supplier.nativeClass = nativeClass;
-        supplier.typeArguments = typeArguments;
+        supplier.typeArguments = typeArguments.collect(Collectors.toList());
         return supplier;
     }
 

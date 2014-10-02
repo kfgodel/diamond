@@ -12,9 +12,9 @@ import ar.com.kfgodel.diamond.impl.types.parts.typearguments.NoTypeArgumentsSupp
 import ar.com.kfgodel.diamond.impl.types.parts.typeparameters.NoTypeParametersSupplier;
 
 import java.lang.annotation.Annotation;
-import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 /**
  * This type serves as base class for unannotated types
@@ -38,12 +38,12 @@ public abstract class UnannotatedTypeDescriptionSupport implements TypeDescripti
     }
 
     @Override
-    public Supplier<List<TypeInstance>> getTypeArguments() {
+    public Supplier<Stream<TypeInstance>> getTypeArguments() {
         return NoTypeArgumentsSupplier.INSTANCE;
     }
 
     @Override
-    public Supplier<List<TypeInstance>> getTypeParametersSupplier() {
+    public Supplier<Stream<TypeInstance>> getTypeParametersSupplier() {
         return NoTypeParametersSupplier.INSTANCE;
     }
 

@@ -7,20 +7,19 @@ import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import java.lang.reflect.AnnotatedParameterizedType;
 import java.lang.reflect.ParameterizedType;
 import java.util.Arrays;
-import java.util.List;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * This type represents the argument supplier for a parameterized type
  * Created by kfgodel on 29/09/14.
  */
-public class ParameterizedTypeArgumentsSupplier implements Supplier<List<TypeInstance>> {
+public class ParameterizedTypeArgumentsSupplier implements Supplier<Stream<TypeInstance>> {
 
     private Object nativeType;
 
     @Override
-    public List<TypeInstance> get() {
+    public Stream<TypeInstance> get() {
         Object[] actualTypeArguments;
         if(nativeType instanceof AnnotatedParameterizedType){
             actualTypeArguments = ((AnnotatedParameterizedType) nativeType).getAnnotatedActualTypeArguments();
@@ -29,9 +28,8 @@ public class ParameterizedTypeArgumentsSupplier implements Supplier<List<TypeIns
         }else{
             throw new DiamondException("The type["+nativeType+"] is not a parameterized type representation");
         }
-        List<TypeInstance> typeArguments = Arrays.stream(actualTypeArguments)
-                .map((annotatedType) -> Diamond.types().<TypeInstance>from(annotatedType))
-                .collect(Collectors.toList());
+        Stream<TypeInstance> typeArguments = Arrays.stream(actualTypeArguments)
+                .map((annotatedType) -> Diamond.types().<TypeInstance>from(annotatedType));
         return typeArguments;
     }
 

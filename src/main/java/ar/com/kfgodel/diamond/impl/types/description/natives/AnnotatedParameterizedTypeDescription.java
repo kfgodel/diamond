@@ -8,8 +8,8 @@ import ar.com.kfgodel.diamond.impl.types.parts.typearguments.ParameterizedTypeAr
 import java.lang.reflect.AnnotatedParameterizedType;
 import java.lang.reflect.AnnotatedType;
 import java.lang.reflect.ParameterizedType;
-import java.util.List;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 /**
  * This type represents the description of an annotated parameterized native type
@@ -30,7 +30,7 @@ public class AnnotatedParameterizedTypeDescription extends AnnotatedTypeDescript
     }
 
     @Override
-    public Supplier<List<TypeInstance>> getTypeArguments() {
+    public Supplier<Stream<TypeInstance>> getTypeArguments() {
         return ParameterizedTypeArgumentsSupplier.create(nativeType);
     }
 

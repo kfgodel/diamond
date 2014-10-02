@@ -5,28 +5,25 @@ import ar.com.kfgodel.diamond.api.types.TypeInstance;
 
 import java.lang.reflect.TypeVariable;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * This type represents a fragment of code that allows you to get the type parameters of a class
  * Created by kfgodel on 25/09/14.
  */
-public class TypeParametersSupplier implements Supplier<List<TypeInstance>> {
+public class TypeParametersSupplier implements Supplier<Stream<TypeInstance>> {
     private Class<?> nativeClass;
 
     @Override
-    public List<TypeInstance> get() {
+    public Stream<TypeInstance> get() {
         TypeVariable<? extends Class<?>>[] nativeParameters = nativeClass.getTypeParameters();
         if(nativeParameters.length == 0){
             // Optimization to avoid multiple empty instances
-            return Collections.emptyList();
+            return Stream.empty();
         }
-        List<TypeInstance> typeParameters = Arrays.stream(nativeParameters)
-                .map((nativeParameter) -> Diamond.types().<TypeInstance>from(nativeParameter))
-                .collect(Collectors.toList());
+        Stream<TypeInstance> typeParameters = Arrays.stream(nativeParameters)
+                .map((nativeParameter) -> Diamond.types().<TypeInstance>from(nativeParameter));
         return typeParameters;
     }
 
