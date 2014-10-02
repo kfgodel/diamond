@@ -8,6 +8,7 @@ import ar.com.kfgodel.diamond.impl.types.parts.typearguments.ExtendedTypeArgumen
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 /**
  * This type represents the description of an extended type (one that is parameterized by another one)
@@ -24,7 +25,7 @@ public class ExtendedTypeDescription extends DelegatedDescriptionSupport {
     }
 
     @Override
-    public Supplier<List<TypeInstance>> getTypeArguments() {
+    public Supplier<Stream<TypeInstance>> getTypeArguments() {
         return ExtendedTypeArgumentsSupplier.create(extendedTypeDescription.getTypeArguments(), extendedTypeArgumentsReplacer);
     }
 

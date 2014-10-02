@@ -6,9 +6,9 @@ import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.types.description.TypeDescription;
 
 import java.lang.annotation.Annotation;
-import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 /**
  * This type represents a description that delegates part of it to another description
@@ -37,12 +37,12 @@ public abstract class DelegatedDescriptionSupport implements TypeDescription {
     }
 
     @Override
-    public Supplier<List<TypeInstance>> getTypeArguments() {
+    public Supplier<Stream<TypeInstance>> getTypeArguments() {
         return getDelegateDescription().getTypeArguments();
     }
 
     @Override
-    public Supplier<List<TypeInstance>> getTypeParametersSupplier() {
+    public Supplier<Stream<TypeInstance>> getTypeParametersSupplier() {
         return getDelegateDescription().getTypeParametersSupplier();
     }
 

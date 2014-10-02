@@ -2,20 +2,19 @@ package ar.com.kfgodel.diamond.impl.types.parts.typeparameters;
 
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 /**
  * This type represents the supplier of a type that has no type parameters
  * Created by kfgodel on 28/09/14.
  */
-public class NoTypeParametersSupplier implements Supplier<List<TypeInstance>> {
+public class NoTypeParametersSupplier implements Supplier<Stream<TypeInstance>> {
 
     public static final NoTypeParametersSupplier INSTANCE = new NoTypeParametersSupplier();
 
     @Override
-    public List<TypeInstance> get() {
-        return Collections.emptyList();
+    public Stream<TypeInstance> get() {
+        return Stream.empty();
     }
 }

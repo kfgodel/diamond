@@ -11,6 +11,7 @@ import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -85,8 +86,9 @@ public class FixedTypeInstance extends TypeInstanceSupport {
         fixedType.setAnnotations(description.getAnnotations());
         fixedType.superclass = SuppliedValue.create(description.getSuperclassSupplier());
         fixedType.extendedType = SuppliedValue.create(description.getExtendedTypeSupplier());
-        fixedType.typeParameters = SuppliedValue.create(description.getTypeParametersSupplier());
-        fixedType.typeArguments = SuppliedValue.create(description.getTypeArguments());
+        // Here we decide to cache generics as lists (since it sounds really strange for a type to change parameterization in runtime)
+        fixedType.typeParameters = SuppliedValue.create(() -> description.getTypeParametersSupplier().get().collect(Collectors.toList()));
+        fixedType.typeArguments = SuppliedValue.create(() -> description.getTypeArguments().get().collect(Collectors.toList()));
         fixedType.componentType = SuppliedValue.create(description.getComponentType());
         return fixedType;
     }
