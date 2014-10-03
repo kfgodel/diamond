@@ -17,7 +17,7 @@ public interface TypeSources {
      * @return The type instance that represents the object
      * @throws ar.com.kfgodel.diamond.api.exceptions.DiamondException if the object doesn't represent a type
      */
-    <T extends TypeInstance> T from(Object nativeType) throws DiamondException;
+    TypeInstance from(Object nativeType) throws DiamondException;
 
     /**
      * Retrieves a type instance from its description.<br>
@@ -25,6 +25,6 @@ public interface TypeSources {
      * @param description The diamond description for the type
      * @return The type representation
      */
-    <T extends TypeInstance> T fromDescription(TypeDescription description);
+    TypeInstance fromDescription(TypeDescription description);
 
 }

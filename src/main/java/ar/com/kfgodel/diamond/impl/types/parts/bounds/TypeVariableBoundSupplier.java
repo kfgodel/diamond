@@ -43,7 +43,7 @@ public class TypeVariableBoundSupplier implements Supplier<TypeBounds> {
 
     public static List<TypeInstance> typeListFrom(Object[] types) {
         return Arrays.stream(types)
-                .map((type) -> Diamond.types().<TypeInstance>from(type))
+                .map((type) -> Diamond.types().from(type))
                 .collect(Collectors.toList());
     }
 

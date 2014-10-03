@@ -77,10 +77,20 @@ public interface TypeInstance extends Named, Annotated {
     TypeMethodSource methods();
 
     /**
-     * Return the object that represents this class and the linear relation of their superclasses up to Object
-     * @return The lineage of this class
+     * Returns this type lineage (starting from this type, the set of extended types up until Object).<br>
+     *     This lineage does not follow class relationships but parameterized types relationships.<br>
+     *     In this lineage you will find compile time related types
+     * @return The type lineage of this type
      */
-    TypeLineage lineage();
+    TypeLineage typeLineage();
+
+    /**
+     * Returns this class lineage (starting from this type, the set of inherited classes up until Object).<br>
+     *     This lineage does have type parameters coherency, because follows raw class inheritance.<br>
+     *     In this lineage you will find runtime tim related types
+     * @return The class lineage of this type
+     */
+    TypeLineage classLineage();
 
 
 }

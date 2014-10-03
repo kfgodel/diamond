@@ -23,7 +23,7 @@ public class TypeParametersSupplier implements Supplier<Stream<TypeInstance>> {
             return Stream.empty();
         }
         Stream<TypeInstance> typeParameters = Arrays.stream(nativeParameters)
-                .map((nativeParameter) -> Diamond.types().<TypeInstance>from(nativeParameter));
+                .map((nativeParameter) -> Diamond.types().from(nativeParameter));
         return typeParameters;
     }
 

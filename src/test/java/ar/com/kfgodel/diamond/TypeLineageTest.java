@@ -24,10 +24,10 @@ public class TypeLineageTest extends JavaSpec<DiamondTestContext> {
     @Override
     public void define() {
 
-        describe("a class lineage", ()->{
+        describe("type lineage", ()->{
 
             beforeEach(()->{
-                context().lineage(()-> Diamond.of(ChildClass.class).lineage());
+                context().lineage(()-> Diamond.of(ChildClass.class).typeLineage());
             });
 
             it("starts from its creator class as the lowest descendant", ()->{
@@ -40,7 +40,7 @@ public class TypeLineageTest extends JavaSpec<DiamondTestContext> {
                         .isEqualTo("Object");
             });
 
-            it("contains all the classes in between", ()->{
+            it("contains all the types in between", ()->{
                 Stream<TypeInstance> lineageMembers = context().lineage().allMembers();
                 List<String> memberNames = lineageMembers.map((member) -> member.name()).collect(Collectors.toList());
                 assertThat(memberNames)
@@ -63,7 +63,7 @@ public class TypeLineageTest extends JavaSpec<DiamondTestContext> {
             });
 
             it("does not include Object for primitive types", ()->{
-                Stream<TypeInstance> lineageMembers = Diamond.of(int.class).lineage().allMembers();
+                Stream<TypeInstance> lineageMembers = Diamond.of(int.class).typeLineage().allMembers();
                 List<String> memberNames = lineageMembers.map((member) -> member.name()).collect(Collectors.toList());
                 assertThat(memberNames)
                         .isEqualTo(Arrays.asList("int"));
@@ -89,6 +89,24 @@ public class TypeLineageTest extends JavaSpec<DiamondTestContext> {
                 });
             });
 
+        });
+
+        describe("class lineage", ()->{
+
+            beforeEach(()->{
+                context().lineage(()-> Diamond.of(ChildClass.class). classLineage());
+            });
+
+            it("doesn't have type arguments for any member", ()->{
+                TypeInstance childType = context().lineage().lowestDescendant();
+                assertThat(childType.typeArguments().count()).isEqualTo(0);
+
+                TypeInstance parentType = context().lineage().ancestorOf(childType).get();
+                assertThat(parentType.typeArguments().count()).isEqualTo(0);
+
+                TypeInstance grandParentType = context().lineage().ancestorOf(parentType).get();
+                assertThat(grandParentType.typeArguments().count()).isEqualTo(0);
+            });
         });
 
     }
