@@ -15,7 +15,7 @@ import ar.com.kfgodel.diamond.impl.types.description.TypeDescriptor;
 public class TypeSourceImpl implements TypeSources {
 
     @Override
-    public <T extends TypeInstance> T fromDescription(TypeDescription description) {
+    public TypeInstance fromDescription(TypeDescription description) {
         // If we plan to cache values this should be the place
         return createTypeFrom(description);
     }
@@ -25,16 +25,16 @@ public class TypeSourceImpl implements TypeSources {
      * @param description The description of the type traits
      * @return The created type instance
      */
-    private <T extends TypeInstance> T createTypeFrom(TypeDescription description) {
+    private TypeInstance createTypeFrom(TypeDescription description) {
         if(description.isForVariableType()){
-            return (T) VariableTypeInstance.create(description);
+            return VariableTypeInstance.create(description);
         }
-        return (T) FixedTypeInstance.create(description);
+        return FixedTypeInstance.create(description);
     }
 
 
     @Override
-    public <T extends TypeInstance> T from(Object type) throws DiamondException {
+    public TypeInstance from(Object type) throws DiamondException {
         TypeDescription typeDescription = TypeDescriptor.INSTANCE.describe(type);
         return fromDescription(typeDescription);
     }

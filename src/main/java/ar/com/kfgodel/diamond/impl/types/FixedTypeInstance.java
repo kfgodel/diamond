@@ -3,7 +3,7 @@ package ar.com.kfgodel.diamond.impl.types;
 import ar.com.kfgodel.diamond.api.classes.TypeLineage;
 import ar.com.kfgodel.diamond.api.sources.TypeMethodSource;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
-import ar.com.kfgodel.diamond.impl.classes.ExtendedTypeLineage;
+import ar.com.kfgodel.diamond.impl.classes.FunctionBasedTypeLineage;
 import ar.com.kfgodel.diamond.impl.sources.TypeMethodSourceImpl;
 import ar.com.kfgodel.diamond.impl.types.description.TypeDescription;
 import ar.com.kfgodel.lazyvalue.api.LazyValue;
@@ -38,8 +38,13 @@ public class FixedTypeInstance extends TypeInstanceSupport {
     }
 
     @Override
-    public TypeLineage lineage() {
-        return ExtendedTypeLineage.create(this);
+    public TypeLineage typeLineage() {
+        return FunctionBasedTypeLineage.createType(this);
+    }
+
+    @Override
+    public TypeLineage classLineage() {
+        return FunctionBasedTypeLineage.createClass(this);
     }
 
     @Override

@@ -5,6 +5,7 @@ import ar.com.kfgodel.diamond.api.types.TypeInstance;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
@@ -13,7 +14,7 @@ import java.util.stream.StreamSupport;
  * This type represents a class lineage calculated from native class instance
  * Created by kfgodel on 19/09/14.
  */
-public class ExtendedTypeLineage implements TypeLineage {
+public class FunctionBasedTypeLineage implements TypeLineage {
 
     /**
      * List return value to indicate not found
@@ -83,10 +84,20 @@ public class ExtendedTypeLineage implements TypeLineage {
     }
 
 
-    public static ExtendedTypeLineage create(TypeInstance lowestDescendant) {
-        ExtendedTypeLineage lineage = new ExtendedTypeLineage();
-        lineage.classes = StreamSupport.stream(ExtendedTypeSpliterator.create(lowestDescendant), false).collect(Collectors.toList());
+    public static FunctionBasedTypeLineage createType(TypeInstance lowestDescendant) {
+        return create(lowestDescendant, (member) -> member.extendedType());
+    }
+
+    public static FunctionBasedTypeLineage createClass(TypeInstance lowestDescendant) {
+        return create(lowestDescendant, (member) -> member.superclass());
+    }
+
+
+    private static FunctionBasedTypeLineage create(TypeInstance lowest, Function<TypeInstance, Optional<? extends TypeInstance>> advanceOperation) {
+        FunctionBasedTypeLineage lineage = new FunctionBasedTypeLineage();
+        lineage.classes = StreamSupport.stream(TypeSpliterator.create(lowest, advanceOperation), false).collect(Collectors.toList());
         return lineage;
     }
+
 
 }

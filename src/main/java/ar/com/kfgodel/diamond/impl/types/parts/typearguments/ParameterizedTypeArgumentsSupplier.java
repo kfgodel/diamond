@@ -29,7 +29,7 @@ public class ParameterizedTypeArgumentsSupplier implements Supplier<Stream<TypeI
             throw new DiamondException("The type["+nativeType+"] is not a parameterized type representation");
         }
         Stream<TypeInstance> typeArguments = Arrays.stream(actualTypeArguments)
-                .map((annotatedType) -> Diamond.types().<TypeInstance>from(annotatedType));
+                .map((annotatedType) -> Diamond.types().from(annotatedType));
         return typeArguments;
     }
 

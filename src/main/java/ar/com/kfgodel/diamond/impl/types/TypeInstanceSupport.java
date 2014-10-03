@@ -117,7 +117,12 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     }
 
     @Override
-    public TypeLineage lineage() {
+    public TypeLineage typeLineage() {
+        return SingleTypeLineage.create(this);
+    }
+
+    @Override
+    public TypeLineage classLineage() {
         return SingleTypeLineage.create(this);
     }
 }
