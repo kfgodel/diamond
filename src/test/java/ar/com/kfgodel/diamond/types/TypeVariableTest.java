@@ -37,9 +37,9 @@ public class TypeVariableTest extends JavaSpec<DiamondTestContext> {
                 assertThat(context().typeInstance().name())
                         .isEqualTo("T");
             });
-            it("has a declaration name", ()->{
-                assertThat(context().typeInstance().names().declarationName())
-                        .isEqualTo("T");
+            it("has a declaration", ()->{
+                assertThat(context().typeInstance().declaration())
+                        .isEqualTo("@ar.com.kfgodel.diamond.testobjects.TestAnnotation1() T extends @ar.com.kfgodel.diamond.testobjects.TestAnnotation2() java.io.Serializable & java.lang.Comparable");
             });
             it("can have upper bounds", ()->{
                 List<String> upperTypeNames = context().typeInstance().bounds().upper().map((upperBound)-> upperBound.name()).collect(Collectors.toList());

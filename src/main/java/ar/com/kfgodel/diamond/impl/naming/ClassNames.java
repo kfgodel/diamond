@@ -11,6 +11,7 @@ public class ClassNames implements TypeNames {
     private String classloaderName;
     private String canonicalName;
     private String typeName;
+    private String bareName;
 
     @Override
     public String shortName() {
@@ -33,8 +34,8 @@ public class ClassNames implements TypeNames {
     }
 
     @Override
-    public String declarationName() {
-        return typeName;
+    public String bareName() {
+        return bareName;
     }
 
     public static ClassNames create(Class<?> nativeClass, String typeName) {
@@ -43,6 +44,12 @@ public class ClassNames implements TypeNames {
         classNames.classloaderName = nativeClass.getName();
         classNames.canonicalName = nativeClass.getCanonicalName();
         classNames.typeName = typeName;
+        if(nativeClass.getComponentType() != null){
+            //It's an array
+            classNames.bareName = "[]";
+        }else{
+            classNames.bareName = nativeClass.getCanonicalName();
+        }
         return classNames;
     }
 

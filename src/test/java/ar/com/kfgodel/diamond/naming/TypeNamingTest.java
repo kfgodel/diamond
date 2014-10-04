@@ -32,7 +32,7 @@ public class TypeNamingTest extends JavaSpec<DiamondTestContext> {
 
             describe("for classes / parameterized types", () -> {
                 beforeEach(() -> {
-                    context().typeInstance(this::getStringListType);
+                    context().typeInstance(TypeNamingTest::getStringListType);
                 });
 
                 it("shortname is the simple name", () -> {
@@ -47,19 +47,23 @@ public class TypeNamingTest extends JavaSpec<DiamondTestContext> {
                     assertThat(context().typeInstance().names().canonicalName())
                             .isEqualTo("java.util.List");
                 });
+                it("bare name is the canonical name",()->{
+                    assertThat(context().typeInstance().names().bareName())
+                            .isEqualTo(context().typeInstance().names().canonicalName());
+                });
                 it("typeName is the class type name", () -> {
                     assertThat(context().typeInstance().names().typeName())
                             .isEqualTo("java.util.List<java.lang.String>");
                 });
-                xit("declaration name is the soure declaration equivalent", () -> {
-                    assertThat(context().typeInstance().names().declarationName())
-                            .isEqualTo("@TestAnnotation1 java.util.List< @TestAnnotation2 java.lang.String>");
+                it("declaration name is the soure declaration equivalent", () -> {
+                    assertThat(context().typeInstance().declaration())
+                            .isEqualTo("@ar.com.kfgodel.diamond.testobjects.TestAnnotation1() java.util.List<@ar.com.kfgodel.diamond.testobjects.TestAnnotation2() java.lang.String>");
                 });
             });
 
             describe("for array types", () -> {
                 beforeEach(() -> {
-                    context().typeInstance(this::getStringArrayType);
+                    context().typeInstance(TypeNamingTest::getStringArrayType);
                 });
 
                 it("shortname is the simple name", () -> {
@@ -70,17 +74,21 @@ public class TypeNamingTest extends JavaSpec<DiamondTestContext> {
                     assertThat(context().typeInstance().names().classloaderName())
                             .isEqualTo("[Ljava.lang.String;");
                 });
-                it("canonical name is the class canonical name", () -> {
+                it("canonical name is the array canonical name", () -> {
                     assertThat(context().typeInstance().names().canonicalName())
                             .isEqualTo("java.lang.String[]");
+                });
+                it("bare name is the square brackets",()->{
+                    assertThat(context().typeInstance().names().bareName())
+                            .isEqualTo("[]");
                 });
                 it("typeName is the class type name", () -> {
                     assertThat(context().typeInstance().names().typeName())
                             .isEqualTo("java.lang.String[]");
                 });
-                xit("declaration name is the soure declaration equivalent", () -> {
-                    assertThat(context().typeInstance().names().declarationName())
-                            .isEqualTo("@TestAnnotation2 String @TestAnnotation1[]");
+                it("declaration name is the soure declaration equivalent", () -> {
+                    assertThat(context().typeInstance().declaration())
+                            .isEqualTo("@ar.com.kfgodel.diamond.testobjects.TestAnnotation2() java.lang.String @ar.com.kfgodel.diamond.testobjects.TestAnnotation1() []");
                 });
             });
 
@@ -101,19 +109,23 @@ public class TypeNamingTest extends JavaSpec<DiamondTestContext> {
                     assertThat(context().typeInstance().names().canonicalName())
                             .isEqualTo(context().typeInstance().names().typeName());
                 });
+                it("bare name is the variable name",()->{
+                    assertThat(context().typeInstance().names().bareName())
+                            .isEqualTo("A");
+                });
                 it("typeName is the type name (for some reason it doesn't include bounds)", () -> {
                     assertThat(context().typeInstance().names().typeName())
                             .isEqualTo("A");
                 });
-                xit("declaration name is the soure declaration equivalent", () -> {
-                    assertThat(context().typeInstance().names().declarationName())
-                            .isEqualTo("@TestAnnotation1 A extends @TestAnnotation2 String");
+                it("declaration name is the soure declaration equivalent", () -> {
+                    assertThat(context().typeInstance().declaration())
+                            .isEqualTo("@ar.com.kfgodel.diamond.testobjects.TestAnnotation1() A extends @ar.com.kfgodel.diamond.testobjects.TestAnnotation2() java.lang.String");
                 });
             });
 
             describe("for type wildcards", () -> {
                 beforeEach(() -> {
-                    context().typeInstance(this::getWildcardType);
+                    context().typeInstance(TypeNamingTest::getWildcardType);
                 });
 
                 it("shortname is the wildcard symbol", () -> {
@@ -128,13 +140,17 @@ public class TypeNamingTest extends JavaSpec<DiamondTestContext> {
                     assertThat(context().typeInstance().names().canonicalName())
                             .isEqualTo(context().typeInstance().names().typeName());
                 });
+                it("bare name is the wildcard symbol",()->{
+                    assertThat(context().typeInstance().names().bareName())
+                            .isEqualTo("?");
+                });
                 it("typeName is the type name", () -> {
                     assertThat(context().typeInstance().names().typeName())
                             .isEqualTo("? extends java.lang.String");
                 });
-                xit("declaration name is the soure declaration equivalent", () -> {
-                    assertThat(context().typeInstance().names().declarationName())
-                            .isEqualTo("@TestAnnotation1 ? extends @TestAnnotation2 String");
+                it("declaration name is the soure declaration equivalent", () -> {
+                    assertThat(context().typeInstance().declaration())
+                            .isEqualTo("@ar.com.kfgodel.diamond.testobjects.TestAnnotation1() ? extends @ar.com.kfgodel.diamond.testobjects.TestAnnotation2() java.lang.String");
                 });
             });
 
@@ -142,16 +158,16 @@ public class TypeNamingTest extends JavaSpec<DiamondTestContext> {
         });
     }
 
-    private TypeInstance getStringListType(){
+    private static TypeInstance getStringListType(){
         return getTypeFrom(new ReferenceOf<@TestAnnotation1 List< @TestAnnotation2 String>>() {});
     }
-    private TypeInstance getStringArrayType(){
+    private static TypeInstance getStringArrayType(){
         return getTypeFrom(new ReferenceOf<@TestAnnotation2 String @TestAnnotation1[]>() {});
     }
     private static <A extends @TestAnnotation2 String> TypeInstance getTypeVariableA(){
         return getTypeFrom(new ReferenceOf<@TestAnnotation1 A>() {});
     }
-    private TypeInstance getWildcardType(){
+    private static TypeInstance getWildcardType(){
         return getTypeFrom(new ReferenceOf<List<@TestAnnotation1 ? extends @TestAnnotation2 String>>() {}).typeArguments().findFirst().get();
     }
 

@@ -35,10 +35,15 @@ public interface TypeNames {
     String typeName();
 
     /**
-     * The name that identifies this type with its annotations and generics information.<br> This name could be used to declare
-     * this exact type in source code including actual type arguments
-     * @return The name as a full type declaration (This is equivalent to the source code for this type declaration)
+     * The complete name of this type without annotations, type arguments, component type or type bounds.<br>
+     *     For classes this is the fully qualified name<br>
+     *     For arrays this is '[]'<br>
+     *     For wildcards this is '?'<br>
+     *     For type variables this is the name of the variable.<br>
+     * <br>
+     * This name allows you to discriminate the core of this type without considering its relations with other types
+     * @return The name that identifies this type without including relations with other types (bounds, arguments, components, etc)
      */
-    String declarationName();
+    String bareName();
 
 }

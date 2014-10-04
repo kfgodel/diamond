@@ -20,7 +20,7 @@ public class TypeEquality {
             return false;
         }
         TypeInstance other = (TypeInstance) obj;
-        if(!aType.names().canonicalName().equals(other.names().canonicalName())){
+        if(!aType.names().bareName().equals(other.names().bareName())){
             return false;
         }
         if (!equalComponent(aType, other)){
