@@ -1,10 +1,14 @@
 package ar.com.kfgodel.diamond.impl.types.parts.names;
 
+import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 import ar.com.kfgodel.diamond.api.sources.TypeNames;
-import ar.com.kfgodel.diamond.impl.naming.SingleName;
+import ar.com.kfgodel.diamond.impl.naming.TypeVariableNames;
+import ar.com.kfgodel.diamond.impl.naming.WildCardNames;
 
 import java.lang.reflect.AnnotatedType;
 import java.lang.reflect.Type;
+import java.lang.reflect.TypeVariable;
+import java.lang.reflect.WildcardType;
 import java.util.function.Supplier;
 
 /**
@@ -23,12 +27,18 @@ public class VariableTypeNamesSupplier implements Supplier<TypeNames> {
 
     @Override
     public TypeNames get() {
-        Type baseType;
+        Type unannotatedType;
         if(nativeType instanceof AnnotatedType){
-            baseType = ((AnnotatedType) nativeType).getType();
+            unannotatedType = ((AnnotatedType) nativeType).getType();
         }else {
-            baseType = (Type) nativeType;
+            unannotatedType = (Type) nativeType;
         }
-        return SingleName.create(baseType.getTypeName());
+        if(unannotatedType instanceof TypeVariable){
+            TypeVariable typeVariable = (TypeVariable) unannotatedType;
+            return TypeVariableNames.create(typeVariable.getName(), typeVariable.getTypeName());
+        }else if(unannotatedType instanceof WildcardType){
+            return WildCardNames.create(unannotatedType.getTypeName());
+        }
+        throw new DiamondException("Variable type is unknown:" + unannotatedType);
     }
 }

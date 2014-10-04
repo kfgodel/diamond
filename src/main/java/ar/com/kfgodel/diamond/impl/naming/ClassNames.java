@@ -10,7 +10,7 @@ public class ClassNames implements TypeNames {
     private String shortName;
     private String classloaderName;
     private String canonicalName;
-    private String declarationName;
+    private String typeName;
 
     @Override
     public String shortName() {
@@ -28,16 +28,21 @@ public class ClassNames implements TypeNames {
     }
 
     @Override
-    public String declarationName() {
-        return declarationName;
+    public String typeName() {
+        return typeName;
     }
 
-    public static ClassNames create(Class<?> nativeClass, String declarationSupplier) {
+    @Override
+    public String declarationName() {
+        return typeName;
+    }
+
+    public static ClassNames create(Class<?> nativeClass, String typeName) {
         ClassNames classNames = new ClassNames();
         classNames.shortName = nativeClass.getSimpleName();
         classNames.classloaderName = nativeClass.getName();
         classNames.canonicalName = nativeClass.getCanonicalName();
-        classNames.declarationName = declarationSupplier;
+        classNames.typeName = typeName;
         return classNames;
     }
 
