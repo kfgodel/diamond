@@ -114,7 +114,7 @@ public class TypeEqualityTest extends JavaSpec<DiamondTestContext> {
         return getTypeFrom(new ReferenceOf<B>() {});
     }
 
-    private static <A> TypeInstance getTypeFrom(ReferenceOf<A> reference) {
+    private static TypeInstance getTypeFrom(ReferenceOf<?> reference) {
         AnnotatedType annotatedType = reference.getReferencedAnnotatedType();
         TypeInstance typeInstance = Diamond.types().from(annotatedType);
         return typeInstance;
