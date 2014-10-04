@@ -38,12 +38,12 @@ public class WildcardTypeTest extends JavaSpec<DiamondTestContext> {
 
             it("has a name", ()->{
                 assertThat(context().typeInstance().name())
-                        .isEqualTo("? extends java.lang.Number");
+                        .isEqualTo("?");
             });
 
             it("has a declaration name", ()->{
-                assertThat(context().typeInstance().names().declarationName())
-                        .isEqualTo("? extends java.lang.Number");
+                assertThat(context().typeInstance().declaration())
+                        .isEqualTo("@ar.com.kfgodel.diamond.testobjects.TestAnnotation1() ? extends @ar.com.kfgodel.diamond.testobjects.TestAnnotation3() java.lang.Number");
             });
 
             it("has upper bounds", ()->{

@@ -26,6 +26,14 @@ public interface TypeInstance extends Named, Annotated {
     TypeNames names();
 
     /**
+     * The name that identifies this type with its annotations and generics information.<br> This name could be used to declare
+     * this exact type in source code including actual type arguments
+     * @return The name as a full type declaration (This is equivalent to the source code for this type declaration)
+     */
+    String declaration();
+
+
+    /**
      * @return The type boundaries of this type (if any)
      * Wildcards and type variables usually have boundaries other types don't
      */

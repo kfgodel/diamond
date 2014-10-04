@@ -31,8 +31,8 @@ public class WildCardNames implements TypeNames {
     }
 
     @Override
-    public String declarationName() {
-        return "";
+    public String bareName() {
+        return shortName();
     }
 
     public static WildCardNames create(String typeName) {

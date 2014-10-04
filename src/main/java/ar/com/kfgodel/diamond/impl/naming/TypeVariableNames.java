@@ -32,8 +32,8 @@ public class TypeVariableNames implements TypeNames {
     }
 
     @Override
-    public String declarationName() {
-        return "";
+    public String bareName() {
+        return variableName;
     }
 
     public static TypeVariableNames create(String variableName, String typeName) {

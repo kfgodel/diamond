@@ -39,9 +39,9 @@ public class ParameterizedTypeTest extends JavaSpec<DiamondTestContext> {
                         .isEqualTo("ParentClass");
             });
 
-            it("has a declaration name", () -> {
-                assertThat(context().typeInstance().names().declarationName())
-                        .isEqualTo("ar.com.kfgodel.diamond.testobjects.lineage.ParentClass<java.lang.String, java.lang.Integer>");
+            it("has a declaration", () -> {
+                assertThat(context().typeInstance().declaration())
+                        .isEqualTo("@ar.com.kfgodel.diamond.testobjects.TestAnnotation1() ar.com.kfgodel.diamond.testobjects.lineage.ParentClass<@ar.com.kfgodel.diamond.testobjects.TestAnnotation2() java.lang.String, @ar.com.kfgodel.diamond.testobjects.TestAnnotation3() java.lang.Integer>");
             });
 
             it("has type parameters", ()->{
@@ -58,9 +58,9 @@ public class ParameterizedTypeTest extends JavaSpec<DiamondTestContext> {
 
             it("type argument declaration names are preserved", ()->{
                 assertThat(context().typeInstance().typeArguments()
-                            .map((typeArgument)-> typeArgument.names().declarationName())
+                            .map((typeArgument)-> typeArgument.declaration())
                             .collect(Collectors.toList()))
-                        .isEqualTo(Arrays.asList("java.lang.String","java.lang.Integer"));
+                        .isEqualTo(Arrays.asList("@ar.com.kfgodel.diamond.testobjects.TestAnnotation2() java.lang.String","@ar.com.kfgodel.diamond.testobjects.TestAnnotation3() java.lang.Integer"));
 
             });
 
