@@ -72,14 +72,6 @@ public class FixedTypeInstance extends TypeInstanceSupport {
         return this.extendedType.get();
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if(obj instanceof FixedTypeInstance){
-            return this.names().declarationName().equals(((FixedTypeInstance) obj).names().declarationName());
-        }
-        return false;
-    }
-
     /**
      * Creates a class instance with its minimum data
      * @param description the description for this type

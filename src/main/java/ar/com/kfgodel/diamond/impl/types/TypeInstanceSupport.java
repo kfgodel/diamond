@@ -107,6 +107,14 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof TypeInstance){
+            return this.names().declarationName().equals(((TypeInstance) obj).names().declarationName());
+        }
+        return false;
+    }
+
+    @Override
     public Optional<TypeInstance> superclass() {
         return Optional.empty();
     }
