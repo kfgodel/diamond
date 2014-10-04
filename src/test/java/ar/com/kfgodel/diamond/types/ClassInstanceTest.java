@@ -7,6 +7,7 @@ import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.classes.TypeLineage;
 import ar.com.kfgodel.diamond.api.naming.Named;
 import ar.com.kfgodel.diamond.api.sources.TypeNames;
+import ar.com.kfgodel.diamond.api.types.ReferenceOf;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.testobjects.lineage.ChildClass;
 import org.junit.runner.RunWith;
@@ -105,6 +106,12 @@ public class ClassInstanceTest extends JavaSpec<DiamondTestContext> {
 
             });
 
+            describe("for arrays", () -> {
+                it("has a component type",()->{
+                    context().classInstance(()-> getStringArrayType());
+                    assertThat(context().classInstance().componentType().get().name()).isEqualTo("String");
+                });
+            });
 
 
             xit("equality is based on the semantic name", ()->{
@@ -114,6 +121,10 @@ public class ClassInstanceTest extends JavaSpec<DiamondTestContext> {
             it("contains type parameter values");
             it("contains type argument values");
         });
+    }
+
+    private TypeInstance getStringArrayType() {
+        return Diamond.types().from(new ReferenceOf<String[]>(){}.getReferencedAnnotatedType());
     }
 
 

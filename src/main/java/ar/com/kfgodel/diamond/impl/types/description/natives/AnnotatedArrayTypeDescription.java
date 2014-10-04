@@ -8,6 +8,7 @@ import ar.com.kfgodel.diamond.impl.types.parts.componenttype.GenericArrayCompone
 import java.lang.reflect.AnnotatedArrayType;
 import java.lang.reflect.AnnotatedType;
 import java.lang.reflect.GenericArrayType;
+import java.lang.reflect.Type;
 import java.util.Optional;
 import java.util.function.Supplier;
 
@@ -26,7 +27,13 @@ public class AnnotatedArrayTypeDescription extends AnnotatedTypeDescriptionSuppo
 
     @Override
     protected TypeDescription createUnannotatedDescription() {
-        return GenericArrayTypeDescription.create((GenericArrayType) nativeType.getType());
+        Type type = nativeType.getType();
+        if(type instanceof Class){
+            // Non generic array
+            return ClassDescription.create((Class<?>) type);
+        }
+        // Generic array
+        return GenericArrayTypeDescription.create((GenericArrayType) type);
     }
 
     @Override
