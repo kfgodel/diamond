@@ -6,6 +6,7 @@ import ar.com.kfgodel.diamond.api.sources.TypeNames;
 import ar.com.kfgodel.diamond.api.types.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.classes.SingleTypeLineage;
+import ar.com.kfgodel.diamond.impl.equality.TypeEquality;
 import ar.com.kfgodel.diamond.impl.sources.NoMethodsSource;
 import ar.com.kfgodel.diamond.impl.types.bounds.NoBounds;
 import ar.com.kfgodel.diamond.impl.types.parts.annotations.NoAnnotationsSupplier;
@@ -108,10 +109,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof TypeInstance){
-            return this.names().declarationName().equals(((TypeInstance) obj).names().declarationName());
-        }
-        return false;
+        return TypeEquality.INSTANCE.areEquals(this, obj);
     }
 
     @Override
