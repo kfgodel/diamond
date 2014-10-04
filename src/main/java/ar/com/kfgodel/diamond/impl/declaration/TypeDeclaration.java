@@ -1,10 +1,12 @@
 package ar.com.kfgodel.diamond.impl.declaration;
 
-import ar.com.kfgodel.diamond.api.types.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 
 import java.util.Optional;
+import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * This type represents the declaration of a type including all its features
@@ -21,46 +23,71 @@ public class TypeDeclaration {
     }
 
     /**
-     * Returns this declaration as a source string
+     * Returns this declaration as a source string.<br>
+     *     Depending on the type relations with other types are included (component type, type arguments, etc)
      * @return The declaration string for the involved type
      */
     public String asString() {
         StringBuilder builder = new StringBuilder();
-        Optional<String> componentDeclaration = type.componentType().map((component) -> component.declaration());
-        componentDeclaration.ifPresent((aDeclaration)->{
-            builder.append(aDeclaration);
+
+        withComponentTypeDeclaration((componentTypeDeclaration)->{
+            builder.append(componentTypeDeclaration);
             builder.append(" ");
         });
-        String typeAnnotations = type.annotations()
-                .map((annotation) -> annotation.toString())
-                .collect(Collectors.joining(" "));
-        if(!typeAnnotations.isEmpty()){
-            builder.append(typeAnnotations);
+        withAnnotationsSeparatedBy(" ", (separatedAnnotations)->{
+            builder.append(separatedAnnotations);
             builder.append(" ");
-        }
+        });
         builder.append(type.names().bareName());
-        String typeArguments = type.typeArguments().map((argument) -> argument.declaration())
-                .collect(Collectors.joining(", "));
-        if(!typeArguments.isEmpty()){
+        withTypeArgumentDeclarationsSeparatedBy(", ", (separatedArguments) -> {
             builder.append("<");
-            builder.append(typeArguments);
+            builder.append(separatedArguments);
             builder.append(">");
-        }
-        TypeBounds typeBounds = type.bounds();
-        String upperBounds = typeBounds.upper().map((upper) -> upper.declaration())
-                .collect(Collectors.joining(" & "));
-        if(!upperBounds.isEmpty()){
+        });
+        withUpperBoundDeclarationsSeparatedBy(" & ", (separatedUpperBounds)->{
             builder.append(" extends ");
-            builder.append(upperBounds);
-        }
-
-        String lowerBounds = typeBounds.lower().map((lower) -> lower.declaration())
-                .collect(Collectors.joining(", "));
-        if(!lowerBounds.isEmpty()){
+            builder.append(separatedUpperBounds);
+        });
+        withLowerBoundDeclarationsSeparatedBy(", ", (separatedLowerBounds)->{
             builder.append(" super ");
-            builder.append(lowerBounds);
-        }
+            builder.append(separatedLowerBounds);
+        });
 
         return builder.toString();
     }
+
+    private void withComponentTypeDeclaration(Consumer<String> componentTypeDeclarationConsumer){
+        Optional<String> componentDeclaration = type.componentType()
+                .map((component) -> component.declaration());
+        componentDeclaration.ifPresent(componentTypeDeclarationConsumer);
+    }
+
+    private void withAnnotationsSeparatedBy(String separator, Consumer<String> separatedAnnotationsConsumer){
+        transformAndJoin(type.annotations(), (annotation) -> annotation.toString(), separator, separatedAnnotationsConsumer);
+    }
+
+    private void withTypeArgumentDeclarationsSeparatedBy(String separator, Consumer<String> separatedArgumentsConsumer){
+        transformTypeAndJoin(type.typeArguments(), separator, separatedArgumentsConsumer);
+    }
+
+    private void withUpperBoundDeclarationsSeparatedBy(String separator, Consumer<String> separatedArgumentsConsumer){
+        transformTypeAndJoin(type.bounds().upper(), separator, separatedArgumentsConsumer);
+    }
+    private void withLowerBoundDeclarationsSeparatedBy(String separator, Consumer<String> separatedArgumentsConsumer){
+        transformTypeAndJoin(type.bounds().lower(), separator, separatedArgumentsConsumer);
+    }
+
+    private void transformTypeAndJoin(Stream<TypeInstance> types, String separator, Consumer<String> joinedConsumer){
+        transformAndJoin(types, (type)-> type.declaration(), separator, joinedConsumer);
+    }
+
+    private<T> void transformAndJoin(Stream<? extends T> objects, Function<? super T, String> transformation, String separator, Consumer<String> joinedConsumer) {
+        String joinedString = objects
+                .map(transformation)
+                .collect(Collectors.joining(separator));
+        if(!joinedString.isEmpty()){
+            joinedConsumer.accept(joinedString);
+        }
+    }
+
 }
