@@ -168,7 +168,7 @@ public class TypeNamingTest extends JavaSpec<DiamondTestContext> {
         return getTypeFrom(new ReferenceOf<@TestAnnotation1 A>() {});
     }
     private static TypeInstance getWildcardType(){
-        return getTypeFrom(new ReferenceOf<List<@TestAnnotation1 ? extends @TestAnnotation2 String>>() {}).typeArguments().findFirst().get();
+        return getTypeFrom(new ReferenceOf<List<@TestAnnotation1 ? extends @TestAnnotation2 String>>() {}).generics().typeArguments().findFirst().get();
     }
 
 

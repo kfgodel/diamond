@@ -1,9 +1,8 @@
 package ar.com.kfgodel.diamond.impl.types;
 
-import ar.com.kfgodel.diamond.api.types.TypeBounds;
+import ar.com.kfgodel.diamond.api.generics.TypeGenerics;
 import ar.com.kfgodel.diamond.impl.types.description.TypeDescription;
-import ar.com.kfgodel.lazyvalue.api.LazyValue;
-import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
+import ar.com.kfgodel.diamond.impl.types.generics.BoundedTypeGenerics;
 
 /**
  * This type represents a variable type that can be defined with a concrete type in certain contexts (wildcards and type variables)
@@ -11,11 +10,11 @@ import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
  */
 public class VariableTypeInstance extends TypeInstanceSupport {
 
-    private LazyValue<TypeBounds> typeBounds;
+    private BoundedTypeGenerics generics;
 
     @Override
-    public TypeBounds bounds() {
-        return typeBounds.get();
+    public TypeGenerics generics() {
+        return generics;
     }
 
     /**
@@ -27,7 +26,7 @@ public class VariableTypeInstance extends TypeInstanceSupport {
         VariableTypeInstance variableType = new VariableTypeInstance();
         variableType.setNames(description.getNames());
         variableType.setAnnotations(description.getAnnotations());
-        variableType.typeBounds = SuppliedValue.create(description.getBounds());
+        variableType.generics = BoundedTypeGenerics.create(description.getBounds());
         return variableType;
     }
 

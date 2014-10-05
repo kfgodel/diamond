@@ -1,15 +1,15 @@
 package ar.com.kfgodel.diamond.impl.types;
 
 import ar.com.kfgodel.diamond.api.classes.TypeLineage;
+import ar.com.kfgodel.diamond.api.generics.TypeGenerics;
 import ar.com.kfgodel.diamond.api.sources.TypeMethodSource;
 import ar.com.kfgodel.diamond.api.sources.TypeNames;
-import ar.com.kfgodel.diamond.api.types.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.classes.SingleTypeLineage;
 import ar.com.kfgodel.diamond.impl.declaration.TypeDeclaration;
 import ar.com.kfgodel.diamond.impl.equality.TypeEquality;
 import ar.com.kfgodel.diamond.impl.sources.NoMethodsSource;
-import ar.com.kfgodel.diamond.impl.types.bounds.NoBounds;
+import ar.com.kfgodel.diamond.impl.types.generics.NotGenerified;
 import ar.com.kfgodel.diamond.impl.types.parts.annotations.NoAnnotationsSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.names.NoNamesSupplier;
 import ar.com.kfgodel.lazyvalue.api.LazyValue;
@@ -66,13 +66,9 @@ public abstract class TypeInstanceSupport implements TypeInstance {
         this.names = SuppliedValue.create(namesSupplier);
     }
 
-    /**
-     * Default implementation with no bounds
-     * @return A no bounds instance
-     */
     @Override
-    public TypeBounds bounds() {
-        return NoBounds.INSTANCE;
+    public TypeGenerics generics() {
+        return NotGenerified.INSTANCE;
     }
 
     /**
@@ -84,19 +80,6 @@ public abstract class TypeInstanceSupport implements TypeInstance {
         return Optional.empty();
     }
 
-    /**
-     * Default implementation with no arguments
-     * @return An empty stream
-     */
-    @Override
-    public Stream<TypeInstance> typeArguments() {
-        return Stream.empty();
-    }
-
-    @Override
-    public Stream<TypeInstance> typeParameters() {
-        return Stream.empty();
-    }
 
     @Override
     public Optional<TypeInstance> extendedType() {

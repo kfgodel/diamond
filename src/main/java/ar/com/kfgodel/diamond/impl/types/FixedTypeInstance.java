@@ -1,18 +1,17 @@
 package ar.com.kfgodel.diamond.impl.types;
 
 import ar.com.kfgodel.diamond.api.classes.TypeLineage;
+import ar.com.kfgodel.diamond.api.generics.TypeGenerics;
 import ar.com.kfgodel.diamond.api.sources.TypeMethodSource;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.classes.FunctionBasedTypeLineage;
 import ar.com.kfgodel.diamond.impl.sources.TypeMethodSourceImpl;
 import ar.com.kfgodel.diamond.impl.types.description.TypeDescription;
+import ar.com.kfgodel.diamond.impl.types.generics.ParameterizedTypeGenerics;
 import ar.com.kfgodel.lazyvalue.api.LazyValue;
 import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * This type represents a concrete type that can be instantiated (class, parameterized type, array), excluding
@@ -29,8 +28,8 @@ public class FixedTypeInstance extends TypeInstanceSupport {
     private LazyValue<Optional<TypeInstance>> superclass;
     private LazyValue<Optional<TypeInstance>> extendedType;
     private LazyValue<Optional<TypeInstance>> componentType;
-    private LazyValue<List<TypeInstance>> typeArguments;
-    private LazyValue<List<TypeInstance>> typeParameters;
+    private ParameterizedTypeGenerics generics;
+
 
     @Override
     public TypeMethodSource methods() {
@@ -48,18 +47,13 @@ public class FixedTypeInstance extends TypeInstanceSupport {
     }
 
     @Override
-    public Stream<TypeInstance> typeArguments() {
-        return typeArguments.get().stream();
-    }
-
-    @Override
-    public Stream<TypeInstance> typeParameters() {
-        return this.typeParameters.get().stream();
-    }
-
-    @Override
     public Optional<TypeInstance> componentType() {
         return componentType.get();
+    }
+
+    @Override
+    public TypeGenerics generics() {
+        return generics;
     }
 
     @Override
@@ -83,10 +77,8 @@ public class FixedTypeInstance extends TypeInstanceSupport {
         fixedType.setAnnotations(description.getAnnotations());
         fixedType.superclass = SuppliedValue.create(description.getSuperclassSupplier());
         fixedType.extendedType = SuppliedValue.create(description.getExtendedTypeSupplier());
-        // Here we decide to cache generics as lists (since it sounds really strange for a type to change parameterization in runtime)
-        fixedType.typeParameters = SuppliedValue.create(() -> description.getTypeParametersSupplier().get().collect(Collectors.toList()));
-        fixedType.typeArguments = SuppliedValue.create(() -> description.getTypeArguments().get().collect(Collectors.toList()));
         fixedType.componentType = SuppliedValue.create(description.getComponentType());
+        fixedType.generics = ParameterizedTypeGenerics.create(description.getTypeParametersSupplier(), description.getTypeArguments());
         return fixedType;
     }
 
