@@ -27,7 +27,7 @@ public class TypeLineageTest extends JavaSpec<DiamondTestContext> {
         describe("type lineage", ()->{
 
             beforeEach(()->{
-                context().lineage(()-> Diamond.of(ChildClass.class).typeLineage());
+                context().lineage(()-> Diamond.of(ChildClass.class).inheritance().typeLineage());
             });
 
             it("starts from its creator class as the lowest descendant", ()->{
@@ -63,7 +63,7 @@ public class TypeLineageTest extends JavaSpec<DiamondTestContext> {
             });
 
             it("does not include Object for primitive types", ()->{
-                Stream<TypeInstance> lineageMembers = Diamond.of(int.class).typeLineage().allMembers();
+                Stream<TypeInstance> lineageMembers = Diamond.of(int.class).inheritance().typeLineage().allMembers();
                 List<String> memberNames = lineageMembers.map((member) -> member.name()).collect(Collectors.toList());
                 assertThat(memberNames)
                         .isEqualTo(Arrays.asList("int"));
@@ -71,20 +71,20 @@ public class TypeLineageTest extends JavaSpec<DiamondTestContext> {
 
             describe("generic arguments", ()->{
                 it("start from the lowest descendant", ()->{
-                    List<String> argumentNames = context().lineage().lowestDescendant().typeArguments().map((arg) -> arg.name()).collect(Collectors.toList());
+                    List<String> argumentNames = context().lineage().lowestDescendant().generics().typeArguments().map((arg) -> arg.name()).collect(Collectors.toList());
                     assertThat(argumentNames).isEqualTo(Arrays.asList());
                 });
                 it("bubble up to its parent", ()->{
                     TypeInstance childType = context().lineage().lowestDescendant();
                     List<String> argumentNames = context().lineage().ancestorOf(childType).get()
-                            .typeArguments().map((arg) -> arg.name()).collect(Collectors.toList());
+                            .generics().typeArguments().map((arg) -> arg.name()).collect(Collectors.toList());
                     assertThat(argumentNames).isEqualTo(Arrays.asList("C", "Integer"));
                 });
                 it("grand parents, and so on", ()->{
                     TypeInstance childType = context().lineage().lowestDescendant();
                     TypeInstance parentType = context().lineage().ancestorOf(childType).get();
                     List<String> argumentNames = context().lineage().ancestorOf(parentType).get()
-                            .typeArguments().map((arg) -> arg.name()).collect(Collectors.toList());
+                            .generics().typeArguments().map((arg) -> arg.name()).collect(Collectors.toList());
                     assertThat(argumentNames).isEqualTo(Arrays.asList("Integer"));
                 });
             });
@@ -94,18 +94,18 @@ public class TypeLineageTest extends JavaSpec<DiamondTestContext> {
         describe("class lineage", ()->{
 
             beforeEach(()->{
-                context().lineage(()-> Diamond.of(ChildClass.class). classLineage());
+                context().lineage(()-> Diamond.of(ChildClass.class).inheritance().classLineage());
             });
 
             it("doesn't have type arguments for any member", ()->{
                 TypeInstance childType = context().lineage().lowestDescendant();
-                assertThat(childType.typeArguments().count()).isEqualTo(0);
+                assertThat(childType.generics().typeArguments().count()).isEqualTo(0);
 
                 TypeInstance parentType = context().lineage().ancestorOf(childType).get();
-                assertThat(parentType.typeArguments().count()).isEqualTo(0);
+                assertThat(parentType.generics().typeArguments().count()).isEqualTo(0);
 
                 TypeInstance grandParentType = context().lineage().ancestorOf(parentType).get();
-                assertThat(grandParentType.typeArguments().count()).isEqualTo(0);
+                assertThat(grandParentType.generics().typeArguments().count()).isEqualTo(0);
             });
         });
 

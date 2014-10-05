@@ -1,13 +1,13 @@
 package ar.com.kfgodel.diamond.api.types;
 
 import ar.com.kfgodel.diamond.api.annotations.Annotated;
-import ar.com.kfgodel.diamond.api.classes.TypeLineage;
+import ar.com.kfgodel.diamond.api.generics.TypeGenerics;
+import ar.com.kfgodel.diamond.api.inheritance.TypeInheritance;
 import ar.com.kfgodel.diamond.api.naming.Named;
-import ar.com.kfgodel.diamond.api.sources.TypeMethodSource;
+import ar.com.kfgodel.diamond.api.sources.TypeMethods;
 import ar.com.kfgodel.diamond.api.sources.TypeNames;
 
 import java.util.Optional;
-import java.util.stream.Stream;
 
 /**
  * This type represents the basic interface common to all types.<br>
@@ -32,73 +32,28 @@ public interface TypeInstance extends Named, Annotated {
      */
     String declaration();
 
-
     /**
-     * @return The type boundaries of this type (if any)
-     * Wildcards and type variables usually have boundaries other types don't
+     * @return The information about this type generification.<br>
+     *     TypeGenerics holds the relationships between this type and its parameters, arguments and bounds
      */
-    TypeBounds bounds();
+    TypeGenerics generics();
 
     /**
-     * @return The type of component this container type has.<br>
+     * @return The component type of this container type.<br>
      * Component type is only present on arrays that reify their component types
      */
     Optional<TypeInstance> componentType();
 
     /**
-     * @return The actual type arguments used to parameterize this type (if any).
-     * Parameterized types have type arguments that are preserved through reflection (only on certain cases).<br>
-     *     See typeParameters for the list of type variables that these arguments correspond to
+     * @return The information about this type inheritance.<br>
+     *     TypeInheritance holds the relationships between this type and its parent types
      */
-    Stream<TypeInstance> typeArguments();
+    TypeInheritance inheritance();
 
     /**
-     * @return The generic type parameters this type accepts (if any).
-     * Parameterized classes have type variables that can be parameterized. This is the list of type variables.<br>
-     *     See typeArguments for the actual type values of this variables
+     * @return The information about this type methods.<br>
+     *     TypeMethods holds the relationship between this type and the methods that instances of this type understand
      */
-    Stream<TypeInstance> typeParameters();
-
-
-    /**
-     * @return The extended supertype of this type (declared with extends). Or empty if this type
-     *  represents either the Object class, an interface type, an array type, a primitive type, void,
-     *  or a variable type (like wildcard).<br>
-     *  The extended type is the parent class with correct type arguments assigned from this type,
-     *  thus is the compile time parent type of this type.
-     */
-    Optional<TypeInstance> extendedType();
-
-    /**
-     * @return The optional superclass of this instance. Or empty if this type
-     *  represents either the Object class, an interface type, an array type, a primitive type, void,
-     *  or a variable type (like wildcard).<br>
-     *     The super class is the un-parameterized (raw) class instance that is the runtime super type of
-     *     this type
-     */
-    Optional<TypeInstance> superclass();
-
-    /**
-     * Returns the accessor object for class methods of this instance
-     * @return The source of methods
-     */
-    TypeMethodSource methods();
-
-    /**
-     * Returns this type lineage (starting from this type, the set of extended types up until Object).<br>
-     *     This lineage does not follow class relationships but parameterized types relationships.<br>
-     *     In this lineage you will find compile time related types
-     * @return The type lineage of this type
-     */
-    TypeLineage typeLineage();
-
-    /**
-     * Returns this class lineage (starting from this type, the set of inherited classes up until Object).<br>
-     *     This lineage does have type parameters coherency, because follows raw class inheritance.<br>
-     *     In this lineage you will find runtime tim related types
-     * @return The class lineage of this type
-     */
-    TypeLineage classLineage();
-
+    TypeMethods methods();
 
 }

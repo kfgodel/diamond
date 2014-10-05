@@ -47,14 +47,14 @@ public class WildcardTypeTest extends JavaSpec<DiamondTestContext> {
             });
 
             it("has upper bounds", ()->{
-                List<String> upperTypeNames = context().typeInstance().bounds().upper().map((upperBound)-> upperBound.name()).collect(Collectors.toList());
+                List<String> upperTypeNames = context().typeInstance().generics().bounds().upper().map((upperBound)-> upperBound.name()).collect(Collectors.toList());
                 assertThat(upperTypeNames)
                         .isEqualTo(Arrays.asList("Number"));
             });
 
             it("has lower bounds", ()->{
                 context().typeInstance(()-> createValueWildcardType());
-                List<String> upperTypeNames = context().typeInstance().bounds().lower().map((lowerBound)-> lowerBound.name()).collect(Collectors.toList());
+                List<String> upperTypeNames = context().typeInstance().generics().bounds().lower().map((lowerBound)-> lowerBound.name()).collect(Collectors.toList());
                 assertThat(upperTypeNames)
                         .isEqualTo(Arrays.asList("Serializable"));
             });
@@ -65,7 +65,7 @@ public class WildcardTypeTest extends JavaSpec<DiamondTestContext> {
             });
 
             it("upper bounds can have annotations too", ()->{
-                List<Class<? extends Annotation>> upperBoundAnnotations = context().typeInstance().bounds().upper()
+                List<Class<? extends Annotation>> upperBoundAnnotations = context().typeInstance().generics().bounds().upper()
                         .flatMap((upperBound)-> upperBound.annotations())
                         .map((annotation)-> annotation.annotationType())
                         .collect(Collectors.toList());
@@ -75,7 +75,7 @@ public class WildcardTypeTest extends JavaSpec<DiamondTestContext> {
 
             it("lower bounds can have annotations too", ()->{
                 context().typeInstance(()-> createValueWildcardType());
-                List<Class<? extends Annotation>> upperBoundAnnotations = context().typeInstance().bounds().lower()
+                List<Class<? extends Annotation>> upperBoundAnnotations = context().typeInstance().generics().bounds().lower()
                         .flatMap((upperBound) -> upperBound.annotations())
                         .map((annotation) -> annotation.annotationType())
                         .collect(Collectors.toList());

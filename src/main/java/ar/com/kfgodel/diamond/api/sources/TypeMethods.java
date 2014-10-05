@@ -8,7 +8,7 @@ import java.util.stream.Stream;
  * This type represents the source of a class method source with the class defined
  * Created by kfgodel on 18/09/14.
  */
-public interface TypeMethodSource {
+public interface TypeMethods {
     /**
      * Returns the class method that matches the given signature in the class of this source
      * @param methodName The name of the method

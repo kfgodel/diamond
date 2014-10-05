@@ -35,7 +35,7 @@ public class ExtendedTypeSpliterator implements Spliterator<TypeInstance> {
 
     public static ExtendedTypeSpliterator create(TypeInstance firstInstance) {
         ExtendedTypeSpliterator spliterator = new ExtendedTypeSpliterator();
-        spliterator.internalSpliterator = TypeSpliterator.create(firstInstance, (instance)-> instance.extendedType());
+        spliterator.internalSpliterator = TypeSpliterator.create(firstInstance, (instance)-> instance.inheritance().extendedType());
         return spliterator;
     }
 }

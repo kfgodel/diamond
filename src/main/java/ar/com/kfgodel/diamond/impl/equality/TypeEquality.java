@@ -36,8 +36,8 @@ public class TypeEquality {
     }
 
     private boolean equalBounds(TypeInstance aType, TypeInstance other) {
-        TypeBounds aTypeBounds = aType.bounds();
-        TypeBounds otherBounds = other.bounds();
+        TypeBounds aTypeBounds = aType.generics().bounds();
+        TypeBounds otherBounds = other.generics().bounds();
         if(!equalTypes(aTypeBounds.upper(), otherBounds.upper())){
             return false;
         }
@@ -45,7 +45,7 @@ public class TypeEquality {
     }
 
     private boolean equalTypeArguments(TypeInstance aType, TypeInstance other) {
-        return equalTypes(aType.typeArguments(), other.typeArguments());
+        return equalTypes(aType.generics().typeArguments(), other.generics().typeArguments());
     }
 
     private boolean equalTypes(Stream<TypeInstance> aTypeStream, Stream<TypeInstance> otherTypeStream) {

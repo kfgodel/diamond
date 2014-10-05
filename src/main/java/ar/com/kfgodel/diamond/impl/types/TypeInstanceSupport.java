@@ -1,15 +1,15 @@
 package ar.com.kfgodel.diamond.impl.types;
 
-import ar.com.kfgodel.diamond.api.classes.TypeLineage;
-import ar.com.kfgodel.diamond.api.sources.TypeMethodSource;
+import ar.com.kfgodel.diamond.api.generics.TypeGenerics;
+import ar.com.kfgodel.diamond.api.inheritance.TypeInheritance;
+import ar.com.kfgodel.diamond.api.sources.TypeMethods;
 import ar.com.kfgodel.diamond.api.sources.TypeNames;
-import ar.com.kfgodel.diamond.api.types.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
-import ar.com.kfgodel.diamond.impl.classes.SingleTypeLineage;
 import ar.com.kfgodel.diamond.impl.declaration.TypeDeclaration;
 import ar.com.kfgodel.diamond.impl.equality.TypeEquality;
 import ar.com.kfgodel.diamond.impl.sources.NoMethodsSource;
-import ar.com.kfgodel.diamond.impl.types.bounds.NoBounds;
+import ar.com.kfgodel.diamond.impl.types.generics.NotGenerified;
+import ar.com.kfgodel.diamond.impl.types.inheritance.NoParentsInheritance;
 import ar.com.kfgodel.diamond.impl.types.parts.annotations.NoAnnotationsSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.names.NoNamesSupplier;
 import ar.com.kfgodel.lazyvalue.api.LazyValue;
@@ -66,14 +66,16 @@ public abstract class TypeInstanceSupport implements TypeInstance {
         this.names = SuppliedValue.create(namesSupplier);
     }
 
-    /**
-     * Default implementation with no bounds
-     * @return A no bounds instance
-     */
     @Override
-    public TypeBounds bounds() {
-        return NoBounds.INSTANCE;
+    public TypeGenerics generics() {
+        return NotGenerified.INSTANCE;
     }
+
+    @Override
+    public TypeInheritance inheritance() {
+        return NoParentsInheritance.create(this);
+    }
+
 
     /**
      * Default implementation with no component type
@@ -84,33 +86,15 @@ public abstract class TypeInstanceSupport implements TypeInstance {
         return Optional.empty();
     }
 
-    /**
-     * Default implementation with no arguments
-     * @return An empty stream
-     */
-    @Override
-    public Stream<TypeInstance> typeArguments() {
-        return Stream.empty();
-    }
 
-    @Override
-    public Stream<TypeInstance> typeParameters() {
-        return Stream.empty();
-    }
-
-    @Override
-    public Optional<TypeInstance> extendedType() {
-        return Optional.empty();
-    }
-
-    @Override
-    public String toString() {
-        return this.declaration();
-    }
 
     @Override
     public String declaration() {
         return TypeDeclaration.create(this).asString();
+    }
+    @Override
+    public String toString() {
+        return this.declaration();
     }
 
     @Override
@@ -119,22 +103,8 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     }
 
     @Override
-    public Optional<TypeInstance> superclass() {
-        return Optional.empty();
-    }
-
-    @Override
-    public TypeMethodSource methods() {
+    public TypeMethods methods() {
         return NoMethodsSource.INSTANCE;
     }
 
-    @Override
-    public TypeLineage typeLineage() {
-        return SingleTypeLineage.create(this);
-    }
-
-    @Override
-    public TypeLineage classLineage() {
-        return SingleTypeLineage.create(this);
-    }
 }
