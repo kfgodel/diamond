@@ -9,4 +9,8 @@ import ar.com.kfgodel.diamond.testobjects.TestAnnotation2;
  */
 public class ParentClass<@TestAnnotation1 P1,P2> extends GrandParentClass<@TestAnnotation2 P2> {
 
+    public void aParentMethod(){
+
+    }
+
 }
