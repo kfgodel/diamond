@@ -1,13 +1,13 @@
 package ar.com.kfgodel.diamond.impl.types;
 
-import ar.com.kfgodel.diamond.api.classes.TypeLineage;
 import ar.com.kfgodel.diamond.api.generics.TypeGenerics;
+import ar.com.kfgodel.diamond.api.inheritance.TypeInheritance;
 import ar.com.kfgodel.diamond.api.sources.TypeMethodSource;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
-import ar.com.kfgodel.diamond.impl.classes.FunctionBasedTypeLineage;
 import ar.com.kfgodel.diamond.impl.sources.TypeMethodSourceImpl;
 import ar.com.kfgodel.diamond.impl.types.description.TypeDescription;
 import ar.com.kfgodel.diamond.impl.types.generics.ParameterizedTypeGenerics;
+import ar.com.kfgodel.diamond.impl.types.inheritance.SuppliedTypesInheritance;
 import ar.com.kfgodel.lazyvalue.api.LazyValue;
 import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
 
@@ -25,25 +25,14 @@ import java.util.Optional;
  */
 public class FixedTypeInstance extends TypeInstanceSupport {
 
-    private LazyValue<Optional<TypeInstance>> superclass;
-    private LazyValue<Optional<TypeInstance>> extendedType;
     private LazyValue<Optional<TypeInstance>> componentType;
     private ParameterizedTypeGenerics generics;
+    private TypeInheritance inheritance;
 
 
     @Override
     public TypeMethodSource methods() {
         return TypeMethodSourceImpl.create(this);
-    }
-
-    @Override
-    public TypeLineage typeLineage() {
-        return FunctionBasedTypeLineage.createType(this);
-    }
-
-    @Override
-    public TypeLineage classLineage() {
-        return FunctionBasedTypeLineage.createClass(this);
     }
 
     @Override
@@ -57,13 +46,8 @@ public class FixedTypeInstance extends TypeInstanceSupport {
     }
 
     @Override
-    public Optional<TypeInstance> superclass() {
-        return superclass.get();
-    }
-
-    @Override
-    public Optional<TypeInstance> extendedType() {
-        return this.extendedType.get();
+    public TypeInheritance inheritance() {
+        return inheritance;
     }
 
     /**
@@ -75,10 +59,9 @@ public class FixedTypeInstance extends TypeInstanceSupport {
         FixedTypeInstance fixedType = new FixedTypeInstance();
         fixedType.setNames(description.getNames());
         fixedType.setAnnotations(description.getAnnotations());
-        fixedType.superclass = SuppliedValue.create(description.getSuperclassSupplier());
-        fixedType.extendedType = SuppliedValue.create(description.getExtendedTypeSupplier());
         fixedType.componentType = SuppliedValue.create(description.getComponentType());
         fixedType.generics = ParameterizedTypeGenerics.create(description.getTypeParametersSupplier(), description.getTypeArguments());
+        fixedType.inheritance = SuppliedTypesInheritance.create(fixedType, description.getSuperclassSupplier(), description.getExtendedTypeSupplier());
         return fixedType;
     }
 

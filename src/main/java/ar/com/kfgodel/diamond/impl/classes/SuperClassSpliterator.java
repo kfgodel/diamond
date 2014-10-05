@@ -35,7 +35,7 @@ public class SuperClassSpliterator implements Spliterator<TypeInstance> {
 
     public static SuperClassSpliterator create(TypeInstance firstInstance) {
         SuperClassSpliterator spliterator = new SuperClassSpliterator();
-        spliterator.internalSpliterator = TypeSpliterator.create(firstInstance, (instance)-> instance.superclass());
+        spliterator.internalSpliterator = TypeSpliterator.create(firstInstance, (instance)-> instance.inheritance().superclass());
         return spliterator;
     }
 

@@ -85,11 +85,11 @@ public class FunctionBasedTypeLineage implements TypeLineage {
 
 
     public static FunctionBasedTypeLineage createType(TypeInstance lowestDescendant) {
-        return create(lowestDescendant, (member) -> member.extendedType());
+        return create(lowestDescendant, (member) -> member.inheritance().extendedType());
     }
 
     public static FunctionBasedTypeLineage createClass(TypeInstance lowestDescendant) {
-        return create(lowestDescendant, (member) -> member.superclass());
+        return create(lowestDescendant, (member) -> member.inheritance().superclass());
     }
 
 

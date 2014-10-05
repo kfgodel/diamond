@@ -27,7 +27,7 @@ public class TypeLineageTest extends JavaSpec<DiamondTestContext> {
         describe("type lineage", ()->{
 
             beforeEach(()->{
-                context().lineage(()-> Diamond.of(ChildClass.class).typeLineage());
+                context().lineage(()-> Diamond.of(ChildClass.class).inheritance().typeLineage());
             });
 
             it("starts from its creator class as the lowest descendant", ()->{
@@ -63,7 +63,7 @@ public class TypeLineageTest extends JavaSpec<DiamondTestContext> {
             });
 
             it("does not include Object for primitive types", ()->{
-                Stream<TypeInstance> lineageMembers = Diamond.of(int.class).typeLineage().allMembers();
+                Stream<TypeInstance> lineageMembers = Diamond.of(int.class).inheritance().typeLineage().allMembers();
                 List<String> memberNames = lineageMembers.map((member) -> member.name()).collect(Collectors.toList());
                 assertThat(memberNames)
                         .isEqualTo(Arrays.asList("int"));
@@ -94,7 +94,7 @@ public class TypeLineageTest extends JavaSpec<DiamondTestContext> {
         describe("class lineage", ()->{
 
             beforeEach(()->{
-                context().lineage(()-> Diamond.of(ChildClass.class). classLineage());
+                context().lineage(()-> Diamond.of(ChildClass.class).inheritance().classLineage());
             });
 
             it("doesn't have type arguments for any member", ()->{
