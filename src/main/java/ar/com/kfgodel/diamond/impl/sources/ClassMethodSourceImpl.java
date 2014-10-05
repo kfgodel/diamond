@@ -1,8 +1,6 @@
 package ar.com.kfgodel.diamond.impl.sources;
 
 import ar.com.kfgodel.diamond.api.ClassMethod;
-import ar.com.kfgodel.diamond.api.Diamond;
-import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.reflections.NativeClassMethod;
 
 import java.lang.reflect.Method;
@@ -27,8 +25,4 @@ public class ClassMethodSourceImpl {
         return NativeClassMethod.create(methodInstance);
     }
 
-    public ClassMethod inIdentifiedAs(Class<?> nativeClass, String methodName, Class<?>... parameterTypes){
-        TypeInstance diamondClass = Diamond.of(nativeClass);
-        return diamondClass.methods().identifiedAs(methodName, parameterTypes);
-    }
 }

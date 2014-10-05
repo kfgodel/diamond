@@ -1,6 +1,5 @@
 package ar.com.kfgodel.diamond.api;
 
-import ar.com.kfgodel.diamond.api.methods.MethodSignature;
 import ar.com.kfgodel.diamond.api.naming.Named;
 
 /**
@@ -10,13 +9,9 @@ import ar.com.kfgodel.diamond.api.naming.Named;
 public interface ClassMethod extends Named {
 
     /**
-     * @return The name of the method
+     * @return The method name selector
      */
     @Override
     String name();
 
-    /**
-     * @return The signature of this method
-     */
-    MethodSignature signature();
 }

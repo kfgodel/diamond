@@ -30,40 +30,40 @@ public class MethodsPerTypeTest extends JavaSpec<DiamondTestContext> {
 
                 it("includes public methods",()->{
                     assertThat(context().typeInstance().methods().all()
-                            .anyMatch((methods) -> methods.name().equals("aPublicMethod")))
+                            .anyMatch((method) -> method.name().equals("aPublicMethod")))
                             .isTrue();
                 });
 
                 it("includes protected methods",()->{
                     assertThat(context().typeInstance().methods().all()
-                            .anyMatch((methods)-> methods.name().equals("aProtectedMethod")))
+                            .anyMatch((method)-> method.name().equals("aProtectedMethod")))
                             .isTrue();
                 });
 
                 it("includes private methods",()->{
                     assertThat(context().typeInstance().methods().all()
-                            .anyMatch((methods)-> methods.name().equals("aPrivateMethod")))
+                            .anyMatch((method)-> method.name().equals("aPrivateMethod")))
                             .isTrue();
                 });
 
                 it("includes default methods",()->{
                     assertThat(context().typeInstance().methods().all()
-                            .anyMatch((methods)-> methods.name().equals("aDefaultMethod")))
+                            .anyMatch((method)-> method.name().equals("aDefaultMethod")))
                             .isTrue();
                 });
 
                 it("includes static methods",()->{
                     assertThat(context().typeInstance().methods().all()
-                            .anyMatch((methods)-> methods.name().equals("aStaticMethod")))
+                            .anyMatch((method)-> method.name().equals("aStaticMethod")))
                             .isTrue();
                 });
 
                 it("includes inherited methods",()->{
                     assertThat(context().typeInstance().methods().all()
-                            .anyMatch((methods)-> methods.name().equals("aParentMethod")))
+                            .anyMatch((method)-> method.name().equals("aParentMethod")))
                             .isTrue();
                     assertThat(context().typeInstance().methods().all()
-                            .anyMatch((methods)-> methods.name().equals("toString")))
+                            .anyMatch((method)-> method.name().equals("toString")))
                             .isTrue();
                 });
 
@@ -77,10 +77,10 @@ public class MethodsPerTypeTest extends JavaSpec<DiamondTestContext> {
 
                     it("includes all the methods from Object", () -> {
                         assertThat(context().typeInstance().methods().all()
-                                .anyMatch((methods) -> methods.name().equals("equals")))
+                                .anyMatch((method) -> method.name().equals("equals")))
                                 .isTrue();
                         assertThat(context().typeInstance().methods().all()
-                                .anyMatch((methods) -> methods.name().equals("notify")))
+                                .anyMatch((method) -> method.name().equals("notify")))
                                 .isTrue();
                     });
                 });
@@ -91,13 +91,13 @@ public class MethodsPerTypeTest extends JavaSpec<DiamondTestContext> {
 
                     it("includes methods from extended type",()->{
                         assertThat(context().typeInstance().methods().all()
-                                .anyMatch((methods) -> methods.name().equals("aPublicMethod")))
+                                .anyMatch((method) -> method.name().equals("aPublicMethod")))
                                 .isTrue();
                     });
 
                     it("includes inherited methods from the extended type",()->{
                         assertThat(context().typeInstance().methods().all()
-                                .anyMatch((methods) -> methods.name().equals("aParentMethod")))
+                                .anyMatch((method) -> method.name().equals("aParentMethod")))
                                 .isTrue();
                     });
 
@@ -110,7 +110,7 @@ public class MethodsPerTypeTest extends JavaSpec<DiamondTestContext> {
 
                 it("includes all methods from Object",()->{
                     assertThat(context().typeInstance().methods().all()
-                            .anyMatch((methods) -> methods.name().equals("wait")))
+                            .anyMatch((method) -> method.name().equals("wait")))
                             .isTrue();
                 });
 

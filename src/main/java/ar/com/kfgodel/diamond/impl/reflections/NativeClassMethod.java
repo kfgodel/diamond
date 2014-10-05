@@ -1,7 +1,6 @@
 package ar.com.kfgodel.diamond.impl.reflections;
 
 import ar.com.kfgodel.diamond.api.ClassMethod;
-import ar.com.kfgodel.diamond.api.methods.MethodSignature;
 
 import java.lang.reflect.Method;
 
@@ -16,11 +15,6 @@ public class NativeClassMethod implements ClassMethod {
     @Override
     public String name() {
         return methodInstance.getName();
-    }
-
-    @Override
-    public MethodSignature signature() {
-        return null;
     }
 
     public static NativeClassMethod create(Method methodInstance) {

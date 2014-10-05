@@ -14,13 +14,8 @@ public class NoMethodsSource implements TypeMethods {
     public static final NoMethodsSource INSTANCE = new NoMethodsSource();
 
     @Override
-    public ClassMethod identifiedAs(String methodName, Class<?>... parameterTypes) {
-        return null;
-    }
-
-    @Override
     public Stream<ClassMethod> all() {
-        return null;
+        return Stream.empty();
     }
 
 }

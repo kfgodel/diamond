@@ -1,13 +1,10 @@
 package ar.com.kfgodel.diamond.impl.sources;
 
 import ar.com.kfgodel.diamond.api.ClassMethod;
-import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 import ar.com.kfgodel.diamond.api.sources.TypeMethods;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
-import ar.com.kfgodel.diamond.impl.methods.NativeSignature;
 
 import java.util.Collections;
-import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
@@ -17,15 +14,6 @@ import java.util.stream.Stream;
 public class TypeMethodSourceImpl implements TypeMethods {
 
     private TypeInstance typeInstance;
-
-    @Override
-    public ClassMethod identifiedAs(String methodName, Class<?>... parameterTypes) {
-        NativeSignature expectedSignature = NativeSignature.create(methodName, parameterTypes);
-        Stream<ClassMethod> methods = typeInstance.methods().all()
-                .filter((classMethod) -> classMethod.signature().equals(expectedSignature) );
-        Optional<ClassMethod> onlyMethod = methods.findFirst();
-        return onlyMethod.orElseThrow(() -> new DiamondException("Method with signature["+expectedSignature+"] couldn't be found on class["+ typeInstance +"]"));
-    }
 
     @Override
     public Stream<ClassMethod> all() {

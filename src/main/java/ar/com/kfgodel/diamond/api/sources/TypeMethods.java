@@ -9,13 +9,6 @@ import java.util.stream.Stream;
  * Created by kfgodel on 18/09/14.
  */
 public interface TypeMethods {
-    /**
-     * Returns the class method that matches the given signature in the class of this source
-     * @param methodName The name of the method
-     * @param parameterTypes The method parameter types to match
-     * @return The matching class method
-     */
-    ClassMethod identifiedAs(String methodName, Class<?>... parameterTypes);
 
     /**
      * @return All the class methods of this class
