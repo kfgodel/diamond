@@ -4,7 +4,7 @@ import ar.com.kfgodel.diamond.api.annotations.Annotated;
 import ar.com.kfgodel.diamond.api.generics.TypeGenerics;
 import ar.com.kfgodel.diamond.api.inheritance.TypeInheritance;
 import ar.com.kfgodel.diamond.api.naming.Named;
-import ar.com.kfgodel.diamond.api.sources.TypeMethodSource;
+import ar.com.kfgodel.diamond.api.sources.TypeMethods;
 import ar.com.kfgodel.diamond.api.sources.TypeNames;
 
 import java.util.Optional;
@@ -32,19 +32,17 @@ public interface TypeInstance extends Named, Annotated {
      */
     String declaration();
 
+    /**
+     * @return The information about this type generification.<br>
+     *     TypeGenerics holds the relationships between this type and its parameters, arguments and bounds
+     */
+    TypeGenerics generics();
 
     /**
-     * @return The type of component this container type has.<br>
+     * @return The component type of this container type.<br>
      * Component type is only present on arrays that reify their component types
      */
     Optional<TypeInstance> componentType();
-
-
-    /**
-     * @return The information about this type generification.<br>
-     *     TypeGenerics hold the relationships between this type and its parameters, arguments and bounds
-     */
-    TypeGenerics generics();
 
     /**
      * @return The information about this type inheritance.<br>
@@ -53,9 +51,9 @@ public interface TypeInstance extends Named, Annotated {
     TypeInheritance inheritance();
 
     /**
-     * Returns the accessor object for class methods of this instance
-     * @return The source of methods
+     * @return The information about this type methods.<br>
+     *     TypeMethods holds the relationship between this type and the methods that instances of this type understand
      */
-    TypeMethodSource methods();
+    TypeMethods methods();
 
 }

@@ -2,7 +2,7 @@ package ar.com.kfgodel.diamond.impl.sources;
 
 import ar.com.kfgodel.diamond.api.ClassMethod;
 import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
-import ar.com.kfgodel.diamond.api.sources.TypeMethodSource;
+import ar.com.kfgodel.diamond.api.sources.TypeMethods;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.methods.NativeSignature;
 
@@ -14,7 +14,7 @@ import java.util.stream.Stream;
  * This type represents the class searcher for methods
  * Created by kfgodel on 19/09/14.
  */
-public class TypeMethodSourceImpl implements TypeMethodSource {
+public class TypeMethodSourceImpl implements TypeMethods {
 
     private TypeInstance typeInstance;
 

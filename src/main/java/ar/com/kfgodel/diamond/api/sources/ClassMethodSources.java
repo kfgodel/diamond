@@ -15,7 +15,7 @@ public interface ClassMethodSources {
      * @param objectClass The instance that represents the class
      * @return The partially defined source
      */
-    TypeMethodSource in(Class<?> objectClass);
+    TypeMethods in(Class<?> objectClass);
 
     /**
      * Retrieves the diamond representation of the given method

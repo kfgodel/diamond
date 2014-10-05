@@ -2,7 +2,7 @@ package ar.com.kfgodel.diamond.impl.types;
 
 import ar.com.kfgodel.diamond.api.generics.TypeGenerics;
 import ar.com.kfgodel.diamond.api.inheritance.TypeInheritance;
-import ar.com.kfgodel.diamond.api.sources.TypeMethodSource;
+import ar.com.kfgodel.diamond.api.sources.TypeMethods;
 import ar.com.kfgodel.diamond.api.sources.TypeNames;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.declaration.TypeDeclaration;
@@ -103,7 +103,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     }
 
     @Override
-    public TypeMethodSource methods() {
+    public TypeMethods methods() {
         return NoMethodsSource.INSTANCE;
     }
 
