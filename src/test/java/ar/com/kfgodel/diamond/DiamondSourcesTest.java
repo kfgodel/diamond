@@ -52,8 +52,8 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
                 });
 
                 xit("can be obtained from a Class instance and a method name", () -> {
-                    ClassMethod diamondMethod = Diamond.methods().in(Object.class).identifiedAs("equals", Object.class);
-                    assertThat(diamondMethod.name()).isEqualTo("equals");
+//                    ClassMethod diamondMethod = Diamond.methods().in(Object.class).identifiedAs("equals", Object.class);
+//                    assertThat(diamondMethod.name()).isEqualTo("equals");
                 });
             });
             xdescribe("fields", ()->{

@@ -11,24 +11,24 @@ import java.util.function.Function;
  * This type represents a type spliterator that traverses types in a linear fashion
  * Created by kfgodel on 28/09/14.
  */
-public class TypeSpliterator<T extends TypeInstance> implements Spliterator<T> {
+public class TypeInstanceSpliterator implements Spliterator<TypeInstance> {
 
-    private Optional<? extends T> optionalInstance;
-    private Function<? super T, Optional<? extends T>> advanceOperation;
+    private Optional<? extends TypeInstance> optionalInstance;
+    private Function<? super TypeInstance, Optional<? extends TypeInstance>> advanceOperation;
 
     @Override
-    public boolean tryAdvance(Consumer<? super T> action) {
+    public boolean tryAdvance(Consumer<? super TypeInstance> action) {
         if(!optionalInstance.isPresent()){
             return false;
         }
-        T currentInstance = optionalInstance.get();
+        TypeInstance currentInstance = optionalInstance.get();
         action.accept(currentInstance);
         optionalInstance = advanceOperation.apply(currentInstance);
         return true;
     }
 
     @Override
-    public Spliterator<T> trySplit() {
+    public Spliterator<TypeInstance> trySplit() {
         // We cannot split on this implementation
         return null;
     }
@@ -43,8 +43,8 @@ public class TypeSpliterator<T extends TypeInstance> implements Spliterator<T> {
         return Spliterator.DISTINCT & Spliterator.IMMUTABLE & Spliterator.NONNULL & Spliterator.ORDERED;
     }
 
-    public static<T extends TypeInstance> TypeSpliterator<T> create(T firstInstance, Function<? super T, Optional<? extends T>> advanceOperation ) {
-        TypeSpliterator<T> spliterator = new TypeSpliterator<>();
+    public static  TypeInstanceSpliterator create(TypeInstance firstInstance, Function<? super TypeInstance, Optional<? extends TypeInstance>> advanceOperation ) {
+        TypeInstanceSpliterator spliterator = new TypeInstanceSpliterator();
         spliterator.optionalInstance = Optional.of(firstInstance);
         spliterator.advanceOperation = advanceOperation;
         return spliterator;

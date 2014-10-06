@@ -95,7 +95,7 @@ public class FunctionBasedTypeLineage implements TypeLineage {
 
     private static FunctionBasedTypeLineage create(TypeInstance lowest, Function<TypeInstance, Optional<? extends TypeInstance>> advanceOperation) {
         FunctionBasedTypeLineage lineage = new FunctionBasedTypeLineage();
-        lineage.classes = StreamSupport.stream(TypeSpliterator.create(lowest, advanceOperation), false).collect(Collectors.toList());
+        lineage.classes = StreamSupport.stream(TypeInstanceSpliterator.create(lowest, advanceOperation), false).collect(Collectors.toList());
         return lineage;
     }
 

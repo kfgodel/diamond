@@ -16,7 +16,7 @@ public class WildcardTypeDescription extends UnannotatedVariableTypeDescriptionS
     private WildcardType nativeType;
 
     @Override
-    protected Object getVariableType() {
+    public WildcardType getNativeType() {
         return nativeType;
     }
 
