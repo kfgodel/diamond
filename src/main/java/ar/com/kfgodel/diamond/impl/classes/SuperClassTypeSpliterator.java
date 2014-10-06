@@ -9,9 +9,9 @@ import java.util.function.Consumer;
  * This type represents the spliterator that traverses the superclases of a class
  * Created by kfgodel on 19/09/14.
  */
-public class SuperClassSpliterator implements Spliterator<TypeInstance> {
+public class SuperClassTypeSpliterator implements Spliterator<TypeInstance> {
 
-    private TypeSpliterator<TypeInstance> internalSpliterator;
+    private TypeInstanceSpliterator internalSpliterator;
 
     @Override
     public boolean tryAdvance(Consumer<? super TypeInstance> action) {
@@ -33,9 +33,9 @@ public class SuperClassSpliterator implements Spliterator<TypeInstance> {
         return internalSpliterator.characteristics();
     }
 
-    public static SuperClassSpliterator create(TypeInstance firstInstance) {
-        SuperClassSpliterator spliterator = new SuperClassSpliterator();
-        spliterator.internalSpliterator = TypeSpliterator.create(firstInstance, (instance)-> instance.inheritance().superclass());
+    public static SuperClassTypeSpliterator create(TypeInstance firstInstance) {
+        SuperClassTypeSpliterator spliterator = new SuperClassTypeSpliterator();
+        spliterator.internalSpliterator = TypeInstanceSpliterator.create(firstInstance, (instance) -> instance.inheritance().superclass());
         return spliterator;
     }
 

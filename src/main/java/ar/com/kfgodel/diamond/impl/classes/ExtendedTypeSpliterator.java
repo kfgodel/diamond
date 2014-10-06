@@ -11,7 +11,7 @@ import java.util.function.Consumer;
  */
 public class ExtendedTypeSpliterator implements Spliterator<TypeInstance> {
 
-    private TypeSpliterator<TypeInstance> internalSpliterator;
+    private TypeInstanceSpliterator internalSpliterator;
 
     @Override
     public boolean tryAdvance(Consumer<? super TypeInstance> action) {
@@ -35,7 +35,7 @@ public class ExtendedTypeSpliterator implements Spliterator<TypeInstance> {
 
     public static ExtendedTypeSpliterator create(TypeInstance firstInstance) {
         ExtendedTypeSpliterator spliterator = new ExtendedTypeSpliterator();
-        spliterator.internalSpliterator = TypeSpliterator.create(firstInstance, (instance)-> instance.inheritance().extendedType());
+        spliterator.internalSpliterator = TypeInstanceSpliterator.create(firstInstance, (instance) -> instance.inheritance().extendedType());
         return spliterator;
     }
 }

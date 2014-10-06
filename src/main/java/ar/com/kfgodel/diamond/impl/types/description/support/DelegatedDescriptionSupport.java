@@ -1,5 +1,6 @@
 package ar.com.kfgodel.diamond.impl.types.description.support;
 
+import ar.com.kfgodel.diamond.api.ClassMethod;
 import ar.com.kfgodel.diamond.api.sources.TypeNames;
 import ar.com.kfgodel.diamond.api.types.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
@@ -59,6 +60,11 @@ public abstract class DelegatedDescriptionSupport implements TypeDescription {
     @Override
     public boolean isForVariableType() {
         return getDelegateDescription().isForVariableType();
+    }
+
+    @Override
+    public Supplier<Stream<ClassMethod>> getTypeMethods() {
+        return getDelegateDescription().getTypeMethods();
     }
 
     protected abstract TypeDescription getDelegateDescription();

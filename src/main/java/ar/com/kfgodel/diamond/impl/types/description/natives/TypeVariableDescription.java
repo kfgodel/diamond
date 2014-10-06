@@ -4,6 +4,7 @@ import ar.com.kfgodel.diamond.api.types.TypeBounds;
 import ar.com.kfgodel.diamond.impl.types.description.support.UnannotatedVariableTypeDescriptionSupport;
 import ar.com.kfgodel.diamond.impl.types.parts.bounds.TypeVariableBoundSupplier;
 
+import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.util.function.Supplier;
 
@@ -16,7 +17,7 @@ public class TypeVariableDescription extends UnannotatedVariableTypeDescriptionS
     private TypeVariable<?> typeVariable;
 
     @Override
-    protected Object getVariableType() {
+    protected Type getNativeType() {
         return typeVariable;
     }
 

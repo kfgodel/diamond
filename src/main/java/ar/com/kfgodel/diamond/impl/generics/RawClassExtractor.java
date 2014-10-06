@@ -3,6 +3,8 @@ package ar.com.kfgodel.diamond.impl.generics;
 import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 
 import java.lang.reflect.*;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
  * This type knows how to extract the raw class from its generified version.<br>
@@ -17,8 +19,9 @@ public class RawClassExtractor {
      * @param parameterizedType The parameterized type
      * @return The class instance for that type
      */
-    public static Class<?> from(ParameterizedType parameterizedType){
-        return fromUnspecific(parameterizedType.getRawType());
+    private static Set<Class<?>> from(ParameterizedType parameterizedType){
+        Type unparameterizedType = parameterizedType.getRawType();
+        return fromUnspecific(unparameterizedType);
     }
 
     /**
@@ -28,51 +31,74 @@ public class RawClassExtractor {
      * @param genericArrayType The generic type
      * @return The class instance
      */
-    public static Class<?> from(GenericArrayType genericArrayType){
-        Class<?> rawComponentClass = fromUnspecific(genericArrayType.getGenericComponentType());
+    private static Class<?> from(GenericArrayType genericArrayType){
+        Type arrayComponentType = genericArrayType.getGenericComponentType();
+        Set<Class<?>> rawComponentClasses = fromUnspecific(arrayComponentType);
+        Class<?> rawComponentClass = coalesce(rawComponentClasses);
         return Array.newInstance(rawComponentClass, 0).getClass();
     }
 
     /**
-     * Generic type extractor method for unspecific Type instances.<br>
-     * This method can get called recursively from generified types
-     * @param type The instance to degenerify
-     * @return The raw class
+     * Simplifies the multiple types problem into one, choosing the only type in the list or Object
+     * @param rawComponentClasses
+     * @return
      */
-    public static Class<?> fromUnspecific(final Type type) {
+    public static Class<?> coalesce(Set<Class<?>> rawComponentClasses) {
+        if(rawComponentClasses.size() == 1){
+            return rawComponentClasses.stream().findFirst().get();
+        }
+        // The common super type for all other types
+        return Object.class;
+    }
+
+    /**
+     * Generic type extractor method for unspecific Type instances.<br>
+     * For bound types this will return the upper bounds list, or Object if no bound.<br>
+     * This method may be called recursively from generified types.<br>
+     * @param type The instance to degenerify
+     * @return The list of raw classes
+     */
+    public static Set<Class<?>> fromUnspecific(final Type type) {
         if (Class.class.isInstance(type)) {
-            return Class.class.cast(type);
+            return createSetFor(Class.class.cast(type));
         }
         if (ParameterizedType.class.isInstance(type)) {
             return from(ParameterizedType.class.cast(type));
         }
         if (GenericArrayType.class.isInstance(type)) {
-            GenericArrayType genericArrayType = GenericArrayType.class
-                    .cast(type);
-            Class<?> componentType = fromUnspecific(genericArrayType.getGenericComponentType());
-            return Array.newInstance(componentType, 0).getClass();
+            return createSetFor(from(GenericArrayType.class.cast(type)));
         }
         if(WildcardType.class.isInstance(type)){
             WildcardType wildcardType = WildcardType.class.cast(type);
-            return deduceTypeFromUpperBounds(wildcardType.getUpperBounds());
+            return deduceTypesFromUpperBounds(wildcardType.getUpperBounds());
         }
         if(TypeVariable.class.isInstance(type)){
             TypeVariable typeVariable = TypeVariable.class.cast(type);
-            return deduceTypeFromUpperBounds(typeVariable.getBounds());
+            return deduceTypesFromUpperBounds(typeVariable.getBounds());
         }
         throw new DiamondException("The given type["+type+"] is unknown");
+    }
+
+    private static Set<Class<?>> createSetFor(Class<?> nativeClass) {
+        Set<Class<?>> list = new LinkedHashSet<>(1);
+        list.add(nativeClass);
+        return list;
     }
 
     /**
      * Tries to get a raw type from a defined upper bound.<br>
      *     Default to Object for none, or more than one upper bounds
      */
-    private static Class<?> deduceTypeFromUpperBounds(Type[] upperBounds) {
-        if(upperBounds.length == 1){
-            // If there's one, we can use that type as the raw type for the wildcard
-            return fromUnspecific(upperBounds[0]);
+    private static Set<Class<?>> deduceTypesFromUpperBounds(Type[] upperBounds) {
+        if(upperBounds.length == 0){
+            // Unbounde means that we only know that's an Object
+            return createSetFor(Object.class);
         }
-        // Otherwise object is the safest move
-        return Object.class;
+        Set<Class<?>> rawupperBounds = new LinkedHashSet<>(upperBounds.length);
+        for (Type upperBound : upperBounds) {
+            Set<Class<?>> expandedUpperBound = fromUnspecific(upperBound);
+            rawupperBounds.addAll(expandedUpperBound);
+        }
+        return rawupperBounds;
     }
 }
