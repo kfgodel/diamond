@@ -18,7 +18,6 @@ public class ClassTypeMethods implements TypeMethods {
 
     private LazyValue<List<ClassMethod>> typeMethods;
 
-
     @Override
     public Stream<ClassMethod> all() {
         return typeMethods.get().stream();

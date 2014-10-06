@@ -10,6 +10,7 @@ import ar.com.kfgodel.diamond.testobjects.lineage.ChildClass;
 import org.junit.runner.RunWith;
 
 import java.lang.reflect.AnnotatedType;
+import java.util.Collection;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -85,23 +86,39 @@ public class MethodsPerTypeTest extends JavaSpec<DiamondTestContext> {
                     });
                 });
 
-                describe("with upper bounds", () -> {
+                describe("with 1 upper bound", () -> {
 
                     context().typeInstance(MethodsPerTypeTest::getStringSubTypeWildcardType);
 
-                    it("includes methods from extended type",()->{
+                    it("includes methods from the upper type",()->{
                         assertThat(context().typeInstance().methods().all()
                                 .anyMatch((method) -> method.name().equals("aPublicMethod")))
                                 .isTrue();
                     });
 
-                    it("includes inherited methods from the extended type",()->{
+                    it("includes inherited methods from the upper type hierarchy",()->{
                         assertThat(context().typeInstance().methods().all()
                                 .anyMatch((method) -> method.name().equals("aParentMethod")))
                                 .isTrue();
                     });
+                });
+
+                describe("with more than 1 upper bound", () -> {
+
+                    context().typeInstance(MethodsPerTypeTest::getComparableAndNumberSubtypeVariableType);
+
+                    it("includes methods from all the bounds",()->{
+                        assertThat(context().typeInstance().methods().all()
+                                .anyMatch((method) -> method.name().equals("compareTo")))
+                                .isTrue();
+                        assertThat(context().typeInstance().methods().all()
+                                .anyMatch((method) -> method.name().equals("addAll")))
+                                .isTrue();
+
+                    });
 
                 });
+
             });
 
 
@@ -134,11 +151,17 @@ public class MethodsPerTypeTest extends JavaSpec<DiamondTestContext> {
 
 
     private static TypeInstance getUnboundedWildcardType(){
-        return getTypeFrom(new ReferenceOf<List<?>>() {}).generics().typeArguments().findFirst().get();
+        TypeInstance listType = getTypeFrom(new ReferenceOf<List<?>>() {});
+        TypeInstance unboundedWildcard = listType.generics().typeArguments().findFirst().get();
+        return unboundedWildcard;
     }
 
     private static TypeInstance getStringSubTypeWildcardType(){
         return getTypeFrom(new ReferenceOf<List<? extends ChildClass>>() {}).generics().typeArguments().findFirst().get();
+    }
+
+    private static <A extends Comparable & Collection> TypeInstance getComparableAndNumberSubtypeVariableType(){
+        return getTypeFrom(new ReferenceOf<A>() {});
     }
 
     private static TypeInstance getTypeFrom(ReferenceOf<?> reference) {

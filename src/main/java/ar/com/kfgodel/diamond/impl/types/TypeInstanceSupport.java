@@ -1,5 +1,6 @@
 package ar.com.kfgodel.diamond.impl.types;
 
+import ar.com.kfgodel.diamond.api.ClassMethod;
 import ar.com.kfgodel.diamond.api.generics.TypeGenerics;
 import ar.com.kfgodel.diamond.api.inheritance.TypeInheritance;
 import ar.com.kfgodel.diamond.api.sources.TypeMethods;
@@ -7,6 +8,7 @@ import ar.com.kfgodel.diamond.api.sources.TypeNames;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.declaration.TypeDeclaration;
 import ar.com.kfgodel.diamond.impl.equality.TypeEquality;
+import ar.com.kfgodel.diamond.impl.sources.ClassTypeMethods;
 import ar.com.kfgodel.diamond.impl.sources.NoMethods;
 import ar.com.kfgodel.diamond.impl.types.generics.NotGenerified;
 import ar.com.kfgodel.diamond.impl.types.inheritance.NoParentsInheritance;
@@ -29,18 +31,23 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     /**
      * Attached type annotations
      */
-    private LazyValue<Stream<Annotation>> annotations = SuppliedValue.create(NoAnnotationsSupplier.INSTANCE);
+    private Supplier<Stream<Annotation>> annotations = NoAnnotationsSupplier.INSTANCE;
     /**
      * Variations on the name for this type
      */
     private LazyValue<TypeNames> names = SuppliedValue.create(NoNamesSupplier.create(this));
 
     /**
+     * This type callable methods
+     */
+    private TypeMethods methods = NoMethods.INSTANCE;
+
+    /**
      * Use this to override default creation with no annotations
      * @param annotationSupplier The new annotations
      */
     protected void setAnnotations(Supplier<Stream<Annotation>> annotationSupplier) {
-        this.annotations = SuppliedValue.create(annotationSupplier);
+        this.annotations = annotationSupplier;
     }
 
     @Override
@@ -76,6 +83,14 @@ public abstract class TypeInstanceSupport implements TypeInstance {
         return NoParentsInheritance.create(this);
     }
 
+    @Override
+    public TypeMethods methods() {
+        return methods;
+    }
+
+    protected void setMethods(Supplier<Stream<ClassMethod>> typeMethods){
+        this.methods = ClassTypeMethods.create(typeMethods);
+    }
 
     /**
      * Default implementation with no component type
@@ -85,8 +100,6 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     public Optional<TypeInstance> componentType() {
         return Optional.empty();
     }
-
-
 
     @Override
     public String declaration() {
@@ -100,11 +113,6 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     @Override
     public boolean equals(Object obj) {
         return TypeEquality.INSTANCE.areEquals(this, obj);
-    }
-
-    @Override
-    public TypeMethods methods() {
-        return NoMethods.INSTANCE;
     }
 
 }
