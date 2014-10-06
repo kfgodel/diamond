@@ -1,7 +1,7 @@
 package ar.com.kfgodel.diamond.impl.sources;
 
 import ar.com.kfgodel.diamond.api.ClassMethod;
-import ar.com.kfgodel.diamond.impl.reflections.NativeClassMethod;
+import ar.com.kfgodel.diamond.impl.reflections.ClassMethodInstance;
 
 import java.lang.reflect.Method;
 
@@ -22,7 +22,7 @@ public class ClassMethodSourceImpl {
      * @return The diamond representation
      */
     public ClassMethod from(Method methodInstance){
-        return NativeClassMethod.create(methodInstance);
+        return ClassMethodInstance.create(methodInstance);
     }
 
 }
