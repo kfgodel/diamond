@@ -1,10 +1,10 @@
 package ar.com.kfgodel.diamond.impl.types.parts.extendedtype;
 
 import ar.com.kfgodel.diamond.api.Diamond;
+import ar.com.kfgodel.diamond.api.types.TypeDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.generics.ActualArgumentReplacer;
 import ar.com.kfgodel.diamond.impl.generics.ParametrizationAnalyzer;
-import ar.com.kfgodel.diamond.impl.types.description.TypeDescription;
 import ar.com.kfgodel.diamond.impl.types.description.TypeDescriptor;
 import ar.com.kfgodel.diamond.impl.types.description.extended.ExtendedTypeDescription;
 

@@ -2,10 +2,10 @@ package ar.com.kfgodel.diamond.impl.sources;
 
 import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 import ar.com.kfgodel.diamond.api.sources.TypeSources;
+import ar.com.kfgodel.diamond.api.types.TypeDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.types.FixedTypeInstance;
 import ar.com.kfgodel.diamond.impl.types.VariableTypeInstance;
-import ar.com.kfgodel.diamond.impl.types.description.TypeDescription;
 import ar.com.kfgodel.diamond.impl.types.description.TypeDescriptor;
 
 /**

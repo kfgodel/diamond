@@ -1,7 +1,7 @@
 package ar.com.kfgodel.diamond.impl.types.description.extended;
 
+import ar.com.kfgodel.diamond.api.types.TypeDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
-import ar.com.kfgodel.diamond.impl.types.description.TypeDescription;
 import ar.com.kfgodel.diamond.impl.types.description.support.DelegatedDescriptionSupport;
 import ar.com.kfgodel.diamond.impl.types.parts.typearguments.ExtendedTypeArgumentsSupplier;
 

@@ -1,7 +1,7 @@
 package ar.com.kfgodel.diamond.impl.types.description.natives;
 
 import ar.com.kfgodel.diamond.api.types.TypeBounds;
-import ar.com.kfgodel.diamond.impl.types.description.TypeDescription;
+import ar.com.kfgodel.diamond.api.types.TypeDescription;
 import ar.com.kfgodel.diamond.impl.types.description.support.AnnotatedTypeDescriptionSupport;
 import ar.com.kfgodel.diamond.impl.types.parts.bounds.WildcardBoundsSupplier;
 

@@ -1,6 +1,7 @@
 package ar.com.kfgodel.diamond.api.sources;
 
 import ar.com.kfgodel.diamond.api.ClassMethod;
+import ar.com.kfgodel.diamond.api.methods.MethodDescription;
 
 import java.lang.reflect.Method;
 
@@ -23,4 +24,11 @@ public interface ClassMethodSources {
      * @return The class method
      */
     ClassMethod from(Method methodInstance);
+
+    /**
+     * Retrieves the diamond representation of a class method from its description
+     * @param methodDescription The method description
+     * @return The class methods
+     */
+    ClassMethod from(MethodDescription methodDescription);
 }

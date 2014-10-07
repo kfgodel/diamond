@@ -1,7 +1,7 @@
 package ar.com.kfgodel.diamond.impl.types;
 
 import ar.com.kfgodel.diamond.api.generics.TypeGenerics;
-import ar.com.kfgodel.diamond.impl.types.description.TypeDescription;
+import ar.com.kfgodel.diamond.api.types.TypeDescription;
 import ar.com.kfgodel.diamond.impl.types.generics.BoundedTypeGenerics;
 
 /**

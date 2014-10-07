@@ -2,9 +2,9 @@ package ar.com.kfgodel.diamond.impl.types.description.support;
 
 import ar.com.kfgodel.diamond.api.ClassMethod;
 import ar.com.kfgodel.diamond.api.types.TypeBounds;
+import ar.com.kfgodel.diamond.api.types.TypeDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.generics.RawClassExtractor;
-import ar.com.kfgodel.diamond.impl.types.description.TypeDescription;
 import ar.com.kfgodel.diamond.impl.types.parts.annotations.NoAnnotationsSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.bounds.NoBoundsSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.componenttype.NoComponentTypeSupplier;

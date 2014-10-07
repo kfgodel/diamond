@@ -1,6 +1,7 @@
 package ar.com.kfgodel.diamond.impl.types.description;
 
 import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
+import ar.com.kfgodel.diamond.api.types.TypeDescription;
 import ar.com.kfgodel.diamond.impl.types.description.natives.*;
 
 import java.lang.reflect.*;
