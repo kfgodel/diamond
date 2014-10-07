@@ -1,8 +1,9 @@
 package ar.com.kfgodel.diamond.impl.reflections;
 
 import ar.com.kfgodel.diamond.api.ClassMethod;
-
-import java.lang.reflect.Method;
+import ar.com.kfgodel.diamond.api.methods.MethodDescription;
+import ar.com.kfgodel.lazyvalue.api.LazyValue;
+import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
 
 /**
  * This type represents a method that belongs to a class
@@ -10,16 +11,16 @@ import java.lang.reflect.Method;
  */
 public class ClassMethodInstance implements ClassMethod {
 
-    private String methodName;
+    private LazyValue<String> methodName;
 
     @Override
     public String name() {
-        return methodName;
+        return methodName.get();
     }
 
-    public static ClassMethodInstance create(Method methodInstance) {
+    public static ClassMethodInstance create(MethodDescription description) {
         ClassMethodInstance nativeClassMethod = new ClassMethodInstance();
-        nativeClassMethod.methodName = methodInstance.getName();
+        nativeClassMethod.methodName = SuppliedValue.create(description.getName());
         return nativeClassMethod;
     }
 
