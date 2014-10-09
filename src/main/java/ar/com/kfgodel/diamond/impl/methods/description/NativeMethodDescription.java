@@ -5,7 +5,9 @@ import ar.com.kfgodel.diamond.api.methods.MethodDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 /**
  * This type represents a method decription with references to the parts suppliers
@@ -23,6 +25,12 @@ public class NativeMethodDescription implements MethodDescription {
     @Override
     public Supplier<TypeInstance> getReturnType() {
         return () -> Diamond.types().from(nativeMethod.getAnnotatedReturnType());
+    }
+
+    @Override
+    public Supplier<Stream<TypeInstance>> getParameterTypes() {
+        return ()-> Arrays.stream(nativeMethod.getAnnotatedParameterTypes())
+                    .map((annotated) -> Diamond.types().from(annotated));
     }
 
     public static NativeMethodDescription create(Method nativeMethod) {
