@@ -2,6 +2,7 @@ package ar.com.kfgodel.diamond.impl.reflections;
 
 import ar.com.kfgodel.diamond.api.ClassMethod;
 import ar.com.kfgodel.diamond.api.methods.MethodDescription;
+import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.lazyvalue.api.LazyValue;
 import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
 
@@ -12,16 +13,23 @@ import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
 public class ClassMethodInstance implements ClassMethod {
 
     private LazyValue<String> methodName;
+    private LazyValue<TypeInstance> returnType;
 
     @Override
     public String name() {
         return methodName.get();
     }
 
+    @Override
+    public TypeInstance returnType() {
+        return returnType.get();
+    }
+
     public static ClassMethodInstance create(MethodDescription description) {
-        ClassMethodInstance nativeClassMethod = new ClassMethodInstance();
-        nativeClassMethod.methodName = SuppliedValue.create(description.getName());
-        return nativeClassMethod;
+        ClassMethodInstance classMethod = new ClassMethodInstance();
+        classMethod.methodName = SuppliedValue.create(description.getName());
+        classMethod.returnType = SuppliedValue.create(description.getReturnType());
+        return classMethod;
     }
 
 }

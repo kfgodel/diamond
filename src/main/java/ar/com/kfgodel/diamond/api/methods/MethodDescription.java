@@ -1,5 +1,7 @@
 package ar.com.kfgodel.diamond.api.methods;
 
+import ar.com.kfgodel.diamond.api.types.TypeInstance;
+
 import java.util.function.Supplier;
 
 /**
@@ -12,4 +14,9 @@ public interface MethodDescription {
      * @return The supplier for getting the method name
      */
     Supplier<String> getName();
+
+    /**
+     * @return The supplier for the return type of the described method
+     */
+    Supplier<TypeInstance> getReturnType();
 }
