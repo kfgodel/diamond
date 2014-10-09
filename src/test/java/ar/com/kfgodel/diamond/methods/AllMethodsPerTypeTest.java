@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Created by kfgodel on 05/10/14.
  */
 @RunWith(JavaSpecRunner.class)
-public class MethodsPerTypeTest extends JavaSpec<DiamondTestContext> {
+public class AllMethodsPerTypeTest extends JavaSpec<DiamondTestContext> {
     @Override
     public void define() {
         describe("all methods", () -> {
@@ -74,7 +74,7 @@ public class MethodsPerTypeTest extends JavaSpec<DiamondTestContext> {
 
                 describe("without upper bounds", () -> {
 
-                    context().typeInstance(MethodsPerTypeTest::getUnboundedWildcardType);
+                    context().typeInstance(AllMethodsPerTypeTest::getUnboundedWildcardType);
 
                     it("includes all the methods from Object", () -> {
                         assertThat(context().typeInstance().methods().all()
@@ -88,7 +88,7 @@ public class MethodsPerTypeTest extends JavaSpec<DiamondTestContext> {
 
                 describe("with 1 upper bound", () -> {
 
-                    context().typeInstance(MethodsPerTypeTest::getStringSubTypeWildcardType);
+                    context().typeInstance(AllMethodsPerTypeTest::getStringSubTypeWildcardType);
 
                     it("includes methods from the upper type",()->{
                         assertThat(context().typeInstance().methods().all()
@@ -105,7 +105,7 @@ public class MethodsPerTypeTest extends JavaSpec<DiamondTestContext> {
 
                 describe("with more than 1 upper bound", () -> {
 
-                    context().typeInstance(MethodsPerTypeTest::getComparableAndNumberSubtypeVariableType);
+                    context().typeInstance(AllMethodsPerTypeTest::getComparableAndNumberSubtypeVariableType);
 
                     it("includes methods from all the bounds",()->{
                         assertThat(context().typeInstance().methods().all()
