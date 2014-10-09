@@ -5,7 +5,7 @@ import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.DiamondTestContext;
 import ar.com.kfgodel.diamond.api.ClassMethod;
 import ar.com.kfgodel.diamond.api.Diamond;
-import ar.com.kfgodel.diamond.testobjects.ReturnTypeTestObject;
+import ar.com.kfgodel.diamond.testobjects.MethodReturnTypeTestObject;
 import org.junit.runner.RunWith;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -20,7 +20,7 @@ public class MethodReturnTypeTest extends JavaSpec<DiamondTestContext> {
     public void define() {
         describe("a method's return type", () -> {
 
-            context().typeInstance(() -> Diamond.of(ReturnTypeTestObject.class));
+            context().typeInstance(() -> Diamond.of(MethodReturnTypeTestObject.class));
 
 
             it("is the type declared by the method as its return type",()->{
@@ -28,6 +28,12 @@ public class MethodReturnTypeTest extends JavaSpec<DiamondTestContext> {
                 assertThat(method.returnType().name())
                         .isEqualTo("String");
             });
+            
+            it("is void for void methods",()->{
+                ClassMethod method = context().typeInstance().methods().all().filter((aMethod) -> aMethod.name().equals("voidReturnedMethod")).findFirst().get();
+                assertThat(method.returnType().name())
+                        .isEqualTo("void");
+            });   
         });
 
     }
