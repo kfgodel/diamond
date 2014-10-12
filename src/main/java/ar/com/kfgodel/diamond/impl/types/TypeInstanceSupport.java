@@ -1,15 +1,20 @@
 package ar.com.kfgodel.diamond.impl.types;
 
-import ar.com.kfgodel.diamond.api.ClassMethod;
+import ar.com.kfgodel.diamond.api.fields.ClassField;
+import ar.com.kfgodel.diamond.api.fields.TypeFields;
 import ar.com.kfgodel.diamond.api.generics.TypeGenerics;
 import ar.com.kfgodel.diamond.api.inheritance.TypeInheritance;
-import ar.com.kfgodel.diamond.api.sources.TypeMethods;
-import ar.com.kfgodel.diamond.api.sources.TypeNames;
+import ar.com.kfgodel.diamond.api.methods.ClassMethod;
+import ar.com.kfgodel.diamond.api.methods.TypeMethods;
+import ar.com.kfgodel.diamond.api.types.TypeDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.diamond.api.types.TypeNames;
 import ar.com.kfgodel.diamond.impl.declaration.TypeDeclaration;
 import ar.com.kfgodel.diamond.impl.equality.TypeEquality;
-import ar.com.kfgodel.diamond.impl.sources.ClassTypeMethods;
-import ar.com.kfgodel.diamond.impl.sources.NoMethods;
+import ar.com.kfgodel.diamond.impl.fields.sources.ClassTypeFields;
+import ar.com.kfgodel.diamond.impl.fields.sources.NoFields;
+import ar.com.kfgodel.diamond.impl.methods.sources.ClassTypeMethods;
+import ar.com.kfgodel.diamond.impl.methods.sources.NoMethods;
 import ar.com.kfgodel.diamond.impl.types.generics.NotGenerified;
 import ar.com.kfgodel.diamond.impl.types.inheritance.NoParentsInheritance;
 import ar.com.kfgodel.diamond.impl.types.parts.annotations.NoAnnotationsSupplier;
@@ -41,6 +46,11 @@ public abstract class TypeInstanceSupport implements TypeInstance {
      * This type callable methods
      */
     private TypeMethods methods = NoMethods.INSTANCE;
+
+    /**
+     * This type state fields
+     */
+    private TypeFields fields = NoFields.INSTANCE;
 
     /**
      * Use this to override default creation with no annotations
@@ -92,6 +102,15 @@ public abstract class TypeInstanceSupport implements TypeInstance {
         this.methods = ClassTypeMethods.create(typeMethods);
     }
 
+    @Override
+    public TypeFields fields() {
+        return fields;
+    }
+
+    protected void setFields(Supplier<Stream<ClassField>> typeFields){
+        this.fields = ClassTypeFields.create(typeFields);
+    }
+
     /**
      * Default implementation with no component type
      * @return An empty optional
@@ -115,4 +134,10 @@ public abstract class TypeInstanceSupport implements TypeInstance {
         return TypeEquality.INSTANCE.areEquals(this, obj);
     }
 
+    protected void initializeSuper(TypeDescription description){
+        this.setNames(description.getNames());
+        this.setAnnotations(description.getAnnotations());
+        this.setMethods(description.getTypeMethods());
+        this.setFields(description.getTypeFields());
+    };
 }

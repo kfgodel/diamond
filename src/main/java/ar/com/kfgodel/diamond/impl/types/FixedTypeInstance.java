@@ -50,9 +50,7 @@ public class FixedTypeInstance extends TypeInstanceSupport {
      */
     public static FixedTypeInstance create(TypeDescription description) {
         FixedTypeInstance fixedType = new FixedTypeInstance();
-        fixedType.setNames(description.getNames());
-        fixedType.setAnnotations(description.getAnnotations());
-        fixedType.setMethods(description.getTypeMethods());
+        fixedType.initializeSuper(description);
         fixedType.componentType = SuppliedValue.create(description.getComponentType());
         fixedType.generics = ParameterizedTypeGenerics.create(description.getTypeParametersSupplier(), description.getTypeArguments());
         fixedType.inheritance = SuppliedTypesInheritance.create(fixedType, description.getSuperclassSupplier(), description.getExtendedTypeSupplier());

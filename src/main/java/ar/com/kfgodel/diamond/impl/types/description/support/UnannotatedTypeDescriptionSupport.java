@@ -1,6 +1,7 @@
 package ar.com.kfgodel.diamond.impl.types.description.support;
 
-import ar.com.kfgodel.diamond.api.ClassMethod;
+import ar.com.kfgodel.diamond.api.fields.ClassField;
+import ar.com.kfgodel.diamond.api.methods.ClassMethod;
 import ar.com.kfgodel.diamond.api.types.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.TypeDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
@@ -9,6 +10,7 @@ import ar.com.kfgodel.diamond.impl.types.parts.annotations.NoAnnotationsSupplier
 import ar.com.kfgodel.diamond.impl.types.parts.bounds.NoBoundsSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.componenttype.NoComponentTypeSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.extendedtype.NoExtendedTypeSupplier;
+import ar.com.kfgodel.diamond.impl.types.parts.fields.ClassFieldSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.methods.ClassMethodSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.superclass.NoSuperclassSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.typearguments.NoTypeArgumentsSupplier;
@@ -93,5 +95,10 @@ public abstract class UnannotatedTypeDescriptionSupport implements TypeDescripti
     @Override
     public Supplier<Stream<ClassMethod>> getTypeMethods() {
         return ClassMethodSupplier.create(getRawClasses());
+    }
+
+    @Override
+    public Supplier<Stream<ClassField>> getTypeFields() {
+        return ClassFieldSupplier.create(getRawClasses());
     }
 }

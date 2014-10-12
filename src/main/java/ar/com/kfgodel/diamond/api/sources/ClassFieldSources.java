@@ -1,6 +1,7 @@
 package ar.com.kfgodel.diamond.api.sources;
 
-import ar.com.kfgodel.diamond.api.ClassField;
+import ar.com.kfgodel.diamond.api.fields.ClassField;
+import ar.com.kfgodel.diamond.api.fields.FieldDescription;
 
 import java.lang.reflect.Field;
 
@@ -17,9 +18,16 @@ public interface ClassFieldSources {
     ClassDefinedClassFieldSource in(Class<?> nativeClass);
 
     /**
-     * Retrieves the class field representation for the given field isntance
+     * Retrieves the class field representation for the given field instance
      * @param fieldInstance the Field that identifies the class field
      * @return The class field representation
      */
     ClassField from(Field fieldInstance);
+
+    /**
+     * Retrieves the class field representation for the given description
+     * @param fieldDescription The description of the field
+     * @return The class field representation
+     */
+    ClassField from(FieldDescription fieldDescription);
 }

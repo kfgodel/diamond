@@ -6,6 +6,13 @@ package ar.com.kfgodel.diamond.testobjects.lineage;
  */
 public class ChildClass<C> extends ParentClass<C, Integer> {
 
+    private int aPrivateField;
+    protected float aProtectedField;
+    public Object aPublicField;
+    String aDefaultField;
+    static public Double aStaticField;
+
+
     public void aPublicMethod(){
     }
 

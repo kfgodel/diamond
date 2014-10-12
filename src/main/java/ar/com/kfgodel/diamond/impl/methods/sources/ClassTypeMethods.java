@@ -1,7 +1,7 @@
-package ar.com.kfgodel.diamond.impl.sources;
+package ar.com.kfgodel.diamond.impl.methods.sources;
 
-import ar.com.kfgodel.diamond.api.ClassMethod;
-import ar.com.kfgodel.diamond.api.sources.TypeMethods;
+import ar.com.kfgodel.diamond.api.methods.ClassMethod;
+import ar.com.kfgodel.diamond.api.methods.TypeMethods;
 import ar.com.kfgodel.lazyvalue.api.LazyValue;
 import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
 
@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * This type represents the class searcher for methods
+ * This type represents the source of a class type methods
  * Created by kfgodel on 19/09/14.
  */
 public class ClassTypeMethods implements TypeMethods {

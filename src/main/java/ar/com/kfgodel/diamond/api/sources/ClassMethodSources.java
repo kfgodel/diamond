@@ -1,7 +1,8 @@
 package ar.com.kfgodel.diamond.api.sources;
 
-import ar.com.kfgodel.diamond.api.ClassMethod;
+import ar.com.kfgodel.diamond.api.methods.ClassMethod;
 import ar.com.kfgodel.diamond.api.methods.MethodDescription;
+import ar.com.kfgodel.diamond.api.methods.TypeMethods;
 
 import java.lang.reflect.Method;
 
