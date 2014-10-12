@@ -1,6 +1,6 @@
 package ar.com.kfgodel.diamond.api.sources;
 
-import ar.com.kfgodel.diamond.api.ClassField;
+import ar.com.kfgodel.diamond.api.fields.ClassField;
 
 /**
  * This type represents the source of a class field with the class already defined

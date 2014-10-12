@@ -1,6 +1,6 @@
 package ar.com.kfgodel.diamond.impl.naming;
 
-import ar.com.kfgodel.diamond.api.sources.TypeNames;
+import ar.com.kfgodel.diamond.api.types.TypeNames;
 
 /**
  * This type represents the set of class names for a class

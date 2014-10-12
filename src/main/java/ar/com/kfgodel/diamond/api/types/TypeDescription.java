@@ -1,7 +1,7 @@
 package ar.com.kfgodel.diamond.api.types;
 
-import ar.com.kfgodel.diamond.api.ClassMethod;
-import ar.com.kfgodel.diamond.api.sources.TypeNames;
+import ar.com.kfgodel.diamond.api.fields.ClassField;
+import ar.com.kfgodel.diamond.api.methods.ClassMethod;
 
 import java.lang.annotation.Annotation;
 import java.util.Optional;
@@ -55,10 +55,16 @@ public interface TypeDescription {
     Supplier<TypeBounds> getBounds();
 
     /**
-     * The set of methods that will be part of this type
+     * The set of methods that will be part of this type behavior
      * @return A stream to gather all methods
      */
     Supplier<Stream<ClassMethod>> getTypeMethods();
+
+    /**
+     * The set of fields that will be part of this type state
+     * @return A stream to gather all fields
+     */
+    Supplier<Stream<ClassField>> getTypeFields();
 
     /**
      * Indicates if this description is for a type that cannot be statically determined at compile type in every scope

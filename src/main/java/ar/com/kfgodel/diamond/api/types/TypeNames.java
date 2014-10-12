@@ -1,4 +1,4 @@
-package ar.com.kfgodel.diamond.api.sources;
+package ar.com.kfgodel.diamond.api.types;
 
 /**
  * This type represents the sources of class names with the class defined

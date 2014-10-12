@@ -24,9 +24,7 @@ public class VariableTypeInstance extends TypeInstanceSupport {
      */
     public static VariableTypeInstance create(TypeDescription description) {
         VariableTypeInstance variableType = new VariableTypeInstance();
-        variableType.setNames(description.getNames());
-        variableType.setAnnotations(description.getAnnotations());
-        variableType.setMethods(description.getTypeMethods());
+        variableType.initializeSuper(description);
         variableType.generics = BoundedTypeGenerics.create(description.getBounds());
         return variableType;
     }

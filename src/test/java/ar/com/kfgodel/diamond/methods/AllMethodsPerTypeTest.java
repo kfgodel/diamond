@@ -88,7 +88,7 @@ public class AllMethodsPerTypeTest extends JavaSpec<DiamondTestContext> {
 
                 describe("with 1 upper bound", () -> {
 
-                    context().typeInstance(AllMethodsPerTypeTest::getStringSubTypeWildcardType);
+                    context().typeInstance(AllMethodsPerTypeTest::getChildClassSubTypeWildcardType);
 
                     it("includes methods from the upper type",()->{
                         assertThat(context().typeInstance().methods().all()
@@ -156,7 +156,7 @@ public class AllMethodsPerTypeTest extends JavaSpec<DiamondTestContext> {
         return unboundedWildcard;
     }
 
-    private static TypeInstance getStringSubTypeWildcardType(){
+    private static TypeInstance getChildClassSubTypeWildcardType(){
         return getTypeFrom(new ReferenceOf<List<? extends ChildClass>>() {}).generics().typeArguments().findFirst().get();
     }
 

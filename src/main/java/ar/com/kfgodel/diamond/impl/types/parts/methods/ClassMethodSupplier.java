@@ -1,8 +1,7 @@
 package ar.com.kfgodel.diamond.impl.types.parts.methods;
 
-import ar.com.kfgodel.diamond.api.ClassMethod;
 import ar.com.kfgodel.diamond.api.Diamond;
-import ar.com.kfgodel.diamond.impl.methods.InheritedMethodsSupplier;
+import ar.com.kfgodel.diamond.api.methods.ClassMethod;
 
 import java.lang.reflect.Method;
 import java.util.Set;
@@ -20,7 +19,7 @@ public class ClassMethodSupplier implements Supplier<Stream<ClassMethod>> {
 
     @Override
     public Stream<ClassMethod> get() {
-        Supplier<Stream<Method>> nativeMethods = InheritedMethodsSupplier.create(baseClasses);
+        Supplier<Stream<Method>> nativeMethods = NativeMethodsSupplier.create(baseClasses);
         return nativeMethods.get().map((nativeMethod) -> Diamond.methods().from(nativeMethod));
     }
 

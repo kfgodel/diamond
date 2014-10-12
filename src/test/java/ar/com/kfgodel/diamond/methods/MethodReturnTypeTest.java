@@ -3,8 +3,8 @@ package ar.com.kfgodel.diamond.methods;
 import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.DiamondTestContext;
-import ar.com.kfgodel.diamond.api.ClassMethod;
 import ar.com.kfgodel.diamond.api.Diamond;
+import ar.com.kfgodel.diamond.api.methods.ClassMethod;
 import ar.com.kfgodel.diamond.testobjects.MethodReturnTypeTestObject;
 import org.junit.runner.RunWith;
 

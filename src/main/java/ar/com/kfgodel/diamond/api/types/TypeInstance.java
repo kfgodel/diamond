@@ -1,11 +1,11 @@
 package ar.com.kfgodel.diamond.api.types;
 
 import ar.com.kfgodel.diamond.api.annotations.Annotated;
+import ar.com.kfgodel.diamond.api.fields.TypeFields;
 import ar.com.kfgodel.diamond.api.generics.TypeGenerics;
 import ar.com.kfgodel.diamond.api.inheritance.TypeInheritance;
+import ar.com.kfgodel.diamond.api.methods.TypeMethods;
 import ar.com.kfgodel.diamond.api.naming.Named;
-import ar.com.kfgodel.diamond.api.sources.TypeMethods;
-import ar.com.kfgodel.diamond.api.sources.TypeNames;
 
 import java.util.Optional;
 
@@ -56,4 +56,9 @@ public interface TypeInstance extends Named, Annotated {
      */
     TypeMethods methods();
 
+    /**
+     * @return The information about this type fields.<br>
+     *     TypeFields holds the relationship between this type and the state fields that instances of this type have
+     */
+    TypeFields fields();
 }

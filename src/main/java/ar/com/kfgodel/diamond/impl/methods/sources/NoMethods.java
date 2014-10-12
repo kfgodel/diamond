@@ -1,7 +1,7 @@
-package ar.com.kfgodel.diamond.impl.sources;
+package ar.com.kfgodel.diamond.impl.methods.sources;
 
-import ar.com.kfgodel.diamond.api.ClassMethod;
-import ar.com.kfgodel.diamond.api.sources.TypeMethods;
+import ar.com.kfgodel.diamond.api.methods.ClassMethod;
+import ar.com.kfgodel.diamond.api.methods.TypeMethods;
 
 import java.util.stream.Stream;
 

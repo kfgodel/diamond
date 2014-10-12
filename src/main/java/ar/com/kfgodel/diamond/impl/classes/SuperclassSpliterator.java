@@ -1,4 +1,4 @@
-package ar.com.kfgodel.diamond.impl.methods;
+package ar.com.kfgodel.diamond.impl.classes;
 
 import java.util.Spliterator;
 import java.util.function.Consumer;

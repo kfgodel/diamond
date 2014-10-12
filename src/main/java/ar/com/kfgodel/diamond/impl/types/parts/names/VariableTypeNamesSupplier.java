@@ -1,7 +1,7 @@
 package ar.com.kfgodel.diamond.impl.types.parts.names;
 
 import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
-import ar.com.kfgodel.diamond.api.sources.TypeNames;
+import ar.com.kfgodel.diamond.api.types.TypeNames;
 import ar.com.kfgodel.diamond.impl.naming.TypeVariableNames;
 import ar.com.kfgodel.diamond.impl.naming.WildCardNames;
 

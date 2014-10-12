@@ -1,4 +1,4 @@
-package ar.com.kfgodel.diamond.api;
+package ar.com.kfgodel.diamond.api.methods;
 
 import ar.com.kfgodel.diamond.api.naming.Named;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
