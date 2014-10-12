@@ -76,7 +76,7 @@ public class AllFieldsPerTypeTest extends JavaSpec<DiamondTestContext> {
 
                     context().typeInstance(AllFieldsPerTypeTest::getUnboundedWildcardType);
 
-                    it("includes all the fields from Object", () -> {
+                    it("is empty", () -> {
                         assertThat(context().typeInstance().fields().all().count())
                                 .isEqualTo(0);
                     });
@@ -105,7 +105,7 @@ public class AllFieldsPerTypeTest extends JavaSpec<DiamondTestContext> {
             describe("for array types", () -> {
                 context().typeInstance(() -> Diamond.of(String[].class));
 
-                it("includes all fields from Array",()->{
+                it("is empty",()->{
                     assertThat(context().typeInstance().fields().all().count())
                             .isEqualTo(0);
                 });

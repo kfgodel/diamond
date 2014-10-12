@@ -1,5 +1,7 @@
 package ar.com.kfgodel.diamond.api.fields;
 
+import ar.com.kfgodel.diamond.api.types.TypeInstance;
+
 import java.util.function.Supplier;
 
 /**
@@ -11,4 +13,9 @@ public interface FieldDescription {
      * @return The name to identify the field
      */
     Supplier<String> getName();
+
+    /**
+     * @return The type of the field storage
+     */
+    Supplier<TypeInstance> getType();
 }

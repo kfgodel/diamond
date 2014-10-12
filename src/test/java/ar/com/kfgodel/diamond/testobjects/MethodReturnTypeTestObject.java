@@ -6,9 +6,9 @@ package ar.com.kfgodel.diamond.testobjects;
  */
 public class MethodReturnTypeTestObject {
 
+    public void voidReturnedMethod(){}
+
     public String stringReturnedMethod(){
         return null;
     }
-
-    public void voidReturnedMethod(){}
 }
