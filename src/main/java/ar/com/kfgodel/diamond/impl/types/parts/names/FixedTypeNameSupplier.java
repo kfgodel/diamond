@@ -1,7 +1,7 @@
 package ar.com.kfgodel.diamond.impl.types.parts.names;
 
-import ar.com.kfgodel.diamond.api.types.TypeNames;
-import ar.com.kfgodel.diamond.impl.naming.ClassNames;
+import ar.com.kfgodel.diamond.api.types.names.TypeNames;
+import ar.com.kfgodel.diamond.impl.types.names.ClassTypeNames;
 
 import java.lang.reflect.Type;
 import java.util.function.Supplier;
@@ -17,7 +17,7 @@ public class FixedTypeNameSupplier implements Supplier<TypeNames> {
 
     @Override
     public TypeNames get() {
-        return ClassNames.create(rawClass, type.getTypeName());
+        return ClassTypeNames.create(rawClass, type.getTypeName());
     }
 
     public static FixedTypeNameSupplier create(Class<?> rawClass, Type nativeType) {

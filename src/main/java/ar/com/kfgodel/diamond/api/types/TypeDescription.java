@@ -2,6 +2,8 @@ package ar.com.kfgodel.diamond.api.types;
 
 import ar.com.kfgodel.diamond.api.fields.ClassField;
 import ar.com.kfgodel.diamond.api.methods.ClassMethod;
+import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
+import ar.com.kfgodel.diamond.api.types.names.TypeNames;
 
 import java.lang.annotation.Annotation;
 import java.util.Optional;
@@ -9,7 +11,7 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 /**
- * This type represents a description of a type and serves as a common interface for every native and extend types
+ * This type represents a description of a diamond type and serves as an abstraction of the underlying represented type
  * Created by kfgodel on 28/09/14.
  */
 public interface TypeDescription {

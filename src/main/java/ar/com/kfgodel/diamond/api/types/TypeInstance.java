@@ -2,18 +2,17 @@ package ar.com.kfgodel.diamond.api.types;
 
 import ar.com.kfgodel.diamond.api.annotations.Annotated;
 import ar.com.kfgodel.diamond.api.fields.TypeFields;
-import ar.com.kfgodel.diamond.api.generics.TypeGenerics;
-import ar.com.kfgodel.diamond.api.inheritance.TypeInheritance;
 import ar.com.kfgodel.diamond.api.methods.TypeMethods;
 import ar.com.kfgodel.diamond.api.naming.Named;
+import ar.com.kfgodel.diamond.api.types.generics.TypeGenerics;
+import ar.com.kfgodel.diamond.api.types.inheritance.TypeInheritance;
+import ar.com.kfgodel.diamond.api.types.names.TypeNames;
 
 import java.util.Optional;
 
 /**
- * This type represents the basic interface common to all types.<br>
- * Instances of this type represent one of the possible type in Java language including type variables and wildcards.<br>
- * <br>
- * Methods in this type are based on information available in subtypes of Java Type
+ * This type represents a java type.<br>
+ * Instances of this interface represent one of the possible types in Java language including type variables and wildcards.<br>
  *
  * Created by kfgodel on 20/09/14.
  */

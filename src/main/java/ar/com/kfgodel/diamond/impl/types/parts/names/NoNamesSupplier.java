@@ -1,7 +1,7 @@
 package ar.com.kfgodel.diamond.impl.types.parts.names;
 
 import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
-import ar.com.kfgodel.diamond.api.types.TypeNames;
+import ar.com.kfgodel.diamond.api.types.names.TypeNames;
 
 import java.util.function.Supplier;
 

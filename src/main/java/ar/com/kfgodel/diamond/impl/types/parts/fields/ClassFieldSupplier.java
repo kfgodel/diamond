@@ -2,6 +2,7 @@ package ar.com.kfgodel.diamond.impl.types.parts.fields;
 
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.fields.ClassField;
+import ar.com.kfgodel.diamond.impl.natives.NativeFieldsSupplier;
 
 import java.lang.reflect.Field;
 import java.util.Set;

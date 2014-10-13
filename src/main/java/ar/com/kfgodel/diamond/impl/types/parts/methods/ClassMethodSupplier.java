@@ -2,6 +2,7 @@ package ar.com.kfgodel.diamond.impl.types.parts.methods;
 
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.methods.ClassMethod;
+import ar.com.kfgodel.diamond.impl.natives.NativeMethodsSupplier;
 
 import java.lang.reflect.Method;
 import java.util.Set;

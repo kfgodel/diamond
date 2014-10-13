@@ -1,7 +1,7 @@
 package ar.com.kfgodel.diamond.api.naming;
 
 /**
- * This type represents a common trait among reflection instances that have name
+ * This type represents a common trait among reflection instances that have a name.<br>
  * Created by kfgodel on 18/09/14.
  */
 public interface Named {

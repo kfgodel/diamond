@@ -4,11 +4,11 @@ import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.DiamondTestContext;
 import ar.com.kfgodel.diamond.api.Diamond;
-import ar.com.kfgodel.diamond.api.classes.TypeLineage;
 import ar.com.kfgodel.diamond.api.naming.Named;
-import ar.com.kfgodel.diamond.api.types.ReferenceOf;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
-import ar.com.kfgodel.diamond.api.types.TypeNames;
+import ar.com.kfgodel.diamond.api.types.inheritance.TypeLineage;
+import ar.com.kfgodel.diamond.api.types.names.TypeNames;
+import ar.com.kfgodel.diamond.api.types.reference.ReferenceOf;
 import ar.com.kfgodel.diamond.testobjects.lineage.ChildClass;
 import org.junit.runner.RunWith;
 

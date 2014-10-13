@@ -1,6 +1,6 @@
 package ar.com.kfgodel.diamond.impl.types.description.support;
 
-import ar.com.kfgodel.diamond.api.types.TypeNames;
+import ar.com.kfgodel.diamond.api.types.names.TypeNames;
 import ar.com.kfgodel.diamond.impl.types.parts.names.VariableTypeNamesSupplier;
 
 import java.util.function.Supplier;

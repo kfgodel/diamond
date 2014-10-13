@@ -3,7 +3,7 @@ package ar.com.kfgodel.diamond.api.methods;
 import java.util.stream.Stream;
 
 /**
- * This type represents the source of class methods for a type
+ * This type represents the source of class methods for a given type
  * Created by kfgodel on 18/09/14.
  */
 public interface TypeMethods {

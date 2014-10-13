@@ -1,7 +1,7 @@
 package ar.com.kfgodel.diamond.impl.types.parts.bounds;
 
 import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
-import ar.com.kfgodel.diamond.api.types.TypeBounds;
+import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
 import ar.com.kfgodel.diamond.impl.types.bounds.DoubleTypeBounds;
 
 import java.lang.reflect.AnnotatedWildcardType;

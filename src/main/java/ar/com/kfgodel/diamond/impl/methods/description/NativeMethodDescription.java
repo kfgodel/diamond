@@ -10,7 +10,7 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 /**
- * This type represents a method decription with references to the parts suppliers
+ * This type represents a the method description of a native method
  * Created by kfgodel on 07/10/14.
  */
 public class NativeMethodDescription implements MethodDescription {

@@ -6,7 +6,7 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 /**
- * This type represents the description of a diamond method
+ * This type represents the description of a diamond method to get a {@link ClassMethod}
  * Created by kfgodel on 07/10/14.
  */
 public interface MethodDescription {

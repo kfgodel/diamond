@@ -3,7 +3,7 @@ package ar.com.kfgodel.diamond;
 import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
-import ar.com.kfgodel.diamond.api.types.ReferenceOf;
+import ar.com.kfgodel.diamond.api.types.reference.ReferenceOf;
 import ar.com.kfgodel.diamond.testobjects.UnnecessaryIntermediateClass;
 import org.junit.runner.RunWith;
 

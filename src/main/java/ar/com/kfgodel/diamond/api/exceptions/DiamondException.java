@@ -14,7 +14,4 @@ public class DiamondException extends RuntimeException {
         super(message, cause);
     }
 
-    public DiamondException(Throwable cause) {
-        super(cause);
-    }
 }

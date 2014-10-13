@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * This type represents a method that belongs to a class
+ * This type represents a method that belongs to a type
  * Created by kfgodel on 18/09/14.
  */
 public class ClassMethodInstance implements ClassMethod {
