@@ -11,7 +11,8 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 /**
- * This type represents the description of an extended type (one that is parameterized by another one)
+ * This type represents the description of a type that is extended by another with actual type arguments.
+ * The described type has type parameters, and its subtype has type arguments defined for them
  * Created by kfgodel on 29/09/14.
  */
 public class ExtendedTypeDescription extends DelegatedDescriptionSupport {

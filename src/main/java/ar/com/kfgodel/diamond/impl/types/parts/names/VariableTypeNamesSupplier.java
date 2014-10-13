@@ -1,9 +1,9 @@
 package ar.com.kfgodel.diamond.impl.types.parts.names;
 
 import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
-import ar.com.kfgodel.diamond.api.naming.TypeNames;
-import ar.com.kfgodel.diamond.impl.naming.TypeVariableNames;
-import ar.com.kfgodel.diamond.impl.naming.WildCardNames;
+import ar.com.kfgodel.diamond.api.types.names.TypeNames;
+import ar.com.kfgodel.diamond.impl.types.names.TypeVariableNames;
+import ar.com.kfgodel.diamond.impl.types.names.WildCardNames;
 
 import java.lang.reflect.AnnotatedType;
 import java.lang.reflect.Type;

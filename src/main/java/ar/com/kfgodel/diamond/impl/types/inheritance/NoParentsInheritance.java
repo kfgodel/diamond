@@ -3,7 +3,7 @@ package ar.com.kfgodel.diamond.impl.types.inheritance;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.inheritance.TypeInheritance;
 import ar.com.kfgodel.diamond.api.types.inheritance.TypeLineage;
-import ar.com.kfgodel.diamond.impl.classes.SingleTypeLineage;
+import ar.com.kfgodel.diamond.impl.types.lineage.SingleTypeLineage;
 
 import java.util.Optional;
 

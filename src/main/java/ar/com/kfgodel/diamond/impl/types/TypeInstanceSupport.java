@@ -4,17 +4,17 @@ import ar.com.kfgodel.diamond.api.fields.ClassField;
 import ar.com.kfgodel.diamond.api.fields.TypeFields;
 import ar.com.kfgodel.diamond.api.methods.ClassMethod;
 import ar.com.kfgodel.diamond.api.methods.TypeMethods;
-import ar.com.kfgodel.diamond.api.naming.TypeNames;
 import ar.com.kfgodel.diamond.api.types.TypeDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.generics.TypeGenerics;
 import ar.com.kfgodel.diamond.api.types.inheritance.TypeInheritance;
-import ar.com.kfgodel.diamond.impl.declaration.TypeDeclaration;
-import ar.com.kfgodel.diamond.impl.equality.TypeEquality;
-import ar.com.kfgodel.diamond.impl.fields.sources.ClassTypeFields;
+import ar.com.kfgodel.diamond.api.types.names.TypeNames;
+import ar.com.kfgodel.diamond.impl.fields.sources.ImmutableTypeFields;
 import ar.com.kfgodel.diamond.impl.fields.sources.NoFields;
-import ar.com.kfgodel.diamond.impl.methods.sources.ClassTypeMethods;
+import ar.com.kfgodel.diamond.impl.methods.sources.ImmutableTypeMethods;
 import ar.com.kfgodel.diamond.impl.methods.sources.NoMethods;
+import ar.com.kfgodel.diamond.impl.types.declaration.TypeDeclaration;
+import ar.com.kfgodel.diamond.impl.types.equality.TypeEquality;
 import ar.com.kfgodel.diamond.impl.types.generics.NotGenerified;
 import ar.com.kfgodel.diamond.impl.types.inheritance.NoParentsInheritance;
 import ar.com.kfgodel.diamond.impl.types.parts.annotations.NoAnnotationsSupplier;
@@ -99,7 +99,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     }
 
     protected void setMethods(Supplier<Stream<ClassMethod>> typeMethods){
-        this.methods = ClassTypeMethods.create(typeMethods);
+        this.methods = ImmutableTypeMethods.create(typeMethods);
     }
 
     @Override
@@ -108,7 +108,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     }
 
     protected void setFields(Supplier<Stream<ClassField>> typeFields){
-        this.fields = ClassTypeFields.create(typeFields);
+        this.fields = ImmutableTypeFields.create(typeFields);
     }
 
     /**

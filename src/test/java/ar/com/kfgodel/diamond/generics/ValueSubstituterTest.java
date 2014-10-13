@@ -2,9 +2,9 @@ package ar.com.kfgodel.diamond.generics;
 
 import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
-import ar.com.kfgodel.diamond.impl.generics.parameters.SubstitutionAnalizer;
-import ar.com.kfgodel.diamond.impl.generics.parameters.ValueSubstituter;
-import ar.com.kfgodel.diamond.impl.generics.parameters.ValueSubstitution;
+import ar.com.kfgodel.diamond.impl.types.generics.parameters.substitutions.SubstitutionAnalyzer;
+import ar.com.kfgodel.diamond.impl.types.generics.parameters.substitutions.ValueSubstituter;
+import ar.com.kfgodel.diamond.impl.types.generics.parameters.substitutions.ValueSubstitution;
 import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
@@ -35,7 +35,7 @@ public class ValueSubstituterTest extends JavaSpec<SubstituterTestContext> {
                  * and supertype arguments relation (emulating type extension)
                  */
                 context().replacedSuperTypeArguments(() -> {
-                    List<ValueSubstitution> substitutions = SubstitutionAnalizer.analyze(context().subtypeParameters(), context().superTypeArguments());
+                    List<ValueSubstitution> substitutions = SubstitutionAnalyzer.analyze(context().subtypeParameters(), context().superTypeArguments());
                     ValueSubstituter<Object> substituter = ValueSubstituter.create(substitutions);
                     List<Object> replacedSuperTypeArguments = new ArrayList<>(context().superTypeArguments());
                     substituter.accept(context().subtypeArguments(), replacedSuperTypeArguments);

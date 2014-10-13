@@ -4,9 +4,9 @@ import ar.com.kfgodel.diamond.api.annotations.Annotated;
 import ar.com.kfgodel.diamond.api.fields.TypeFields;
 import ar.com.kfgodel.diamond.api.methods.TypeMethods;
 import ar.com.kfgodel.diamond.api.naming.Named;
-import ar.com.kfgodel.diamond.api.naming.TypeNames;
 import ar.com.kfgodel.diamond.api.types.generics.TypeGenerics;
 import ar.com.kfgodel.diamond.api.types.inheritance.TypeInheritance;
+import ar.com.kfgodel.diamond.api.types.names.TypeNames;
 
 import java.util.Optional;
 

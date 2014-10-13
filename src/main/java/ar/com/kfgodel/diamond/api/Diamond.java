@@ -1,7 +1,7 @@
 package ar.com.kfgodel.diamond.api;
 
-import ar.com.kfgodel.diamond.api.sources.fields.ClassFieldSources;
-import ar.com.kfgodel.diamond.api.sources.methods.ClassMethodSources;
+import ar.com.kfgodel.diamond.api.sources.fields.FieldSources;
+import ar.com.kfgodel.diamond.api.sources.methods.MethodSources;
 import ar.com.kfgodel.diamond.api.sources.types.TypeSources;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.DiamondApi;
@@ -29,14 +29,14 @@ public interface Diamond {
     /**
      * @return An accessor to obtain instances of methods that belong to a class
      */
-    public static ClassMethodSources methods(){
+    public static MethodSources methods(){
         return API.methods();
     }
 
     /**
      * @return An accessor to obtain instances of fields that belong to a class
      */
-    public static ClassFieldSources fields() {
+    public static FieldSources fields() {
         return API.fields();
     }
 

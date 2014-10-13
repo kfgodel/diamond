@@ -1,9 +1,9 @@
 package ar.com.kfgodel.diamond;
 
 import ar.com.dgarcia.javaspec.api.TestContext;
-import ar.com.kfgodel.diamond.api.naming.TypeNames;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.inheritance.TypeLineage;
+import ar.com.kfgodel.diamond.api.types.names.TypeNames;
 import ar.com.kfgodel.lazyvalue.api.LazyValue;
 
 import java.util.function.Supplier;

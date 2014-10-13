@@ -2,8 +2,8 @@ package ar.com.kfgodel.diamond.api.types;
 
 import ar.com.kfgodel.diamond.api.fields.ClassField;
 import ar.com.kfgodel.diamond.api.methods.ClassMethod;
-import ar.com.kfgodel.diamond.api.naming.TypeNames;
 import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
+import ar.com.kfgodel.diamond.api.types.names.TypeNames;
 
 import java.lang.annotation.Annotation;
 import java.util.Optional;
