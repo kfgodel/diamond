@@ -4,7 +4,8 @@ import java.lang.annotation.Annotation;
 import java.util.stream.Stream;
 
 /**
- * This type represents an object that carries annotations with it
+ * This type represents an object that carries annotations with it.<br>
+ *     Types, fields, methods, etc
  * Created by kfgodel on 20/09/14.
  */
 public interface Annotated {

@@ -1,7 +1,7 @@
 package ar.com.kfgodel.diamond.impl.types.bounds;
 
-import ar.com.kfgodel.diamond.api.types.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
 
 import java.util.stream.Stream;
 

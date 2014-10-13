@@ -1,4 +1,4 @@
-package ar.com.kfgodel.diamond.api.sources;
+package ar.com.kfgodel.diamond.api.sources.fields;
 
 import ar.com.kfgodel.diamond.api.fields.ClassField;
 import ar.com.kfgodel.diamond.api.fields.FieldDescription;

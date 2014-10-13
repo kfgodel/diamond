@@ -1,4 +1,6 @@
-package ar.com.kfgodel.diamond.api.types;
+package ar.com.kfgodel.diamond.api.types.generics;
+
+import ar.com.kfgodel.diamond.api.types.TypeInstance;
 
 import java.util.stream.Stream;
 

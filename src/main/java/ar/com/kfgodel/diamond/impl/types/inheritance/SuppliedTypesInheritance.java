@@ -1,8 +1,8 @@
 package ar.com.kfgodel.diamond.impl.types.inheritance;
 
-import ar.com.kfgodel.diamond.api.classes.TypeLineage;
-import ar.com.kfgodel.diamond.api.inheritance.TypeInheritance;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.diamond.api.types.inheritance.TypeInheritance;
+import ar.com.kfgodel.diamond.api.types.inheritance.TypeLineage;
 import ar.com.kfgodel.diamond.impl.classes.FunctionBasedTypeLineage;
 import ar.com.kfgodel.lazyvalue.api.LazyValue;
 import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;

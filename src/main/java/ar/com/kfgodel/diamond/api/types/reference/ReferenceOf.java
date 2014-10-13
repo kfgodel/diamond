@@ -1,4 +1,4 @@
-package ar.com.kfgodel.diamond.api.types;
+package ar.com.kfgodel.diamond.api.types.reference;
 
 import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 

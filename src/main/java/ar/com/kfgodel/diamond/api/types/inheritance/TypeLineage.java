@@ -1,4 +1,4 @@
-package ar.com.kfgodel.diamond.api.classes;
+package ar.com.kfgodel.diamond.api.types.inheritance;
 
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 
@@ -6,7 +6,9 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
- * This type represents the classes that compose the lineage of a class behavior, from that specific subclass to Object
+ * This type represents the types that compose the lineage of a type behavior. For classes this is the set
+ * of parent classes up until Object.<br>
+ *     For other types this represents the set of supertypes
  * Created by kfgodel on 19/09/14.
  */
 public interface TypeLineage {

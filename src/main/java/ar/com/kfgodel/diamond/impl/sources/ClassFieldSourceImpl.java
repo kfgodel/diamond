@@ -2,8 +2,8 @@ package ar.com.kfgodel.diamond.impl.sources;
 
 import ar.com.kfgodel.diamond.api.fields.ClassField;
 import ar.com.kfgodel.diamond.api.fields.FieldDescription;
-import ar.com.kfgodel.diamond.api.sources.ClassDefinedClassFieldSource;
-import ar.com.kfgodel.diamond.api.sources.ClassFieldSources;
+import ar.com.kfgodel.diamond.api.sources.fields.ClassDefinedClassFieldSource;
+import ar.com.kfgodel.diamond.api.sources.fields.ClassFieldSources;
 import ar.com.kfgodel.diamond.impl.fields.ClassFieldInstance;
 import ar.com.kfgodel.diamond.impl.fields.description.FieldDescriptor;
 

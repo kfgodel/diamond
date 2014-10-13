@@ -1,12 +1,11 @@
-package ar.com.kfgodel.diamond.api.generics;
+package ar.com.kfgodel.diamond.api.types.generics;
 
-import ar.com.kfgodel.diamond.api.types.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 
 import java.util.stream.Stream;
 
 /**
- * This type represents the generics information about a specific type.<br>
+ * This type represents the generics information for a specific type.<br>
  *     This instance will hold the relationships between a type and their parameters, arguments and bounds
  * Created by kfgodel on 05/10/14.
  */

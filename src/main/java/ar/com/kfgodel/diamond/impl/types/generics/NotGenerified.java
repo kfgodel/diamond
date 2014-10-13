@@ -1,8 +1,8 @@
 package ar.com.kfgodel.diamond.impl.types.generics;
 
-import ar.com.kfgodel.diamond.api.generics.TypeGenerics;
-import ar.com.kfgodel.diamond.api.types.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
+import ar.com.kfgodel.diamond.api.types.generics.TypeGenerics;
 import ar.com.kfgodel.diamond.impl.types.bounds.NoBounds;
 
 import java.util.stream.Stream;

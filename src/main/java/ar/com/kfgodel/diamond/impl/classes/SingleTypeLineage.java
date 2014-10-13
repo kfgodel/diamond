@@ -1,7 +1,7 @@
 package ar.com.kfgodel.diamond.impl.classes;
 
-import ar.com.kfgodel.diamond.api.classes.TypeLineage;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.diamond.api.types.inheritance.TypeLineage;
 
 import java.util.Arrays;
 import java.util.Optional;

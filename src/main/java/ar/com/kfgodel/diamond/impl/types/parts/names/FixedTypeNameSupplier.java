@@ -1,6 +1,6 @@
 package ar.com.kfgodel.diamond.impl.types.parts.names;
 
-import ar.com.kfgodel.diamond.api.types.TypeNames;
+import ar.com.kfgodel.diamond.api.naming.TypeNames;
 import ar.com.kfgodel.diamond.impl.naming.ClassNames;
 
 import java.lang.reflect.Type;

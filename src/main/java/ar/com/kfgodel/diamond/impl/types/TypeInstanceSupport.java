@@ -2,13 +2,13 @@ package ar.com.kfgodel.diamond.impl.types;
 
 import ar.com.kfgodel.diamond.api.fields.ClassField;
 import ar.com.kfgodel.diamond.api.fields.TypeFields;
-import ar.com.kfgodel.diamond.api.generics.TypeGenerics;
-import ar.com.kfgodel.diamond.api.inheritance.TypeInheritance;
 import ar.com.kfgodel.diamond.api.methods.ClassMethod;
 import ar.com.kfgodel.diamond.api.methods.TypeMethods;
+import ar.com.kfgodel.diamond.api.naming.TypeNames;
 import ar.com.kfgodel.diamond.api.types.TypeDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
-import ar.com.kfgodel.diamond.api.types.TypeNames;
+import ar.com.kfgodel.diamond.api.types.generics.TypeGenerics;
+import ar.com.kfgodel.diamond.api.types.inheritance.TypeInheritance;
 import ar.com.kfgodel.diamond.impl.declaration.TypeDeclaration;
 import ar.com.kfgodel.diamond.impl.equality.TypeEquality;
 import ar.com.kfgodel.diamond.impl.fields.sources.ClassTypeFields;

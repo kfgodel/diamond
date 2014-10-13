@@ -1,7 +1,7 @@
 package ar.com.kfgodel.diamond.testobjects;
 
 
-import ar.com.kfgodel.diamond.api.types.ReferenceOf;
+import ar.com.kfgodel.diamond.api.types.reference.ReferenceOf;
 
 /**
  * This type serves a middle intermediate type for

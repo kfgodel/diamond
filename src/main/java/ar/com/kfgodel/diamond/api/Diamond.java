@@ -1,9 +1,8 @@
 package ar.com.kfgodel.diamond.api;
 
-import ar.com.kfgodel.diamond.api.sources.ClassFieldSources;
-import ar.com.kfgodel.diamond.api.sources.ClassMethodSources;
-import ar.com.kfgodel.diamond.api.sources.ClassSources;
-import ar.com.kfgodel.diamond.api.sources.TypeSources;
+import ar.com.kfgodel.diamond.api.sources.fields.ClassFieldSources;
+import ar.com.kfgodel.diamond.api.sources.methods.ClassMethodSources;
+import ar.com.kfgodel.diamond.api.sources.types.TypeSources;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.DiamondApi;
 
@@ -25,13 +24,6 @@ public interface Diamond {
      */
     public static TypeInstance of(Class<?> nativeClass){
         return types().from(nativeClass);
-    }
-
-    /**
-     * @return An accessor to obtain DClass instances in various ways
-     */
-    public static ClassSources classes(){
-        return API.classes();
     }
 
     /**
