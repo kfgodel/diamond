@@ -37,14 +37,14 @@ public class TypeEquality {
     private boolean equalBounds(TypeInstance aType, TypeInstance other) {
         TypeBounds aTypeBounds = aType.generics().bounds();
         TypeBounds otherBounds = other.generics().bounds();
-        if(!StreamEquality.areEquals(aTypeBounds.upper(), otherBounds.upper())){
+        if(!StreamEquality.INSTANCE.areEquals(aTypeBounds.upper(), otherBounds.upper())){
             return false;
         }
-        return StreamEquality.areEquals(aTypeBounds.lower(), otherBounds.lower());
+        return StreamEquality.INSTANCE.areEquals(aTypeBounds.lower(), otherBounds.lower());
     }
 
     private boolean equalTypeArguments(TypeInstance aType, TypeInstance other) {
-        return StreamEquality.areEquals(aType.generics().typeArguments(), other.generics().typeArguments());
+        return StreamEquality.INSTANCE.areEquals(aType.generics().typeArguments(), other.generics().typeArguments());
     }
 
     private boolean equalComponent(TypeInstance aType, TypeInstance other) {

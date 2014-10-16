@@ -16,7 +16,7 @@ public class ConstructorEquality {
             return false;
         }
         TypeConstructor other = (TypeConstructor) obj;
-        return StreamEquality.areEquals(first.parameterTypes(), other.parameterTypes());
+        return StreamEquality.INSTANCE.areEquals(first.parameterTypes(), other.parameterTypes());
     }
 
 }

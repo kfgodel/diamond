@@ -11,13 +11,15 @@ import java.util.stream.Stream;
  */
 public class StreamEquality {
 
+    public static final StreamEquality INSTANCE = new StreamEquality();
+
     /**
      * Indicates if the contents of both streams can be considered equal, comparing each element and consuming both streams
      * @param one One stream to compare
      * @param other The other
      * @return true if the have the equal elements in the same order, and the same count
      */
-    public static boolean areEquals(Stream<?> one, Stream<?> other){
+    public boolean areEquals(Stream<?> one, Stream<?> other){
         Iterator<?> oneIterator = one.iterator();
         Iterator<?> otherIterator = other.iterator();
         while(oneIterator.hasNext() && otherIterator.hasNext()){
