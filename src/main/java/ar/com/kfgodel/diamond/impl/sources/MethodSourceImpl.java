@@ -1,11 +1,11 @@
 package ar.com.kfgodel.diamond.impl.sources;
 
 import ar.com.kfgodel.diamond.api.Diamond;
-import ar.com.kfgodel.diamond.api.methods.ClassMethod;
 import ar.com.kfgodel.diamond.api.methods.MethodDescription;
+import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.methods.TypeMethods;
 import ar.com.kfgodel.diamond.api.sources.methods.MethodSources;
-import ar.com.kfgodel.diamond.impl.methods.ClassMethodInstance;
+import ar.com.kfgodel.diamond.impl.methods.TypeMethodInstance;
 import ar.com.kfgodel.diamond.impl.methods.description.MethodDescriptor;
 
 import java.lang.reflect.Method;
@@ -31,13 +31,13 @@ public class MethodSourceImpl implements MethodSources {
      * @param methodInstance The native method instance
      * @return The diamond representation
      */
-    public ClassMethod from(Method methodInstance){
+    public TypeMethod from(Method methodInstance){
         MethodDescription methodDescription = MethodDescriptor.INSTANCE.describe(methodInstance);
         return from(methodDescription);
     }
 
     @Override
-    public ClassMethod from(MethodDescription methodDescription) {
+    public TypeMethod from(MethodDescription methodDescription) {
         // This is the place to cache instances
         return createMethodFrom(methodDescription);
     }
@@ -47,8 +47,8 @@ public class MethodSourceImpl implements MethodSources {
      * @param methodDescription The description of the method features
      * @return The instances that represents a method
      */
-    private ClassMethodInstance createMethodFrom(MethodDescription methodDescription) {
-        return ClassMethodInstance.create(methodDescription);
+    private TypeMethodInstance createMethodFrom(MethodDescription methodDescription) {
+        return TypeMethodInstance.create(methodDescription);
     }
 
 }

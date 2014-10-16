@@ -1,5 +1,6 @@
 package ar.com.kfgodel.diamond.api;
 
+import ar.com.kfgodel.diamond.api.sources.constructors.ConstructorSources;
 import ar.com.kfgodel.diamond.api.sources.fields.FieldSources;
 import ar.com.kfgodel.diamond.api.sources.methods.MethodSources;
 import ar.com.kfgodel.diamond.api.sources.types.TypeSources;
@@ -44,4 +45,12 @@ public interface Diamond {
      * @return An accessor to obtain instances that represent types
      */
     public static TypeSources types() { return API.types(); }
+
+
+    /**
+     * @return An accessor to obtain instances that represent type constructors
+     */
+    public static ConstructorSources constructors() {
+        return API.constructors();
+    }
 }

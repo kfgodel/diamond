@@ -1,6 +1,6 @@
 package ar.com.kfgodel.diamond.impl.methods.sources;
 
-import ar.com.kfgodel.diamond.api.methods.ClassMethod;
+import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.methods.TypeMethods;
 import ar.com.kfgodel.lazyvalue.api.LazyValue;
 import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
@@ -16,14 +16,14 @@ import java.util.stream.Stream;
  */
 public class ImmutableTypeMethods implements TypeMethods {
 
-    private LazyValue<List<ClassMethod>> typeMethods;
+    private LazyValue<List<TypeMethod>> typeMethods;
 
     @Override
-    public Stream<ClassMethod> all() {
+    public Stream<TypeMethod> all() {
         return typeMethods.get().stream();
     }
 
-    public static ImmutableTypeMethods create(Supplier<Stream<ClassMethod>> classMethods) {
+    public static ImmutableTypeMethods create(Supplier<Stream<TypeMethod>> classMethods) {
         ImmutableTypeMethods methodSource = new ImmutableTypeMethods();
         // Here we cache assuming methods don't change in runtime
         methodSource.typeMethods = SuppliedValue.create(()-> classMethods.get().collect(Collectors.toList()));

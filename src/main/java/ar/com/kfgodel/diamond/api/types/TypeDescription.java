@@ -1,7 +1,8 @@
 package ar.com.kfgodel.diamond.api.types;
 
-import ar.com.kfgodel.diamond.api.fields.ClassField;
-import ar.com.kfgodel.diamond.api.methods.ClassMethod;
+import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
+import ar.com.kfgodel.diamond.api.fields.TypeField;
+import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.names.TypeNames;
 
@@ -60,13 +61,19 @@ public interface TypeDescription {
      * The set of methods that will be part of this type behavior
      * @return A stream to gather all methods
      */
-    Supplier<Stream<ClassMethod>> getTypeMethods();
+    Supplier<Stream<TypeMethod>> getTypeMethods();
 
     /**
      * The set of fields that will be part of this type state
      * @return A stream to gather all fields
      */
-    Supplier<Stream<ClassField>> getTypeFields();
+    Supplier<Stream<TypeField>> getTypeFields();
+
+    /**
+     * The set of constructors that will be part of this type creators
+     * @return A stream to gather all constructors
+     */
+    Supplier<Stream<TypeConstructor>> getTypeConstructors();
 
     /**
      * Indicates if this description is for a type that cannot be statically determined at compile type in every scope

@@ -5,7 +5,7 @@ import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import java.util.function.Supplier;
 
 /**
- * This type represents the description of a diamond field that can be used to get a {@link ClassField}
+ * This type represents the description of a diamond field that can be used to get a {@link TypeField}
  * Created by kfgodel on 12/10/14.
  */
 public interface FieldDescription {

@@ -1,6 +1,6 @@
 package ar.com.kfgodel.diamond.impl.methods.sources;
 
-import ar.com.kfgodel.diamond.api.methods.ClassMethod;
+import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.methods.TypeMethods;
 
 import java.util.stream.Stream;
@@ -14,7 +14,7 @@ public class NoMethods implements TypeMethods {
     public static final NoMethods INSTANCE = new NoMethods();
 
     @Override
-    public Stream<ClassMethod> all() {
+    public Stream<TypeMethod> all() {
         return Stream.empty();
     }
 

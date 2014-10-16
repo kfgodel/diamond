@@ -4,7 +4,7 @@ import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.DiamondTestContext;
 import ar.com.kfgodel.diamond.api.Diamond;
-import ar.com.kfgodel.diamond.api.fields.ClassField;
+import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.testobjects.FieldTypeTestObject;
 import org.junit.runner.RunWith;
 
@@ -23,7 +23,7 @@ public class FieldTypeTest extends JavaSpec<DiamondTestContext> {
             context().typeInstance(() -> Diamond.of(FieldTypeTestObject.class));
 
             it("is the type declared for a field",()->{
-                ClassField field = context().typeInstance().fields().all().filter((aField) -> aField.name().equals("intField")).findFirst().get();
+                TypeField field = context().typeInstance().fields().all().filter((aField) -> aField.name().equals("intField")).findFirst().get();
                 assertThat(field.type().name())
                         .isEqualTo("int");
             });

@@ -1,7 +1,8 @@
 package ar.com.kfgodel.diamond.impl.types.description.support;
 
-import ar.com.kfgodel.diamond.api.fields.ClassField;
-import ar.com.kfgodel.diamond.api.methods.ClassMethod;
+import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
+import ar.com.kfgodel.diamond.api.fields.TypeField;
+import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.types.TypeDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
@@ -64,13 +65,18 @@ public abstract class DelegatedDescriptionSupport implements TypeDescription {
     }
 
     @Override
-    public Supplier<Stream<ClassMethod>> getTypeMethods() {
+    public Supplier<Stream<TypeMethod>> getTypeMethods() {
         return getDelegateDescription().getTypeMethods();
     }
 
     @Override
-    public Supplier<Stream<ClassField>> getTypeFields() {
+    public Supplier<Stream<TypeField>> getTypeFields() {
         return getDelegateDescription().getTypeFields();
+    }
+
+    @Override
+    public Supplier<Stream<TypeConstructor>> getTypeConstructors() {
+        return getDelegateDescription().getTypeConstructors();
     }
 
     protected abstract TypeDescription getDelegateDescription();

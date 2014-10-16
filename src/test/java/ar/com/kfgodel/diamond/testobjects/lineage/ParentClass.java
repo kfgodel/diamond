@@ -3,6 +3,7 @@ package ar.com.kfgodel.diamond.testobjects.lineage;
 import ar.com.kfgodel.diamond.testobjects.TestAnnotation1;
 import ar.com.kfgodel.diamond.testobjects.TestAnnotation2;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -16,6 +17,14 @@ public class ParentClass<@TestAnnotation1 P1,P2> extends GrandParentClass<@TestA
 
 
     public void aParentMethod(){
+
+    }
+
+    protected ParentClass(Number number){
+
+    }
+
+    public ParentClass(Number number, Serializable serializable){
 
     }
 

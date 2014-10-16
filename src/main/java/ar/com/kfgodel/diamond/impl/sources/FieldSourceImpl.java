@@ -1,9 +1,9 @@
 package ar.com.kfgodel.diamond.impl.sources;
 
-import ar.com.kfgodel.diamond.api.fields.ClassField;
 import ar.com.kfgodel.diamond.api.fields.FieldDescription;
+import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.api.sources.fields.FieldSources;
-import ar.com.kfgodel.diamond.impl.fields.ClassFieldInstance;
+import ar.com.kfgodel.diamond.impl.fields.TypeFieldInstance;
 import ar.com.kfgodel.diamond.impl.fields.description.FieldDescriptor;
 
 import java.lang.reflect.Field;
@@ -20,13 +20,13 @@ public class FieldSourceImpl implements FieldSources {
     }
 
     @Override
-    public ClassField from(Field fieldInstance) {
+    public TypeField from(Field fieldInstance) {
         FieldDescription fieldDescription = FieldDescriptor.INSTANCE.describe(fieldInstance);
         return from(fieldDescription);
     }
 
     @Override
-    public ClassField from(FieldDescription fieldDescription) {
+    public TypeField from(FieldDescription fieldDescription) {
         // This is the place to cache instances
         return createFieldFrom(fieldDescription);
     }
@@ -36,8 +36,8 @@ public class FieldSourceImpl implements FieldSources {
      * @param fieldDescription The description of the field features
      * @return The instance that represents a field
      */
-    private ClassField createFieldFrom(FieldDescription fieldDescription) {
-        return ClassFieldInstance.create(fieldDescription);
+    private TypeField createFieldFrom(FieldDescription fieldDescription) {
+        return TypeFieldInstance.create(fieldDescription);
     }
 
 

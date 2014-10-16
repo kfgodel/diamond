@@ -1,15 +1,16 @@
 package ar.com.kfgodel.diamond.api.methods;
 
+import ar.com.kfgodel.diamond.api.behavior.ParameterizedBehavior;
 import ar.com.kfgodel.diamond.api.naming.Named;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 
 import java.util.stream.Stream;
 
 /**
- * This type represents a method of a class.<br> Similar to Method
+ * This type represents a method defined for a type that expresses behavior
  * Created by kfgodel on 18/09/14.
  */
-public interface ClassMethod extends Named {
+public interface TypeMethod extends Named, ParameterizedBehavior {
 
     /**
      * @return The method name selector
@@ -26,6 +27,7 @@ public interface ClassMethod extends Named {
     /**
      * @return The type of parameters accepted by this method in the order they are required
      */
+    @Override
     Stream<TypeInstance> parameterTypes();
 
 }

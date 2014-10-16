@@ -1,6 +1,6 @@
 package ar.com.kfgodel.diamond.impl.fields.sources;
 
-import ar.com.kfgodel.diamond.api.fields.ClassField;
+import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.api.fields.TypeFields;
 import ar.com.kfgodel.lazyvalue.api.LazyValue;
 import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
@@ -16,14 +16,14 @@ import java.util.stream.Stream;
  */
 public class ImmutableTypeFields implements TypeFields {
 
-    private LazyValue<List<ClassField>> typeFields;
+    private LazyValue<List<TypeField>> typeFields;
 
     @Override
-    public Stream<ClassField> all() {
+    public Stream<TypeField> all() {
         return typeFields.get().stream();
     }
 
-    public static ImmutableTypeFields create(Supplier<Stream<ClassField>> typeFields) {
+    public static ImmutableTypeFields create(Supplier<Stream<TypeField>> typeFields) {
         ImmutableTypeFields fieldSource = new ImmutableTypeFields();
         // Here we cache assuming fields don't change in runtime
         fieldSource.typeFields = SuppliedValue.create(() -> typeFields.get().collect(Collectors.toList()));
