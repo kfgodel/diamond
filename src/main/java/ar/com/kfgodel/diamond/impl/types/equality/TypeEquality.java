@@ -2,10 +2,9 @@ package ar.com.kfgodel.diamond.impl.types.equality;
 
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
+import ar.com.kfgodel.streams.StreamEquality;
 
-import java.util.Iterator;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 /**
  * This type represents the reification of the equality concept for types
@@ -38,30 +37,14 @@ public class TypeEquality {
     private boolean equalBounds(TypeInstance aType, TypeInstance other) {
         TypeBounds aTypeBounds = aType.generics().bounds();
         TypeBounds otherBounds = other.generics().bounds();
-        if(!equalTypes(aTypeBounds.upper(), otherBounds.upper())){
+        if(!StreamEquality.areEquals(aTypeBounds.upper(), otherBounds.upper())){
             return false;
         }
-        return equalTypes(aTypeBounds.lower(), otherBounds.lower());
+        return StreamEquality.areEquals(aTypeBounds.lower(), otherBounds.lower());
     }
 
     private boolean equalTypeArguments(TypeInstance aType, TypeInstance other) {
-        return equalTypes(aType.generics().typeArguments(), other.generics().typeArguments());
-    }
-
-    private boolean equalTypes(Stream<TypeInstance> aTypeStream, Stream<TypeInstance> otherTypeStream) {
-        Iterator<TypeInstance> aTypeArgumentsIterator = aTypeStream.iterator();
-        Iterator<TypeInstance> otherTypeArgumentsIterator = otherTypeStream.iterator();
-        while(aTypeArgumentsIterator.hasNext() && otherTypeArgumentsIterator.hasNext()){
-            TypeInstance aTypeArgument = aTypeArgumentsIterator.next();
-            TypeInstance otherTypeArgument = otherTypeArgumentsIterator.next();
-            if(!aTypeArgument.equals(otherTypeArgument)){
-                return false;
-            }
-        }
-        if(aTypeArgumentsIterator.hasNext() != otherTypeArgumentsIterator.hasNext()){
-            return false;
-        }
-        return true;
+        return StreamEquality.areEquals(aType.generics().typeArguments(), other.generics().typeArguments());
     }
 
     private boolean equalComponent(TypeInstance aType, TypeInstance other) {

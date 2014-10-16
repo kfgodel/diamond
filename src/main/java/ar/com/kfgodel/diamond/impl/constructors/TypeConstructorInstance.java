@@ -3,6 +3,7 @@ package ar.com.kfgodel.diamond.impl.constructors;
 import ar.com.kfgodel.diamond.api.constructors.ConstructorDescription;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.diamond.impl.constructors.equality.ConstructorEquality;
 import ar.com.kfgodel.lazyvalue.api.LazyValue;
 import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
 
@@ -21,6 +22,11 @@ public class TypeConstructorInstance implements TypeConstructor {
     @Override
     public Stream<TypeInstance> parameterTypes() {
         return parameterTypes.get().stream();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return ConstructorEquality.INSTANCE.areEquals(this, obj);
     }
 
     public static TypeConstructor create(ConstructorDescription description) {

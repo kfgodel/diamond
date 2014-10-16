@@ -26,9 +26,8 @@ public class TypeEqualityTest extends JavaSpec<DiamondTestContext> {
 
             it("is reified by TypeEquality", () -> {
                 TypeInstance objectType = getObjectType();
-                TypeInstance stringType = getStringType();
-                assertThat(TypeEquality.INSTANCE.areEquals(objectType, stringType)).
-                        isFalse();
+                assertThat(TypeEquality.INSTANCE.areEquals(objectType, objectType)).
+                        isTrue();
             });
 
             describe("for type variables", () -> {
