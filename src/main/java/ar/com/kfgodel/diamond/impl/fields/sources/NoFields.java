@@ -1,6 +1,6 @@
 package ar.com.kfgodel.diamond.impl.fields.sources;
 
-import ar.com.kfgodel.diamond.api.fields.ClassField;
+import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.api.fields.TypeFields;
 
 import java.util.stream.Stream;
@@ -14,7 +14,7 @@ public class NoFields implements TypeFields {
     public static final NoFields INSTANCE = new NoFields();
 
     @Override
-    public Stream<ClassField> all() {
+    public Stream<TypeField> all() {
         return Stream.empty();
     }
 }

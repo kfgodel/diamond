@@ -11,5 +11,5 @@ public interface TypeMethods {
     /**
      * @return All the class methods for a type
      */
-    Stream<ClassMethod> all();
+    Stream<TypeMethod> all();
 }

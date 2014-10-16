@@ -1,6 +1,7 @@
 package ar.com.kfgodel.diamond.api.types;
 
 import ar.com.kfgodel.diamond.api.annotations.Annotated;
+import ar.com.kfgodel.diamond.api.constructors.TypeConstructors;
 import ar.com.kfgodel.diamond.api.fields.TypeFields;
 import ar.com.kfgodel.diamond.api.methods.TypeMethods;
 import ar.com.kfgodel.diamond.api.naming.Named;
@@ -60,4 +61,11 @@ public interface TypeInstance extends Named, Annotated {
      *     TypeFields holds the relationship between this type and the state fields that instances of this type have
      */
     TypeFields fields();
+
+    /**
+     * @return The information about this type constructors<br>
+     *     TypeConstructors holds the relationship between this type and constructors to create instances of this type
+     */
+    TypeConstructors constructors();
+
 }

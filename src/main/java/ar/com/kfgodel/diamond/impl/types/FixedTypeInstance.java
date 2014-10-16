@@ -1,9 +1,11 @@
 package ar.com.kfgodel.diamond.impl.types;
 
+import ar.com.kfgodel.diamond.api.constructors.TypeConstructors;
 import ar.com.kfgodel.diamond.api.types.TypeDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.generics.TypeGenerics;
 import ar.com.kfgodel.diamond.api.types.inheritance.TypeInheritance;
+import ar.com.kfgodel.diamond.impl.constructors.sources.ImmutableTypeConstructors;
 import ar.com.kfgodel.diamond.impl.types.generics.ParameterizedTypeGenerics;
 import ar.com.kfgodel.diamond.impl.types.inheritance.SuppliedTypesInheritance;
 import ar.com.kfgodel.lazyvalue.api.LazyValue;
@@ -26,6 +28,7 @@ public class FixedTypeInstance extends TypeInstanceSupport {
     private LazyValue<Optional<TypeInstance>> componentType;
     private TypeGenerics generics;
     private TypeInheritance inheritance;
+    private TypeConstructors constructors;
 
 
     @Override
@@ -43,6 +46,12 @@ public class FixedTypeInstance extends TypeInstanceSupport {
         return inheritance;
     }
 
+    @Override
+    public TypeConstructors constructors() {
+        return constructors;
+    }
+
+
     /**
      * Creates a class instance with its minimum data
      * @param description the description for this type
@@ -54,6 +63,7 @@ public class FixedTypeInstance extends TypeInstanceSupport {
         fixedType.componentType = SuppliedValue.create(description.getComponentType());
         fixedType.generics = ParameterizedTypeGenerics.create(description.getTypeParametersSupplier(), description.getTypeArguments());
         fixedType.inheritance = SuppliedTypesInheritance.create(fixedType, description.getSuperclassSupplier(), description.getExtendedTypeSupplier());
+        fixedType.constructors = ImmutableTypeConstructors.create(description.getTypeConstructors());
         return fixedType;
     }
 }

@@ -1,7 +1,7 @@
 package ar.com.kfgodel.diamond.impl.methods;
 
-import ar.com.kfgodel.diamond.api.methods.ClassMethod;
 import ar.com.kfgodel.diamond.api.methods.MethodDescription;
+import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.lazyvalue.api.LazyValue;
 import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
@@ -14,7 +14,7 @@ import java.util.stream.Stream;
  * This type represents a method that belongs to a type
  * Created by kfgodel on 18/09/14.
  */
-public class ClassMethodInstance implements ClassMethod {
+public class TypeMethodInstance implements TypeMethod {
 
     private LazyValue<String> methodName;
     private LazyValue<TypeInstance> returnType;
@@ -35,8 +35,8 @@ public class ClassMethodInstance implements ClassMethod {
         return parameterTypes.get().stream();
     }
 
-    public static ClassMethodInstance create(MethodDescription description) {
-        ClassMethodInstance classMethod = new ClassMethodInstance();
+    public static TypeMethodInstance create(MethodDescription description) {
+        TypeMethodInstance classMethod = new TypeMethodInstance();
         classMethod.methodName = SuppliedValue.create(description.getName());
         classMethod.returnType = SuppliedValue.create(description.getReturnType());
         // We decide to cache the parameter list

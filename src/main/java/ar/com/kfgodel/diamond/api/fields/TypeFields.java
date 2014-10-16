@@ -11,6 +11,6 @@ public interface TypeFields {
     /**
      * @return All the class fields for a type
      */
-    Stream<ClassField> all();
+    Stream<TypeField> all();
 
 }

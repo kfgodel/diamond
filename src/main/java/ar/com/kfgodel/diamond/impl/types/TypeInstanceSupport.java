@@ -1,14 +1,16 @@
 package ar.com.kfgodel.diamond.impl.types;
 
-import ar.com.kfgodel.diamond.api.fields.ClassField;
+import ar.com.kfgodel.diamond.api.constructors.TypeConstructors;
+import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.api.fields.TypeFields;
-import ar.com.kfgodel.diamond.api.methods.ClassMethod;
+import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.methods.TypeMethods;
 import ar.com.kfgodel.diamond.api.types.TypeDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.generics.TypeGenerics;
 import ar.com.kfgodel.diamond.api.types.inheritance.TypeInheritance;
 import ar.com.kfgodel.diamond.api.types.names.TypeNames;
+import ar.com.kfgodel.diamond.impl.constructors.sources.NoConstructors;
 import ar.com.kfgodel.diamond.impl.fields.sources.ImmutableTypeFields;
 import ar.com.kfgodel.diamond.impl.fields.sources.NoFields;
 import ar.com.kfgodel.diamond.impl.methods.sources.ImmutableTypeMethods;
@@ -98,7 +100,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
         return methods;
     }
 
-    protected void setMethods(Supplier<Stream<ClassMethod>> typeMethods){
+    protected void setMethods(Supplier<Stream<TypeMethod>> typeMethods){
         this.methods = ImmutableTypeMethods.create(typeMethods);
     }
 
@@ -107,8 +109,13 @@ public abstract class TypeInstanceSupport implements TypeInstance {
         return fields;
     }
 
-    protected void setFields(Supplier<Stream<ClassField>> typeFields){
+    protected void setFields(Supplier<Stream<TypeField>> typeFields){
         this.fields = ImmutableTypeFields.create(typeFields);
+    }
+
+    @Override
+    public TypeConstructors constructors() {
+        return NoConstructors.INSTANCE;
     }
 
     /**

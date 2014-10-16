@@ -3,8 +3,8 @@ package ar.com.kfgodel.diamond;
 import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.api.Diamond;
-import ar.com.kfgodel.diamond.api.fields.ClassField;
-import ar.com.kfgodel.diamond.api.methods.ClassMethod;
+import ar.com.kfgodel.diamond.api.fields.TypeField;
+import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.testobjects.ClassWithIdField;
 import org.junit.runner.RunWith;
@@ -47,7 +47,7 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
                     } catch (NoSuchMethodException e) {
                         throw new RuntimeException("This is why reflection api turns difficult to use",e);
                     }
-                    ClassMethod diamondMethod = Diamond.methods().from(methodInstance);
+                    TypeMethod diamondMethod = Diamond.methods().from(methodInstance);
                     assertThat(diamondMethod.name()).isEqualTo("equals");
                 });
 
@@ -64,7 +64,7 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
                     } catch (NoSuchFieldException e) {
                         throw new RuntimeException("This is why reflection api turns difficult to use",e);
                     }
-                    ClassField diamondField = Diamond.fields().from(fieldInstance);
+                    TypeField diamondField = Diamond.fields().from(fieldInstance);
                     assertThat(diamondField.name()).isEqualTo("id");
                 });
                 it("can be obtained from a Class instance and a field name", ()->{

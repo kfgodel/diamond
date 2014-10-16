@@ -1,7 +1,7 @@
 package ar.com.kfgodel.diamond.impl.types.parts.methods;
 
 import ar.com.kfgodel.diamond.api.Diamond;
-import ar.com.kfgodel.diamond.api.methods.ClassMethod;
+import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.impl.natives.NativeMethodsSupplier;
 
 import java.lang.reflect.Method;
@@ -14,12 +14,12 @@ import java.util.stream.Stream;
  *     It supplies instances of classMethods from a given class and its hierarchy
  * Created by kfgodel on 05/10/14.
  */
-public class ClassMethodSupplier implements Supplier<Stream<ClassMethod>> {
+public class ClassMethodSupplier implements Supplier<Stream<TypeMethod>> {
 
     private Set<Class<?>> baseClasses;
 
     @Override
-    public Stream<ClassMethod> get() {
+    public Stream<TypeMethod> get() {
         Supplier<Stream<Method>> nativeMethods = NativeMethodsSupplier.create(baseClasses);
         return nativeMethods.get().map((nativeMethod) -> Diamond.methods().from(nativeMethod));
     }

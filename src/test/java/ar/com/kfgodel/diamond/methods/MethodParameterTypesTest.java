@@ -4,7 +4,7 @@ import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.DiamondTestContext;
 import ar.com.kfgodel.diamond.api.Diamond;
-import ar.com.kfgodel.diamond.api.methods.ClassMethod;
+import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.naming.Named;
 import ar.com.kfgodel.diamond.testobjects.MethodParameterTypesTestObject;
 import org.junit.runner.RunWith;
@@ -28,14 +28,14 @@ public class MethodParameterTypesTest extends JavaSpec<DiamondTestContext> {
             context().typeInstance(() -> Diamond.of(MethodParameterTypesTestObject.class));
 
             it("is empty if the method takes no parameters",()->{
-                ClassMethod method = context().typeInstance().methods().all().filter((aMethod) -> aMethod.name().equals("noParameters")).findFirst().get();
+                TypeMethod method = context().typeInstance().methods().all().filter((aMethod) -> aMethod.name().equals("noParameters")).findFirst().get();
                 assertThat(method.parameterTypes().count())
                         .isEqualTo(0);
 
             }); 
             
             it("has the types for the accepted method parameter types",()->{
-                ClassMethod method = context().typeInstance().methods().all().filter((aMethod) -> aMethod.name().equals("oneStringOneNumberParameters")).findFirst().get();
+                TypeMethod method = context().typeInstance().methods().all().filter((aMethod) -> aMethod.name().equals("oneStringOneNumberParameters")).findFirst().get();
                 assertThat(method.parameterTypes().map(Named::name).collect(Collectors.toList()))
                         .isEqualTo(Arrays.asList("String", "Number"));
             });   
