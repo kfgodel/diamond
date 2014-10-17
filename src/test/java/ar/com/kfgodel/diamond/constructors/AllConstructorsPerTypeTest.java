@@ -84,12 +84,20 @@ public class AllConstructorsPerTypeTest extends JavaSpec<DiamondTestContext> {
             describe("for array types", () -> {
                 context().typeInstance(() -> Diamond.of(String[].class));
 
-                it("includes an artificial constructor",()->{
+                it("includes an artificial constructor", () -> {
                     assertThat(context().typeInstance().constructors().all()
                             .anyMatch((constructor) -> constructor.parameterTypes().collect(Collectors.toList())
                                     .equals(Arrays.asList(Diamond.of(int.class)))))
                             .isTrue();
                 });
+                
+                it("even for generic array types",()->{
+                    context().typeInstance(this::getGenericArrayType);
+                    assertThat(context().typeInstance().constructors().all()
+                            .anyMatch((constructor) -> constructor.parameterTypes().collect(Collectors.toList())
+                                    .equals(Arrays.asList(Diamond.of(int.class)))))
+                            .isTrue();
+                });   
 
             });
 
@@ -116,6 +124,10 @@ public class AllConstructorsPerTypeTest extends JavaSpec<DiamondTestContext> {
 
         });
 
+    }
+
+    private TypeInstance getGenericArrayType() {
+        return getTypeFrom(new ReferenceOf<List<String>[]>(){});
     }
 
 
