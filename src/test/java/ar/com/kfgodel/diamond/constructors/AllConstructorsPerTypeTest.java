@@ -84,12 +84,7 @@ public class AllConstructorsPerTypeTest extends JavaSpec<DiamondTestContext> {
             describe("for array types", () -> {
                 context().typeInstance(() -> Diamond.of(String[].class));
 
-                it("is empty", () -> {
-                    assertThat(context().typeInstance().constructors().all().count())
-                            .isEqualTo(0);
-                });
-
-                xit("includes an artificial constructor",()->{
+                it("includes an artificial constructor",()->{
                     assertThat(context().typeInstance().constructors().all()
                             .anyMatch((constructor) -> constructor.parameterTypes().collect(Collectors.toList())
                                     .equals(Arrays.asList(Diamond.of(int.class)))))
