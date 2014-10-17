@@ -3,6 +3,7 @@ package ar.com.kfgodel.diamond.impl.methods;
 import ar.com.kfgodel.diamond.api.methods.MethodDescription;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.diamond.impl.methods.equality.MethodEquality;
 import ar.com.kfgodel.lazyvalue.api.LazyValue;
 import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
 
@@ -33,6 +34,11 @@ public class TypeMethodInstance implements TypeMethod {
     @Override
     public Stream<TypeInstance> parameterTypes() {
         return parameterTypes.get().stream();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return MethodEquality.INSTANCE.areEquals(this, obj);
     }
 
     public static TypeMethodInstance create(MethodDescription description) {

@@ -7,11 +7,13 @@ import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.reference.ReferenceOf;
 import ar.com.kfgodel.diamond.testobjects.lineage.ChildClass;
+import ar.com.kfgodel.diamond.testobjects.lineage.ParentClass;
 import org.junit.runner.RunWith;
 
 import java.lang.reflect.AnnotatedType;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -123,6 +125,14 @@ public class AllFieldsPerTypeTest extends JavaSpec<DiamondTestContext> {
 
             });
 
+            describe("for parameterized types", ()->{
+                context().typeInstance(AllFieldsPerTypeTest::getParameterizedParentClass);
+
+                it("includes the same fields as the raw class",()->{
+                    assertThat(context().typeInstance().fields().all().collect(Collectors.toList()))
+                            .isEqualTo(Diamond.of(ParentClass.class).fields().all().collect(Collectors.toList()));
+                });
+            });
 
         });
 
@@ -148,4 +158,9 @@ public class AllFieldsPerTypeTest extends JavaSpec<DiamondTestContext> {
         TypeInstance typeInstance = Diamond.types().from(annotatedType);
         return typeInstance;
     }
+
+    private static TypeInstance getParameterizedParentClass() {
+        return getTypeFrom(new ReferenceOf<ParentClass<String, Integer>>() {});
+    }
+
 }

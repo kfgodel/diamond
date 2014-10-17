@@ -7,6 +7,7 @@ import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.reference.ReferenceOf;
 import ar.com.kfgodel.diamond.testobjects.lineage.ChildClass;
+import ar.com.kfgodel.diamond.testobjects.lineage.ParentClass;
 import org.junit.runner.RunWith;
 
 import java.io.Serializable;
@@ -83,17 +84,20 @@ public class AllConstructorsPerTypeTest extends JavaSpec<DiamondTestContext> {
             describe("for array types", () -> {
                 context().typeInstance(() -> Diamond.of(String[].class));
 
-                it("is empty", () -> {
-                    assertThat(context().typeInstance().constructors().all().count())
-                            .isEqualTo(0);
-                });
-
-                xit("includes an artificial constructor",()->{
+                it("includes an artificial constructor", () -> {
                     assertThat(context().typeInstance().constructors().all()
                             .anyMatch((constructor) -> constructor.parameterTypes().collect(Collectors.toList())
                                     .equals(Arrays.asList(Diamond.of(int.class)))))
                             .isTrue();
                 });
+                
+                it("even for generic array types",()->{
+                    context().typeInstance(this::getGenericArrayType);
+                    assertThat(context().typeInstance().constructors().all()
+                            .anyMatch((constructor) -> constructor.parameterTypes().collect(Collectors.toList())
+                                    .equals(Arrays.asList(Diamond.of(int.class)))))
+                            .isTrue();
+                });   
 
             });
 
@@ -108,9 +112,22 @@ public class AllConstructorsPerTypeTest extends JavaSpec<DiamondTestContext> {
 
             });
 
+            describe("for parameterized types", ()->{
+                context().typeInstance(AllConstructorsPerTypeTest::getParameterizedParentClass);
+
+                it("includes the same constructors as the raw class",()->{
+                    assertThat(context().typeInstance().constructors().all().collect(Collectors.toList()))
+                            .isEqualTo(Diamond.of(ParentClass.class).constructors().all().collect(Collectors.toList()));
+                });
+            });
+
 
         });
 
+    }
+
+    private TypeInstance getGenericArrayType() {
+        return getTypeFrom(new ReferenceOf<List<String>[]>(){});
     }
 
 
@@ -125,4 +142,9 @@ public class AllConstructorsPerTypeTest extends JavaSpec<DiamondTestContext> {
         TypeInstance typeInstance = Diamond.types().from(annotatedType);
         return typeInstance;
     }
+
+    private static TypeInstance getParameterizedParentClass() {
+        return getTypeFrom(new ReferenceOf<ParentClass<String, Integer>>() {});
+    }
+
 }

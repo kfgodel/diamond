@@ -3,6 +3,7 @@ package ar.com.kfgodel.diamond.impl.fields;
 import ar.com.kfgodel.diamond.api.fields.FieldDescription;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.diamond.impl.fields.equality.FieldEquality;
 import ar.com.kfgodel.lazyvalue.api.LazyValue;
 import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
 
@@ -23,6 +24,11 @@ public class TypeFieldInstance implements TypeField {
     @Override
     public TypeInstance type() {
         return fieldType.get();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return FieldEquality.INSTANCE.areEquals(this, obj);
     }
 
     public static TypeFieldInstance create(FieldDescription description) {
