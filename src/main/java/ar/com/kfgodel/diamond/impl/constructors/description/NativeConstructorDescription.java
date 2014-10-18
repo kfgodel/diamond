@@ -23,6 +23,11 @@ public class NativeConstructorDescription implements ConstructorDescription {
                 .map((annotated) -> Diamond.types().from(annotated));
     }
 
+    @Override
+    public Supplier<TypeInstance> getDeclaringType() {
+        return ()-> Diamond.of(constructor.getDeclaringClass());
+    }
+
     public static NativeConstructorDescription create(Constructor<?> nativeConstructor) {
         NativeConstructorDescription description = new NativeConstructorDescription();
         description.constructor = nativeConstructor;

@@ -17,6 +17,7 @@ import java.util.stream.Stream;
  */
 public class TypeConstructorInstance implements TypeConstructor {
 
+    private LazyValue<TypeInstance> declaringType;
     private LazyValue<List<TypeInstance>> parameterTypes;
 
     @Override
@@ -29,10 +30,17 @@ public class TypeConstructorInstance implements TypeConstructor {
         return ConstructorEquality.INSTANCE.areEquals(this, obj);
     }
 
-    public static TypeConstructor create(ConstructorDescription description) {
-        TypeConstructorInstance classMethod = new TypeConstructorInstance();
-        // We decide to cache the parameter list
-        classMethod.parameterTypes = SuppliedValue.create(() -> description.getParameterTypes().get().collect(Collectors.toList()));
-        return classMethod;
+    @Override
+    public TypeInstance declaringType() {
+        return declaringType.get();
     }
+
+    public static TypeConstructor create(ConstructorDescription description) {
+        TypeConstructorInstance constructor = new TypeConstructorInstance();
+        constructor.declaringType = SuppliedValue.create(description.getDeclaringType());
+        // We decide to cache the parameter list
+        constructor.parameterTypes = SuppliedValue.create(() -> description.getParameterTypes().get().collect(Collectors.toList()));
+        return constructor;
+    }
+
 }
