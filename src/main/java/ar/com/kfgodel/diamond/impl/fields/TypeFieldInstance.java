@@ -13,6 +13,7 @@ import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
  */
 public class TypeFieldInstance implements TypeField {
 
+    private LazyValue<TypeInstance> declaringType;
     private LazyValue<String> fieldName;
     private LazyValue<TypeInstance> fieldType;
 
@@ -27,6 +28,11 @@ public class TypeFieldInstance implements TypeField {
     }
 
     @Override
+    public TypeInstance declaringType() {
+        return declaringType.get();
+    }
+
+    @Override
     public boolean equals(Object obj) {
         return FieldEquality.INSTANCE.areEquals(this, obj);
     }
@@ -35,6 +41,7 @@ public class TypeFieldInstance implements TypeField {
         TypeFieldInstance classField = new TypeFieldInstance();
         classField.fieldName = SuppliedValue.create(description.getName());
         classField.fieldType = SuppliedValue.create(description.getType());
+        classField.declaringType = SuppliedValue.create(description.getDeclaringType());
         return classField;
     }
 

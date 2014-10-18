@@ -30,4 +30,9 @@ public class NativeFieldDescription implements FieldDescription {
     public Supplier<TypeInstance> getType() {
         return ()-> Diamond.types().from(nativeField.getAnnotatedType());
     }
+
+    @Override
+    public Supplier<TypeInstance> getDeclaringType() {
+        return ()-> Diamond.of(nativeField.getDeclaringClass());
+    }
 }

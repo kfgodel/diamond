@@ -7,4 +7,5 @@ package ar.com.kfgodel.diamond.testobjects;
 public class FieldEqualityTestObjectB {
 
     private Number a;
+    private String b;
 }

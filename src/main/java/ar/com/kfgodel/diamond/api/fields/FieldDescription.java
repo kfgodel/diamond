@@ -18,4 +18,9 @@ public interface FieldDescription {
      * @return The type of the field storage
      */
     Supplier<TypeInstance> getType();
+
+    /**
+     * @return The type in which the field is declared
+     */
+    Supplier<TypeInstance> getDeclaringType();
 }
