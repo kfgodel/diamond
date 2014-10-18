@@ -1,0 +1,31 @@
+package ar.com.kfgodel.diamond.impl.members;
+
+import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
+import ar.com.kfgodel.diamond.api.members.TypeMember;
+import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.lazyvalue.api.LazyValue;
+import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
+
+import java.util.function.Supplier;
+
+/**
+ * This type is a base class for type member classes
+ * Created by kfgodel on 18/10/14.
+ */
+public class TypeMemberSupport implements TypeMember {
+
+    private LazyValue<TypeInstance> declaringType;
+
+    @Override
+    public TypeInstance declaringType() {
+        if(declaringType == null){
+            throw new DiamondException("A declaring type definition was not provided from a subclass for this member: " + this);
+        }
+        return declaringType.get();
+    }
+
+    protected void setDeclaringType(Supplier<TypeInstance> declaringTypeSupplier){
+        this.declaringType = SuppliedValue.create(declaringTypeSupplier);
+    }
+
+}

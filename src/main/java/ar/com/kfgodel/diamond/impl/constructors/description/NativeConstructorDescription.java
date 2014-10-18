@@ -3,6 +3,7 @@ package ar.com.kfgodel.diamond.impl.constructors.description;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.constructors.ConstructorDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.diamond.impl.members.NativeMemberDeclaringTypeSupplier;
 
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
@@ -25,7 +26,7 @@ public class NativeConstructorDescription implements ConstructorDescription {
 
     @Override
     public Supplier<TypeInstance> getDeclaringType() {
-        return ()-> Diamond.of(constructor.getDeclaringClass());
+        return NativeMemberDeclaringTypeSupplier.create(constructor);
     }
 
     public static NativeConstructorDescription create(Constructor<?> nativeConstructor) {

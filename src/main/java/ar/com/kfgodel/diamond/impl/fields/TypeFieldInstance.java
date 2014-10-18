@@ -4,6 +4,7 @@ import ar.com.kfgodel.diamond.api.fields.FieldDescription;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.fields.equality.FieldEquality;
+import ar.com.kfgodel.diamond.impl.members.TypeMemberSupport;
 import ar.com.kfgodel.lazyvalue.api.LazyValue;
 import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
 
@@ -11,9 +12,8 @@ import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
  * This type represents a class field instance for a type
  * Created by kfgodel on 12/10/14.
  */
-public class TypeFieldInstance implements TypeField {
+public class TypeFieldInstance extends TypeMemberSupport implements TypeField {
 
-    private LazyValue<TypeInstance> declaringType;
     private LazyValue<String> fieldName;
     private LazyValue<TypeInstance> fieldType;
 
@@ -28,11 +28,6 @@ public class TypeFieldInstance implements TypeField {
     }
 
     @Override
-    public TypeInstance declaringType() {
-        return declaringType.get();
-    }
-
-    @Override
     public boolean equals(Object obj) {
         return FieldEquality.INSTANCE.areEquals(this, obj);
     }
@@ -41,7 +36,7 @@ public class TypeFieldInstance implements TypeField {
         TypeFieldInstance classField = new TypeFieldInstance();
         classField.fieldName = SuppliedValue.create(description.getName());
         classField.fieldType = SuppliedValue.create(description.getType());
-        classField.declaringType = SuppliedValue.create(description.getDeclaringType());
+        classField.setDeclaringType(description.getDeclaringType());
         return classField;
     }
 

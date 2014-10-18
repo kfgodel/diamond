@@ -3,6 +3,7 @@ package ar.com.kfgodel.diamond.impl.fields.description;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.fields.FieldDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.diamond.impl.members.NativeMemberDeclaringTypeSupplier;
 
 import java.lang.reflect.Field;
 import java.util.function.Supplier;
@@ -33,6 +34,6 @@ public class NativeFieldDescription implements FieldDescription {
 
     @Override
     public Supplier<TypeInstance> getDeclaringType() {
-        return ()-> Diamond.of(nativeField.getDeclaringClass());
+        return NativeMemberDeclaringTypeSupplier.create(nativeField);
     }
 }
