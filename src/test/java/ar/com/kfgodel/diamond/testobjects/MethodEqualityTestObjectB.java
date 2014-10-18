@@ -9,4 +9,9 @@ public class MethodEqualityTestObjectB {
     public String a(){
         return null;
     }
+
+    public void b(){
+
+    }
+
 }

@@ -3,6 +3,7 @@ package ar.com.kfgodel.diamond.impl.methods;
 import ar.com.kfgodel.diamond.api.methods.MethodDescription;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.diamond.impl.members.TypeMemberSupport;
 import ar.com.kfgodel.diamond.impl.methods.equality.MethodEquality;
 import ar.com.kfgodel.lazyvalue.api.LazyValue;
 import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
@@ -15,7 +16,8 @@ import java.util.stream.Stream;
  * This type represents a method that belongs to a type
  * Created by kfgodel on 18/09/14.
  */
-public class TypeMethodInstance implements TypeMethod {
+public class TypeMethodInstance extends TypeMemberSupport implements TypeMethod {
+
 
     private LazyValue<String> methodName;
     private LazyValue<TypeInstance> returnType;
@@ -45,6 +47,7 @@ public class TypeMethodInstance implements TypeMethod {
         TypeMethodInstance classMethod = new TypeMethodInstance();
         classMethod.methodName = SuppliedValue.create(description.getName());
         classMethod.returnType = SuppliedValue.create(description.getReturnType());
+        classMethod.setDeclaringType(description.getDeclaringType());
         // We decide to cache the parameter list
         classMethod.parameterTypes = SuppliedValue.create(() -> description.getParameterTypes().get().collect(Collectors.toList()));
         return classMethod;

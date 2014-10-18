@@ -19,6 +19,9 @@ public class MethodEquality {
         if(!one.name().equals(other.name())){
             return false;
         }
+        if(!one.declaringType().equals(other.declaringType())){
+            return false;
+        }
         if(!one.returnType().equals(other.returnType())){
             return false;
         }

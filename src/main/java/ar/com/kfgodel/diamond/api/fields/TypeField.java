@@ -1,5 +1,6 @@
 package ar.com.kfgodel.diamond.api.fields;
 
+import ar.com.kfgodel.diamond.api.members.TypeMember;
 import ar.com.kfgodel.diamond.api.naming.Named;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 
@@ -7,7 +8,7 @@ import ar.com.kfgodel.diamond.api.types.TypeInstance;
  * This type represents a field defined for a type that can store state
  * Created by kfgodel on 18/09/14.
  */
-public interface TypeField extends Named {
+public interface TypeField extends Named, TypeMember {
 
     /**
      * @return The name of the field

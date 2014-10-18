@@ -20,6 +20,11 @@ public class ArrayConstructorDescription implements ConstructorDescription {
         return () -> OneElementStream.create(Diamond.of(int.class));
     }
 
+    @Override
+    public Supplier<TypeInstance> getDeclaringType() {
+        return ()-> Diamond.of(nativeArrayClass);
+    }
+
     public static ArrayConstructorDescription create(Class<?> nativeArrayType) {
         ArrayConstructorDescription description = new ArrayConstructorDescription();
         description.nativeArrayClass = nativeArrayType;

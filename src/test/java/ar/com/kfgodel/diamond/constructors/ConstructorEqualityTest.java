@@ -6,7 +6,8 @@ import ar.com.kfgodel.diamond.DiamondTestContext;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.impl.constructors.equality.ConstructorEquality;
-import ar.com.kfgodel.diamond.testobjects.ConstructorEqualityTestObject;
+import ar.com.kfgodel.diamond.testobjects.ConstructorEqualityTestObjectA;
+import ar.com.kfgodel.diamond.testobjects.ConstructorEqualityTestObjectB;
 import org.junit.runner.RunWith;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -39,8 +40,10 @@ public class ConstructorEqualityTest extends JavaSpec<DiamondTestContext> {
                 assertThat(stringParameterConstructor).isNotEqualTo(numberParameterConstructor);
             });
 
-            xit("is false if declaring type doesn't match", () -> {
-
+            it("is false if declaring type doesn't match", () -> {
+                TypeConstructor niladicConstructor = getNiladicConstructor();
+                TypeConstructor niladicConstructorInDifferentType = getNiladicConstructorInDifferentType();
+                assertThat(niladicConstructor).isNotEqualTo(niladicConstructorInDifferentType);
             });
             
             it("is true if parameters and declaring type match",()->{
@@ -54,7 +57,7 @@ public class ConstructorEqualityTest extends JavaSpec<DiamondTestContext> {
 
     private TypeConstructor getNumberParameterConstructor() {
         try {
-            return Diamond.constructors().from(ConstructorEqualityTestObject.class.getDeclaredConstructor(Number.class));
+            return Diamond.constructors().from(ConstructorEqualityTestObjectA.class.getDeclaredConstructor(Number.class));
         } catch (NoSuchMethodException e) {
             throw new RuntimeException("Unexpected test error", e);
         }
@@ -62,7 +65,7 @@ public class ConstructorEqualityTest extends JavaSpec<DiamondTestContext> {
 
     private TypeConstructor getStringParameterConstructor() {
         try {
-            return Diamond.constructors().from(ConstructorEqualityTestObject.class.getDeclaredConstructor(String.class));
+            return Diamond.constructors().from(ConstructorEqualityTestObjectA.class.getDeclaredConstructor(String.class));
         } catch (NoSuchMethodException e) {
             throw new RuntimeException("Unexpected test error", e);
         }
@@ -70,7 +73,15 @@ public class ConstructorEqualityTest extends JavaSpec<DiamondTestContext> {
 
     private TypeConstructor getNiladicConstructor() {
         try {
-            return Diamond.constructors().from(ConstructorEqualityTestObject.class.getDeclaredConstructor());
+            return Diamond.constructors().from(ConstructorEqualityTestObjectA.class.getDeclaredConstructor());
+        } catch (NoSuchMethodException e) {
+            throw new RuntimeException("Unexpected test error", e);
+        }
+    }
+
+    private TypeConstructor getNiladicConstructorInDifferentType() {
+        try {
+            return Diamond.constructors().from(ConstructorEqualityTestObjectB.class.getDeclaredConstructor());
         } catch (NoSuchMethodException e) {
             throw new RuntimeException("Unexpected test error", e);
         }

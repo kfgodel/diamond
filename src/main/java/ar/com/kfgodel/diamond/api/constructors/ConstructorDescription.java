@@ -16,4 +16,8 @@ public interface ConstructorDescription {
      */
     Supplier<Stream<TypeInstance>> getParameterTypes();
 
+    /**
+     * @return The supplier of the type that declared the constructor
+     */
+    Supplier<TypeInstance> getDeclaringType();
 }

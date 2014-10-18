@@ -25,6 +25,9 @@ public class FieldEquality {
         if(!one.name().equals(other.name())){
             return false;
         }
+        if(!one.declaringType().equals(other.declaringType())){
+            return false;
+        }
         boolean equalType = one.type().equals(other.type());
         return equalType;
     }

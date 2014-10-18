@@ -53,8 +53,10 @@ public class MethodEqualityTest extends JavaSpec<DiamondTestContext> {
             });
 
 
-            xit("is false if declaring type doesn't match", () -> {
-
+            it("is false if declaring type doesn't match", () -> {
+                TypeMethod voidNoArgB = getVoidNoArgBMethod();
+                TypeMethod voidNoArgBInOtherType = getVoidNoArgBInDifferentTypeMethod();
+                assertThat(voidNoArgB).isNotEqualTo(voidNoArgBInOtherType);
             });
 
             it("is true if name, type and declaring type match", () -> {
@@ -96,6 +98,15 @@ public class MethodEqualityTest extends JavaSpec<DiamondTestContext> {
             throw new RuntimeException("unexpected test error", e);
         }
     }
+
+    private TypeMethod getVoidNoArgBInDifferentTypeMethod() {
+        try {
+            return Diamond.methods().from(MethodEqualityTestObjectB.class.getDeclaredMethod("b"));
+        } catch (NoSuchMethodException e) {
+            throw new RuntimeException("unexpected test error", e);
+        }
+    }
+
 
     private TypeMethod getVoidNoArgAMethod() {
         try {

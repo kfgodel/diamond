@@ -11,12 +11,15 @@ public class ConstructorEquality {
 
     public static final ConstructorEquality INSTANCE = new ConstructorEquality();
 
-    public boolean areEquals(TypeConstructor first, Object obj){
+    public boolean areEquals(TypeConstructor one, Object obj){
         if(!(obj instanceof TypeConstructor)){
             return false;
         }
         TypeConstructor other = (TypeConstructor) obj;
-        return StreamEquality.INSTANCE.areEquals(first.parameterTypes(), other.parameterTypes());
+        if(!one.declaringType().equals(other.declaringType())){
+            return false;
+        }
+        return StreamEquality.INSTANCE.areEquals(one.parameterTypes(), other.parameterTypes());
     }
 
 }
