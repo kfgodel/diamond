@@ -25,4 +25,9 @@ public interface MethodDescription {
      * @return The supplier for the parameter types of the described method
      */
     Supplier<Stream<TypeInstance>> getParameterTypes();
+
+    /**
+     * @return the supplier to get the type that declares the method
+     */
+    Supplier<TypeInstance> getDeclaringType();
 }

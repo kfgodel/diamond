@@ -33,6 +33,11 @@ public class NativeMethodDescription implements MethodDescription {
                     .map((annotated) -> Diamond.types().from(annotated));
     }
 
+    @Override
+    public Supplier<TypeInstance> getDeclaringType() {
+        return ()-> Diamond.of(nativeMethod.getDeclaringClass());
+    }
+
     public static NativeMethodDescription create(Method nativeMethod) {
         NativeMethodDescription description = new NativeMethodDescription();
         description.nativeMethod = nativeMethod;

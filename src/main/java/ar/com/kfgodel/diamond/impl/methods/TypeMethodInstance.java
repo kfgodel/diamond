@@ -17,6 +17,8 @@ import java.util.stream.Stream;
  */
 public class TypeMethodInstance implements TypeMethod {
 
+
+    private LazyValue<TypeInstance> declaringType;
     private LazyValue<String> methodName;
     private LazyValue<TypeInstance> returnType;
     private LazyValue<List<TypeInstance>> parameterTypes;
@@ -37,6 +39,11 @@ public class TypeMethodInstance implements TypeMethod {
     }
 
     @Override
+    public TypeInstance declaringType() {
+        return declaringType.get();
+    }
+
+    @Override
     public boolean equals(Object obj) {
         return MethodEquality.INSTANCE.areEquals(this, obj);
     }
@@ -45,6 +52,7 @@ public class TypeMethodInstance implements TypeMethod {
         TypeMethodInstance classMethod = new TypeMethodInstance();
         classMethod.methodName = SuppliedValue.create(description.getName());
         classMethod.returnType = SuppliedValue.create(description.getReturnType());
+        classMethod.declaringType = SuppliedValue.create(description.getDeclaringType());
         // We decide to cache the parameter list
         classMethod.parameterTypes = SuppliedValue.create(() -> description.getParameterTypes().get().collect(Collectors.toList()));
         return classMethod;
