@@ -33,8 +33,9 @@ public class TypeConstructorInstance extends TypeMemberSupport implements TypeCo
     public static TypeConstructor create(ConstructorDescription description) {
         TypeConstructorInstance constructor = new TypeConstructorInstance();
         constructor.setDeclaringType(description.getDeclaringType());
+        constructor.setModifiers(description.getModifiers());
         // We decide to cache the parameter list
-        constructor.parameterTypes = SuppliedValue.create(() -> description.getParameterTypes().get().collect(Collectors.toList()));
+        constructor.parameterTypes = SuppliedValue.from(() -> description.getParameterTypes().get().collect(Collectors.toList()));
         return constructor;
     }
 

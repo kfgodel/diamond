@@ -6,8 +6,8 @@ import ar.com.kfgodel.diamond.DiamondTestContext;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.impl.methods.equality.MethodEquality;
-import ar.com.kfgodel.diamond.testobjects.MethodEqualityTestObjectA;
-import ar.com.kfgodel.diamond.testobjects.MethodEqualityTestObjectB;
+import ar.com.kfgodel.diamond.testobjects.equality.MethodEqualityTestObjectA;
+import ar.com.kfgodel.diamond.testobjects.equality.MethodEqualityTestObjectB;
 import org.junit.runner.RunWith;
 
 import static org.assertj.core.api.Assertions.assertThat;

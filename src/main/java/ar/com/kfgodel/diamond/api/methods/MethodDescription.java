@@ -1,5 +1,6 @@
 package ar.com.kfgodel.diamond.api.methods;
 
+import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 
 import java.util.function.Supplier;
@@ -30,4 +31,9 @@ public interface MethodDescription {
      * @return the supplier to get the type that declares the method
      */
     Supplier<TypeInstance> getDeclaringType();
+
+    /**
+     * @return The supplier for methods' modifiers
+     */
+    Supplier<Stream<MemberModifier>> getModifiers();
 }

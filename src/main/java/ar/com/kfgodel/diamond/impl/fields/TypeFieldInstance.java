@@ -33,11 +33,12 @@ public class TypeFieldInstance extends TypeMemberSupport implements TypeField {
     }
 
     public static TypeFieldInstance create(FieldDescription description) {
-        TypeFieldInstance classField = new TypeFieldInstance();
-        classField.fieldName = SuppliedValue.create(description.getName());
-        classField.fieldType = SuppliedValue.create(description.getType());
-        classField.setDeclaringType(description.getDeclaringType());
-        return classField;
+        TypeFieldInstance field = new TypeFieldInstance();
+        field.fieldName = SuppliedValue.from(description.getName());
+        field.fieldType = SuppliedValue.from(description.getType());
+        field.setDeclaringType(description.getDeclaringType());
+        field.setModifiers(description.getModifiers());
+        return field;
     }
 
 }

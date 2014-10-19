@@ -43,8 +43,8 @@ public class SuppliedTypesInheritance implements TypeInheritance {
     public static SuppliedTypesInheritance create(TypeInstance type, Supplier<Optional<TypeInstance>> superclassSupplier, Supplier<Optional<TypeInstance>> extendedTypeSupplier) {
         SuppliedTypesInheritance inheritance = new SuppliedTypesInheritance();
         inheritance.type = type;
-        inheritance.superclass = SuppliedValue.create(superclassSupplier);
-        inheritance.extendedType = SuppliedValue.create(extendedTypeSupplier);
+        inheritance.superclass = SuppliedValue.from(superclassSupplier);
+        inheritance.extendedType = SuppliedValue.from(extendedTypeSupplier);
         return inheritance;
     }
 

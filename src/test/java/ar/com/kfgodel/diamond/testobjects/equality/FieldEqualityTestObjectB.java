@@ -1,4 +1,4 @@
-package ar.com.kfgodel.diamond.testobjects;
+package ar.com.kfgodel.diamond.testobjects.equality;
 
 /**
  * This object has fields to test equality

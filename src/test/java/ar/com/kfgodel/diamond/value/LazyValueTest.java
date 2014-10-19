@@ -22,7 +22,7 @@ public class LazyValueTest extends JavaSpec<DiamondTestContext> {
         describe("a lazy value", ()->{
             Supplier<Integer> generator = () -> 42;
             beforeEach(()->{
-                context().value(() -> SuppliedValue.create(generator));
+                context().value(() -> SuppliedValue.from(generator));
             });
 
             it("has an undefined value", ()->{
