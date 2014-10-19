@@ -4,7 +4,6 @@ import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.constructors.ConstructorDescription;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.impl.constructors.description.ArrayConstructorDescription;
-import ar.com.kfgodel.streams.OneElementStream;
 
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -21,7 +20,7 @@ public class ArraysConstructorSupplier implements Supplier<Stream<TypeConstructo
     @Override
     public Stream<TypeConstructor> get() {
         ConstructorDescription arrayConstructorDescription = ArrayConstructorDescription.create(nativeArrayType);
-        return OneElementStream.create(Diamond.constructors().from(arrayConstructorDescription));
+        return Stream.of(Diamond.constructors().from(arrayConstructorDescription));
     }
 
     public static ArraysConstructorSupplier create(Class<?> nativeArrayClass) {
