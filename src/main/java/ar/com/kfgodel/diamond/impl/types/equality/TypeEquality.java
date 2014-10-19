@@ -5,6 +5,7 @@ import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
 import ar.com.kfgodel.streams.StreamEquality;
 
 import java.util.Optional;
+import java.util.stream.Stream;
 
 /**
  * This type represents the reification of the equality concept for types
@@ -14,24 +15,16 @@ public class TypeEquality {
 
     public static final TypeEquality INSTANCE = new TypeEquality();
 
-    public boolean areEquals(TypeInstance aType, Object obj){
-        if(!(obj instanceof TypeInstance)){
-            return false;
-        }
-        TypeInstance other = (TypeInstance) obj;
-        if(!aType.names().bareName().equals(other.names().bareName())){
-            return false;
-        }
-        if (!equalComponent(aType, other)){
-            return false;
-        }
-        if (!equalTypeArguments(aType, other)){
-            return false;
-        }
-        if(!equalBounds(aType, other)){
-            return false;
-        }
-        return true;
+    public boolean areEquals(TypeInstance one, Object obj){
+        boolean matchesAllConditions = Stream.of(obj)
+                .filter((object) -> object instanceof TypeInstance)
+                .map(TypeInstance.class::cast)
+                .filter((other) -> one.names().bareName().equals(other.names().bareName()))
+                .filter((other) -> equalComponent(one, other))
+                .filter((other) -> equalTypeArguments(one, other))
+                .filter((other) -> equalBounds(one, other))
+                .count() == 1;
+        return matchesAllConditions;
     }
 
     private boolean equalBounds(TypeInstance aType, TypeInstance other) {
@@ -54,9 +47,7 @@ public class TypeEquality {
             return false;
         }
         Optional<Boolean> componentComparison = aComponentType.map((aComponent) -> aComponent.equals(otherComponentType.get()));
-        if(componentComparison.isPresent() && !componentComparison.get()){
-            return false;
-        }
-        return true;
+        boolean hasDifferentComponentType = componentComparison.isPresent() && !componentComparison.get();
+        return !hasDifferentComponentType;
     }
 }
