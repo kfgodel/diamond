@@ -22,4 +22,9 @@ public class PackageModifier implements MemberModifier{
                 Visibility.PROTECTED.isPresentIn(modifierBitmap);
         return !otherVisibilityModifierIsPresent;
     }
+
+    @Override
+    public boolean test(MemberModifier memberModifier) {
+        return this.equals(memberModifier);
+    }
 }
