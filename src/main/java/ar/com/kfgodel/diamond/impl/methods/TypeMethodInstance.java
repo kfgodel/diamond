@@ -44,13 +44,14 @@ public class TypeMethodInstance extends TypeMemberSupport implements TypeMethod 
     }
 
     public static TypeMethodInstance create(MethodDescription description) {
-        TypeMethodInstance classMethod = new TypeMethodInstance();
-        classMethod.methodName = SuppliedValue.from(description.getName());
-        classMethod.returnType = SuppliedValue.from(description.getReturnType());
-        classMethod.setDeclaringType(description.getDeclaringType());
+        TypeMethodInstance method = new TypeMethodInstance();
+        method.methodName = SuppliedValue.from(description.getName());
+        method.returnType = SuppliedValue.from(description.getReturnType());
+        method.setDeclaringType(description.getDeclaringType());
+        method.setModifiers(description.getModifiers());
         // We decide to cache the parameter list
-        classMethod.parameterTypes = SuppliedValue.from(() -> description.getParameterTypes().get().collect(Collectors.toList()));
-        return classMethod;
+        method.parameterTypes = SuppliedValue.from(() -> description.getParameterTypes().get().collect(Collectors.toList()));
+        return method;
     }
 
 }
