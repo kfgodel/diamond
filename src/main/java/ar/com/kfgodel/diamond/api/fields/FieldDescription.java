@@ -1,8 +1,10 @@
 package ar.com.kfgodel.diamond.api.fields;
 
+import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 /**
  * This type represents the description of a diamond field that can be used to get a {@link TypeField}
@@ -23,4 +25,9 @@ public interface FieldDescription {
      * @return The type in which the field is declared
      */
     Supplier<TypeInstance> getDeclaringType();
+
+    /**
+     * @return The supplier to get the field modifiers
+     */
+    Supplier<Stream<MemberModifier>> getModifiers();
 }
