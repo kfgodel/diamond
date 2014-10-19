@@ -4,6 +4,8 @@ import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.DiamondTestContext;
 import ar.com.kfgodel.diamond.api.Diamond;
+import ar.com.kfgodel.diamond.api.sources.modifiers.Mutability;
+import ar.com.kfgodel.diamond.api.sources.modifiers.Visibility;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.reference.ReferenceOf;
 import ar.com.kfgodel.diamond.testobjects.lineage.ChildClass;
@@ -33,31 +35,31 @@ public class AllFieldsPerTypeTest extends JavaSpec<DiamondTestContext> {
 
                 it("includes public fields",()->{
                     assertThat(context().typeInstance().fields().all()
-                            .anyMatch((field) -> field.name().equals("aPublicField")))
+                            .anyMatch((field) -> field.modifiers().anyMatch(Visibility.PUBLIC)))
                             .isTrue();
                 });
 
                 it("includes protected fields",()->{
                     assertThat(context().typeInstance().fields().all()
-                            .anyMatch((field)-> field.name().equals("aProtectedField")))
+                            .anyMatch((field) -> field.modifiers().anyMatch(Visibility.PROTECTED)))
                             .isTrue();
                 });
 
                 it("includes private fields",()->{
                     assertThat(context().typeInstance().fields().all()
-                            .anyMatch((field)-> field.name().equals("aPrivateField")))
+                            .anyMatch((field)-> field.modifiers().anyMatch(Visibility.PRIVATE)))
                             .isTrue();
                 });
 
                 it("includes default fields",()->{
                     assertThat(context().typeInstance().fields().all()
-                            .anyMatch((field)-> field.name().equals("aDefaultField")))
+                            .anyMatch((field)-> field.modifiers().anyMatch(Visibility.PACKAGE)))
                             .isTrue();
                 });
 
                 it("includes static fields",()->{
                     assertThat(context().typeInstance().fields().all()
-                            .anyMatch((field)-> field.name().equals("aStaticField")))
+                            .anyMatch((field)-> field.modifiers().anyMatch(Mutability.STATIC)))
                             .isTrue();
                 });
 

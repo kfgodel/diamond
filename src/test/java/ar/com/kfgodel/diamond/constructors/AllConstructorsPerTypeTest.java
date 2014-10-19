@@ -4,13 +4,13 @@ import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.DiamondTestContext;
 import ar.com.kfgodel.diamond.api.Diamond;
+import ar.com.kfgodel.diamond.api.sources.modifiers.Visibility;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.reference.ReferenceOf;
 import ar.com.kfgodel.diamond.testobjects.lineage.ChildClass;
 import ar.com.kfgodel.diamond.testobjects.lineage.ParentClass;
 import org.junit.runner.RunWith;
 
-import java.io.Serializable;
 import java.lang.reflect.AnnotatedType;
 import java.util.Arrays;
 import java.util.List;
@@ -34,29 +34,25 @@ public class AllConstructorsPerTypeTest extends JavaSpec<DiamondTestContext> {
 
                 it("includes public constructors",()->{
                     assertThat(context().typeInstance().constructors().all()
-                            .anyMatch((constructor)-> constructor.parameterTypes().collect(Collectors.toList())
-                                    .equals(Arrays.asList(Diamond.of(String.class), Diamond.of(Serializable.class)))))
+                            .anyMatch((constructor) -> constructor.modifiers().anyMatch(Visibility.PUBLIC)))
                             .isTrue();
                 });
 
                 it("includes protected constructors",()->{
                     assertThat(context().typeInstance().constructors().all()
-                            .anyMatch((constructor)-> constructor.parameterTypes().collect(Collectors.toList())
-                                .equals(Arrays.asList(Diamond.of(String.class)))))
+                            .anyMatch((constructor)->  constructor.modifiers().anyMatch(Visibility.PROTECTED)))
                             .isTrue();
                 });
 
                 it("includes private constructors",()->{
                     assertThat(context().typeInstance().constructors().all()
-                            .anyMatch((constructor)-> constructor.parameterTypes().collect(Collectors.toList())
-                                    .equals(Arrays.asList())))
+                            .anyMatch((constructor)->  constructor.modifiers().anyMatch(Visibility.PRIVATE)))
                             .isTrue();
                 });
 
                 it("includes default constructors",()->{
                     assertThat(context().typeInstance().constructors().all()
-                            .anyMatch((constructor)-> constructor.parameterTypes().collect(Collectors.toList())
-                                    .equals(Arrays.asList(Diamond.of(String.class), Diamond.of(Double.class), Diamond.of(Serializable.class)))))
+                            .anyMatch((constructor)->  constructor.modifiers().anyMatch(Visibility.PACKAGE)))
                             .isTrue();
                 });
 

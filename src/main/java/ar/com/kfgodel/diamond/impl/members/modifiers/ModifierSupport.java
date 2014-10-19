@@ -18,4 +18,10 @@ public class ModifierSupport implements MemberModifier {
     public boolean isPresentIn(int modifierBitmap) {
         return (nativeCode & modifierBitmap) != 0;
     }
+
+
+    @Override
+    public boolean test(MemberModifier memberModifier) {
+        return this.equals(memberModifier);
+    }
 }
