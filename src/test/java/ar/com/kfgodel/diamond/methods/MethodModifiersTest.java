@@ -24,7 +24,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class MethodModifiersTest extends JavaSpec<DiamondTestContext> {
     @Override
     public void define() {
-        describe("a method modifiers", () -> {
+        describe("a method modifier", () -> {
             it("can be public",()->{
                 TypeMethod method = getPublicMethod();
                 assertThat(method.modifiers().collect(Collectors.toList()))

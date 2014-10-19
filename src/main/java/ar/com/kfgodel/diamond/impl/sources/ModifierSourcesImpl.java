@@ -1,7 +1,9 @@
 package ar.com.kfgodel.diamond.impl.sources;
 
 import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
+import ar.com.kfgodel.diamond.api.sources.modifiers.FieldModifier;
 import ar.com.kfgodel.diamond.api.sources.modifiers.ModifierSources;
+import ar.com.kfgodel.diamond.api.sources.modifiers.Mutability;
 import ar.com.kfgodel.diamond.api.sources.modifiers.Visibility;
 
 import java.lang.reflect.Member;
@@ -36,6 +38,10 @@ public class ModifierSourcesImpl implements ModifierSources {
 
     @Override
     public Stream<MemberModifier> all() {
-        return Arrays.stream(Visibility.values());
+        return Stream.concat(
+                Stream.concat(
+                Arrays.stream(Visibility.values()),
+                Arrays.stream(Mutability.values())),
+                Arrays.stream(FieldModifier.values()));
     }
 }

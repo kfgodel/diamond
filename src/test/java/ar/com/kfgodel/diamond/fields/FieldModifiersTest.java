@@ -5,11 +5,10 @@ import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.DiamondTestContext;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
+import ar.com.kfgodel.diamond.api.sources.modifiers.FieldModifier;
+import ar.com.kfgodel.diamond.api.sources.modifiers.Mutability;
 import ar.com.kfgodel.diamond.api.sources.modifiers.Visibility;
-import ar.com.kfgodel.diamond.testobjects.modifiers.DefaultMembersTestObject;
-import ar.com.kfgodel.diamond.testobjects.modifiers.PrivateMembersTestObject;
-import ar.com.kfgodel.diamond.testobjects.modifiers.ProtectedMembersTestObject;
-import ar.com.kfgodel.diamond.testobjects.modifiers.PublicMembersTestObject;
+import ar.com.kfgodel.diamond.testobjects.modifiers.*;
 import org.junit.runner.RunWith;
 
 import java.util.stream.Collectors;
@@ -24,7 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class FieldModifiersTest extends JavaSpec<DiamondTestContext> {
     @Override
     public void define() {
-        describe("a field modifiers", () -> {
+        describe("a field modifier", () -> {
             it("can be public",()->{
                 TypeField field = getPublicField();
                 assertThat(field.modifiers().collect(Collectors.toList()))
@@ -48,7 +47,47 @@ public class FieldModifiersTest extends JavaSpec<DiamondTestContext> {
                 assertThat(field.modifiers().collect(Collectors.toList()))
                         .contains(Visibility.PACKAGE);
             });
+            
+            it("can be static",()->{
+                TypeField field = getStaticField();
+                assertThat(field.modifiers().collect(Collectors.toList()))
+                        .contains(Mutability.STATIC);
+            });
+
+            it("can be final",()->{
+                TypeField field = getFinalField();
+                assertThat(field.modifiers().collect(Collectors.toList()))
+                        .contains(Mutability.FINAL);
+            });
+
+            it("can be transient",()->{
+                TypeField field = getTransientField();
+                assertThat(field.modifiers().collect(Collectors.toList()))
+                        .contains(FieldModifier.TRANSIENT);
+            });
+
+            it("can be volatile",()->{
+                TypeField field = getVolatileField();
+                assertThat(field.modifiers().collect(Collectors.toList()))
+                        .contains(FieldModifier.VOLATILE);
+            });
         });
+    }
+
+    private TypeField getVolatileField() {
+        return getTypeField(VolatileMemberTestObject.class);
+    }
+
+    private TypeField getTransientField() {
+        return getTypeField(TransientMemberTestObject.class);
+    }
+
+    private TypeField getFinalField() {
+        return getTypeField(FinalMembersTestObject.class);
+    }
+
+    private TypeField getStaticField() {
+        return getTypeField(StaticMembersTestObject.class);
     }
 
     private TypeField getPublicField() {

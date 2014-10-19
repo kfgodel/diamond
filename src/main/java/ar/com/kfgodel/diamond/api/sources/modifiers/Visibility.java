@@ -7,7 +7,7 @@ import ar.com.kfgodel.diamond.impl.members.modifiers.visiblity.ProtectedModifier
 import ar.com.kfgodel.diamond.impl.members.modifiers.visiblity.PublicModifier;
 
 /**
- * This type represents the visibility modifiers applicably to a type member.<br>
+ * This type represents the visibility modifiers usable with a type member.<br>
  *     It emulates an enum like accessors
  *<br>
  * Modifier    | Class | Package | Subclass | World <br>

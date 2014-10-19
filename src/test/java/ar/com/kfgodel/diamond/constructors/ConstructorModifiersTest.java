@@ -24,7 +24,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ConstructorModifiersTest extends JavaSpec<DiamondTestContext> {
     @Override
     public void define() {
-        describe("a constructor modifiers", () -> {
+        describe("a constructor modifier", () -> {
             it("can be public",()->{
                 TypeConstructor constructor = getPublicConstructor();
                 assertThat(constructor.modifiers().collect(Collectors.toList()))
