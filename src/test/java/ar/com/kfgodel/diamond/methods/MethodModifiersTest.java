@@ -5,11 +5,10 @@ import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.DiamondTestContext;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
+import ar.com.kfgodel.diamond.api.sources.modifiers.MethodModifier;
+import ar.com.kfgodel.diamond.api.sources.modifiers.Mutability;
 import ar.com.kfgodel.diamond.api.sources.modifiers.Visibility;
-import ar.com.kfgodel.diamond.testobjects.modifiers.DefaultMembersTestObject;
-import ar.com.kfgodel.diamond.testobjects.modifiers.PrivateMembersTestObject;
-import ar.com.kfgodel.diamond.testobjects.modifiers.ProtectedMembersTestObject;
-import ar.com.kfgodel.diamond.testobjects.modifiers.PublicMembersTestObject;
+import ar.com.kfgodel.diamond.testobjects.modifiers.*;
 import org.junit.runner.RunWith;
 
 import java.util.stream.Collectors;
@@ -48,7 +47,59 @@ public class MethodModifiersTest extends JavaSpec<DiamondTestContext> {
                 assertThat(method.modifiers().collect(Collectors.toList()))
                         .contains(Visibility.PACKAGE);
             });
+
+            it("can be static",()->{
+                TypeMethod method = getStaticMethod();
+                assertThat(method.modifiers().collect(Collectors.toList()))
+                        .contains(Mutability.STATIC);
+            });
+
+            it("can be final",()->{
+                TypeMethod method = getFinalMethod();
+                assertThat(method.modifiers().collect(Collectors.toList()))
+                        .contains(Mutability.FINAL);
+            });
+
+            it("can be native",()->{
+                TypeMethod method = getNativeMethod();
+                assertThat(method.modifiers().collect(Collectors.toList()))
+                        .contains(MethodModifier.NATIVE);
+            }); 
+            
+            it("can be synchronized",()->{
+                TypeMethod method = getSyncMethod();
+                assertThat(method.modifiers().collect(Collectors.toList()))
+                        .contains(MethodModifier.SYNCHRONIZED);
+            }); 
+            
+            it("can be strictfp",()->{
+                TypeMethod method = getStrictMethod();
+                assertThat(method.modifiers().collect(Collectors.toList()))
+                        .contains(MethodModifier.STRICTFP);
+            });
+
+            it("can be abstract",()->{
+                TypeMethod method = getAbstractMethod();
+                assertThat(method.modifiers().collect(Collectors.toList()))
+                        .contains(MethodModifier.ABSTRACT);
+            });
         });
+    }
+
+    private TypeMethod getAbstractMethod() {
+        return getTypeMethod(AbstractMemberTestObject.class);
+    }
+
+    private TypeMethod getStrictMethod() {
+        return getTypeMethod(StrictfpMemberTestObject.class);
+    }
+
+    private TypeMethod getSyncMethod() {
+        return getTypeMethod(SynchronizedMemberTestObject.class);
+    }
+
+    private TypeMethod getNativeMethod() {
+        return getTypeMethod(NativeMemberTestObject.class);
     }
 
     private TypeMethod getPublicMethod() {
@@ -62,6 +113,12 @@ public class MethodModifiersTest extends JavaSpec<DiamondTestContext> {
     }
     private TypeMethod getDefaultMethod() {
         return getTypeMethod(DefaultMembersTestObject.class);
+    }
+    private TypeMethod getStaticMethod() {
+        return getTypeMethod(StaticMembersTestObject.class);
+    }
+    private TypeMethod getFinalMethod() {
+        return getTypeMethod(FinalMembersTestObject.class);
     }
 
     private TypeMethod getTypeMethod(Class<?> clase) {
