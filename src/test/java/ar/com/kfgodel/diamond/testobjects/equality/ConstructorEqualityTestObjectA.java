@@ -1,4 +1,4 @@
-package ar.com.kfgodel.diamond.testobjects;
+package ar.com.kfgodel.diamond.testobjects.equality;
 
 /**
  * This type serves as a test object for constructor equality
@@ -17,4 +17,5 @@ public class ConstructorEqualityTestObjectA {
     ConstructorEqualityTestObjectA(Number parameter){
 
     }
+
 }

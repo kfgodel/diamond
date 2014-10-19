@@ -26,7 +26,7 @@ public class ImmutableTypeFields implements TypeFields {
     public static ImmutableTypeFields create(Supplier<Stream<TypeField>> typeFields) {
         ImmutableTypeFields fieldSource = new ImmutableTypeFields();
         // Here we cache assuming fields don't change in runtime
-        fieldSource.typeFields = SuppliedValue.create(() -> typeFields.get().collect(Collectors.toList()));
+        fieldSource.typeFields = SuppliedValue.from(() -> typeFields.get().collect(Collectors.toList()));
         return fieldSource;
     }
 

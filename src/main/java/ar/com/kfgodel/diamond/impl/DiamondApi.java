@@ -3,11 +3,9 @@ package ar.com.kfgodel.diamond.impl;
 import ar.com.kfgodel.diamond.api.sources.constructors.ConstructorSources;
 import ar.com.kfgodel.diamond.api.sources.fields.FieldSources;
 import ar.com.kfgodel.diamond.api.sources.methods.MethodSources;
+import ar.com.kfgodel.diamond.api.sources.modifiers.ModifierSources;
 import ar.com.kfgodel.diamond.api.sources.types.TypeSources;
-import ar.com.kfgodel.diamond.impl.sources.ConstructorsSourceImpl;
-import ar.com.kfgodel.diamond.impl.sources.FieldSourceImpl;
-import ar.com.kfgodel.diamond.impl.sources.MethodSourceImpl;
-import ar.com.kfgodel.diamond.impl.sources.TypeSourceImpl;
+import ar.com.kfgodel.diamond.impl.sources.*;
 
 /**
  * This type represents the implementation of the access point to diamond instances
@@ -19,6 +17,7 @@ public class DiamondApi {
     private FieldSources fields;
     private TypeSources types;
     private ConstructorSources constructors;
+    private ModifierSources modifiers;
 
     public static DiamondApi create() {
         DiamondApi diamondApi = new DiamondApi();
@@ -26,6 +25,7 @@ public class DiamondApi {
         diamondApi.methods = MethodSourceImpl.create();
         diamondApi.types = TypeSourceImpl.create();
         diamondApi.constructors = ConstructorsSourceImpl.create();
+        diamondApi.modifiers = ModifierSourcesImpl.create();
         return diamondApi;
     }
 
@@ -44,4 +44,6 @@ public class DiamondApi {
     public ConstructorSources constructors() {
         return constructors;
     }
+
+    public ModifierSources modifiers(){return modifiers; };
 }

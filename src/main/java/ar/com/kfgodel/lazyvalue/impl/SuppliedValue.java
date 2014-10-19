@@ -14,7 +14,7 @@ public class SuppliedValue<T> implements LazyValue<T> {
     private Supplier<T> generatorLambda;
     private T value;
 
-    public static<T> SuppliedValue<T> create(Supplier<T> valueGenerator) {
+    public static<T> SuppliedValue<T> from(Supplier<T> valueGenerator) {
         SuppliedValue<T> value = new SuppliedValue<>();
         value.generatorLambda = valueGenerator;
         return value;

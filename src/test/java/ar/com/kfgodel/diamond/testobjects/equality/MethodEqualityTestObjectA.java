@@ -1,4 +1,4 @@
-package ar.com.kfgodel.diamond.testobjects;
+package ar.com.kfgodel.diamond.testobjects.equality;
 
 /**
  * This type serves as a test object for method equality tests

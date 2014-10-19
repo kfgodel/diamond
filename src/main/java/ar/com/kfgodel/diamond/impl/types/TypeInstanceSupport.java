@@ -42,7 +42,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     /**
      * Variations on the name for this type
      */
-    private LazyValue<TypeNames> names = SuppliedValue.create(NoNamesSupplier.create(this));
+    private LazyValue<TypeNames> names = SuppliedValue.from(NoNamesSupplier.create(this));
 
     /**
      * This type callable methods
@@ -82,7 +82,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
      * @param namesSupplier The multiple names of this instance
      */
     protected void setNames(Supplier<TypeNames> namesSupplier) {
-        this.names = SuppliedValue.create(namesSupplier);
+        this.names = SuppliedValue.from(namesSupplier);
     }
 
     @Override
