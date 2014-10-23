@@ -3,10 +3,13 @@ package ar.com.kfgodel.diamond.impl.types.parts.methods;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.impl.natives.NativeMethodsSupplier;
+import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
+import ar.com.kfgodel.streams.StreamFromCollectionSupplier;
 
 import java.lang.reflect.Method;
 import java.util.Set;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -14,20 +17,14 @@ import java.util.stream.Stream;
  *     It supplies instances of classMethods from a given class and its hierarchy
  * Created by kfgodel on 05/10/14.
  */
-public class ClassMethodSupplier implements Supplier<Stream<TypeMethod>> {
+public class ClassMethodSupplier  {
 
-    private Set<Class<?>> baseClasses;
-
-    @Override
-    public Stream<TypeMethod> get() {
-        Supplier<Stream<Method>> nativeMethods = NativeMethodsSupplier.create(baseClasses);
-        return nativeMethods.get().map((nativeMethod) -> Diamond.methods().from(nativeMethod));
-    }
-
-    public static ClassMethodSupplier create(Set<Class<?>> rawClass) {
-        ClassMethodSupplier supplier = new ClassMethodSupplier();
-        supplier.baseClasses = rawClass;
-        return supplier;
+    public static Supplier<Stream<TypeMethod>> create(Set<Class<?>> baseClasses) {
+        return StreamFromCollectionSupplier.using(SuppliedValue.lazilyBy(()->{
+            Stream<Method> nativeMethods = NativeMethodsSupplier.create(baseClasses).get();
+            return nativeMethods.map((nativeMethod) -> Diamond.methods().from(nativeMethod))
+                    .collect(Collectors.toList());
+        }));
     }
 
 }

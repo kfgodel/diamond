@@ -5,13 +5,12 @@ import ar.com.kfgodel.diamond.api.types.TypeDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.generics.TypeGenerics;
 import ar.com.kfgodel.diamond.api.types.inheritance.TypeInheritance;
-import ar.com.kfgodel.diamond.impl.constructors.sources.ImmutableTypeConstructors;
+import ar.com.kfgodel.diamond.impl.constructors.sources.TypeConstructorsImpl;
 import ar.com.kfgodel.diamond.impl.types.generics.ParameterizedTypeGenerics;
 import ar.com.kfgodel.diamond.impl.types.inheritance.SuppliedTypesInheritance;
-import ar.com.kfgodel.lazyvalue.api.LazyValue;
-import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
 
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * This type represents a concrete type that can be instantiated (class, parameterized type, array), excluding
@@ -25,7 +24,7 @@ import java.util.Optional;
  */
 public class FixedTypeInstance extends TypeInstanceSupport {
 
-    private LazyValue<Optional<TypeInstance>> componentType;
+    private Supplier<Optional<TypeInstance>> componentType;
     private TypeGenerics generics;
     private TypeInheritance inheritance;
     private TypeConstructors constructors;
@@ -60,10 +59,10 @@ public class FixedTypeInstance extends TypeInstanceSupport {
     public static FixedTypeInstance create(TypeDescription description) {
         FixedTypeInstance fixedType = new FixedTypeInstance();
         fixedType.initializeSuper(description);
-        fixedType.componentType = SuppliedValue.from(description.getComponentType());
+        fixedType.componentType = description.getComponentType();
         fixedType.generics = ParameterizedTypeGenerics.create(description.getTypeParametersSupplier(), description.getTypeArguments());
         fixedType.inheritance = SuppliedTypesInheritance.create(fixedType, description.getSuperclassSupplier(), description.getExtendedTypeSupplier());
-        fixedType.constructors = ImmutableTypeConstructors.create(description.getTypeConstructors());
+        fixedType.constructors = TypeConstructorsImpl.create(description.getTypeConstructors());
         return fixedType;
     }
 }

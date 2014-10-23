@@ -6,6 +6,7 @@ import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.members.NativeMemberDeclaringTypeSupplier;
 import ar.com.kfgodel.diamond.impl.members.modifiers.suppliers.ImmutableMemberModifiers;
+import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
 
 import java.lang.reflect.Field;
 import java.util.function.Supplier;
@@ -27,12 +28,12 @@ public class NativeFieldDescription implements FieldDescription {
 
     @Override
     public Supplier<String> getName() {
-        return nativeField::getName;
+        return SuppliedValue.lazilyBy(nativeField::getName);
     }
 
     @Override
     public Supplier<TypeInstance> getType() {
-        return ()-> Diamond.types().from(nativeField.getAnnotatedType());
+        return SuppliedValue.lazilyBy(()-> Diamond.types().from(nativeField.getAnnotatedType()));
     }
 
     @Override

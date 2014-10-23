@@ -22,7 +22,7 @@ public class LazyValueTest extends JavaSpec<DiamondTestContext> {
         describe("a lazy value", ()->{
             Supplier<Integer> generator = () -> 42;
             beforeEach(()->{
-                context().value(() -> SuppliedValue.from(generator));
+                context().value(() -> SuppliedValue.lazilyBy(generator));
             });
 
             it("has an undefined value", ()->{
@@ -52,6 +52,30 @@ public class LazyValueTest extends JavaSpec<DiamondTestContext> {
                 Optional<Integer> optionalValue = context().value().getIfDefined();
                 assertThat(optionalValue.isPresent()).isFalse();
             });
+
+            describe("eagerly defined", () -> {
+
+                beforeEach(()->{
+                    context().value(() -> SuppliedValue.eagerlyFrom(13));
+                });
+
+                it("doesn't have an undefined value",()->{
+                    assertThat(context().value().isAlreadyDefined())
+                            .isTrue();
+                });
+
+                it("doesn't have a supplier lambda", ()->{
+                    assertThat(context().value().generator().isPresent()).
+                            isFalse();
+                });
+
+                it("has the defined value",()->{
+                    Integer value = context().value().get();
+                    assertThat(value).isEqualTo(13);
+                });
+
+            });
+
         });
     }
 }

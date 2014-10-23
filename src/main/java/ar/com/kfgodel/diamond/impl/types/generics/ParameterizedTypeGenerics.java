@@ -3,12 +3,8 @@ package ar.com.kfgodel.diamond.impl.types.generics;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.generics.TypeGenerics;
-import ar.com.kfgodel.lazyvalue.api.LazyValue;
-import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
 
-import java.util.List;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -17,14 +13,13 @@ import java.util.stream.Stream;
  */
 public class ParameterizedTypeGenerics implements TypeGenerics {
 
-    private LazyValue<List<TypeInstance>> typeArguments;
-    private LazyValue<List<TypeInstance>> typeParameters;
+    private Supplier<Stream<TypeInstance>> typeArguments;
+    private Supplier<Stream<TypeInstance>> typeParameters;
 
     public static ParameterizedTypeGenerics create(Supplier<Stream<TypeInstance>> typeParametersSupplier, Supplier<Stream<TypeInstance>> typeArgumentsSupplier) {
         ParameterizedTypeGenerics generics = new ParameterizedTypeGenerics();
-        // Here we decide to cache generics as lists (since it seems strange for a type to change parameterization in runtime)
-        generics.typeParameters = SuppliedValue.from(() -> typeParametersSupplier.get().collect(Collectors.toList()));
-        generics.typeArguments = SuppliedValue.from(() -> typeArgumentsSupplier.get().collect(Collectors.toList()));
+        generics.typeParameters = typeParametersSupplier;
+        generics.typeArguments = typeArgumentsSupplier;
         return generics;
     }
 
@@ -36,11 +31,11 @@ public class ParameterizedTypeGenerics implements TypeGenerics {
 
     @Override
     public Stream<TypeInstance> typeArguments() {
-        return typeArguments.get().stream();
+        return typeArguments.get();
     }
 
     @Override
     public Stream<TypeInstance> typeParameters() {
-        return this.typeParameters.get().stream();
+        return this.typeParameters.get();
     }
 }

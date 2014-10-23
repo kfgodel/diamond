@@ -6,10 +6,13 @@ import ar.com.kfgodel.diamond.api.methods.MethodDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.members.NativeMemberDeclaringTypeSupplier;
 import ar.com.kfgodel.diamond.impl.members.modifiers.suppliers.ImmutableMemberModifiers;
+import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
+import ar.com.kfgodel.streams.StreamFromCollectionSupplier;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -22,18 +25,19 @@ public class NativeMethodDescription implements MethodDescription {
 
     @Override
     public Supplier<String> getName() {
-        return nativeMethod::getName;
+        return SuppliedValue.lazilyBy(nativeMethod::getName);
     }
 
     @Override
     public Supplier<TypeInstance> getReturnType() {
-        return () -> Diamond.types().from(nativeMethod.getAnnotatedReturnType());
+        return SuppliedValue.lazilyBy(() -> Diamond.types().from(nativeMethod.getAnnotatedReturnType()));
     }
 
     @Override
     public Supplier<Stream<TypeInstance>> getParameterTypes() {
-        return ()-> Arrays.stream(nativeMethod.getAnnotatedParameterTypes())
-                    .map((annotated) -> Diamond.types().from(annotated));
+        return StreamFromCollectionSupplier.using(SuppliedValue.lazilyBy(()-> Arrays.stream(nativeMethod.getAnnotatedParameterTypes())
+                .map((annotated) -> Diamond.types().from(annotated))
+                .collect(Collectors.toList())));
     }
 
     @Override

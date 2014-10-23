@@ -5,11 +5,8 @@ import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.members.TypeMemberSupport;
 import ar.com.kfgodel.diamond.impl.methods.equality.MethodEquality;
-import ar.com.kfgodel.lazyvalue.api.LazyValue;
-import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 /**
@@ -19,9 +16,9 @@ import java.util.stream.Stream;
 public class TypeMethodInstance extends TypeMemberSupport implements TypeMethod {
 
 
-    private LazyValue<String> methodName;
-    private LazyValue<TypeInstance> returnType;
-    private LazyValue<List<TypeInstance>> parameterTypes;
+    private Supplier<String> methodName;
+    private Supplier<TypeInstance> returnType;
+    private Supplier<Stream<TypeInstance>> parameterTypes;
 
     @Override
     public String name() {
@@ -35,7 +32,7 @@ public class TypeMethodInstance extends TypeMemberSupport implements TypeMethod 
 
     @Override
     public Stream<TypeInstance> parameterTypes() {
-        return parameterTypes.get().stream();
+        return parameterTypes.get();
     }
 
     @Override
@@ -45,12 +42,11 @@ public class TypeMethodInstance extends TypeMemberSupport implements TypeMethod 
 
     public static TypeMethodInstance create(MethodDescription description) {
         TypeMethodInstance method = new TypeMethodInstance();
-        method.methodName = SuppliedValue.from(description.getName());
-        method.returnType = SuppliedValue.from(description.getReturnType());
+        method.methodName = description.getName();
+        method.returnType = description.getReturnType();
         method.setDeclaringType(description.getDeclaringType());
         method.setModifiers(description.getModifiers());
-        // We decide to cache the parameter list
-        method.parameterTypes = SuppliedValue.from(() -> description.getParameterTypes().get().collect(Collectors.toList()));
+        method.parameterTypes = description.getParameterTypes();
         return method;
     }
 
