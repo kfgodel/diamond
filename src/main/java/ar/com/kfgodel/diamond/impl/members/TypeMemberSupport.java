@@ -5,8 +5,6 @@ import ar.com.kfgodel.diamond.api.members.TypeMember;
 import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.members.modifiers.suppliers.UndefinedMemberModifiers;
-import ar.com.kfgodel.lazyvalue.api.LazyValue;
-import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
 
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -17,7 +15,7 @@ import java.util.stream.Stream;
  */
 public class TypeMemberSupport implements TypeMember {
 
-    private LazyValue<TypeInstance> declaringType;
+    private Supplier<TypeInstance> declaringType;
     private Supplier<Stream<MemberModifier>> modifiers = UndefinedMemberModifiers.create(this);
 
     @Override
@@ -29,7 +27,7 @@ public class TypeMemberSupport implements TypeMember {
     }
 
     protected void setDeclaringType(Supplier<TypeInstance> declaringTypeSupplier){
-        this.declaringType = SuppliedValue.lazilyBy(declaringTypeSupplier);
+        this.declaringType = declaringTypeSupplier;
     }
 
     @Override
