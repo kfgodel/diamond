@@ -5,11 +5,8 @@ import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.constructors.equality.ConstructorEquality;
 import ar.com.kfgodel.diamond.impl.members.TypeMemberSupport;
-import ar.com.kfgodel.lazyvalue.api.LazyValue;
-import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 /**
@@ -18,11 +15,11 @@ import java.util.stream.Stream;
  */
 public class TypeConstructorInstance extends TypeMemberSupport implements TypeConstructor {
 
-    private LazyValue<List<TypeInstance>> parameterTypes;
+    private Supplier<Stream<TypeInstance>> parameterTypes;
 
     @Override
     public Stream<TypeInstance> parameterTypes() {
-        return parameterTypes.get().stream();
+        return parameterTypes.get();
     }
 
     @Override
@@ -34,8 +31,7 @@ public class TypeConstructorInstance extends TypeMemberSupport implements TypeCo
         TypeConstructorInstance constructor = new TypeConstructorInstance();
         constructor.setDeclaringType(description.getDeclaringType());
         constructor.setModifiers(description.getModifiers());
-        // We decide to cache the parameter list
-        constructor.parameterTypes = SuppliedValue.from(() -> description.getParameterTypes().get().collect(Collectors.toList()));
+        constructor.parameterTypes = description.getParameterTypes();
         return constructor;
     }
 

@@ -14,11 +14,30 @@ public class SuppliedValue<T> implements LazyValue<T> {
     private Supplier<T> generatorLambda;
     private T value;
 
-    public static<T> SuppliedValue<T> from(Supplier<T> valueGenerator) {
+    /**
+     * Creates a lazily defined value through a supplier to generate it the first time
+     * @param valueGenerator The value generator to be called the first time
+     * @param <T> The expect type of value
+     * @return The created instance
+     */
+    public static<T> SuppliedValue<T> fromLazy(Supplier<T> valueGenerator) {
         SuppliedValue<T> value = new SuppliedValue<>();
         value.generatorLambda = valueGenerator;
         return value;
     }
+
+    /**
+     * Creates an eagerly defined value supplier that uses the given value each time it's called
+     * @param value The value to use as supplier
+     * @param <T> The expected type of value
+     * @return The created supplier
+     */
+    public static<T> LazyValue<T> fromEager(T value) {
+        SuppliedValue<T> supplier = new SuppliedValue<>();
+        supplier.value = value;
+        return supplier;
+    }
+
 
     @Override
     public boolean isAlreadyDefined() {
@@ -59,4 +78,5 @@ public class SuppliedValue<T> implements LazyValue<T> {
         builder.append("}");
         return builder.toString();
     }
+
 }

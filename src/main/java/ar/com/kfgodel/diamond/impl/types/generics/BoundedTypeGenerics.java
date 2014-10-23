@@ -34,7 +34,7 @@ public class BoundedTypeGenerics implements TypeGenerics {
 
     public static BoundedTypeGenerics create(Supplier<TypeBounds> bounds) {
         BoundedTypeGenerics generics = new BoundedTypeGenerics();
-        generics.typeBounds = SuppliedValue.from(bounds);
+        generics.typeBounds = SuppliedValue.fromLazy(bounds);
         return generics;
     }
 

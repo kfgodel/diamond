@@ -26,7 +26,7 @@ public class ImmutableTypeMethods implements TypeMethods {
     public static ImmutableTypeMethods create(Supplier<Stream<TypeMethod>> classMethods) {
         ImmutableTypeMethods methodSource = new ImmutableTypeMethods();
         // Here we cache assuming methods don't change in runtime
-        methodSource.typeMethods = SuppliedValue.from(() -> classMethods.get().collect(Collectors.toList()));
+        methodSource.typeMethods = SuppliedValue.fromLazy(() -> classMethods.get().collect(Collectors.toList()));
         return methodSource;
     }
 

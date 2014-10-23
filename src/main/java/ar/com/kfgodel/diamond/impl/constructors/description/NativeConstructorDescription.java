@@ -6,10 +6,13 @@ import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.members.NativeMemberDeclaringTypeSupplier;
 import ar.com.kfgodel.diamond.impl.members.modifiers.suppliers.ImmutableMemberModifiers;
+import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
+import ar.com.kfgodel.streams.StreamFromCollectionSupplier;
 
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -22,8 +25,12 @@ public class NativeConstructorDescription implements ConstructorDescription {
 
     @Override
     public Supplier<Stream<TypeInstance>> getParameterTypes() {
-        return ()-> Arrays.stream(constructor.getAnnotatedParameterTypes())
-                .map((annotated) -> Diamond.types().from(annotated));
+        // We after getting the diamond representation, we put them in a list
+        // that we will use to stream from
+        return StreamFromCollectionSupplier.using(SuppliedValue.fromLazy(() ->
+                Arrays.stream(constructor.getAnnotatedParameterTypes())
+                        .map((annotated) -> Diamond.types().from(annotated))
+                        .collect(Collectors.toList())));
     }
 
     @Override

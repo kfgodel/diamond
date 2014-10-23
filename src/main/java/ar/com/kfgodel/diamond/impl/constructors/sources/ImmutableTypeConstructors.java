@@ -26,7 +26,7 @@ public class ImmutableTypeConstructors implements TypeConstructors {
     public static ImmutableTypeConstructors create(Supplier<Stream<TypeConstructor>> constructorSupplier) {
         ImmutableTypeConstructors methodSource = new ImmutableTypeConstructors();
         // Here we cache assuming methods don't change in runtime
-        methodSource.typeConstructors = SuppliedValue.from(() -> constructorSupplier.get().collect(Collectors.toList()));
+        methodSource.typeConstructors = SuppliedValue.fromLazy(() -> constructorSupplier.get().collect(Collectors.toList()));
         return methodSource;
     }
 

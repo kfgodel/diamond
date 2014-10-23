@@ -29,7 +29,7 @@ public class TypeMemberSupport implements TypeMember {
     }
 
     protected void setDeclaringType(Supplier<TypeInstance> declaringTypeSupplier){
-        this.declaringType = SuppliedValue.from(declaringTypeSupplier);
+        this.declaringType = SuppliedValue.fromLazy(declaringTypeSupplier);
     }
 
     @Override

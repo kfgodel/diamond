@@ -5,6 +5,8 @@ import ar.com.kfgodel.diamond.api.constructors.ConstructorDescription;
 import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
 import ar.com.kfgodel.diamond.api.sources.modifiers.Visibility;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
+import ar.com.kfgodel.streams.StreamOneElementSupplier;
 
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -18,18 +20,18 @@ public class ArrayConstructorDescription implements ConstructorDescription {
 
     @Override
     public Supplier<Stream<TypeInstance>> getParameterTypes() {
-        return () -> Stream.of(Diamond.of(int.class));
+        return StreamOneElementSupplier.using(Diamond.of(int.class));
     }
 
     @Override
     public Supplier<TypeInstance> getDeclaringType() {
-        return ()-> Diamond.of(nativeArrayClass);
+        return SuppliedValue.fromEager(Diamond.of(nativeArrayClass));
     }
 
     @Override
     public Supplier<Stream<MemberModifier>> getModifiers() {
         // Array creation is similar to public visibility
-        return () -> Stream.of(Visibility.PUBLIC);
+        return StreamOneElementSupplier.using(Visibility.PUBLIC);
     }
 
     public static ArrayConstructorDescription create(Class<?> nativeArrayType) {

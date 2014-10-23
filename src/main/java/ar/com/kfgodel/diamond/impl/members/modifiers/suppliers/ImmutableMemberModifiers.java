@@ -28,7 +28,7 @@ public class ImmutableMemberModifiers implements Supplier<Stream<MemberModifier>
 
     public static ImmutableMemberModifiers create(Member nativeMember) {
         ImmutableMemberModifiers modifiers = new ImmutableMemberModifiers();
-        modifiers.modifiersList = SuppliedValue.from(() -> Diamond.modifiers().from(nativeMember));
+        modifiers.modifiersList = SuppliedValue.fromLazy(() -> Diamond.modifiers().from(nativeMember));
         return modifiers;
     }
 

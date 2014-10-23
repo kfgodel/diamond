@@ -34,8 +34,8 @@ public class TypeFieldInstance extends TypeMemberSupport implements TypeField {
 
     public static TypeFieldInstance create(FieldDescription description) {
         TypeFieldInstance field = new TypeFieldInstance();
-        field.fieldName = SuppliedValue.from(description.getName());
-        field.fieldType = SuppliedValue.from(description.getType());
+        field.fieldName = SuppliedValue.fromLazy(description.getName());
+        field.fieldType = SuppliedValue.fromLazy(description.getType());
         field.setDeclaringType(description.getDeclaringType());
         field.setModifiers(description.getModifiers());
         return field;
