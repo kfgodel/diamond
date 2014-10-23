@@ -4,6 +4,7 @@ import ar.com.kfgodel.diamond.api.types.TypeDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.types.description.support.AnnotatedTypeDescriptionSupport;
 import ar.com.kfgodel.diamond.impl.types.parts.componenttype.GenericArrayComponentTypeSupplier;
+import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
 
 import java.lang.reflect.AnnotatedArrayType;
 import java.lang.reflect.AnnotatedType;
@@ -38,7 +39,7 @@ public class AnnotatedArrayTypeDescription extends AnnotatedTypeDescriptionSuppo
 
     @Override
     public Supplier<Optional<TypeInstance>> getComponentType() {
-        return GenericArrayComponentTypeSupplier.create(nativeType);
+        return SuppliedValue.lazilyBy(GenericArrayComponentTypeSupplier.create(nativeType));
     }
 
     public static AnnotatedArrayTypeDescription create(AnnotatedArrayType nativeType) {

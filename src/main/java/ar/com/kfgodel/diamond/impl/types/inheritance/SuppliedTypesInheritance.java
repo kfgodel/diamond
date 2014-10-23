@@ -4,8 +4,6 @@ import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.inheritance.TypeInheritance;
 import ar.com.kfgodel.diamond.api.types.inheritance.TypeLineage;
 import ar.com.kfgodel.diamond.impl.types.lineage.FunctionBasedTypeLineage;
-import ar.com.kfgodel.lazyvalue.api.LazyValue;
-import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
 
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -17,8 +15,8 @@ import java.util.function.Supplier;
 public class SuppliedTypesInheritance implements TypeInheritance {
 
     private TypeInstance type;
-    private LazyValue<Optional<TypeInstance>> superclass;
-    private LazyValue<Optional<TypeInstance>> extendedType;
+    private Supplier<Optional<TypeInstance>> superclass;
+    private Supplier<Optional<TypeInstance>> extendedType;
 
     @Override
     public Optional<TypeInstance> superclass() {
@@ -43,8 +41,8 @@ public class SuppliedTypesInheritance implements TypeInheritance {
     public static SuppliedTypesInheritance create(TypeInstance type, Supplier<Optional<TypeInstance>> superclassSupplier, Supplier<Optional<TypeInstance>> extendedTypeSupplier) {
         SuppliedTypesInheritance inheritance = new SuppliedTypesInheritance();
         inheritance.type = type;
-        inheritance.superclass = SuppliedValue.lazilyBy(superclassSupplier);
-        inheritance.extendedType = SuppliedValue.lazilyBy(extendedTypeSupplier);
+        inheritance.superclass = superclassSupplier;
+        inheritance.extendedType = extendedTypeSupplier;
         return inheritance;
     }
 

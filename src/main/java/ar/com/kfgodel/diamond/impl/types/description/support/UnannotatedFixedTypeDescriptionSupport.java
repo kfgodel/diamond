@@ -9,6 +9,7 @@ import ar.com.kfgodel.diamond.impl.types.parts.extendedtype.ExtendedTypeSupplier
 import ar.com.kfgodel.diamond.impl.types.parts.names.FixedTypeNameSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.superclass.SuperClassSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.typeparameters.TypeParametersSupplier;
+import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
 
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -22,17 +23,17 @@ public abstract class UnannotatedFixedTypeDescriptionSupport extends Unannotated
 
     @Override
     public Supplier<TypeNames> getNames() {
-        return FixedTypeNameSupplier.create(getRawClass(), getNativeType());
+        return SuppliedValue.lazilyBy(FixedTypeNameSupplier.create(getRawClass(), getNativeType()));
     }
 
     @Override
     public Supplier<Optional<TypeInstance>> getSuperclassSupplier() {
-        return SuperClassSupplier.create(getRawClass());
+        return SuppliedValue.lazilyBy(SuperClassSupplier.create(getRawClass()));
     }
 
     @Override
     public Supplier<Optional<TypeInstance>> getExtendedTypeSupplier() {
-        return ExtendedTypeSupplier.create(getRawClass(), this.getTypeArguments().get());
+        return SuppliedValue.lazilyBy(ExtendedTypeSupplier.create(getRawClass(), this.getTypeArguments().get()));
     }
 
     @Override

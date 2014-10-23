@@ -11,18 +11,16 @@ import ar.com.kfgodel.diamond.api.types.generics.TypeGenerics;
 import ar.com.kfgodel.diamond.api.types.inheritance.TypeInheritance;
 import ar.com.kfgodel.diamond.api.types.names.TypeNames;
 import ar.com.kfgodel.diamond.impl.constructors.sources.NoConstructors;
-import ar.com.kfgodel.diamond.impl.fields.sources.ImmutableTypeFields;
 import ar.com.kfgodel.diamond.impl.fields.sources.NoFields;
-import ar.com.kfgodel.diamond.impl.methods.sources.ImmutableTypeMethods;
+import ar.com.kfgodel.diamond.impl.fields.sources.TypeFieldsImpl;
 import ar.com.kfgodel.diamond.impl.methods.sources.NoMethods;
+import ar.com.kfgodel.diamond.impl.methods.sources.TypeMethodsImpl;
 import ar.com.kfgodel.diamond.impl.types.declaration.TypeDeclaration;
 import ar.com.kfgodel.diamond.impl.types.equality.TypeEquality;
 import ar.com.kfgodel.diamond.impl.types.generics.NotGenerified;
 import ar.com.kfgodel.diamond.impl.types.inheritance.NoParentsInheritance;
 import ar.com.kfgodel.diamond.impl.types.parts.annotations.NoAnnotationsSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.names.NoNamesSupplier;
-import ar.com.kfgodel.lazyvalue.api.LazyValue;
-import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
 
 import java.lang.annotation.Annotation;
 import java.util.Optional;
@@ -42,7 +40,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     /**
      * Variations on the name for this type
      */
-    private LazyValue<TypeNames> names = SuppliedValue.lazilyBy(NoNamesSupplier.create(this));
+    private Supplier<TypeNames> names = NoNamesSupplier.create(this);
 
     /**
      * This type callable methods
@@ -82,7 +80,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
      * @param namesSupplier The multiple names of this instance
      */
     protected void setNames(Supplier<TypeNames> namesSupplier) {
-        this.names = SuppliedValue.lazilyBy(namesSupplier);
+        this.names = namesSupplier;
     }
 
     @Override
@@ -101,7 +99,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     }
 
     protected void setMethods(Supplier<Stream<TypeMethod>> typeMethods){
-        this.methods = ImmutableTypeMethods.create(typeMethods);
+        this.methods = TypeMethodsImpl.create(typeMethods);
     }
 
     @Override
@@ -110,7 +108,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     }
 
     protected void setFields(Supplier<Stream<TypeField>> typeFields){
-        this.fields = ImmutableTypeFields.create(typeFields);
+        this.fields = TypeFieldsImpl.create(typeFields);
     }
 
     @Override

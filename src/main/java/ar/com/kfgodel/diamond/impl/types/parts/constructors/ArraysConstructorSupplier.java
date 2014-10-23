@@ -4,6 +4,7 @@ import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.constructors.ConstructorDescription;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.impl.constructors.description.ArrayConstructorDescription;
+import ar.com.kfgodel.streams.StreamFromElementSupplier;
 
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -14,19 +15,13 @@ import java.util.stream.Stream;
  *  helpers. This supplier fills the gap to simulate a constructor for arrays
  * Created by kfgodel on 16/10/14.
  */
-public class ArraysConstructorSupplier implements Supplier<Stream<TypeConstructor>> {
-    private Class<?> nativeArrayType;
+public class ArraysConstructorSupplier {
 
-    @Override
-    public Stream<TypeConstructor> get() {
-        ConstructorDescription arrayConstructorDescription = ArrayConstructorDescription.create(nativeArrayType);
-        return Stream.of(Diamond.constructors().from(arrayConstructorDescription));
-    }
-
-    public static ArraysConstructorSupplier create(Class<?> nativeArrayClass) {
-        ArraysConstructorSupplier supplier = new ArraysConstructorSupplier();
-        supplier.nativeArrayType = nativeArrayClass;
-        return supplier;
+    public static Supplier<Stream<TypeConstructor>> create(Class<?> nativeArrayClass) {
+        return StreamFromElementSupplier.using(() -> {
+            ConstructorDescription arrayConstructorDescription = ArrayConstructorDescription.create(nativeArrayClass);
+            return Diamond.constructors().from(arrayConstructorDescription);
+        });
     }
 
 }

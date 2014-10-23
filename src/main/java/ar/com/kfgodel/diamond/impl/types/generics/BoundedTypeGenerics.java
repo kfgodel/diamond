@@ -3,8 +3,6 @@ package ar.com.kfgodel.diamond.impl.types.generics;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.generics.TypeGenerics;
-import ar.com.kfgodel.lazyvalue.api.LazyValue;
-import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
 
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -15,7 +13,7 @@ import java.util.stream.Stream;
  */
 public class BoundedTypeGenerics implements TypeGenerics {
 
-    private LazyValue<TypeBounds> typeBounds;
+    private Supplier<TypeBounds> typeBounds;
 
     @Override
     public TypeBounds bounds() {
@@ -34,7 +32,7 @@ public class BoundedTypeGenerics implements TypeGenerics {
 
     public static BoundedTypeGenerics create(Supplier<TypeBounds> bounds) {
         BoundedTypeGenerics generics = new BoundedTypeGenerics();
-        generics.typeBounds = SuppliedValue.lazilyBy(bounds);
+        generics.typeBounds = bounds;
         return generics;
     }
 

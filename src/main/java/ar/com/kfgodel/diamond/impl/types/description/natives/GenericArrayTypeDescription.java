@@ -3,6 +3,7 @@ package ar.com.kfgodel.diamond.impl.types.description.natives;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.types.description.support.UnannotatedFixedTypeDescriptionSupport;
 import ar.com.kfgodel.diamond.impl.types.parts.componenttype.GenericArrayComponentTypeSupplier;
+import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
 
 import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.Type;
@@ -24,7 +25,7 @@ public class GenericArrayTypeDescription extends UnannotatedFixedTypeDescription
 
     @Override
     public Supplier<Optional<TypeInstance>> getComponentType() {
-        return GenericArrayComponentTypeSupplier.create(nativeType);
+        return SuppliedValue.lazilyBy(GenericArrayComponentTypeSupplier.create(nativeType));
     }
 
     public static GenericArrayTypeDescription create(GenericArrayType nativeType) {
