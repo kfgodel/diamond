@@ -5,7 +5,6 @@ import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.members.TypeMemberSupport;
 import ar.com.kfgodel.diamond.impl.methods.equality.MethodEquality;
-import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
 
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -44,7 +43,7 @@ public class TypeMethodInstance extends TypeMemberSupport implements TypeMethod 
     public static TypeMethodInstance create(MethodDescription description) {
         TypeMethodInstance method = new TypeMethodInstance();
         method.methodName = description.getName();
-        method.returnType = SuppliedValue.lazilyBy(description.getReturnType());
+        method.returnType = description.getReturnType();
         method.setDeclaringType(description.getDeclaringType());
         method.setModifiers(description.getModifiers());
         method.parameterTypes = description.getParameterTypes();

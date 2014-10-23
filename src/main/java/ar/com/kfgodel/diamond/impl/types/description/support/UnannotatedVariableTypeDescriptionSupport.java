@@ -2,7 +2,6 @@ package ar.com.kfgodel.diamond.impl.types.description.support;
 
 import ar.com.kfgodel.diamond.api.types.names.TypeNames;
 import ar.com.kfgodel.diamond.impl.types.parts.names.VariableTypeNamesSupplier;
-import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
 
 import java.util.function.Supplier;
 
@@ -14,7 +13,7 @@ public abstract class UnannotatedVariableTypeDescriptionSupport extends Unannota
 
     @Override
     public Supplier<TypeNames> getNames() {
-        return SuppliedValue.lazilyBy(VariableTypeNamesSupplier.create(getNativeType()));
+        return VariableTypeNamesSupplier.create(getNativeType());
     }
 
     @Override

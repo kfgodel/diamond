@@ -2,6 +2,7 @@ package ar.com.kfgodel.diamond.impl.types.parts.names;
 
 import ar.com.kfgodel.diamond.api.types.names.TypeNames;
 import ar.com.kfgodel.diamond.impl.types.names.ClassTypeNames;
+import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
 
 import java.lang.reflect.Type;
 import java.util.function.Supplier;
@@ -10,21 +11,10 @@ import java.util.function.Supplier;
  * This type represents a name supplier for fixed types
  * Created by kfgodel on 29/09/14.
  */
-public class FixedTypeNameSupplier implements Supplier<TypeNames> {
+public class FixedTypeNameSupplier {
 
-    private Class<?> rawClass;
-    private Type type;
-
-    @Override
-    public TypeNames get() {
-        return ClassTypeNames.create(rawClass, type.getTypeName());
-    }
-
-    public static FixedTypeNameSupplier create(Class<?> rawClass, Type nativeType) {
-        FixedTypeNameSupplier supplier = new FixedTypeNameSupplier();
-        supplier.rawClass = rawClass;
-        supplier.type = nativeType;
-        return supplier;
+    public static Supplier<TypeNames> create(Class<?> rawClass, Type nativeType) {
+        return SuppliedValue.lazilyBy(()-> ClassTypeNames.create(rawClass, nativeType.getTypeName()));
     }
 
 }
