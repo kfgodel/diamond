@@ -5,8 +5,8 @@ import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.fields.equality.FieldEquality;
 import ar.com.kfgodel.diamond.impl.members.TypeMemberSupport;
-import ar.com.kfgodel.lazyvalue.api.LazyValue;
-import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
+
+import java.util.function.Supplier;
 
 /**
  * This type represents a class field instance for a type
@@ -14,8 +14,8 @@ import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
  */
 public class TypeFieldInstance extends TypeMemberSupport implements TypeField {
 
-    private LazyValue<String> fieldName;
-    private LazyValue<TypeInstance> fieldType;
+    private Supplier<String> fieldName;
+    private Supplier<TypeInstance> fieldType;
 
     @Override
     public String name() {
@@ -34,8 +34,8 @@ public class TypeFieldInstance extends TypeMemberSupport implements TypeField {
 
     public static TypeFieldInstance create(FieldDescription description) {
         TypeFieldInstance field = new TypeFieldInstance();
-        field.fieldName = SuppliedValue.fromLazy(description.getName());
-        field.fieldType = SuppliedValue.fromLazy(description.getType());
+        field.fieldName = description.getName();
+        field.fieldType = description.getType();
         field.setDeclaringType(description.getDeclaringType());
         field.setModifiers(description.getModifiers());
         return field;

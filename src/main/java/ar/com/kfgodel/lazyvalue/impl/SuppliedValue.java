@@ -20,7 +20,7 @@ public class SuppliedValue<T> implements LazyValue<T> {
      * @param <T> The expect type of value
      * @return The created instance
      */
-    public static<T> SuppliedValue<T> fromLazy(Supplier<T> valueGenerator) {
+    public static<T> SuppliedValue<T> lazilyBy(Supplier<T> valueGenerator) {
         SuppliedValue<T> value = new SuppliedValue<>();
         value.generatorLambda = valueGenerator;
         return value;
@@ -32,7 +32,7 @@ public class SuppliedValue<T> implements LazyValue<T> {
      * @param <T> The expected type of value
      * @return The created supplier
      */
-    public static<T> LazyValue<T> fromEager(T value) {
+    public static<T> LazyValue<T> eagerlyFrom(T value) {
         SuppliedValue<T> supplier = new SuppliedValue<>();
         supplier.value = value;
         return supplier;

@@ -23,8 +23,8 @@ public class ParameterizedTypeGenerics implements TypeGenerics {
     public static ParameterizedTypeGenerics create(Supplier<Stream<TypeInstance>> typeParametersSupplier, Supplier<Stream<TypeInstance>> typeArgumentsSupplier) {
         ParameterizedTypeGenerics generics = new ParameterizedTypeGenerics();
         // Here we decide to cache generics as lists (since it seems strange for a type to change parameterization in runtime)
-        generics.typeParameters = SuppliedValue.fromLazy(() -> typeParametersSupplier.get().collect(Collectors.toList()));
-        generics.typeArguments = SuppliedValue.fromLazy(() -> typeArgumentsSupplier.get().collect(Collectors.toList()));
+        generics.typeParameters = SuppliedValue.lazilyBy(() -> typeParametersSupplier.get().collect(Collectors.toList()));
+        generics.typeArguments = SuppliedValue.lazilyBy(() -> typeArgumentsSupplier.get().collect(Collectors.toList()));
         return generics;
     }
 

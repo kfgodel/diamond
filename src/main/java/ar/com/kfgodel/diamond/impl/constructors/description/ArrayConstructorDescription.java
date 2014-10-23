@@ -25,7 +25,7 @@ public class ArrayConstructorDescription implements ConstructorDescription {
 
     @Override
     public Supplier<TypeInstance> getDeclaringType() {
-        return SuppliedValue.fromEager(Diamond.of(nativeArrayClass));
+        return SuppliedValue.eagerlyFrom(Diamond.of(nativeArrayClass));
     }
 
     @Override

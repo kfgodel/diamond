@@ -27,7 +27,7 @@ public class NativeConstructorDescription implements ConstructorDescription {
     public Supplier<Stream<TypeInstance>> getParameterTypes() {
         // We after getting the diamond representation, we put them in a list
         // that we will use to stream from
-        return StreamFromCollectionSupplier.using(SuppliedValue.fromLazy(() ->
+        return StreamFromCollectionSupplier.using(SuppliedValue.lazilyBy(() ->
                 Arrays.stream(constructor.getAnnotatedParameterTypes())
                         .map((annotated) -> Diamond.types().from(annotated))
                         .collect(Collectors.toList())));
