@@ -3,6 +3,8 @@ package ar.com.kfgodel.diamond.api.fields;
 import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 
+import java.util.function.BiConsumer;
+import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -30,4 +32,14 @@ public interface FieldDescription {
      * @return The supplier to get the field modifiers
      */
     Supplier<Stream<MemberModifier>> getModifiers();
+
+    /**
+     * @return The supplier of the consumer to set the field's value
+     */
+    Supplier<BiConsumer<Object,Object>> getSetter();
+
+    /**
+     * @return The supplier of the function to get the field's value
+     */
+    Supplier<Function<Object,?>> getGetter();
 }
