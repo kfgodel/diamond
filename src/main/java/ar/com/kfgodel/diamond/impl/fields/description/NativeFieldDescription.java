@@ -6,9 +6,13 @@ import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.members.NativeMemberDeclaringTypeSupplier;
 import ar.com.kfgodel.diamond.impl.members.modifiers.suppliers.ImmutableMemberModifiers;
+import ar.com.kfgodel.diamond.impl.natives.NativeFieldGetter;
+import ar.com.kfgodel.diamond.impl.natives.NativeFieldSetter;
 import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
 
 import java.lang.reflect.Field;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -44,6 +48,16 @@ public class NativeFieldDescription implements FieldDescription {
     @Override
     public Supplier<Stream<MemberModifier>> getModifiers() {
         return ImmutableMemberModifiers.create(nativeField);
+    }
+
+    @Override
+    public Supplier<BiConsumer<Object, Object>> getSetter() {
+        return SuppliedValue.lazilyBy(()-> NativeFieldSetter.create(nativeField));
+    }
+
+    @Override
+    public Supplier<Function<Object, ?>> getGetter() {
+        return SuppliedValue.lazilyBy(()-> NativeFieldGetter.create(nativeField));
     }
 
 }

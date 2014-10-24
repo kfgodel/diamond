@@ -28,4 +28,8 @@ public interface DiamondTestContext extends TestContext {
 
     TypeNames names();
     void names(Supplier<TypeNames> definition);
+
+    <T> T object();
+    <T> void object(Supplier<T> definition);
+
 }

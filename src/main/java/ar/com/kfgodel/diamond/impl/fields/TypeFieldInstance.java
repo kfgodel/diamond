@@ -6,6 +6,8 @@ import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.fields.equality.FieldEquality;
 import ar.com.kfgodel.diamond.impl.members.TypeMemberSupport;
 
+import java.util.function.BiConsumer;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
@@ -16,6 +18,8 @@ public class TypeFieldInstance extends TypeMemberSupport implements TypeField {
 
     private Supplier<String> fieldName;
     private Supplier<TypeInstance> fieldType;
+    private Supplier<Function<Object,?>> getter;
+    private Supplier<BiConsumer<Object, Object>> setter;
 
     @Override
     public String name() {
@@ -25,6 +29,16 @@ public class TypeFieldInstance extends TypeMemberSupport implements TypeField {
     @Override
     public TypeInstance type() {
         return fieldType.get();
+    }
+
+    @Override
+    public <R> R getValueFrom(Object instance) {
+        return (R) getter.get().apply(instance);
+    }
+
+    @Override
+    public void setValueOn(Object instance, Object value) {
+        setter.get().accept(instance, value);
     }
 
     @Override
@@ -38,6 +52,8 @@ public class TypeFieldInstance extends TypeMemberSupport implements TypeField {
         field.fieldType = description.getType();
         field.setDeclaringType(description.getDeclaringType());
         field.setModifiers(description.getModifiers());
+        field.setter = description.getSetter();
+        field.getter = description.getGetter();
         return field;
     }
 
