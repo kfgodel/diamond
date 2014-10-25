@@ -7,6 +7,9 @@ import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.testobjects.accessors.FieldAccessorTestObject;
 import org.junit.runner.RunWith;
 
+import java.util.function.BiConsumer;
+import java.util.function.Function;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -21,8 +24,8 @@ public class FieldAccessorTest extends JavaSpec<DiamondTestContext> {
 
             context().object(FieldAccessorTestObject::new);
             context().typeInstance(()-> Diamond.of(context().object().getClass()));
-            context().field(()-> context().typeInstance().fields().existingNamed(context().name()));
-            context().name(()-> "privateField");
+            context().field(() -> context().typeInstance().fields().existingNamed(context().name()));
+            context().name(() -> "privateField");
 
             it("can set the value to an instance",()->{
                 FieldAccessorTestObject object = context().object();
@@ -79,6 +82,31 @@ public class FieldAccessorTest extends JavaSpec<DiamondTestContext> {
 
                 });
             });
+
+            describe("as functions", () -> {
+                it("can be used as a bi-consumer for setting the value",()->{
+                    FieldAccessorTestObject object = context().object();
+                    BiConsumer<Object, Object> field = context().field();
+
+                    field.accept(object, 23);
+
+                    assertThat(object.getPrivateField()).isEqualTo(23);
+
+                }); 
+                
+                it("can be used as a function for getting the value",()->{
+                    FieldAccessorTestObject object = context().object();
+                    object.setPrivateField(23);
+                    Function<Object,Object> field = context().field();
+
+
+                    Object gettedValue = field.apply(object);
+
+                    assertThat(gettedValue).isEqualTo(23);
+
+                });   
+            });
+
 
         });
     }
