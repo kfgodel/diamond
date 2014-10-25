@@ -2,6 +2,7 @@ package ar.com.kfgodel.diamond;
 
 import ar.com.dgarcia.javaspec.api.TestContext;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
+import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.inheritance.TypeLineage;
 import ar.com.kfgodel.diamond.api.types.names.TypeNames;
@@ -35,6 +36,9 @@ public interface DiamondTestContext extends TestContext {
 
     TypeField field();
     void field(Supplier<TypeField> definition);
+
+    TypeMethod method();
+    void method(Supplier<TypeMethod> definition);
 
     String name();
     void name(Supplier<String> definition);

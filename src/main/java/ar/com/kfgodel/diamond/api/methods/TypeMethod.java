@@ -31,4 +31,11 @@ public interface TypeMethod extends Named, ParameterizedBehavior, TypeMember {
     @Override
     Stream<TypeInstance> parameterTypes();
 
+    /**
+     * Invokes the method represented by this instance, in the given object, with the arguments
+     * @param instance The object to invoke the method on
+     * @param arguments The arguments to used for the invocation
+     * @return The result of the invocation
+     */
+    Object invokeOn(Object instance, Object... arguments);
 }
