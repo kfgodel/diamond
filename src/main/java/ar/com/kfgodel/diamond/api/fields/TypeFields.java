@@ -1,6 +1,7 @@
 package ar.com.kfgodel.diamond.api.fields;
 
 import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
+import ar.com.kfgodel.diamond.api.naming.NamedSource;
 
 import java.util.Optional;
 import java.util.stream.Stream;
@@ -9,7 +10,7 @@ import java.util.stream.Stream;
  * This type represents the source of fields for a given type
  * Created by kfgodel on 12/10/14.
  */
-public interface TypeFields {
+public interface TypeFields extends NamedSource<TypeField> {
 
     /**
      * @return All the class fields for a type

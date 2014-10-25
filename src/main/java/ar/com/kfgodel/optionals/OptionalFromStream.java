@@ -19,8 +19,9 @@ public class OptionalFromStream {
      * @param stream The stream to take elements from
      * @param <T> The expected type of element
      * @return The optional element, or empty if none was in the stream
+     * @throws DiamondException if more than one found in the stream
      */
-    public static<T> Optional<T> create(Stream<T> stream){
+    public static<T> Optional<T> using(Stream<T> stream) throws DiamondException{
         List<T> foundElements = stream.limit(2).collect(Collectors.toList());
         if(foundElements.size() > 1){
             throw new DiamondException("There's more than one element in the stream to create an optional: " +foundElements);
