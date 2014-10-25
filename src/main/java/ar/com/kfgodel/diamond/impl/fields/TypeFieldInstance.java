@@ -57,4 +57,13 @@ public class TypeFieldInstance extends TypeMemberSupport implements TypeField {
         return field;
     }
 
+    @Override
+    public void accept(Object instance, Object value) {
+        this.setValueOn(instance, value);
+    }
+
+    @Override
+    public Object apply(Object instance) {
+        return this.getValueFrom(instance);
+    }
 }

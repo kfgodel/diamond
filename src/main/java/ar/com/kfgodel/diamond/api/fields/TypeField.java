@@ -4,11 +4,14 @@ import ar.com.kfgodel.diamond.api.members.TypeMember;
 import ar.com.kfgodel.diamond.api.naming.Named;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 
+import java.util.function.BiConsumer;
+import java.util.function.Function;
+
 /**
  * This type represents a field defined for a type that can store state
  * Created by kfgodel on 18/09/14.
  */
-public interface TypeField extends Named, TypeMember {
+public interface TypeField extends Named, TypeMember, BiConsumer<Object, Object>, Function<Object,Object> {
 
     /**
      * @return The name of the field
