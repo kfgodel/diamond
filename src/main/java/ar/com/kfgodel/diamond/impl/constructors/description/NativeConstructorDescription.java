@@ -6,11 +6,13 @@ import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.members.NativeMemberDeclaringTypeSupplier;
 import ar.com.kfgodel.diamond.impl.members.modifiers.suppliers.ImmutableMemberModifiers;
+import ar.com.kfgodel.diamond.impl.natives.NativeConstructorInvoker;
 import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
 import ar.com.kfgodel.streams.StreamFromCollectionSupplier;
 
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
+import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -21,31 +23,36 @@ import java.util.stream.Stream;
  */
 public class NativeConstructorDescription implements ConstructorDescription {
 
-    private Constructor<?> constructor;
+    private Constructor<?> nativeConstructor;
 
     @Override
     public Supplier<Stream<TypeInstance>> getParameterTypes() {
         // We after getting the diamond representation, we put them in a list
         // that we will use to stream from
         return StreamFromCollectionSupplier.using(SuppliedValue.lazilyBy(() ->
-                Arrays.stream(constructor.getAnnotatedParameterTypes())
+                Arrays.stream(nativeConstructor.getAnnotatedParameterTypes())
                         .map((annotated) -> Diamond.types().from(annotated))
                         .collect(Collectors.toList())));
     }
 
     @Override
     public Supplier<TypeInstance> getDeclaringType() {
-        return NativeMemberDeclaringTypeSupplier.create(constructor);
+        return NativeMemberDeclaringTypeSupplier.create(nativeConstructor);
     }
 
     @Override
     public Supplier<Stream<MemberModifier>> getModifiers() {
-        return ImmutableMemberModifiers.create(constructor);
+        return ImmutableMemberModifiers.create(nativeConstructor);
+    }
+
+    @Override
+    public Supplier<Function<Object[], Object>> getInvoker() {
+        return SuppliedValue.lazilyBy(()-> NativeConstructorInvoker.create(nativeConstructor));
     }
 
     public static NativeConstructorDescription create(Constructor<?> nativeConstructor) {
         NativeConstructorDescription description = new NativeConstructorDescription();
-        description.constructor = nativeConstructor;
+        description.nativeConstructor = nativeConstructor;
         return description;
     }
 

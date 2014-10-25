@@ -5,9 +5,11 @@ import ar.com.kfgodel.diamond.api.constructors.ConstructorDescription;
 import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
 import ar.com.kfgodel.diamond.api.sources.modifiers.Visibility;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.diamond.impl.natives.NativeArrayConstructor;
 import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
 import ar.com.kfgodel.streams.StreamFromElementSupplier;
 
+import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -32,6 +34,11 @@ public class ArrayConstructorDescription implements ConstructorDescription {
     public Supplier<Stream<MemberModifier>> getModifiers() {
         // Array creation is similar to public visibility
         return StreamFromElementSupplier.from(Visibility.PUBLIC);
+    }
+
+    @Override
+    public Supplier<Function<Object[], Object>> getInvoker() {
+        return SuppliedValue.lazilyBy(()-> NativeArrayConstructor.create(nativeArrayClass));
     }
 
     public static ArrayConstructorDescription create(Class<?> nativeArrayType) {

@@ -1,6 +1,7 @@
 package ar.com.kfgodel.diamond;
 
 import ar.com.dgarcia.javaspec.api.TestContext;
+import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
@@ -40,6 +41,12 @@ public interface DiamondTestContext extends TestContext {
     TypeMethod method();
     void method(Supplier<TypeMethod> definition);
 
+    TypeConstructor constructor();
+    void constructor(Supplier<TypeConstructor> definition);
+
     String name();
     void name(Supplier<String> definition);
+
+    Class<?> testClass();
+    void testClass(Supplier<Class<?>> definition);
 }

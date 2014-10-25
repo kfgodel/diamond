@@ -17,4 +17,11 @@ public interface TypeConstructor extends ParameterizedBehavior, TypeMember {
      */
     @Override
     Stream<TypeInstance> parameterTypes();
+
+    /**
+     * Invokes the constructor represented by this instance and returns the created object
+     * @param arguments The arguments needed to invoke this constructor
+     * @return The created object
+     */
+    Object invoke(Object... arguments);
 }

@@ -9,14 +9,14 @@ import java.util.Arrays;
  *
  * Created by kfgodel on 25/10/14.
  */
-public class HaltedInvocationException extends DiamondException {
+public class HaltedMethodInvocationException extends DiamondException {
 
     private Throwable haltingCause;
     private Object invokedInstance;
     private Object[] invokedArguments;
     private Method invokedMethod;
 
-    public HaltedInvocationException(Method method, Object instance, Object[] arguments, InvocationTargetException e) {
+    public HaltedMethodInvocationException(Method method, Object instance, Object[] arguments, InvocationTargetException e) {
         super("Invocation halted for method["+method+"] on instance["+instance+"] and arguments"+ Arrays.toString(arguments) + ": " + e.getCause().getMessage(),e);
         this.haltingCause = e.getCause();
         this.invokedArguments = arguments;
