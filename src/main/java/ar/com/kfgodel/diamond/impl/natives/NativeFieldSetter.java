@@ -25,7 +25,7 @@ public class NativeFieldSetter implements BiConsumer<Object, Object> {
         }catch(NullPointerException e) {
             throw new DiamondException("Set for instance field["+nativeField+"] cannot be done on null instance", e);
         }catch(ExceptionInInitializerError e){
-            throw new DiamondException("Set for field["+nativeField+"] aborted because of a failed initialization", e);
+            throw new DiamondException("Set aborted for field["+nativeField+"] due to a failed initialization", e);
         }
     }
 

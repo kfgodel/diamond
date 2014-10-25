@@ -25,7 +25,7 @@ public class NativeFieldGetter implements Function<Object, Object> {
         }catch(NullPointerException e) {
             throw new DiamondException("Get for instance field["+nativeField+"] cannot be done on null instance", e);
         }catch(ExceptionInInitializerError e){
-            throw new DiamondException("Get for field["+nativeField+"] aborted because of a failed initialization", e);
+            throw new DiamondException("Get aborted for field["+nativeField+"] due to a failed initialization", e);
         }
     }
 

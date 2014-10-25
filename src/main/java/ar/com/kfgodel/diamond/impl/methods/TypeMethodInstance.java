@@ -6,6 +6,7 @@ import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.members.TypeMemberSupport;
 import ar.com.kfgodel.diamond.impl.methods.equality.MethodEquality;
 
+import java.util.function.BiFunction;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -19,6 +20,7 @@ public class TypeMethodInstance extends TypeMemberSupport implements TypeMethod 
     private Supplier<String> methodName;
     private Supplier<TypeInstance> returnType;
     private Supplier<Stream<TypeInstance>> parameterTypes;
+    private Supplier<BiFunction<Object,Object[],Object>> invoker;
 
     @Override
     public String name() {
@@ -37,7 +39,7 @@ public class TypeMethodInstance extends TypeMemberSupport implements TypeMethod 
 
     @Override
     public Object invokeOn(Object instance, Object... arguments) {
-        return null;
+        return invoker.get().apply(instance, arguments);
     }
 
     @Override
@@ -52,6 +54,7 @@ public class TypeMethodInstance extends TypeMemberSupport implements TypeMethod 
         method.setDeclaringType(description.getDeclaringType());
         method.setModifiers(description.getModifiers());
         method.parameterTypes = description.getParameterTypes();
+        method.invoker = description.getInvoker();
         return method;
     }
 

@@ -21,4 +21,13 @@ public class MethodInvocationTestObject {
     private int privateMethod(){
         return 4;
     }
+
+    public void exceptionMethod(){
+        throw new RuntimeException("I don't finish successfully");
+    }
+
+    @Override
+    public String toString() {
+        return "a test instance";
+    }
 }
