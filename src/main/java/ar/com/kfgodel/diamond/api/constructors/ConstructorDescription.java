@@ -3,6 +3,7 @@ package ar.com.kfgodel.diamond.api.constructors;
 import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 
+import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -26,4 +27,9 @@ public interface ConstructorDescription {
      * @return The supplier of modifiers applied to the constructor
      */
     Supplier<Stream<MemberModifier>> getModifiers();
+
+    /**
+     * @return The supplier of the constructor invoker function
+     */
+    Supplier<Function<Object[],Object>> getInvoker();
 }

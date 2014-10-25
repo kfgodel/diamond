@@ -6,6 +6,7 @@ import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.constructors.equality.ConstructorEquality;
 import ar.com.kfgodel.diamond.impl.members.TypeMemberSupport;
 
+import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -16,10 +17,16 @@ import java.util.stream.Stream;
 public class TypeConstructorInstance extends TypeMemberSupport implements TypeConstructor {
 
     private Supplier<Stream<TypeInstance>> parameterTypes;
+    private Supplier<Function<Object[],Object>> invoker;
 
     @Override
     public Stream<TypeInstance> parameterTypes() {
         return parameterTypes.get();
+    }
+
+    @Override
+    public Object invoke(Object... arguments) {
+        return invoker.get().apply(arguments);
     }
 
     @Override
@@ -32,6 +39,7 @@ public class TypeConstructorInstance extends TypeMemberSupport implements TypeCo
         constructor.setDeclaringType(description.getDeclaringType());
         constructor.setModifiers(description.getModifiers());
         constructor.parameterTypes = description.getParameterTypes();
+        constructor.invoker = description.getInvoker();
         return constructor;
     }
 

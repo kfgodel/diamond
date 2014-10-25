@@ -1,7 +1,7 @@
 package ar.com.kfgodel.diamond.impl.natives;
 
 import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
-import ar.com.kfgodel.diamond.api.exceptions.HaltedInvocationException;
+import ar.com.kfgodel.diamond.api.exceptions.HaltedMethodInvocationException;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -25,11 +25,11 @@ public class NativeMethodInvoker implements BiFunction<Object,Object[],Object> {
         } catch (IllegalArgumentException e) {
             throw new DiamondException("Invocation rejected for method["+nativeMethod+"] because instance is invalid["+instance+"] or wrong arguments" + Arrays.toString(arguments),e);
         } catch (InvocationTargetException e) {
-            throw new HaltedInvocationException(nativeMethod, instance, arguments, e);
+            throw new HaltedMethodInvocationException(nativeMethod, instance, arguments, e);
         } catch (NullPointerException e) {
             throw new DiamondException("Instance invocation for method["+nativeMethod+"] cannot be don on null instance",e);
         } catch (ExceptionInInitializerError e) {
-            throw new DiamondException("invocation aborted for method["+nativeMethod+"] due to a failed initialization",e);
+            throw new DiamondException("Invocation aborted for method["+nativeMethod+"] due to a failed initialization",e);
         }
     }
 

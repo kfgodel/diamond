@@ -4,7 +4,7 @@ import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.DiamondTestContext;
 import ar.com.kfgodel.diamond.api.Diamond;
-import ar.com.kfgodel.diamond.api.exceptions.HaltedInvocationException;
+import ar.com.kfgodel.diamond.api.exceptions.HaltedMethodInvocationException;
 import ar.com.kfgodel.diamond.testobjects.invocations.MethodInvocationTestObject;
 import org.junit.runner.RunWith;
 
@@ -64,8 +64,8 @@ public class MethodInvocationTest extends JavaSpec<DiamondTestContext> {
 
                 try {
                     context().method().invokeOn(context().object());
-                    failBecauseExceptionWasNotThrown(HaltedInvocationException.class);
-                } catch (HaltedInvocationException e) {
+                    failBecauseExceptionWasNotThrown(HaltedMethodInvocationException.class);
+                } catch (HaltedMethodInvocationException e) {
                     assertThat(e).hasMessage("Invocation halted for method[public void ar.com.kfgodel.diamond.testobjects.invocations.MethodInvocationTestObject.exceptionMethod()] on instance[a test instance] and arguments[]: I don't finish successfully");
                     assertThat(e.getHaltingCause()).hasMessage("I don't finish successfully");
                     assertThat(e.getInvokedInstance()).isSameAs(context().object());
