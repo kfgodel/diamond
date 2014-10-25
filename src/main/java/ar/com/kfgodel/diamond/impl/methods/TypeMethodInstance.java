@@ -36,6 +36,11 @@ public class TypeMethodInstance extends TypeMemberSupport implements TypeMethod 
     }
 
     @Override
+    public Object invokeOn(Object instance, Object... arguments) {
+        return null;
+    }
+
+    @Override
     public boolean equals(Object obj) {
         return MethodEquality.INSTANCE.areEquals(this, obj);
     }
