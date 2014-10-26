@@ -1,6 +1,7 @@
 package ar.com.kfgodel.diamond.impl.types;
 
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructors;
+import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.api.fields.TypeFields;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
@@ -137,6 +138,18 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     @Override
     public boolean equals(Object obj) {
         return TypeEquality.INSTANCE.areEquals(this, obj);
+    }
+
+    @Override
+    public Object newInstance() {
+        return constructors().niladic()
+                .map((constructor) -> constructor.invoke())
+                .orElseThrow(() -> new DiamondException("Type[" + this + "] doesn't have a no-arg constructor to create the instance from"));
+    }
+
+    @Override
+    public Object get() {
+        return newInstance();
     }
 
     protected void initializeSuper(TypeDescription description){

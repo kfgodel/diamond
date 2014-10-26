@@ -21,7 +21,7 @@ public class NativeConstructorInvoker implements Function<Object[], Object> {
         try {
             return nativeConstructor.newInstance(arguments);
         } catch (InstantiationException e) {
-            throw new DiamondException("Constructor is for abstract type: " + nativeConstructor,e);
+            throw new DiamondException("Abstract type cannot be created: " + nativeConstructor,e);
         } catch (IllegalAccessException e) {
             throw new DiamondException("Constructor is inaccessible: " + nativeConstructor,e);
         } catch (IllegalArgumentException e) {

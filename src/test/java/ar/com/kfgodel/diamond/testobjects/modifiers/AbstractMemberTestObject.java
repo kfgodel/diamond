@@ -7,4 +7,8 @@ package ar.com.kfgodel.diamond.testobjects.modifiers;
 public abstract class AbstractMemberTestObject {
 
     abstract void method();
+
+    protected AbstractMemberTestObject(){
+
+    }
 }
