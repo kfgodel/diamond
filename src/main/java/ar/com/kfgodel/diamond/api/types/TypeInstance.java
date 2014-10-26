@@ -10,6 +10,7 @@ import ar.com.kfgodel.diamond.api.types.inheritance.TypeInheritance;
 import ar.com.kfgodel.diamond.api.types.names.TypeNames;
 
 import java.util.Optional;
+import java.util.function.Supplier;
 
 /**
  * This type represents a java type.<br>
@@ -17,7 +18,7 @@ import java.util.Optional;
  *
  * Created by kfgodel on 20/09/14.
  */
-public interface TypeInstance extends Named, Annotated {
+public interface TypeInstance extends Named, Annotated, Supplier<Object> {
 
     /**
      * Returns the accessor object for this type names (in all their varieties)

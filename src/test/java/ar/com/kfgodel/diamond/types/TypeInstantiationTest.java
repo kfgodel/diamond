@@ -11,6 +11,8 @@ import ar.com.kfgodel.diamond.testobjects.modifiers.AbstractMemberTestObject;
 import ar.com.kfgodel.diamond.testobjects.modifiers.PublicMembersTestObject;
 import org.junit.runner.RunWith;
 
+import java.util.function.Supplier;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
 
@@ -55,6 +57,14 @@ public class TypeInstantiationTest extends JavaSpec<DiamondTestContext> {
                 }
             });
 
+            it("can be used as a supplier",()->{
+                Supplier<Object> supplier  = Diamond.of(PublicMembersTestObject.class);
+
+                Object createdInstance = supplier.get();
+
+                assertThat(createdInstance).isNotNull();
+                assertThat(createdInstance).isInstanceOf(PublicMembersTestObject.class);
+            });
         });
 
     }
