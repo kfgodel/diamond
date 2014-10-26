@@ -68,4 +68,10 @@ public interface TypeInstance extends Named, Annotated {
      */
     TypeConstructors constructors();
 
+    /**
+     * Creates a new instance of this type using the niladic constructor.<br>
+     *     If this type cannot be instantiated, or doesn't have a niladic constructor, and exception is thrown
+     * @return The newly created instance
+     */
+    Object newInstance();
 }
