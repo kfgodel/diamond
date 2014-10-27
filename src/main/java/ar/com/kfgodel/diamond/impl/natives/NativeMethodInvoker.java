@@ -27,7 +27,7 @@ public class NativeMethodInvoker implements BiFunction<Object,Object[],Object> {
         } catch (InvocationTargetException e) {
             throw new HaltedMethodInvocationException(nativeMethod, instance, arguments, e);
         } catch (NullPointerException e) {
-            throw new DiamondException("Instance invocation for method["+nativeMethod+"] cannot be don on null instance",e);
+            throw new DiamondException("Instance invocation for method["+nativeMethod+"] cannot be done on null instance",e);
         } catch (ExceptionInInitializerError e) {
             throw new DiamondException("Invocation aborted for method["+nativeMethod+"] due to a failed initialization",e);
         }
