@@ -26,4 +26,18 @@ public interface TypeConstructor extends ParameterizedBehavior, TypeMember, Supp
      * @return The created object
      */
     Object invoke(Object... arguments);
+
+    /**
+     * @return Sames as invoke() without arguments
+     */
+    @Override
+    Object get();
+
+    /**
+     * Same as invoke(argument)
+     * @param argument
+     * @return The created instance
+     */
+    @Override
+    Object apply(Object argument);
 }

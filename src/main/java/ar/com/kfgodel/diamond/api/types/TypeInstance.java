@@ -75,4 +75,10 @@ public interface TypeInstance extends Named, Annotated, Supplier<Object> {
      * @return The newly created instance
      */
     Object newInstance();
+
+    /**
+     * @return Sames as calling newInstance()
+     */
+    @Override
+    Object get();
 }
