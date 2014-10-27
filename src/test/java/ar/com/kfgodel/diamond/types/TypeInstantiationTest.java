@@ -11,8 +11,6 @@ import ar.com.kfgodel.diamond.testobjects.modifiers.AbstractMemberTestObject;
 import ar.com.kfgodel.diamond.testobjects.modifiers.PublicMembersTestObject;
 import org.junit.runner.RunWith;
 
-import java.util.function.Supplier;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
 
@@ -31,7 +29,6 @@ public class TypeInstantiationTest extends JavaSpec<DiamondTestContext> {
 
                 Object createdInstance = type.newInstance();
 
-                assertThat(createdInstance).isNotNull();
                 assertThat(createdInstance).isInstanceOf(PublicMembersTestObject.class);
             });
 
@@ -55,15 +52,6 @@ public class TypeInstantiationTest extends JavaSpec<DiamondTestContext> {
                 } catch (DiamondException e) {
                     assertThat(e).hasMessage("Type[ar.com.kfgodel.diamond.testobjects.constructors.NoNiladicTestObject] doesn't have a no-arg constructor to create the instance from");
                 }
-            });
-
-            it("can be used as a supplier",()->{
-                Supplier<Object> supplier  = Diamond.of(PublicMembersTestObject.class);
-
-                Object createdInstance = supplier.get();
-
-                assertThat(createdInstance).isNotNull();
-                assertThat(createdInstance).isInstanceOf(PublicMembersTestObject.class);
             });
         });
 

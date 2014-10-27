@@ -34,6 +34,16 @@ public class TypeConstructorInstance extends TypeMemberSupport implements TypeCo
         return ConstructorEquality.INSTANCE.areEquals(this, obj);
     }
 
+    @Override
+    public Object get() {
+        return invoke();
+    }
+
+    @Override
+    public Object apply(Object argument) {
+        return invoke(argument);
+    }
+
     public static TypeConstructor create(ConstructorDescription description) {
         TypeConstructorInstance constructor = new TypeConstructorInstance();
         constructor.setDeclaringType(description.getDeclaringType());
