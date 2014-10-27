@@ -5,13 +5,15 @@ import ar.com.kfgodel.diamond.api.naming.Named;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  * This type represents a field defined for a type that can store state
  * Created by kfgodel on 18/09/14.
  */
-public interface TypeField extends Named, TypeMember, BiConsumer<Object, Object>, Function<Object,Object> {
+public interface TypeField extends Named, TypeMember, Consumer<Object>, BiConsumer<Object, Object>, Supplier<Object>, Function<Object,Object> {
 
     /**
      * @return The name of the field
@@ -27,7 +29,7 @@ public interface TypeField extends Named, TypeMember, BiConsumer<Object, Object>
 
     /**
      * Gets the value stored in the given object under the field represented by this instance
-     * @param instance The object to take the value from
+     * @param instance The object to take the value from (null for static fields)
      * @param <R> The expected value type
      * @return The value obtained
      */
@@ -35,8 +37,38 @@ public interface TypeField extends Named, TypeMember, BiConsumer<Object, Object>
 
     /**
      * Sets the value in the given object under the field represented by this instance
-     * @param instance The object to set the value into
+     * @param instance The object to set the value into (null for static fields)
      * @param value The value to set to
      */
     void setValueOn(Object instance, Object value);
+
+    /**
+     * Treats this field as a static field, and tries to get its value
+     * @return The value from this field as a static field
+     */
+    @Override
+    Object get();
+
+    /**
+     * Treats this field as a static field and sets its value to the given argument
+     * @param argument The value to set in the static field
+     */
+    @Override
+    void accept(Object argument);
+
+    /**
+     * Treats this field as an instance field and gets its value from teh given instance
+     * @param instance The instance to read the value from
+     * @return The value of this field in the given instance
+     */
+    @Override
+    Object apply(Object instance);
+
+    /**
+     * Treats this field as an instance field and sets its value to the given value
+     * @param instance The instance to set the value into
+     * @param argument The value to set in the instance
+     */
+    @Override
+    void accept(Object instance, Object argument);
 }

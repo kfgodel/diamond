@@ -2,6 +2,7 @@ package ar.com.kfgodel.diamond.impl.methods;
 
 import ar.com.kfgodel.diamond.api.methods.MethodDescription;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
+import ar.com.kfgodel.diamond.api.sources.modifiers.Mutability;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.members.TypeMemberSupport;
 import ar.com.kfgodel.diamond.impl.methods.equality.MethodEquality;
@@ -40,6 +41,50 @@ public class TypeMethodInstance extends TypeMemberSupport implements TypeMethod 
     @Override
     public Object invokeOn(Object instance, Object... arguments) {
         return invoker.get().apply(instance, arguments);
+    }
+
+    @Override
+    public void run() {
+        invokeOn(null);
+    }
+
+    @Override
+    public Object get() {
+        return invokeOn(null);
+    }
+
+    @Override
+    public void accept(Object argumentOrInstance) {
+        if(isStatic()){
+            invokeOn(null, argumentOrInstance);
+        }else{
+            invokeOn(argumentOrInstance);
+        }
+    }
+
+    @Override
+    public Object apply(Object argumentOrInstance) {
+        if(isStatic()){
+            return invokeOn(null, argumentOrInstance);
+        }
+        return invokeOn(argumentOrInstance);
+    }
+
+    @Override
+    public void accept(Object argumentOrInstance, Object extraArgument) {
+        if(isStatic()){
+            invokeOn(null, argumentOrInstance, extraArgument);
+        }else{
+            invokeOn(argumentOrInstance, extraArgument);
+        }
+    }
+
+    /**
+     * Indicates if this instance represents a static method
+     * @return true if this method doesn't require an instance to be passed to be called
+     */
+    private boolean isStatic(){
+        return modifiers().anyMatch(Mutability.STATIC);
     }
 
     @Override

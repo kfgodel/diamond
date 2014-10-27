@@ -34,7 +34,6 @@ public class ConstructorInvocationTest extends JavaSpec<DiamondTestContext> {
 
                     Object instance = context().constructor().invoke();
 
-                    assertThat(instance).isNotNull();
                     assertThat(instance).isInstanceOf(context().testClass());
                 });
                 it("can invoke protected constructor", () -> {
@@ -42,7 +41,6 @@ public class ConstructorInvocationTest extends JavaSpec<DiamondTestContext> {
 
                     Object instance = context().constructor().invoke();
 
-                    assertThat(instance).isNotNull();
                     assertThat(instance).isInstanceOf(context().testClass());
 
                 });
@@ -51,7 +49,6 @@ public class ConstructorInvocationTest extends JavaSpec<DiamondTestContext> {
 
                     Object instance = context().constructor().invoke();
 
-                    assertThat(instance).isNotNull();
                     assertThat(instance).isInstanceOf(context().testClass());
                 });
                 it("can invoke private constructor", () -> {
@@ -59,7 +56,6 @@ public class ConstructorInvocationTest extends JavaSpec<DiamondTestContext> {
 
                     Object instance = context().constructor().invoke();
 
-                    assertThat(instance).isNotNull();
                     assertThat(instance).isInstanceOf(context().testClass());
                 });
             });
@@ -86,7 +82,6 @@ public class ConstructorInvocationTest extends JavaSpec<DiamondTestContext> {
 
                     Object instance = context().constructor().invoke(4);
 
-                    assertThat(instance).isNotNull();
                     assertThat(instance).isInstanceOf(context().testClass());
                     assertThat((int[])instance).hasSize(4);
                 });

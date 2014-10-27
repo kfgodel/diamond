@@ -42,6 +42,27 @@ public class TypeFieldInstance extends TypeMemberSupport implements TypeField {
     }
 
     @Override
+    public Object get() {
+        return getValueFrom(null);
+    }
+
+    @Override
+    public void accept(Object argument) {
+        setValueOn(null, argument);
+    }
+
+    @Override
+    public void accept(Object instance, Object value) {
+        this.setValueOn(instance, value);
+    }
+
+    @Override
+    public Object apply(Object instance) {
+        return this.getValueFrom(instance);
+    }
+
+
+    @Override
     public boolean equals(Object obj) {
         return FieldEquality.INSTANCE.areEquals(this, obj);
     }
@@ -57,13 +78,4 @@ public class TypeFieldInstance extends TypeMemberSupport implements TypeField {
         return field;
     }
 
-    @Override
-    public void accept(Object instance, Object value) {
-        this.setValueOn(instance, value);
-    }
-
-    @Override
-    public Object apply(Object instance) {
-        return this.getValueFrom(instance);
-    }
 }
