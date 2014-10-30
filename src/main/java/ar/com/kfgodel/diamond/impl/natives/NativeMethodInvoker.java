@@ -5,6 +5,7 @@ import ar.com.kfgodel.diamond.api.exceptions.HaltedMethodInvocationException;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.function.BiFunction;
 
@@ -23,7 +24,12 @@ public class NativeMethodInvoker implements BiFunction<Object,Object[],Object> {
         } catch (IllegalAccessException e) {
             throw new DiamondException("Method is inaccessible: " + nativeMethod,e);
         } catch (IllegalArgumentException e) {
-            throw new DiamondException("Invocation rejected for method["+nativeMethod+"] because instance is invalid["+instance+"] or wrong arguments" + Arrays.toString(arguments),e);
+            // We try to describe the error better (depending on the cause)
+            if(Modifier.isStatic(nativeMethod.getModifiers())){
+                throw new DiamondException("Invocation rejected for method["+nativeMethod+"] due to wrong arguments" + Arrays.toString(arguments),e);
+            }else{
+                throw new DiamondException("Invocation rejected for method["+nativeMethod+"] because instance is not applicable["+instance+"] or wrong arguments" + Arrays.toString(arguments),e);
+            }
         } catch (InvocationTargetException e) {
             throw new HaltedMethodInvocationException(nativeMethod, instance, arguments, e);
         } catch (NullPointerException e) {

@@ -44,7 +44,7 @@ public class InvokableTypesTest extends JavaSpec<DiamondTestContext> {
 
                         Object result = context().invokable().invoke(new InvokableTestObject(), 3, 4);
 
-                        assertThat(result).isEqualTo(21);
+                        assertThat(result).isEqualTo(12);
                     });
 
                 });
@@ -57,7 +57,7 @@ public class InvokableTypesTest extends JavaSpec<DiamondTestContext> {
                         context().invokable().invoke(3);
                         failBecauseExceptionWasNotThrown(DiamondException.class);
                     } catch (DiamondException e) {
-                        assertThat(e).hasMessage("");
+                        assertThat(e).hasMessage("Invocation rejected for method[public static int ar.com.kfgodel.diamond.testobjects.invokables.InvokableTestObject.staticSumMethod(int,int)] due to wrong arguments[3]");
                     }
                 });
 

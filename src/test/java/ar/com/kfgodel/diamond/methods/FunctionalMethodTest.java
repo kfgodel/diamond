@@ -85,7 +85,7 @@ public class FunctionalMethodTest extends JavaSpec<DiamondTestContext> {
                         consumer.accept(1);
                         failBecauseExceptionWasNotThrown(DiamondException.class);
                     } catch (Exception e) {
-                        assertThat(e).hasMessage("Invocation rejected for method[public static void ar.com.kfgodel.diamond.testobjects.methods.FunctionalStaticMethodTestObject.biConsumer(int,int)] because instance is invalid[null] or wrong arguments[1]");
+                        assertThat(e).hasMessage("Invocation rejected for method[public static void ar.com.kfgodel.diamond.testobjects.methods.FunctionalStaticMethodTestObject.biConsumer(int,int)] due to wrong arguments[1]");
                     }
                 });
 
@@ -96,7 +96,7 @@ public class FunctionalMethodTest extends JavaSpec<DiamondTestContext> {
                         consumer.accept("a");
                         failBecauseExceptionWasNotThrown(DiamondException.class);
                     } catch (Exception e) {
-                        assertThat(e).hasMessage("Invocation rejected for method[public static void ar.com.kfgodel.diamond.testobjects.methods.FunctionalStaticMethodTestObject.consumer(int)] because instance is invalid[null] or wrong arguments[a]");
+                        assertThat(e).hasMessage("Invocation rejected for method[public static void ar.com.kfgodel.diamond.testobjects.methods.FunctionalStaticMethodTestObject.consumer(int)] due to wrong arguments[a]");
                     }
                 });
                 

@@ -1,11 +1,14 @@
 package ar.com.kfgodel.diamond.impl.fields;
 
+import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 import ar.com.kfgodel.diamond.api.fields.FieldDescription;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
+import ar.com.kfgodel.diamond.api.sources.modifiers.Mutability;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.fields.equality.FieldEquality;
 import ar.com.kfgodel.diamond.impl.members.TypeMemberSupport;
 
+import java.util.Arrays;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -59,6 +62,37 @@ public class TypeFieldInstance extends TypeMemberSupport implements TypeField {
     @Override
     public Object apply(Object instance) {
         return this.getValueFrom(instance);
+    }
+
+
+    @Override
+    public Object invoke(Object... arguments) {
+        if(isStatic()){
+            if(arguments.length == 0){
+                return getValueFrom(null);
+            } else if(arguments.length == 1){
+                setValueOn(null, arguments[0]);
+            } else{
+                throw new DiamondException("This field["+this+"] only accepts 0 or 1 argument: " + Arrays.toString(arguments));
+            }
+        }else{
+            if(arguments.length == 1){
+                return getValueFrom(arguments[0]);
+            }else if(arguments.length == 2){
+                setValueOn(arguments[0], arguments[1]);
+            }else{
+                throw new DiamondException("This field["+this+"] only accepts 1 or 2 arguments: " + Arrays.toString(arguments));
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Indicates if this instance represents a static field
+     * @return true if this field doesn't require an instance to be read/write
+     */
+    private boolean isStatic(){
+        return modifiers().anyMatch(Mutability.STATIC);
     }
 
 

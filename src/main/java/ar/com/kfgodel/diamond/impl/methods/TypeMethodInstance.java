@@ -7,6 +7,7 @@ import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.members.TypeMemberSupport;
 import ar.com.kfgodel.diamond.impl.methods.equality.MethodEquality;
 
+import java.util.Arrays;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -77,6 +78,15 @@ public class TypeMethodInstance extends TypeMemberSupport implements TypeMethod 
         }else{
             invokeOn(argumentOrInstance, extraArgument);
         }
+    }
+
+    @Override
+    public Object invoke(Object... arguments) {
+        if(isStatic()){
+            return invokeOn(null, arguments);
+        }
+        Object[] restArguments = Arrays.copyOfRange(arguments, 1, arguments.length);
+        return invokeOn(arguments[0], restArguments);
     }
 
     /**

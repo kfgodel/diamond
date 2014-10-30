@@ -44,6 +44,7 @@ public class TypeConstructorInstance extends TypeMemberSupport implements TypeCo
         return invoke(argument);
     }
 
+
     public static TypeConstructor create(ConstructorDescription description) {
         TypeConstructorInstance constructor = new TypeConstructorInstance();
         constructor.setDeclaringType(description.getDeclaringType());
