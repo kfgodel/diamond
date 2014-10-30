@@ -3,6 +3,7 @@ package ar.com.kfgodel.diamond;
 import ar.com.dgarcia.javaspec.api.TestContext;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
+import ar.com.kfgodel.diamond.api.invokable.Invokable;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.inheritance.TypeLineage;
@@ -49,4 +50,7 @@ public interface DiamondTestContext extends TestContext {
 
     Class<?> testClass();
     void testClass(Supplier<Class<?>> definition);
+
+    Invokable invokable();
+    void invokable(Supplier<Invokable> definition);
 }
