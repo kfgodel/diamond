@@ -140,7 +140,7 @@ public class FunctionalMethodTest extends JavaSpec<DiamondTestContext> {
                         supplier.get();
                         failBecauseExceptionWasNotThrown(DiamondException.class);
                     } catch (Exception e) {
-                        assertThat(e).hasMessage("Instance invocation for method[public int ar.com.kfgodel.diamond.testobjects.methods.FunctionalInstanceMethodTestObject.function()] cannot be done on null instance");
+                        assertThat(e).hasMessage("Instance invocation for method[public int ar.com.kfgodel.diamond.testobjects.methods.FunctionalInstanceMethodTestObject.function()] cannot be done without an instance");
                     }
                 });
                 

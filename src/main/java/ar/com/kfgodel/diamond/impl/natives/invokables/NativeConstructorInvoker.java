@@ -1,23 +1,24 @@
-package ar.com.kfgodel.diamond.impl.natives;
+package ar.com.kfgodel.diamond.impl.natives.invokables;
 
 import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 import ar.com.kfgodel.diamond.api.exceptions.HaltedConstructorInvocationException;
+import ar.com.kfgodel.diamond.api.invokable.Invokable;
+import ar.com.kfgodel.diamond.impl.natives.NativeMemberAccessibility;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
-import java.util.function.Function;
 
 /**
  * This class represents the native constructor invoker to get new instances
  * Created by kfgodel on 25/10/14.
  */
-public class NativeConstructorInvoker implements Function<Object[], Object> {
+public class NativeConstructorInvoker implements Invokable {
 
     private Constructor nativeConstructor;
 
     @Override
-    public Object apply(Object[] arguments) {
+    public Object invoke(Object... arguments) {
         try {
             return nativeConstructor.newInstance(arguments);
         } catch (InstantiationException e) {

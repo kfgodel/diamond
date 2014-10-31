@@ -2,17 +2,17 @@ package ar.com.kfgodel.diamond.impl.constructors.description;
 
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.constructors.ConstructorDescription;
+import ar.com.kfgodel.diamond.api.invokable.Invokable;
 import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.members.NativeMemberDeclaringTypeSupplier;
 import ar.com.kfgodel.diamond.impl.members.modifiers.suppliers.ImmutableMemberModifiers;
-import ar.com.kfgodel.diamond.impl.natives.NativeConstructorInvoker;
+import ar.com.kfgodel.diamond.impl.natives.invokables.NativeConstructorInvoker;
 import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
 import ar.com.kfgodel.streams.StreamFromCollectionSupplier;
 
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
-import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -46,7 +46,7 @@ public class NativeConstructorDescription implements ConstructorDescription {
     }
 
     @Override
-    public Supplier<Function<Object[], Object>> getInvoker() {
+    public Supplier<Invokable> getInvoker() {
         return SuppliedValue.lazilyBy(()-> NativeConstructorInvoker.create(nativeConstructor));
     }
 

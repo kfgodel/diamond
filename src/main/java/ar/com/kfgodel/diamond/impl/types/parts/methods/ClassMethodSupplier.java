@@ -2,7 +2,7 @@ package ar.com.kfgodel.diamond.impl.types.parts.methods;
 
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
-import ar.com.kfgodel.diamond.impl.natives.NativeMethodsSupplier;
+import ar.com.kfgodel.diamond.impl.natives.suppliers.NativeMethodsSupplier;
 import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
 import ar.com.kfgodel.streams.StreamFromCollectionSupplier;
 

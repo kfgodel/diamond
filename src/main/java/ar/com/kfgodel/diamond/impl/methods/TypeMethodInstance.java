@@ -1,14 +1,14 @@
 package ar.com.kfgodel.diamond.impl.methods;
 
+import ar.com.kfgodel.diamond.api.invokable.Invokable;
 import ar.com.kfgodel.diamond.api.methods.MethodDescription;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.sources.modifiers.Mutability;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.members.TypeMemberSupport;
 import ar.com.kfgodel.diamond.impl.methods.equality.MethodEquality;
+import ar.com.kfgodel.diamond.impl.natives.invokables.InstanceArguments;
 
-import java.util.Arrays;
-import java.util.function.BiFunction;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -22,7 +22,7 @@ public class TypeMethodInstance extends TypeMemberSupport implements TypeMethod 
     private Supplier<String> methodName;
     private Supplier<TypeInstance> returnType;
     private Supplier<Stream<TypeInstance>> parameterTypes;
-    private Supplier<BiFunction<Object,Object[],Object>> invoker;
+    private Supplier<Invokable> invoker;
 
     @Override
     public String name() {
@@ -41,52 +41,38 @@ public class TypeMethodInstance extends TypeMemberSupport implements TypeMethod 
 
     @Override
     public Object invokeOn(Object instance, Object... arguments) {
-        return invoker.get().apply(instance, arguments);
+        Object[] invokableArguments  = InstanceArguments.join(instance, arguments);
+        return this.invoke(invokableArguments);
     }
 
     @Override
     public void run() {
-        invokeOn(null);
+        this.invoke();
     }
 
     @Override
     public Object get() {
-        return invokeOn(null);
+        return this.invoke();
     }
 
     @Override
     public void accept(Object argumentOrInstance) {
-        if(isStatic()){
-            invokeOn(null, argumentOrInstance);
-        }else{
-            invokeOn(argumentOrInstance);
-        }
+        this.invoke(argumentOrInstance);
     }
 
     @Override
     public Object apply(Object argumentOrInstance) {
-        if(isStatic()){
-            return invokeOn(null, argumentOrInstance);
-        }
-        return invokeOn(argumentOrInstance);
+        return this.invoke(argumentOrInstance);
     }
 
     @Override
     public void accept(Object argumentOrInstance, Object extraArgument) {
-        if(isStatic()){
-            invokeOn(null, argumentOrInstance, extraArgument);
-        }else{
-            invokeOn(argumentOrInstance, extraArgument);
-        }
+        this.invoke(argumentOrInstance, extraArgument);
     }
 
     @Override
     public Object invoke(Object... arguments) {
-        if(isStatic()){
-            return invokeOn(null, arguments);
-        }
-        Object[] restArguments = Arrays.copyOfRange(arguments, 1, arguments.length);
-        return invokeOn(arguments[0], restArguments);
+        return invoker.get().invoke(arguments);
     }
 
     /**

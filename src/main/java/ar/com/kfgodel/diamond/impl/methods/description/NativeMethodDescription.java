@@ -1,18 +1,20 @@
 package ar.com.kfgodel.diamond.impl.methods.description;
 
 import ar.com.kfgodel.diamond.api.Diamond;
+import ar.com.kfgodel.diamond.api.invokable.Invokable;
 import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
 import ar.com.kfgodel.diamond.api.methods.MethodDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.members.NativeMemberDeclaringTypeSupplier;
 import ar.com.kfgodel.diamond.impl.members.modifiers.suppliers.ImmutableMemberModifiers;
-import ar.com.kfgodel.diamond.impl.natives.NativeMethodInvoker;
+import ar.com.kfgodel.diamond.impl.natives.invokables.methods.NativeInstanceMethodInvoker;
+import ar.com.kfgodel.diamond.impl.natives.invokables.methods.NativeStaticMethodInvoker;
 import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
 import ar.com.kfgodel.streams.StreamFromCollectionSupplier;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.Arrays;
-import java.util.function.BiFunction;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -53,8 +55,10 @@ public class NativeMethodDescription implements MethodDescription {
     }
 
     @Override
-    public Supplier<BiFunction<Object, Object[], Object>> getInvoker() {
-        return SuppliedValue.lazilyBy(()-> NativeMethodInvoker.create(nativeMethod));
+    public Supplier<Invokable> getInvoker() {
+        return SuppliedValue.lazilyBy(()-> Modifier.isStatic(nativeMethod.getModifiers())?
+                NativeStaticMethodInvoker.create(nativeMethod):
+                NativeInstanceMethodInvoker.create(nativeMethod));
     }
 
     public static NativeMethodDescription create(Method nativeMethod) {
