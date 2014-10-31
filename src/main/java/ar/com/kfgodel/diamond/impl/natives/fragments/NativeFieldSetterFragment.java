@@ -1,21 +1,17 @@
-package ar.com.kfgodel.diamond.impl.natives;
+package ar.com.kfgodel.diamond.impl.natives.fragments;
 
 import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 
 import java.lang.reflect.Field;
-import java.util.function.BiConsumer;
 
 /**
  * This type represents the setter consumer to modify the value of a native field
  *
  * Created by kfgodel on 23/10/14.
  */
-public class NativeFieldSetter implements BiConsumer<Object, Object> {
+public class NativeFieldSetterFragment {
 
-    private Field nativeField;
-
-    @Override
-    public void accept(Object instance, Object value) throws DiamondException {
+    public static void accept(Field nativeField, Object instance, Object value) throws DiamondException {
         try {
             nativeField.set(instance, value);
         }catch (IllegalAccessException e) {
@@ -28,12 +24,4 @@ public class NativeFieldSetter implements BiConsumer<Object, Object> {
             throw new DiamondException("Set aborted for field["+nativeField+"] due to a failed initialization", e);
         }
     }
-
-    public static NativeFieldSetter create(Field nativeField) {
-        NativeMemberAccessibility.ensuredFor(nativeField);
-        NativeFieldSetter setter = new NativeFieldSetter();
-        setter.nativeField = nativeField;
-        return setter;
-    }
-
 }

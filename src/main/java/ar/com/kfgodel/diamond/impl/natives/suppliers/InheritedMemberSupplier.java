@@ -1,4 +1,6 @@
-package ar.com.kfgodel.diamond.impl.natives;
+package ar.com.kfgodel.diamond.impl.natives.suppliers;
+
+import ar.com.kfgodel.diamond.impl.natives.NativeSuperclassSpliterator;
 
 import java.util.LinkedHashSet;
 import java.util.Set;

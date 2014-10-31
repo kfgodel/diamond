@@ -1,4 +1,4 @@
-package ar.com.kfgodel.diamond.impl.natives;
+package ar.com.kfgodel.diamond.impl.natives.suppliers;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;

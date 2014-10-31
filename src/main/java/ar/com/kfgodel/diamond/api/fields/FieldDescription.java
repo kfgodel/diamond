@@ -1,10 +1,9 @@
 package ar.com.kfgodel.diamond.api.fields;
 
+import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
 import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 
-import java.util.function.BiConsumer;
-import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -34,12 +33,7 @@ public interface FieldDescription {
     Supplier<Stream<MemberModifier>> getModifiers();
 
     /**
-     * @return The supplier of the consumer to set the field's value
+     * @return The supplier of the functional behavior of the field (get and set operations)
      */
-    Supplier<BiConsumer<Object,Object>> getSetter();
-
-    /**
-     * @return The supplier of the function to get the field's value
-     */
-    Supplier<Function<Object,?>> getGetter();
+    Supplier<PolymorphicInvokable> getInvoker();
 }

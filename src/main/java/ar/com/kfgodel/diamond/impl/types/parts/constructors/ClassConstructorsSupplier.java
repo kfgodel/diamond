@@ -2,7 +2,7 @@ package ar.com.kfgodel.diamond.impl.types.parts.constructors;
 
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
-import ar.com.kfgodel.diamond.impl.natives.NativeConstructorsSupplier;
+import ar.com.kfgodel.diamond.impl.natives.suppliers.NativeConstructorsSupplier;
 import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
 import ar.com.kfgodel.streams.StreamFromCollectionSupplier;
 

@@ -1,21 +1,18 @@
 package ar.com.kfgodel.diamond.api.methods;
 
 import ar.com.kfgodel.diamond.api.behavior.ParameterizedBehavior;
+import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
 import ar.com.kfgodel.diamond.api.members.TypeMember;
 import ar.com.kfgodel.diamond.api.naming.Named;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 /**
  * This type represents a method defined for a type that expresses behavior
  * Created by kfgodel on 18/09/14.
  */
-public interface TypeMethod extends Named, ParameterizedBehavior, TypeMember, Runnable, Consumer<Object>, BiConsumer<Object, Object>, Supplier<Object>, Function<Object, Object> {
+public interface TypeMethod extends Named, ParameterizedBehavior, TypeMember, PolymorphicInvokable {
 
     /**
      * @return The method name selector
@@ -85,4 +82,14 @@ public interface TypeMethod extends Named, ParameterizedBehavior, TypeMember, Ru
      */
     @Override
     void accept(Object argumentOrInstance, Object extraArgument);
+
+    /**
+     * Invokes this method as a boolean function with different semantics depending on whether it's instance or static method:
+     * - Static: Invokes the method with the given argument
+     * - Instance: Invokes as no arg method over the given instance
+     * @param argumentOrInstance The first argument for a static method, or instance to invoke on for instance method
+     * @return The returned boolean
+     */
+    @Override
+    boolean test(Object argumentOrInstance);
 }

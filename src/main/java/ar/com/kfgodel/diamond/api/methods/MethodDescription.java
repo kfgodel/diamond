@@ -1,9 +1,9 @@
 package ar.com.kfgodel.diamond.api.methods;
 
+import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
 import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 
-import java.util.function.BiFunction;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -41,5 +41,5 @@ public interface MethodDescription {
     /**
      * @return The supplier of the method invoker to be able to call it
      */
-    Supplier<BiFunction<Object,Object[],Object>> getInvoker();
+    Supplier<PolymorphicInvokable> getInvoker();
 }
