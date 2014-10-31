@@ -1,21 +1,17 @@
-package ar.com.kfgodel.diamond.impl.natives;
+package ar.com.kfgodel.diamond.impl.natives.fragments;
 
 import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 
 import java.lang.reflect.Field;
-import java.util.function.Function;
 
 /**
  * This type represents a native field getter function
  *
  * Created by kfgodel on 23/10/14.
  */
-public class NativeFieldGetter implements Function<Object, Object> {
+public class NativeFieldGetterFragment {
 
-    private Field nativeField;
-
-    @Override
-    public Object apply(Object instance) {
+    public static Object apply(Field nativeField, Object instance) {
         try {
             return nativeField.get(instance);
         }catch (IllegalAccessException e) {
@@ -28,12 +24,4 @@ public class NativeFieldGetter implements Function<Object, Object> {
             throw new DiamondException("Get aborted for field["+nativeField+"] due to a failed initialization", e);
         }
     }
-
-    public static NativeFieldGetter create(Field nativeField) {
-        NativeMemberAccessibility.ensuredFor(nativeField);
-        NativeFieldGetter getter = new NativeFieldGetter();
-        getter.nativeField = nativeField;
-        return getter;
-    }
-
 }

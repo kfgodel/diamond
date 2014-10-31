@@ -1,6 +1,6 @@
-package ar.com.kfgodel.diamond.impl.natives.invokables;
+package ar.com.kfgodel.diamond.impl.natives.invokables.constructors;
 
-import ar.com.kfgodel.diamond.api.invokable.Invokable;
+import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
@@ -9,7 +9,7 @@ import java.util.Arrays;
  * This type represents the native array constructor function
  * Created by kfgodel on 25/10/14.
  */
-public class NativeArrayConstructor implements Invokable {
+public class NativeArrayConstructor implements PolymorphicInvokable {
 
     private Class<?> nativeArrayClass;
 
@@ -24,7 +24,11 @@ public class NativeArrayConstructor implements Invokable {
         if(arguments.length != 1){
             throw new IllegalArgumentException("Array constructor can have only one int parameter but received: " + Arrays.toString(arguments));
         }
-        Object onlyArgument = arguments[0];
+        return this.apply(arguments[0]);
+    }
+
+    @Override
+    public Object apply(Object onlyArgument) {
         if(!(onlyArgument instanceof Number)){
             throw new IllegalArgumentException("Array constructor parameter must be an integer value but received: " + onlyArgument);
         }

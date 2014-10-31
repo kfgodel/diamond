@@ -2,12 +2,12 @@ package ar.com.kfgodel.diamond.impl.constructors.description;
 
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.constructors.ConstructorDescription;
-import ar.com.kfgodel.diamond.api.invokable.Invokable;
+import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
 import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.members.NativeMemberDeclaringTypeSupplier;
 import ar.com.kfgodel.diamond.impl.members.modifiers.suppliers.ImmutableMemberModifiers;
-import ar.com.kfgodel.diamond.impl.natives.invokables.NativeConstructorInvoker;
+import ar.com.kfgodel.diamond.impl.natives.invokables.constructors.NativeConstructorInvoker;
 import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
 import ar.com.kfgodel.streams.StreamFromCollectionSupplier;
 
@@ -46,7 +46,7 @@ public class NativeConstructorDescription implements ConstructorDescription {
     }
 
     @Override
-    public Supplier<Invokable> getInvoker() {
+    public Supplier<PolymorphicInvokable> getInvoker() {
         return SuppliedValue.lazilyBy(()-> NativeConstructorInvoker.create(nativeConstructor));
     }
 

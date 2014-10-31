@@ -1,7 +1,6 @@
 package ar.com.kfgodel.diamond.impl.natives.invokables.methods;
 
 import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
-import ar.com.kfgodel.diamond.api.invokable.Invokable;
 import ar.com.kfgodel.diamond.impl.natives.invokables.InstanceArguments;
 
 import java.lang.reflect.Method;
@@ -11,7 +10,7 @@ import java.lang.reflect.Method;
  *
  * Created by kfgodel on 30/10/14.
  */
-public class NativeInstanceMethodInvoker extends NativeMethodInvokerSupport implements Invokable {
+public class NativeInstanceMethodInvoker extends NativeMethodInvokerSupport  {
 
     @Override
     public Object invoke(Object... arguments) {
@@ -22,7 +21,7 @@ public class NativeInstanceMethodInvoker extends NativeMethodInvokerSupport impl
             throw new DiamondException("Instance invocation for method["+getNativeMethod()+"] cannot be done without an instance", e);
         }
         Object[] extraArguments = InstanceArguments.getExtraArgumentsFrom(arguments);
-        return this.apply(instance, extraArguments);
+        return this.invokeOn(instance, extraArguments);
     }
 
     public static NativeInstanceMethodInvoker create(Method nativeMethod) {

@@ -73,7 +73,7 @@ public class FunctionalFieldTest extends JavaSpec<DiamondTestContext> {
                     supplier.get();
                     failBecauseExceptionWasNotThrown(DiamondException.class);
                 } catch (Exception e) {
-                    assertThat(e).hasMessage("Get for instance field[public int ar.com.kfgodel.diamond.testobjects.fields.FunctionalFieldTestObject.instanceField] cannot be done on null instance");
+                    assertThat(e).hasMessage("Get for instance field[public int ar.com.kfgodel.diamond.testobjects.fields.FunctionalFieldTestObject.instanceField] cannot be done without an instance");
                 }
             });
 

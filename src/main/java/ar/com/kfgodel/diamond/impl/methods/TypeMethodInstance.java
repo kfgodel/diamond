@@ -1,9 +1,8 @@
 package ar.com.kfgodel.diamond.impl.methods;
 
-import ar.com.kfgodel.diamond.api.invokable.Invokable;
+import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
 import ar.com.kfgodel.diamond.api.methods.MethodDescription;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
-import ar.com.kfgodel.diamond.api.sources.modifiers.Mutability;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.members.TypeMemberSupport;
 import ar.com.kfgodel.diamond.impl.methods.equality.MethodEquality;
@@ -22,7 +21,7 @@ public class TypeMethodInstance extends TypeMemberSupport implements TypeMethod 
     private Supplier<String> methodName;
     private Supplier<TypeInstance> returnType;
     private Supplier<Stream<TypeInstance>> parameterTypes;
-    private Supplier<Invokable> invoker;
+    private Supplier<PolymorphicInvokable> invoker;
 
     @Override
     public String name() {
@@ -46,41 +45,38 @@ public class TypeMethodInstance extends TypeMemberSupport implements TypeMethod 
     }
 
     @Override
-    public void run() {
-        this.invoke();
-    }
-
-    @Override
-    public Object get() {
-        return this.invoke();
-    }
-
-    @Override
-    public void accept(Object argumentOrInstance) {
-        this.invoke(argumentOrInstance);
-    }
-
-    @Override
-    public Object apply(Object argumentOrInstance) {
-        return this.invoke(argumentOrInstance);
-    }
-
-    @Override
-    public void accept(Object argumentOrInstance, Object extraArgument) {
-        this.invoke(argumentOrInstance, extraArgument);
-    }
-
-    @Override
     public Object invoke(Object... arguments) {
         return invoker.get().invoke(arguments);
     }
 
-    /**
-     * Indicates if this instance represents a static method
-     * @return true if this method doesn't require an instance to be passed to be called
-     */
-    private boolean isStatic(){
-        return modifiers().anyMatch(Mutability.STATIC);
+    @Override
+    public void run() {
+        this.invoker.get().run();
+    }
+
+    @Override
+    public Object get() {
+        return this.invoker.get().get();
+    }
+
+    @Override
+    public void accept(Object argumentOrInstance) {
+        this.invoker.get().accept(argumentOrInstance);
+    }
+
+    @Override
+    public Object apply(Object argumentOrInstance) {
+        return this.invoker.get().apply(argumentOrInstance);
+    }
+
+    @Override
+    public void accept(Object argumentOrInstance, Object extraArgument) {
+        this.invoker.get().accept(argumentOrInstance, extraArgument);
+    }
+
+    @Override
+    public boolean test(Object argumentOrInstance) {
+        return this.invoker.get().test(argumentOrInstance);
     }
 
     @Override

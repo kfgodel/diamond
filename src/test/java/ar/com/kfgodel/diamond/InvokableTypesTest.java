@@ -4,6 +4,7 @@ import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
+import ar.com.kfgodel.diamond.api.invokable.Invokable;
 import ar.com.kfgodel.diamond.testobjects.invokables.InvokableTestObject;
 import org.junit.runner.RunWith;
 
@@ -114,7 +115,10 @@ public class InvokableTypesTest extends JavaSpec<DiamondTestContext> {
                     it("uses the first argument as instance and the second as value for setter",()->{
                         InvokableTestObject object = new InvokableTestObject();
 
-                        context().invokable().invoke(object, 22);
+                        Invokable invokable = context().invokable();
+                        System.out.println(invokable);
+                        invokable.invoke(object, 22);
+
 
                         assertThat(object.instanceField).isEqualTo(22);
                     });

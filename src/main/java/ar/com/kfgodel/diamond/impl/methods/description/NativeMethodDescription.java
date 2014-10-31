@@ -1,7 +1,7 @@
 package ar.com.kfgodel.diamond.impl.methods.description;
 
 import ar.com.kfgodel.diamond.api.Diamond;
-import ar.com.kfgodel.diamond.api.invokable.Invokable;
+import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
 import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
 import ar.com.kfgodel.diamond.api.methods.MethodDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
@@ -55,7 +55,7 @@ public class NativeMethodDescription implements MethodDescription {
     }
 
     @Override
-    public Supplier<Invokable> getInvoker() {
+    public Supplier<PolymorphicInvokable> getInvoker() {
         return SuppliedValue.lazilyBy(()-> Modifier.isStatic(nativeMethod.getModifiers())?
                 NativeStaticMethodInvoker.create(nativeMethod):
                 NativeInstanceMethodInvoker.create(nativeMethod));
