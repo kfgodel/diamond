@@ -1,6 +1,5 @@
 package ar.com.kfgodel.diamond.impl.methods;
 
-import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
 import ar.com.kfgodel.diamond.api.methods.MethodDescription;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
@@ -21,7 +20,6 @@ public class TypeMethodInstance extends TypeMemberSupport implements TypeMethod 
     private Supplier<String> methodName;
     private Supplier<TypeInstance> returnType;
     private Supplier<Stream<TypeInstance>> parameterTypes;
-    private Supplier<PolymorphicInvokable> invoker;
 
     @Override
     public String name() {
@@ -46,37 +44,37 @@ public class TypeMethodInstance extends TypeMemberSupport implements TypeMethod 
 
     @Override
     public Object invoke(Object... arguments) {
-        return invoker.get().invoke(arguments);
+        return asFunction().invoke(arguments);
     }
 
     @Override
     public void run() {
-        this.invoker.get().run();
+        asFunction().run();
     }
 
     @Override
     public Object get() {
-        return this.invoker.get().get();
+        return asFunction().get();
     }
 
     @Override
     public void accept(Object argumentOrInstance) {
-        this.invoker.get().accept(argumentOrInstance);
+        asFunction().accept(argumentOrInstance);
     }
 
     @Override
     public Object apply(Object argumentOrInstance) {
-        return this.invoker.get().apply(argumentOrInstance);
+        return asFunction().apply(argumentOrInstance);
     }
 
     @Override
     public void accept(Object argumentOrInstance, Object extraArgument) {
-        this.invoker.get().accept(argumentOrInstance, extraArgument);
+        asFunction().accept(argumentOrInstance, extraArgument);
     }
 
     @Override
     public boolean test(Object argumentOrInstance) {
-        return this.invoker.get().test(argumentOrInstance);
+        return asFunction().test(argumentOrInstance);
     }
 
     @Override
@@ -90,8 +88,8 @@ public class TypeMethodInstance extends TypeMemberSupport implements TypeMethod 
         method.returnType = description.getReturnType();
         method.setDeclaringType(description.getDeclaringType());
         method.setModifiers(description.getModifiers());
+        method.setInvoker(description.getInvoker());
         method.parameterTypes = description.getParameterTypes();
-        method.invoker = description.getInvoker();
         return method;
     }
 

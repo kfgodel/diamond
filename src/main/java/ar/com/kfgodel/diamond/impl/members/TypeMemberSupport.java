@@ -1,9 +1,11 @@
 package ar.com.kfgodel.diamond.impl.members;
 
 import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
+import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
 import ar.com.kfgodel.diamond.api.members.TypeMember;
 import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.diamond.impl.invokables.UndefinedInvoker;
 import ar.com.kfgodel.diamond.impl.members.modifiers.suppliers.UndefinedMemberModifiers;
 
 import java.util.function.Supplier;
@@ -17,6 +19,7 @@ public class TypeMemberSupport implements TypeMember {
 
     private Supplier<TypeInstance> declaringType;
     private Supplier<Stream<MemberModifier>> modifiers = UndefinedMemberModifiers.create(this);
+    private Supplier<PolymorphicInvokable> invoker = UndefinedInvoker.create(this);
 
     @Override
     public TypeInstance declaringType() {
@@ -39,4 +42,12 @@ public class TypeMemberSupport implements TypeMember {
         this.modifiers = modifierSupplier;
     }
 
+    protected void setInvoker(Supplier<PolymorphicInvokable> invoker) {
+        this.invoker = invoker;
+    }
+
+    @Override
+    public PolymorphicInvokable asFunction() {
+        return this.invoker.get();
+    }
 }

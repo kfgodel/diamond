@@ -2,7 +2,6 @@ package ar.com.kfgodel.diamond.impl.constructors;
 
 import ar.com.kfgodel.diamond.api.constructors.ConstructorDescription;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
-import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.constructors.equality.ConstructorEquality;
 import ar.com.kfgodel.diamond.impl.members.TypeMemberSupport;
@@ -17,16 +16,10 @@ import java.util.stream.Stream;
 public class TypeConstructorInstance extends TypeMemberSupport implements TypeConstructor {
 
     private Supplier<Stream<TypeInstance>> parameterTypes;
-    private Supplier<PolymorphicInvokable> invoker;
 
     @Override
     public Stream<TypeInstance> parameterTypes() {
         return parameterTypes.get();
-    }
-
-    @Override
-    public Object invoke(Object... arguments) {
-        return invoker.get().invoke(arguments);
     }
 
     @Override
@@ -35,13 +28,19 @@ public class TypeConstructorInstance extends TypeMemberSupport implements TypeCo
     }
 
     @Override
+    public Object invoke(Object... arguments) {
+        return asFunction().invoke(arguments);
+    }
+
+
+    @Override
     public Object get() {
-        return invoker.get().get();
+        return asFunction().get();
     }
 
     @Override
     public Object apply(Object argument) {
-        return invoker.get().apply(argument);
+        return asFunction().apply(argument);
     }
 
 
@@ -49,8 +48,8 @@ public class TypeConstructorInstance extends TypeMemberSupport implements TypeCo
         TypeConstructorInstance constructor = new TypeConstructorInstance();
         constructor.setDeclaringType(description.getDeclaringType());
         constructor.setModifiers(description.getModifiers());
+        constructor.setInvoker(description.getInvoker());
         constructor.parameterTypes = description.getParameterTypes();
-        constructor.invoker = description.getInvoker();
         return constructor;
     }
 

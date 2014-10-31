@@ -1,5 +1,6 @@
 package ar.com.kfgodel.diamond.api.members;
 
+import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
 import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 
@@ -20,5 +21,10 @@ public interface TypeMember {
      * @return The set of member modifiers applied to this member declaration
      */
     Stream<MemberModifier> modifiers();
+
+    /**
+     * @return This member usable as a function with semantics depending on this instance, and the called signature
+     */
+    PolymorphicInvokable asFunction();
 
 }
