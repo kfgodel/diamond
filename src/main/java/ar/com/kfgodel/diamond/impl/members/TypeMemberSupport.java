@@ -15,7 +15,7 @@ import java.util.stream.Stream;
  * This type is a base class for type member classes
  * Created by kfgodel on 18/10/14.
  */
-public class TypeMemberSupport implements TypeMember {
+public abstract class TypeMemberSupport implements TypeMember {
 
     private Supplier<TypeInstance> declaringType;
     private Supplier<Stream<MemberModifier>> modifiers = UndefinedMemberModifiers.create(this);
@@ -54,5 +54,10 @@ public class TypeMemberSupport implements TypeMember {
     @Override
     public PolymorphicInvokable asFunction() {
         return this.invoker.get();
+    }
+
+    @Override
+    public String toString() {
+        return this.declaration();
     }
 }

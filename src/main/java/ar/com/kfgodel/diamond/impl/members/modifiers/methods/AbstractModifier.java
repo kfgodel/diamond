@@ -10,7 +10,7 @@ import java.lang.reflect.Modifier;
  */
 public class AbstractModifier extends ModifierSupport {
     protected AbstractModifier() {
-        super(Modifier.ABSTRACT);
+        super(Modifier.ABSTRACT, "abstract");
     }
 
     public static AbstractModifier create() {

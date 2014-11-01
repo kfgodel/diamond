@@ -10,7 +10,7 @@ import java.lang.reflect.Modifier;
  */
 public class VolatileModifier extends ModifierSupport {
     protected VolatileModifier() {
-        super(Modifier.VOLATILE);
+        super(Modifier.VOLATILE, "volatile");
     }
 
     public static VolatileModifier create() {

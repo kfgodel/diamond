@@ -10,7 +10,7 @@ import java.lang.reflect.Modifier;
  */
 public class ProtectedModifier extends ModifierSupport {
     protected ProtectedModifier() {
-        super(Modifier.PROTECTED);
+        super(Modifier.PROTECTED, "protected");
     }
 
     public static ProtectedModifier create() {

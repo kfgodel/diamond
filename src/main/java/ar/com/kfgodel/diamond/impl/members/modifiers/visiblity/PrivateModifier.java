@@ -10,7 +10,7 @@ import java.lang.reflect.Modifier;
  */
 public class PrivateModifier extends ModifierSupport {
     protected PrivateModifier() {
-        super(Modifier.PRIVATE);
+        super(Modifier.PRIVATE, "private");
     }
 
     public static PrivateModifier create() {

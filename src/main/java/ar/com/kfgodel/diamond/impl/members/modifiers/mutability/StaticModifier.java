@@ -10,7 +10,7 @@ import java.lang.reflect.Modifier;
  */
 public class StaticModifier extends ModifierSupport{
     protected StaticModifier() {
-        super(Modifier.STATIC);
+        super(Modifier.STATIC, "static");
     }
 
     public static StaticModifier create() {

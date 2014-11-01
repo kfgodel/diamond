@@ -24,6 +24,11 @@ public class PackageModifier implements MemberModifier{
     }
 
     @Override
+    public String declaration() {
+        return "";
+    }
+
+    @Override
     public boolean test(MemberModifier memberModifier) {
         return this.equals(memberModifier);
     }

@@ -10,7 +10,7 @@ import java.lang.reflect.Modifier;
  */
 public class StrictfpModifier extends ModifierSupport {
     protected StrictfpModifier() {
-        super(Modifier.STRICT);
+        super(Modifier.STRICT, "strictfp");
     }
 
     public static StrictfpModifier create() {

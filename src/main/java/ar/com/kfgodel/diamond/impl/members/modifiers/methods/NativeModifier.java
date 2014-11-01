@@ -10,7 +10,7 @@ import java.lang.reflect.Modifier;
  */
 public class NativeModifier extends ModifierSupport {
     protected NativeModifier() {
-        super(Modifier.NATIVE);
+        super(Modifier.NATIVE, "native");
     }
 
     public static NativeModifier create() {
