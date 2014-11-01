@@ -10,7 +10,7 @@ import java.lang.reflect.Modifier;
  */
 public class PublicModifier extends ModifierSupport {
     protected PublicModifier() {
-        super(Modifier.PUBLIC);
+        super(Modifier.PUBLIC, "public");
     }
 
     public static PublicModifier create() {

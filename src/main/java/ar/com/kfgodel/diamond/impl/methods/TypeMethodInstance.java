@@ -4,6 +4,7 @@ import ar.com.kfgodel.diamond.api.methods.MethodDescription;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.members.TypeMemberSupport;
+import ar.com.kfgodel.diamond.impl.methods.declaration.MethodDeclaration;
 import ar.com.kfgodel.diamond.impl.methods.equality.MethodEquality;
 import ar.com.kfgodel.diamond.impl.natives.invokables.InstanceArguments;
 
@@ -93,4 +94,8 @@ public class TypeMethodInstance extends TypeMemberSupport implements TypeMethod 
         return method;
     }
 
+    @Override
+    public String declaration() {
+        return MethodDeclaration.create(this).asString();
+    }
 }

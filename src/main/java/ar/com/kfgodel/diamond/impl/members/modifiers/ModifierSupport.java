@@ -9,14 +9,21 @@ import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
 public class ModifierSupport implements MemberModifier {
 
     private int nativeCode;
+    private String declaration;
 
-    protected ModifierSupport(int nativeCode){
+    protected ModifierSupport(int nativeCode, String declaration){
         this.nativeCode = nativeCode;
+        this.declaration = declaration;
     }
 
     @Override
     public boolean isPresentIn(int modifierBitmap) {
         return (nativeCode & modifierBitmap) != 0;
+    }
+
+    @Override
+    public String declaration() {
+        return declaration;
     }
 
 

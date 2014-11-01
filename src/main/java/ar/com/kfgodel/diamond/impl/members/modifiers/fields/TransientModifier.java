@@ -10,7 +10,7 @@ import java.lang.reflect.Modifier;
  */
 public class TransientModifier extends ModifierSupport {
     protected TransientModifier() {
-        super(Modifier.TRANSIENT);
+        super(Modifier.TRANSIENT, "transient");
     }
 
     public static TransientModifier create() {

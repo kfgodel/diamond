@@ -1,5 +1,7 @@
 package ar.com.kfgodel.diamond.api.members.modifiers;
 
+import ar.com.kfgodel.diamond.api.declaration.Declarable;
+
 import java.util.function.Predicate;
 
 /**
@@ -8,7 +10,7 @@ import java.util.function.Predicate;
  *
  * Created by kfgodel on 18/10/14.
  */
-public interface MemberModifier extends Predicate<MemberModifier> {
+public interface MemberModifier extends Predicate<MemberModifier>, Declarable {
 
     /**
      * Indicates if this modifier is coded as present in the given bitmap
@@ -16,4 +18,9 @@ public interface MemberModifier extends Predicate<MemberModifier> {
      * @return true if this modifier is 'active' or present in the bitmap. False if this modifier is not used
      */
     boolean isPresentIn(int modifierBitmap);
+
+    /**
+     * @return The declaration string for this modifier (as present in sources)
+     */
+    String declaration();
 }

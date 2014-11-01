@@ -3,6 +3,7 @@ package ar.com.kfgodel.diamond.impl.fields;
 import ar.com.kfgodel.diamond.api.fields.FieldDescription;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.diamond.impl.fields.declaration.FieldDeclaration;
 import ar.com.kfgodel.diamond.impl.fields.equality.FieldEquality;
 import ar.com.kfgodel.diamond.impl.members.TypeMemberSupport;
 
@@ -77,4 +78,8 @@ public class TypeFieldInstance extends TypeMemberSupport implements TypeField {
         return field;
     }
 
+    @Override
+    public String declaration() {
+        return FieldDeclaration.create(this).asString();
+    }
 }

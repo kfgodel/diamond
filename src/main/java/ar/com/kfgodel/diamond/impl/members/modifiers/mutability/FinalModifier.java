@@ -10,7 +10,7 @@ import java.lang.reflect.Modifier;
  */
 public class FinalModifier extends ModifierSupport {
     protected FinalModifier() {
-        super(Modifier.FINAL);
+        super(Modifier.FINAL, "final");
     }
 
     public static FinalModifier create() {

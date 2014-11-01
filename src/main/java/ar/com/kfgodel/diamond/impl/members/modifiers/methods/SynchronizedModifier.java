@@ -10,7 +10,7 @@ import java.lang.reflect.Modifier;
  */
 public class SynchronizedModifier extends ModifierSupport {
     protected SynchronizedModifier() {
-        super(Modifier.SYNCHRONIZED);
+        super(Modifier.SYNCHRONIZED, "synchronized");
     }
 
     public static SynchronizedModifier create() {
