@@ -31,10 +31,10 @@ public class MethodDeclaration {
     public String asString() {
         StringBuilder builder = new StringBuilder();
 
-//        withAnnotationsSeparatedBy(" ", (separatedAnnotations)->{
-//            builder.append(separatedAnnotations);
-//            builder.append(" ");
-//        });
+        withAnnotationsSeparatedBy(" ", (separatedAnnotations)->{
+            builder.append(separatedAnnotations);
+            builder.append(" ");
+        });
         withModifiersSeparatedBy(" ", (separatedModifiers)->{
             builder.append(separatedModifiers);
             builder.append(" ");
@@ -56,9 +56,9 @@ public class MethodDeclaration {
         return builder.toString();
     }
 
-//    private void withAnnotationsSeparatedBy(String separator, Consumer<String> separatedAnnotationsConsumer){
-//        transformAndJoin(type.annotations(), (annotation) -> annotation.toString(), separator, separatedAnnotationsConsumer);
-//    }
+    private void withAnnotationsSeparatedBy(String separator, Consumer<String> separatedAnnotationsConsumer){
+        transformAndJoin(method.annotations(), Object::toString, separator, separatedAnnotationsConsumer);
+    }
 
     private void withModifiersSeparatedBy(String separator, Consumer<String> separatedAnnotationsConsumer){
         transformAndJoin(method.modifiers(), MemberModifier::declaration, separator, separatedAnnotationsConsumer);
