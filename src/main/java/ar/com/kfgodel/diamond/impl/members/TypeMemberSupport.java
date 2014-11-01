@@ -1,11 +1,13 @@
 package ar.com.kfgodel.diamond.impl.members;
 
+import ar.com.kfgodel.diamond.api.generics.Generics;
 import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
 import ar.com.kfgodel.diamond.api.members.TypeMember;
 import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.invokables.UndefinedInvoker;
 import ar.com.kfgodel.diamond.impl.members.declaringtype.UndefinedDeclaringType;
+import ar.com.kfgodel.diamond.impl.members.generics.NonGenerifiedMember;
 import ar.com.kfgodel.diamond.impl.members.modifiers.suppliers.UndefinedMemberModifiers;
 import ar.com.kfgodel.diamond.impl.named.UndefinedName;
 import ar.com.kfgodel.diamond.impl.types.parts.annotations.NoAnnotationsSupplier;
@@ -83,5 +85,10 @@ public abstract class TypeMemberSupport implements TypeMember {
      */
     protected void setAnnotations(Supplier<Stream<Annotation>> annotationSupplier) {
         this.annotations = annotationSupplier;
+    }
+
+    @Override
+    public Generics generics() {
+        return NonGenerifiedMember.INSTANCE;
     }
 }

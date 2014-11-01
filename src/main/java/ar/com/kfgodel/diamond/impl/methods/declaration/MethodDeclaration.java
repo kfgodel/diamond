@@ -69,7 +69,7 @@ public class MethodDeclaration {
     }
 
 //    private void withTypeParametersSeparatedBy(String separator, Consumer<String> separatedArgumentsConsumer){
-//        transformTypeAndJoin(field.generics().typeArguments(), separator, separatedArgumentsConsumer);
+//        transformTypeAndJoin(field.generics().genericArguments(), separator, separatedArgumentsConsumer);
 //    }
 
     private<T> void transformAndJoin(Stream<? extends T> objects, Function<? super T, String> transformation, String separator, Consumer<String> joinedConsumer) {

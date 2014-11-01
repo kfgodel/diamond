@@ -37,7 +37,7 @@ public class TypeEquality {
     }
 
     private boolean equalTypeArguments(TypeInstance aType, TypeInstance other) {
-        return StreamEquality.INSTANCE.areEquals(aType.generics().typeArguments(), other.generics().typeArguments());
+        return StreamEquality.INSTANCE.areEquals(aType.generics().genericArguments(), other.generics().genericArguments());
     }
 
     private boolean equalComponent(TypeInstance aType, TypeInstance other) {

@@ -45,19 +45,19 @@ public class ParameterizedTypeTest extends JavaSpec<DiamondTestContext> {
             });
 
             it("has type parameters", ()->{
-                List<String> typeParameterNames = context().typeInstance().generics().typeParameters().map((typeParameter) -> typeParameter.name()).collect(Collectors.toList());
+                List<String> typeParameterNames = context().typeInstance().generics().genericParameters().map((typeParameter) -> typeParameter.name()).collect(Collectors.toList());
                 assertThat(typeParameterNames)
                         .isEqualTo(Arrays.asList("P1", "P2"));
             });
 
 
             it("has type arguments", ()->{
-                List<String> argumentNames = context().typeInstance().generics().typeArguments().map((typeArgument) -> typeArgument.name()).collect(Collectors.toList());
+                List<String> argumentNames = context().typeInstance().generics().genericArguments().map((typeArgument) -> typeArgument.name()).collect(Collectors.toList());
                 assertThat(argumentNames).isEqualTo(Arrays.asList("String", "Integer"));
             });
 
             it("type argument declaration names are preserved", ()->{
-                assertThat(context().typeInstance().generics().typeArguments()
+                assertThat(context().typeInstance().generics().genericArguments()
                             .map((typeArgument)-> typeArgument.declaration())
                             .collect(Collectors.toList()))
                         .isEqualTo(Arrays.asList("@ar.com.kfgodel.diamond.testobjects.TestAnnotation2() java.lang.String","@ar.com.kfgodel.diamond.testobjects.TestAnnotation3() java.lang.Integer"));
@@ -73,7 +73,7 @@ public class ParameterizedTypeTest extends JavaSpec<DiamondTestContext> {
             });
 
             it("type arguments can have attached annotations too", ()->{
-                List<Class<? extends Annotation>> annotationTypes = context().typeInstance().generics().typeArguments()
+                List<Class<? extends Annotation>> annotationTypes = context().typeInstance().generics().genericArguments()
                         .flatMap((typeArgument) -> typeArgument.annotations())
                         .map((annotation) -> annotation.annotationType())
                         .collect(Collectors.toList());
@@ -85,7 +85,7 @@ public class ParameterizedTypeTest extends JavaSpec<DiamondTestContext> {
              * This is due to the lack of an annotated type parameters method on the Class instance
              */
             it("type parameters can't have attached annotations", ()->{
-                long parameterAnnotationsCount = context().typeInstance().generics().typeParameters()
+                long parameterAnnotationsCount = context().typeInstance().generics().genericParameters()
                         .flatMap((typeArgument) -> typeArgument.annotations())
                         .count();
                 // Even though the 1st type parameter has annotations we cannot access it on runtime
