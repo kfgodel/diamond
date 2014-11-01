@@ -3,7 +3,6 @@ package ar.com.kfgodel.diamond.impl.types.parts.fields;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.impl.natives.suppliers.NativeFieldsSupplier;
-import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
 import ar.com.kfgodel.streams.StreamFromCollectionSupplier;
 
 import java.lang.reflect.Field;
@@ -19,11 +18,11 @@ import java.util.stream.Stream;
 public class ClassFieldSupplier {
 
     public static Supplier<Stream<TypeField>>  create(Set<Class<?>> baseClasses) {
-        return StreamFromCollectionSupplier.using(SuppliedValue.lazilyBy(()->{
+        return StreamFromCollectionSupplier.lazilyBy(() -> {
             Stream<Field> nativeFields = NativeFieldsSupplier.create(baseClasses).get();
             return nativeFields.map((nativeField) -> Diamond.fields().from(nativeField))
                     .collect(Collectors.toList());
-        }));
+        });
     }
 
 }

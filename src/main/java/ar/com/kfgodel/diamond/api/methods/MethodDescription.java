@@ -1,6 +1,8 @@
 package ar.com.kfgodel.diamond.api.methods;
 
+import ar.com.kfgodel.diamond.api.generics.Generics;
 import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
+import ar.com.kfgodel.diamond.api.members.MemberDescription;
 import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 
@@ -12,7 +14,7 @@ import java.util.stream.Stream;
  * This type represents the description of a diamond method to get a {@link TypeMethod}
  * Created by kfgodel on 07/10/14.
  */
-public interface MethodDescription {
+public interface MethodDescription extends MemberDescription {
 
     /**
      * @return The supplier for getting the method name
@@ -48,4 +50,9 @@ public interface MethodDescription {
      * @return The supplier for the method annotations
      */
     Supplier<Stream<Annotation>> getAnnotations();
+
+    /**
+     * @return The supplier of method generics information
+     */
+    Supplier<Generics> getGenerics();
 }

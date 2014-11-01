@@ -2,7 +2,7 @@ package ar.com.kfgodel.diamond.impl.types.parts.superclass;
 
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
-import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
+import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -14,9 +14,9 @@ import java.util.function.Supplier;
 public class SuperClassSupplier {
 
     public static Supplier<Optional<TypeInstance>>  create(Class<?> nativeClass) {
-        return SuppliedValue.lazilyBy(()->{
+        return CachedValue.lazilyBy(() -> {
             Class<?> superclass = nativeClass.getSuperclass();
-            if(superclass == null){
+            if (superclass == null) {
                 return Optional.empty();
             }
             return Optional.of(Diamond.of(superclass));

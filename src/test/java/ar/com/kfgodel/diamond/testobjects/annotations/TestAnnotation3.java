@@ -1,4 +1,4 @@
-package ar.com.kfgodel.diamond.testobjects;
+package ar.com.kfgodel.diamond.testobjects.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -20,5 +20,5 @@ import java.lang.annotation.Target;
         ElementType.PACKAGE,
         ElementType.TYPE_PARAMETER,
         ElementType.TYPE_USE})
-public @interface TestAnnotation1 {
+public @interface TestAnnotation3 {
 }

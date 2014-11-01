@@ -26,16 +26,16 @@ public class ParameterizedTypeGenerics implements TypeGenerics {
 
     @Override
     public TypeBounds bounds() {
-        return NotGenerified.INSTANCE.bounds();
+        return UnGenerifiedTypeGenerics.INSTANCE.bounds();
     }
 
     @Override
-    public Stream<TypeInstance> typeArguments() {
+    public Stream<TypeInstance> arguments() {
         return typeArguments.get();
     }
 
     @Override
-    public Stream<TypeInstance> typeParameters() {
+    public Stream<TypeInstance> parameters() {
         return this.typeParameters.get();
     }
 }

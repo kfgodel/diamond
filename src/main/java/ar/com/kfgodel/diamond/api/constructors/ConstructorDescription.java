@@ -1,6 +1,8 @@
 package ar.com.kfgodel.diamond.api.constructors;
 
+import ar.com.kfgodel.diamond.api.generics.Generics;
 import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
+import ar.com.kfgodel.diamond.api.members.MemberDescription;
 import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 
@@ -12,7 +14,7 @@ import java.util.stream.Stream;
  * This type represents the Diamond description of a constructor abstracting the underlying implementation
  * Created by kfgodel on 15/10/14.
  */
-public interface ConstructorDescription {
+public interface ConstructorDescription extends MemberDescription {
 
     /**
      * @return The supplier for the parameter types of the described method
@@ -43,4 +45,9 @@ public interface ConstructorDescription {
      * @return The supplier for constructor's annotations
      */
     Supplier<Stream<Annotation>> getAnnotations();
+
+    /**
+     * @return The supplier of constructor's generics information
+     */
+    Supplier<Generics> getGenerics();
 }

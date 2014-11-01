@@ -75,7 +75,7 @@ public interface TypeField extends TypeMember, Consumer<Object>, BiConsumer<Obje
 
     /**
      * @return An empty stream as fields don't have parameters.<br>
-     *     This method allows polymorphic compatibility between methods and fields
+     *     This method allows polymorphic compatibility between methods and constructors
      */
     @Override
     Stream<TypeInstance> parameterTypes();

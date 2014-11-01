@@ -2,6 +2,7 @@ package ar.com.kfgodel.diamond.impl.fields.declaration;
 
 import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
+import ar.com.kfgodel.diamond.api.types.TypeInstance;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -38,12 +39,12 @@ public class FieldDeclaration {
             builder.append(separatedModifiers);
             builder.append(" ");
         });
-//        withTypeParametersSeparatedBy(", ", (separatedTypeParameters) -> {
-//            builder.append("<");
-//            builder.append(separatedTypeParameters);
-//            builder.append("> ");
-//        });
-        builder.append(field.type().name());
+        withTypeParametersSeparatedBy(", ", (separatedTypeParameters) -> {
+            builder.append("<");
+            builder.append(separatedTypeParameters);
+            builder.append("> ");
+        });
+        builder.append(field.type().declaration());
         builder.append(" ");
         builder.append(field.name());
         builder.append(" /* ");
@@ -62,9 +63,13 @@ public class FieldDeclaration {
     }
 
 
-//    private void withTypeParametersSeparatedBy(String separator, Consumer<String> separatedArgumentsConsumer){
-//        transformTypeAndJoin(field.generics().typeArguments(), separator, separatedArgumentsConsumer);
-//    }
+    private void withTypeParametersSeparatedBy(String separator, Consumer<String> separatedArgumentsConsumer){
+        transformTypeAndJoin(field.generics().parameters(), separator, separatedArgumentsConsumer);
+
+    }
+    private void transformTypeAndJoin(Stream<TypeInstance> types, String separator, Consumer<String> joinedConsumer){
+        transformAndJoin(types, (type) -> type.declaration(), separator, joinedConsumer);
+    }
 
     private<T> void transformAndJoin(Stream<? extends T> objects, Function<? super T, String> transformation, String separator, Consumer<String> joinedConsumer) {
         String joinedString = objects

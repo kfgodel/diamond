@@ -4,6 +4,7 @@ import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.constructors.ConstructorDescription;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.impl.constructors.description.ArrayConstructorDescription;
+import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.streams.StreamFromElementSupplier;
 
 import java.util.function.Supplier;
@@ -18,10 +19,11 @@ import java.util.stream.Stream;
 public class ArraysConstructorSupplier {
 
     public static Supplier<Stream<TypeConstructor>> create(Class<?> nativeArrayClass) {
-        return StreamFromElementSupplier.using(() -> {
+        return StreamFromElementSupplier.using(CachedValue.lazilyBy(() -> {
             ConstructorDescription arrayConstructorDescription = ArrayConstructorDescription.create(nativeArrayClass);
-            return Diamond.constructors().from(arrayConstructorDescription);
-        });
+            TypeConstructor constructor = Diamond.constructors().from(arrayConstructorDescription);
+            return constructor;
+        }));
     }
 
 }

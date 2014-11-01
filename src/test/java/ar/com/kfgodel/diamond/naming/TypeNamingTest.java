@@ -6,8 +6,8 @@ import ar.com.kfgodel.diamond.DiamondTestContext;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.reference.ReferenceOf;
-import ar.com.kfgodel.diamond.testobjects.TestAnnotation1;
-import ar.com.kfgodel.diamond.testobjects.TestAnnotation2;
+import ar.com.kfgodel.diamond.testobjects.annotations.TestAnnotation1;
+import ar.com.kfgodel.diamond.testobjects.annotations.TestAnnotation2;
 import org.junit.runner.RunWith;
 
 import java.lang.reflect.AnnotatedType;
@@ -57,7 +57,7 @@ public class TypeNamingTest extends JavaSpec<DiamondTestContext> {
                 });
                 it("declaration name is the soure declaration equivalent", () -> {
                     assertThat(context().typeInstance().declaration())
-                            .isEqualTo("@ar.com.kfgodel.diamond.testobjects.TestAnnotation1() java.util.List<@ar.com.kfgodel.diamond.testobjects.TestAnnotation2() java.lang.String>");
+                            .isEqualTo("@ar.com.kfgodel.diamond.testobjects.annotations.TestAnnotation1() java.util.List<@ar.com.kfgodel.diamond.testobjects.annotations.TestAnnotation2() java.lang.String>");
                 });
             });
 
@@ -88,7 +88,7 @@ public class TypeNamingTest extends JavaSpec<DiamondTestContext> {
                 });
                 it("declaration name is the soure declaration equivalent", () -> {
                     assertThat(context().typeInstance().declaration())
-                            .isEqualTo("@ar.com.kfgodel.diamond.testobjects.TestAnnotation2() java.lang.String @ar.com.kfgodel.diamond.testobjects.TestAnnotation1() []");
+                            .isEqualTo("@ar.com.kfgodel.diamond.testobjects.annotations.TestAnnotation2() java.lang.String @ar.com.kfgodel.diamond.testobjects.annotations.TestAnnotation1() []");
                 });
             });
 
@@ -119,7 +119,7 @@ public class TypeNamingTest extends JavaSpec<DiamondTestContext> {
                 });
                 it("declaration name is the soure declaration equivalent", () -> {
                     assertThat(context().typeInstance().declaration())
-                            .isEqualTo("@ar.com.kfgodel.diamond.testobjects.TestAnnotation1() A extends @ar.com.kfgodel.diamond.testobjects.TestAnnotation2() java.lang.String");
+                            .isEqualTo("@ar.com.kfgodel.diamond.testobjects.annotations.TestAnnotation1() A extends @ar.com.kfgodel.diamond.testobjects.annotations.TestAnnotation2() java.lang.String");
                 });
             });
 
@@ -150,7 +150,7 @@ public class TypeNamingTest extends JavaSpec<DiamondTestContext> {
                 });
                 it("declaration name is the soure declaration equivalent", () -> {
                     assertThat(context().typeInstance().declaration())
-                            .isEqualTo("@ar.com.kfgodel.diamond.testobjects.TestAnnotation1() ? extends @ar.com.kfgodel.diamond.testobjects.TestAnnotation2() java.lang.String");
+                            .isEqualTo("@ar.com.kfgodel.diamond.testobjects.annotations.TestAnnotation1() ? extends @ar.com.kfgodel.diamond.testobjects.annotations.TestAnnotation2() java.lang.String");
                 });
             });
 
@@ -168,7 +168,7 @@ public class TypeNamingTest extends JavaSpec<DiamondTestContext> {
         return getTypeFrom(new ReferenceOf<@TestAnnotation1 A>() {});
     }
     private static TypeInstance getWildcardType(){
-        return getTypeFrom(new ReferenceOf<List<@TestAnnotation1 ? extends @TestAnnotation2 String>>() {}).generics().typeArguments().findFirst().get();
+        return getTypeFrom(new ReferenceOf<List<@TestAnnotation1 ? extends @TestAnnotation2 String>>() {}).generics().arguments().findFirst().get();
     }
 
 

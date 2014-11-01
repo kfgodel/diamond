@@ -3,7 +3,7 @@ package ar.com.kfgodel.diamond.value;
 import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.DiamondTestContext;
-import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
+import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import org.junit.runner.RunWith;
 
 import java.util.Optional;
@@ -22,7 +22,7 @@ public class LazyValueTest extends JavaSpec<DiamondTestContext> {
         describe("a lazy value", ()->{
             Supplier<Integer> generator = () -> 42;
             beforeEach(()->{
-                context().value(() -> SuppliedValue.lazilyBy(generator));
+                context().value(() -> CachedValue.lazilyBy(generator));
             });
 
             it("has an undefined value", ()->{
@@ -56,7 +56,7 @@ public class LazyValueTest extends JavaSpec<DiamondTestContext> {
             describe("eagerly defined", () -> {
 
                 beforeEach(()->{
-                    context().value(() -> SuppliedValue.eagerlyFrom(13));
+                    context().value(() -> CachedValue.eagerlyFrom(13));
                 });
 
                 it("doesn't have an undefined value",()->{

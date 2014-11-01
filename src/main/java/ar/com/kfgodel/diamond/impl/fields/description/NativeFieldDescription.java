@@ -2,15 +2,18 @@ package ar.com.kfgodel.diamond.impl.fields.description;
 
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.fields.FieldDescription;
+import ar.com.kfgodel.diamond.api.generics.Generics;
 import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
 import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.members.NativeMemberDeclaringTypeSupplier;
 import ar.com.kfgodel.diamond.impl.members.annotations.NativeElementAnnotationsSupplier;
+import ar.com.kfgodel.diamond.impl.members.generics.UnGenerifiedMemberGenerics;
 import ar.com.kfgodel.diamond.impl.members.modifiers.suppliers.ImmutableMemberModifiers;
+import ar.com.kfgodel.diamond.impl.members.parameters.NoParametersSupplier;
 import ar.com.kfgodel.diamond.impl.natives.invokables.fields.NativeInstanceFieldInvoker;
 import ar.com.kfgodel.diamond.impl.natives.invokables.fields.NativeStaticFieldInvoker;
-import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
+import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -34,12 +37,17 @@ public class NativeFieldDescription implements FieldDescription {
 
     @Override
     public Supplier<String> getName() {
-        return SuppliedValue.lazilyBy(nativeField::getName);
+        return CachedValue.lazilyBy(nativeField::getName);
     }
 
     @Override
     public Supplier<TypeInstance> getType() {
-        return SuppliedValue.lazilyBy(()-> Diamond.types().from(nativeField.getAnnotatedType()));
+        return CachedValue.lazilyBy(() -> Diamond.types().from(nativeField.getAnnotatedType()));
+    }
+
+    @Override
+    public Supplier<Stream<TypeInstance>> getParameterTypes() {
+        return NoParametersSupplier.INSTANCE;
     }
 
     @Override
@@ -55,8 +63,8 @@ public class NativeFieldDescription implements FieldDescription {
 
     @Override
     public Supplier<PolymorphicInvokable> getInvoker() {
-        return SuppliedValue.lazilyBy(()-> Modifier.isStatic(nativeField.getModifiers())?
-                        NativeStaticFieldInvoker.create(nativeField):
+        return CachedValue.lazilyBy(() -> Modifier.isStatic(nativeField.getModifiers()) ?
+                        NativeStaticFieldInvoker.create(nativeField) :
                         NativeInstanceFieldInvoker.create(nativeField)
         );
     }
@@ -64,5 +72,10 @@ public class NativeFieldDescription implements FieldDescription {
     @Override
     public Supplier<Stream<Annotation>> getAnnotations() {
         return NativeElementAnnotationsSupplier.create(nativeField);
+    }
+
+    @Override
+    public Supplier<Generics> getGenerics() {
+        return UnGenerifiedMemberGenerics::instance;
     }
 }

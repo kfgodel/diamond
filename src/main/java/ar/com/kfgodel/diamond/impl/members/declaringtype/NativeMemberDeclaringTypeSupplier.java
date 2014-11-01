@@ -2,7 +2,7 @@ package ar.com.kfgodel.diamond.impl.members.declaringtype;
 
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
-import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
+import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 
 import java.lang.reflect.Member;
 import java.util.function.Supplier;
@@ -14,7 +14,7 @@ import java.util.function.Supplier;
 public class NativeMemberDeclaringTypeSupplier {
 
     public static Supplier<TypeInstance> create(Member nativeMember) {
-        return SuppliedValue.lazilyBy(()-> Diamond.of(nativeMember.getDeclaringClass()));
+        return CachedValue.lazilyBy(() -> Diamond.of(nativeMember.getDeclaringClass()));
     }
 
 }

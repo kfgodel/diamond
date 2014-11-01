@@ -5,7 +5,7 @@ import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
 import ar.com.kfgodel.diamond.impl.types.bounds.UpperOnlyTypeBounds;
-import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
+import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 
 import java.lang.reflect.AnnotatedType;
 import java.lang.reflect.AnnotatedTypeVariable;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class TypeVariableBoundSupplier {
 
     public static Supplier<TypeBounds>  create(Object nativeType) {
-        return SuppliedValue.lazilyBy(()->{
+        return CachedValue.lazilyBy(() -> {
             AnnotatedType[] upperBounds = getUpperBoundsFrom(nativeType);
             return UpperOnlyTypeBounds.create(typeListFrom(upperBounds));
         });

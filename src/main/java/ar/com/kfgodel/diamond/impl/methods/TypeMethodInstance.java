@@ -9,7 +9,6 @@ import ar.com.kfgodel.diamond.impl.methods.equality.MethodEquality;
 import ar.com.kfgodel.diamond.impl.natives.invokables.InstanceArguments;
 
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 /**
  * This type represents a method that belongs to a type
@@ -18,16 +17,10 @@ import java.util.stream.Stream;
 public class TypeMethodInstance extends TypeMemberSupport implements TypeMethod {
 
     private Supplier<TypeInstance> returnType;
-    private Supplier<Stream<TypeInstance>> parameterTypes;
 
     @Override
     public TypeInstance returnType() {
         return returnType.get();
-    }
-
-    @Override
-    public Stream<TypeInstance> parameterTypes() {
-        return parameterTypes.get();
     }
 
     @Override
@@ -78,13 +71,8 @@ public class TypeMethodInstance extends TypeMemberSupport implements TypeMethod 
 
     public static TypeMethodInstance create(MethodDescription description) {
         TypeMethodInstance method = new TypeMethodInstance();
-        method.setName(description.getName());
+        method.initialize(description);
         method.returnType = description.getReturnType();
-        method.setDeclaringType(description.getDeclaringType());
-        method.setModifiers(description.getModifiers());
-        method.setInvoker(description.getInvoker());
-        method.setAnnotations(description.getAnnotations());
-        method.parameterTypes = description.getParameterTypes();
         return method;
     }
 
@@ -92,4 +80,5 @@ public class TypeMethodInstance extends TypeMemberSupport implements TypeMethod 
     public String declaration() {
         return MethodDeclaration.create(this).asString();
     }
+
 }

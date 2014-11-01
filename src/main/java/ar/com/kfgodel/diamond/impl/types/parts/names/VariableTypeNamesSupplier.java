@@ -4,7 +4,7 @@ import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 import ar.com.kfgodel.diamond.api.types.names.TypeNames;
 import ar.com.kfgodel.diamond.impl.types.names.TypeVariableNames;
 import ar.com.kfgodel.diamond.impl.types.names.WildCardNames;
-import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
+import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 
 import java.lang.reflect.AnnotatedType;
 import java.lang.reflect.Type;
@@ -19,17 +19,17 @@ import java.util.function.Supplier;
 public class VariableTypeNamesSupplier  {
 
     public static Supplier<TypeNames> create(Object nativeType) {
-        return SuppliedValue.lazilyBy(()->{
+        return CachedValue.lazilyBy(() -> {
             Type unannotatedType;
-            if(nativeType instanceof AnnotatedType){
+            if (nativeType instanceof AnnotatedType) {
                 unannotatedType = ((AnnotatedType) nativeType).getType();
-            }else {
+            } else {
                 unannotatedType = (Type) nativeType;
             }
-            if(unannotatedType instanceof TypeVariable){
+            if (unannotatedType instanceof TypeVariable) {
                 TypeVariable typeVariable = (TypeVariable) unannotatedType;
                 return TypeVariableNames.create(typeVariable.getName(), typeVariable.getTypeName());
-            }else if(unannotatedType instanceof WildcardType){
+            } else if (unannotatedType instanceof WildcardType) {
                 return WildCardNames.create(unannotatedType.getTypeName());
             }
             throw new DiamondException("Variable type is unknown:" + unannotatedType);

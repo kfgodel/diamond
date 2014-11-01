@@ -1,12 +1,16 @@
 package ar.com.kfgodel.diamond.impl.members;
 
+import ar.com.kfgodel.diamond.api.generics.Generics;
 import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
+import ar.com.kfgodel.diamond.api.members.MemberDescription;
 import ar.com.kfgodel.diamond.api.members.TypeMember;
 import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.invokables.UndefinedInvoker;
 import ar.com.kfgodel.diamond.impl.members.declaringtype.UndefinedDeclaringType;
+import ar.com.kfgodel.diamond.impl.members.generics.UndefinedMemberGenerics;
 import ar.com.kfgodel.diamond.impl.members.modifiers.suppliers.UndefinedMemberModifiers;
+import ar.com.kfgodel.diamond.impl.members.parameters.UndefinedMemberParameters;
 import ar.com.kfgodel.diamond.impl.named.UndefinedName;
 import ar.com.kfgodel.diamond.impl.types.parts.annotations.NoAnnotationsSupplier;
 
@@ -25,14 +29,13 @@ public abstract class TypeMemberSupport implements TypeMember {
     private Supplier<TypeInstance> declaringType = UndefinedDeclaringType.create(this);
     private Supplier<Stream<MemberModifier>> modifiers = UndefinedMemberModifiers.create(this);
     private Supplier<PolymorphicInvokable> invoker = UndefinedInvoker.create(this);
+    private Supplier<Generics> generics = UndefinedMemberGenerics.create(this);
+    private Supplier<Stream<TypeInstance>> parameterTypes = UndefinedMemberParameters.create(this);
+
 
     @Override
     public TypeInstance declaringType() {
         return declaringType.get();
-    }
-
-    protected void setDeclaringType(Supplier<TypeInstance> declaringTypeSupplier){
-        this.declaringType = declaringTypeSupplier;
     }
 
     @Override
@@ -40,17 +43,9 @@ public abstract class TypeMemberSupport implements TypeMember {
         return modifiers.get();
     }
 
-    protected void setModifiers(Supplier<Stream<MemberModifier>> modifierSupplier){
-        this.modifiers = modifierSupplier;
-    }
-
     @Override
     public boolean is(MemberModifier expectedModifier) {
         return modifiers().anyMatch(expectedModifier);
-    }
-
-    protected void setInvoker(Supplier<PolymorphicInvokable> invoker) {
-        this.invoker = invoker;
     }
 
     @Override
@@ -68,20 +63,28 @@ public abstract class TypeMemberSupport implements TypeMember {
         return name.get();
     }
 
-    public void setName(Supplier<String> name) {
-        this.name = name;
-    }
-
     @Override
     public Stream<Annotation> annotations() {
         return annotations.get();
     }
 
-    /**
-     * Use this to override default creation with no annotations
-     * @param annotationSupplier The new annotations
-     */
-    protected void setAnnotations(Supplier<Stream<Annotation>> annotationSupplier) {
-        this.annotations = annotationSupplier;
+    @Override
+    public Generics generics() {
+        return generics.get();
+    }
+
+    @Override
+    public Stream<TypeInstance> parameterTypes() {
+        return parameterTypes.get();
+    }
+
+    protected void initialize(MemberDescription description){
+        this.name = description.getName();
+        this.declaringType = description.getDeclaringType();
+        this.modifiers = description.getModifiers();
+        this.invoker = description.getInvoker();
+        this.annotations = description.getAnnotations();
+        this.parameterTypes = description.getParameterTypes();
+        this.generics = description.getGenerics();
     }
 }

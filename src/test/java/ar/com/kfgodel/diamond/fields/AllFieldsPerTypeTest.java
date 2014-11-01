@@ -143,12 +143,12 @@ public class AllFieldsPerTypeTest extends JavaSpec<DiamondTestContext> {
 
     private static TypeInstance getUnboundedWildcardType(){
         TypeInstance listType = getTypeFrom(new ReferenceOf<List<?>>() {});
-        TypeInstance unboundedWildcard = listType.generics().typeArguments().findFirst().get();
+        TypeInstance unboundedWildcard = listType.generics().arguments().findFirst().get();
         return unboundedWildcard;
     }
 
     private static TypeInstance getChildClassSubTypeWildcardType(){
-        return getTypeFrom(new ReferenceOf<List<? extends ChildClass>>() {}).generics().typeArguments().findFirst().get();
+        return getTypeFrom(new ReferenceOf<List<? extends ChildClass>>() {}).generics().arguments().findFirst().get();
     }
 
     private static <A extends ChildClass & Collection> TypeInstance getChildClassAndNumberSubtypeVariableType(){

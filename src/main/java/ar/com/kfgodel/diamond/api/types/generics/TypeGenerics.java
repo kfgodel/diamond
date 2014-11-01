@@ -1,5 +1,6 @@
 package ar.com.kfgodel.diamond.api.types.generics;
 
+import ar.com.kfgodel.diamond.api.generics.Generics;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 
 import java.util.stream.Stream;
@@ -9,7 +10,7 @@ import java.util.stream.Stream;
  *     This instance will hold the relationships between a type and their parameters, arguments and bounds
  * Created by kfgodel on 05/10/14.
  */
-public interface TypeGenerics {
+public interface TypeGenerics extends Generics {
 
     /**
      * @return The type boundaries of this type (if any)
@@ -20,15 +21,15 @@ public interface TypeGenerics {
     /**
      * @return The actual type arguments used to parameterize this type (if any).
      * Parameterized types have type arguments that are preserved through reflection (only on certain cases).<br>
-     *     See typeParameters for the list of type variables that these arguments correspond to
+     *     See parameters for the list of type variables that these arguments correspond to
      */
-    Stream<TypeInstance> typeArguments();
+    Stream<TypeInstance> arguments();
 
     /**
      * @return The generic type parameters this type accepts (if any).
      * Parameterized classes have type variables that can be parameterized. This is the list of type variables.<br>
-     *     See typeArguments for the actual type values of this variables
+     *     See arguments for the actual type values of this variables
      */
-    Stream<TypeInstance> typeParameters();
+    Stream<TypeInstance> parameters();
 
 }

@@ -8,7 +8,7 @@ import ar.com.kfgodel.diamond.impl.types.parts.constructors.ClassConstructorsSup
 import ar.com.kfgodel.diamond.impl.types.parts.extendedtype.ExtendedTypeSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.names.FixedTypeNameSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.superclass.SuperClassSupplier;
-import ar.com.kfgodel.diamond.impl.types.parts.typeparameters.TypeParametersSupplier;
+import ar.com.kfgodel.diamond.impl.types.parts.typeparameters.GenericTypeParametersSupplier;
 
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -37,7 +37,7 @@ public abstract class UnannotatedFixedTypeDescriptionSupport extends Unannotated
 
     @Override
     public Supplier<Stream<TypeInstance>> getTypeParametersSupplier() {
-        return TypeParametersSupplier.create(getRawClass());
+        return GenericTypeParametersSupplier.create(getRawClass());
     }
 
     @Override
