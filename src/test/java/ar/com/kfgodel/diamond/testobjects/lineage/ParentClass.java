@@ -1,7 +1,7 @@
 package ar.com.kfgodel.diamond.testobjects.lineage;
 
-import ar.com.kfgodel.diamond.testobjects.TestAnnotation1;
-import ar.com.kfgodel.diamond.testobjects.TestAnnotation2;
+import ar.com.kfgodel.diamond.testobjects.annotations.TestAnnotation1;
+import ar.com.kfgodel.diamond.testobjects.annotations.TestAnnotation2;
 
 import java.io.Serializable;
 import java.util.List;

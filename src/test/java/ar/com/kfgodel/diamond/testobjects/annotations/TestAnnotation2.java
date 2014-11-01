@@ -1,4 +1,4 @@
-package ar.com.kfgodel.diamond.testobjects;
+package ar.com.kfgodel.diamond.testobjects.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -6,9 +6,9 @@ import ar.com.kfgodel.diamond.DiamondTestContext;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.reference.ReferenceOf;
-import ar.com.kfgodel.diamond.testobjects.TestAnnotation1;
-import ar.com.kfgodel.diamond.testobjects.TestAnnotation2;
-import ar.com.kfgodel.diamond.testobjects.TestAnnotation3;
+import ar.com.kfgodel.diamond.testobjects.annotations.TestAnnotation1;
+import ar.com.kfgodel.diamond.testobjects.annotations.TestAnnotation2;
+import ar.com.kfgodel.diamond.testobjects.annotations.TestAnnotation3;
 import org.junit.runner.RunWith;
 
 import java.io.Serializable;
@@ -43,7 +43,7 @@ public class WildcardTypeTest extends JavaSpec<DiamondTestContext> {
 
             it("has a declaration name", ()->{
                 assertThat(context().typeInstance().declaration())
-                        .isEqualTo("@ar.com.kfgodel.diamond.testobjects.TestAnnotation1() ? extends @ar.com.kfgodel.diamond.testobjects.TestAnnotation3() java.lang.Number");
+                        .isEqualTo("@ar.com.kfgodel.diamond.testobjects.annotations.TestAnnotation1() ? extends @ar.com.kfgodel.diamond.testobjects.annotations.TestAnnotation3() java.lang.Number");
             });
 
             it("has upper bounds", ()->{

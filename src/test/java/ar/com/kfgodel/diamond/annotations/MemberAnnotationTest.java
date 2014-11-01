@@ -45,7 +45,7 @@ public class MemberAnnotationTest extends JavaSpec<DiamondTestContext> {
                     Stream<Annotation> annotations = context().field().annotations();
 
                     assertThat(annotations.map(Annotation::annotationType).map(Type::getTypeName).collect(Collectors.toList()))
-                            .isEqualTo(Arrays.asList("ar.com.kfgodel.diamond.testobjects.TestAnnotation1", "ar.com.kfgodel.diamond.testobjects.TestAnnotation2"));
+                            .isEqualTo(Arrays.asList("ar.com.kfgodel.diamond.testobjects.annotations.TestAnnotation1", "ar.com.kfgodel.diamond.testobjects.annotations.TestAnnotation2"));
                 });   
             });
 
@@ -67,7 +67,7 @@ public class MemberAnnotationTest extends JavaSpec<DiamondTestContext> {
                     Stream<Annotation> annotations = context().method().annotations();
 
                     assertThat(annotations.map(Annotation::annotationType).map(Type::getTypeName).collect(Collectors.toList()))
-                            .isEqualTo(Arrays.asList("ar.com.kfgodel.diamond.testobjects.TestAnnotation1", "ar.com.kfgodel.diamond.testobjects.TestAnnotation2"));
+                            .isEqualTo(Arrays.asList("ar.com.kfgodel.diamond.testobjects.annotations.TestAnnotation1", "ar.com.kfgodel.diamond.testobjects.annotations.TestAnnotation2"));
 
                 });
             });
@@ -88,7 +88,7 @@ public class MemberAnnotationTest extends JavaSpec<DiamondTestContext> {
                     Stream<Annotation> annotations = context().constructor().annotations();
 
                     assertThat(annotations.map(Annotation::annotationType).map(Type::getTypeName).collect(Collectors.toList()))
-                            .isEqualTo(Arrays.asList("ar.com.kfgodel.diamond.testobjects.TestAnnotation1", "ar.com.kfgodel.diamond.testobjects.TestAnnotation2"));
+                            .isEqualTo(Arrays.asList("ar.com.kfgodel.diamond.testobjects.annotations.TestAnnotation1", "ar.com.kfgodel.diamond.testobjects.annotations.TestAnnotation2"));
 
                 });
             });

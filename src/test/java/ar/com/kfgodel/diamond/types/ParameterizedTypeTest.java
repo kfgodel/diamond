@@ -6,9 +6,9 @@ import ar.com.kfgodel.diamond.DiamondTestContext;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.reference.ReferenceOf;
-import ar.com.kfgodel.diamond.testobjects.TestAnnotation1;
-import ar.com.kfgodel.diamond.testobjects.TestAnnotation2;
-import ar.com.kfgodel.diamond.testobjects.TestAnnotation3;
+import ar.com.kfgodel.diamond.testobjects.annotations.TestAnnotation1;
+import ar.com.kfgodel.diamond.testobjects.annotations.TestAnnotation2;
+import ar.com.kfgodel.diamond.testobjects.annotations.TestAnnotation3;
 import ar.com.kfgodel.diamond.testobjects.lineage.ParentClass;
 import org.junit.runner.RunWith;
 
@@ -41,7 +41,7 @@ public class ParameterizedTypeTest extends JavaSpec<DiamondTestContext> {
 
             it("has a declaration", () -> {
                 assertThat(context().typeInstance().declaration())
-                        .isEqualTo("@ar.com.kfgodel.diamond.testobjects.TestAnnotation1() ar.com.kfgodel.diamond.testobjects.lineage.ParentClass<@ar.com.kfgodel.diamond.testobjects.TestAnnotation2() java.lang.String, @ar.com.kfgodel.diamond.testobjects.TestAnnotation3() java.lang.Integer>");
+                        .isEqualTo("@ar.com.kfgodel.diamond.testobjects.annotations.TestAnnotation1() ar.com.kfgodel.diamond.testobjects.lineage.ParentClass<@ar.com.kfgodel.diamond.testobjects.annotations.TestAnnotation2() java.lang.String, @ar.com.kfgodel.diamond.testobjects.annotations.TestAnnotation3() java.lang.Integer>");
             });
 
             it("has type parameters", ()->{
@@ -60,7 +60,7 @@ public class ParameterizedTypeTest extends JavaSpec<DiamondTestContext> {
                 assertThat(context().typeInstance().generics().arguments()
                             .map((typeArgument)-> typeArgument.declaration())
                             .collect(Collectors.toList()))
-                        .isEqualTo(Arrays.asList("@ar.com.kfgodel.diamond.testobjects.TestAnnotation2() java.lang.String","@ar.com.kfgodel.diamond.testobjects.TestAnnotation3() java.lang.Integer"));
+                        .isEqualTo(Arrays.asList("@ar.com.kfgodel.diamond.testobjects.annotations.TestAnnotation2() java.lang.String","@ar.com.kfgodel.diamond.testobjects.annotations.TestAnnotation3() java.lang.Integer"));
 
             });
 

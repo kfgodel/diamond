@@ -2,7 +2,6 @@ package ar.com.kfgodel.diamond.impl.methods.declaration;
 
 import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
-import ar.com.kfgodel.diamond.api.naming.Named;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 
 import java.util.function.Consumer;
@@ -66,7 +65,7 @@ public class MethodDeclaration {
     }
 
     private void withParameterSeparatedBy(String separator, Consumer<String> separatedAnnotationsConsumer){
-        transformAndJoin(method.parameterTypes(), Named::name, separator, separatedAnnotationsConsumer);
+        transformTypeAndJoin(method.parameterTypes(), separator, separatedAnnotationsConsumer);
     }
 
     private void withTypeParametersSeparatedBy(String separator, Consumer<String> separatedArgumentsConsumer){
