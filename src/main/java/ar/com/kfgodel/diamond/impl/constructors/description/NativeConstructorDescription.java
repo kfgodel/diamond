@@ -1,20 +1,19 @@
 package ar.com.kfgodel.diamond.impl.constructors.description;
 
-import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.constructors.ConstructorDescription;
 import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
 import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.members.NativeMemberDeclaringTypeSupplier;
+import ar.com.kfgodel.diamond.impl.members.annotations.NativeElementAnnotationsSupplier;
 import ar.com.kfgodel.diamond.impl.members.modifiers.suppliers.ImmutableMemberModifiers;
+import ar.com.kfgodel.diamond.impl.members.parameters.ImmutableMemberParameters;
 import ar.com.kfgodel.diamond.impl.natives.invokables.constructors.NativeConstructorInvoker;
 import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
-import ar.com.kfgodel.streams.StreamFromCollectionSupplier;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
-import java.util.Arrays;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -27,12 +26,7 @@ public class NativeConstructorDescription implements ConstructorDescription {
 
     @Override
     public Supplier<Stream<TypeInstance>> getParameterTypes() {
-        // We after getting the diamond representation, we put them in a list
-        // that we will use to stream from
-        return StreamFromCollectionSupplier.using(SuppliedValue.lazilyBy(() ->
-                Arrays.stream(nativeConstructor.getAnnotatedParameterTypes())
-                        .map((annotated) -> Diamond.types().from(annotated))
-                        .collect(Collectors.toList())));
+        return ImmutableMemberParameters.create(nativeConstructor);
     }
 
     @Override
@@ -48,6 +42,11 @@ public class NativeConstructorDescription implements ConstructorDescription {
     @Override
     public Supplier<PolymorphicInvokable> getInvoker() {
         return SuppliedValue.lazilyBy(()-> NativeConstructorInvoker.create(nativeConstructor));
+    }
+
+    @Override
+    public Supplier<Stream<Annotation>> getAnnotations() {
+        return NativeElementAnnotationsSupplier.create(nativeConstructor);
     }
 
     public static NativeConstructorDescription create(Constructor<?> nativeConstructor) {

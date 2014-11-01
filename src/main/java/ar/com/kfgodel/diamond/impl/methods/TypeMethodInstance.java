@@ -90,6 +90,7 @@ public class TypeMethodInstance extends TypeMemberSupport implements TypeMethod 
         method.setDeclaringType(description.getDeclaringType());
         method.setModifiers(description.getModifiers());
         method.setInvoker(description.getInvoker());
+        method.setAnnotations(description.getAnnotations());
         method.parameterTypes = description.getParameterTypes();
         return method;
     }

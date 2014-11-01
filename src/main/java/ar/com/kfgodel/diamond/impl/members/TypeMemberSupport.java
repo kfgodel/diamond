@@ -7,7 +7,9 @@ import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.invokables.UndefinedInvoker;
 import ar.com.kfgodel.diamond.impl.members.modifiers.suppliers.UndefinedMemberModifiers;
+import ar.com.kfgodel.diamond.impl.types.parts.annotations.NoAnnotationsSupplier;
 
+import java.lang.annotation.Annotation;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -17,6 +19,7 @@ import java.util.stream.Stream;
  */
 public abstract class TypeMemberSupport implements TypeMember {
 
+    private Supplier<Stream<Annotation>> annotations = NoAnnotationsSupplier.INSTANCE;
     private Supplier<TypeInstance> declaringType;
     private Supplier<Stream<MemberModifier>> modifiers = UndefinedMemberModifiers.create(this);
     private Supplier<PolymorphicInvokable> invoker = UndefinedInvoker.create(this);
@@ -59,5 +62,18 @@ public abstract class TypeMemberSupport implements TypeMember {
     @Override
     public String toString() {
         return this.declaration();
+    }
+
+    @Override
+    public Stream<Annotation> annotations() {
+        return annotations.get();
+    }
+
+    /**
+     * Use this to override default creation with no annotations
+     * @param annotationSupplier The new annotations
+     */
+    protected void setAnnotations(Supplier<Stream<Annotation>> annotationSupplier) {
+        this.annotations = annotationSupplier;
     }
 }

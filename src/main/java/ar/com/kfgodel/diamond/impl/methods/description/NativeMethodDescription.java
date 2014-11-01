@@ -6,17 +6,17 @@ import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
 import ar.com.kfgodel.diamond.api.methods.MethodDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.members.NativeMemberDeclaringTypeSupplier;
+import ar.com.kfgodel.diamond.impl.members.annotations.NativeElementAnnotationsSupplier;
 import ar.com.kfgodel.diamond.impl.members.modifiers.suppliers.ImmutableMemberModifiers;
+import ar.com.kfgodel.diamond.impl.members.parameters.ImmutableMemberParameters;
 import ar.com.kfgodel.diamond.impl.natives.invokables.methods.NativeInstanceMethodInvoker;
 import ar.com.kfgodel.diamond.impl.natives.invokables.methods.NativeStaticMethodInvoker;
 import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
-import ar.com.kfgodel.streams.StreamFromCollectionSupplier;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.Arrays;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -39,9 +39,7 @@ public class NativeMethodDescription implements MethodDescription {
 
     @Override
     public Supplier<Stream<TypeInstance>> getParameterTypes() {
-        return StreamFromCollectionSupplier.using(SuppliedValue.lazilyBy(()-> Arrays.stream(nativeMethod.getAnnotatedParameterTypes())
-                .map((annotated) -> Diamond.types().from(annotated))
-                .collect(Collectors.toList())));
+        return ImmutableMemberParameters.create(nativeMethod);
     }
 
     @Override
@@ -59,6 +57,11 @@ public class NativeMethodDescription implements MethodDescription {
         return SuppliedValue.lazilyBy(()-> Modifier.isStatic(nativeMethod.getModifiers())?
                 NativeStaticMethodInvoker.create(nativeMethod):
                 NativeInstanceMethodInvoker.create(nativeMethod));
+    }
+
+    @Override
+    public Supplier<Stream<Annotation>> getAnnotations() {
+        return NativeElementAnnotationsSupplier.create(nativeMethod);
     }
 
     public static NativeMethodDescription create(Method nativeMethod) {
