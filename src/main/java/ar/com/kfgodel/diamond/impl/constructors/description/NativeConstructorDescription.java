@@ -45,6 +45,11 @@ public class NativeConstructorDescription implements ConstructorDescription {
     }
 
     @Override
+    public Supplier<String> getName() {
+        return SuppliedValue.lazilyBy(nativeConstructor::getName);
+    }
+
+    @Override
     public Supplier<Stream<Annotation>> getAnnotations() {
         return NativeElementAnnotationsSupplier.create(nativeConstructor);
     }

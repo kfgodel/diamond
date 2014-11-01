@@ -2,19 +2,19 @@ package ar.com.kfgodel.diamond.api.fields;
 
 import ar.com.kfgodel.diamond.api.invokable.Invokable;
 import ar.com.kfgodel.diamond.api.members.TypeMember;
-import ar.com.kfgodel.diamond.api.naming.Named;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 /**
  * This type represents a field defined for a type that can store state
  * Created by kfgodel on 18/09/14.
  */
-public interface TypeField extends Named, TypeMember, Consumer<Object>, BiConsumer<Object, Object>, Supplier<Object>, Function<Object,Object>, Invokable {
+public interface TypeField extends TypeMember, Consumer<Object>, BiConsumer<Object, Object>, Supplier<Object>, Function<Object,Object>, Invokable {
 
     /**
      * @return The name of the field
@@ -72,4 +72,11 @@ public interface TypeField extends Named, TypeMember, Consumer<Object>, BiConsum
      */
     @Override
     void accept(Object instance, Object argument);
+
+    /**
+     * @return An empty stream as fields don't have parameters.<br>
+     *     This method allows polymorphic compatibility between methods and fields
+     */
+    @Override
+    Stream<TypeInstance> parameterTypes();
 }

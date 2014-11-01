@@ -17,15 +17,8 @@ import java.util.stream.Stream;
  */
 public class TypeMethodInstance extends TypeMemberSupport implements TypeMethod {
 
-
-    private Supplier<String> methodName;
     private Supplier<TypeInstance> returnType;
     private Supplier<Stream<TypeInstance>> parameterTypes;
-
-    @Override
-    public String name() {
-        return methodName.get();
-    }
 
     @Override
     public TypeInstance returnType() {
@@ -85,7 +78,7 @@ public class TypeMethodInstance extends TypeMemberSupport implements TypeMethod 
 
     public static TypeMethodInstance create(MethodDescription description) {
         TypeMethodInstance method = new TypeMethodInstance();
-        method.methodName = description.getName();
+        method.setName(description.getName());
         method.returnType = description.getReturnType();
         method.setDeclaringType(description.getDeclaringType());
         method.setModifiers(description.getModifiers());

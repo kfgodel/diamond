@@ -35,6 +35,11 @@ public interface ConstructorDescription {
     Supplier<PolymorphicInvokable> getInvoker();
 
     /**
+     * @return The supplier to get the constructor name
+     */
+    Supplier<String> getName();
+
+    /**
      * @return The supplier for constructor's annotations
      */
     Supplier<Stream<Annotation>> getAnnotations();
