@@ -135,19 +135,19 @@ public class TypeEqualityTest extends JavaSpec<DiamondTestContext> {
     }
 
     private TypeInstance getWildcardSubTypeOfString() {
-        return getTypeFrom(new ReferenceOf<List<? extends String>>() {}).generics().genericArguments().findFirst().get();
+        return getTypeFrom(new ReferenceOf<List<? extends String>>() {}).generics().arguments().findFirst().get();
     }
 
     private TypeInstance getWildcardSubTypeOfNumber() {
-        return getTypeFrom(new ReferenceOf<List<? extends Number>>() {}).generics().genericArguments().findFirst().get();
+        return getTypeFrom(new ReferenceOf<List<? extends Number>>() {}).generics().arguments().findFirst().get();
     }
 
     private TypeInstance getWildcardSupertypeOfString() {
-        return getTypeFrom(new ReferenceOf<List<? super String>>() {}).generics().genericArguments().findFirst().get();
+        return getTypeFrom(new ReferenceOf<List<? super String>>() {}).generics().arguments().findFirst().get();
     }
 
     private TypeInstance getWildcardSupertypeOfNumber() {
-        return getTypeFrom(new ReferenceOf<List<? super Number>>() {}).generics().genericArguments().findFirst().get();
+        return getTypeFrom(new ReferenceOf<List<? super Number>>() {}).generics().arguments().findFirst().get();
     }
 
     private TypeInstance getStringListType(){

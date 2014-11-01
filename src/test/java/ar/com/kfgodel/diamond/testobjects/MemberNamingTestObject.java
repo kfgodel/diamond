@@ -8,13 +8,16 @@ import java.util.List;
  */
 public class MemberNamingTestObject {
 
-    public MemberNamingTestObject(Integer a){
+    @TestAnnotation1
+    public <R> MemberNamingTestObject(Integer a){
 
     }
 
-    public List<String> stringList;
+    @TestAnnotation2
+    public @TestAnnotation1 List<String> stringList;
 
-    public int methodWithArgs(String a, Integer b){
+    @TestAnnotation3
+    public <S> int methodWithArgs(String a, S b){
         return 0;
     }
 }

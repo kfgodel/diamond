@@ -18,7 +18,7 @@ import ar.com.kfgodel.diamond.impl.methods.sources.NoMethods;
 import ar.com.kfgodel.diamond.impl.methods.sources.TypeMethodsImpl;
 import ar.com.kfgodel.diamond.impl.types.declaration.TypeDeclaration;
 import ar.com.kfgodel.diamond.impl.types.equality.TypeEquality;
-import ar.com.kfgodel.diamond.impl.types.generics.NonGenerifiedType;
+import ar.com.kfgodel.diamond.impl.types.generics.UnGenerifiedTypeGenerics;
 import ar.com.kfgodel.diamond.impl.types.inheritance.NoParentsInheritance;
 import ar.com.kfgodel.diamond.impl.types.parts.annotations.NoAnnotationsSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.names.NoNamesSupplier;
@@ -86,7 +86,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
 
     @Override
     public TypeGenerics generics() {
-        return NonGenerifiedType.INSTANCE;
+        return UnGenerifiedTypeGenerics.INSTANCE;
     }
 
     @Override

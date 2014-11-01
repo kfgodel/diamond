@@ -1,8 +1,7 @@
-package ar.com.kfgodel.diamond.api.constructors;
+package ar.com.kfgodel.diamond.api.members;
 
 import ar.com.kfgodel.diamond.api.generics.Generics;
 import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
-import ar.com.kfgodel.diamond.api.members.MemberDescription;
 import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 
@@ -11,43 +10,44 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 /**
- * This type represents the Diamond description of a constructor abstracting the underlying implementation
- * Created by kfgodel on 15/10/14.
+ * This type represents the common type member description elements
+ * Created by kfgodel on 01/11/14.
  */
-public interface ConstructorDescription extends MemberDescription {
+public interface MemberDescription {
 
     /**
-     * @return The supplier for the parameter types of the described method
+     * @return The supplier for the parameter types of the described member
      */
     Supplier<Stream<TypeInstance>> getParameterTypes();
 
     /**
-     * @return The supplier of the type that declared the constructor
+     * @return The supplier of the type that declared the member
      */
     Supplier<TypeInstance> getDeclaringType();
 
     /**
-     * @return The supplier of modifiers applied to the constructor
+     * @return The supplier of modifiers applied to the member
      */
     Supplier<Stream<MemberModifier>> getModifiers();
 
     /**
-     * @return The supplier of the constructor invoker function
+     * @return The supplier of the member invoker function
      */
     Supplier<PolymorphicInvokable> getInvoker();
 
     /**
-     * @return The supplier to get the constructor name
+     * @return The supplier to get the member name
      */
     Supplier<String> getName();
 
     /**
-     * @return The supplier for constructor's annotations
+     * @return The supplier for member's annotations
      */
     Supplier<Stream<Annotation>> getAnnotations();
 
     /**
-     * @return The supplier of constructor's generics information
+     * @return The supplier of member's generics information
      */
     Supplier<Generics> getGenerics();
+
 }

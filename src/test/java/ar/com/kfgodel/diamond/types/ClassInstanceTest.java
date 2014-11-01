@@ -71,14 +71,14 @@ public class ClassInstanceTest extends JavaSpec<DiamondTestContext> {
 
             describe("generics", () -> {
                 it("has type parameters", () -> {
-                    List<String> parameterNames = context().classInstance().generics().genericParameters()
+                    List<String> parameterNames = context().classInstance().generics().parameters()
                             .map((typeParamenter) -> typeParamenter.name())
                             .collect(Collectors.toList());
                     assertThat(parameterNames).isEqualTo(Arrays.asList("C"));
                 });
 
                 it("has type arguments", ()-> {
-                    List<String> parameterNames = context().classInstance().generics().genericArguments()
+                    List<String> parameterNames = context().classInstance().generics().arguments()
                             .map((typeParamenter) -> typeParamenter.name())
                             .collect(Collectors.toList());
                     assertThat(parameterNames).isEqualTo(Arrays.asList());
@@ -88,7 +88,7 @@ public class ClassInstanceTest extends JavaSpec<DiamondTestContext> {
                  * The superclass is its un-parameterized supertype (the one that's used on runtime)
                  */
                 it("has correct type arguments for its superclass", ()->{
-                    List<String> parameterNames = context().classInstance().inheritance().superclass().get().generics().genericArguments()
+                    List<String> parameterNames = context().classInstance().inheritance().superclass().get().generics().arguments()
                             .map((typeParamenter) -> typeParamenter.name())
                             .collect(Collectors.toList());
                     assertThat(parameterNames).isEqualTo(Arrays.asList());
@@ -98,7 +98,7 @@ public class ClassInstanceTest extends JavaSpec<DiamondTestContext> {
                  * The extended type is its parameterized supertype (the one that's is used on compile time)
                  */
                 it("has correct type arguments for its extended type", ()->{
-                    List<String> parameterNames = context().classInstance().inheritance().extendedType().get().generics().genericArguments()
+                    List<String> parameterNames = context().classInstance().inheritance().extendedType().get().generics().arguments()
                             .map((typeParamenter) -> typeParamenter.name())
                             .collect(Collectors.toList());
                     assertThat(parameterNames).isEqualTo(Arrays.asList("C", "Integer"));

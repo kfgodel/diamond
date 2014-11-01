@@ -11,9 +11,9 @@ import java.util.stream.Stream;
  * This type represents the generics information for an ungenerified type
  * Created by kfgodel on 05/10/14.
  */
-public class NonGenerifiedType implements TypeGenerics {
+public class UnGenerifiedTypeGenerics implements TypeGenerics {
 
-    public static final NonGenerifiedType INSTANCE = new NonGenerifiedType();
+    public static final UnGenerifiedTypeGenerics INSTANCE = new UnGenerifiedTypeGenerics();
 
     /**
      * Default implementation with no bounds
@@ -29,12 +29,12 @@ public class NonGenerifiedType implements TypeGenerics {
      * @return An empty stream
      */
     @Override
-    public Stream<TypeInstance> genericArguments() {
+    public Stream<TypeInstance> arguments() {
         return Stream.empty();
     }
 
     @Override
-    public Stream<TypeInstance> genericParameters() {
+    public Stream<TypeInstance> parameters() {
         return Stream.empty();
     }
 }

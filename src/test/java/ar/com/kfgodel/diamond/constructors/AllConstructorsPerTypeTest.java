@@ -129,7 +129,7 @@ public class AllConstructorsPerTypeTest extends JavaSpec<DiamondTestContext> {
 
     private static TypeInstance getUnboundedWildcardType(){
         TypeInstance listType = getTypeFrom(new ReferenceOf<List<?>>() {});
-        TypeInstance unboundedWildcard = listType.generics().genericArguments().findFirst().get();
+        TypeInstance unboundedWildcard = listType.generics().arguments().findFirst().get();
         return unboundedWildcard;
     }
 

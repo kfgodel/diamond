@@ -14,5 +14,5 @@ public interface Generics {
      * @return The generic type parameters used to generify this entity (if any).
      *  (This is the list of type parameters used on the class, method, field, constructor, etc).
      */
-    Stream<TypeInstance> genericParameters();
+    Stream<TypeInstance> parameters();
 }

@@ -21,13 +21,13 @@ public class BoundedTypeGenerics implements TypeGenerics {
     }
 
     @Override
-    public Stream<TypeInstance> genericArguments() {
-        return NonGenerifiedType.INSTANCE.genericArguments();
+    public Stream<TypeInstance> arguments() {
+        return UnGenerifiedTypeGenerics.INSTANCE.arguments();
     }
 
     @Override
-    public Stream<TypeInstance> genericParameters() {
-        return NonGenerifiedType.INSTANCE.genericParameters();
+    public Stream<TypeInstance> parameters() {
+        return UnGenerifiedTypeGenerics.INSTANCE.parameters();
     }
 
     public static BoundedTypeGenerics create(Supplier<TypeBounds> bounds) {

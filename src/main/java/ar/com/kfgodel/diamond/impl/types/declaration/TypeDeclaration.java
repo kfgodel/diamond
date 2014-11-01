@@ -67,7 +67,7 @@ public class TypeDeclaration {
     }
 
     private void withTypeArgumentDeclarationsSeparatedBy(String separator, Consumer<String> separatedArgumentsConsumer){
-        transformTypeAndJoin(type.generics().genericArguments(), separator, separatedArgumentsConsumer);
+        transformTypeAndJoin(type.generics().arguments(), separator, separatedArgumentsConsumer);
     }
 
     private void withUpperBoundDeclarationsSeparatedBy(String separator, Consumer<String> separatedArgumentsConsumer){

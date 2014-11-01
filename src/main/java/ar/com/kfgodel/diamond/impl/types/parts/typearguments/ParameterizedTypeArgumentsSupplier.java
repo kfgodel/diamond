@@ -1,16 +1,12 @@
 package ar.com.kfgodel.diamond.impl.types.parts.typearguments;
 
-import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
-import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
-import ar.com.kfgodel.streams.StreamFromCollectionSupplier;
+import ar.com.kfgodel.diamond.impl.streams.TypeStreamSupplierFromNativeTypeArray;
 
 import java.lang.reflect.AnnotatedParameterizedType;
 import java.lang.reflect.ParameterizedType;
-import java.util.Arrays;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -20,12 +16,7 @@ import java.util.stream.Stream;
 public class ParameterizedTypeArgumentsSupplier {
 
     public static Supplier<Stream<TypeInstance>>  create(Object nativeType) {
-        return StreamFromCollectionSupplier.using(SuppliedValue.lazilyBy(()->{
-            Object[] actualTypeArguments = getActualTypeArgumentsFrom(nativeType);
-            return Arrays.stream(actualTypeArguments)
-                    .map((annotatedType) -> Diamond.types().from(annotatedType))
-                    .collect(Collectors.toList());
-        }));
+        return TypeStreamSupplierFromNativeTypeArray.apply(() -> getActualTypeArgumentsFrom(nativeType));
     }
 
     private static Object[] getActualTypeArgumentsFrom(Object nativeType) {

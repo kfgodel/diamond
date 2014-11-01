@@ -9,7 +9,7 @@ import java.util.function.Supplier;
  * This type represents a supplier defined value that is delayed until needed
  * Created by kfgodel on 21/09/14.
  */
-public class SuppliedValue<T> implements LazyValue<T> {
+public class CachedValue<T> implements LazyValue<T> {
 
     private Supplier<T> generatorLambda;
     private T value;
@@ -20,8 +20,8 @@ public class SuppliedValue<T> implements LazyValue<T> {
      * @param <T> The expect type of value
      * @return The created instance
      */
-    public static<T> SuppliedValue<T> lazilyBy(Supplier<T> valueGenerator) {
-        SuppliedValue<T> value = new SuppliedValue<>();
+    public static<T> CachedValue<T> lazilyBy(Supplier<T> valueGenerator) {
+        CachedValue<T> value = new CachedValue<>();
         value.generatorLambda = valueGenerator;
         return value;
     }
@@ -33,7 +33,7 @@ public class SuppliedValue<T> implements LazyValue<T> {
      * @return The created supplier
      */
     public static<T> LazyValue<T> eagerlyFrom(T value) {
-        SuppliedValue<T> supplier = new SuppliedValue<>();
+        CachedValue<T> supplier = new CachedValue<>();
         supplier.value = value;
         return supplier;
     }

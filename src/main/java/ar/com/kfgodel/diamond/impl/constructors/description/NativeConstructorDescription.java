@@ -1,15 +1,17 @@
 package ar.com.kfgodel.diamond.impl.constructors.description;
 
 import ar.com.kfgodel.diamond.api.constructors.ConstructorDescription;
+import ar.com.kfgodel.diamond.api.generics.Generics;
 import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
 import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.members.NativeMemberDeclaringTypeSupplier;
 import ar.com.kfgodel.diamond.impl.members.annotations.NativeElementAnnotationsSupplier;
+import ar.com.kfgodel.diamond.impl.members.generics.ExecutableGenericsSupplier;
 import ar.com.kfgodel.diamond.impl.members.modifiers.suppliers.ImmutableMemberModifiers;
 import ar.com.kfgodel.diamond.impl.members.parameters.ImmutableMemberParameters;
 import ar.com.kfgodel.diamond.impl.natives.invokables.constructors.NativeConstructorInvoker;
-import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
+import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
@@ -41,17 +43,22 @@ public class NativeConstructorDescription implements ConstructorDescription {
 
     @Override
     public Supplier<PolymorphicInvokable> getInvoker() {
-        return SuppliedValue.lazilyBy(()-> NativeConstructorInvoker.create(nativeConstructor));
+        return CachedValue.lazilyBy(() -> NativeConstructorInvoker.create(nativeConstructor));
     }
 
     @Override
     public Supplier<String> getName() {
-        return SuppliedValue.lazilyBy(nativeConstructor::getName);
+        return CachedValue.lazilyBy(nativeConstructor::getName);
     }
 
     @Override
     public Supplier<Stream<Annotation>> getAnnotations() {
         return NativeElementAnnotationsSupplier.create(nativeConstructor);
+    }
+
+    @Override
+    public Supplier<Generics> getGenerics() {
+        return CachedValue.lazilyBy(() -> ExecutableGenericsSupplier.create(nativeConstructor));
     }
 
     public static NativeConstructorDescription create(Constructor<?> nativeConstructor) {

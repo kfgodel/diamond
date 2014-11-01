@@ -7,7 +7,7 @@ import ar.com.kfgodel.diamond.impl.types.description.TypeDescriptor;
 import ar.com.kfgodel.diamond.impl.types.description.extended.ExtendedTypeDescription;
 import ar.com.kfgodel.diamond.impl.types.generics.parameters.ActualArgumentReplacer;
 import ar.com.kfgodel.diamond.impl.types.generics.parameters.ParametrizationAnalyzer;
-import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
+import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 
 import java.lang.reflect.AnnotatedType;
 import java.util.Optional;
@@ -22,9 +22,9 @@ import java.util.stream.Stream;
 public class ExtendedTypeSupplier {
 
     public static Supplier<Optional<TypeInstance>> create(Class<?> nativeClass, Stream<TypeInstance> typeArguments) {
-        return SuppliedValue.lazilyBy(()->{
+        return CachedValue.lazilyBy(() -> {
             AnnotatedType annotatedSuperclass = nativeClass.getAnnotatedSuperclass();
-            if(annotatedSuperclass == null){
+            if (annotatedSuperclass == null) {
                 // There's no extended type
                 return Optional.empty();
             }
