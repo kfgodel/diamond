@@ -50,6 +50,7 @@ public class TypeConstructorInstance extends TypeMemberSupport implements TypeCo
         constructor.setDeclaringType(description.getDeclaringType());
         constructor.setModifiers(description.getModifiers());
         constructor.setInvoker(description.getInvoker());
+        constructor.setAnnotations(description.getAnnotations());
         constructor.parameterTypes = description.getParameterTypes();
         return constructor;
     }

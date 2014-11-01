@@ -1,6 +1,7 @@
 package ar.com.kfgodel.diamond.impl.fields.declaration;
 
 import ar.com.kfgodel.diamond.api.fields.TypeField;
+import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -29,10 +30,10 @@ public class FieldDeclaration {
     public String asString() {
         StringBuilder builder = new StringBuilder();
 
-//        withAnnotationsSeparatedBy(" ", (separatedAnnotations)->{
-//            builder.append(separatedAnnotations);
-//            builder.append(" ");
-//        });
+        withAnnotationsSeparatedBy(" ", (separatedAnnotations)->{
+            builder.append(separatedAnnotations);
+            builder.append(" ");
+        });
         withModifiersSeparatedBy(" ", (separatedModifiers)->{
             builder.append(separatedModifiers);
             builder.append(" ");
@@ -52,12 +53,12 @@ public class FieldDeclaration {
         return builder.toString();
     }
 
-//    private void withAnnotationsSeparatedBy(String separator, Consumer<String> separatedAnnotationsConsumer){
-//        transformAndJoin(type.annotations(), (annotation) -> annotation.toString(), separator, separatedAnnotationsConsumer);
-//    }
+    private void withAnnotationsSeparatedBy(String separator, Consumer<String> separatedAnnotationsConsumer){
+        transformAndJoin(field.annotations(), Object::toString, separator, separatedAnnotationsConsumer);
+    }
 
     private void withModifiersSeparatedBy(String separator, Consumer<String> separatedAnnotationsConsumer){
-        transformAndJoin(field.modifiers(), (modifier) -> modifier.declaration(), separator, separatedAnnotationsConsumer);
+        transformAndJoin(field.modifiers(), MemberModifier::declaration, separator, separatedAnnotationsConsumer);
     }
 
 

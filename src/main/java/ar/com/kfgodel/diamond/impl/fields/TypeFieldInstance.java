@@ -75,6 +75,7 @@ public class TypeFieldInstance extends TypeMemberSupport implements TypeField {
         field.setDeclaringType(description.getDeclaringType());
         field.setModifiers(description.getModifiers());
         field.setInvoker(description.getInvoker());
+        field.setAnnotations(description.getAnnotations());
         return field;
     }
 

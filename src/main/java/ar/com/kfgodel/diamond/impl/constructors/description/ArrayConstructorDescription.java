@@ -7,9 +7,11 @@ import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
 import ar.com.kfgodel.diamond.api.sources.modifiers.Visibility;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.natives.invokables.constructors.NativeArrayConstructor;
+import ar.com.kfgodel.diamond.impl.types.parts.annotations.NoAnnotationsSupplier;
 import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
 import ar.com.kfgodel.streams.StreamFromElementSupplier;
 
+import java.lang.annotation.Annotation;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -39,6 +41,11 @@ public class ArrayConstructorDescription implements ConstructorDescription {
     @Override
     public Supplier<PolymorphicInvokable> getInvoker() {
         return SuppliedValue.lazilyBy(()-> NativeArrayConstructor.create(nativeArrayClass));
+    }
+
+    @Override
+    public Supplier<Stream<Annotation>> getAnnotations() {
+        return NoAnnotationsSupplier.INSTANCE;
     }
 
     public static ArrayConstructorDescription create(Class<?> nativeArrayType) {

@@ -4,6 +4,7 @@ import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
 import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 
+import java.lang.annotation.Annotation;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -36,4 +37,9 @@ public interface FieldDescription {
      * @return The supplier of the functional behavior of the field (get and set operations)
      */
     Supplier<PolymorphicInvokable> getInvoker();
+
+    /**
+     * @return The supplier of this field annotations
+     */
+    Supplier<Stream<Annotation>> getAnnotations();
 }

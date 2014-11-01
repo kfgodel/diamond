@@ -6,11 +6,13 @@ import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
 import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.members.NativeMemberDeclaringTypeSupplier;
+import ar.com.kfgodel.diamond.impl.members.annotations.NativeElementAnnotationsSupplier;
 import ar.com.kfgodel.diamond.impl.members.modifiers.suppliers.ImmutableMemberModifiers;
 import ar.com.kfgodel.diamond.impl.natives.invokables.fields.NativeInstanceFieldInvoker;
 import ar.com.kfgodel.diamond.impl.natives.invokables.fields.NativeStaticFieldInvoker;
 import ar.com.kfgodel.lazyvalue.impl.SuppliedValue;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.function.Supplier;
@@ -57,5 +59,10 @@ public class NativeFieldDescription implements FieldDescription {
                         NativeStaticFieldInvoker.create(nativeField):
                         NativeInstanceFieldInvoker.create(nativeField)
         );
+    }
+
+    @Override
+    public Supplier<Stream<Annotation>> getAnnotations() {
+        return NativeElementAnnotationsSupplier.create(nativeField);
     }
 }
