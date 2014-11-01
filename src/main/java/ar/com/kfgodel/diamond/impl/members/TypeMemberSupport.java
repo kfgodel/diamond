@@ -42,6 +42,11 @@ public class TypeMemberSupport implements TypeMember {
         this.modifiers = modifierSupplier;
     }
 
+    @Override
+    public boolean is(MemberModifier expectedModifier) {
+        return modifiers().anyMatch(expectedModifier);
+    }
+
     protected void setInvoker(Supplier<PolymorphicInvokable> invoker) {
         this.invoker = invoker;
     }

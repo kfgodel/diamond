@@ -26,26 +26,22 @@ public class MethodModifiersTest extends JavaSpec<DiamondTestContext> {
         describe("a method modifier", () -> {
             it("can be public",()->{
                 TypeMethod method = getPublicMethod();
-                assertThat(method.modifiers().collect(Collectors.toList()))
-                        .contains(Visibility.PUBLIC);
+                assertThat(method.is(Visibility.PUBLIC));
             });
 
             it("can be private",()->{
                 TypeMethod method = getPrivateMethod();
-                assertThat(method.modifiers().collect(Collectors.toList()))
-                        .contains(Visibility.PRIVATE);
+                assertThat(method.is(Visibility.PRIVATE));
             });
 
             it("can be protected",()->{
                 TypeMethod method = getProtectedMethod();
-                assertThat(method.modifiers().collect(Collectors.toList()))
-                        .contains(Visibility.PROTECTED);
+                assertThat(method.is(Visibility.PROTECTED));
             });
 
             it("can be package (default)",()->{
                 TypeMethod method = getDefaultMethod();
-                assertThat(method.modifiers().collect(Collectors.toList()))
-                        .contains(Visibility.PACKAGE);
+                assertThat(method.is(Visibility.PACKAGE));
             });
 
             it("can be static",()->{
@@ -56,32 +52,27 @@ public class MethodModifiersTest extends JavaSpec<DiamondTestContext> {
 
             it("can be final",()->{
                 TypeMethod method = getFinalMethod();
-                assertThat(method.modifiers().collect(Collectors.toList()))
-                        .contains(Mutability.FINAL);
+                assertThat(method.is(Mutability.FINAL));
             });
 
             it("can be native",()->{
                 TypeMethod method = getNativeMethod();
-                assertThat(method.modifiers().collect(Collectors.toList()))
-                        .contains(MethodModifier.NATIVE);
-            }); 
+                assertThat(method.is(MethodModifier.NATIVE));
+            });
             
             it("can be synchronized",()->{
                 TypeMethod method = getSyncMethod();
-                assertThat(method.modifiers().collect(Collectors.toList()))
-                        .contains(MethodModifier.SYNCHRONIZED);
-            }); 
+                assertThat(method.is(MethodModifier.SYNCHRONIZED));
+            });
             
             it("can be strictfp",()->{
                 TypeMethod method = getStrictMethod();
-                assertThat(method.modifiers().collect(Collectors.toList()))
-                        .contains(MethodModifier.STRICTFP);
+                assertThat(method.is(MethodModifier.STRICTFP));
             });
 
             it("can be abstract",()->{
                 TypeMethod method = getAbstractMethod();
-                assertThat(method.modifiers().collect(Collectors.toList()))
-                        .contains(MethodModifier.ABSTRACT);
+                assertThat(method.is(MethodModifier.ABSTRACT));
             });
         });
     }

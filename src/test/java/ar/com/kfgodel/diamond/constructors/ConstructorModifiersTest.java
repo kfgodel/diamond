@@ -12,8 +12,6 @@ import ar.com.kfgodel.diamond.testobjects.modifiers.ProtectedMembersTestObject;
 import ar.com.kfgodel.diamond.testobjects.modifiers.PublicMembersTestObject;
 import org.junit.runner.RunWith;
 
-import java.util.stream.Collectors;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -27,26 +25,22 @@ public class ConstructorModifiersTest extends JavaSpec<DiamondTestContext> {
         describe("a constructor modifier", () -> {
             it("can be public",()->{
                 TypeConstructor constructor = getPublicConstructor();
-                assertThat(constructor.modifiers().collect(Collectors.toList()))
-                        .contains(Visibility.PUBLIC);
+                assertThat(constructor.is(Visibility.PUBLIC));
             });
 
             it("can be private",()->{
                 TypeConstructor constructor = getPrivateConstructor();
-                assertThat(constructor.modifiers().collect(Collectors.toList()))
-                        .contains(Visibility.PRIVATE);
+                assertThat(constructor.is(Visibility.PRIVATE));
             });
 
             it("can be protected",()->{
                 TypeConstructor constructor = getProtectedConstructor();
-                assertThat(constructor.modifiers().collect(Collectors.toList()))
-                        .contains(Visibility.PROTECTED);
+                assertThat(constructor.is(Visibility.PROTECTED));
             });
 
             it("can be package (default)",()->{
                 TypeConstructor constructor = getDefaultConstructor();
-                assertThat(constructor.modifiers().collect(Collectors.toList()))
-                        .contains(Visibility.PACKAGE);
+                assertThat(constructor.is(Visibility.PACKAGE));
             });
         });
     }
