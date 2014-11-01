@@ -28,6 +28,10 @@ public class MemberNamingTest extends JavaSpec<DiamondTestContext> {
 
                 it("has a complete declaration name",()->{
                     assertThat(context().field().declaration()).isEqualTo("public List stringList /* MemberNamingTestObject */");
+                });
+                
+                it("toString is equal to the declaration",()->{
+                    assertThat(context().field().toString()).isEqualTo(context().field().declaration());
                 });   
             });
 
@@ -44,14 +48,26 @@ public class MemberNamingTest extends JavaSpec<DiamondTestContext> {
                     assertThat(context().method().declaration()).isEqualTo("public int methodWithArgs(String, Integer) /* MemberNamingTestObject */");
                 });
 
+                it("toString is equal to the declaration",()->{
+                    assertThat(context().method().toString()).isEqualTo(context().method().declaration());
+                });
+
             });
 
             describe("for constructors", () -> {
 
                 context().constructor(() -> Diamond.of(MemberNamingTestObject.class).constructors().existingDeclaredFor(Diamond.of(Integer.class)));
+                
+                it("is the complete declaring type name",()->{
+                    assertThat(context().constructor().name()).isEqualTo("ar.com.kfgodel.diamond.testobjects.MemberNamingTestObject");
+                });   
 
                 it("only has a declaration name", () -> {
                     assertThat(context().constructor().declaration()).isEqualTo("public MemberNamingTestObject(Integer)");
+                });
+
+                it("toString is equal to the declaration",()->{
+                    assertThat(context().constructor().toString()).isEqualTo(context().constructor().declaration());
                 });
 
             });

@@ -85,6 +85,7 @@ public class FunctionalFieldTest extends JavaSpec<DiamondTestContext> {
 
                 assertThat(value).isEqualTo(8);
             });
+            
         });
     }
 }

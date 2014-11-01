@@ -14,6 +14,13 @@ import java.util.stream.Stream;
  */
 public interface TypeConstructor extends TypeMember, Supplier<Object>, Function<Object, Object>, Invokable {
 
+
+    /**
+     * @return The name given to this constructor (usually the short name of its declaring type)
+     */
+    @Override
+    String name();
+
     /**
      * @return The type of parameters accepted by this constructor in the order they are required
      */

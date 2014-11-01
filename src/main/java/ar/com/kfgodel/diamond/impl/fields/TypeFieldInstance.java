@@ -8,6 +8,7 @@ import ar.com.kfgodel.diamond.impl.fields.equality.FieldEquality;
 import ar.com.kfgodel.diamond.impl.members.TypeMemberSupport;
 
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 /**
  * This type represents a class field instance for a type
@@ -15,13 +16,7 @@ import java.util.function.Supplier;
  */
 public class TypeFieldInstance extends TypeMemberSupport implements TypeField {
 
-    private Supplier<String> fieldName;
     private Supplier<TypeInstance> fieldType;
-
-    @Override
-    public String name() {
-        return fieldName.get();
-    }
 
     @Override
     public TypeInstance type() {
@@ -70,8 +65,8 @@ public class TypeFieldInstance extends TypeMemberSupport implements TypeField {
 
     public static TypeFieldInstance create(FieldDescription description) {
         TypeFieldInstance field = new TypeFieldInstance();
-        field.fieldName = description.getName();
         field.fieldType = description.getType();
+        field.setName(description.getName());
         field.setDeclaringType(description.getDeclaringType());
         field.setModifiers(description.getModifiers());
         field.setInvoker(description.getInvoker());
@@ -82,5 +77,10 @@ public class TypeFieldInstance extends TypeMemberSupport implements TypeField {
     @Override
     public String declaration() {
         return FieldDeclaration.create(this).asString();
+    }
+
+    @Override
+    public Stream<TypeInstance> parameterTypes() {
+        return Stream.empty();
     }
 }

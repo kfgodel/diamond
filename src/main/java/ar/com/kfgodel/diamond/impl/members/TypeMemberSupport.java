@@ -1,12 +1,13 @@
 package ar.com.kfgodel.diamond.impl.members;
 
-import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
 import ar.com.kfgodel.diamond.api.members.TypeMember;
 import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.invokables.UndefinedInvoker;
+import ar.com.kfgodel.diamond.impl.members.declaringtype.UndefinedDeclaringType;
 import ar.com.kfgodel.diamond.impl.members.modifiers.suppliers.UndefinedMemberModifiers;
+import ar.com.kfgodel.diamond.impl.named.UndefinedName;
 import ar.com.kfgodel.diamond.impl.types.parts.annotations.NoAnnotationsSupplier;
 
 import java.lang.annotation.Annotation;
@@ -20,15 +21,13 @@ import java.util.stream.Stream;
 public abstract class TypeMemberSupport implements TypeMember {
 
     private Supplier<Stream<Annotation>> annotations = NoAnnotationsSupplier.INSTANCE;
-    private Supplier<TypeInstance> declaringType;
+    private Supplier<String> name = UndefinedName.create(this);
+    private Supplier<TypeInstance> declaringType = UndefinedDeclaringType.create(this);
     private Supplier<Stream<MemberModifier>> modifiers = UndefinedMemberModifiers.create(this);
     private Supplier<PolymorphicInvokable> invoker = UndefinedInvoker.create(this);
 
     @Override
     public TypeInstance declaringType() {
-        if(declaringType == null){
-            throw new DiamondException("A declaring type definition was not provided from a subclass for this member: " + this);
-        }
         return declaringType.get();
     }
 
@@ -62,6 +61,15 @@ public abstract class TypeMemberSupport implements TypeMember {
     @Override
     public String toString() {
         return this.declaration();
+    }
+
+    @Override
+    public String name() {
+        return name.get();
+    }
+
+    public void setName(Supplier<String> name) {
+        this.name = name;
     }
 
     @Override

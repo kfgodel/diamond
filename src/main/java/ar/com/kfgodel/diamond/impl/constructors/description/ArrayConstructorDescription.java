@@ -44,6 +44,11 @@ public class ArrayConstructorDescription implements ConstructorDescription {
     }
 
     @Override
+    public Supplier<String> getName() {
+        return SuppliedValue.lazilyBy(nativeArrayClass::getSimpleName);
+    }
+
+    @Override
     public Supplier<Stream<Annotation>> getAnnotations() {
         return NoAnnotationsSupplier.INSTANCE;
     }
