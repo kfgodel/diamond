@@ -58,6 +58,19 @@ public class MethodEqualityTest extends JavaSpec<DiamondTestContext> {
                 TypeMethod voidNoArgA2 = getVoidNoArgAMethod();
                 assertThat(voidNoArgA1).isEqualTo(voidNoArgA2);
             });
+
+            describe("hashcode", () -> {
+
+                it("is equal if method are equals",()->{
+                    TypeMethod one = getStringParameterAMethod();
+                    TypeMethod other = getStringParameterAMethod();
+
+                    assertThat(one).isNotSameAs(other);
+                    assertThat(one).isEqualTo(other);
+                    assertThat(one.hashCode()).isEqualTo(other.hashCode());
+                });
+            });
+
         });
     }
 

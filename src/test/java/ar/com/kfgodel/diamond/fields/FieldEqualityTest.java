@@ -46,6 +46,19 @@ public class FieldEqualityTest extends JavaSpec<DiamondTestContext> {
                 TypeField stringAField2 = getStringAField();
                 assertThat(stringAField1).isEqualTo(stringAField2);
             });
+
+            describe("hashcode", () -> {
+
+                it("is equal if fields are equals",()->{
+                    TypeField one = getStringAField();
+                    TypeField other = getStringAField();
+
+                    assertThat(one).isNotSameAs(other);
+                    assertThat(one).isEqualTo(other);
+                    assertThat(one.hashCode()).isEqualTo(other.hashCode());
+                });   
+            });
+
         });
     }
 

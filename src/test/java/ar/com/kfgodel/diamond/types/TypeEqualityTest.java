@@ -103,6 +103,18 @@ public class TypeEqualityTest extends JavaSpec<DiamondTestContext> {
                 });
             });
 
+            describe("hashcode", () -> {
+
+                it("is equal if type are equals",()->{
+                    TypeInstance one = getStringType();
+                    TypeInstance other = getStringType();
+
+                    assertThat(one).isNotSameAs(other);
+                    assertThat(one).isEqualTo(other);
+                    assertThat(one.hashCode()).isEqualTo(other.hashCode());
+                });
+            });
+
         });
     }
 
