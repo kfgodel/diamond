@@ -7,6 +7,7 @@ import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
 import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
 import ar.com.kfgodel.diamond.api.sources.modifiers.Visibility;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.diamond.impl.members.exceptions.NoExceptionsSupplier;
 import ar.com.kfgodel.diamond.impl.members.generics.UnGenerifiedMemberGenerics;
 import ar.com.kfgodel.diamond.impl.natives.invokables.constructors.NativeArrayConstructor;
 import ar.com.kfgodel.diamond.impl.types.parts.annotations.NoAnnotationsSupplier;
@@ -58,6 +59,11 @@ public class ArrayConstructorDescription implements ConstructorDescription {
     @Override
     public Supplier<Generics> getGenerics() {
         return UnGenerifiedMemberGenerics::instance;
+    }
+
+    @Override
+    public Supplier<Stream<TypeInstance>> getDeclaredExceptions() {
+        return NoExceptionsSupplier::create;
     }
 
     public static ArrayConstructorDescription create(Class<?> nativeArrayType) {

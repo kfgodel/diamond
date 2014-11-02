@@ -8,6 +8,7 @@ import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.invokables.UndefinedInvoker;
 import ar.com.kfgodel.diamond.impl.members.declaringtype.UndefinedDeclaringType;
+import ar.com.kfgodel.diamond.impl.members.exceptions.UndefinedMemberExceptions;
 import ar.com.kfgodel.diamond.impl.members.generics.UndefinedMemberGenerics;
 import ar.com.kfgodel.diamond.impl.members.modifiers.suppliers.UndefinedMemberModifiers;
 import ar.com.kfgodel.diamond.impl.members.parameters.UndefinedMemberParameters;
@@ -31,6 +32,7 @@ public abstract class TypeMemberSupport implements TypeMember {
     private Supplier<PolymorphicInvokable> invoker = UndefinedInvoker.create(this);
     private Supplier<Generics> generics = UndefinedMemberGenerics.create(this);
     private Supplier<Stream<TypeInstance>> parameterTypes = UndefinedMemberParameters.create(this);
+    private Supplier<Stream<TypeInstance>> exceptions = UndefinedMemberExceptions.create(this);
 
 
     @Override
@@ -78,6 +80,11 @@ public abstract class TypeMemberSupport implements TypeMember {
         return parameterTypes.get();
     }
 
+    @Override
+    public Stream<TypeInstance> declaredExceptions() {
+        return exceptions.get();
+    }
+
     protected void initialize(MemberDescription description){
         this.name = description.getName();
         this.declaringType = description.getDeclaringType();
@@ -86,5 +93,6 @@ public abstract class TypeMemberSupport implements TypeMember {
         this.annotations = description.getAnnotations();
         this.parameterTypes = description.getParameterTypes();
         this.generics = description.getGenerics();
+        this.exceptions = description.getDeclaredExceptions();
     }
 }

@@ -47,4 +47,10 @@ public interface TypeConstructor extends TypeMember, Supplier<Object>, Function<
      */
     @Override
     Object apply(Object argument);
+
+    /**
+     * @return The exceptions types declared by this constructor in its throws clause
+     */
+    @Override
+    Stream<TypeInstance> declaredExceptions();
 }

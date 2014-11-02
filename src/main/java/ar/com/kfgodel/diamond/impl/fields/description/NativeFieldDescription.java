@@ -8,6 +8,7 @@ import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.members.NativeMemberDeclaringTypeSupplier;
 import ar.com.kfgodel.diamond.impl.members.annotations.NativeElementAnnotationsSupplier;
+import ar.com.kfgodel.diamond.impl.members.exceptions.NoExceptionsSupplier;
 import ar.com.kfgodel.diamond.impl.members.generics.UnGenerifiedMemberGenerics;
 import ar.com.kfgodel.diamond.impl.members.modifiers.suppliers.ImmutableMemberModifiers;
 import ar.com.kfgodel.diamond.impl.members.parameters.NoParametersSupplier;
@@ -77,5 +78,10 @@ public class NativeFieldDescription implements FieldDescription {
     @Override
     public Supplier<Generics> getGenerics() {
         return UnGenerifiedMemberGenerics::instance;
+    }
+
+    @Override
+    public Supplier<Stream<TypeInstance>> getDeclaredExceptions() {
+        return NoExceptionsSupplier::create;
     }
 }
