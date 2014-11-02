@@ -69,6 +69,11 @@ public class TypeMethodInstance extends TypeMemberSupport implements TypeMethod 
         return MethodEquality.INSTANCE.areEquals(this, obj);
     }
 
+    @Override
+    public int hashCode() {
+        return MethodEquality.INSTANCE.hashcodeFor(this);
+    }
+
     public static TypeMethodInstance create(MethodDescription description) {
         TypeMethodInstance method = new TypeMethodInstance();
         method.initialize(description);

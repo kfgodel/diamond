@@ -50,7 +50,19 @@ public class ConstructorEqualityTest extends JavaSpec<DiamondTestContext> {
                 TypeConstructor stringParameterConstructor1 = getStringParameterConstructor();
                 TypeConstructor stringParameterConstructor2 = getStringParameterConstructor();
                 assertThat(stringParameterConstructor1).isEqualTo(stringParameterConstructor2);
-            });   
+            });
+
+            describe("hashcode", () -> {
+
+                it("is equal if constructors are equals",()->{
+                    TypeConstructor one = getStringParameterConstructor();
+                    TypeConstructor other = getStringParameterConstructor();
+
+                    assertThat(one).isNotSameAs(other);
+                    assertThat(one).isEqualTo(other);
+                    assertThat(one.hashCode()).isEqualTo(other.hashCode());
+                });
+            });
         });
 
     }

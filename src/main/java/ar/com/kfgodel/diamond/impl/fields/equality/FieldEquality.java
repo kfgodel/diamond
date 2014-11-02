@@ -1,6 +1,7 @@
 package ar.com.kfgodel.diamond.impl.fields.equality;
 
 import ar.com.kfgodel.diamond.api.fields.TypeField;
+import ar.com.kfgodel.hashcode.Hashcodes;
 
 import java.util.stream.Stream;
 
@@ -16,8 +17,8 @@ public class FieldEquality {
     /**
      * Compares fields by equality using the name and the storage type
      * @param one One field to compare
-     * @param obj the other obejct
-     * @return true if both are fields have same name and type
+     * @param obj the other object
+     * @return true if both represent the same field
      */
     public boolean areEquals(TypeField one, Object obj){
         boolean matchesAllConditions = Stream.of(obj)
@@ -27,5 +28,14 @@ public class FieldEquality {
                 .filter((other) -> one.declaringType().equals(other.declaringType()))
                 .count() == 1;
         return matchesAllConditions;
+    }
+
+    /**
+     * Calculates the hashcode of a field to be consistent with equals definition
+     * @param field The field to calculate its hashcode
+     * @return The hash of its name and declaring type
+     */
+    public int hashcodeFor(TypeField field){
+        return Hashcodes.joining(field.name(), field.declaringType());
     }
 }
