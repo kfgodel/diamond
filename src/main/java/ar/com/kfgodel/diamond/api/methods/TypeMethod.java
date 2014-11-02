@@ -90,4 +90,11 @@ public interface TypeMethod extends TypeMember, PolymorphicInvokable {
      */
     @Override
     boolean test(Object argumentOrInstance);
+
+    /**
+     * @return The exceptions types declared by this method in its throws clause
+     */
+    @Override
+    Stream<TypeInstance> declaredExceptions();
+
 }

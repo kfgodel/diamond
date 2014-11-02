@@ -8,6 +8,7 @@ import ar.com.kfgodel.diamond.api.methods.MethodDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.members.NativeMemberDeclaringTypeSupplier;
 import ar.com.kfgodel.diamond.impl.members.annotations.NativeElementAnnotationsSupplier;
+import ar.com.kfgodel.diamond.impl.members.exceptions.ExecutableExceptionsSupplier;
 import ar.com.kfgodel.diamond.impl.members.generics.ExecutableGenericsSupplier;
 import ar.com.kfgodel.diamond.impl.members.modifiers.suppliers.ImmutableMemberModifiers;
 import ar.com.kfgodel.diamond.impl.members.parameters.ImmutableMemberParameters;
@@ -69,6 +70,11 @@ public class NativeMethodDescription implements MethodDescription {
     @Override
     public Supplier<Generics> getGenerics() {
         return CachedValue.lazilyBy(() -> ExecutableGenericsSupplier.create(nativeMethod));
+    }
+
+    @Override
+    public Supplier<Stream<TypeInstance>> getDeclaredExceptions() {
+        return ExecutableExceptionsSupplier.create(nativeMethod);
     }
 
     public static NativeMethodDescription create(Method nativeMethod) {

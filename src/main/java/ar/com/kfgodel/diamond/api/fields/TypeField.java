@@ -79,4 +79,11 @@ public interface TypeField extends TypeMember, Consumer<Object>, BiConsumer<Obje
      */
     @Override
     Stream<TypeInstance> parameterTypes();
+
+    /**
+     * @return An empty stream as fields don't declare exceptions.<br>
+     *     This method allows polymorphism between methods and constructors
+     */
+    @Override
+    Stream<TypeInstance> declaredExceptions();
 }

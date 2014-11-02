@@ -50,4 +50,8 @@ public interface MemberDescription {
      */
     Supplier<Generics> getGenerics();
 
+    /**
+     * @return the supplier of declared exceptions for this member
+     */
+    Supplier<Stream<TypeInstance>> getDeclaredExceptions();
 }
