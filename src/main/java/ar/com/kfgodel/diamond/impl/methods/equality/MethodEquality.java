@@ -19,7 +19,6 @@ public class MethodEquality {
                 .map(TypeMethod.class::cast)
                 .filter((other) -> one.name().equals(other.name()))
                 .filter((other) -> one.declaringType().equals(other.declaringType()))
-                .filter((other) -> one.returnType().equals(other.returnType()))
                 .filter((other) -> StreamEquality.INSTANCE.areEquals(one.parameterTypes(), other.parameterTypes()))
                 .count() == 1;
         return matchesAllConditions;

@@ -34,12 +34,6 @@ public class FieldEqualityTest extends JavaSpec<DiamondTestContext> {
                 assertThat(stringAField).isNotEqualTo(stringBField);
             });
 
-            it("is false if type mismatch",()->{
-                TypeField stringAField = getStringAField();
-                TypeField numberAField = getNumberAField();
-                assertThat(stringAField).isNotEqualTo(numberAField);
-            });
-
             it("is false if declaring type doesn't match", () -> {
                 TypeField stringBField = getStringBField();
                 TypeField stringBFieldInDifferentType = getStringBFieldInDifferentType();
@@ -53,14 +47,6 @@ public class FieldEqualityTest extends JavaSpec<DiamondTestContext> {
                 assertThat(stringAField1).isEqualTo(stringAField2);
             });
         });
-    }
-
-    private TypeField getNumberAField() {
-        try {
-            return Diamond.fields().from(FieldEqualityTestObjectB.class.getDeclaredField("a"));
-        } catch (NoSuchFieldException e) {
-            throw new RuntimeException("unexpected test error", e);
-        }
     }
 
     private TypeField getStringBField() {
