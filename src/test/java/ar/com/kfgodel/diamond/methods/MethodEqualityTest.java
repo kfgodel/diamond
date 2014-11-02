@@ -34,12 +34,6 @@ public class MethodEqualityTest extends JavaSpec<DiamondTestContext> {
                 assertThat(voidNoArgA).isNotEqualTo(voidNoArgB);
             });
 
-            it("is false if return type mismatch",()->{
-                TypeMethod voidNoArgA = getVoidNoArgAMethod();
-                TypeMethod stringNoArgA = getStringNoArgAMethod();
-                assertThat(voidNoArgA).isNotEqualTo(stringNoArgA);
-            });
-
             it("is false if method parameters count doesn't match",()->{
                 TypeMethod voidNoArgA = getVoidNoArgAMethod();
                 TypeMethod stringParameterMethod = getStringParameterAMethod();
@@ -78,14 +72,6 @@ public class MethodEqualityTest extends JavaSpec<DiamondTestContext> {
     private TypeMethod getStringParameterAMethod() {
         try {
             return Diamond.methods().from(MethodEqualityTestObjectA.class.getDeclaredMethod("a", String.class));
-        } catch (NoSuchMethodException e) {
-            throw new RuntimeException("unexpected test error", e);
-        }
-    }
-
-    private TypeMethod getStringNoArgAMethod() {
-        try {
-            return Diamond.methods().from(MethodEqualityTestObjectB.class.getDeclaredMethod("a"));
         } catch (NoSuchMethodException e) {
             throw new RuntimeException("unexpected test error", e);
         }

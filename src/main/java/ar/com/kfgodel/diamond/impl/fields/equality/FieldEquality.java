@@ -25,7 +25,6 @@ public class FieldEquality {
                 .map(TypeField.class::cast)
                 .filter((other) -> one.name().equals(other.name()))
                 .filter((other) -> one.declaringType().equals(other.declaringType()))
-                .filter((other) -> one.type().equals(other.type()))
                 .count() == 1;
         return matchesAllConditions;
     }
