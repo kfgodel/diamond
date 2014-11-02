@@ -63,6 +63,11 @@ public class TypeFieldInstance extends TypeMemberSupport implements TypeField {
         return FieldEquality.INSTANCE.areEquals(this, obj);
     }
 
+    @Override
+    public int hashCode() {
+        return FieldEquality.INSTANCE.hashcodeFor(this);
+    }
+
     public static TypeFieldInstance create(FieldDescription description) {
         TypeFieldInstance field = new TypeFieldInstance();
         field.initialize(description);

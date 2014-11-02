@@ -18,6 +18,11 @@ public class TypeConstructorInstance extends TypeMemberSupport implements TypeCo
     }
 
     @Override
+    public int hashCode() {
+        return ConstructorEquality.INSTANCE.hashcodeFor(this);
+    }
+
+    @Override
     public Object invoke(Object... arguments) {
         return asFunction().invoke(arguments);
     }

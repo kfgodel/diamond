@@ -141,6 +141,11 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     }
 
     @Override
+    public int hashCode() {
+        return TypeEquality.INSTANCE.hashcodeFor(this);
+    }
+
+    @Override
     public Object newInstance() {
         return constructors().niladic()
                 .map((constructor) -> constructor.invoke())

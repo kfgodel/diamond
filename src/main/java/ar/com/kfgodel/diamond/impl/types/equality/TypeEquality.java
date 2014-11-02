@@ -2,6 +2,7 @@ package ar.com.kfgodel.diamond.impl.types.equality;
 
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
+import ar.com.kfgodel.hashcode.Hashcodes;
 import ar.com.kfgodel.streams.StreamEquality;
 
 import java.util.Optional;
@@ -25,6 +26,21 @@ public class TypeEquality {
                 .filter((other) -> equalBounds(one, other))
                 .count() == 1;
         return matchesAllConditions;
+    }
+
+    /**
+     * Calculates the hashcode of a type to be consistent with equals definition
+     * @param type The type to calculate its hashcode
+     * @return The hash of its name, component type, type arguments, and bounds
+     */
+    public int hashcodeFor(TypeInstance type){
+        return Hashcodes.joining(
+                type.names().bareName(),
+                type.componentType(),
+                Hashcodes.forElementsIn(type.generics().arguments()),
+                Hashcodes.forElementsIn(type.generics().bounds().lower()),
+                Hashcodes.forElementsIn(type.generics().bounds().upper())
+                );
     }
 
     private boolean equalBounds(TypeInstance aType, TypeInstance other) {
