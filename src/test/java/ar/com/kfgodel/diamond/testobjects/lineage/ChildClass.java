@@ -1,12 +1,15 @@
 package ar.com.kfgodel.diamond.testobjects.lineage;
 
+import ar.com.kfgodel.diamond.testobjects.interfaces.ChildInterface1;
+import ar.com.kfgodel.diamond.testobjects.interfaces.ChildInterface2;
+
 import java.io.Serializable;
 
 /**
  * This type represents the lower descendant of the test lineage
  * Created by kfgodel on 19/09/14.
  */
-public class ChildClass<C> extends ParentClass<C, Integer> {
+public class ChildClass<C> extends ParentClass<C, Integer> implements ChildInterface1<Integer>, ChildInterface2<String> {
 
     private int aPrivateField;
     protected float aProtectedField;

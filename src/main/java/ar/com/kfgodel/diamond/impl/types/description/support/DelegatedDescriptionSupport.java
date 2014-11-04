@@ -6,6 +6,7 @@ import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.types.TypeDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
+import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
 import ar.com.kfgodel.diamond.api.types.names.TypeNames;
 
 import java.lang.annotation.Annotation;
@@ -30,13 +31,8 @@ public abstract class DelegatedDescriptionSupport implements TypeDescription {
     }
 
     @Override
-    public Supplier<Optional<TypeInstance>> getSuperclassSupplier() {
-        return getDelegateDescription().getSuperclassSupplier();
-    }
-
-    @Override
-    public Supplier<Optional<TypeInstance>> getExtendedTypeSupplier() {
-        return getDelegateDescription().getExtendedTypeSupplier();
+    public InheritanceDescription getInheritanceDescription() {
+        return getDelegateDescription().getInheritanceDescription();
     }
 
     @Override

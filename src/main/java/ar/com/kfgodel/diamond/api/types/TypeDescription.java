@@ -4,6 +4,7 @@ import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
+import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
 import ar.com.kfgodel.diamond.api.types.names.TypeNames;
 
 import java.lang.annotation.Annotation;
@@ -28,14 +29,9 @@ public interface TypeDescription {
     Supplier<Stream<Annotation>> getAnnotations();
 
     /**
-     * @return The supplier of superclass for this type
+     * @return The description of this type inheritance
      */
-    Supplier<Optional<TypeInstance>> getSuperclassSupplier();
-
-    /**
-     * @return The supplier of extended types
-     */
-    Supplier<Optional<TypeInstance>> getExtendedTypeSupplier();
+    InheritanceDescription getInheritanceDescription();
 
     /**
      * @return The supplier of type arguments

@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Created by kfgodel on 21/09/14.
  */
 @RunWith(JavaSpecRunner.class)
-public class LazyValueTest extends JavaSpec<DiamondTestContext> {
+public class CachedValueTest extends JavaSpec<DiamondTestContext> {
     @Override
     public void define() {
         describe("a lazy value", ()->{

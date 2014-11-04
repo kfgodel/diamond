@@ -4,10 +4,8 @@ import ar.com.kfgodel.diamond.api.constructors.TypeConstructors;
 import ar.com.kfgodel.diamond.api.types.TypeDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.generics.TypeGenerics;
-import ar.com.kfgodel.diamond.api.types.inheritance.TypeInheritance;
 import ar.com.kfgodel.diamond.impl.constructors.sources.TypeConstructorsImpl;
 import ar.com.kfgodel.diamond.impl.types.generics.ParameterizedTypeGenerics;
-import ar.com.kfgodel.diamond.impl.types.inheritance.SuppliedTypesInheritance;
 
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -26,7 +24,6 @@ public class FixedTypeInstance extends TypeInstanceSupport {
 
     private Supplier<Optional<TypeInstance>> componentType;
     private TypeGenerics generics;
-    private TypeInheritance inheritance;
     private TypeConstructors constructors;
 
 
@@ -38,11 +35,6 @@ public class FixedTypeInstance extends TypeInstanceSupport {
     @Override
     public TypeGenerics generics() {
         return generics;
-    }
-
-    @Override
-    public TypeInheritance inheritance() {
-        return inheritance;
     }
 
     @Override
@@ -61,7 +53,6 @@ public class FixedTypeInstance extends TypeInstanceSupport {
         fixedType.initializeSuper(description);
         fixedType.componentType = description.getComponentType();
         fixedType.generics = ParameterizedTypeGenerics.create(description.getTypeParametersSupplier(), description.getTypeArguments());
-        fixedType.inheritance = SuppliedTypesInheritance.create(fixedType, description.getSuperclassSupplier(), description.getExtendedTypeSupplier());
         fixedType.constructors = TypeConstructorsImpl.create(description.getTypeConstructors());
         return fixedType;
     }

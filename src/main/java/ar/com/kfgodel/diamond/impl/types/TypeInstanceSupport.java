@@ -19,7 +19,7 @@ import ar.com.kfgodel.diamond.impl.methods.sources.TypeMethodsImpl;
 import ar.com.kfgodel.diamond.impl.types.declaration.TypeDeclaration;
 import ar.com.kfgodel.diamond.impl.types.equality.TypeEquality;
 import ar.com.kfgodel.diamond.impl.types.generics.UnGenerifiedTypeGenerics;
-import ar.com.kfgodel.diamond.impl.types.inheritance.NoParentsInheritance;
+import ar.com.kfgodel.diamond.impl.types.inheritance.SuppliedTypesInheritance;
 import ar.com.kfgodel.diamond.impl.types.parts.annotations.NoAnnotationsSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.names.NoNamesSupplier;
 
@@ -52,6 +52,12 @@ public abstract class TypeInstanceSupport implements TypeInstance {
      * This type state fields
      */
     private TypeFields fields = NoFields.INSTANCE;
+
+    /**
+     * Inheritance information
+     */
+    private TypeInheritance inheritance;
+
 
     /**
      * Use this to override default creation with no annotations
@@ -87,11 +93,6 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     @Override
     public TypeGenerics generics() {
         return UnGenerifiedTypeGenerics.INSTANCE;
-    }
-
-    @Override
-    public TypeInheritance inheritance() {
-        return NoParentsInheritance.create(this);
     }
 
     @Override
@@ -157,10 +158,17 @@ public abstract class TypeInstanceSupport implements TypeInstance {
         return newInstance();
     }
 
+    @Override
+    public TypeInheritance inheritance() {
+        return inheritance;
+    }
+
+
     protected void initializeSuper(TypeDescription description){
         this.setNames(description.getNames());
         this.setAnnotations(description.getAnnotations());
         this.setMethods(description.getTypeMethods());
         this.setFields(description.getTypeFields());
+        this.inheritance = SuppliedTypesInheritance.create(this, description.getInheritanceDescription());
     };
 }

@@ -1,12 +1,14 @@
 package ar.com.kfgodel.diamond.impl.types.inheritance;
 
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
 import ar.com.kfgodel.diamond.api.types.inheritance.TypeInheritance;
 import ar.com.kfgodel.diamond.api.types.inheritance.TypeLineage;
 import ar.com.kfgodel.diamond.impl.types.lineage.FunctionBasedTypeLineage;
 
 import java.util.Optional;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 /**
  * This type represents the inheritance information of a type, based on supliers
@@ -17,10 +19,16 @@ public class SuppliedTypesInheritance implements TypeInheritance {
     private TypeInstance type;
     private Supplier<Optional<TypeInstance>> superclass;
     private Supplier<Optional<TypeInstance>> extendedType;
+    private Supplier<Stream<TypeInstance>> interfaces;
 
     @Override
     public Optional<TypeInstance> superclass() {
         return superclass.get();
+    }
+
+    @Override
+    public Stream<TypeInstance> interfaces() {
+        return interfaces.get();
     }
 
     @Override
@@ -38,11 +46,12 @@ public class SuppliedTypesInheritance implements TypeInheritance {
         return FunctionBasedTypeLineage.create(type, (type) -> type.inheritance().superclass());
     }
 
-    public static SuppliedTypesInheritance create(TypeInstance type, Supplier<Optional<TypeInstance>> superclassSupplier, Supplier<Optional<TypeInstance>> extendedTypeSupplier) {
+    public static SuppliedTypesInheritance create(TypeInstance type, InheritanceDescription description) {
         SuppliedTypesInheritance inheritance = new SuppliedTypesInheritance();
         inheritance.type = type;
-        inheritance.superclass = superclassSupplier;
-        inheritance.extendedType = extendedTypeSupplier;
+        inheritance.superclass = description.getSuperclassSupplier();
+        inheritance.extendedType = description.getExtendedTypeSupplier();
+        inheritance.interfaces = description.getInterfacesSupplier();
         return inheritance;
     }
 

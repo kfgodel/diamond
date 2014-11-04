@@ -3,6 +3,7 @@ package ar.com.kfgodel.diamond.api.types.inheritance;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 
 import java.util.Optional;
+import java.util.stream.Stream;
 
 /**
  * This type represents the information about a type inheritance an its relations with other super types
@@ -20,13 +21,21 @@ public interface TypeInheritance {
     Optional<TypeInstance> extendedType();
 
     /**
-     * @return The optional superclass of this instance. Or empty if this type
+     * @return The optional superclass of this instance. Or empty if this instance
      *  represents either the Object class, an interface type, an array type, a primitive type, void,
      *  or a variable type (like wildcard).<br>
      *     The super class is the un-parameterized (raw) class instance that is the runtime super type of
      *     this type
      */
     Optional<TypeInstance> superclass();
+
+    /**
+     * @return The set of interfaces implemented by this type. This can be empty if this instance
+     * represents a type that cannot implement interfaces or doesn't implement any.<br>
+     *     The instances returned are un-parameterized (raw version) types and corresponds to the
+     *     runtime representation of the implemented types
+     */
+    Stream<TypeInstance> interfaces();
 
     /**
      * Returns this type lineage (starting from this type, the set of extended types up until Object).<br>
