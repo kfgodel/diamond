@@ -3,7 +3,7 @@ package ar.com.kfgodel.diamond.impl.types.description.inheritance;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
 import ar.com.kfgodel.diamond.impl.types.parts.extendedtype.ExtendedTypeSupplier;
-import ar.com.kfgodel.diamond.impl.types.parts.interfaces.FixedTypeInterfacesSupplier;
+import ar.com.kfgodel.diamond.impl.types.parts.interfaces.ImmutableInterfacesSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.superclass.SuperClassSupplier;
 
 import java.util.Optional;
@@ -31,7 +31,7 @@ public class FixedTypeInheritanceDescription implements InheritanceDescription {
 
     @Override
     public Supplier<Stream<TypeInstance>> getInterfacesSupplier() {
-        return FixedTypeInterfacesSupplier.create(rawClass);
+        return ImmutableInterfacesSupplier.create(rawClass);
     }
 
     public static FixedTypeInheritanceDescription create(Class<?> rawClass, Supplier<Stream<TypeInstance>> typeArguments) {

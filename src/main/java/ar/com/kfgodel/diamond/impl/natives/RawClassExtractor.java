@@ -39,9 +39,10 @@ public class RawClassExtractor {
     }
 
     /**
-     * Simplifies the multiple types problem into one, choosing the only type in the list or Object
-     * @param rawComponentClasses
-     * @return
+     * Tries to get the type class that represents all the types present in the set.<br>
+     *     Choosing object, if no other match
+     * @param rawComponentClasses The set of classes
+     * @return The chosen type representative of the set classes
      */
     public static Class<?> coalesce(Set<Class<?>> rawComponentClasses) {
         if(rawComponentClasses.size() == 1){
