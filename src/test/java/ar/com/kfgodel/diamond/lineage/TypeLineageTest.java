@@ -1,8 +1,10 @@
-package ar.com.kfgodel.diamond;
+package ar.com.kfgodel.diamond.lineage;
 
 import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
+import ar.com.kfgodel.diamond.DiamondTestContext;
 import ar.com.kfgodel.diamond.api.Diamond;
+import ar.com.kfgodel.diamond.api.naming.Named;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.testobjects.lineage.ChildClass;
 import org.junit.runner.RunWith;
@@ -69,6 +71,12 @@ public class TypeLineageTest extends JavaSpec<DiamondTestContext> {
                         .isEqualTo(Arrays.asList("int"));
             });
 
+            it("can answer all the inherited interfaces of the lowest member",()->{
+                List<String> interfaceNames = context().lineage().inheritedInterfaces().map(Named::name).collect(Collectors.toList());
+
+                assertThat(interfaceNames).isEqualTo(Arrays.asList("ChildInterface1", "ParentInterface1", "ChildInterface2", "Serializable", "ParentInterface2", "GrandParentInterface1"));
+            });
+
             describe("generic arguments", ()->{
                 it("start from the lowest descendant", ()->{
                     List<String> argumentNames = context().lineage().lowestDescendant().generics().arguments().map((arg) -> arg.name()).collect(Collectors.toList());
@@ -93,8 +101,8 @@ public class TypeLineageTest extends JavaSpec<DiamondTestContext> {
 
         describe("class lineage", ()->{
 
-            beforeEach(()->{
-                context().lineage(()-> Diamond.of(ChildClass.class).inheritance().classLineage());
+            beforeEach(() -> {
+                context().lineage(() -> Diamond.of(ChildClass.class).inheritance().classLineage());
             });
 
             it("doesn't have type arguments for any member", ()->{

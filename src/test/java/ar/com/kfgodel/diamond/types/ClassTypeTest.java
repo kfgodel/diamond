@@ -45,7 +45,8 @@ public class ClassTypeTest extends JavaSpec<DiamondTestContext> {
                 });
             });
 
-            describe("lineage", () -> {
+            describe("inheritance", () -> {
+
                 it("has a lineage with its type ancestors", () -> {
                     TypeLineage typeLineage = context().typeInstance().inheritance().typeLineage();
                     assertThat(typeLineage.highestAncestor().name())
@@ -76,6 +77,7 @@ public class ClassTypeTest extends JavaSpec<DiamondTestContext> {
                     assertThat(interfaces).isEqualTo(Arrays.asList("ChildInterface1", "ChildInterface2"));
                 });
             });
+
 
             describe("generics", () -> {
                 it("has type parameters", () -> {

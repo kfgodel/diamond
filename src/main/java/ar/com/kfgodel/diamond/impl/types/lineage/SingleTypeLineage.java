@@ -40,6 +40,11 @@ public class SingleTypeLineage implements TypeLineage {
         return Optional.empty();
     }
 
+    @Override
+    public Stream<TypeInstance> inheritedInterfaces() {
+        return Stream.empty();
+    }
+
     public static SingleTypeLineage create(TypeInstance singleType) {
         SingleTypeLineage lineage = new SingleTypeLineage();
         lineage.onlyType = singleType;

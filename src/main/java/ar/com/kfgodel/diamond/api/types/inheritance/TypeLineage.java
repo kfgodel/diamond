@@ -6,24 +6,26 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
- * This type represents the types that compose the lineage of a type behavior. For classes this is the set
+ * This type represents linear set of types that compose the lineage of a type behavior. For classes this is the set
  * of parent classes up until Object.<br>
- *     For other types this represents the set of supertypes
+ *     This is the list of type that define the behavior of the lowest member by single inheritance
+ *
  * Created by kfgodel on 19/09/14.
  */
 public interface TypeLineage {
+
     /**
-     * @return The lower descendant of this lineage
+     * @return The lowest member of this lineage
      */
     TypeInstance lowestDescendant();
 
     /**
-     * @return The upper ancestor of this lineage
+     * @return The highest member of this lineage
      */
     TypeInstance highestAncestor();
 
     /**
-     * @return The ordered stream of all classes that belong to this lineage starting from the lowestDescendant
+     * @return The ordered stream of all classes that belong to this lineage starting from the lowestDescendant to its highest supertype
      */
     Stream<TypeInstance> allMembers();
 
@@ -35,8 +37,12 @@ public interface TypeLineage {
 
     /**
      * @param ancestor The class member of this lineage
-     * @return THe direct descendant of the given class or empty if ancestor is the lowest descendant, or not from this lineage
+     * @return The direct descendant of the given class or empty if ancestor is the lowest descendant, or not from this lineage
      */
     Optional<TypeInstance> descendantOf(TypeInstance ancestor);
 
+    /**
+     * @return The complete set of interfaces that the lowest member inherits directly or indirectly by its supertype members
+     */
+    Stream<TypeInstance> inheritedInterfaces();
 }

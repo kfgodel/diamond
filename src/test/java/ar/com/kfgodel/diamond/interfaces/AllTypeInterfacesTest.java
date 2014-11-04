@@ -10,7 +10,7 @@ import ar.com.kfgodel.diamond.api.types.reference.ReferenceOf;
 import ar.com.kfgodel.diamond.testobjects.interfaces.ChildInterface1;
 import ar.com.kfgodel.diamond.testobjects.interfaces.ChildInterface2;
 import ar.com.kfgodel.diamond.testobjects.lineage.ChildClass;
-import ar.com.kfgodel.diamond.testobjects.lineage.ParentClass;
+import ar.com.kfgodel.diamond.testobjects.lineage.GrandParentClass;
 import org.junit.runner.RunWith;
 
 import java.lang.reflect.AnnotatedType;
@@ -34,7 +34,7 @@ public class AllTypeInterfacesTest extends JavaSpec<DiamondTestContext> {
             describe("for classes", () -> {
 
                 it("can be empty if no interface implemented",()->{
-                    context().typeInstance(() -> Diamond.of(ParentClass.class));
+                    context().typeInstance(() -> Diamond.of(GrandParentClass.class));
 
                     Stream<TypeInstance> interfaces = context().typeInstance().inheritance().interfaces();
 

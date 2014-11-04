@@ -84,6 +84,18 @@ public class FunctionBasedTypeLineage implements TypeLineage {
         return Optional.of(askedClass);
     }
 
+    @Override
+    public Stream<TypeInstance> inheritedInterfaces() {
+        Stream<TypeInstance> memberDirectInterfaces = allMembers()
+                .flatMap((member) -> member.inheritance().interfaces());
+        Stream<TypeInstance> indirectInterfaces = memberDirectInterfaces
+                .flatMap((interfaz) -> Stream.concat(
+                        Stream.of(interfaz),
+                        interfaz.inheritance().interfaces()));
+        // If an indirect interface is inherited more than once, we want just one occurrence
+        return indirectInterfaces.distinct();
+    }
+
     public static FunctionBasedTypeLineage create(TypeInstance lowest, Function<TypeInstance, Optional<? extends TypeInstance>> advanceOperation) {
         FunctionBasedTypeLineage lineage = new FunctionBasedTypeLineage();
         lineage.classes = StreamSupport.stream(TypeInstanceSpliterator.create(lowest, advanceOperation), false).collect(Collectors.toList());
