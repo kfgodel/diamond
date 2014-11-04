@@ -3,7 +3,7 @@ package ar.com.kfgodel.diamond.impl.types.description.natives;
 import ar.com.kfgodel.diamond.api.types.TypeDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.types.description.support.AnnotatedTypeDescriptionSupport;
-import ar.com.kfgodel.diamond.impl.types.parts.componenttype.GenericArrayComponentTypeSupplier;
+import ar.com.kfgodel.diamond.impl.types.parts.componenttype.ArrayComponentTypeSupplier;
 
 import java.lang.reflect.AnnotatedArrayType;
 import java.lang.reflect.AnnotatedType;
@@ -38,7 +38,7 @@ public class AnnotatedArrayTypeDescription extends AnnotatedTypeDescriptionSuppo
 
     @Override
     public Supplier<Optional<TypeInstance>> getComponentType() {
-        return GenericArrayComponentTypeSupplier.create(nativeType);
+        return ArrayComponentTypeSupplier.create(nativeType);
     }
 
     public static AnnotatedArrayTypeDescription create(AnnotatedArrayType nativeType) {
