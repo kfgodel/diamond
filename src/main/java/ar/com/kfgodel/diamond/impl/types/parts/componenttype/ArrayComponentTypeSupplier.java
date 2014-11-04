@@ -14,11 +14,14 @@ import java.util.function.Supplier;
  * This type represents the supplier of the component type for a generic array type
  * Created by kfgodel on 29/09/14.
  */
-public class GenericArrayComponentTypeSupplier {
+public class ArrayComponentTypeSupplier {
 
     public static Supplier<Optional<TypeInstance>> create(Object nativeType) {
         return CachedValue.lazilyBy(() -> {
             Object componentType = getComponentTypeFrom(nativeType);
+            if(componentType == null){
+                return Optional.empty();
+            }
             return Optional.of(Diamond.types().from(componentType));
         });
     }
@@ -27,8 +30,10 @@ public class GenericArrayComponentTypeSupplier {
         Object componentType;
         if(nativeType instanceof AnnotatedArrayType){
             componentType = ((AnnotatedArrayType) nativeType).getAnnotatedGenericComponentType();
-        }else if(nativeType instanceof GenericArrayType){
+        }else if(nativeType instanceof GenericArrayType) {
             componentType = ((GenericArrayType) nativeType).getGenericComponentType();
+        }else if(nativeType instanceof Class){
+            componentType = ((Class) nativeType).getComponentType();
         }else{
             throw new DiamondException("The type["+nativeType+"] is not a generic array type representation");
         }

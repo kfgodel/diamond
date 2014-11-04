@@ -32,7 +32,10 @@ public class TypeDeclaration {
 
         withComponentTypeDeclaration((componentTypeDeclaration)->{
             builder.append(componentTypeDeclaration);
-            builder.append(" ");
+            // We separate the component only if it has type annotations too
+            if(type.annotations().count() > 0){
+                builder.append(" ");
+            }
         });
         withAnnotationsSeparatedBy(" ", (separatedAnnotations)->{
             builder.append(separatedAnnotations);
