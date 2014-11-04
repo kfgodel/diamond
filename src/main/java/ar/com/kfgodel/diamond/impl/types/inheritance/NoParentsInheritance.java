@@ -6,6 +6,7 @@ import ar.com.kfgodel.diamond.api.types.inheritance.TypeLineage;
 import ar.com.kfgodel.diamond.impl.types.lineage.SingleTypeLineage;
 
 import java.util.Optional;
+import java.util.stream.Stream;
 
 /**
  * This type represents the inheritance of type that has no parent types
@@ -23,6 +24,11 @@ public class NoParentsInheritance implements TypeInheritance {
     @Override
     public Optional<TypeInstance> superclass() {
         return Optional.empty();
+    }
+
+    @Override
+    public Stream<TypeInstance> interfaces() {
+        return Stream.empty();
     }
 
     @Override

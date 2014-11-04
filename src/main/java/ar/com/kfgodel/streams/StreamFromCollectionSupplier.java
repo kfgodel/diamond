@@ -13,7 +13,7 @@ import java.util.stream.Stream;
  */
 public class StreamFromCollectionSupplier<T> implements Supplier<Stream<T>> {
 
-    private Supplier<Collection<T>> collection;
+    private Supplier<? extends  Collection<T>> collection;
 
     @Override
     public Stream<T> get() {
@@ -37,7 +37,7 @@ public class StreamFromCollectionSupplier<T> implements Supplier<Stream<T>> {
      * @param <T> The type of expected stream elements
      * @return The created stream supplier
      */
-    public static<T> StreamFromCollectionSupplier<T> using(Supplier<Collection<T>> collection) {
+    public static<T> StreamFromCollectionSupplier<T> using(Supplier<? extends Collection<T>> collection) {
         StreamFromCollectionSupplier<T> supplier = new StreamFromCollectionSupplier<>();
         supplier.collection = collection;
         return supplier;
@@ -50,7 +50,7 @@ public class StreamFromCollectionSupplier<T> implements Supplier<Stream<T>> {
      * @param <T> The type of expected stream elements
      * @return The created stream supplier
      */
-    public static<T> StreamFromCollectionSupplier<T> lazilyBy(Supplier<Collection<T>> supplier) {
+    public static<T> StreamFromCollectionSupplier<T> lazilyBy(Supplier<? extends Collection<T>> supplier) {
         return using(CachedValue.lazilyBy(supplier));
     }
 }

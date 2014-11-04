@@ -6,15 +6,15 @@ import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.types.TypeDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
+import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
 import ar.com.kfgodel.diamond.impl.natives.RawClassExtractor;
+import ar.com.kfgodel.diamond.impl.types.description.inheritance.NoInheritanceDescription;
 import ar.com.kfgodel.diamond.impl.types.parts.annotations.NoAnnotationsSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.bounds.NoBoundsSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.componenttype.NoComponentTypeSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.constructors.NonInstantiableConstructorSupplier;
-import ar.com.kfgodel.diamond.impl.types.parts.extendedtype.NoExtendedTypeSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.fields.ClassFieldSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.methods.ClassMethodSupplier;
-import ar.com.kfgodel.diamond.impl.types.parts.superclass.NoSuperclassSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.typearguments.NoTypeArgumentsSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.typeparameters.NoTypeParametersSupplier;
 
@@ -65,13 +65,8 @@ public abstract class UnannotatedTypeDescriptionSupport implements TypeDescripti
     }
 
     @Override
-    public Supplier<Optional<TypeInstance>> getSuperclassSupplier() {
-        return NoSuperclassSupplier.INSTANCE;
-    }
-
-    @Override
-    public Supplier<Optional<TypeInstance>> getExtendedTypeSupplier() {
-        return NoExtendedTypeSupplier.INSTANCE;
+    public InheritanceDescription getInheritanceDescription() {
+        return NoInheritanceDescription.INSTANCE;
     }
 
     @Override

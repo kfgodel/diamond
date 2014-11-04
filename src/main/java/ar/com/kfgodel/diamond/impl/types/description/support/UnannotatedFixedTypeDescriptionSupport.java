@@ -2,15 +2,14 @@ package ar.com.kfgodel.diamond.impl.types.description.support;
 
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
 import ar.com.kfgodel.diamond.api.types.names.TypeNames;
+import ar.com.kfgodel.diamond.impl.types.description.inheritance.FixedTypeInheritanceDescription;
 import ar.com.kfgodel.diamond.impl.types.parts.constructors.ArraysConstructorSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.constructors.ClassConstructorsSupplier;
-import ar.com.kfgodel.diamond.impl.types.parts.extendedtype.ExtendedTypeSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.names.FixedTypeNameSupplier;
-import ar.com.kfgodel.diamond.impl.types.parts.superclass.SuperClassSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.typeparameters.GenericTypeParametersSupplier;
 
-import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -26,13 +25,8 @@ public abstract class UnannotatedFixedTypeDescriptionSupport extends Unannotated
     }
 
     @Override
-    public Supplier<Optional<TypeInstance>> getSuperclassSupplier() {
-        return SuperClassSupplier.create(getRawClass());
-    }
-
-    @Override
-    public Supplier<Optional<TypeInstance>> getExtendedTypeSupplier() {
-        return ExtendedTypeSupplier.create(getRawClass(), this.getTypeArguments().get());
+    public InheritanceDescription getInheritanceDescription() {
+        return FixedTypeInheritanceDescription.create(getRawClass(), getTypeArguments());
     }
 
     @Override

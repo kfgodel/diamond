@@ -1,6 +1,8 @@
 package ar.com.kfgodel.diamond.impl.types.description.support;
 
+import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
 import ar.com.kfgodel.diamond.api.types.names.TypeNames;
+import ar.com.kfgodel.diamond.impl.types.description.inheritance.VariableTypeInheritanceDescription;
 import ar.com.kfgodel.diamond.impl.types.parts.names.VariableTypeNamesSupplier;
 
 import java.util.function.Supplier;
@@ -21,4 +23,8 @@ public abstract class UnannotatedVariableTypeDescriptionSupport extends Unannota
         return true;
     }
 
+    @Override
+    public InheritanceDescription getInheritanceDescription() {
+        return VariableTypeInheritanceDescription.create(getRawClasses());
+    }
 }

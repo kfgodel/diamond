@@ -27,9 +27,6 @@ public interface DiamondTestContext extends TestContext {
     LazyValue<Integer> value();
     void value(Supplier<LazyValue<Integer>> definition);
 
-    TypeInstance classInstance();
-    void classInstance(Supplier<TypeInstance> definition);
-
     TypeNames names();
     void names(Supplier<TypeNames> definition);
 
