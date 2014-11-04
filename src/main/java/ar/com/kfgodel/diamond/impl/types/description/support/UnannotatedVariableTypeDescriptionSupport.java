@@ -25,6 +25,6 @@ public abstract class UnannotatedVariableTypeDescriptionSupport extends Unannota
 
     @Override
     public InheritanceDescription getInheritanceDescription() {
-        return VariableTypeInheritanceDescription.create(getRawClasses(), getTypeArguments());
+        return VariableTypeInheritanceDescription.create(getBehavioralClasses(), getTypeArguments());
     }
 }
