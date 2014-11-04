@@ -35,11 +35,14 @@ public abstract class UnannotatedTypeDescriptionSupport implements TypeDescripti
     private Set<Class<?>> rawClasses;
 
     /**
-     * The list of classes that for the raw version of this type.<br>
-     *     More than one if this is a multiple upper bounded type description
-     * @return The list of raw classes for this type description
+     * The set of classes that define the behavior of this type.<br>
+     *     It can be more than one if this is a multiple upper bounded type description.<br>
+     *     The behavior of this type is then defined as the join of the upper bounds (it's a type that subclasses
+     *     all this behavioral classes).<br>
+     *     It can be just one class if this description represents a fixed type
+     * @return The list of raw classes that define this type behavior description
      */
-    protected Set<Class<?>> getRawClasses() {
+    protected Set<Class<?>> getBehavioralClasses() {
         if (rawClasses == null) {
             rawClasses = RawClassExtractor.fromUnspecific(getNativeType());
         }
@@ -51,7 +54,7 @@ public abstract class UnannotatedTypeDescriptionSupport implements TypeDescripti
      */
     protected Class<?> getRawClass(){
         if (rawClass == null) {
-            rawClass = RawClassExtractor.coalesce(getRawClasses());
+            rawClass = RawClassExtractor.coalesce(getBehavioralClasses());
         }
         return rawClass;
     }
@@ -91,12 +94,12 @@ public abstract class UnannotatedTypeDescriptionSupport implements TypeDescripti
 
     @Override
     public Supplier<Stream<TypeMethod>> getTypeMethods() {
-        return ClassMethodSupplier.create(getRawClasses());
+        return ClassMethodSupplier.create(getBehavioralClasses());
     }
 
     @Override
     public Supplier<Stream<TypeField>> getTypeFields() {
-        return ClassFieldSupplier.create(getRawClasses());
+        return ClassFieldSupplier.create(getBehavioralClasses());
     }
 
     @Override
