@@ -10,6 +10,7 @@ import ar.com.kfgodel.diamond.api.naming.Named;
 import ar.com.kfgodel.diamond.api.types.generics.TypeGenerics;
 import ar.com.kfgodel.diamond.api.types.inheritance.TypeInheritance;
 import ar.com.kfgodel.diamond.api.types.names.TypeNames;
+import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -83,4 +84,9 @@ public interface TypeInstance extends Named, Annotated, Supplier<Object>, Declar
      */
     @Override
     Object get();
+
+    /**
+     * @return The package declared for this type, or empty if this type has none
+     */
+    Optional<TypePackage> declaredPackage();
 }

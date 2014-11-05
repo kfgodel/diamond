@@ -11,6 +11,7 @@ import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.generics.TypeGenerics;
 import ar.com.kfgodel.diamond.api.types.inheritance.TypeInheritance;
 import ar.com.kfgodel.diamond.api.types.names.TypeNames;
+import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.diamond.impl.constructors.sources.NoConstructors;
 import ar.com.kfgodel.diamond.impl.fields.sources.NoFields;
 import ar.com.kfgodel.diamond.impl.fields.sources.TypeFieldsImpl;
@@ -58,6 +59,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
      */
     private TypeInheritance inheritance;
 
+    private Supplier<Optional<TypePackage>> typePacakge;
 
     /**
      * Use this to override default creation with no annotations
@@ -163,12 +165,17 @@ public abstract class TypeInstanceSupport implements TypeInstance {
         return inheritance;
     }
 
+    @Override
+    public Optional<TypePackage> declaredPackage() {
+        return typePacakge.get();
+    }
 
     protected void initializeSuper(TypeDescription description){
         this.setNames(description.getNames());
         this.setAnnotations(description.getAnnotations());
         this.setMethods(description.getTypeMethods());
         this.setFields(description.getTypeFields());
+        this.typePacakge = description.getDeclaredPackage();
         this.inheritance = SuppliedTypesInheritance.create(this, description.getInheritanceDescription());
     };
 }
