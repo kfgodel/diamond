@@ -4,12 +4,15 @@ import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
 import ar.com.kfgodel.diamond.api.types.names.TypeNames;
+import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.diamond.impl.types.description.inheritance.FixedTypeInheritanceDescription;
 import ar.com.kfgodel.diamond.impl.types.parts.constructors.ArraysConstructorSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.constructors.ClassConstructorsSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.names.FixedTypeNameSupplier;
+import ar.com.kfgodel.diamond.impl.types.parts.packages.TypePackageSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.typeparameters.GenericTypeParametersSupplier;
 
+import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -44,6 +47,10 @@ public abstract class UnannotatedFixedTypeDescriptionSupport extends Unannotated
         return ClassConstructorsSupplier.create(rawClass);
     }
 
+    @Override
+    public Supplier<Optional<TypePackage>> getDeclaredPackage() {
+        return TypePackageSupplier.create(getRawClass());
+    }
 
     @Override
     public boolean isForVariableType() {

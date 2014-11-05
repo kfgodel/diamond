@@ -8,6 +8,7 @@ import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.inheritance.TypeLineage;
 import ar.com.kfgodel.diamond.api.types.names.TypeNames;
+import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.lazyvalue.api.LazyValue;
 
 import java.util.function.Supplier;
@@ -50,4 +51,7 @@ public interface DiamondTestContext extends TestContext {
 
     Invokable invokable();
     void invokable(Supplier<Invokable> definition);
+
+    TypePackage typePackage();
+    void typePackage(Supplier<TypePackage> definition);
 }

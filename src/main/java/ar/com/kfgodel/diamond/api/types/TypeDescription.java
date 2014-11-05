@@ -6,6 +6,7 @@ import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
 import ar.com.kfgodel.diamond.api.types.names.TypeNames;
+import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 
 import java.lang.annotation.Annotation;
 import java.util.Optional;
@@ -78,4 +79,8 @@ public interface TypeDescription {
      */
     boolean isForVariableType();
 
+    /**
+     * @return The supplier of the optional package for the type
+     */
+    Supplier<Optional<TypePackage>> getDeclaredPackage();
 }
