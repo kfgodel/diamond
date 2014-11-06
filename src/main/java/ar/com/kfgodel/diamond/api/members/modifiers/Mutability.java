@@ -1,4 +1,4 @@
-package ar.com.kfgodel.diamond.api.sources.modifiers;
+package ar.com.kfgodel.diamond.api.members.modifiers;
 
 import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
 import ar.com.kfgodel.diamond.impl.members.modifiers.mutability.FinalModifier;

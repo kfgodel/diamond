@@ -5,7 +5,7 @@ import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.DiamondTestContext;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
-import ar.com.kfgodel.diamond.api.sources.modifiers.Visibility;
+import ar.com.kfgodel.diamond.api.members.modifiers.Visibility;
 import ar.com.kfgodel.diamond.testobjects.modifiers.DefaultMembersTestObject;
 import ar.com.kfgodel.diamond.testobjects.modifiers.PrivateMembersTestObject;
 import ar.com.kfgodel.diamond.testobjects.modifiers.ProtectedMembersTestObject;
