@@ -2,6 +2,7 @@ package ar.com.kfgodel.diamond.api.sources.fields;
 
 import ar.com.kfgodel.diamond.api.fields.FieldDescription;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
+import ar.com.kfgodel.diamond.api.fields.TypeFields;
 
 import java.lang.reflect.Field;
 
@@ -10,6 +11,14 @@ import java.lang.reflect.Field;
  * Created by kfgodel on 18/09/14.
  */
 public interface FieldSources {
+
+    /**
+     * Defines the class in which the field is going to be accessed
+     * @param objectClass The instance that represents the class
+     * @return The partially defined source
+     */
+    TypeFields in(Class<?> objectClass);
+
 
     /**
      * Retrieves the class field representation for the given field instance

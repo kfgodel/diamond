@@ -2,6 +2,7 @@ package ar.com.kfgodel.diamond.api.sources.constructors;
 
 import ar.com.kfgodel.diamond.api.constructors.ConstructorDescription;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
+import ar.com.kfgodel.diamond.api.constructors.TypeConstructors;
 
 import java.lang.reflect.Constructor;
 
@@ -23,4 +24,11 @@ public interface ConstructorSources {
      * @return The diamond representation for the description
      */
     TypeConstructor from(ConstructorDescription constructorDescription);
+
+    /**
+     * Defines the class in which the constructor is going to be accessed
+     * @param nativeClass The native representation
+     * @return The constructor source with the type defined
+     */
+    TypeConstructors in(Class<?> nativeClass);
 }

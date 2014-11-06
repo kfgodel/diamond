@@ -39,6 +39,22 @@ public class TypeSourceImpl implements TypeSources {
         return fromDescription(typeDescription);
     }
 
+    @Override
+    public TypeInstance named(String typeName) throws DiamondException {
+        Class<?> nativeType = null;
+        try {
+            nativeType = Class.forName(typeName);
+        }catch (ExceptionInInitializerError e){
+            throw new DiamondException("An error in the initializationA of the class["+typeName+"] prevented us from creating a type",e);
+        } catch (LinkageError e) {
+            throw new DiamondException("A linkage error for class["+typeName+"] prevented us from creating a type",e);
+        } catch (ClassNotFoundException e) {
+            throw new DiamondException("The class["+typeName+"] could not be found",e);
+        }
+
+        return from(nativeType);
+    }
+
     public static TypeSourceImpl create() {
         TypeSourceImpl source = new TypeSourceImpl();
         return source;

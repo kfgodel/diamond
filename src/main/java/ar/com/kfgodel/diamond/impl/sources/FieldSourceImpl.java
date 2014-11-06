@@ -1,7 +1,9 @@
 package ar.com.kfgodel.diamond.impl.sources;
 
+import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.fields.FieldDescription;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
+import ar.com.kfgodel.diamond.api.fields.TypeFields;
 import ar.com.kfgodel.diamond.api.sources.fields.FieldSources;
 import ar.com.kfgodel.diamond.impl.fields.TypeFieldInstance;
 import ar.com.kfgodel.diamond.impl.fields.description.FieldDescriptor;
@@ -17,6 +19,11 @@ public class FieldSourceImpl implements FieldSources {
     public static FieldSourceImpl create() {
         FieldSourceImpl classFieldSource = new FieldSourceImpl();
         return classFieldSource;
+    }
+
+    @Override
+    public TypeFields in(Class<?> objectClass) {
+        return Diamond.of(objectClass).fields();
     }
 
     @Override

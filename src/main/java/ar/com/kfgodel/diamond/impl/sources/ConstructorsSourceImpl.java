@@ -1,7 +1,9 @@
 package ar.com.kfgodel.diamond.impl.sources;
 
+import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.constructors.ConstructorDescription;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
+import ar.com.kfgodel.diamond.api.constructors.TypeConstructors;
 import ar.com.kfgodel.diamond.api.sources.constructors.ConstructorSources;
 import ar.com.kfgodel.diamond.impl.constructors.TypeConstructorInstance;
 import ar.com.kfgodel.diamond.impl.constructors.description.ConstructorDescriptor;
@@ -29,6 +31,11 @@ public class ConstructorsSourceImpl implements ConstructorSources {
     public TypeConstructor from(ConstructorDescription constructorDescription) {
         // This is the place to cache instances
         return createConstructorFrom(constructorDescription);
+    }
+
+    @Override
+    public TypeConstructors in(Class<?> nativeClass) {
+        return Diamond.of(nativeClass).constructors();
     }
 
     /**
