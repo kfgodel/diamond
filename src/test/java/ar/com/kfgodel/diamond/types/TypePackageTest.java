@@ -29,24 +29,6 @@ public class TypePackageTest extends JavaSpec<DiamondTestContext> {
     public void define() {
         describe("a type's package", () -> {
 
-            describe("sources", () -> {
-
-                it("can be obtained from a name", () -> {
-                    TypePackage aPackage = Diamond.packages().named("java.lang");
-
-                    assertThat(aPackage).isNotNull();
-                });
-
-                it("can be ontained from a native package", () -> {
-                    Package nativePackage = Package.getPackage("java.lang");
-
-                    TypePackage aPackage = Diamond.packages().from(nativePackage);
-
-                    assertThat(aPackage).isNotNull();
-                });
-
-            });
-
             describe("information", () -> {
 
                 context().typePackage(() -> Diamond.of(ChildClass.class).declaredPackage().get());

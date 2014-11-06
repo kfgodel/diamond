@@ -3,12 +3,16 @@ package ar.com.kfgodel.diamond;
 import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.api.Diamond;
+import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.diamond.testobjects.ClassWithIdField;
+import ar.com.kfgodel.diamond.testobjects.modifiers.PublicMembersTestObject;
 import org.junit.runner.RunWith;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
@@ -72,6 +76,41 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
                     assertThat(diamondField.name()).isEqualTo("id");
                 });
             });
+
+            describe("constructors", ()->{
+                it("can be obtained from Constructor instances", () -> {
+                    Constructor<PublicMembersTestObject> constructor = null;
+                    try {
+                        constructor = PublicMembersTestObject.class.getDeclaredConstructor();
+                    } catch (NoSuchMethodException e) {
+                        throw new RuntimeException("This is why reflection api turns difficult to use", e);
+                    }
+                    TypeConstructor diamondConstructor = Diamond.constructors().from(constructor);
+                    assertThat(diamondConstructor.name()).isEqualTo("ar.com.kfgodel.diamond.testobjects.modifiers.PublicMembersTestObject");
+                });
+                xit("can be obtained from a Class instance and a constructor parameter types", () -> {
+//                    TypeField diamondField = Diamond.constructors().in(PublicMembersTestObject.class).existingNamed("id");
+//                    assertThat(diamondField.name()).isEqualTo("id");
+                });
+            });
+
+            describe("packages", () -> {
+
+                it("can be ontained from a package instances", () -> {
+                    Package nativePackage = Package.getPackage("java.lang");
+
+                    TypePackage aPackage = Diamond.packages().from(nativePackage);
+
+                    assertThat(aPackage).isNotNull();
+                });
+
+                it("can be obtained from a name", () -> {
+                    TypePackage aPackage = Diamond.packages().named("java.lang");
+
+                    assertThat(aPackage).isNotNull();
+                });
+            });
+
         });
 
     }
