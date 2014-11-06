@@ -30,9 +30,9 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
                     TypeInstance diamondClass = Diamond.types().from(Object.class);
                     assertThat(diamondClass.name()).isEqualTo("Object");
                 });
-                xit("can be obtained from complete class names", ()->{
-//                    TypeInstance diamondClass = Diamond.types().named("java.lang.Object");
-//                    assertThat(diamondClass.name()).isEqualTo("Object");
+                it("can be obtained from complete class names", () -> {
+                    TypeInstance diamondClass = Diamond.types().named("java.lang.Object");
+                    assertThat(diamondClass.name()).isEqualTo("Object");
                 });
                 it("have a special shortcut", ()->{
                     TypeInstance diamondClass = Diamond.of(Object.class);
@@ -51,25 +51,25 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
                     assertThat(diamondMethod.name()).isEqualTo("equals");
                 });
 
-                xit("can be obtained from a Class instance and a method name", () -> {
-//                    ClassMethod diamondMethod = Diamond.methods().in(Object.class).identifiedAs("equals", Object.class);
-//                    assertThat(diamondMethod.name()).isEqualTo("equals");
+                it("can be obtained from a Class instance and a method name", () -> {
+                    TypeMethod diamondMethod = Diamond.methods().in(Object.class).existingNamed("equals");
+                    assertThat(diamondMethod.name()).isEqualTo("equals");
                 });
             });
-            describe("fields", ()->{
-                it("can be obtained from Field instances", ()->{
+            describe("fields", () -> {
+                it("can be obtained from Field instances", () -> {
                     Field fieldInstance = null;
                     try {
                         fieldInstance = ClassWithIdField.class.getDeclaredField("id");
                     } catch (NoSuchFieldException e) {
-                        throw new RuntimeException("This is why reflection api turns difficult to use",e);
+                        throw new RuntimeException("This is why reflection api turns difficult to use", e);
                     }
                     TypeField diamondField = Diamond.fields().from(fieldInstance);
                     assertThat(diamondField.name()).isEqualTo("id");
                 });
-                it("can be obtained from a Class instance and a field name", ()->{
-//                    ClassField diamondField = Diamond.fields().in(ClassWithIdField.class).named("id");
-//                    assertThat(diamondField.name()).isEqualTo("id");
+                it("can be obtained from a Class instance and a field name", () -> {
+                    TypeField diamondField = Diamond.fields().in(ClassWithIdField.class).existingNamed("id");
+                    assertThat(diamondField.name()).isEqualTo("id");
                 });
             });
         });

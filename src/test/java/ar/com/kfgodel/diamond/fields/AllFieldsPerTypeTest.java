@@ -4,6 +4,7 @@ import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.DiamondTestContext;
 import ar.com.kfgodel.diamond.api.Diamond;
+import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.api.members.modifiers.Mutability;
 import ar.com.kfgodel.diamond.api.members.modifiers.Visibility;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
@@ -131,7 +132,8 @@ public class AllFieldsPerTypeTest extends JavaSpec<DiamondTestContext> {
                 context().typeInstance(AllFieldsPerTypeTest::getParameterizedParentClass);
 
                 it("includes the same fields as the raw class",()->{
-                    assertThat(context().typeInstance().fields().all().collect(Collectors.toList()))
+                    List<TypeField> fields = context().typeInstance().fields().all().collect(Collectors.toList());
+                    assertThat(fields)
                             .isEqualTo(Diamond.of(ParentClass.class).fields().all().collect(Collectors.toList()));
                 });
             });

@@ -27,4 +27,11 @@ public interface TypeSources {
      */
     TypeInstance fromDescription(TypeDescription description);
 
+    /**
+     * Retrieves a type instance by its class name
+     * @param typeName The complete class name
+     * @return The type representation of the class
+     * @throws ar.com.kfgodel.diamond.api.exceptions.DiamondException If the class name doesn't exists
+     */
+    TypeInstance named(String typeName) throws DiamondException;
 }
