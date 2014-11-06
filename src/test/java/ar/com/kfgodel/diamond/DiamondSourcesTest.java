@@ -59,6 +59,7 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
                     TypeMethod diamondMethod = Diamond.methods().in(Object.class).existingNamed("equals");
                     assertThat(diamondMethod.name()).isEqualTo("equals");
                 });
+
             });
             describe("fields", () -> {
                 it("can be obtained from Field instances", () -> {
@@ -88,9 +89,10 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
                     TypeConstructor diamondConstructor = Diamond.constructors().from(constructor);
                     assertThat(diamondConstructor.name()).isEqualTo("ar.com.kfgodel.diamond.testobjects.modifiers.PublicMembersTestObject");
                 });
-                xit("can be obtained from a Class instance and a constructor parameter types", () -> {
-//                    TypeField diamondField = Diamond.constructors().in(PublicMembersTestObject.class).existingNamed("id");
-//                    assertThat(diamondField.name()).isEqualTo("id");
+                it("can be obtained from a Class instance and a constructor parameter types", () -> {
+                    TypeConstructor diamondConstructor = Diamond.constructors()
+                            .in(PublicMembersTestObject.class).existingDeclaredFor(Diamond.ofNative(Integer.class));
+                    assertThat(diamondConstructor.name()).isEqualTo("ar.com.kfgodel.diamond.testobjects.modifiers.PublicMembersTestObject");
                 });
             });
 

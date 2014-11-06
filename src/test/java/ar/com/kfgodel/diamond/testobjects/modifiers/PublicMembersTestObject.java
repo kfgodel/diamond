@@ -9,6 +9,9 @@ public class PublicMembersTestObject {
     public PublicMembersTestObject(){
 
     }
+    public PublicMembersTestObject(Integer a){
+
+    }
 
     public int field;
 
