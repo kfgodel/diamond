@@ -1,5 +1,6 @@
 package ar.com.kfgodel.diamond.impl.types.description.support;
 
+import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
@@ -9,8 +10,8 @@ import ar.com.kfgodel.diamond.impl.types.description.inheritance.FixedTypeInheri
 import ar.com.kfgodel.diamond.impl.types.parts.constructors.ArraysConstructorSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.constructors.ClassConstructorsSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.names.FixedTypeNameSupplier;
-import ar.com.kfgodel.diamond.impl.types.parts.packages.TypePackageSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.typeparameters.GenericTypeParametersSupplier;
+import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -49,7 +50,7 @@ public abstract class UnannotatedFixedTypeDescriptionSupport extends Unannotated
 
     @Override
     public Supplier<Optional<TypePackage>> getDeclaredPackage() {
-        return TypePackageSupplier.create(getRawClass());
+        return CachedValue.lazilyBy(() -> Optional.of(Diamond.packages().from(getRawClass().getPackage())));
     }
 
     @Override

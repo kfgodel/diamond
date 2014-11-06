@@ -56,7 +56,7 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
 //                    assertThat(diamondMethod.name()).isEqualTo("equals");
                 });
             });
-            xdescribe("fields", ()->{
+            describe("fields", ()->{
                 it("can be obtained from Field instances", ()->{
                     Field fieldInstance = null;
                     try {

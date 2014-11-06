@@ -4,10 +4,10 @@ import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.DiamondTestContext;
 import ar.com.kfgodel.diamond.api.Diamond;
+import ar.com.kfgodel.diamond.api.members.modifiers.MethodModifier;
+import ar.com.kfgodel.diamond.api.members.modifiers.Mutability;
+import ar.com.kfgodel.diamond.api.members.modifiers.Visibility;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
-import ar.com.kfgodel.diamond.api.sources.modifiers.MethodModifier;
-import ar.com.kfgodel.diamond.api.sources.modifiers.Mutability;
-import ar.com.kfgodel.diamond.api.sources.modifiers.Visibility;
 import ar.com.kfgodel.diamond.testobjects.modifiers.*;
 import org.junit.runner.RunWith;
 

@@ -1,7 +1,7 @@
 package ar.com.kfgodel.diamond.impl.members.modifiers.visiblity;
 
 import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
-import ar.com.kfgodel.diamond.api.sources.modifiers.Visibility;
+import ar.com.kfgodel.diamond.api.members.modifiers.Visibility;
 
 /**
  * This type represents the private visibility member modifier

@@ -1,6 +1,6 @@
 package ar.com.kfgodel.diamond.impl.sources;
 
-import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
+import ar.com.kfgodel.diamond.api.members.modifiers.*;
 import ar.com.kfgodel.diamond.api.sources.modifiers.*;
 
 import java.lang.reflect.Member;

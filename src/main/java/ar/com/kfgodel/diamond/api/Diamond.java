@@ -4,6 +4,7 @@ import ar.com.kfgodel.diamond.api.sources.constructors.ConstructorSources;
 import ar.com.kfgodel.diamond.api.sources.fields.FieldSources;
 import ar.com.kfgodel.diamond.api.sources.methods.MethodSources;
 import ar.com.kfgodel.diamond.api.sources.modifiers.ModifierSources;
+import ar.com.kfgodel.diamond.api.sources.packages.PackageSources;
 import ar.com.kfgodel.diamond.api.sources.types.TypeSources;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.DiamondApi;
@@ -51,6 +52,8 @@ public interface Diamond {
      * @return An accessor to obtain instances that represent type member modifiers
      */
     public static ModifierSources modifiers() {return API.modifiers(); }
+
+    public static PackageSources packages() {return API.packages();}
 
 
     /**

@@ -123,13 +123,6 @@ public class ClassTypeTest extends JavaSpec<DiamondTestContext> {
                 });
             });
 
-
-            xit("equality is based on the semantic name", ()->{
-                assertThat(Diamond.of(Object.class))
-                        .isEqualTo(Diamond.of(Object.class));
-            });
-            it("contains type parameter values");
-            it("contains type argument values");
         });
     }
 
