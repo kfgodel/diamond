@@ -30,6 +30,20 @@ public interface Diamond {
     }
 
     /**
+     * Utility method to quickly covert a set of native classes into their diamond representation
+     * @param nativeClasses Native types
+     * @return The array of diamond representation
+     */
+    public static TypeInstance[] ofNative(Class<?>... nativeClasses){
+        TypeInstance[] types = new TypeInstance[nativeClasses.length];
+        for (int i = 0; i < nativeClasses.length; i++) {
+            Class<?> nativeClass = nativeClasses[i];
+            types[i] = Diamond.of(nativeClass);
+        }
+        return types;
+    }
+
+    /**
      * @return An accessor to obtain instances of methods that belong to a class
      */
     public static MethodSources methods(){
