@@ -4,7 +4,7 @@ import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.constructors.ConstructorDescription;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructors;
-import ar.com.kfgodel.diamond.api.sources.constructors.ConstructorSources;
+import ar.com.kfgodel.diamond.api.sources.ConstructorSources;
 import ar.com.kfgodel.diamond.impl.constructors.TypeConstructorInstance;
 import ar.com.kfgodel.diamond.impl.constructors.description.ConstructorDescriptor;
 

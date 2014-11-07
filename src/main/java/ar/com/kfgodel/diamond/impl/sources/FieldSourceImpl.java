@@ -4,7 +4,7 @@ import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.fields.FieldDescription;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.api.fields.TypeFields;
-import ar.com.kfgodel.diamond.api.sources.fields.FieldSources;
+import ar.com.kfgodel.diamond.api.sources.FieldSources;
 import ar.com.kfgodel.diamond.impl.fields.TypeFieldInstance;
 import ar.com.kfgodel.diamond.impl.fields.description.FieldDescriptor;
 

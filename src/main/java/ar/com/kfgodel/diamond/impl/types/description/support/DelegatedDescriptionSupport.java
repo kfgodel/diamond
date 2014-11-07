@@ -12,9 +12,7 @@ import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.annotation.Annotation;
-import java.util.Optional;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 /**
  * This type represents a description that delegates part of it to another description
@@ -28,7 +26,7 @@ public abstract class DelegatedDescriptionSupport implements TypeDescription {
     }
 
     @Override
-    public Supplier<Stream<Annotation>> getAnnotations() {
+    public Supplier<Nary<Annotation>> getAnnotations() {
         return getDelegateDescription().getAnnotations();
     }
 
@@ -48,7 +46,7 @@ public abstract class DelegatedDescriptionSupport implements TypeDescription {
     }
 
     @Override
-    public Supplier<Optional<TypeInstance>> getComponentType() {
+    public Supplier<Nary<TypeInstance>> getComponentType() {
         return getDelegateDescription().getComponentType();
     }
 
@@ -78,7 +76,7 @@ public abstract class DelegatedDescriptionSupport implements TypeDescription {
     }
 
     @Override
-    public Supplier<Optional<TypePackage>> getDeclaredPackage() {
+    public Supplier<Nary<TypePackage>> getDeclaredPackage() {
         return getDelegateDescription().getDeclaredPackage();
     }
 

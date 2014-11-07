@@ -18,7 +18,6 @@ import ar.com.kfgodel.nary.impl.NaryFromElementSupplier;
 
 import java.lang.annotation.Annotation;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 /**
  * This type represents the description of an artificial array type constructor
@@ -54,7 +53,7 @@ public class ArrayConstructorDescription implements ConstructorDescription {
     }
 
     @Override
-    public Supplier<Stream<Annotation>> getAnnotations() {
+    public Supplier<Nary<Annotation>> getAnnotations() {
         return NoAnnotationsSupplier.INSTANCE;
     }
 

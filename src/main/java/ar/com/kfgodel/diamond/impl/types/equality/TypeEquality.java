@@ -3,9 +3,9 @@ package ar.com.kfgodel.diamond.impl.types.equality;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
 import ar.com.kfgodel.hashcode.Hashcodes;
+import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.streams.StreamEquality;
 
-import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
@@ -36,7 +36,7 @@ public class TypeEquality {
     public int hashcodeFor(TypeInstance type){
         return Hashcodes.joining(
                 type.names().bareName(),
-                type.componentType(),
+                Hashcodes.forElementsIn(type.componentType()),
                 Hashcodes.forElementsIn(type.generics().arguments()),
                 Hashcodes.forElementsIn(type.generics().bounds().lower()),
                 Hashcodes.forElementsIn(type.generics().bounds().upper())
@@ -57,12 +57,12 @@ public class TypeEquality {
     }
 
     private boolean equalComponent(TypeInstance aType, TypeInstance other) {
-        Optional<TypeInstance> aComponentType = aType.componentType();
-        Optional<TypeInstance> otherComponentType = other.componentType();
+        Nary<TypeInstance> aComponentType = aType.componentType();
+        Nary<TypeInstance> otherComponentType = other.componentType();
         if(aComponentType.isPresent() != otherComponentType.isPresent()){
             return false;
         }
-        Optional<Boolean> componentComparison = aComponentType.map((aComponent) -> aComponent.equals(otherComponentType.get()));
+        ar.com.kfgodel.optionals.Optional<Boolean> componentComparison = aComponentType.mapOptional((aComponent) -> aComponent.equals(otherComponentType.get()));
         boolean hasDifferentComponentType = componentComparison.isPresent() && !componentComparison.get();
         return !hasDifferentComponentType;
     }

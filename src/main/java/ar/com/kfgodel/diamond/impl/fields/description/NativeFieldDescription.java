@@ -8,20 +8,19 @@ import ar.com.kfgodel.diamond.api.members.modifiers.Modifier;
 import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.members.NativeMemberDeclaringTypeSupplier;
-import ar.com.kfgodel.diamond.impl.members.annotations.NativeElementAnnotationsSupplier;
 import ar.com.kfgodel.diamond.impl.members.exceptions.NoExceptionsSupplier;
 import ar.com.kfgodel.diamond.impl.members.generics.UnGenerifiedMemberGenerics;
 import ar.com.kfgodel.diamond.impl.members.modifiers.suppliers.ImmutableMemberModifiers;
 import ar.com.kfgodel.diamond.impl.members.parameters.NoParametersSupplier;
 import ar.com.kfgodel.diamond.impl.natives.invokables.fields.NativeInstanceFieldInvoker;
 import ar.com.kfgodel.diamond.impl.natives.invokables.fields.NativeStaticFieldInvoker;
+import ar.com.kfgodel.diamond.impl.natives.suppliers.AnnotatedElementAnnotationsSupplier;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 /**
  * This type represents a field description of a native field instance
@@ -72,8 +71,8 @@ public class NativeFieldDescription implements FieldDescription {
     }
 
     @Override
-    public Supplier<Stream<Annotation>> getAnnotations() {
-        return NativeElementAnnotationsSupplier.create(nativeField);
+    public Supplier<Nary<Annotation>> getAnnotations() {
+        return AnnotatedElementAnnotationsSupplier.create(nativeField);
     }
 
     @Override

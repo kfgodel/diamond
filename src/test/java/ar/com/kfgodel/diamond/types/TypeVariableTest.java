@@ -52,7 +52,7 @@ public class TypeVariableTest extends JavaSpec<DiamondTestContext> {
             });
 
             it("can have superclass from upper bounds",()->{
-                assertThat(context().typeInstance().inheritance().superclass().map(Named::name).get())
+                assertThat(context().typeInstance().inheritance().superclass().mapOptional(Named::name).get())
                         .isEqualTo("Number");
             });
 

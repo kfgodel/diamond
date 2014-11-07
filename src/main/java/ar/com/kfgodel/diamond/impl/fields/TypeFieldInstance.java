@@ -6,9 +6,10 @@ import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.fields.declaration.FieldDeclaration;
 import ar.com.kfgodel.diamond.impl.fields.equality.FieldEquality;
 import ar.com.kfgodel.diamond.impl.members.TypeMemberSupport;
+import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 /**
  * This type represents a class field instance for a type
@@ -81,7 +82,7 @@ public class TypeFieldInstance extends TypeMemberSupport implements TypeField {
     }
 
     @Override
-    public Stream<TypeInstance> parameterTypes() {
-        return Stream.empty();
+    public Nary<TypeInstance> parameterTypes() {
+        return NaryFromNative.empty();
     }
 }

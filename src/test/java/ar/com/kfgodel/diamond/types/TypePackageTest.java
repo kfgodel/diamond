@@ -8,13 +8,13 @@ import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.diamond.api.types.reference.ReferenceOf;
 import ar.com.kfgodel.diamond.testobjects.lineage.ChildClass;
+import ar.com.kfgodel.nary.api.Nary;
 import org.junit.runner.RunWith;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedType;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -51,7 +51,7 @@ public class TypePackageTest extends JavaSpec<DiamondTestContext> {
             describe("for classes", () -> {
 
                 it("is always present", () -> {
-                    Optional<TypePackage> typePackage = Diamond.of(ChildClass.class).declaredPackage();
+                    Nary<TypePackage> typePackage = Diamond.of(ChildClass.class).declaredPackage();
 
                     assertThat(typePackage.isPresent()).isTrue();
                 });   
@@ -60,7 +60,7 @@ public class TypePackageTest extends JavaSpec<DiamondTestContext> {
             describe("for type variables or wildcards", () -> {
 
                 it("is always absent",()->{
-                    Optional<TypePackage> typePackage = getChildClassSubTypeWildcardType().declaredPackage();
+                    Nary<TypePackage> typePackage = getChildClassSubTypeWildcardType().declaredPackage();
 
                     assertThat(typePackage.isPresent()).isFalse();
                 });

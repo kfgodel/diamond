@@ -1,4 +1,4 @@
-package ar.com.kfgodel.diamond.api.sources.constructors;
+package ar.com.kfgodel.diamond.api.sources;
 
 import ar.com.kfgodel.diamond.api.constructors.ConstructorDescription;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;

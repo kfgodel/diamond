@@ -5,6 +5,8 @@ import ar.com.kfgodel.diamond.api.types.names.TypeNames;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.diamond.impl.types.description.inheritance.VariableTypeInheritanceDescription;
 import ar.com.kfgodel.diamond.impl.types.parts.names.VariableTypeNamesSupplier;
+import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -26,8 +28,8 @@ public abstract class UnannotatedVariableTypeDescriptionSupport extends Unannota
     }
 
     @Override
-    public Supplier<Optional<TypePackage>> getDeclaredPackage() {
-        return Optional::empty;
+    public Supplier<Nary<TypePackage>> getDeclaredPackage() {
+        return NaryFromNative::empty;
     }
 
     @Override

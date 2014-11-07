@@ -1,10 +1,10 @@
-package ar.com.kfgodel.diamond.api.sources.modifiers;
+package ar.com.kfgodel.diamond.api.sources;
 
 import ar.com.kfgodel.diamond.api.members.modifiers.Modifier;
+import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.reflect.Member;
 import java.util.List;
-import java.util.stream.Stream;
 
 /**
  * This type represents the possible sources for member modifiers
@@ -39,5 +39,5 @@ public interface ModifierSources {
     /**
      * @return Gets the set of all available modifiers (field, methods, constructors, etc)
      */
-    Stream<Modifier> all();
+    Nary<Modifier> all();
 }

@@ -28,7 +28,7 @@ import java.util.stream.Stream;
  */
 public abstract class TypeMemberSupport implements TypeMember {
 
-    private Supplier<Stream<Annotation>> annotations = NoAnnotationsSupplier.INSTANCE;
+    private Supplier<Nary<Annotation>> annotations = NoAnnotationsSupplier.INSTANCE;
     private Supplier<String> name = UndefinedName.create(this);
     private Supplier<TypeInstance> declaringType = UndefinedDeclaringType.create(this);
     private Supplier<Nary<Modifier>> modifiers = UndefinedMemberModifiers.create(this);
@@ -44,7 +44,7 @@ public abstract class TypeMemberSupport implements TypeMember {
     }
 
     @Override
-    public Stream<Modifier> modifiers() {
+    public Nary<Modifier> modifiers() {
         return modifiers.get();
     }
 
@@ -69,7 +69,7 @@ public abstract class TypeMemberSupport implements TypeMember {
     }
 
     @Override
-    public Stream<Annotation> annotations() {
+    public Nary<Annotation> annotations() {
         return annotations.get();
     }
 
@@ -79,13 +79,13 @@ public abstract class TypeMemberSupport implements TypeMember {
     }
 
     @Override
-    public Stream<TypeInstance> parameterTypes() {
+    public Nary<TypeInstance> parameterTypes() {
         Stream<TypeInstance> nativeStream = parameters().map(ExecutableParameter::declaredType);
         return NaryFromNative.create(nativeStream);
     }
 
     @Override
-    public Stream<TypeInstance> declaredExceptions() {
+    public Nary<TypeInstance> declaredExceptions() {
         return exceptions.get();
     }
 

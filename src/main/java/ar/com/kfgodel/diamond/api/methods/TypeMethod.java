@@ -3,8 +3,7 @@ package ar.com.kfgodel.diamond.api.methods;
 import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
 import ar.com.kfgodel.diamond.api.members.TypeMember;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
-
-import java.util.stream.Stream;
+import ar.com.kfgodel.nary.api.Nary;
 
 /**
  * This type represents a method defined for a type that expresses behavior
@@ -28,7 +27,7 @@ public interface TypeMethod extends TypeMember, PolymorphicInvokable {
      * @return The type of parameters accepted by this method in the order they are required
      */
     @Override
-    Stream<TypeInstance> parameterTypes();
+    Nary<TypeInstance> parameterTypes();
 
     /**
      * Invokes the method represented by this instance, in the given object, with the arguments
@@ -95,6 +94,6 @@ public interface TypeMethod extends TypeMember, PolymorphicInvokable {
      * @return The exceptions types declared by this method in its throws clause
      */
     @Override
-    Stream<TypeInstance> declaredExceptions();
+    Nary<TypeInstance> declaredExceptions();
 
 }

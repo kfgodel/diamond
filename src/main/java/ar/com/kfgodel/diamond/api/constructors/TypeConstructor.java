@@ -3,10 +3,10 @@ package ar.com.kfgodel.diamond.api.constructors;
 import ar.com.kfgodel.diamond.api.invokable.Invokable;
 import ar.com.kfgodel.diamond.api.members.TypeMember;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.nary.api.Nary;
 
 import java.util.function.Function;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 /**
  * This type represents the a constructor defined for a type that creates new type instances
@@ -25,7 +25,7 @@ public interface TypeConstructor extends TypeMember, Supplier<Object>, Function<
      * @return The type of parameters accepted by this constructor in the order they are required
      */
     @Override
-    Stream<TypeInstance> parameterTypes();
+    Nary<TypeInstance> parameterTypes();
 
     /**
      * Invokes the constructor represented by this instance and returns the created object
@@ -52,5 +52,5 @@ public interface TypeConstructor extends TypeMember, Supplier<Object>, Function<
      * @return The exceptions types declared by this constructor in its throws clause
      */
     @Override
-    Stream<TypeInstance> declaredExceptions();
+    Nary<TypeInstance> declaredExceptions();
 }

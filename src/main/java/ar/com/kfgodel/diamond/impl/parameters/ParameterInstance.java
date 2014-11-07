@@ -8,7 +8,6 @@ import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.annotation.Annotation;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 /**
  * This type represents an executable parameter implementation
@@ -19,7 +18,7 @@ public class ParameterInstance implements ExecutableParameter {
     private Supplier<TypeInstance> declaredType;
     private Supplier<String> name;
     private Supplier<Nary<Modifier>> modifiers;
-    private Supplier<Stream<Annotation>> annotations;
+    private Supplier<Nary<Annotation>> annotations;
 
     @Override
     public TypeInstance declaredType() {
@@ -41,7 +40,7 @@ public class ParameterInstance implements ExecutableParameter {
     }
 
     @Override
-    public Stream<Modifier> modifiers() {
+    public Nary<Modifier> modifiers() {
         return modifiers.get();
     }
 
@@ -51,7 +50,7 @@ public class ParameterInstance implements ExecutableParameter {
     }
 
     @Override
-    public Stream<Annotation> annotations() {
+    public Nary<Annotation> annotations() {
         return annotations.get();
     }
 }

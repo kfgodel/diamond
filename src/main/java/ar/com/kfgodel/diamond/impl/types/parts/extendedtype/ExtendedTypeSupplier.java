@@ -8,9 +8,10 @@ import ar.com.kfgodel.diamond.impl.types.description.extended.ExtendedTypeDescri
 import ar.com.kfgodel.diamond.impl.types.generics.parameters.ActualArgumentReplacer;
 import ar.com.kfgodel.diamond.impl.types.generics.parameters.ParametrizationAnalyzer;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
+import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 import java.lang.reflect.AnnotatedType;
-import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -19,20 +20,34 @@ import java.util.stream.Stream;
  * This type represent a fragment of code that can extract the extended type from a native class instance
  * Created by kfgodel on 27/09/14.
  */
-public class ExtendedTypeSupplier {
+public class ExtendedTypeSupplier implements Supplier<Nary<TypeInstance>> {
 
-    public static Supplier<Optional<TypeInstance>> create(Class<?> nativeClass, Stream<TypeInstance> typeArguments) {
-        return CachedValue.lazilyBy(() -> {
+    private CachedValue<TypeInstance> extendedType;
+
+    @Override
+    public Nary<TypeInstance> get() {
+        TypeInstance typeInstance = extendedType.get();
+        if(typeInstance == null){
+            return NaryFromNative.empty();
+        }
+        return NaryFromNative.of(typeInstance);
+    }
+
+
+    public static Supplier<Nary<TypeInstance>> create(Class<?> nativeClass, Stream<TypeInstance> typeArguments) {
+        ExtendedTypeSupplier supplier = new ExtendedTypeSupplier();
+        supplier.extendedType = CachedValue.lazilyBy(() -> {
             AnnotatedType annotatedSuperclass = nativeClass.getAnnotatedSuperclass();
             if (annotatedSuperclass == null) {
                 // There's no extended type
-                return Optional.empty();
+                return null;
             }
             TypeDescription supertypeDescription = TypeDescriptor.INSTANCE.describe(annotatedSuperclass);
             ActualArgumentReplacer typeArgumentsReplacer = ActualArgumentReplacer.create(typeArguments.collect(Collectors.toList()), ParametrizationAnalyzer.create(nativeClass).get());
             ExtendedTypeDescription extendedTypeDescription = ExtendedTypeDescription.create(supertypeDescription, typeArgumentsReplacer);
-            return Optional.of(Diamond.types().fromDescription(extendedTypeDescription));
+            return Diamond.types().fromDescription(extendedTypeDescription);
         });
+        return supplier;
     }
 
 }

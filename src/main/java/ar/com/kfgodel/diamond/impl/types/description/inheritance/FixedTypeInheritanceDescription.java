@@ -7,7 +7,6 @@ import ar.com.kfgodel.diamond.impl.types.parts.interfaces.ImmutableInterfacesSup
 import ar.com.kfgodel.diamond.impl.types.parts.superclass.SuperClassSupplier;
 import ar.com.kfgodel.nary.api.Nary;
 
-import java.util.Optional;
 import java.util.function.Supplier;
 
 /**
@@ -20,12 +19,12 @@ public class FixedTypeInheritanceDescription implements InheritanceDescription {
     private Supplier<Nary<TypeInstance>> typeArguments;
 
     @Override
-    public Supplier<Optional<TypeInstance>> getSuperclassSupplier() {
+    public Supplier<Nary<TypeInstance>> getSuperclassSupplier() {
         return SuperClassSupplier.create(rawClass);
     }
 
     @Override
-    public Supplier<Optional<TypeInstance>> getExtendedTypeSupplier() {
+    public Supplier<Nary<TypeInstance>> getExtendedTypeSupplier() {
         return ExtendedTypeSupplier.create(rawClass, typeArguments.get());
     }
 

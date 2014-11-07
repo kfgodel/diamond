@@ -7,7 +7,6 @@ import ar.com.kfgodel.diamond.impl.types.parts.superclass.NoSuperclassSupplier;
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.impl.NaryFromNative;
 
-import java.util.Optional;
 import java.util.function.Supplier;
 
 /**
@@ -19,12 +18,12 @@ public class NoInheritanceDescription implements InheritanceDescription {
     public static final NoInheritanceDescription INSTANCE = new NoInheritanceDescription();
 
     @Override
-    public Supplier<Optional<TypeInstance>> getSuperclassSupplier() {
+    public Supplier<Nary<TypeInstance>> getSuperclassSupplier() {
         return NoSuperclassSupplier.INSTANCE;
     }
 
     @Override
-    public Supplier<Optional<TypeInstance>> getExtendedTypeSupplier() {
+    public Supplier<Nary<TypeInstance>> getExtendedTypeSupplier() {
         return NoExtendedTypeSupplier.INSTANCE;
     }
 

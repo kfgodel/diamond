@@ -1,8 +1,7 @@
 package ar.com.kfgodel.diamond.api.exceptions;
 
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
-
-import java.util.stream.Stream;
+import ar.com.kfgodel.nary.api.Nary;
 
 /**
  * This type represents and executable behavior that can declare exceptions that are thrown
@@ -14,5 +13,5 @@ public interface Exceptionable {
      * The set of declared exceptions for this element
      * @return The stream containing all the exceptions or empty if none declared
      */
-    Stream<TypeInstance> declaredExceptions();
+    Nary<TypeInstance> declaredExceptions();
 }

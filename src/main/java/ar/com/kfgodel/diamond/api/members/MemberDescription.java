@@ -9,7 +9,6 @@ import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.annotation.Annotation;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 /**
  * This type represents the common type member description elements
@@ -40,7 +39,7 @@ public interface MemberDescription {
     /**
      * @return The supplier for member's annotations
      */
-    Supplier<Stream<Annotation>> getAnnotations();
+    Supplier<Nary<Annotation>> getAnnotations();
 
     /**
      * @return The supplier of member's generics information

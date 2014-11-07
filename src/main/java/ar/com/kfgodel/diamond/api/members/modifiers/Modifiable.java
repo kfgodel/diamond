@@ -1,6 +1,6 @@
 package ar.com.kfgodel.diamond.api.members.modifiers;
 
-import java.util.stream.Stream;
+import ar.com.kfgodel.nary.api.Nary;
 
 /**
  * This type represents a type member that can be modified with member modifiers
@@ -11,7 +11,7 @@ public interface Modifiable {
     /**
      * @return The set of member modifiers applied to this member declaration
      */
-    Stream<Modifier> modifiers();
+    Nary<Modifier> modifiers();
 
     /**
      * Verifies if the given modifier is present in this instance

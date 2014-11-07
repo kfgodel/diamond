@@ -1,7 +1,9 @@
 package ar.com.kfgodel.diamond.impl.sources;
 
 import ar.com.kfgodel.diamond.api.members.modifiers.*;
-import ar.com.kfgodel.diamond.api.sources.modifiers.ModifierSources;
+import ar.com.kfgodel.diamond.api.sources.ModifierSources;
+import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 import java.lang.reflect.Member;
 import java.util.Arrays;
@@ -42,13 +44,13 @@ public class ModifierSourcesImpl implements ModifierSources {
     }
 
     @Override
-    public Stream<Modifier> all() {
-        return Stream.concat(
+    public Nary<Modifier> all() {
+        return NaryFromNative.create(Stream.concat(
                 Stream.concat(
-                Stream.concat(
-                Arrays.stream(Visibility.values()),
-                Arrays.stream(Mutability.values())),
-                Arrays.stream(FieldModifier.values())),
-                Arrays.stream(MethodModifier.values()));
+                        Stream.concat(
+                                Arrays.stream(Visibility.values()),
+                                Arrays.stream(Mutability.values())),
+                        Arrays.stream(FieldModifier.values())),
+                Arrays.stream(MethodModifier.values())));
     }
 }

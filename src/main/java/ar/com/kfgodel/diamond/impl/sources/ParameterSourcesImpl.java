@@ -2,7 +2,7 @@ package ar.com.kfgodel.diamond.impl.sources;
 
 import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.diamond.api.parameters.description.ParameterDescription;
-import ar.com.kfgodel.diamond.api.sources.parameters.ParameterSources;
+import ar.com.kfgodel.diamond.api.sources.ParameterSources;
 import ar.com.kfgodel.diamond.impl.parameters.ParameterInstance;
 import ar.com.kfgodel.diamond.impl.parameters.description.ParameterDescriptor;
 

@@ -1,10 +1,10 @@
 package ar.com.kfgodel.diamond.impl.types.packages;
 
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
+import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.annotation.Annotation;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 /**
  * This type represents the package of a type
@@ -13,10 +13,10 @@ import java.util.stream.Stream;
 public class TypePackageImpl implements TypePackage {
 
     private Supplier<String> name;
-    private Supplier<Stream<Annotation>> annotations;
+    private Supplier<Nary<Annotation>> annotations;
 
     @Override
-    public Stream<Annotation> annotations() {
+    public Nary<Annotation> annotations() {
         return annotations.get();
     }
 
@@ -25,7 +25,7 @@ public class TypePackageImpl implements TypePackage {
         return name.get();
     }
 
-    public static TypePackageImpl create(Supplier<String> name, Supplier<Stream<Annotation>> annotations) {
+    public static TypePackageImpl create(Supplier<String> name, Supplier<Nary<Annotation>> annotations) {
         TypePackageImpl aPackage = new TypePackageImpl();
         aPackage.name = name;
         aPackage.annotations = annotations;

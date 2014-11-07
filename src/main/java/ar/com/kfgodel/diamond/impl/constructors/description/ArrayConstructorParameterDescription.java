@@ -10,7 +10,6 @@ import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 import java.lang.annotation.Annotation;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 /**
  * This type represents the description of the parameter needed for the artificial array constructor
@@ -37,7 +36,7 @@ public class ArrayConstructorParameterDescription implements ParameterDescriptio
     }
 
     @Override
-    public Supplier<Stream<Annotation>> getAnnotations() {
+    public Supplier<Nary<Annotation>> getAnnotations() {
         return NaryFromNative::empty;
     }
 

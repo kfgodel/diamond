@@ -3,12 +3,12 @@ package ar.com.kfgodel.diamond.api.fields;
 import ar.com.kfgodel.diamond.api.invokable.Invokable;
 import ar.com.kfgodel.diamond.api.members.TypeMember;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.nary.api.Nary;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 /**
  * This type represents a field defined for a type that can store state
@@ -78,12 +78,12 @@ public interface TypeField extends TypeMember, Consumer<Object>, BiConsumer<Obje
      *     This method allows polymorphic compatibility between methods and constructors
      */
     @Override
-    Stream<TypeInstance> parameterTypes();
+    Nary<TypeInstance> parameterTypes();
 
     /**
      * @return An empty stream as fields don't declare exceptions.<br>
      *     This method allows polymorphism between methods and constructors
      */
     @Override
-    Stream<TypeInstance> declaredExceptions();
+    Nary<TypeInstance> declaredExceptions();
 }

@@ -10,9 +10,7 @@ import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.annotation.Annotation;
-import java.util.Optional;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 /**
  * This type represents a description of a diamond type and serves as an abstraction of the underlying represented type
@@ -28,7 +26,7 @@ public interface TypeDescription {
     /**
      * @return The supplier of annotations of the described type
      */
-    Supplier<Stream<Annotation>> getAnnotations();
+    Supplier<Nary<Annotation>> getAnnotations();
 
     /**
      * @return The description of this type inheritance
@@ -48,7 +46,7 @@ public interface TypeDescription {
     /**
      * @return The supplier used to define the type component
      */
-    Supplier<Optional<TypeInstance>> getComponentType();
+    Supplier<Nary<TypeInstance>> getComponentType();
 
     /**
      * @return The supplier that can reproduce the bounds of the described type
@@ -83,5 +81,5 @@ public interface TypeDescription {
     /**
      * @return The supplier of the optional package for the type
      */
-    Supplier<Optional<TypePackage>> getDeclaredPackage();
+    Supplier<Nary<TypePackage>> getDeclaredPackage();
 }

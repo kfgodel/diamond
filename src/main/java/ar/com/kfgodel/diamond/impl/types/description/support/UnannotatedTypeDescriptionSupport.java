@@ -21,10 +21,8 @@ import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
-import java.util.Optional;
 import java.util.Set;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 /**
  * This type serves as base class for unannotated types
@@ -64,7 +62,7 @@ public abstract class UnannotatedTypeDescriptionSupport implements TypeDescripti
 
 
     @Override
-    public Supplier<Stream<Annotation>> getAnnotations() {
+    public Supplier<Nary<Annotation>> getAnnotations() {
         return NoAnnotationsSupplier.INSTANCE;
     }
 
@@ -84,7 +82,7 @@ public abstract class UnannotatedTypeDescriptionSupport implements TypeDescripti
     }
 
     @Override
-    public Supplier<Optional<TypeInstance>> getComponentType() {
+    public Supplier<Nary<TypeInstance>> getComponentType() {
         return NoComponentTypeSupplier.INSTANCE;
     }
 

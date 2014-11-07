@@ -2,8 +2,8 @@ package ar.com.kfgodel.diamond.impl.types.bounds;
 
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
-
-import java.util.stream.Stream;
+import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 /**
  * This type represents an unbounded bounds
@@ -14,13 +14,13 @@ public class NoBounds implements TypeBounds {
     public static final NoBounds INSTANCE = NoBounds.create();
 
     @Override
-    public Stream<TypeInstance> upper() {
-        return Stream.empty();
+    public Nary<TypeInstance> upper() {
+        return NaryFromNative.empty();
     }
 
     @Override
-    public Stream<TypeInstance> lower() {
-        return Stream.empty();
+    public Nary<TypeInstance> lower() {
+        return NaryFromNative.empty();
     }
 
     public static NoBounds create() {
