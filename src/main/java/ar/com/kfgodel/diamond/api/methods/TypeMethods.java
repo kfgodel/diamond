@@ -5,6 +5,8 @@ import ar.com.kfgodel.diamond.api.parameters.ParameterizedSource;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.nary.api.Nary;
 
+import java.lang.reflect.Type;
+
 /**
  * This type represents the source of class methods for a given type
  * Created by kfgodel on 18/09/14.
@@ -34,6 +36,15 @@ public interface TypeMethods extends NamedSource<TypeMethod>, ParameterizedSourc
     Nary<TypeMethod> withSignature(String methodName, TypeInstance... parameterTypes);
 
     /**
+     * Retrieves the methods of the type that matches name and parameter types (including inherited).<br>
+     *     It may be 0, 1, or more
+     * @param methodName The name of the method to look for
+     * @param nativeParameterTypes The method parameter types
+     * @return The nary of matching methods
+     */
+    Nary<TypeMethod> withNativeSignature(String methodName, Type... nativeParameterTypes);
+
+    /**
      * Retrieves the methods of the type that matches the given parameter types.<br>
      *     The result may be 0, 1, or N elements
      * @param paramTypes The type of constructor arguments declared for the constructor
@@ -41,4 +52,5 @@ public interface TypeMethods extends NamedSource<TypeMethod>, ParameterizedSourc
      */
     @Override
     Nary<TypeMethod> withParameters(TypeInstance... paramTypes);
+
 }

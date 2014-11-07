@@ -1,5 +1,6 @@
 package ar.com.kfgodel.diamond.impl.methods.sources;
 
+import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.methods.TypeMethods;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
@@ -9,6 +10,7 @@ import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.impl.NaryFromNative;
 import ar.com.kfgodel.streams.StreamEquality;
 
+import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -32,8 +34,18 @@ public class TypeMethodsImpl extends NamedSourceSupport<TypeMethod> implements T
     }
 
     @Override
+    public Nary<TypeMethod> withNativeSignature(String methodName, Type... parameterTypes) {
+        return withSignature(methodName, Diamond.ofNative(parameterTypes));
+    }
+
+    @Override
     public Nary<TypeMethod> withParameters(TypeInstance... paramTypes) {
         return FilterByParameterType.create(all(), paramTypes);
+    }
+
+    @Override
+    public Nary<TypeMethod> withNativeParameters(Type... parameterTypes) {
+        return withParameters(Diamond.ofNative(parameterTypes));
     }
 
     @Override

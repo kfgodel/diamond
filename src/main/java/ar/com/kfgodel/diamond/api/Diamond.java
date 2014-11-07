@@ -4,6 +4,8 @@ import ar.com.kfgodel.diamond.api.sources.*;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.DiamondApi;
 
+import java.lang.reflect.Type;
+
 /**
  * This type represents the access point to Diamond API
  * Created by kfgodel on 17/09/14.
@@ -20,7 +22,7 @@ public interface Diamond {
      * @param nativeClass The native class instance to base on
      * @return A diamond class instance representation
      */
-    public static TypeInstance of(Class<?> nativeClass){
+    public static TypeInstance of(Type nativeClass){
         return types().from(nativeClass);
     }
 
@@ -29,10 +31,10 @@ public interface Diamond {
      * @param nativeClasses Native types
      * @return The array of diamond representation
      */
-    public static TypeInstance[] ofNative(Class<?>... nativeClasses){
+    public static TypeInstance[] ofNative(Type... nativeClasses){
         TypeInstance[] types = new TypeInstance[nativeClasses.length];
         for (int i = 0; i < nativeClasses.length; i++) {
-            Class<?> nativeClass = nativeClasses[i];
+            Type nativeClass = nativeClasses[i];
             types[i] = Diamond.of(nativeClass);
         }
         return types;
