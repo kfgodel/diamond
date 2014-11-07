@@ -4,7 +4,9 @@ import ar.com.kfgodel.diamond.api.members.modifiers.Modifier;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.nary.api.Nary;
 
+import java.lang.annotation.Annotation;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 /**
  * This type represents the diamond description of a executable parameter
@@ -26,4 +28,9 @@ public interface ParameterDescription {
      * @return The supplier of the parameter modifiers
      */
     Supplier<Nary<Modifier>> getModifiers();
+
+    /**
+     * @return The supplier of parameter annotations
+     */
+    Supplier<Stream<Annotation>> getAnnotations();
 }

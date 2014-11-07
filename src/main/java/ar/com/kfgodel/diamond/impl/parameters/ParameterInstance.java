@@ -6,6 +6,7 @@ import ar.com.kfgodel.diamond.api.parameters.description.ParameterDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.nary.api.Nary;
 
+import java.lang.annotation.Annotation;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -18,6 +19,7 @@ public class ParameterInstance implements ExecutableParameter {
     private Supplier<TypeInstance> declaredType;
     private Supplier<String> name;
     private Supplier<Nary<Modifier>> modifiers;
+    private Supplier<Stream<Annotation>> annotations;
 
     @Override
     public TypeInstance declaredType() {
@@ -29,6 +31,7 @@ public class ParameterInstance implements ExecutableParameter {
         parameter.declaredType = description.getDeclaredType();
         parameter.name = description.getName();
         parameter.modifiers = description.getModifiers();
+        parameter.annotations = description.getAnnotations();
         return parameter;
     }
 
@@ -45,5 +48,10 @@ public class ParameterInstance implements ExecutableParameter {
     @Override
     public boolean is(Modifier expectedModifier) {
         return modifiers().anyMatch(expectedModifier);
+    }
+
+    @Override
+    public Stream<Annotation> annotations() {
+        return annotations.get();
     }
 }
