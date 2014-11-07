@@ -3,6 +3,7 @@ package ar.com.kfgodel.diamond.api.methods;
 import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
 import ar.com.kfgodel.diamond.api.members.TypeMember;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.nary.api.Nary;
 
 import java.util.stream.Stream;
 
@@ -28,7 +29,7 @@ public interface TypeMethod extends TypeMember, PolymorphicInvokable {
      * @return The type of parameters accepted by this method in the order they are required
      */
     @Override
-    Stream<TypeInstance> parameterTypes();
+    Nary<TypeInstance> parameterTypes();
 
     /**
      * Invokes the method represented by this instance, in the given object, with the arguments
