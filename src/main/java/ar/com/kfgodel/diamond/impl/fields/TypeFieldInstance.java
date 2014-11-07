@@ -85,4 +85,9 @@ public class TypeFieldInstance extends TypeMemberSupport implements TypeField {
     public Nary<TypeInstance> parameterTypes() {
         return NaryFromNative.empty();
     }
+
+    @Override
+    public TypeInstance returnType() {
+        return type();
+    }
 }

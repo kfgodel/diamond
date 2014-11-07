@@ -53,4 +53,10 @@ public interface TypeConstructor extends TypeMember, Supplier<Object>, Function<
      */
     @Override
     Nary<TypeInstance> declaredExceptions();
+
+    /**
+     * @return The type of instances created by this constructor. Same as the declaring type
+     */
+    @Override
+    TypeInstance returnType();
 }
