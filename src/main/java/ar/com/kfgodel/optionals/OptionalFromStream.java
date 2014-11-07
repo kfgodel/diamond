@@ -1,6 +1,7 @@
 package ar.com.kfgodel.optionals;
 
 import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
+import ar.com.kfgodel.nary.api.MoreThanOneElementException;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,7 +25,7 @@ public class OptionalFromStream {
     public static<T> Optional<T> using(Stream<T> stream) throws DiamondException{
         List<T> foundElements = stream.limit(2).collect(Collectors.toList());
         if(foundElements.size() > 1){
-            throw new DiamondException("There's more than one element in the stream to create an optional: " +foundElements);
+            throw new MoreThanOneElementException("There's more than one element in the stream to create an optional: " +foundElements);
         }
         if(foundElements.isEmpty()){
             return Optional.empty();
