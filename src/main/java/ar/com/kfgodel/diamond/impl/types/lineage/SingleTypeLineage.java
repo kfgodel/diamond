@@ -2,10 +2,10 @@ package ar.com.kfgodel.diamond.impl.types.lineage;
 
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.inheritance.TypeLineage;
+import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 import java.util.Arrays;
-import java.util.Optional;
-import java.util.stream.Stream;
 
 /**
  * This type represents a type lineage for types that don't extend another type
@@ -26,23 +26,23 @@ public class SingleTypeLineage implements TypeLineage {
     }
 
     @Override
-    public Stream<TypeInstance> allMembers() {
-        return Arrays.asList(onlyType).stream();
+    public Nary<TypeInstance> allMembers() {
+        return NaryFromNative.create(Arrays.asList(onlyType).stream());
     }
 
     @Override
-    public Optional<TypeInstance> ancestorOf(TypeInstance descendant) {
-        return Optional.empty();
+    public Nary<TypeInstance> ancestorOf(TypeInstance descendant) {
+        return NaryFromNative.empty();
     }
 
     @Override
-    public Optional<TypeInstance> descendantOf(TypeInstance ancestor) {
-        return Optional.empty();
+    public Nary<TypeInstance> descendantOf(TypeInstance ancestor) {
+        return NaryFromNative.empty();
     }
 
     @Override
-    public Stream<TypeInstance> inheritedInterfaces() {
-        return Stream.empty();
+    public Nary<TypeInstance> inheritedInterfaces() {
+        return NaryFromNative.empty();
     }
 
     public static SingleTypeLineage create(TypeInstance singleType) {

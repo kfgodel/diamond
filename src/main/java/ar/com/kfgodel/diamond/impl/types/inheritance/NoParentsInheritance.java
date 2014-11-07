@@ -7,8 +7,6 @@ import ar.com.kfgodel.diamond.impl.types.lineage.SingleTypeLineage;
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.impl.NaryFromNative;
 
-import java.util.stream.Stream;
-
 /**
  * This type represents the inheritance of type that has no parent types
  * Created by kfgodel on 05/10/14.
@@ -28,8 +26,8 @@ public class NoParentsInheritance implements TypeInheritance {
     }
 
     @Override
-    public Stream<TypeInstance> interfaces() {
-        return Stream.empty();
+    public Nary<TypeInstance> interfaces() {
+        return NaryFromNative.empty();
     }
 
     @Override

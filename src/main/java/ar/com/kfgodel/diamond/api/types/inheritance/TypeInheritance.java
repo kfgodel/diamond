@@ -3,8 +3,6 @@ package ar.com.kfgodel.diamond.api.types.inheritance;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.nary.api.Nary;
 
-import java.util.stream.Stream;
-
 /**
  * This type represents the information about a type inheritance an its relations with other super types
  * Created by kfgodel on 05/10/14.
@@ -35,7 +33,7 @@ public interface TypeInheritance {
      *     The instances returned are un-parameterized (raw version) types and corresponds to the
      *     runtime representation of the implemented types
      */
-    Stream<TypeInstance> interfaces();
+    Nary<TypeInstance> interfaces();
 
     /**
      * Returns this type lineage (starting from this type, the set of extended types up until Object).<br>

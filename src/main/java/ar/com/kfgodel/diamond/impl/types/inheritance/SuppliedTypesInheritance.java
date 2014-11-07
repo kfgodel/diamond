@@ -8,7 +8,6 @@ import ar.com.kfgodel.diamond.impl.types.lineage.FunctionBasedTypeLineage;
 import ar.com.kfgodel.nary.api.Nary;
 
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 /**
  * This type represents the inheritance information of a type, based on supliers
@@ -27,7 +26,7 @@ public class SuppliedTypesInheritance implements TypeInheritance {
     }
 
     @Override
-    public Stream<TypeInstance> interfaces() {
+    public Nary<TypeInstance> interfaces() {
         return interfaces.get();
     }
 
