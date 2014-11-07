@@ -1,7 +1,7 @@
 package ar.com.kfgodel.diamond.impl.members.modifiers.suppliers;
 
 import ar.com.kfgodel.diamond.api.Diamond;
-import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
+import ar.com.kfgodel.diamond.api.members.modifiers.Modifier;
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.impl.NaryFromCollectionSupplier;
 
@@ -14,7 +14,7 @@ import java.util.function.Supplier;
  */
 public class ImmutableMemberModifiers {
 
-    public static Supplier<Nary<MemberModifier>> create(Member nativeMember) {
+    public static Supplier<Nary<Modifier>> create(Member nativeMember) {
         return NaryFromCollectionSupplier.lazilyBy(() -> Diamond.modifiers().from(nativeMember));
     }
 

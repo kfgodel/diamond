@@ -22,9 +22,9 @@ public class FieldModifier {
     public static final VolatileModifier VOLATILE = VolatileModifier.create();
 
 
-    private static final MemberModifier[] values = new MemberModifier[]{TRANSIENT, VOLATILE};
+    private static final Modifier[] values = new Modifier[]{TRANSIENT, VOLATILE};
 
-    public static MemberModifier[] values(){
+    public static Modifier[] values(){
         return values;
     }
 }

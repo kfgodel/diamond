@@ -1,9 +1,12 @@
 package ar.com.kfgodel.diamond.impl.constructors.description;
 
 import ar.com.kfgodel.diamond.api.Diamond;
+import ar.com.kfgodel.diamond.api.members.modifiers.Modifier;
 import ar.com.kfgodel.diamond.api.parameters.description.ParameterDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
+import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 import java.util.function.Supplier;
 
@@ -24,6 +27,11 @@ public class ArrayConstructorParameterDescription implements ParameterDescriptio
     @Override
     public Supplier<String> getName() {
         return () -> SIZE_PARAMETER_NAME;
+    }
+
+    @Override
+    public Supplier<Nary<Modifier>> getModifiers() {
+        return NaryFromNative::empty;
     }
 
     public static ArrayConstructorParameterDescription create() {

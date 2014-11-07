@@ -1,9 +1,12 @@
 package ar.com.kfgodel.diamond.impl.parameters.description;
 
 import ar.com.kfgodel.diamond.api.Diamond;
+import ar.com.kfgodel.diamond.api.members.modifiers.Modifier;
 import ar.com.kfgodel.diamond.api.parameters.description.ParameterDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
+import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.impl.NaryFromCollectionSupplier;
 
 import java.lang.reflect.Parameter;
 import java.util.function.Supplier;
@@ -24,6 +27,11 @@ public class NativeParameterDescription implements ParameterDescription {
     @Override
     public Supplier<String> getName() {
         return nativeParameter::getName;
+    }
+
+    @Override
+    public Supplier<Nary<Modifier>> getModifiers() {
+        return NaryFromCollectionSupplier.lazilyBy(() -> Diamond.modifiers().fromParameter(nativeParameter.getModifiers()));
     }
 
     public static NativeParameterDescription create(Parameter nativeParameter) {

@@ -4,7 +4,7 @@ import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.fields.FieldDescription;
 import ar.com.kfgodel.diamond.api.generics.Generics;
 import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
-import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
+import ar.com.kfgodel.diamond.api.members.modifiers.Modifier;
 import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.members.NativeMemberDeclaringTypeSupplier;
@@ -20,7 +20,6 @@ import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -59,14 +58,14 @@ public class NativeFieldDescription implements FieldDescription {
     }
 
     @Override
-    public Supplier<Nary<MemberModifier>> getModifiers() {
+    public Supplier<Nary<Modifier>> getModifiers() {
         return ImmutableMemberModifiers.create(nativeField);
     }
 
 
     @Override
     public Supplier<PolymorphicInvokable> getInvoker() {
-        return CachedValue.lazilyBy(() -> Modifier.isStatic(nativeField.getModifiers()) ?
+        return CachedValue.lazilyBy(() -> java.lang.reflect.Modifier.isStatic(nativeField.getModifiers()) ?
                         NativeStaticFieldInvoker.create(nativeField) :
                         NativeInstanceFieldInvoker.create(nativeField)
         );
