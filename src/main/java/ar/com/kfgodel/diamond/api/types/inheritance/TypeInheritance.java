@@ -1,8 +1,8 @@
 package ar.com.kfgodel.diamond.api.types.inheritance;
 
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.nary.api.Nary;
 
-import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
@@ -18,7 +18,7 @@ public interface TypeInheritance {
      *  The extended type is the parent class with correct type arguments assigned from this type,
      *  thus is the compile time parent type of this type.
      */
-    Optional<TypeInstance> extendedType();
+    Nary<TypeInstance> extendedType();
 
     /**
      * @return The optional superclass of this instance. Or empty if this instance
@@ -27,7 +27,7 @@ public interface TypeInheritance {
      *     The super class is the un-parameterized (raw) class instance that is the runtime super type of
      *     this type
      */
-    Optional<TypeInstance> superclass();
+    Nary<TypeInstance> superclass();
 
     /**
      * @return The set of interfaces implemented by this type. This can be empty if this instance

@@ -1,6 +1,8 @@
 package ar.com.kfgodel.iteration;
 
-import java.util.Optional;
+import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.impl.NaryFromNative;
+
 import java.util.Spliterator;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -19,8 +21,8 @@ public class GeneratorSpliterator<T> implements Spliterator<T> {
      */
     private int spliteratorCharacteristics;
 
-    private Optional<? extends T> nextValue;
-    private Function<? super T, Optional<? extends T>> generatorFunction;
+    private Nary<? extends T> nextValue;
+    private Function<? super T, Nary<? extends T>> generatorFunction;
 
     @Override
     public boolean tryAdvance(Consumer<? super T> action) {
@@ -66,7 +68,7 @@ public class GeneratorSpliterator<T> implements Spliterator<T> {
      * @param <T> Type of expected iterated elements
      * @return The created spliterator
      */
-    public static<T> GeneratorSpliterator<T> create(Optional<? extends T> firstValue, Function<? super T, Optional<? extends T>> generator, int characteristics) {
+    public static<T> GeneratorSpliterator<T> create(Nary<? extends T> firstValue, Function<? super T, Nary<? extends T>> generator, int characteristics) {
         GeneratorSpliterator<T> spliterator = new GeneratorSpliterator<>();
         spliterator.spliteratorCharacteristics = characteristics;
         spliterator.nextValue = firstValue;
@@ -81,7 +83,7 @@ public class GeneratorSpliterator<T> implements Spliterator<T> {
      * @param <T> Type of expected iterated elements
      * @return The created spliterator
      */
-    public static<T> GeneratorSpliterator<T> create(Optional<? extends T> firstValue, Function<? super T, Optional<? extends T>> generator) {
+    public static<T> GeneratorSpliterator<T> create(Nary<? extends T> firstValue, Function<? super T, Nary<? extends T>> generator) {
         return create(firstValue, generator, 0);
     }
 
@@ -91,8 +93,8 @@ public class GeneratorSpliterator<T> implements Spliterator<T> {
      * @param <T> Type of expected iterated elements
      * @return The created spliterator
      */
-    public static<T> GeneratorSpliterator<T> create(Optional<? extends T> firstValue) {
-        return create(firstValue, (value)-> Optional.empty());
+    public static<T> GeneratorSpliterator<T> create(Nary<? extends T> firstValue) {
+        return create(firstValue, (value)-> NaryFromNative.empty());
     }
 
 

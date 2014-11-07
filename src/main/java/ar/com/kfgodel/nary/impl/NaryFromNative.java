@@ -227,6 +227,9 @@ public class NaryFromNative<T> implements Nary<T> {
         return create(Stream.of(element));
     }
 
+    public static<T> NaryFromNative<T> ofNullable(T nullableElement) {
+        return create(java.util.Optional.ofNullable(nullableElement));
+    }
 
     public static<T> NaryFromNative<T> create(Stream<T> nativeStream) {
         return create(nativeStream, null);
@@ -323,4 +326,5 @@ public class NaryFromNative<T> implements Nary<T> {
         }
         return nativeStream;
     }
+
 }

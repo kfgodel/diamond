@@ -6,6 +6,7 @@ import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
 import ar.com.kfgodel.diamond.impl.types.parts.interfaces.VariableTypeInterfaceSupplier;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.impl.NaryFromNative;
 import ar.com.kfgodel.optionals.OptionalFromStream;
 
 import java.util.Optional;
@@ -23,8 +24,8 @@ public class VariableTypeInheritanceDescription implements InheritanceDescriptio
     private Supplier<Nary<TypeInstance>> typeArguments;
 
     @Override
-    public Supplier<Optional<TypeInstance>> getSuperclassSupplier() {
-        return CachedValue.lazilyBy(() -> Optional.of(Diamond.of(getParentClassFromUpperBounds())));
+    public Supplier<Nary<TypeInstance>> getSuperclassSupplier() {
+        return CachedValue.lazilyBy(() -> NaryFromNative.of(Diamond.of(getParentClassFromUpperBounds())));
     }
 
     /**
@@ -40,7 +41,7 @@ public class VariableTypeInheritanceDescription implements InheritanceDescriptio
     }
 
     @Override
-    public Supplier<Optional<TypeInstance>> getExtendedTypeSupplier() {
+    public Supplier<Nary<TypeInstance>> getExtendedTypeSupplier() {
         return getSuperclassSupplier();
     }
 

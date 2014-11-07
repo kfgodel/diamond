@@ -4,8 +4,9 @@ import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.inheritance.TypeInheritance;
 import ar.com.kfgodel.diamond.api.types.inheritance.TypeLineage;
 import ar.com.kfgodel.diamond.impl.types.lineage.SingleTypeLineage;
+import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.impl.NaryFromNative;
 
-import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
@@ -17,13 +18,13 @@ public class NoParentsInheritance implements TypeInheritance {
     private TypeInstance type;
 
     @Override
-    public Optional<TypeInstance> extendedType() {
-        return Optional.empty();
+    public Nary<TypeInstance> extendedType() {
+        return NaryFromNative.empty();
     }
 
     @Override
-    public Optional<TypeInstance> superclass() {
-        return Optional.empty();
+    public Nary<TypeInstance> superclass() {
+        return NaryFromNative.empty();
     }
 
     @Override

@@ -7,7 +7,6 @@ import ar.com.kfgodel.diamond.api.types.inheritance.TypeLineage;
 import ar.com.kfgodel.diamond.impl.types.lineage.FunctionBasedTypeLineage;
 import ar.com.kfgodel.nary.api.Nary;
 
-import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -18,12 +17,12 @@ import java.util.stream.Stream;
 public class SuppliedTypesInheritance implements TypeInheritance {
 
     private TypeInstance type;
-    private Supplier<Optional<TypeInstance>> superclass;
-    private Supplier<Optional<TypeInstance>> extendedType;
+    private Supplier<Nary<TypeInstance>> superclass;
+    private Supplier<Nary<TypeInstance>> extendedType;
     private Supplier<Nary<TypeInstance>> interfaces;
 
     @Override
-    public Optional<TypeInstance> superclass() {
+    public Nary<TypeInstance> superclass() {
         return superclass.get();
     }
 
@@ -33,7 +32,7 @@ public class SuppliedTypesInheritance implements TypeInheritance {
     }
 
     @Override
-    public Optional<TypeInstance> extendedType() {
+    public Nary<TypeInstance> extendedType() {
         return this.extendedType.get();
     }
 

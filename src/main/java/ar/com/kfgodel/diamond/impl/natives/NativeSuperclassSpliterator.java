@@ -1,8 +1,8 @@
 package ar.com.kfgodel.diamond.impl.natives;
 
 import ar.com.kfgodel.iteration.GeneratorSpliterator;
+import ar.com.kfgodel.nary.impl.NaryFromNative;
 
-import java.util.Optional;
 import java.util.Spliterator;
 
 /**
@@ -12,8 +12,8 @@ import java.util.Spliterator;
 public class NativeSuperclassSpliterator {
 
     public static GeneratorSpliterator<Class<?>> create(Class<?> startingClass) {
-        return GeneratorSpliterator.create(Optional.of(startingClass),
-                (clazz) -> Optional.ofNullable(clazz.getSuperclass()),
+        return GeneratorSpliterator.create(NaryFromNative.of(startingClass),
+                (clazz) -> NaryFromNative.ofNullable(clazz.getSuperclass()),
                 Spliterator.DISTINCT & Spliterator.IMMUTABLE & Spliterator.NONNULL & Spliterator.ORDERED);
     }
 

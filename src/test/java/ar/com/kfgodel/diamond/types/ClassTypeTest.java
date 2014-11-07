@@ -57,7 +57,7 @@ public class ClassTypeTest extends JavaSpec<DiamondTestContext> {
                  * This is the runtime parent type
                  */
                 it("has a super class", () -> {
-                    String superClassName = context().typeInstance().inheritance().superclass().map(TypeInstance::name).get();
+                    String superClassName = context().typeInstance().inheritance().superclass().mapOptional(TypeInstance::name).get();
                     assertThat(superClassName).isEqualTo("ParentClass");
                 });
 
@@ -65,7 +65,7 @@ public class ClassTypeTest extends JavaSpec<DiamondTestContext> {
                  * This is the compile time parent type
                  */
                 it("has an extended type", ()->{
-                    String extendedTypeName = context().typeInstance().inheritance().extendedType().map(Named::name).get();
+                    String extendedTypeName = context().typeInstance().inheritance().extendedType().mapOptional(Named::name).get();
                     assertThat(extendedTypeName).isEqualTo("ParentClass");
                 });
 

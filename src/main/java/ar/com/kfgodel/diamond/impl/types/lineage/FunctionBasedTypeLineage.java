@@ -3,6 +3,7 @@ package ar.com.kfgodel.diamond.impl.types.lineage;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.inheritance.TypeLineage;
 import ar.com.kfgodel.diamond.impl.types.iteration.TypeInstanceSpliterator;
+import ar.com.kfgodel.nary.api.Nary;
 
 import java.util.List;
 import java.util.Optional;
@@ -96,7 +97,7 @@ public class FunctionBasedTypeLineage implements TypeLineage {
         return indirectInterfaces.distinct();
     }
 
-    public static FunctionBasedTypeLineage create(TypeInstance lowest, Function<TypeInstance, Optional<? extends TypeInstance>> advanceOperation) {
+    public static FunctionBasedTypeLineage create(TypeInstance lowest, Function<TypeInstance, Nary<? extends TypeInstance>> advanceOperation) {
         FunctionBasedTypeLineage lineage = new FunctionBasedTypeLineage();
         lineage.classes = StreamSupport.stream(TypeInstanceSpliterator.create(lowest, advanceOperation), false).collect(Collectors.toList());
         return lineage;
