@@ -4,7 +4,6 @@ import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.DiamondTestContext;
 import ar.com.kfgodel.diamond.api.Diamond;
-import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.testobjects.FieldTypeTestObject;
 import org.junit.runner.RunWith;
 
@@ -20,13 +19,17 @@ public class FieldTypeTest extends JavaSpec<DiamondTestContext> {
     public void define() {
         describe("a field's type", () -> {
 
-            context().typeInstance(() -> Diamond.of(FieldTypeTestObject.class));
+            context().field(() -> Diamond.of(FieldTypeTestObject.class).fields().named("intField").get());
 
             it("is the type declared for a field",()->{
-                TypeField field = context().typeInstance().fields().all().filter((aField) -> aField.name().equals("intField")).findFirst().get();
-                assertThat(field.type().name())
+                assertThat(context().field().type().name())
                         .isEqualTo("int");
             });
+            
+            it("is the same as the return type",()->{
+                assertThat(context().field().type())
+                        .isEqualTo(context().field().returnType());
+            });   
 
         });
 

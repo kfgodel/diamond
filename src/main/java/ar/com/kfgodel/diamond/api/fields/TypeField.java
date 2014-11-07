@@ -86,4 +86,10 @@ public interface TypeField extends TypeMember, Consumer<Object>, BiConsumer<Obje
      */
     @Override
     Nary<TypeInstance> declaredExceptions();
+
+    /**
+     * @return Type of values returned when used as a getter. Same as this field type
+     */
+    @Override
+    TypeInstance returnType();
 }

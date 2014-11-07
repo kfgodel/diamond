@@ -2,6 +2,7 @@ package ar.com.kfgodel.diamond.impl.constructors;
 
 import ar.com.kfgodel.diamond.api.constructors.ConstructorDescription;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
+import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.constructors.declaration.ConstructorDeclaration;
 import ar.com.kfgodel.diamond.impl.constructors.equality.ConstructorEquality;
 import ar.com.kfgodel.diamond.impl.members.TypeMemberSupport;
@@ -50,4 +51,8 @@ public class TypeConstructorInstance extends TypeMemberSupport implements TypeCo
         return ConstructorDeclaration.create(this).asString();
     }
 
+    @Override
+    public TypeInstance returnType() {
+        return declaringType();
+    }
 }

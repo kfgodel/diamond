@@ -4,6 +4,7 @@ import ar.com.kfgodel.diamond.api.behavior.ParameterizedBehavior;
 import ar.com.kfgodel.diamond.api.exceptions.Exceptionable;
 import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
 import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
+import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.nary.api.Nary;
 
 /**
@@ -25,4 +26,10 @@ public interface Executable extends ParameterizedBehavior, Exceptionable {
      * @return The set of parameters (in the needed order)
      */
     Nary<ExecutableParameter> parameters();
+
+    /**
+     * @return The instance that represents the return type of this executable.<br>
+     */
+    TypeInstance returnType();
+
 }
