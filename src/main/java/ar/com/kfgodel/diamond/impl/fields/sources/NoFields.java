@@ -1,11 +1,9 @@
 package ar.com.kfgodel.diamond.impl.fields.sources;
 
-import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.api.fields.TypeFields;
-
-import java.util.Optional;
-import java.util.stream.Stream;
+import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 /**
  * This type represents the fields of a type that has no fields
@@ -16,22 +14,13 @@ public class NoFields implements TypeFields {
     public static final NoFields INSTANCE = new NoFields();
 
     @Override
-    public Stream<TypeField> all() {
-        return Stream.empty();
+    public Nary<TypeField> all() {
+        return NaryFromNative.empty();
     }
 
     @Override
-    public Stream<TypeField> named(String fieldName) {
-        return Stream.empty();
+    public Nary<TypeField> named(String fieldName) {
+        return NaryFromNative.empty();
     }
 
-    @Override
-    public Optional<TypeField> uniqueNamed(String fieldName) throws DiamondException {
-        return Optional.empty();
-    }
-
-    @Override
-    public TypeField existingNamed(String fieldName) throws DiamondException {
-        throw new DiamondException("There's no field named \""+fieldName+"\"");
-    }
 }

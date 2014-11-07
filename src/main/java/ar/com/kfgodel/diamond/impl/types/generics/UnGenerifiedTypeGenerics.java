@@ -4,8 +4,8 @@ import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.generics.TypeGenerics;
 import ar.com.kfgodel.diamond.impl.types.bounds.NoBounds;
-
-import java.util.stream.Stream;
+import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 /**
  * This type represents the generics information for an ungenerified type
@@ -29,12 +29,12 @@ public class UnGenerifiedTypeGenerics implements TypeGenerics {
      * @return An empty stream
      */
     @Override
-    public Stream<TypeInstance> arguments() {
-        return Stream.empty();
+    public Nary<TypeInstance> arguments() {
+        return NaryFromNative.empty();
     }
 
     @Override
-    public Stream<TypeInstance> parameters() {
-        return Stream.empty();
+    public Nary<TypeInstance> parameters() {
+        return NaryFromNative.empty();
     }
 }

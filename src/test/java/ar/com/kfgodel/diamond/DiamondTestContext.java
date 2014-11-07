@@ -10,6 +10,7 @@ import ar.com.kfgodel.diamond.api.types.inheritance.TypeLineage;
 import ar.com.kfgodel.diamond.api.types.names.TypeNames;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.lazyvalue.api.LazyValue;
+import ar.com.kfgodel.nary.api.Nary;
 
 import java.util.function.Supplier;
 
@@ -54,4 +55,7 @@ public interface DiamondTestContext extends TestContext {
 
     TypePackage typePackage();
     void typePackage(Supplier<TypePackage> definition);
+
+    Nary<Integer> nary();
+    void nary(Supplier<Nary<Integer>> definition);
 }

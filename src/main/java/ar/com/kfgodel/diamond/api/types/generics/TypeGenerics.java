@@ -2,8 +2,7 @@ package ar.com.kfgodel.diamond.api.types.generics;
 
 import ar.com.kfgodel.diamond.api.generics.Generics;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
-
-import java.util.stream.Stream;
+import ar.com.kfgodel.nary.api.Nary;
 
 /**
  * This type represents the generics information for a specific type.<br>
@@ -23,13 +22,13 @@ public interface TypeGenerics extends Generics {
      * Parameterized types have type arguments that are preserved through reflection (only on certain cases).<br>
      *     See parameters for the list of type variables that these arguments correspond to
      */
-    Stream<TypeInstance> arguments();
+    Nary<TypeInstance> arguments();
 
     /**
      * @return The generic type parameters this type accepts (if any).
      * Parameterized classes have type variables that can be parameterized. This is the list of type variables.<br>
      *     See arguments for the actual type values of this variables
      */
-    Stream<TypeInstance> parameters();
+    Nary<TypeInstance> parameters();
 
 }

@@ -102,7 +102,7 @@ public class FieldAccessorPerformanceIT extends JavaSpec<DiamondTestContext> {
                 }
             });
             it("6 fastest with typeField access",()->{
-                TypeField field = Diamond.of(FieldAccessorTestObject.class).fields().existingNamed(FIELD_NAME);
+                TypeField field = Diamond.of(FieldAccessorTestObject.class).fields().named(FIELD_NAME).get();
                 measureTest("6. typeField", (object) -> {
                     for (int i = 0; i < ITERATIONS; i++) {
                         field.setValueOn(object, field.<Integer>getValueFrom(object) + 2);

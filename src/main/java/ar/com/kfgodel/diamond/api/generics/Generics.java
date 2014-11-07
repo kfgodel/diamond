@@ -1,8 +1,7 @@
 package ar.com.kfgodel.diamond.api.generics;
 
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
-
-import java.util.stream.Stream;
+import ar.com.kfgodel.nary.api.Nary;
 
 /**
  * This type represents the generics information available for a generified entity
@@ -14,5 +13,5 @@ public interface Generics {
      * @return The generic type parameters used to generify this entity (if any).
      *  (This is the list of type parameters used on the class, method, field, constructor, etc).
      */
-    Stream<TypeInstance> parameters();
+    Nary<TypeInstance> parameters();
 }

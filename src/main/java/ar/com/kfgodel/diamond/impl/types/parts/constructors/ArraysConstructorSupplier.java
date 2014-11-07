@@ -5,10 +5,10 @@ import ar.com.kfgodel.diamond.api.constructors.ConstructorDescription;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.impl.constructors.description.ArrayConstructorDescription;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
-import ar.com.kfgodel.streams.StreamFromElementSupplier;
+import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.impl.NaryFromElementSupplier;
 
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 /**
  * This type represents the artificial constructor supplier for native array types.<br>
@@ -18,8 +18,8 @@ import java.util.stream.Stream;
  */
 public class ArraysConstructorSupplier {
 
-    public static Supplier<Stream<TypeConstructor>> create(Class<?> nativeArrayClass) {
-        return StreamFromElementSupplier.using(CachedValue.lazilyBy(() -> {
+    public static Supplier<Nary<TypeConstructor>> create(Class<?> nativeArrayClass) {
+        return NaryFromElementSupplier.using(CachedValue.lazilyBy(() -> {
             ConstructorDescription arrayConstructorDescription = ArrayConstructorDescription.create(nativeArrayClass);
             TypeConstructor constructor = Diamond.constructors().from(arrayConstructorDescription);
             return constructor;

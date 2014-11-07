@@ -2,15 +2,14 @@ package ar.com.kfgodel.diamond.impl.constructors.sources;
 
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructors;
-import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.optionals.OptionalFromStream;
 import ar.com.kfgodel.streams.StreamEquality;
 
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 /**
  * This type represents a fixed set of constructors for a type
@@ -18,10 +17,10 @@ import java.util.stream.Stream;
  */
 public class TypeConstructorsImpl implements TypeConstructors {
 
-    private Supplier<Stream<TypeConstructor>> typeConstructors;
+    private Supplier<Nary<TypeConstructor>> typeConstructors;
 
     @Override
-    public Stream<TypeConstructor> all() {
+    public Nary<TypeConstructor> all() {
         return typeConstructors.get();
     }
 
@@ -36,12 +35,7 @@ public class TypeConstructorsImpl implements TypeConstructors {
                 .filter((constructor)-> StreamEquality.INSTANCE.areEquals(constructor.parameterTypes(), Arrays.stream(paramTypes))));
     }
 
-    @Override
-    public TypeConstructor existingDeclaredFor(TypeInstance... paramTypes) throws DiamondException {
-        return declaredFor(paramTypes).orElseGet(() -> NoConstructors.INSTANCE.existingDeclaredFor(paramTypes));
-    }
-
-    public static TypeConstructorsImpl create(Supplier<Stream<TypeConstructor>> constructorSupplier) {
+    public static TypeConstructorsImpl create(Supplier<Nary<TypeConstructor>> constructorSupplier) {
         TypeConstructorsImpl methodSource = new TypeConstructorsImpl();
         methodSource.typeConstructors = constructorSupplier;
         return methodSource;

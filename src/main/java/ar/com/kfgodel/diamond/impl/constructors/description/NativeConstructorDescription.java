@@ -13,6 +13,7 @@ import ar.com.kfgodel.diamond.impl.members.modifiers.suppliers.ImmutableMemberMo
 import ar.com.kfgodel.diamond.impl.members.parameters.ImmutableMemberParameters;
 import ar.com.kfgodel.diamond.impl.natives.invokables.constructors.NativeConstructorInvoker;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
+import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
@@ -28,7 +29,7 @@ public class NativeConstructorDescription implements ConstructorDescription {
     private Constructor<?> nativeConstructor;
 
     @Override
-    public Supplier<Stream<TypeInstance>> getParameterTypes() {
+    public Supplier<Nary<TypeInstance>> getParameterTypes() {
         return ImmutableMemberParameters.create(nativeConstructor);
     }
 
@@ -38,7 +39,7 @@ public class NativeConstructorDescription implements ConstructorDescription {
     }
 
     @Override
-    public Supplier<Stream<MemberModifier>> getModifiers() {
+    public Supplier<Nary<MemberModifier>> getModifiers() {
         return ImmutableMemberModifiers.create(nativeConstructor);
     }
 
@@ -63,7 +64,7 @@ public class NativeConstructorDescription implements ConstructorDescription {
     }
 
     @Override
-    public Supplier<Stream<TypeInstance>> getDeclaredExceptions() {
+    public Supplier<Nary<TypeInstance>> getDeclaredExceptions() {
         return ExecutableExceptionsSupplier.create(nativeConstructor);
     }
 

@@ -1,23 +1,23 @@
-package ar.com.kfgodel.streams;
+package ar.com.kfgodel.nary.impl;
 
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
+import ar.com.kfgodel.nary.api.Nary;
 
 import java.util.Collection;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 /**
  * This type represents a supplier for stream taken from a collection.<br>
  *     Each time this supplier is called, a stream is generated from the collection
  * Created by kfgodel on 22/10/14.
  */
-public class StreamFromCollectionSupplier<T> implements Supplier<Stream<T>> {
+public class NaryFromCollectionSupplier<T> implements Supplier<Nary<T>> {
 
     private Supplier<? extends  Collection<T>> collection;
 
     @Override
-    public Stream<T> get() {
-        return collection.get().stream();
+    public Nary<T> get() {
+        return NaryFromNative.create(collection.get().stream());
     }
 
     /**
@@ -26,7 +26,7 @@ public class StreamFromCollectionSupplier<T> implements Supplier<Stream<T>> {
      * @param <T> The type of expected stream elements
      * @return The created supplier
      */
-    public static<T> StreamFromCollectionSupplier<T> from(Collection<T> collection) {
+    public static<T> NaryFromCollectionSupplier<T> from(Collection<T> collection) {
         return using(CachedValue.eagerlyFrom(collection));
     }
 
@@ -37,8 +37,8 @@ public class StreamFromCollectionSupplier<T> implements Supplier<Stream<T>> {
      * @param <T> The type of expected stream elements
      * @return The created stream supplier
      */
-    public static<T> StreamFromCollectionSupplier<T> using(Supplier<? extends Collection<T>> collection) {
-        StreamFromCollectionSupplier<T> supplier = new StreamFromCollectionSupplier<>();
+    public static<T> NaryFromCollectionSupplier<T> using(Supplier<? extends Collection<T>> collection) {
+        NaryFromCollectionSupplier<T> supplier = new NaryFromCollectionSupplier<>();
         supplier.collection = collection;
         return supplier;
     }
@@ -50,7 +50,8 @@ public class StreamFromCollectionSupplier<T> implements Supplier<Stream<T>> {
      * @param <T> The type of expected stream elements
      * @return The created stream supplier
      */
-    public static<T> StreamFromCollectionSupplier<T> lazilyBy(Supplier<? extends Collection<T>> supplier) {
-        return using(CachedValue.lazilyBy(supplier));
+    public static<T> NaryFromCollectionSupplier<T> lazilyBy(Supplier<? extends Collection<T>> supplier) {
+        Supplier<? extends Collection<T>> cachedValue = CachedValue.lazilyBy(supplier);
+        return using(cachedValue);
     }
 }

@@ -1,11 +1,10 @@
 package ar.com.kfgodel.diamond.impl.methods.sources;
 
-import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.methods.TypeMethods;
 import ar.com.kfgodel.diamond.impl.named.NamedSourceSupport;
+import ar.com.kfgodel.nary.api.Nary;
 
-import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -15,10 +14,10 @@ import java.util.stream.Stream;
  */
 public class TypeMethodsImpl extends NamedSourceSupport<TypeMethod> implements TypeMethods {
 
-    private Supplier<Stream<TypeMethod>> typeMethods;
+    private Supplier<Nary<TypeMethod>> typeMethods;
 
     @Override
-    public Stream<TypeMethod> all() {
+    public Nary<TypeMethod> all() {
         return typeMethods.get();
     }
 
@@ -27,18 +26,7 @@ public class TypeMethodsImpl extends NamedSourceSupport<TypeMethod> implements T
         return all();
     }
 
-    @Override
-    protected Optional<TypeMethod> whenExpectingOneAndFoundMore(String methodName, DiamondException e) {
-        throw new DiamondException("There's more than one method named \""+methodName+"\"",e);
-    }
-
-    @Override
-    protected TypeMethod whenExpectingOneAnNoneFound(String methodName) {
-        // NoMethods is the error case
-        return NoMethods.INSTANCE.existingNamed(methodName);
-    }
-
-    public static TypeMethodsImpl create(Supplier<Stream<TypeMethod>> classMethods) {
+    public static TypeMethodsImpl create(Supplier<Nary<TypeMethod>> classMethods) {
         TypeMethodsImpl methodSource = new TypeMethodsImpl();
         methodSource.typeMethods = classMethods;
         return methodSource;

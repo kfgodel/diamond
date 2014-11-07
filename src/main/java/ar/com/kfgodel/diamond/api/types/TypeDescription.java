@@ -7,6 +7,7 @@ import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
 import ar.com.kfgodel.diamond.api.types.names.TypeNames;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
+import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.annotation.Annotation;
 import java.util.Optional;
@@ -37,12 +38,12 @@ public interface TypeDescription {
     /**
      * @return The supplier of type arguments
      */
-    Supplier<Stream<TypeInstance>> getTypeArguments();
+    Supplier<Nary<TypeInstance>> getTypeArguments();
 
     /**
      * @return The supplier of type parameters for the described type
      */
-    Supplier<Stream<TypeInstance>> getTypeParametersSupplier();
+    Supplier<Nary<TypeInstance>> getTypeParametersSupplier();
 
     /**
      * @return The supplier used to define the type component
@@ -58,19 +59,19 @@ public interface TypeDescription {
      * The set of methods that will be part of this type behavior
      * @return A stream to gather all methods
      */
-    Supplier<Stream<TypeMethod>> getTypeMethods();
+    Supplier<Nary<TypeMethod>> getTypeMethods();
 
     /**
      * The set of fields that will be part of this type state
      * @return A stream to gather all fields
      */
-    Supplier<Stream<TypeField>> getTypeFields();
+    Supplier<Nary<TypeField>> getTypeFields();
 
     /**
      * The set of constructors that will be part of this type creators
      * @return A stream to gather all constructors
      */
-    Supplier<Stream<TypeConstructor>> getTypeConstructors();
+    Supplier<Nary<TypeConstructor>> getTypeConstructors();
 
     /**
      * Indicates if this description is for a type that cannot be statically determined at compile type in every scope

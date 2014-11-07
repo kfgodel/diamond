@@ -29,7 +29,7 @@ public class MemberAnnotationTest extends JavaSpec<DiamondTestContext> {
 
             describe("on a field", () -> {
 
-                context().field(()-> context().typeInstance().fields().existingNamed(context().name()));
+                context().field(()-> context().typeInstance().fields().named(context().name()).get());
 
                 it("can be empty", () -> {
                     context().name(() -> "unannotatedField");
@@ -51,7 +51,7 @@ public class MemberAnnotationTest extends JavaSpec<DiamondTestContext> {
 
             describe("on a method", () -> {
 
-                context().method(() -> context().typeInstance().methods().existingNamed(context().name()));
+                context().method(() -> context().typeInstance().methods().named(context().name()).get());
 
                 it("can be empty",()->{
                     context().name(() -> "unannotatedMethod");
@@ -75,7 +75,7 @@ public class MemberAnnotationTest extends JavaSpec<DiamondTestContext> {
 
             describe("on a constructor", () -> {
                 it("can be empty",()->{
-                    context().constructor(()-> context().typeInstance().constructors().existingDeclaredFor());
+                    context().constructor(()-> context().typeInstance().constructors().declaredFor().get());
 
                     Stream<Annotation> annotations = context().constructor().annotations();
 
@@ -83,7 +83,7 @@ public class MemberAnnotationTest extends JavaSpec<DiamondTestContext> {
                 });
 
                 it("contains all the annotations",()->{
-                    context().constructor(()-> context().typeInstance().constructors().existingDeclaredFor(Diamond.of(Integer.class)));
+                    context().constructor(()-> context().typeInstance().constructors().declaredFor(Diamond.of(Integer.class)).get());
 
                     Stream<Annotation> annotations = context().constructor().annotations();
 

@@ -28,7 +28,7 @@ public class GenericMembersTest extends JavaSpec<DiamondTestContext> {
             context().typeInstance(()-> Diamond.of(GenericMembersTestObject.class));
 
             describe("for a field", () -> {
-                context().field(()-> context().typeInstance().fields().existingNamed("field"));
+                context().field(()-> context().typeInstance().fields().named("field").get());
                 
                 it("contains an empty stream for generic parameters",()->{
 
@@ -39,7 +39,7 @@ public class GenericMembersTest extends JavaSpec<DiamondTestContext> {
             });
 
             describe("for a method", () -> {
-                context().method(()-> context().typeInstance().methods().existingNamed("method"));
+                context().method(()-> context().typeInstance().methods().named("method").get());
                 
                 it("contains only method declared type variables",()->{
 
@@ -52,7 +52,7 @@ public class GenericMembersTest extends JavaSpec<DiamondTestContext> {
             });
 
             describe("for a constructor", () -> {
-                context().constructor(() -> context().typeInstance().constructors().existingDeclaredFor(getTypeVariableS()));
+                context().constructor(() -> context().typeInstance().constructors().declaredFor(getTypeVariableS()).get());
 
                 it("contains only constructor declared type variables",()->{
 

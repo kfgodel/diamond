@@ -29,7 +29,7 @@ public class MemberExceptionsTest extends JavaSpec<DiamondTestContext> {
 
             describe("on fields", () -> {
 
-                context().field(()-> context().typeInstance().fields().existingNamed("field"));
+                context().field(()-> context().typeInstance().fields().named("field").get());
 
                 it("is an empty stream", () -> {
                     Stream<TypeInstance> exceptions = context().field().declaredExceptions();
@@ -40,7 +40,7 @@ public class MemberExceptionsTest extends JavaSpec<DiamondTestContext> {
 
             describe("on methods", () -> {
 
-                context().method(() -> context().typeInstance().methods().existingNamed("method"));
+                context().method(() -> context().typeInstance().methods().named("method").get());
 
                 it("is the full exception list declared by the method", () -> {
                     Stream<TypeInstance> exceptions = context().method().declaredExceptions();

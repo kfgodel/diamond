@@ -12,7 +12,8 @@ import ar.com.kfgodel.diamond.impl.members.generics.UnGenerifiedMemberGenerics;
 import ar.com.kfgodel.diamond.impl.natives.invokables.constructors.NativeArrayConstructor;
 import ar.com.kfgodel.diamond.impl.types.parts.annotations.NoAnnotationsSupplier;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
-import ar.com.kfgodel.streams.StreamFromElementSupplier;
+import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.impl.NaryFromElementSupplier;
 
 import java.lang.annotation.Annotation;
 import java.util.function.Supplier;
@@ -26,8 +27,8 @@ public class ArrayConstructorDescription implements ConstructorDescription {
     private Class<?> nativeArrayClass;
 
     @Override
-    public Supplier<Stream<TypeInstance>> getParameterTypes() {
-        return StreamFromElementSupplier.from(Diamond.of(int.class));
+    public Supplier<Nary<TypeInstance>> getParameterTypes() {
+        return NaryFromElementSupplier.from(Diamond.of(int.class));
     }
 
     @Override
@@ -36,9 +37,9 @@ public class ArrayConstructorDescription implements ConstructorDescription {
     }
 
     @Override
-    public Supplier<Stream<MemberModifier>> getModifiers() {
+    public Supplier<Nary<MemberModifier>> getModifiers() {
         // Array creation is similar to public visibility
-        return StreamFromElementSupplier.from(Visibility.PUBLIC);
+        return NaryFromElementSupplier.from(Visibility.PUBLIC);
     }
 
     @Override
@@ -62,7 +63,7 @@ public class ArrayConstructorDescription implements ConstructorDescription {
     }
 
     @Override
-    public Supplier<Stream<TypeInstance>> getDeclaredExceptions() {
+    public Supplier<Nary<TypeInstance>> getDeclaredExceptions() {
         return NoExceptionsSupplier::create;
     }
 

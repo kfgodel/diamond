@@ -2,7 +2,6 @@ package ar.com.kfgodel.diamond.api.fields;
 
 import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
 import ar.com.kfgodel.diamond.api.members.MemberDescription;
-import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 
 import java.lang.annotation.Annotation;
@@ -28,11 +27,6 @@ public interface FieldDescription extends MemberDescription {
      * @return The type in which the field is declared
      */
     Supplier<TypeInstance> getDeclaringType();
-
-    /**
-     * @return The supplier to get the field modifiers
-     */
-    Supplier<Stream<MemberModifier>> getModifiers();
 
     /**
      * @return The supplier of the functional behavior of the field (get and set operations)

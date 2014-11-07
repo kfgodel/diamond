@@ -2,11 +2,11 @@ package ar.com.kfgodel.diamond.impl.members.modifiers.suppliers;
 
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
-import ar.com.kfgodel.streams.StreamFromCollectionSupplier;
+import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.impl.NaryFromCollectionSupplier;
 
 import java.lang.reflect.Member;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 /**
  * This type represents the immutable modifiers supplier for a member that doesn't change modifiers over time
@@ -14,8 +14,8 @@ import java.util.stream.Stream;
  */
 public class ImmutableMemberModifiers {
 
-    public static Supplier<Stream<MemberModifier>> create(Member nativeMember) {
-        return StreamFromCollectionSupplier.lazilyBy(() -> Diamond.modifiers().from(nativeMember));
+    public static Supplier<Nary<MemberModifier>> create(Member nativeMember) {
+        return NaryFromCollectionSupplier.lazilyBy(() -> Diamond.modifiers().from(nativeMember));
     }
 
 }

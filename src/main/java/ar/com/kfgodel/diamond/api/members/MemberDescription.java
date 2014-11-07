@@ -4,6 +4,7 @@ import ar.com.kfgodel.diamond.api.generics.Generics;
 import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
 import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.annotation.Annotation;
 import java.util.function.Supplier;
@@ -18,7 +19,7 @@ public interface MemberDescription {
     /**
      * @return The supplier for the parameter types of the described member
      */
-    Supplier<Stream<TypeInstance>> getParameterTypes();
+    Supplier<Nary<TypeInstance>> getParameterTypes();
 
     /**
      * @return The supplier of the type that declared the member
@@ -28,7 +29,7 @@ public interface MemberDescription {
     /**
      * @return The supplier of modifiers applied to the member
      */
-    Supplier<Stream<MemberModifier>> getModifiers();
+    Supplier<Nary<MemberModifier>> getModifiers();
 
     /**
      * @return The supplier of the member invoker function
@@ -53,5 +54,5 @@ public interface MemberDescription {
     /**
      * @return the supplier of declared exceptions for this member
      */
-    Supplier<Stream<TypeInstance>> getDeclaredExceptions();
+    Supplier<Nary<TypeInstance>> getDeclaredExceptions();
 }

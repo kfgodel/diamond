@@ -4,11 +4,11 @@ import ar.com.kfgodel.diamond.api.types.TypeDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.types.description.support.DelegatedDescriptionSupport;
 import ar.com.kfgodel.diamond.impl.types.parts.typearguments.ExtendedTypeArgumentsSupplier;
+import ar.com.kfgodel.nary.api.Nary;
 
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 /**
  * This type represents the description of a type that is extended by another with actual type arguments.
@@ -26,7 +26,7 @@ public class ExtendedTypeDescription extends DelegatedDescriptionSupport {
     }
 
     @Override
-    public Supplier<Stream<TypeInstance>> getTypeArguments() {
+    public Supplier<Nary<TypeInstance>> getTypeArguments() {
         return ExtendedTypeArgumentsSupplier.create(extendedTypeDescription.getTypeArguments(), extendedTypeArgumentsReplacer);
     }
 

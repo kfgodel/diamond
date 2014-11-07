@@ -2,8 +2,8 @@ package ar.com.kfgodel.diamond.impl.members.generics;
 
 import ar.com.kfgodel.diamond.api.generics.Generics;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
-
-import java.util.stream.Stream;
+import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 /**
  * This type represents generics information for a non generified member
@@ -19,7 +19,7 @@ public class UnGenerifiedMemberGenerics implements Generics {
     }
 
     @Override
-    public Stream<TypeInstance> parameters() {
-        return Stream.empty();
+    public Nary<TypeInstance> parameters() {
+        return NaryFromNative.empty();
     }
 }

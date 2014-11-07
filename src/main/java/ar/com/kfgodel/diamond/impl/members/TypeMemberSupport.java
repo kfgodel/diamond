@@ -14,6 +14,7 @@ import ar.com.kfgodel.diamond.impl.members.modifiers.suppliers.UndefinedMemberMo
 import ar.com.kfgodel.diamond.impl.members.parameters.UndefinedMemberParameters;
 import ar.com.kfgodel.diamond.impl.named.UndefinedName;
 import ar.com.kfgodel.diamond.impl.types.parts.annotations.NoAnnotationsSupplier;
+import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.annotation.Annotation;
 import java.util.function.Supplier;
@@ -28,11 +29,11 @@ public abstract class TypeMemberSupport implements TypeMember {
     private Supplier<Stream<Annotation>> annotations = NoAnnotationsSupplier.INSTANCE;
     private Supplier<String> name = UndefinedName.create(this);
     private Supplier<TypeInstance> declaringType = UndefinedDeclaringType.create(this);
-    private Supplier<Stream<MemberModifier>> modifiers = UndefinedMemberModifiers.create(this);
+    private Supplier<Nary<MemberModifier>> modifiers = UndefinedMemberModifiers.create(this);
     private Supplier<PolymorphicInvokable> invoker = UndefinedInvoker.create(this);
     private Supplier<Generics> generics = UndefinedMemberGenerics.create(this);
-    private Supplier<Stream<TypeInstance>> parameterTypes = UndefinedMemberParameters.create(this);
-    private Supplier<Stream<TypeInstance>> exceptions = UndefinedMemberExceptions.create(this);
+    private Supplier<Nary<TypeInstance>> parameterTypes = UndefinedMemberParameters.create(this);
+    private Supplier<Nary<TypeInstance>> exceptions = UndefinedMemberExceptions.create(this);
 
 
     @Override

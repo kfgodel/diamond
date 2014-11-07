@@ -2,10 +2,10 @@ package ar.com.kfgodel.diamond.impl.members.parameters;
 
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.streams.TypeStreamSupplierFromNativeTypeArray;
+import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.reflect.Executable;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 /**
  * This type represents the immutable parameters list supplier for Executable instances
@@ -13,7 +13,7 @@ import java.util.stream.Stream;
  */
 public class ImmutableMemberParameters {
 
-    public static Supplier<Stream<TypeInstance>> create(Executable nativeExecutable) {
+    public static Supplier<Nary<TypeInstance>> create(Executable nativeExecutable) {
         return TypeStreamSupplierFromNativeTypeArray.apply(nativeExecutable::getAnnotatedParameterTypes);
     }
 

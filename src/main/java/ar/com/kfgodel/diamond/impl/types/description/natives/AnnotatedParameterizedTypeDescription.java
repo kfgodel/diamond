@@ -4,12 +4,12 @@ import ar.com.kfgodel.diamond.api.types.TypeDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.types.description.support.AnnotatedTypeDescriptionSupport;
 import ar.com.kfgodel.diamond.impl.types.parts.typearguments.ParameterizedTypeArgumentsSupplier;
+import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.reflect.AnnotatedParameterizedType;
 import java.lang.reflect.AnnotatedType;
 import java.lang.reflect.ParameterizedType;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 /**
  * This type represents the description of an annotated parameterized native type
@@ -30,7 +30,7 @@ public class AnnotatedParameterizedTypeDescription extends AnnotatedTypeDescript
     }
 
     @Override
-    public Supplier<Stream<TypeInstance>> getTypeArguments() {
+    public Supplier<Nary<TypeInstance>> getTypeArguments() {
         return ParameterizedTypeArgumentsSupplier.create(nativeType);
     }
 

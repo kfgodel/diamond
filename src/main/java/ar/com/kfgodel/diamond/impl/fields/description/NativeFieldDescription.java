@@ -15,6 +15,7 @@ import ar.com.kfgodel.diamond.impl.members.parameters.NoParametersSupplier;
 import ar.com.kfgodel.diamond.impl.natives.invokables.fields.NativeInstanceFieldInvoker;
 import ar.com.kfgodel.diamond.impl.natives.invokables.fields.NativeStaticFieldInvoker;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
+import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -47,7 +48,7 @@ public class NativeFieldDescription implements FieldDescription {
     }
 
     @Override
-    public Supplier<Stream<TypeInstance>> getParameterTypes() {
+    public Supplier<Nary<TypeInstance>> getParameterTypes() {
         return NoParametersSupplier.INSTANCE;
     }
 
@@ -57,7 +58,7 @@ public class NativeFieldDescription implements FieldDescription {
     }
 
     @Override
-    public Supplier<Stream<MemberModifier>> getModifiers() {
+    public Supplier<Nary<MemberModifier>> getModifiers() {
         return ImmutableMemberModifiers.create(nativeField);
     }
 
@@ -81,7 +82,7 @@ public class NativeFieldDescription implements FieldDescription {
     }
 
     @Override
-    public Supplier<Stream<TypeInstance>> getDeclaredExceptions() {
+    public Supplier<Nary<TypeInstance>> getDeclaredExceptions() {
         return NoExceptionsSupplier::create;
     }
 }

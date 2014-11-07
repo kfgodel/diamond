@@ -23,6 +23,7 @@ import ar.com.kfgodel.diamond.impl.types.generics.UnGenerifiedTypeGenerics;
 import ar.com.kfgodel.diamond.impl.types.inheritance.SuppliedTypesInheritance;
 import ar.com.kfgodel.diamond.impl.types.parts.annotations.NoAnnotationsSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.names.NoNamesSupplier;
+import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.annotation.Annotation;
 import java.util.Optional;
@@ -102,7 +103,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
         return methods;
     }
 
-    protected void setMethods(Supplier<Stream<TypeMethod>> typeMethods){
+    protected void setMethods(Supplier<Nary<TypeMethod>> typeMethods){
         this.methods = TypeMethodsImpl.create(typeMethods);
     }
 
@@ -111,7 +112,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
         return fields;
     }
 
-    protected void setFields(Supplier<Stream<TypeField>> typeFields){
+    protected void setFields(Supplier<Nary<TypeField>> typeFields){
         this.fields = TypeFieldsImpl.create(typeFields);
     }
 
