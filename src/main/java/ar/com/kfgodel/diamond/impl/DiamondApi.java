@@ -1,12 +1,6 @@
 package ar.com.kfgodel.diamond.impl;
 
-import ar.com.kfgodel.diamond.api.sources.constructors.ConstructorSources;
-import ar.com.kfgodel.diamond.api.sources.fields.FieldSources;
-import ar.com.kfgodel.diamond.api.sources.methods.MethodSources;
-import ar.com.kfgodel.diamond.api.sources.modifiers.ModifierSources;
-import ar.com.kfgodel.diamond.api.sources.packages.PackageSources;
-import ar.com.kfgodel.diamond.api.sources.parameters.ParameterSources;
-import ar.com.kfgodel.diamond.api.sources.types.TypeSources;
+import ar.com.kfgodel.diamond.api.sources.*;
 import ar.com.kfgodel.diamond.impl.sources.*;
 
 /**

@@ -1,7 +1,7 @@
 package ar.com.kfgodel.diamond.impl.sources;
 
 import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
-import ar.com.kfgodel.diamond.api.sources.packages.PackageSources;
+import ar.com.kfgodel.diamond.api.sources.PackageSources;
 import ar.com.kfgodel.diamond.api.types.packages.PackageDescription;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.diamond.impl.types.packages.PackageDescriptor;

@@ -1,4 +1,4 @@
-package ar.com.kfgodel.diamond.api.sources.parameters;
+package ar.com.kfgodel.diamond.api.sources;
 
 import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.diamond.api.parameters.description.ParameterDescription;

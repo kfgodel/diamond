@@ -1,4 +1,4 @@
-package ar.com.kfgodel.diamond.api.sources.methods;
+package ar.com.kfgodel.diamond.api.sources;
 
 import ar.com.kfgodel.diamond.api.methods.MethodDescription;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;

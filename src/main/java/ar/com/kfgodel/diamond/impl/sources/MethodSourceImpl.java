@@ -4,7 +4,7 @@ import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.methods.MethodDescription;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.methods.TypeMethods;
-import ar.com.kfgodel.diamond.api.sources.methods.MethodSources;
+import ar.com.kfgodel.diamond.api.sources.MethodSources;
 import ar.com.kfgodel.diamond.impl.methods.TypeMethodInstance;
 import ar.com.kfgodel.diamond.impl.methods.description.MethodDescriptor;
 

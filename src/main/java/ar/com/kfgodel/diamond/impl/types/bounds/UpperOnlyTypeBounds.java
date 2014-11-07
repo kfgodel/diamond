@@ -2,9 +2,10 @@ package ar.com.kfgodel.diamond.impl.types.bounds;
 
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
+import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 /**
  * This type represents a type boundary with only upper bounds (common for type variables)
@@ -15,13 +16,13 @@ public class UpperOnlyTypeBounds implements TypeBounds {
     private List<TypeInstance> upperBounds;
 
     @Override
-    public Stream<TypeInstance> upper() {
-        return upperBounds.stream();
+    public Nary<TypeInstance> upper() {
+        return NaryFromNative.create(upperBounds.stream());
     }
 
     @Override
-    public Stream<TypeInstance> lower() {
-        return Stream.empty();
+    public Nary<TypeInstance> lower() {
+        return NaryFromNative.empty();
     }
 
     public static UpperOnlyTypeBounds create(List<TypeInstance> upper) {
