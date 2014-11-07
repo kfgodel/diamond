@@ -44,7 +44,7 @@ public abstract class TypeMemberSupport implements TypeMember {
     }
 
     @Override
-    public Stream<Modifier> modifiers() {
+    public Nary<Modifier> modifiers() {
         return modifiers.get();
     }
 

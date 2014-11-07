@@ -8,7 +8,6 @@ import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.annotation.Annotation;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 /**
  * This type represents an executable parameter implementation
@@ -41,7 +40,7 @@ public class ParameterInstance implements ExecutableParameter {
     }
 
     @Override
-    public Stream<Modifier> modifiers() {
+    public Nary<Modifier> modifiers() {
         return modifiers.get();
     }
 

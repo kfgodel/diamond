@@ -5,8 +5,6 @@ import ar.com.kfgodel.diamond.api.members.TypeMember;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.nary.api.Nary;
 
-import java.util.stream.Stream;
-
 /**
  * This type represents a method defined for a type that expresses behavior
  * Created by kfgodel on 18/09/14.
@@ -96,6 +94,6 @@ public interface TypeMethod extends TypeMember, PolymorphicInvokable {
      * @return The exceptions types declared by this method in its throws clause
      */
     @Override
-    Stream<TypeInstance> declaredExceptions();
+    Nary<TypeInstance> declaredExceptions();
 
 }
