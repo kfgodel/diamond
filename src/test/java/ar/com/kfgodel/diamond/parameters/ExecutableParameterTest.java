@@ -4,9 +4,14 @@ import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.DiamondTestContext;
 import ar.com.kfgodel.diamond.api.Diamond;
+import ar.com.kfgodel.diamond.api.members.modifiers.Modifier;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.testobjects.modifiers.PublicMembersTestObject;
 import org.junit.runner.RunWith;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -35,6 +40,12 @@ public class ExecutableParameterTest extends JavaSpec<DiamondTestContext> {
 
                 // Depending on the compilation options this test may fails if one option asserted
                 assertThat(parameterName.equals("arg0") || parameterName.equals("parameter")).isTrue();
+            });
+            
+            it("has modifiers",()->{
+                List<String> parameterModifiers = context().parameter().modifiers().map(Modifier::declaration).collect(Collectors.toList());
+
+                assertThat(parameterModifiers).isEqualTo(Arrays.asList("final"));
             });
 
         });

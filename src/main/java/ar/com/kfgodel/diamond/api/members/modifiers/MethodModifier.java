@@ -1,6 +1,5 @@
 package ar.com.kfgodel.diamond.api.members.modifiers;
 
-import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
 import ar.com.kfgodel.diamond.impl.members.modifiers.methods.AbstractModifier;
 import ar.com.kfgodel.diamond.impl.members.modifiers.methods.NativeModifier;
 import ar.com.kfgodel.diamond.impl.members.modifiers.methods.StrictfpModifier;
@@ -37,9 +36,9 @@ public class MethodModifier {
     public static final StrictfpModifier STRICTFP = StrictfpModifier.create();
 
 
-    private static final MemberModifier[] values = new MemberModifier[]{ABSTRACT, SYNCHRONIZED, NATIVE, STRICTFP};
+    private static final Modifier[] values = new Modifier[]{ABSTRACT, SYNCHRONIZED, NATIVE, STRICTFP};
 
-    public static MemberModifier[] values(){
+    public static Modifier[] values(){
         return values;
     }
 }

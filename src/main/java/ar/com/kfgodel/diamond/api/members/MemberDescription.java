@@ -2,7 +2,7 @@ package ar.com.kfgodel.diamond.api.members;
 
 import ar.com.kfgodel.diamond.api.generics.Generics;
 import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
-import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
+import ar.com.kfgodel.diamond.api.members.modifiers.Modifier;
 import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.nary.api.Nary;
@@ -25,7 +25,7 @@ public interface MemberDescription {
     /**
      * @return The supplier of modifiers applied to the member
      */
-    Supplier<Nary<MemberModifier>> getModifiers();
+    Supplier<Nary<Modifier>> getModifiers();
 
     /**
      * @return The supplier of the member invoker function

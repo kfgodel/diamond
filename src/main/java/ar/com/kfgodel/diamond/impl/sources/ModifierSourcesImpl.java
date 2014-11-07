@@ -1,7 +1,7 @@
 package ar.com.kfgodel.diamond.impl.sources;
 
 import ar.com.kfgodel.diamond.api.members.modifiers.*;
-import ar.com.kfgodel.diamond.api.sources.modifiers.*;
+import ar.com.kfgodel.diamond.api.sources.modifiers.ModifierSources;
 
 import java.lang.reflect.Member;
 import java.util.Arrays;
@@ -21,20 +21,28 @@ public class ModifierSourcesImpl implements ModifierSources {
     }
 
     @Override
-    public List<MemberModifier> from(Member nativeMember) {
+    public List<Modifier> from(Member nativeMember) {
         int modifiersBitmap = nativeMember.getModifiers();
         return from(modifiersBitmap);
     }
 
     @Override
-    public List<MemberModifier> from(int modifierBitmap) {
+    public List<Modifier> from(int modifierBitmap) {
         return all()
                 .filter((modifier) -> modifier.isPresentIn(modifierBitmap))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public Stream<MemberModifier> all() {
+    public List<Modifier> fromParameter(int modifierBitmap) {
+        // We exclude package that is present by default (lack of other visibility)
+        return from(modifierBitmap).stream()
+                .filter((modifier) -> !Visibility.PACKAGE.equals(modifier))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Stream<Modifier> all() {
         return Stream.concat(
                 Stream.concat(
                 Stream.concat(

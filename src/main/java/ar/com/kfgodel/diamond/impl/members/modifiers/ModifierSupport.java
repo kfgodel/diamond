@@ -1,12 +1,14 @@
 package ar.com.kfgodel.diamond.impl.members.modifiers;
 
-import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
+import ar.com.kfgodel.diamond.api.members.modifiers.Modifier;
+
+import java.util.stream.Stream;
 
 /**
  * This type serves as a base class for modifiers
  * Created by kfgodel on 18/10/14.
  */
-public class ModifierSupport implements MemberModifier {
+public class ModifierSupport implements Modifier {
 
     private int nativeCode;
     private String declaration;
@@ -28,7 +30,22 @@ public class ModifierSupport implements MemberModifier {
 
 
     @Override
-    public boolean test(MemberModifier memberModifier) {
-        return this.equals(memberModifier);
+    public boolean test(Modifier modifier) {
+        return this.equals(modifier);
+    }
+
+
+    @Override
+    public int hashCode() {
+        return declaration().hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return Stream.of(obj)
+                .filter((object) -> object instanceof Modifier)
+                .map(Modifier.class::cast)
+                .filter((other) -> this.declaration().equals(other.declaration()) )
+                .findAny().isPresent();
     }
 }

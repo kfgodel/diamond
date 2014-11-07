@@ -1,6 +1,6 @@
 package ar.com.kfgodel.diamond.api.sources.modifiers;
 
-import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
+import ar.com.kfgodel.diamond.api.members.modifiers.Modifier;
 
 import java.lang.reflect.Member;
 import java.util.List;
@@ -16,17 +16,28 @@ public interface ModifierSources {
      * @param nativeMember The native type member
      * @return The list of modifiers found on the native member
      */
-    List<MemberModifier> from(Member nativeMember);
+    List<Modifier> from(Member nativeMember);
 
     /**
-     * Obtains the modifier list from the int bitmap that the VM uses on native reflection
+     * Obtains the modifier list from the int bitmap that the VM uses on native reflection types.<br>
+     *     If no visibility bit present, then "default" visibility is assumed (for type members).<br>
+     * This method is not fit for parameter modifiers that follow a different logic. Use fromParameter(int) instead
+     *
      * @param modifierBitmap The native modifier bitmap
      * @return The list of modifier member representation
      */
-    List<MemberModifier> from(int modifierBitmap);
+    List<Modifier> from(int modifierBitmap);
+
+    /**
+     * Obtains the modifier list from the parameter int bitmap (only final is currently in use)
+     * @param modifierBitmap The parameter modifier bitmap
+     * @return The list of parameter modifiers
+     */
+    List<Modifier> fromParameter(int modifierBitmap);
+
 
     /**
      * @return Gets the set of all available modifiers (field, methods, constructors, etc)
      */
-    Stream<MemberModifier> all();
+    Stream<Modifier> all();
 }

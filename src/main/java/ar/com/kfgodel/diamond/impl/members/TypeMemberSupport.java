@@ -4,7 +4,7 @@ import ar.com.kfgodel.diamond.api.generics.Generics;
 import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
 import ar.com.kfgodel.diamond.api.members.MemberDescription;
 import ar.com.kfgodel.diamond.api.members.TypeMember;
-import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
+import ar.com.kfgodel.diamond.api.members.modifiers.Modifier;
 import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.invokables.UndefinedInvoker;
@@ -31,7 +31,7 @@ public abstract class TypeMemberSupport implements TypeMember {
     private Supplier<Stream<Annotation>> annotations = NoAnnotationsSupplier.INSTANCE;
     private Supplier<String> name = UndefinedName.create(this);
     private Supplier<TypeInstance> declaringType = UndefinedDeclaringType.create(this);
-    private Supplier<Nary<MemberModifier>> modifiers = UndefinedMemberModifiers.create(this);
+    private Supplier<Nary<Modifier>> modifiers = UndefinedMemberModifiers.create(this);
     private Supplier<PolymorphicInvokable> invoker = UndefinedInvoker.create(this);
     private Supplier<Generics> generics = UndefinedMemberGenerics.create(this);
     private Supplier<Nary<TypeInstance>> exceptions = UndefinedMemberExceptions.create(this);
@@ -44,12 +44,12 @@ public abstract class TypeMemberSupport implements TypeMember {
     }
 
     @Override
-    public Stream<MemberModifier> modifiers() {
+    public Stream<Modifier> modifiers() {
         return modifiers.get();
     }
 
     @Override
-    public boolean is(MemberModifier expectedModifier) {
+    public boolean is(Modifier expectedModifier) {
         return modifiers().anyMatch(expectedModifier);
     }
 

@@ -1,6 +1,5 @@
 package ar.com.kfgodel.diamond.api.members.modifiers;
 
-import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
 import ar.com.kfgodel.diamond.impl.members.modifiers.mutability.FinalModifier;
 import ar.com.kfgodel.diamond.impl.members.modifiers.mutability.StaticModifier;
 
@@ -24,9 +23,9 @@ public class Mutability {
     public static final StaticModifier STATIC = StaticModifier.create();
 
 
-    private static final MemberModifier[] values = new MemberModifier[]{FINAL, STATIC};
+    private static final Modifier[] values = new Modifier[]{FINAL, STATIC};
 
-    public static MemberModifier[] values(){
+    public static Modifier[] values(){
         return values;
     }
 

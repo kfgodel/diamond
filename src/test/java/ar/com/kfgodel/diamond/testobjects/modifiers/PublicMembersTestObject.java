@@ -9,7 +9,7 @@ public class PublicMembersTestObject {
     public PublicMembersTestObject(){
 
     }
-    public PublicMembersTestObject(Integer parameter){
+    public PublicMembersTestObject(final Integer parameter){
 
     }
 

@@ -1,7 +1,7 @@
 package ar.com.kfgodel.diamond.impl.fields.declaration;
 
 import ar.com.kfgodel.diamond.api.fields.TypeField;
-import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
+import ar.com.kfgodel.diamond.api.members.modifiers.Modifier;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 
 import java.util.function.Consumer;
@@ -59,7 +59,7 @@ public class FieldDeclaration {
     }
 
     private void withModifiersSeparatedBy(String separator, Consumer<String> separatedAnnotationsConsumer){
-        transformAndJoin(field.modifiers(), MemberModifier::declaration, separator, separatedAnnotationsConsumer);
+        transformAndJoin(field.modifiers(), Modifier::declaration, separator, separatedAnnotationsConsumer);
     }
 
 

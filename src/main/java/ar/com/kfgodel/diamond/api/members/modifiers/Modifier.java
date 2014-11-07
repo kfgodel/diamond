@@ -10,10 +10,11 @@ import java.util.function.Predicate;
  *
  * Created by kfgodel on 18/10/14.
  */
-public interface MemberModifier extends Predicate<MemberModifier>, Declarable {
+public interface Modifier extends Predicate<Modifier>, Declarable {
 
     /**
      * Indicates if this modifier is coded as present in the given bitmap
+     *
      * @param modifierBitmap A modifier bitmap int
      * @return true if this modifier is 'active' or present in the bitmap. False if this modifier is not used
      */
@@ -23,4 +24,19 @@ public interface MemberModifier extends Predicate<MemberModifier>, Declarable {
      * @return The declaration string for this modifier (as present in sources)
      */
     String declaration();
+
+
+    /**
+     * @return Overrided hashcode to match equals definition
+     */
+    @Override
+    public int hashCode();
+
+    /**
+     * Compares this instance to another identifier by declaration
+     * @param obj The object to compare
+     * @return true if obj represents an identifier with same declaration
+     */
+    @Override
+    public boolean equals(Object obj);
 }

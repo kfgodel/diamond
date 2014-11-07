@@ -1,7 +1,7 @@
 package ar.com.kfgodel.diamond.impl.constructors.declaration;
 
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
-import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
+import ar.com.kfgodel.diamond.api.members.modifiers.Modifier;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 
 import java.util.function.Consumer;
@@ -57,7 +57,7 @@ public class ConstructorDeclaration {
     }
 
     private void withModifiersSeparatedBy(String separator, Consumer<String> separatedAnnotationsConsumer){
-        transformAndJoin(constructor.modifiers(), MemberModifier::declaration, separator, separatedAnnotationsConsumer);
+        transformAndJoin(constructor.modifiers(), Modifier::declaration, separator, separatedAnnotationsConsumer);
     }
 
     private void withParameterSeparatedBy(String separator, Consumer<String> separatedAnnotationsConsumer){

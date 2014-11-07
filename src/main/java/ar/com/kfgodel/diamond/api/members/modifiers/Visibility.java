@@ -1,6 +1,5 @@
 package ar.com.kfgodel.diamond.api.members.modifiers;
 
-import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
 import ar.com.kfgodel.diamond.impl.members.modifiers.visiblity.PackageModifier;
 import ar.com.kfgodel.diamond.impl.members.modifiers.visiblity.PrivateModifier;
 import ar.com.kfgodel.diamond.impl.members.modifiers.visiblity.ProtectedModifier;
@@ -44,11 +43,11 @@ public class Visibility {
      * Accessible to none.<br>
      * Inaccessible to any other type
      */
-    public static final MemberModifier PRIVATE = PrivateModifier.create();
+    public static final Modifier PRIVATE = PrivateModifier.create();
 
-    private static final MemberModifier[] values = new MemberModifier[]{PUBLIC, PRIVATE, PROTECTED, PACKAGE};
+    private static final Modifier[] values = new Modifier[]{PUBLIC, PRIVATE, PROTECTED, PACKAGE};
 
-    public static MemberModifier[] values(){
+    public static Modifier[] values(){
         return values;
     }
 }
