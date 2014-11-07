@@ -2,6 +2,7 @@ package ar.com.kfgodel.diamond.impl.methods.sources;
 
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.methods.TypeMethods;
+import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.impl.NaryFromNative;
 
@@ -20,6 +21,11 @@ public class NoMethods implements TypeMethods {
 
     @Override
     public Nary<TypeMethod> named(String methodName) {
+        return NaryFromNative.empty();
+    }
+
+    @Override
+    public Nary<TypeMethod> withSignature(String methodName, TypeInstance... parameterTypes) {
         return NaryFromNative.empty();
     }
 
