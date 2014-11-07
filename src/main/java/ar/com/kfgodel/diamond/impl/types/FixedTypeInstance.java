@@ -6,8 +6,8 @@ import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.generics.TypeGenerics;
 import ar.com.kfgodel.diamond.impl.constructors.sources.TypeConstructorsImpl;
 import ar.com.kfgodel.diamond.impl.types.generics.ParameterizedTypeGenerics;
+import ar.com.kfgodel.nary.api.Nary;
 
-import java.util.Optional;
 import java.util.function.Supplier;
 
 /**
@@ -22,13 +22,13 @@ import java.util.function.Supplier;
  */
 public class FixedTypeInstance extends TypeInstanceSupport {
 
-    private Supplier<Optional<TypeInstance>> componentType;
+    private Supplier<Nary<TypeInstance>> componentType;
     private TypeGenerics generics;
     private TypeConstructors constructors;
 
 
     @Override
-    public Optional<TypeInstance> componentType() {
+    public Nary<TypeInstance> componentType() {
         return componentType.get();
     }
 

@@ -24,9 +24,9 @@ import ar.com.kfgodel.diamond.impl.types.inheritance.SuppliedTypesInheritance;
 import ar.com.kfgodel.diamond.impl.types.parts.annotations.NoAnnotationsSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.names.NoNamesSupplier;
 import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 import java.lang.annotation.Annotation;
-import java.util.Optional;
 import java.util.function.Supplier;
 
 /**
@@ -59,7 +59,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
      */
     private TypeInheritance inheritance;
 
-    private Supplier<Optional<TypePackage>> typePacakge;
+    private Supplier<Nary<TypePackage>> typePackage;
 
     /**
      * Use this to override default creation with no annotations
@@ -125,8 +125,8 @@ public abstract class TypeInstanceSupport implements TypeInstance {
      * @return An empty optional
      */
     @Override
-    public Optional<TypeInstance> componentType() {
-        return Optional.empty();
+    public Nary<TypeInstance> componentType() {
+        return NaryFromNative.empty();
     }
 
     @Override
@@ -166,8 +166,8 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     }
 
     @Override
-    public Optional<TypePackage> declaredPackage() {
-        return typePacakge.get();
+    public Nary<TypePackage> declaredPackage() {
+        return typePackage.get();
     }
 
     protected void initializeSuper(TypeDescription description){
@@ -175,7 +175,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
         this.setAnnotations(description.getAnnotations());
         this.setMethods(description.getTypeMethods());
         this.setFields(description.getTypeFields());
-        this.typePacakge = description.getDeclaredPackage();
+        this.typePackage = description.getDeclaredPackage();
         this.inheritance = SuppliedTypesInheritance.create(this, description.getInheritanceDescription());
     };
 }

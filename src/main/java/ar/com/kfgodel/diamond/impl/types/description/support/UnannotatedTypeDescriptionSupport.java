@@ -21,7 +21,6 @@ import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
-import java.util.Optional;
 import java.util.Set;
 import java.util.function.Supplier;
 
@@ -83,7 +82,7 @@ public abstract class UnannotatedTypeDescriptionSupport implements TypeDescripti
     }
 
     @Override
-    public Supplier<Optional<TypeInstance>> getComponentType() {
+    public Supplier<Nary<TypeInstance>> getComponentType() {
         return NoComponentTypeSupplier.INSTANCE;
     }
 

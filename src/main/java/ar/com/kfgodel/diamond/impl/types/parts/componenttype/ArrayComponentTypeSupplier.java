@@ -4,26 +4,31 @@ import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
+import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 import java.lang.reflect.AnnotatedArrayType;
 import java.lang.reflect.GenericArrayType;
-import java.util.Optional;
 import java.util.function.Supplier;
 
 /**
  * This type represents the supplier of the component type for a generic array type
  * Created by kfgodel on 29/09/14.
  */
-public class ArrayComponentTypeSupplier {
+public class ArrayComponentTypeSupplier implements Supplier<Nary<TypeInstance>>  {
 
-    public static Supplier<Optional<TypeInstance>> create(Object nativeType) {
-        return CachedValue.lazilyBy(() -> {
+    private CachedValue<TypeInstance> componentType;
+
+    public static Supplier<Nary<TypeInstance>> create(Object nativeType) {
+        ArrayComponentTypeSupplier supplier = new ArrayComponentTypeSupplier();
+        supplier.componentType = CachedValue.lazilyBy(() -> {
             Object componentType = getComponentTypeFrom(nativeType);
             if(componentType == null){
-                return Optional.empty();
+                return null;
             }
-            return Optional.of(Diamond.types().from(componentType));
+            return Diamond.types().from(componentType);
         });
+        return supplier;
     }
 
     private static Object getComponentTypeFrom(Object nativeType) {
@@ -40,4 +45,12 @@ public class ArrayComponentTypeSupplier {
         return componentType;
     }
 
+    @Override
+    public Nary<TypeInstance> get() {
+        TypeInstance component = componentType.get();
+        if(component == null){
+            return NaryFromNative.empty();
+        }
+        return NaryFromNative.of(component);
+    }
 }
