@@ -9,6 +9,7 @@ import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.testobjects.modifiers.PublicMembersTestObject;
 import org.junit.runner.RunWith;
 
+import java.lang.annotation.Annotation;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -46,6 +47,13 @@ public class ExecutableParameterTest extends JavaSpec<DiamondTestContext> {
                 List<String> parameterModifiers = context().parameter().modifiers().map(Modifier::declaration).collect(Collectors.toList());
 
                 assertThat(parameterModifiers).isEqualTo(Arrays.asList("final"));
+            });
+
+            it("has annotations",()->{
+                List<String> parameterModifiers = context().parameter().annotations().map(Annotation::annotationType)
+                        .map(Class::getSimpleName).collect(Collectors.toList());
+
+                assertThat(parameterModifiers).isEqualTo(Arrays.asList("TestAnnotation1"));
             });
 
         });

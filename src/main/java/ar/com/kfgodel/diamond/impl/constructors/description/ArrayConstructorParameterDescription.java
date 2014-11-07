@@ -8,7 +8,9 @@ import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.impl.NaryFromNative;
 
+import java.lang.annotation.Annotation;
 import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 /**
  * This type represents the description of the parameter needed for the artificial array constructor
@@ -31,6 +33,11 @@ public class ArrayConstructorParameterDescription implements ParameterDescriptio
 
     @Override
     public Supplier<Nary<Modifier>> getModifiers() {
+        return NaryFromNative::empty;
+    }
+
+    @Override
+    public Supplier<Stream<Annotation>> getAnnotations() {
         return NaryFromNative::empty;
     }
 

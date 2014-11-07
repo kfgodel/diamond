@@ -1,5 +1,6 @@
 package ar.com.kfgodel.diamond.api.parameters;
 
+import ar.com.kfgodel.diamond.api.annotations.Annotated;
 import ar.com.kfgodel.diamond.api.members.modifiers.Modifiable;
 import ar.com.kfgodel.diamond.api.naming.Named;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
@@ -9,7 +10,7 @@ import ar.com.kfgodel.diamond.api.types.TypeInstance;
  *
  * Created by kfgodel on 07/11/14.
  */
-public interface ExecutableParameter extends Named, Modifiable {
+public interface ExecutableParameter extends Named, Modifiable, Annotated {
 
     /**
      * The type declared for this parameter
