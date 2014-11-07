@@ -75,7 +75,7 @@ public class MemberAnnotationTest extends JavaSpec<DiamondTestContext> {
 
             describe("on a constructor", () -> {
                 it("can be empty",()->{
-                    context().constructor(()-> context().typeInstance().constructors().declaredFor().get());
+                    context().constructor(()-> context().typeInstance().constructors().withParameters().get());
 
                     Stream<Annotation> annotations = context().constructor().annotations();
 
@@ -83,7 +83,7 @@ public class MemberAnnotationTest extends JavaSpec<DiamondTestContext> {
                 });
 
                 it("contains all the annotations",()->{
-                    context().constructor(()-> context().typeInstance().constructors().declaredFor(Diamond.of(Integer.class)).get());
+                    context().constructor(()-> context().typeInstance().constructors().withParameters(Diamond.of(Integer.class)).get());
 
                     Stream<Annotation> annotations = context().constructor().annotations();
 

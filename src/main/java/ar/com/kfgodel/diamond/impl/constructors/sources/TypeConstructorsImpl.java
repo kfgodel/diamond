@@ -3,12 +3,9 @@ package ar.com.kfgodel.diamond.impl.constructors.sources;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructors;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.diamond.impl.members.executables.FilterByParameterType;
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.optionals.OptionalFromStream;
-import ar.com.kfgodel.streams.StreamEquality;
 
-import java.util.Arrays;
-import java.util.Optional;
 import java.util.function.Supplier;
 
 /**
@@ -25,14 +22,13 @@ public class TypeConstructorsImpl implements TypeConstructors {
     }
 
     @Override
-    public Optional<TypeConstructor> niladic() {
-        return declaredFor();
+    public Nary<TypeConstructor> niladic() {
+        return withParameters();
     }
 
     @Override
-    public Optional<TypeConstructor> declaredFor(TypeInstance... paramTypes) {
-        return OptionalFromStream.using(all()
-                .filter((constructor)-> StreamEquality.INSTANCE.areEquals(constructor.parameterTypes(), Arrays.stream(paramTypes))));
+    public Nary<TypeConstructor> withParameters(TypeInstance... paramTypes) {
+        return FilterByParameterType.create(all(), paramTypes);
     }
 
     public static TypeConstructorsImpl create(Supplier<Nary<TypeConstructor>> constructorSupplier) {
