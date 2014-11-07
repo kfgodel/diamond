@@ -5,6 +5,7 @@ import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.api.invokable.Invokable;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
+import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.inheritance.TypeLineage;
 import ar.com.kfgodel.diamond.api.types.names.TypeNames;
@@ -58,4 +59,7 @@ public interface DiamondTestContext extends TestContext {
 
     Nary<Integer> nary();
     void nary(Supplier<Nary<Integer>> definition);
+
+    ExecutableParameter parameter();
+    void parameter(Supplier<ExecutableParameter> definition);
 }

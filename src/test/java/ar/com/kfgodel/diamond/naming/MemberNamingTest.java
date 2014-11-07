@@ -60,7 +60,7 @@ public class MemberNamingTest extends JavaSpec<DiamondTestContext> {
 
             describe("for constructors", () -> {
 
-                context().constructor(() -> Diamond.of(MemberNamingTestObject.class).constructors().declaredFor(Diamond.of(Integer.class)).get());
+                context().constructor(() -> Diamond.of(MemberNamingTestObject.class).constructors().withParameters(Diamond.of(Integer.class)).get());
                 
                 it("is the complete declaring type name",()->{
                     assertThat(context().constructor().name()).isEqualTo("ar.com.kfgodel.diamond.testobjects.MemberNamingTestObject");

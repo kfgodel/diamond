@@ -2,7 +2,7 @@ package ar.com.kfgodel.diamond.impl.types.parts.typearguments;
 
 import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
-import ar.com.kfgodel.diamond.impl.streams.TypeStreamSupplierFromNativeTypeArray;
+import ar.com.kfgodel.diamond.impl.streams.TypeNarySupplierFromNativeTypeArray;
 import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.reflect.AnnotatedParameterizedType;
@@ -16,7 +16,7 @@ import java.util.function.Supplier;
 public class ParameterizedTypeArgumentsSupplier {
 
     public static Supplier<Nary<TypeInstance>>  create(Object nativeType) {
-        return TypeStreamSupplierFromNativeTypeArray.apply(() -> getActualTypeArgumentsFrom(nativeType));
+        return TypeNarySupplierFromNativeTypeArray.apply(() -> getActualTypeArgumentsFrom(nativeType));
     }
 
     private static Object[] getActualTypeArgumentsFrom(Object nativeType) {

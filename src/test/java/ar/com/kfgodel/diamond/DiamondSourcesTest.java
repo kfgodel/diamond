@@ -6,6 +6,7 @@ import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
+import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.diamond.testobjects.ClassWithIdField;
@@ -15,6 +16,7 @@ import org.junit.runner.RunWith;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -64,7 +66,11 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
                     TypeMethod diamondMethod = Diamond.methods().in(Object.class).withSignature("equals", Diamond.ofNative(Object.class)).get();
                     assertThat(diamondMethod.name()).isEqualTo("equals");
                 });
-
+                
+                it("can be obtained from a Class and its parameter types",()->{
+                    TypeMethod diamondMethod = Diamond.methods().in(Object.class).withParameters(Diamond.ofNative(Object.class)).get();
+                    assertThat(diamondMethod.name()).isEqualTo("equals");
+                });   
             });
             describe("fields", () -> {
                 it("can be obtained from Field instances", () -> {
@@ -96,7 +102,7 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
                 });
                 it("can be obtained from a Class instance and a constructor parameter types", () -> {
                     TypeConstructor diamondConstructor = Diamond.constructors()
-                            .in(PublicMembersTestObject.class).declaredFor(Diamond.ofNative(Integer.class)).get();
+                            .in(PublicMembersTestObject.class).withParameters(Diamond.ofNative(Integer.class)).get();
                     assertThat(diamondConstructor.name()).isEqualTo("ar.com.kfgodel.diamond.testobjects.modifiers.PublicMembersTestObject");
                 });
             });
@@ -117,6 +123,25 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
                     assertThat(aPackage).isNotNull();
                 });
             });
+
+            describe("parameters", () -> {
+                
+                it("can be obtained from a native parameter instance",()->{
+                    Method method = null;
+                    try {
+                        method = Object.class.getDeclaredMethod("equals", Object.class);
+                    } catch (NoSuchMethodException e) {
+                        throw new RuntimeException("This is why reflection api turns difficult to use", e);
+                    }
+                    Parameter nativeParameter = method.getParameters()[0];
+
+                    ExecutableParameter parameter = Diamond.parameters().from(nativeParameter);
+
+                    assertThat(parameter.declaredType().name()).isEqualTo("Object");
+                });   
+                
+            });
+
 
         });
 

@@ -152,7 +152,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     @Override
     public Object newInstance() {
         return constructors().niladic()
-                .map((constructor) -> constructor.invoke())
+                .mapOptional((constructor) -> constructor.invoke())
                 .orElseThrow(() -> new DiamondException("Type[" + this + "] doesn't have a no-arg constructor to create the instance from"));
     }
 

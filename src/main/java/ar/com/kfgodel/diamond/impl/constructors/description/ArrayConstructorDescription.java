@@ -6,6 +6,7 @@ import ar.com.kfgodel.diamond.api.generics.Generics;
 import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
 import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
 import ar.com.kfgodel.diamond.api.members.modifiers.Visibility;
+import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.members.exceptions.NoExceptionsSupplier;
 import ar.com.kfgodel.diamond.impl.members.generics.UnGenerifiedMemberGenerics;
@@ -27,8 +28,8 @@ public class ArrayConstructorDescription implements ConstructorDescription {
     private Class<?> nativeArrayClass;
 
     @Override
-    public Supplier<Nary<TypeInstance>> getParameterTypes() {
-        return NaryFromElementSupplier.from(Diamond.of(int.class));
+    public Supplier<Nary<ExecutableParameter>> getParameters() {
+        return NaryFromElementSupplier.lazilyBy(() -> Diamond.parameters().from(ArrayConstructorParameterDescription.INSTANCE));
     }
 
     @Override
