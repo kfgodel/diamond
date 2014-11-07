@@ -1,6 +1,7 @@
 package ar.com.kfgodel.diamond.api.methods;
 
 import ar.com.kfgodel.diamond.api.naming.NamedSource;
+import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.nary.api.Nary;
 
 /**
@@ -22,4 +23,12 @@ public interface TypeMethods extends NamedSource<TypeMethod> {
      */
     Nary<TypeMethod> named(String methodName);
 
+    /**
+     * Retrieves the methods of the type that matches name and parameter types (including inherited).<br>
+     *     It may be 0, 1, or more
+     * @param methodName The name of the method to look for
+     * @param parameterTypes The method parameter types
+     * @return The nary of matching methods
+     */
+    Nary<TypeMethod> withSignature(String methodName, TypeInstance... parameterTypes);
 }
