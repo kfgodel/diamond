@@ -21,6 +21,11 @@ public class NativeParameterDescription implements ParameterDescription {
         return CachedValue.lazilyBy(() -> Diamond.types().from(nativeParameter.getAnnotatedType()));
     }
 
+    @Override
+    public Supplier<String> getName() {
+        return nativeParameter::getName;
+    }
+
     public static NativeParameterDescription create(Parameter nativeParameter) {
         NativeParameterDescription description = new NativeParameterDescription();
         description.nativeParameter = nativeParameter;

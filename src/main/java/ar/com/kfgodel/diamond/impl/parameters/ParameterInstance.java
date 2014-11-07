@@ -10,19 +10,25 @@ import java.util.function.Supplier;
  * This type represents an executable parameter implementation
  * Created by kfgodel on 07/11/14.
  */
-public class ParameterImpl implements ExecutableParameter {
+public class ParameterInstance implements ExecutableParameter {
 
     private Supplier<TypeInstance> declaredType;
+    private Supplier<String> name;
 
     @Override
     public TypeInstance declaredType() {
         return declaredType.get();
     }
 
-    public static ParameterImpl create(ParameterDescription description) {
-        ParameterImpl parameter = new ParameterImpl();
+    public static ParameterInstance create(ParameterDescription description) {
+        ParameterInstance parameter = new ParameterInstance();
         parameter.declaredType = description.getDeclaredType();
+        parameter.name = description.getName();
         return parameter;
     }
 
+    @Override
+    public String name() {
+        return name.get();
+    }
 }

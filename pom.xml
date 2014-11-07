@@ -71,6 +71,8 @@ of a fixed location is recommended. -->
           <source>${project.java.source}</source>
           <target>${project.java.target}</target>
           <debug>true</debug>
+          <!-- This parameter enables parameter name preservation -->
+          <compilerArgument>-parameters</compilerArgument>
         </configuration>
       </plugin>
       
@@ -133,14 +135,14 @@ of a fixed location is recommended. -->
             <manifest>
               <addClasspath>true</addClasspath>
             </manifest>
+              <manifestEntries>
+                <Build-JVM>${java.vm.name} - ${java.vm.vendor}</Build-JVM>
+                <Build-OS>${os.name} - Version: ${os.version}</Build-OS>
+                <Application-GroupId>${project.groupId}</Application-GroupId>
+                <Application-Artifact>${project.artifactId}</Application-Artifact>
+                <Application-Version>${project.version}</Application-Version>
+              </manifestEntries>
           </archive>
-          <manifestEntries>
-            <Build-JVM>${java.vm.name} - ${java.vm.vendor}</Build-JVM>
-            <Build-OS>${os.name} - Version: ${os.version}</Build-OS>
-            <Application-GroupId>${project.groupId}</Application-GroupId>
-            <Application-Artifact>${project.artifactId}</Application-Artifact>
-            <Application-Version>${project.version}</Application-Version>
-          </manifestEntries>
         </configuration>
       </plugin>
 	  

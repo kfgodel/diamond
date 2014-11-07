@@ -13,11 +13,17 @@ import java.util.function.Supplier;
  */
 public class ArrayConstructorParameterDescription implements ParameterDescription {
 
+    public static final String SIZE_PARAMETER_NAME = "size";
     public static ArrayConstructorParameterDescription INSTANCE = new ArrayConstructorParameterDescription();
 
     @Override
     public Supplier<TypeInstance> getDeclaredType() {
         return CachedValue.lazilyBy(()-> Diamond.of(int.class));
+    }
+
+    @Override
+    public Supplier<String> getName() {
+        return () -> SIZE_PARAMETER_NAME;
     }
 
     public static ArrayConstructorParameterDescription create() {
