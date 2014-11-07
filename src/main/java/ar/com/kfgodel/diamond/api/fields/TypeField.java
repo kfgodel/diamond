@@ -9,7 +9,6 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 /**
  * This type represents a field defined for a type that can store state
@@ -86,5 +85,5 @@ public interface TypeField extends TypeMember, Consumer<Object>, BiConsumer<Obje
      *     This method allows polymorphism between methods and constructors
      */
     @Override
-    Stream<TypeInstance> declaredExceptions();
+    Nary<TypeInstance> declaredExceptions();
 }

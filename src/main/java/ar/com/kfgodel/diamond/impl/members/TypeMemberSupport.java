@@ -85,7 +85,7 @@ public abstract class TypeMemberSupport implements TypeMember {
     }
 
     @Override
-    public Stream<TypeInstance> declaredExceptions() {
+    public Nary<TypeInstance> declaredExceptions() {
         return exceptions.get();
     }
 
