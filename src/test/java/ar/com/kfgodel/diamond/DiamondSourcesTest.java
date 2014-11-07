@@ -62,15 +62,25 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
                     assertThat(diamondMethod.name()).isEqualTo("equals");
                 });
 
-                it("can be obtained from a Class instance, a method name and its parameters",()->{
+                it("can be obtained from a Class instance, a method name and its diamond parameters",()->{
                     TypeMethod diamondMethod = Diamond.methods().in(Object.class).withSignature("equals", Diamond.ofNative(Object.class)).get();
                     assertThat(diamondMethod.name()).isEqualTo("equals");
                 });
-                
-                it("can be obtained from a Class and its parameter types",()->{
+
+                it("can be obtained from a Class instance, a method name and its native parameters",()->{
+                    TypeMethod diamondMethod = Diamond.methods().in(Object.class).withNativeSignature("equals", Object.class).get();
+                    assertThat(diamondMethod.name()).isEqualTo("equals");
+                });
+
+                it("can be obtained from a Class and its diamond parameter types",()->{
                     TypeMethod diamondMethod = Diamond.methods().in(Object.class).withParameters(Diamond.ofNative(Object.class)).get();
                     assertThat(diamondMethod.name()).isEqualTo("equals");
-                });   
+                });
+
+                it("can be obtained from a Class and its native parameter types",()->{
+                    TypeMethod diamondMethod = Diamond.methods().in(Object.class).withNativeParameters(Object.class).get();
+                    assertThat(diamondMethod.name()).isEqualTo("equals");
+                });
             });
             describe("fields", () -> {
                 it("can be obtained from Field instances", () -> {
@@ -100,9 +110,15 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
                     TypeConstructor diamondConstructor = Diamond.constructors().from(constructor);
                     assertThat(diamondConstructor.name()).isEqualTo("ar.com.kfgodel.diamond.testobjects.modifiers.PublicMembersTestObject");
                 });
-                it("can be obtained from a Class instance and a constructor parameter types", () -> {
+                it("can be obtained from a Class instance and diamond parameter types", () -> {
                     TypeConstructor diamondConstructor = Diamond.constructors()
                             .in(PublicMembersTestObject.class).withParameters(Diamond.ofNative(Integer.class)).get();
+                    assertThat(diamondConstructor.name()).isEqualTo("ar.com.kfgodel.diamond.testobjects.modifiers.PublicMembersTestObject");
+                });
+
+                it("can be obtained from a Class instance and native parameter types", () -> {
+                    TypeConstructor diamondConstructor = Diamond.constructors()
+                            .in(PublicMembersTestObject.class).withNativeParameters(Integer.class).get();
                     assertThat(diamondConstructor.name()).isEqualTo("ar.com.kfgodel.diamond.testobjects.modifiers.PublicMembersTestObject");
                 });
             });

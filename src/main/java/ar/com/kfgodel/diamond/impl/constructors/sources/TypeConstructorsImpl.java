@@ -1,11 +1,13 @@
 package ar.com.kfgodel.diamond.impl.constructors.sources;
 
+import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructors;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.members.executables.FilterByParameterType;
 import ar.com.kfgodel.nary.api.Nary;
 
+import java.lang.reflect.Type;
 import java.util.function.Supplier;
 
 /**
@@ -29,6 +31,11 @@ public class TypeConstructorsImpl implements TypeConstructors {
     @Override
     public Nary<TypeConstructor> withParameters(TypeInstance... paramTypes) {
         return FilterByParameterType.create(all(), paramTypes);
+    }
+
+    @Override
+    public Nary<TypeConstructor> withNativeParameters(Type... parameterTypes) {
+        return withParameters(Diamond.ofNative(parameterTypes));
     }
 
     public static TypeConstructorsImpl create(Supplier<Nary<TypeConstructor>> constructorSupplier) {

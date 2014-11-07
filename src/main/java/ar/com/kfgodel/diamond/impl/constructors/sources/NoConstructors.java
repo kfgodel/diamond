@@ -6,6 +6,8 @@ import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.impl.NaryFromNative;
 
+import java.lang.reflect.Type;
+
 /**
  * This type represents the source of constructors for a type that has no constructors
  * Created by kfgodel on 15/10/14.
@@ -26,6 +28,11 @@ public class NoConstructors implements TypeConstructors {
 
     @Override
     public Nary<TypeConstructor> withParameters(TypeInstance... paramTypes) {
+        return NaryFromNative.empty();
+    }
+
+    @Override
+    public Nary<TypeConstructor> withNativeParameters(Type... parameterTypes) {
         return NaryFromNative.empty();
     }
 

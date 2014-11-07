@@ -6,6 +6,8 @@ import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.impl.NaryFromNative;
 
+import java.lang.reflect.Type;
+
 /**
  * This type represents a source for a type that has no methods
  * Created by kfgodel on 30/09/14.
@@ -30,8 +32,18 @@ public class NoMethods implements TypeMethods {
     }
 
     @Override
+    public Nary<TypeMethod> withNativeSignature(String methodName, Type... parameterTypes) {
+        return NaryFromNative.empty();
+    }
+
+    @Override
     public Nary<TypeMethod> withParameters(TypeInstance... paramTypes) {
         return NaryFromNative.empty();
+    }
+
+    @Override
+    public Nary<TypeMethod> withNativeParameters(Type... parameterTypes) {
+        return null;
     }
 
 }
