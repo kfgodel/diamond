@@ -24,7 +24,7 @@ public class FieldAccessorTest extends JavaSpec<DiamondTestContext> {
 
             context().object(FieldAccessorTestObject::new);
             context().typeInstance(()-> Diamond.of(context().object().getClass()));
-            context().field(() -> context().typeInstance().fields().existingNamed(context().name()));
+            context().field(() -> context().typeInstance().fields().named(context().name()).get());
             context().name(() -> "privateField");
 
             it("can set the value to an instance",()->{

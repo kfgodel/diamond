@@ -4,12 +4,12 @@ import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.DiamondTestContext;
 import ar.com.kfgodel.diamond.api.Diamond;
-import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.testobjects.fields.RedefiningFieldTestObject;
+import ar.com.kfgodel.nary.api.MoreThanOneElementException;
 import org.junit.runner.RunWith;
 
-import java.util.Optional;
+import java.util.NoSuchElementException;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -39,31 +39,31 @@ public class FieldByNameTest extends JavaSpec<DiamondTestContext> {
             });   
             
             it("can assume only one optional occurrence",()->{
-                Optional<TypeField> matchingFields = context().typeInstance().fields().uniqueNamed("uniqueField");
+                ar.com.kfgodel.optionals.Optional<TypeField> matchingFields = context().typeInstance().fields().named("uniqueField");
                 assertThat(matchingFields.isPresent()).isTrue();
             });
             
-            it("throws exception if more than one match for optional unique",()->{
+            it("throws exception if more than one match when unique assumed",()->{
                 try {
-                    context().typeInstance().fields().uniqueNamed("duplicatedField");
-                    failBecauseExceptionWasNotThrown(DiamondException.class);
-                } catch (DiamondException e) {
-                    assertThat(e).hasMessage("There's more than one field named \"duplicatedField\"");
+                    context().typeInstance().fields().named("duplicatedField").isPresent();
+                    failBecauseExceptionWasNotThrown(MoreThanOneElementException.class);
+                } catch (MoreThanOneElementException e) {
+                    assertThat(e).hasMessage("There's more than one element in the stream to create an optional: [public int duplicatedField /* RedefiningFieldTestObject */, protected int duplicatedField /* RedefinedFieldTestObject */]");
                 }
             });
             
             
             it("can assume a non optional occurrence",()->{
-                TypeField matchingField = context().typeInstance().fields().existingNamed("uniqueField");
+                TypeField matchingField = context().typeInstance().fields().named("uniqueField").get();
                 assertThat(matchingField).isNotNull();
             });
             
             it("throws exception if no match for non optional unique",()->{
                 try {
-                    context().typeInstance().fields().existingNamed("nonExistingField");
-                    failBecauseExceptionWasNotThrown(DiamondException.class);
-                } catch (DiamondException e) {
-                    assertThat(e).hasMessage("There's no field named \"nonExistingField\"");
+                    context().typeInstance().fields().named("nonExistingField").get();
+                    failBecauseExceptionWasNotThrown(NoSuchElementException.class);
+                } catch (NoSuchElementException e) {
+                    assertThat(e).hasMessage("No value present");
                 }
             });
         });

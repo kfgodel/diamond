@@ -20,7 +20,7 @@ public class MemberNamingTest extends JavaSpec<DiamondTestContext> {
         describe("name", () -> {
             describe("for fields", () -> {
 
-                context().field(()-> Diamond.of(MemberNamingTestObject.class).fields().existingNamed("stringList"));
+                context().field(()-> Diamond.of(MemberNamingTestObject.class).fields().named("stringList").get());
 
                 it("is just the plain name without type", () -> {
                     assertThat(context().field().name()).isEqualTo("stringList");
@@ -40,7 +40,7 @@ public class MemberNamingTest extends JavaSpec<DiamondTestContext> {
 
             describe("for methods", () -> {
 
-                context().method(() -> Diamond.of(MemberNamingTestObject.class).methods().existingNamed("methodWithArgs"));
+                context().method(() -> Diamond.of(MemberNamingTestObject.class).methods().named("methodWithArgs").get());
 
                 it("is just the name without arguments or return type", () -> {
                     assertThat(context().method().name()).isEqualTo("methodWithArgs");
@@ -60,7 +60,7 @@ public class MemberNamingTest extends JavaSpec<DiamondTestContext> {
 
             describe("for constructors", () -> {
 
-                context().constructor(() -> Diamond.of(MemberNamingTestObject.class).constructors().existingDeclaredFor(Diamond.of(Integer.class)));
+                context().constructor(() -> Diamond.of(MemberNamingTestObject.class).constructors().declaredFor(Diamond.of(Integer.class)).get());
                 
                 it("is the complete declaring type name",()->{
                     assertThat(context().constructor().name()).isEqualTo("ar.com.kfgodel.diamond.testobjects.MemberNamingTestObject");

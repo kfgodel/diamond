@@ -4,12 +4,12 @@ import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.DiamondTestContext;
 import ar.com.kfgodel.diamond.api.Diamond;
-import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.testobjects.methods.RedefiningMethodTestObject;
+import ar.com.kfgodel.nary.api.MoreThanOneElementException;
 import org.junit.runner.RunWith;
 
-import java.util.Optional;
+import java.util.NoSuchElementException;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -39,31 +39,31 @@ public class MethodByNameTest extends JavaSpec<DiamondTestContext> {
             });
 
             it("can assume only one optional occurrence",()->{
-                Optional<TypeMethod> matchingMethod = context().typeInstance().methods().uniqueNamed("uniqueMethod");
+                ar.com.kfgodel.optionals.Optional<TypeMethod> matchingMethod = context().typeInstance().methods().named("uniqueMethod");
                 assertThat(matchingMethod.isPresent()).isTrue();
             });
 
-            it("throws exception if more than one match for optional unique",()->{
+            it("throws exception if more than one match when unique assumed",()->{
                 try {
-                    context().typeInstance().methods().uniqueNamed("redefinedAndOverloadedMethod");
-                    failBecauseExceptionWasNotThrown(DiamondException.class);
-                } catch (DiamondException e) {
-                    assertThat(e).hasMessage("There's more than one method named \"redefinedAndOverloadedMethod\"");
+                    context().typeInstance().methods().named("redefinedAndOverloadedMethod").isPresent();
+                    failBecauseExceptionWasNotThrown(MoreThanOneElementException.class);
+                } catch (MoreThanOneElementException e) {
+                    assertThat(e).hasMessage("There's more than one element in the stream to create an optional: [public void redefinedAndOverloadedMethod(int) /* RedefiningMethodTestObject */, public void redefinedAndOverloadedMethod() /* RedefiningMethodTestObject */]");
                 }
             });
 
 
             it("can assume a non optional occurrence",()->{
-                TypeMethod matchingMethod = context().typeInstance().methods().existingNamed("uniqueMethod");
+                TypeMethod matchingMethod = context().typeInstance().methods().named("uniqueMethod").get();
                 assertThat(matchingMethod).isNotNull();
             });
 
             it("throws exception if no match for non optional unique",()->{
                 try {
-                    context().typeInstance().methods().existingNamed("nonExistingMethod");
-                    failBecauseExceptionWasNotThrown(DiamondException.class);
-                } catch (DiamondException e) {
-                    assertThat(e).hasMessage("There's no method named \"nonExistingMethod\"");
+                    context().typeInstance().methods().named("nonExistingMethod").get();
+                    failBecauseExceptionWasNotThrown(NoSuchElementException.class);
+                } catch (NoSuchElementException e) {
+                    assertThat(e).hasMessage("No value present");
                 }
             });
         });

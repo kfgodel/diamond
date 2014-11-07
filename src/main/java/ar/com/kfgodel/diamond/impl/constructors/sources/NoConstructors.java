@@ -2,12 +2,11 @@ package ar.com.kfgodel.diamond.impl.constructors.sources;
 
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructors;
-import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.impl.NaryFromNative;
 
-import java.util.Arrays;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 /**
  * This type represents the source of constructors for a type that has no constructors
@@ -18,8 +17,8 @@ public class NoConstructors implements TypeConstructors {
     public static final NoConstructors INSTANCE = new NoConstructors();
 
     @Override
-    public Stream<TypeConstructor> all() {
-        return Stream.empty();
+    public Nary<TypeConstructor> all() {
+        return NaryFromNative.empty();
     }
 
     @Override
@@ -32,8 +31,4 @@ public class NoConstructors implements TypeConstructors {
         return Optional.empty();
     }
 
-    @Override
-    public TypeConstructor existingDeclaredFor(TypeInstance... paramTypes) throws DiamondException {
-        throw new DiamondException("There's no constructor with params " + Arrays.toString(paramTypes));
-    }
 }

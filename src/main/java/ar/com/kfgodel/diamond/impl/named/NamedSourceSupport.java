@@ -1,11 +1,10 @@
 package ar.com.kfgodel.diamond.impl.named;
 
-import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 import ar.com.kfgodel.diamond.api.naming.Named;
 import ar.com.kfgodel.diamond.api.naming.NamedSource;
-import ar.com.kfgodel.optionals.OptionalFromStream;
+import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.impl.NaryFromNative;
 
-import java.util.Optional;
 import java.util.stream.Stream;
 
 /**
@@ -15,27 +14,11 @@ import java.util.stream.Stream;
 public abstract class NamedSourceSupport<N extends Named> implements NamedSource<N> {
 
     protected abstract Stream<N> getAll();
-    protected abstract Optional<N> whenExpectingOneAndFoundMore(String elementName, DiamondException e);
-    protected abstract N whenExpectingOneAnNoneFound(String elementName);
 
     @Override
-    public Stream<N> named(String elementName) {
-        return getAll().filter((element) -> element.name().equals(elementName));
+    public Nary<N> named(String elementName) {
+        return NaryFromNative.create(getAll().filter((element) -> element.name().equals(elementName)));
     }
 
-    @Override
-    public Optional<N> uniqueNamed(String elementName) throws DiamondException {
-        try {
-            return OptionalFromStream.using(named(elementName));
-        } catch (DiamondException e) {
-            return whenExpectingOneAndFoundMore(elementName, e);
-        }
-    }
-
-    @Override
-    public N existingNamed(String methodName) throws DiamondException {
-        // NoMethods is the error case
-        return uniqueNamed(methodName).orElseGet(()-> whenExpectingOneAnNoneFound(methodName));
-    }
 
 }

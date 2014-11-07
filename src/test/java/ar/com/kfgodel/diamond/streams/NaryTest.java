@@ -4,7 +4,7 @@ import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.DiamondTestContext;
 import ar.com.kfgodel.nary.api.MoreThanOneElementException;
-import ar.com.kfgodel.nary.impl.NativeNary;
+import ar.com.kfgodel.nary.impl.NaryFromNative;
 import org.junit.runner.RunWith;
 
 import java.util.Arrays;
@@ -30,27 +30,27 @@ public class NaryTest extends JavaSpec<DiamondTestContext> {
             describe("creation", () -> {
 
                 it("can be made from a stream",()->{
-                    NativeNary<Integer> nary = NativeNary.create(Stream.of(1, 2, 3));
+                    NaryFromNative<Integer> nary = NaryFromNative.create(Stream.of(1, 2, 3));
 
                     assertThat(nary).isNotNull();
                 });
 
                 it("can be made from an optional",()->{
-                    NativeNary<Integer> nary = NativeNary.create(Optional.of(1));
+                    NaryFromNative<Integer> nary = NaryFromNative.create(Optional.of(1));
 
                     assertThat(nary).isNotNull();
                 });
             });
 
             it("can behave as a stream",()->{
-                NativeNary<Integer> nary = NativeNary.create(Stream.of(1, 2, 3));
+                NaryFromNative<Integer> nary = NaryFromNative.create(Stream.of(1, 2, 3));
 
                 assertThat(nary.collect(Collectors.toList()))
                         .isEqualTo(Arrays.asList(1,2,3));
             });
 
             it("can behave as an optional",()->{
-                NativeNary<Integer> nary = NativeNary.create(Optional.of(1));
+                NaryFromNative<Integer> nary = NaryFromNative.create(Optional.of(1));
 
                 assertThat(nary.isPresent()).isTrue();
             });
@@ -59,7 +59,7 @@ public class NaryTest extends JavaSpec<DiamondTestContext> {
 
                 describe("empty", () -> {
 
-                    context().nary(()-> NativeNary.create(Stream.empty()));
+                    context().nary(()-> NaryFromNative.create(Stream.empty()));
 
                     it("answers false to is present", () -> {
                         assertThat(context().nary().isPresent()).isFalse();
@@ -77,7 +77,7 @@ public class NaryTest extends JavaSpec<DiamondTestContext> {
 
                 describe("of one element", () -> {
 
-                    context().nary(()-> NativeNary.create(Stream.of(1)));
+                    context().nary(()-> NaryFromNative.create(Stream.of(1)));
 
                     it("answers true to is present",()->{
                         assertThat(context().nary().isPresent()).isTrue();
@@ -90,7 +90,7 @@ public class NaryTest extends JavaSpec<DiamondTestContext> {
 
                 describe("for more than one element", () -> {
 
-                    context().nary(()-> NativeNary.create(Stream.of(1, 2, 3)));
+                    context().nary(()-> NaryFromNative.create(Stream.of(1, 2, 3)));
 
                     it("throws an exception if used as optional",()->{
                         try {
@@ -108,7 +108,7 @@ public class NaryTest extends JavaSpec<DiamondTestContext> {
 
                 describe("empty", () -> {
 
-                    context().nary(()-> NativeNary.create(Optional.empty()));
+                    context().nary(()-> NaryFromNative.create(Optional.empty()));
 
                     it("behaves as an empty stream", () -> {
                         assertThat(context().nary().iterator().hasNext()).isFalse();
@@ -118,7 +118,7 @@ public class NaryTest extends JavaSpec<DiamondTestContext> {
 
                 describe("with a value", () -> {
 
-                    context().nary(()-> NativeNary.create(Optional.of(1)));
+                    context().nary(()-> NaryFromNative.create(Optional.of(1)));
 
                     it("behaves as a one element stream",()->{
                         List<String> stringValues = context().nary().map(Object::toString).collect(Collectors.toList());

@@ -25,7 +25,7 @@ public class InvokableTypesTest extends JavaSpec<DiamondTestContext> {
 
             describe("a method", () -> {
 
-                context().invokable(() -> context().typeInstance().methods().existingNamed(context().name()));
+                context().invokable(() -> context().typeInstance().methods().named(context().name()).get());
 
                 describe("if static", () -> {
 
@@ -87,7 +87,7 @@ public class InvokableTypesTest extends JavaSpec<DiamondTestContext> {
 
             describe("a field", () -> {
 
-                context().invokable(() -> context().typeInstance().fields().existingNamed(context().name()));
+                context().invokable(() -> context().typeInstance().fields().named(context().name()).get());
 
                 describe("if static", () -> {
 

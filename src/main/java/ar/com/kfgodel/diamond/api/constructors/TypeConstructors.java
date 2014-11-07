@@ -1,10 +1,9 @@
 package ar.com.kfgodel.diamond.api.constructors;
 
-import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.nary.api.Nary;
 
 import java.util.Optional;
-import java.util.stream.Stream;
 
 /**
  * This type represents the source of constructors for a given type
@@ -14,7 +13,7 @@ public interface TypeConstructors {
     /**
      * @return All the constructors for a type
      */
-    Stream<TypeConstructor> all();
+    Nary<TypeConstructor> all();
 
     /**
      * Returns the constructor that takes no arguments from this type
@@ -29,11 +28,4 @@ public interface TypeConstructors {
      */
     Optional<TypeConstructor> declaredFor(TypeInstance... paramTypes);
 
-    /**
-     * Returns the existing constructor that matches the given param types
-     * @param paramTypes The type of constructor arguments declared for the constructor
-     * @return The constructor that matches the given types
-     * @throws ar.com.kfgodel.diamond.api.exceptions.DiamondException If no constructor matches the parameters
-     */
-    TypeConstructor existingDeclaredFor(TypeInstance... paramTypes) throws DiamondException;
 }

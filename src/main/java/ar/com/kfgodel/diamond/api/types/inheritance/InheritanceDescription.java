@@ -1,10 +1,10 @@
 package ar.com.kfgodel.diamond.api.types.inheritance;
 
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.nary.api.Nary;
 
 import java.util.Optional;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 /**
  * This type represents the inheritance description of a type
@@ -25,6 +25,6 @@ public interface InheritanceDescription {
     /**
      * @return The supplier of the type implemented interfaces
      */
-    Supplier<Stream<TypeInstance>> getInterfacesSupplier();
+    Supplier<Nary<TypeInstance>> getInterfacesSupplier();
 
 }

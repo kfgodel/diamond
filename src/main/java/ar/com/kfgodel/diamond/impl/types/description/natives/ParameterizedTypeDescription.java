@@ -3,11 +3,11 @@ package ar.com.kfgodel.diamond.impl.types.description.natives;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.types.description.support.UnannotatedFixedTypeDescriptionSupport;
 import ar.com.kfgodel.diamond.impl.types.parts.typearguments.ParameterizedTypeArgumentsSupplier;
+import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 /**
  * This type represents the description of an unannotated parameterized native type
@@ -23,7 +23,7 @@ public class ParameterizedTypeDescription extends UnannotatedFixedTypeDescriptio
     }
 
     @Override
-    public Supplier<Stream<TypeInstance>> getTypeArguments() {
+    public Supplier<Nary<TypeInstance>> getTypeArguments() {
         return ParameterizedTypeArgumentsSupplier.create(nativeType);
     }
 

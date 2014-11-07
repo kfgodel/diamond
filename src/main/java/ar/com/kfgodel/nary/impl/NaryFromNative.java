@@ -17,7 +17,7 @@ import java.util.stream.*;
  * This type represents a Nary created from a Stream
  * Created by kfgodel on 06/11/14.
  */
-public class NativeNary<T> implements Nary<T> {
+public class NaryFromNative<T> implements Nary<T> {
 
     private Stream<T> nativeStream;
     private java.util.Optional<T> nativeOptional;
@@ -223,16 +223,33 @@ public class NativeNary<T> implements Nary<T> {
     }
 
 
-    public static<T> NativeNary<T> create(Stream<T> nativeStream) {
-        NativeNary nary = new NativeNary();
+    public static<T> NaryFromNative<T> of(T element) {
+        return create(Stream.of(element));
+    }
+
+
+    public static<T> NaryFromNative<T> create(Stream<T> nativeStream) {
+        return create(nativeStream, null);
+    }
+
+    public static<T> NaryFromNative<T> create(java.util.Optional<T> nativeOptional) {
+        return create(null, nativeOptional);
+    }
+
+    private static<T> NaryFromNative<T> create(Stream<T> nativeStream, java.util.Optional<T> nativeOptional){
+        NaryFromNative nary = new NaryFromNative();
+        nary.nativeOptional = nativeOptional;
         nary.nativeStream = nativeStream;
         return nary;
     }
 
-    public static<T> NativeNary<T> create(java.util.Optional<T> nativeOptional) {
-        NativeNary nary = new NativeNary();
-        nary.nativeOptional = nativeOptional;
-        return nary;
+    /**
+     * Returns an empty Nary
+     * @param <T> Type of expected element types
+     * @return The empty Nary
+     */
+    public static<T> Nary<T> empty(){
+        return create(Stream.empty());
     }
 
     @Override

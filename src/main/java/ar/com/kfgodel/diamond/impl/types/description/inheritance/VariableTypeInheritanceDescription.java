@@ -5,12 +5,12 @@ import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
 import ar.com.kfgodel.diamond.impl.types.parts.interfaces.VariableTypeInterfaceSupplier;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
+import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.optionals.OptionalFromStream;
 
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 /**
  * This type represents the inheritance description of a variable type
@@ -20,7 +20,7 @@ public class VariableTypeInheritanceDescription implements InheritanceDescriptio
 
 
     private Set<Class<?>> upperBoundClasses;
-    private Supplier<Stream<TypeInstance>> typeArguments;
+    private Supplier<Nary<TypeInstance>> typeArguments;
 
     @Override
     public Supplier<Optional<TypeInstance>> getSuperclassSupplier() {
@@ -45,11 +45,11 @@ public class VariableTypeInheritanceDescription implements InheritanceDescriptio
     }
 
     @Override
-    public Supplier<Stream<TypeInstance>> getInterfacesSupplier() {
+    public Supplier<Nary<TypeInstance>> getInterfacesSupplier() {
         return VariableTypeInterfaceSupplier.create(upperBoundClasses);
     }
 
-    public static VariableTypeInheritanceDescription create(Set<Class<?>> rawClasses, Supplier<Stream<TypeInstance>> typeArguments) {
+    public static VariableTypeInheritanceDescription create(Set<Class<?>> rawClasses, Supplier<Nary<TypeInstance>> typeArguments) {
         VariableTypeInheritanceDescription description = new VariableTypeInheritanceDescription();
         description.upperBoundClasses = rawClasses;
         description.typeArguments = typeArguments;

@@ -1,8 +1,8 @@
 package ar.com.kfgodel.diamond.impl.members.exceptions;
 
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
-
-import java.util.stream.Stream;
+import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 /**
  * This type represents the supplier for types that have no exceptions
@@ -10,7 +10,7 @@ import java.util.stream.Stream;
  */
 public class NoExceptionsSupplier {
 
-    public static Stream<TypeInstance> create() {
-        return Stream.empty();
+    public static Nary<TypeInstance> create() {
+        return NaryFromNative.empty();
     }
 }

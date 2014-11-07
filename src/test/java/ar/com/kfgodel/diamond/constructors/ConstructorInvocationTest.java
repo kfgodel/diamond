@@ -76,7 +76,7 @@ public class ConstructorInvocationTest extends JavaSpec<DiamondTestContext> {
 
             describe("for arrays", () -> {
                 context().testClass(() -> int[].class);
-                context().constructor(()-> context().typeInstance().constructors().existingDeclaredFor(Diamond.of(int.class)));
+                context().constructor(()-> context().typeInstance().constructors().declaredFor(Diamond.of(int.class)).get());
 
                 it("can instantiate with given size",()->{
 

@@ -3,7 +3,8 @@ package ar.com.kfgodel.diamond.impl.types.parts.constructors;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.impl.natives.suppliers.NativeConstructorsSupplier;
-import ar.com.kfgodel.streams.StreamFromCollectionSupplier;
+import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.impl.NaryFromCollectionSupplier;
 
 import java.lang.reflect.Constructor;
 import java.util.function.Supplier;
@@ -16,8 +17,8 @@ import java.util.stream.Stream;
  */
 public class ClassConstructorsSupplier {
 
-    public static Supplier<Stream<TypeConstructor>>  create(Class<?> nativeClass) {
-        return StreamFromCollectionSupplier.lazilyBy(() -> {
+    public static Supplier<Nary<TypeConstructor>>  create(Class<?> nativeClass) {
+        return NaryFromCollectionSupplier.lazilyBy(() -> {
             Stream<Constructor<?>> constructorSupplier = NativeConstructorsSupplier.create(nativeClass).get();
             return constructorSupplier.map((nativeConstructor) -> Diamond.constructors().from(nativeConstructor))
                     .collect(Collectors.toList());

@@ -4,10 +4,11 @@ import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
 import ar.com.kfgodel.diamond.impl.types.parts.extendedtype.NoExtendedTypeSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.superclass.NoSuperclassSupplier;
+import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 import java.util.Optional;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 /**
  * This type represents the description for a type that has no inheritance
@@ -28,7 +29,7 @@ public class NoInheritanceDescription implements InheritanceDescription {
     }
 
     @Override
-    public Supplier<Stream<TypeInstance>> getInterfacesSupplier() {
-        return Stream::empty;
+    public Supplier<Nary<TypeInstance>> getInterfacesSupplier() {
+        return NaryFromNative::empty;
     }
 }

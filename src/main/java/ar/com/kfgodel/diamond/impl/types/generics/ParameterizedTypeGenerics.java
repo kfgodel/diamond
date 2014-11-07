@@ -3,9 +3,9 @@ package ar.com.kfgodel.diamond.impl.types.generics;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.generics.TypeGenerics;
+import ar.com.kfgodel.nary.api.Nary;
 
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 /**
  * This type represents the generic information of a parameterized or parameterizable type
@@ -13,10 +13,10 @@ import java.util.stream.Stream;
  */
 public class ParameterizedTypeGenerics implements TypeGenerics {
 
-    private Supplier<Stream<TypeInstance>> typeArguments;
-    private Supplier<Stream<TypeInstance>> typeParameters;
+    private Supplier<Nary<TypeInstance>> typeArguments;
+    private Supplier<Nary<TypeInstance>> typeParameters;
 
-    public static ParameterizedTypeGenerics create(Supplier<Stream<TypeInstance>> typeParametersSupplier, Supplier<Stream<TypeInstance>> typeArgumentsSupplier) {
+    public static ParameterizedTypeGenerics create(Supplier<Nary<TypeInstance>> typeParametersSupplier, Supplier<Nary<TypeInstance>> typeArgumentsSupplier) {
         ParameterizedTypeGenerics generics = new ParameterizedTypeGenerics();
         generics.typeParameters = typeParametersSupplier;
         generics.typeArguments = typeArgumentsSupplier;
@@ -30,12 +30,12 @@ public class ParameterizedTypeGenerics implements TypeGenerics {
     }
 
     @Override
-    public Stream<TypeInstance> arguments() {
+    public Nary<TypeInstance> arguments() {
         return typeArguments.get();
     }
 
     @Override
-    public Stream<TypeInstance> parameters() {
+    public Nary<TypeInstance> parameters() {
         return this.typeParameters.get();
     }
 }

@@ -2,10 +2,10 @@ package ar.com.kfgodel.diamond.impl.streams;
 
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.natives.fragments.TypeInstanceListFromNativeTypeArrayFragment;
-import ar.com.kfgodel.streams.StreamFromCollectionSupplier;
+import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.impl.NaryFromCollectionSupplier;
 
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 /**
  * This type represents the supplier of type streams taken from a native type array.<br>
@@ -15,8 +15,8 @@ import java.util.stream.Stream;
  */
 public class TypeStreamSupplierFromNativeTypeArray {
 
-    public static Supplier<Stream<TypeInstance>> apply(Supplier<Object[]> nativeTypesSupplier){
-        return StreamFromCollectionSupplier.lazilyBy(() ->
+    public static Supplier<Nary<TypeInstance>> apply(Supplier<Object[]> nativeTypesSupplier){
+        return NaryFromCollectionSupplier.lazilyBy(() ->
                 TypeInstanceListFromNativeTypeArrayFragment.apply(nativeTypesSupplier.get()));
     }
 }

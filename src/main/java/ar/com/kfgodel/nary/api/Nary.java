@@ -10,9 +10,14 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 /**
- * This type represents the join of a stream and an optional.<br>
- *     An object that can contain 0, 1, or more elements, and without knowing how many, accessed as 0, 1 or more.
- * When used as an Optional, because this object may contain more than one element, an exception may be thrown
+ * This type represents the join of a stream and an optional, offering an interface that is the mix of both (with minor modifications to Optional).<br>
+ *     It represents an object that can contain 0, 1, or N elements, and access them assuming one of the possibilities.<br>
+ *     <br>
+ * When used as an Optional, because this object may contain more than one element, an exception could be thrown. If
+ * the object return this nary doesn't guarantee how many elements it contains, it is safest to use it as a Stream.<br>
+ * <br>
+ * Because java.lang.Optional is a concrete class and has colliding method names, an alternative Optional with same semantics
+ * si used.
  *
  * Created by kfgodel on 06/11/14.
  */

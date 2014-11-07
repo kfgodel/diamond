@@ -17,6 +17,7 @@ import ar.com.kfgodel.diamond.impl.types.parts.fields.ClassFieldSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.methods.ClassMethodSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.typearguments.NoTypeArgumentsSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.typeparameters.NoTypeParametersSupplier;
+import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
@@ -73,12 +74,12 @@ public abstract class UnannotatedTypeDescriptionSupport implements TypeDescripti
     }
 
     @Override
-    public Supplier<Stream<TypeInstance>> getTypeArguments() {
+    public Supplier<Nary<TypeInstance>> getTypeArguments() {
         return NoTypeArgumentsSupplier.INSTANCE;
     }
 
     @Override
-    public Supplier<Stream<TypeInstance>> getTypeParametersSupplier() {
+    public Supplier<Nary<TypeInstance>> getTypeParametersSupplier() {
         return NoTypeParametersSupplier.INSTANCE;
     }
 
@@ -93,17 +94,17 @@ public abstract class UnannotatedTypeDescriptionSupport implements TypeDescripti
     }
 
     @Override
-    public Supplier<Stream<TypeMethod>> getTypeMethods() {
+    public Supplier<Nary<TypeMethod>> getTypeMethods() {
         return ClassMethodSupplier.create(getBehavioralClasses());
     }
 
     @Override
-    public Supplier<Stream<TypeField>> getTypeFields() {
+    public Supplier<Nary<TypeField>> getTypeFields() {
         return ClassFieldSupplier.create(getBehavioralClasses());
     }
 
     @Override
-    public Supplier<Stream<TypeConstructor>> getTypeConstructors() {
+    public Supplier<Nary<TypeConstructor>> getTypeConstructors() {
         return NonInstantiableConstructorSupplier.INSTANCE;
     }
 }

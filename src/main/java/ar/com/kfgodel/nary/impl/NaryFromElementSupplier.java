@@ -1,22 +1,22 @@
-package ar.com.kfgodel.streams;
+package ar.com.kfgodel.nary.impl;
 
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
+import ar.com.kfgodel.nary.api.Nary;
 
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 /**
  * This type represents a supplier for streams of one element.<br>
  *     It caches the reference to the element but produces a different stream each time it's called
  * Created by kfgodel on 22/10/14.
  */
-public class StreamFromElementSupplier<T> implements Supplier<Stream<T>> {
+public class NaryFromElementSupplier<T> implements Supplier<Nary<T>> {
 
     private Supplier<T> element;
 
     @Override
-    public Stream<T> get() {
-        return Stream.of(element.get());
+    public Nary<T> get() {
+        return NaryFromNative.of(element.get());
     }
 
     /**
@@ -26,7 +26,7 @@ public class StreamFromElementSupplier<T> implements Supplier<Stream<T>> {
      * @param <T> The expected stream element type
      * @return The created supplier
      */
-    public static<T> StreamFromElementSupplier<T> from(T element) {
+    public static<T> NaryFromElementSupplier<T> from(T element) {
         return using(CachedValue.eagerlyFrom(element));
     }
 
@@ -37,8 +37,8 @@ public class StreamFromElementSupplier<T> implements Supplier<Stream<T>> {
      * @param <T> The expected stream element type
      * @return The created supplier
      */
-    public static<T> StreamFromElementSupplier<T> using(Supplier<T> generator) {
-        StreamFromElementSupplier<T> supplier = new StreamFromElementSupplier<>();
+    public static<T> NaryFromElementSupplier<T> using(Supplier<T> generator) {
+        NaryFromElementSupplier<T> supplier = new NaryFromElementSupplier<>();
         supplier.element = generator;
         return supplier;
     }
@@ -50,7 +50,7 @@ public class StreamFromElementSupplier<T> implements Supplier<Stream<T>> {
      * @param <T> The expected type of elements
      * @return The stream supplier
      */
-    public static<T> StreamFromElementSupplier<T> lazilyBy(Supplier<T> supplier){
+    public static<T> NaryFromElementSupplier<T> lazilyBy(Supplier<T> supplier){
         return using(CachedValue.lazilyBy(supplier));
     }
 

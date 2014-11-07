@@ -12,10 +12,10 @@ import ar.com.kfgodel.diamond.impl.types.parts.constructors.ClassConstructorsSup
 import ar.com.kfgodel.diamond.impl.types.parts.names.FixedTypeNameSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.typeparameters.GenericTypeParametersSupplier;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
+import ar.com.kfgodel.nary.api.Nary;
 
 import java.util.Optional;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 /**
  * This type represents a base class for unannotated fixed types
@@ -34,12 +34,12 @@ public abstract class UnannotatedFixedTypeDescriptionSupport extends Unannotated
     }
 
     @Override
-    public Supplier<Stream<TypeInstance>> getTypeParametersSupplier() {
+    public Supplier<Nary<TypeInstance>> getTypeParametersSupplier() {
         return GenericTypeParametersSupplier.create(getRawClass());
     }
 
     @Override
-    public Supplier<Stream<TypeConstructor>> getTypeConstructors() {
+    public Supplier<Nary<TypeConstructor>> getTypeConstructors() {
         Class<?> rawClass = getRawClass();
         if(rawClass.isArray()){
             // Artificial constructor for arrays: https://github.com/kfgodel/diamond/issues/88

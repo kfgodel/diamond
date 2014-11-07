@@ -32,7 +32,7 @@ public class FunctionalFieldTest extends JavaSpec<DiamondTestContext> {
 
             it("is a supplier to get a static field value", () -> {
                 FunctionalFieldTestObject.staticField = 3;
-                Supplier<Object> supplier = context().typeInstance().fields().existingNamed("staticField");
+                Supplier<Object> supplier = context().typeInstance().fields().named("staticField").get();
 
                 Object value = supplier.get();
 
@@ -40,7 +40,7 @@ public class FunctionalFieldTest extends JavaSpec<DiamondTestContext> {
             });
 
             it("is a consumer to set a static field value",()->{
-                Consumer<Object> consumer = context().typeInstance().fields().existingNamed("staticField");
+                Consumer<Object> consumer = context().typeInstance().fields().named("staticField").get();
 
                 consumer.accept(4);
 
@@ -51,7 +51,7 @@ public class FunctionalFieldTest extends JavaSpec<DiamondTestContext> {
                 FunctionalFieldTestObject object = context().object();
                 object.instanceField = 20;
 
-                Function<Object, Object> function = context().typeInstance().fields().existingNamed("instanceField");
+                Function<Object, Object> function = context().typeInstance().fields().named("instanceField").get();
                 Object value = function.apply(object);
 
                 assertThat(value).isEqualTo(20);
@@ -60,14 +60,14 @@ public class FunctionalFieldTest extends JavaSpec<DiamondTestContext> {
             it("is a biConsumer to set an instance value",()->{
                 FunctionalFieldTestObject object = context().object();
 
-                BiConsumer<Object, Object> consumer = context().typeInstance().fields().existingNamed("instanceField");
+                BiConsumer<Object, Object> consumer = context().typeInstance().fields().named("instanceField").get();
                 consumer.accept(object, 72);
 
                 assertThat(object.instanceField).isEqualTo(72);
             });
 
             it("throws an exception if used as static field with an instance field",()->{
-                Supplier<Object> supplier = context().typeInstance().fields().existingNamed("instanceField");
+                Supplier<Object> supplier = context().typeInstance().fields().named("instanceField").get();
 
                 try {
                     supplier.get();
@@ -79,7 +79,7 @@ public class FunctionalFieldTest extends JavaSpec<DiamondTestContext> {
 
             it("silently ignores instance argument if used as instance field with a static field",()->{
                 FunctionalFieldTestObject.staticField = 8;
-                Function<Object, Object> function = context().typeInstance().fields().existingNamed("staticField");
+                Function<Object, Object> function = context().typeInstance().fields().named("staticField").get();
 
                 Object value = function.apply(context().object());
 

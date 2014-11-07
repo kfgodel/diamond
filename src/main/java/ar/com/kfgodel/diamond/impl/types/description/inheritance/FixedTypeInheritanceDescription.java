@@ -5,10 +5,10 @@ import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
 import ar.com.kfgodel.diamond.impl.types.parts.extendedtype.ExtendedTypeSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.interfaces.ImmutableInterfacesSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.superclass.SuperClassSupplier;
+import ar.com.kfgodel.nary.api.Nary;
 
 import java.util.Optional;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 /**
  * This type represents the inheritance description of a fixed type
@@ -17,7 +17,7 @@ import java.util.stream.Stream;
 public class FixedTypeInheritanceDescription implements InheritanceDescription {
 
     private Class<?> rawClass;
-    private Supplier<Stream<TypeInstance>> typeArguments;
+    private Supplier<Nary<TypeInstance>> typeArguments;
 
     @Override
     public Supplier<Optional<TypeInstance>> getSuperclassSupplier() {
@@ -30,11 +30,11 @@ public class FixedTypeInheritanceDescription implements InheritanceDescription {
     }
 
     @Override
-    public Supplier<Stream<TypeInstance>> getInterfacesSupplier() {
+    public Supplier<Nary<TypeInstance>> getInterfacesSupplier() {
         return ImmutableInterfacesSupplier.create(rawClass);
     }
 
-    public static FixedTypeInheritanceDescription create(Class<?> rawClass, Supplier<Stream<TypeInstance>> typeArguments) {
+    public static FixedTypeInheritanceDescription create(Class<?> rawClass, Supplier<Nary<TypeInstance>> typeArguments) {
         FixedTypeInheritanceDescription description = new FixedTypeInheritanceDescription();
         description.rawClass = rawClass;
         description.typeArguments = typeArguments;
