@@ -1,8 +1,9 @@
 package ar.com.kfgodel.diamond.api.types.packages;
 
+import ar.com.kfgodel.nary.api.Nary;
+
 import java.lang.annotation.Annotation;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 /**
  * This type represents the diamond description of a package
@@ -18,5 +19,5 @@ public interface PackageDescription {
     /**
      * @return The supplier for package annotations
      */
-    Supplier<Stream<Annotation>> getAnnotationsSupplier();
+    Supplier<Nary<Annotation>> getAnnotationsSupplier();
 }

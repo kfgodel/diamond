@@ -1,11 +1,11 @@
 package ar.com.kfgodel.diamond.impl.types.packages;
 
 import ar.com.kfgodel.diamond.api.types.packages.PackageDescription;
-import ar.com.kfgodel.diamond.impl.types.parts.annotations.AnnotatedTypeAnnotationsSupplier;
+import ar.com.kfgodel.diamond.impl.natives.suppliers.AnnotatedElementAnnotationsSupplier;
+import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.annotation.Annotation;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 /**
  * This type represents the description of a native package
@@ -29,7 +29,7 @@ public class NativePackageDescription implements PackageDescription {
     }
 
     @Override
-    public Supplier<Stream<Annotation>> getAnnotationsSupplier() {
-        return AnnotatedTypeAnnotationsSupplier.create(nativePackage);
+    public Supplier<Nary<Annotation>> getAnnotationsSupplier() {
+        return AnnotatedElementAnnotationsSupplier.create(nativePackage);
     }
 }

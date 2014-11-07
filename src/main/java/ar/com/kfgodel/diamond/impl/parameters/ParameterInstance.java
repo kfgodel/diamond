@@ -19,7 +19,7 @@ public class ParameterInstance implements ExecutableParameter {
     private Supplier<TypeInstance> declaredType;
     private Supplier<String> name;
     private Supplier<Nary<Modifier>> modifiers;
-    private Supplier<Stream<Annotation>> annotations;
+    private Supplier<Nary<Annotation>> annotations;
 
     @Override
     public TypeInstance declaredType() {
@@ -51,7 +51,7 @@ public class ParameterInstance implements ExecutableParameter {
     }
 
     @Override
-    public Stream<Annotation> annotations() {
+    public Nary<Annotation> annotations() {
         return annotations.get();
     }
 }

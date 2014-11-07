@@ -28,7 +28,7 @@ import java.util.stream.Stream;
  */
 public abstract class TypeMemberSupport implements TypeMember {
 
-    private Supplier<Stream<Annotation>> annotations = NoAnnotationsSupplier.INSTANCE;
+    private Supplier<Nary<Annotation>> annotations = NoAnnotationsSupplier.INSTANCE;
     private Supplier<String> name = UndefinedName.create(this);
     private Supplier<TypeInstance> declaringType = UndefinedDeclaringType.create(this);
     private Supplier<Nary<Modifier>> modifiers = UndefinedMemberModifiers.create(this);
@@ -69,7 +69,7 @@ public abstract class TypeMemberSupport implements TypeMember {
     }
 
     @Override
-    public Stream<Annotation> annotations() {
+    public Nary<Annotation> annotations() {
         return annotations.get();
     }
 

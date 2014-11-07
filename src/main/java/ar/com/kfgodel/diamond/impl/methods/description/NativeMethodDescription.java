@@ -8,20 +8,19 @@ import ar.com.kfgodel.diamond.api.methods.MethodDescription;
 import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.members.NativeMemberDeclaringTypeSupplier;
-import ar.com.kfgodel.diamond.impl.members.annotations.NativeElementAnnotationsSupplier;
 import ar.com.kfgodel.diamond.impl.members.exceptions.ExecutableExceptionsSupplier;
 import ar.com.kfgodel.diamond.impl.members.generics.ExecutableGenericsSupplier;
 import ar.com.kfgodel.diamond.impl.members.modifiers.suppliers.ImmutableMemberModifiers;
 import ar.com.kfgodel.diamond.impl.members.parameters.ImmutableMemberParameters;
 import ar.com.kfgodel.diamond.impl.natives.invokables.methods.NativeInstanceMethodInvoker;
 import ar.com.kfgodel.diamond.impl.natives.invokables.methods.NativeStaticMethodInvoker;
+import ar.com.kfgodel.diamond.impl.natives.suppliers.AnnotatedElementAnnotationsSupplier;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 /**
  * This type represents a the method description of a native method
@@ -64,8 +63,8 @@ public class NativeMethodDescription implements MethodDescription {
     }
 
     @Override
-    public Supplier<Stream<Annotation>> getAnnotations() {
-        return NativeElementAnnotationsSupplier.create(nativeMethod);
+    public Supplier<Nary<Annotation>> getAnnotations() {
+        return AnnotatedElementAnnotationsSupplier.create(nativeMethod);
     }
 
     @Override

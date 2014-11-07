@@ -12,7 +12,6 @@ import ar.com.kfgodel.nary.api.Nary;
 import java.lang.annotation.Annotation;
 import java.util.Optional;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 /**
  * This type represents a description of a diamond type and serves as an abstraction of the underlying represented type
@@ -28,7 +27,7 @@ public interface TypeDescription {
     /**
      * @return The supplier of annotations of the described type
      */
-    Supplier<Stream<Annotation>> getAnnotations();
+    Supplier<Nary<Annotation>> getAnnotations();
 
     /**
      * @return The description of this type inheritance

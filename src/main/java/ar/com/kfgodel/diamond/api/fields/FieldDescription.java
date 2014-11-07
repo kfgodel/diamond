@@ -3,10 +3,10 @@ package ar.com.kfgodel.diamond.api.fields;
 import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
 import ar.com.kfgodel.diamond.api.members.MemberDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.annotation.Annotation;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 /**
  * This type represents the description of a diamond field that can be used to get a {@link TypeField}
@@ -36,5 +36,5 @@ public interface FieldDescription extends MemberDescription {
     /**
      * @return The supplier of this field annotations
      */
-    Supplier<Stream<Annotation>> getAnnotations();
+    Supplier<Nary<Annotation>> getAnnotations();
 }

@@ -28,7 +28,6 @@ import ar.com.kfgodel.nary.api.Nary;
 import java.lang.annotation.Annotation;
 import java.util.Optional;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 /**
  * This type serves as a base implementation for common TypeInstance behavior
@@ -39,7 +38,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     /**
      * Attached type annotations
      */
-    private Supplier<Stream<Annotation>> annotations = NoAnnotationsSupplier.INSTANCE;
+    private Supplier<Nary<Annotation>> annotations = NoAnnotationsSupplier.INSTANCE;
     /**
      * Variations on the name for this type
      */
@@ -66,12 +65,12 @@ public abstract class TypeInstanceSupport implements TypeInstance {
      * Use this to override default creation with no annotations
      * @param annotationSupplier The new annotations
      */
-    protected void setAnnotations(Supplier<Stream<Annotation>> annotationSupplier) {
+    protected void setAnnotations(Supplier<Nary<Annotation>> annotationSupplier) {
         this.annotations = annotationSupplier;
     }
 
     @Override
-    public Stream<Annotation> annotations() {
+    public Nary<Annotation> annotations() {
         return this.annotations.get();
     }
 

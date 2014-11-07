@@ -4,10 +4,10 @@ import ar.com.kfgodel.diamond.api.generics.Generics;
 import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
 import ar.com.kfgodel.diamond.api.members.MemberDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.annotation.Annotation;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 /**
  * This type represents the Diamond description of a constructor abstracting the underlying implementation
@@ -33,7 +33,7 @@ public interface ConstructorDescription extends MemberDescription {
     /**
      * @return The supplier for constructor's annotations
      */
-    Supplier<Stream<Annotation>> getAnnotations();
+    Supplier<Nary<Annotation>> getAnnotations();
 
     /**
      * @return The supplier of constructor's generics information
