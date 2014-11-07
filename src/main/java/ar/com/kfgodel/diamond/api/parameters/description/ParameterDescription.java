@@ -14,4 +14,9 @@ public interface ParameterDescription {
      * @return The supplier to get the parameter declared type
      */
     Supplier<TypeInstance> getDeclaredType();
+
+    /**
+     * @return The supplier of the parameter name
+     */
+    Supplier<String> getName();
 }
