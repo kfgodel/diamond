@@ -5,6 +5,7 @@ import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
 import ar.com.kfgodel.diamond.api.members.MemberDescription;
 import ar.com.kfgodel.diamond.api.members.TypeMember;
 import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
+import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.invokables.UndefinedInvoker;
 import ar.com.kfgodel.diamond.impl.members.declaringtype.UndefinedDeclaringType;
@@ -15,6 +16,7 @@ import ar.com.kfgodel.diamond.impl.members.parameters.UndefinedMemberParameters;
 import ar.com.kfgodel.diamond.impl.named.UndefinedName;
 import ar.com.kfgodel.diamond.impl.types.parts.annotations.NoAnnotationsSupplier;
 import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 import java.lang.annotation.Annotation;
 import java.util.function.Supplier;
@@ -32,8 +34,8 @@ public abstract class TypeMemberSupport implements TypeMember {
     private Supplier<Nary<MemberModifier>> modifiers = UndefinedMemberModifiers.create(this);
     private Supplier<PolymorphicInvokable> invoker = UndefinedInvoker.create(this);
     private Supplier<Generics> generics = UndefinedMemberGenerics.create(this);
-    private Supplier<Nary<TypeInstance>> parameterTypes = UndefinedMemberParameters.create(this);
     private Supplier<Nary<TypeInstance>> exceptions = UndefinedMemberExceptions.create(this);
+    private Supplier<Nary<ExecutableParameter>> parameters = UndefinedMemberParameters.create(this);
 
 
     @Override
@@ -78,12 +80,18 @@ public abstract class TypeMemberSupport implements TypeMember {
 
     @Override
     public Stream<TypeInstance> parameterTypes() {
-        return parameterTypes.get();
+        Stream<TypeInstance> nativeStream = parameters().map(ExecutableParameter::declaredType);
+        return NaryFromNative.create(nativeStream);
     }
 
     @Override
     public Stream<TypeInstance> declaredExceptions() {
         return exceptions.get();
+    }
+
+    @Override
+    public Nary<ExecutableParameter> parameters() {
+        return parameters.get();
     }
 
     protected void initialize(MemberDescription description){
@@ -92,7 +100,7 @@ public abstract class TypeMemberSupport implements TypeMember {
         this.modifiers = description.getModifiers();
         this.invoker = description.getInvoker();
         this.annotations = description.getAnnotations();
-        this.parameterTypes = description.getParameterTypes();
+        this.parameters = description.getParameters();
         this.generics = description.getGenerics();
         this.exceptions = description.getDeclaredExceptions();
     }

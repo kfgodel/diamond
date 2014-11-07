@@ -1,11 +1,14 @@
 package ar.com.kfgodel.diamond.impl.members.parameters;
 
-import ar.com.kfgodel.diamond.api.types.TypeInstance;
-import ar.com.kfgodel.diamond.impl.streams.TypeStreamSupplierFromNativeTypeArray;
+import ar.com.kfgodel.diamond.api.Diamond;
+import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.impl.NaryFromCollectionSupplier;
 
 import java.lang.reflect.Executable;
+import java.util.Arrays;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 /**
  * This type represents the immutable parameters list supplier for Executable instances
@@ -13,8 +16,10 @@ import java.util.function.Supplier;
  */
 public class ImmutableMemberParameters {
 
-    public static Supplier<Nary<TypeInstance>> create(Executable nativeExecutable) {
-        return TypeStreamSupplierFromNativeTypeArray.apply(nativeExecutable::getAnnotatedParameterTypes);
+    public static Supplier<Nary<ExecutableParameter>> create(Executable nativeExecutable) {
+        return NaryFromCollectionSupplier.lazilyBy(() -> Arrays.stream(nativeExecutable.getParameters())
+                .map((nativeParameter) -> Diamond.parameters().from(nativeParameter))
+                .collect(Collectors.toList()));
     }
 
 }

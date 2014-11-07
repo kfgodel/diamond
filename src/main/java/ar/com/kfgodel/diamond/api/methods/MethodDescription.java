@@ -4,7 +4,6 @@ import ar.com.kfgodel.diamond.api.generics.Generics;
 import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
 import ar.com.kfgodel.diamond.api.members.MemberDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
-import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.annotation.Annotation;
 import java.util.function.Supplier;
@@ -25,11 +24,6 @@ public interface MethodDescription extends MemberDescription {
      * @return The supplier for the return type of the described method
      */
     Supplier<TypeInstance> getReturnType();
-
-    /**
-     * @return The supplier for the parameter types of the described method
-     */
-    Supplier<Nary<TypeInstance>> getParameterTypes();
 
     /**
      * @return the supplier to get the type that declares the method

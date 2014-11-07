@@ -4,6 +4,7 @@ import ar.com.kfgodel.diamond.api.constructors.ConstructorDescription;
 import ar.com.kfgodel.diamond.api.generics.Generics;
 import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
 import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
+import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.members.NativeMemberDeclaringTypeSupplier;
 import ar.com.kfgodel.diamond.impl.members.annotations.NativeElementAnnotationsSupplier;
@@ -29,7 +30,7 @@ public class NativeConstructorDescription implements ConstructorDescription {
     private Constructor<?> nativeConstructor;
 
     @Override
-    public Supplier<Nary<TypeInstance>> getParameterTypes() {
+    public Supplier<Nary<ExecutableParameter>> getParameters() {
         return ImmutableMemberParameters.create(nativeConstructor);
     }
 

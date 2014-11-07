@@ -5,6 +5,7 @@ import ar.com.kfgodel.diamond.api.generics.Generics;
 import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
 import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
 import ar.com.kfgodel.diamond.api.methods.MethodDescription;
+import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.members.NativeMemberDeclaringTypeSupplier;
 import ar.com.kfgodel.diamond.impl.members.annotations.NativeElementAnnotationsSupplier;
@@ -42,7 +43,7 @@ public class NativeMethodDescription implements MethodDescription {
     }
 
     @Override
-    public Supplier<Nary<TypeInstance>> getParameterTypes() {
+    public Supplier<Nary<ExecutableParameter>> getParameters() {
         return ImmutableMemberParameters.create(nativeMethod);
     }
 

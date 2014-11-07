@@ -1,7 +1,7 @@
 package ar.com.kfgodel.diamond.impl.types.parts.typeparameters;
 
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
-import ar.com.kfgodel.diamond.impl.streams.TypeStreamSupplierFromNativeTypeArray;
+import ar.com.kfgodel.diamond.impl.streams.TypeNarySupplierFromNativeTypeArray;
 import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.reflect.GenericDeclaration;
@@ -14,7 +14,7 @@ import java.util.function.Supplier;
 public class GenericTypeParametersSupplier {
 
     public static Supplier<Nary<TypeInstance>> create(GenericDeclaration genericDeclaration) {
-        return TypeStreamSupplierFromNativeTypeArray.apply(genericDeclaration::getTypeParameters);
+        return TypeNarySupplierFromNativeTypeArray.apply(genericDeclaration::getTypeParameters);
     }
 
 }

@@ -13,7 +13,7 @@ import java.util.function.Supplier;
  *     in a collection and get streams from that collection
  * Created by kfgodel on 01/11/14.
  */
-public class TypeStreamSupplierFromNativeTypeArray {
+public class TypeNarySupplierFromNativeTypeArray {
 
     public static Supplier<Nary<TypeInstance>> apply(Supplier<Object[]> nativeTypesSupplier){
         return NaryFromCollectionSupplier.lazilyBy(() ->

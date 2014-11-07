@@ -5,6 +5,7 @@ import ar.com.kfgodel.diamond.api.sources.fields.FieldSources;
 import ar.com.kfgodel.diamond.api.sources.methods.MethodSources;
 import ar.com.kfgodel.diamond.api.sources.modifiers.ModifierSources;
 import ar.com.kfgodel.diamond.api.sources.packages.PackageSources;
+import ar.com.kfgodel.diamond.api.sources.parameters.ParameterSources;
 import ar.com.kfgodel.diamond.api.sources.types.TypeSources;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.DiamondApi;
@@ -67,7 +68,16 @@ public interface Diamond {
      */
     public static ModifierSources modifiers() {return API.modifiers(); }
 
+    /**
+     * @return An accessor to obtain instances that represent packages
+     */
     public static PackageSources packages() {return API.packages();}
+
+
+    /**
+     * @return An accessor to obtain instances that represent parameters
+     */
+    public static ParameterSources parameters() {return API.parameters();}
 
 
     /**

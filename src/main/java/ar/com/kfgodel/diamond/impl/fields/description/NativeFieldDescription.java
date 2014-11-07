@@ -5,6 +5,7 @@ import ar.com.kfgodel.diamond.api.fields.FieldDescription;
 import ar.com.kfgodel.diamond.api.generics.Generics;
 import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
 import ar.com.kfgodel.diamond.api.members.modifiers.MemberModifier;
+import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.members.NativeMemberDeclaringTypeSupplier;
 import ar.com.kfgodel.diamond.impl.members.annotations.NativeElementAnnotationsSupplier;
@@ -48,13 +49,13 @@ public class NativeFieldDescription implements FieldDescription {
     }
 
     @Override
-    public Supplier<Nary<TypeInstance>> getParameterTypes() {
-        return NoParametersSupplier.INSTANCE;
+    public Supplier<TypeInstance> getDeclaringType() {
+        return NativeMemberDeclaringTypeSupplier.create(nativeField);
     }
 
     @Override
-    public Supplier<TypeInstance> getDeclaringType() {
-        return NativeMemberDeclaringTypeSupplier.create(nativeField);
+    public Supplier<Nary<ExecutableParameter>> getParameters() {
+        return NoParametersSupplier.INSTANCE;
     }
 
     @Override

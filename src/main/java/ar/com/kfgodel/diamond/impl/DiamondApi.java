@@ -5,6 +5,7 @@ import ar.com.kfgodel.diamond.api.sources.fields.FieldSources;
 import ar.com.kfgodel.diamond.api.sources.methods.MethodSources;
 import ar.com.kfgodel.diamond.api.sources.modifiers.ModifierSources;
 import ar.com.kfgodel.diamond.api.sources.packages.PackageSources;
+import ar.com.kfgodel.diamond.api.sources.parameters.ParameterSources;
 import ar.com.kfgodel.diamond.api.sources.types.TypeSources;
 import ar.com.kfgodel.diamond.impl.sources.*;
 
@@ -20,6 +21,7 @@ public class DiamondApi {
     private ConstructorSources constructors;
     private ModifierSources modifiers;
     private PackageSources packages;
+    private ParameterSources parameters;
 
     public static DiamondApi create() {
         DiamondApi diamondApi = new DiamondApi();
@@ -29,6 +31,7 @@ public class DiamondApi {
         diamondApi.constructors = ConstructorsSourceImpl.create();
         diamondApi.modifiers = ModifierSourcesImpl.create();
         diamondApi.packages = PackageSourcesImpl.create();
+        diamondApi.parameters = ParameterSourcesImpl.create();
         return diamondApi;
     }
 
@@ -52,5 +55,9 @@ public class DiamondApi {
 
     public PackageSources packages() {
         return packages;
+    }
+
+    public ParameterSources parameters() {
+        return parameters;
     }
 }

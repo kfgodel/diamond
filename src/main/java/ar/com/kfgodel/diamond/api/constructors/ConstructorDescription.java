@@ -4,7 +4,6 @@ import ar.com.kfgodel.diamond.api.generics.Generics;
 import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
 import ar.com.kfgodel.diamond.api.members.MemberDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
-import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.annotation.Annotation;
 import java.util.function.Supplier;
@@ -15,11 +14,6 @@ import java.util.stream.Stream;
  * Created by kfgodel on 15/10/14.
  */
 public interface ConstructorDescription extends MemberDescription {
-
-    /**
-     * @return The supplier for the parameter types of the described method
-     */
-    Supplier<Nary<TypeInstance>> getParameterTypes();
 
     /**
      * @return The supplier of the type that declared the constructor
