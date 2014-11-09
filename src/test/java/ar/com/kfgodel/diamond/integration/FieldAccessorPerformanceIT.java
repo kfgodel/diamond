@@ -39,7 +39,7 @@ public class FieldAccessorPerformanceIT extends JavaSpec<DiamondTestContext> {
                 }
             });
 
-            it("1 fastest with direct access",()->{
+            it("direct access",()->{
                 measureTest("1. public field", (object) -> {
                     for (int i = 0; i < ITERATIONS; i++) {
                         object.publicField = object.publicField + 2;
@@ -47,21 +47,21 @@ public class FieldAccessorPerformanceIT extends JavaSpec<DiamondTestContext> {
                 });
             });
 
-            it("2 fastest with direct getter&setter access",()->{
+            it("getter&setter access",()->{
                 measureTest("2. getter&setter", (object) -> {
                     for (int i = 0; i < ITERATIONS; i++) {
                         object.setPublicField(object.getPublicField()+2);
                     }
                 });
             });
-            it("3 fastest with exact method-handles access",()->{
+            it("inexact method-handles access",()->{
                 try {
                     MethodHandle getter = MethodHandles.lookup().findGetter(FieldAccessorTestObject.class, FIELD_NAME, int.class);
                     MethodHandle setter = MethodHandles.lookup().findSetter(FieldAccessorTestObject.class, FIELD_NAME, int.class);
-                    measureTest("3. methodhandle", (object) -> {
+                    measureTest("3.1 inexact methodhandle", (object) -> {
                         for (int i = 0; i < ITERATIONS; i++) {
                             try {
-                                setter.invokeExact(object, (int)getter.invokeExact(object) + 2);
+                                setter.invoke(object, (int)getter.invoke(object) + 2);
                             } catch (Throwable e) {
                                 throw new RuntimeException("Unexpected test error", e);
                             }
@@ -71,12 +71,29 @@ public class FieldAccessorPerformanceIT extends JavaSpec<DiamondTestContext> {
                     throw new RuntimeException("Unexpected test error", e);
                 }
             });
-            it("4 fastest with exact unreflected method-handles access",()->{
+            it("exact method-handles access",()->{
+                try {
+                    MethodHandle getter = MethodHandles.lookup().findGetter(FieldAccessorTestObject.class, FIELD_NAME, int.class);
+                    MethodHandle setter = MethodHandles.lookup().findSetter(FieldAccessorTestObject.class, FIELD_NAME, int.class);
+                    measureTest("3.2 methodhandle", (object) -> {
+                        for (int i = 0; i < ITERATIONS; i++) {
+                            try {
+                                setter.invokeExact(object, (int) getter.invokeExact(object) + 2);
+                            } catch (Throwable e) {
+                                throw new RuntimeException("Unexpected test error", e);
+                            }
+                        }
+                    });
+                } catch (Exception e) {
+                    throw new RuntimeException("Unexpected test error", e);
+                }
+            });
+            it("exact unreflected method-handles access",()->{
                 try {
                     Field field = FieldAccessorTestObject.class.getDeclaredField(FIELD_NAME);
                     MethodHandle getter = MethodHandles.lookup().unreflectGetter(field);
                     MethodHandle setter = MethodHandles.lookup().unreflectSetter(field);
-                    measureTest("4. unreflected methodhandle", (object) -> {
+                    measureTest("4.1 unreflected methodhandle", (object) -> {
                         for (int i = 0; i < ITERATIONS; i++) {
                             invokeExactlyWithHandles(getter, setter, object);
                         }
@@ -85,10 +102,10 @@ public class FieldAccessorPerformanceIT extends JavaSpec<DiamondTestContext> {
                     throw new RuntimeException("Unexpected test error", e);
                 }
             });
-            it("5 fastest with reflection access",()->{
+            it("native reflection access",()->{
                 try {
                     Field field = FieldAccessorTestObject.class.getDeclaredField(FIELD_NAME);
-                    measureTest("5. reflection", (object) -> {
+                    measureTest("4.2 reflection", (object) -> {
                         for (int i = 0; i < ITERATIONS; i++) {
                             try {
                                 field.set(object, (Integer) field.get(object) + 1);
@@ -101,15 +118,16 @@ public class FieldAccessorPerformanceIT extends JavaSpec<DiamondTestContext> {
                     throw new RuntimeException("Unexpected test error", e);
                 }
             });
-            it("6 fastest with typeField access",()->{
+
+            it("typeField access",()->{
                 TypeField field = Diamond.of(FieldAccessorTestObject.class).fields().named(FIELD_NAME).get();
-                measureTest("6. typeField", (object) -> {
+                measureTest("5.1 typeField", (object) -> {
                     for (int i = 0; i < ITERATIONS; i++) {
                         field.setValueOn(object, field.<Integer>getValueFrom(object) + 2);
                     }
                 });
             });
-            it("7 fastest with converted unreflected method-handles access",()->{
+            it("converted unreflected method-handles access",()->{
                 try {
                     Field field = FieldAccessorTestObject.class.getDeclaredField(FIELD_NAME);
                     MethodHandle originalGetter = MethodHandles.lookup().unreflectGetter(field);
@@ -118,7 +136,7 @@ public class FieldAccessorPerformanceIT extends JavaSpec<DiamondTestContext> {
                     MethodHandle getter = originalGetter.asType(MethodType.methodType(Integer.class, Object.class));
                     MethodHandle setter = originalSetter.asType(MethodType.methodType(void.class, Object.class, Object.class));
 
-                    measureTest("7. converted methodhandle", (object) -> {
+                    measureTest("5.2 converted methodhandle", (object) -> {
                         for (int i = 0; i < ITERATIONS; i++) {
                             invokeConvertedWithHandles(getter, setter, object);
                         }
@@ -127,9 +145,7 @@ public class FieldAccessorPerformanceIT extends JavaSpec<DiamondTestContext> {
                     throw new RuntimeException("Unexpected test error", e);
                 }
             });
-
         });
-
     }
 
     private void invokeExactlyWithHandles(MethodHandle getter, MethodHandle setter, FieldAccessorTestObject object) {

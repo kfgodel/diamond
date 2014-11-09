@@ -60,7 +60,7 @@ public class InvokableTypesTest extends JavaSpec<DiamondTestContext> {
                     } catch (DiamondException e) {
                         assertThat(e.getMessage())
                                 .startsWith("Invocation rejected for method[")
-                                .endsWith("InvokableTestObject.staticSumMethod(int,int)] due to wrong arguments[3]");
+                                .endsWith("InvokableTestObject.staticSumMethod(int,int)]. Expected 2 arguments but invoked with: [3]");
                     }
                 });
 
