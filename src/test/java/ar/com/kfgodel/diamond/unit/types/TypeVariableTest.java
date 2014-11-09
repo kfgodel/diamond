@@ -57,7 +57,8 @@ public class TypeVariableTest extends JavaSpec<DiamondTestContext> {
             });
 
             it("can have interfaces from upper bounds",()->{
-                assertThat(context().typeInstance().inheritance().interfaces().map(Named::name).collect(Collectors.toList()))
+                List<String> interfaceNames = context().typeInstance().inheritance().interfaces().map(Named::name).collect(Collectors.toList());
+                assertThat(interfaceNames)
                         .isEqualTo(Arrays.asList("Comparable"));
             });
 
