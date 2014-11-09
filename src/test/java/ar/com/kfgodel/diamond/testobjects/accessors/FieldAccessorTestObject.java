@@ -7,6 +7,8 @@ package ar.com.kfgodel.diamond.testobjects.accessors;
 public class FieldAccessorTestObject {
 
     private int privateField;
+    int defaultField;
+    protected int protectedField;
     public int publicField;
 
     public int getPrivateField() {
