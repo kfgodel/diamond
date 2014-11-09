@@ -4,6 +4,7 @@ import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.DiamondTestContext;
 import ar.com.kfgodel.diamond.api.Diamond;
+import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.api.members.modifiers.Visibility;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.reference.ReferenceOf;
@@ -112,7 +113,8 @@ public class AllConstructorsPerTypeTest extends JavaSpec<DiamondTestContext> {
                 context().typeInstance(AllConstructorsPerTypeTest::getParameterizedParentClass);
 
                 it("includes the same constructors as the raw class",()->{
-                    assertThat(context().typeInstance().constructors().all().collect(Collectors.toList()))
+                    List<TypeConstructor> parameterizedConstructors = context().typeInstance().constructors().all().collect(Collectors.toList());
+                    assertThat(parameterizedConstructors)
                             .isEqualTo(Diamond.of(ParentClass.class).constructors().all().collect(Collectors.toList()));
                 });
             });

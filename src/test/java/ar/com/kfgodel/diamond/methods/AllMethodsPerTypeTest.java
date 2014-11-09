@@ -6,6 +6,7 @@ import ar.com.kfgodel.diamond.DiamondTestContext;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.members.modifiers.Mutability;
 import ar.com.kfgodel.diamond.api.members.modifiers.Visibility;
+import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.reference.ReferenceOf;
 import ar.com.kfgodel.diamond.testobjects.lineage.ChildClass;
@@ -152,7 +153,8 @@ public class AllMethodsPerTypeTest extends JavaSpec<DiamondTestContext> {
                 context().typeInstance(AllMethodsPerTypeTest::getParameterizedParentClass);
 
                 it("includes the same methods as the raw class",()->{
-                    assertThat(context().typeInstance().methods().all().collect(Collectors.toList()))
+                    List<TypeMethod> parameterizedFields = context().typeInstance().methods().all().collect(Collectors.toList());
+                    assertThat(parameterizedFields)
                             .isEqualTo(Diamond.of(ParentClass.class).methods().all().collect(Collectors.toList()));
                 });
             });
