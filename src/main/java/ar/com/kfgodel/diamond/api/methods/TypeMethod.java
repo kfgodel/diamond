@@ -96,4 +96,9 @@ public interface TypeMethod extends TypeMember, PolymorphicInvokable {
     @Override
     Nary<TypeInstance> declaredExceptions();
 
+    /**
+     * @return The value that this method has as default if defined as an annotation method with default value.
+     * An empty nary otherwise.
+     */
+    Nary<Object> defaultValue();
 }
