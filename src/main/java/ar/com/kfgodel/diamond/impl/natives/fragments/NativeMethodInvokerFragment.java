@@ -29,7 +29,7 @@ public class NativeMethodInvokerFragment {
                 throw new DiamondException("Invocation rejected for method["+nativeMethod+"] because instance is not applicable["+instance+"] or wrong arguments" + Arrays.toString(arguments),e);
             }
         } catch (InvocationTargetException e) {
-            throw new HaltedMethodInvocationException(nativeMethod, instance, arguments, e);
+            throw new HaltedMethodInvocationException(nativeMethod, arguments, e);
         } catch (NullPointerException e) {
             throw new DiamondException("Instance invocation for method["+nativeMethod+"] cannot be done on null instance",e);
         } catch (ExceptionInInitializerError e) {

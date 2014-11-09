@@ -13,8 +13,7 @@ import ar.com.kfgodel.diamond.impl.members.exceptions.ExecutableExceptionsSuppli
 import ar.com.kfgodel.diamond.impl.members.generics.ExecutableGenericsSupplier;
 import ar.com.kfgodel.diamond.impl.members.modifiers.suppliers.ImmutableMemberModifiers;
 import ar.com.kfgodel.diamond.impl.members.parameters.ImmutableMemberParameters;
-import ar.com.kfgodel.diamond.impl.natives.invokables.methods.NativeInstanceMethodInvoker;
-import ar.com.kfgodel.diamond.impl.natives.invokables.methods.NativeStaticMethodInvoker;
+import ar.com.kfgodel.diamond.impl.natives.invokables.methods.NativeMethodInvokerGenerator;
 import ar.com.kfgodel.diamond.impl.natives.suppliers.AnnotatedElementAnnotationsSupplier;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.nary.api.Nary;
@@ -58,9 +57,7 @@ public class NativeMethodDescription implements MethodDescription {
 
     @Override
     public Supplier<PolymorphicInvokable> getInvoker() {
-        return CachedValue.lazilyBy(() -> java.lang.reflect.Modifier.isStatic(nativeMethod.getModifiers()) ?
-                NativeStaticMethodInvoker.create(nativeMethod) :
-                NativeInstanceMethodInvoker.create(nativeMethod));
+        return CachedValue.lazilyBy(() -> NativeMethodInvokerGenerator.INSTANCE.generateFor(nativeMethod));
     }
 
     @Override

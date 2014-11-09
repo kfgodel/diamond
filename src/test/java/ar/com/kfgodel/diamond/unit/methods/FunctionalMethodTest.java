@@ -87,7 +87,7 @@ public class FunctionalMethodTest extends JavaSpec<DiamondTestContext> {
                     } catch (Exception e) {
                         assertThat(e.getMessage())
                                 .startsWith("Invocation rejected for method[")
-                                .endsWith("FunctionalStaticMethodTestObject.biConsumer(int,int)] due to wrong arguments[1]");
+                                .endsWith("FunctionalStaticMethodTestObject.biConsumer(int,int)]. Expected 2 arguments but invoked with: [1]");
                     }
                 });
 
@@ -100,7 +100,7 @@ public class FunctionalMethodTest extends JavaSpec<DiamondTestContext> {
                     } catch (Exception e) {
                         assertThat(e.getMessage())
                                 .startsWith("Invocation rejected for method[")
-                                .endsWith("FunctionalStaticMethodTestObject.consumer(int)] due to wrong arguments[a]");
+                                .endsWith("FunctionalStaticMethodTestObject.consumer(int)] failed conversion for arguments: [a]");
                     }
                 });
                 
@@ -145,8 +145,8 @@ public class FunctionalMethodTest extends JavaSpec<DiamondTestContext> {
                         failBecauseExceptionWasNotThrown(DiamondException.class);
                     } catch (Exception e) {
                         assertThat(e.getMessage())
-                                .startsWith("Instance invocation for method[")
-                                .endsWith("FunctionalInstanceMethodTestObject.function()] cannot be done without an instance");
+                                .startsWith("Invocation rejected for method[")
+                                .endsWith("FunctionalInstanceMethodTestObject.function()]. Expected 1 arguments but invoked with: []");
                     }
                 });
                 

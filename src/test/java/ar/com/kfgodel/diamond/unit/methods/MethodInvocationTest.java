@@ -68,10 +68,10 @@ public class MethodInvocationTest extends JavaSpec<DiamondTestContext> {
                 } catch (HaltedMethodInvocationException e) {
                     assertThat(e.getMessage())
                             .startsWith("Invocation halted for method[")
-                            .endsWith("MethodInvocationTestObject.exceptionMethod()] on instance[a test instance] and arguments[]: I don't finish successfully");
+                            .endsWith("MethodInvocationTestObject.exceptionMethod()] and arguments[a test instance]: I don't finish successfully");
                     assertThat(e.getHaltingCause()).hasMessage("I don't finish successfully");
                     assertThat(e.getInvokedInstance()).isSameAs(context().object());
-                    assertThat(e.getInvokedArguments()).isEmpty();
+                    assertThat(e.getInvokedArguments()).isEqualTo(new Object[]{context().object()});
                     assertThat(e.getInvokedMethod().getName()).isEqualTo(context().name());
                 }
             });   

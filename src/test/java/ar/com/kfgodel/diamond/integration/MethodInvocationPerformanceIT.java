@@ -157,13 +157,30 @@ public class MethodInvocationPerformanceIT extends JavaSpec<DiamondTestContext> 
                 }
             });
 
+            it("typeMethod invocation",()->{
+                TypeMethod methodA = Diamond.of(MethodInvocationTestObject.class).methods().named("methodA").get();
+                TypeMethod methodB = Diamond.of(MethodInvocationTestObject.class).methods().named("methodB").get();
+                TypeMethod methodC = Diamond.of(MethodInvocationTestObject.class).methods().named("methodC").get();
+                TypeMethod methodD = Diamond.of(MethodInvocationTestObject.class).methods().named("methodD").get();
+                measureTest("4.1 typeMehods", (object) -> {
+                    int result = 0;
+                    for (int i = 0; i < ITERATIONS; i++) {
+                        Object resultA = methodA.invokeOn(object);
+                        Object resultB = methodB.invokeOn(resultA);
+                        Object resultC = methodC.invokeOn(resultB);
+                        result = ((Number)methodD.invokeOn(resultC)).intValue();
+                    }
+                    assertThat(result).isEqualTo(4);
+                });
+            });
+
             it("native reflection invocation",()->{
                 try {
                     Method nativeMethodA = MethodInvocationTestObject.class.getDeclaredMethod("methodA");
                     Method nativeMethodB = MethodInvocationTestObject.class.getDeclaredMethod("methodB");
                     Method nativeMethodC = MethodInvocationTestObject.class.getDeclaredMethod("methodC");
                     Method nativeMethodD = MethodInvocationTestObject.class.getDeclaredMethod("methodD");
-                    measureTest("4. native reflection", (object) -> {
+                    measureTest("4.2 native reflection", (object) -> {
                         int result = 0;
                         for (int i = 0; i < ITERATIONS; i++) {
                             try {
@@ -180,22 +197,6 @@ public class MethodInvocationPerformanceIT extends JavaSpec<DiamondTestContext> 
                 } catch (Exception e) {
                     throw new RuntimeException("Unexpected test error", e);
                 }
-            });
-            it("typeMethod invocation",()->{
-                TypeMethod methodA = Diamond.of(MethodInvocationTestObject.class).methods().named("methodA").get();
-                TypeMethod methodB = Diamond.of(MethodInvocationTestObject.class).methods().named("methodB").get();
-                TypeMethod methodC = Diamond.of(MethodInvocationTestObject.class).methods().named("methodC").get();
-                TypeMethod methodD = Diamond.of(MethodInvocationTestObject.class).methods().named("methodD").get();
-                measureTest("5. typeMehods", (object) -> {
-                    int result = 0;
-                    for (int i = 0; i < ITERATIONS; i++) {
-                        Object resultA = methodA.invokeOn(object);
-                        Object resultB = methodB.invokeOn(resultA);
-                        Object resultC = methodC.invokeOn(resultB);
-                        result = ((Number)methodD.invokeOn(resultC)).intValue();
-                    }
-                    assertThat(result).isEqualTo(4);
-                });
             });
 
         });
