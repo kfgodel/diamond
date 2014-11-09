@@ -30,4 +30,19 @@ public class MethodInvocationTestObject {
     public String toString() {
         return "a test instance";
     }
+
+    public MethodInvocationTestObject methodA(){
+        return this;
+    }
+
+    public MethodInvocationTestObject methodB(){
+        return this;
+    }
+
+    public MethodInvocationTestObject methodC(){
+        return this;
+    }
+    public int methodD(){
+        return 4;
+    }
 }

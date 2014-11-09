@@ -54,7 +54,7 @@ public class FieldAccessorPerformanceIT extends JavaSpec<DiamondTestContext> {
                     }
                 });
             });
-            it("3 fastest with method-handles access",()->{
+            it("3 fastest with exact method-handles access",()->{
                 try {
                     MethodHandle getter = MethodHandles.lookup().findGetter(FieldAccessorTestObject.class, FIELD_NAME, int.class);
                     MethodHandle setter = MethodHandles.lookup().findSetter(FieldAccessorTestObject.class, FIELD_NAME, int.class);
