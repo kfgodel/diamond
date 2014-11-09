@@ -88,10 +88,24 @@ public class FieldAccessorPerformanceIT extends JavaSpec<DiamondTestContext> {
                     throw new RuntimeException("Unexpected test error", e);
                 }
             });
+            it("exact unreflected method-handles access",()->{
+                try {
+                    Field field = FieldAccessorTestObject.class.getDeclaredField(FIELD_NAME);
+                    MethodHandle getter = MethodHandles.lookup().unreflectGetter(field);
+                    MethodHandle setter = MethodHandles.lookup().unreflectSetter(field);
+                    measureTest("4.1 unreflected methodhandle", (object) -> {
+                        for (int i = 0; i < ITERATIONS; i++) {
+                            invokeExactlyWithHandles(getter, setter, object);
+                        }
+                    });
+                } catch (Exception e) {
+                    throw new RuntimeException("Unexpected test error", e);
+                }
+            });
             it("native reflection access",()->{
                 try {
                     Field field = FieldAccessorTestObject.class.getDeclaredField(FIELD_NAME);
-                    measureTest("4.1 reflection", (object) -> {
+                    measureTest("4.2 reflection", (object) -> {
                         for (int i = 0; i < ITERATIONS; i++) {
                             try {
                                 field.set(object, (Integer) field.get(object) + 1);
@@ -104,19 +118,14 @@ public class FieldAccessorPerformanceIT extends JavaSpec<DiamondTestContext> {
                     throw new RuntimeException("Unexpected test error", e);
                 }
             });
-            it("exact unreflected method-handles access",()->{
-                try {
-                    Field field = FieldAccessorTestObject.class.getDeclaredField(FIELD_NAME);
-                    MethodHandle getter = MethodHandles.lookup().unreflectGetter(field);
-                    MethodHandle setter = MethodHandles.lookup().unreflectSetter(field);
-                    measureTest("4.2 unreflected methodhandle", (object) -> {
-                        for (int i = 0; i < ITERATIONS; i++) {
-                            invokeExactlyWithHandles(getter, setter, object);
-                        }
-                    });
-                } catch (Exception e) {
-                    throw new RuntimeException("Unexpected test error", e);
-                }
+
+            it("typeField access",()->{
+                TypeField field = Diamond.of(FieldAccessorTestObject.class).fields().named(FIELD_NAME).get();
+                measureTest("5.1 typeField", (object) -> {
+                    for (int i = 0; i < ITERATIONS; i++) {
+                        field.setValueOn(object, field.<Integer>getValueFrom(object) + 2);
+                    }
+                });
             });
             it("converted unreflected method-handles access",()->{
                 try {
@@ -127,7 +136,7 @@ public class FieldAccessorPerformanceIT extends JavaSpec<DiamondTestContext> {
                     MethodHandle getter = originalGetter.asType(MethodType.methodType(Integer.class, Object.class));
                     MethodHandle setter = originalSetter.asType(MethodType.methodType(void.class, Object.class, Object.class));
 
-                    measureTest("5.1 converted methodhandle", (object) -> {
+                    measureTest("5.2 converted methodhandle", (object) -> {
                         for (int i = 0; i < ITERATIONS; i++) {
                             invokeConvertedWithHandles(getter, setter, object);
                         }
@@ -135,14 +144,6 @@ public class FieldAccessorPerformanceIT extends JavaSpec<DiamondTestContext> {
                 } catch (Exception e) {
                     throw new RuntimeException("Unexpected test error", e);
                 }
-            });
-            it("typeField access",()->{
-                TypeField field = Diamond.of(FieldAccessorTestObject.class).fields().named(FIELD_NAME).get();
-                measureTest("5.2 typeField", (object) -> {
-                    for (int i = 0; i < ITERATIONS; i++) {
-                        field.setValueOn(object, field.<Integer>getValueFrom(object) + 2);
-                    }
-                });
             });
         });
     }
