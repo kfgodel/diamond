@@ -44,4 +44,9 @@ public interface MethodDescription extends MemberDescription {
      * @return The supplier of method generics information
      */
     Supplier<Generics> getGenerics();
+
+    /**
+     * @return The supplier of the method's default value
+     */
+    Supplier<Nary<Object>> getDefaultValue();
 }
