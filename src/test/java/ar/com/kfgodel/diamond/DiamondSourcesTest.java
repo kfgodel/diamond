@@ -44,6 +44,10 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
                     TypeInstance diamondClass = Diamond.of(Object.class);
                     assertThat(diamondClass.name()).isEqualTo("Object");
                 });
+                it("can be obtained from a generic method",()->{
+                    TypeInstance diamondRepresentation = Diamond.from(Object.class);
+                    assertThat(diamondRepresentation.name()).isEqualTo("Object");
+                });
             });
             describe("methods", ()->{
                 it("can be obtained from Method instances", ()->{
@@ -81,6 +85,16 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
                     TypeMethod diamondMethod = Diamond.methods().in(Object.class).withNativeParameters(Object.class).get();
                     assertThat(diamondMethod.name()).isEqualTo("equals");
                 });
+                it("can be obtained from a generic method",()->{
+                    Method methodInstance = null;
+                    try {
+                        methodInstance = Object.class.getMethod("equals", Object.class);
+                    } catch (NoSuchMethodException e) {
+                        throw new RuntimeException("This is why reflection api turns difficult to use",e);
+                    }
+                    TypeMethod diamondMethod = Diamond.from(methodInstance);
+                    assertThat(diamondMethod.name()).isEqualTo("equals");
+                });
             });
             describe("fields", () -> {
                 it("can be obtained from Field instances", () -> {
@@ -95,6 +109,16 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
                 });
                 it("can be obtained from a Class instance and a field name", () -> {
                     TypeField diamondField = Diamond.fields().in(ClassWithIdField.class).named("id").get();
+                    assertThat(diamondField.name()).isEqualTo("id");
+                });
+                it("can be obtained from a generic method",()->{
+                    Field fieldInstance = null;
+                    try {
+                        fieldInstance = ClassWithIdField.class.getDeclaredField("id");
+                    } catch (NoSuchFieldException e) {
+                        throw new RuntimeException("This is why reflection api turns difficult to use", e);
+                    }
+                    TypeField diamondField = Diamond.from(fieldInstance);
                     assertThat(diamondField.name()).isEqualTo("id");
                 });
             });
@@ -121,6 +145,16 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
                             .in(PublicMembersTestObject.class).withNativeParameters(Integer.class).get();
                     assertThat(diamondConstructor.name()).isEqualTo("ar.com.kfgodel.diamond.testobjects.modifiers.PublicMembersTestObject");
                 });
+                it("can be obtained from a generic method",()->{
+                    Constructor<PublicMembersTestObject> constructor = null;
+                    try {
+                        constructor = PublicMembersTestObject.class.getDeclaredConstructor();
+                    } catch (NoSuchMethodException e) {
+                        throw new RuntimeException("This is why reflection api turns difficult to use", e);
+                    }
+                    TypeConstructor diamondConstructor = Diamond.from(constructor);
+                    assertThat(diamondConstructor.name()).isEqualTo("ar.com.kfgodel.diamond.testobjects.modifiers.PublicMembersTestObject");
+                });
             });
 
             describe("packages", () -> {
@@ -135,6 +169,13 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
 
                 it("can be obtained from a name", () -> {
                     TypePackage aPackage = Diamond.packages().named("java.lang");
+
+                    assertThat(aPackage).isNotNull();
+                });
+                it("can be obtained from a generic method",()->{
+                    Package nativePackage = Package.getPackage("java.lang");
+
+                    TypePackage aPackage = Diamond.from(nativePackage);
 
                     assertThat(aPackage).isNotNull();
                 });
@@ -154,12 +195,23 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
                     ExecutableParameter parameter = Diamond.parameters().from(nativeParameter);
 
                     assertThat(parameter.declaredType().name()).isEqualTo("Object");
-                });   
+                });
+
+                it("can be obtained from a generic method",()->{
+                    Method method = null;
+                    try {
+                        method = Object.class.getDeclaredMethod("equals", Object.class);
+                    } catch (NoSuchMethodException e) {
+                        throw new RuntimeException("This is why reflection api turns difficult to use", e);
+                    }
+                    Parameter nativeParameter = method.getParameters()[0];
+
+                    ExecutableParameter parameter = Diamond.from(nativeParameter);
+
+                    assertThat(parameter.declaredType().name()).isEqualTo("Object");
+                });
                 
             });
-
-
         });
-
     }
 }

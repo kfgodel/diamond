@@ -41,6 +41,25 @@ public interface Diamond {
     }
 
     /**
+     * Converts the given native reflection API object into a Diamond representation.<br>
+     * - Classes and types are converted into TypeInstance.<br>
+     * - Methods are converted into TypeMethods.<br>
+     * - Fields into TypeFields.<br>
+     * - Constructors into TypeConstructor.<br>
+     * - int modifiers into Modifiers.<br>
+     * - Parameters into ExecutableParameters<br>
+     * <br>
+     * This a generic entry point that delegates the conversion to more specific versions, like methods().from(Method).,
+     * Use this entry point as a all-purpose converter, or to reduce verbosity
+     * @param nativeReflection The native reflection object that represent a code element
+     * @param <T> The type of expected diamond instance
+     * @return The diamond representation for the given element
+     */
+    public static <T extends DiamondReflection> T from(Object nativeReflection){
+        return API.from(nativeReflection);
+    }
+
+    /**
      * @return An accessor to obtain instances of methods that belong to a class
      */
     public static MethodSources methods(){

@@ -1,5 +1,6 @@
 package ar.com.kfgodel.diamond.api.types;
 
+import ar.com.kfgodel.diamond.api.DiamondReflection;
 import ar.com.kfgodel.diamond.api.annotations.Annotated;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructors;
 import ar.com.kfgodel.diamond.api.declaration.Declarable;
@@ -21,7 +22,7 @@ import java.util.function.Supplier;
  *
  * Created by kfgodel on 20/09/14.
  */
-public interface TypeInstance extends Named, Annotated, Supplier<Object>, Declarable, Generified {
+public interface TypeInstance extends Named, Annotated, Supplier<Object>, Declarable, Generified, DiamondReflection {
 
     /**
      * Returns the accessor object for this type names (in all their varieties)
