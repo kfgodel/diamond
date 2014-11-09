@@ -44,7 +44,7 @@ public class MethodInvocationPerformanceIT extends JavaSpec<DiamondTestContext> 
                 assertThat(result).isEqualTo(4);
             });
 
-            it("1 fastest with direct non reflected access",()->{
+            it("non reflected invocation",()->{
                 measureTest("1. direct methods", (object) -> {
                     int result = 0;
                     for (int i = 0; i < ITERATIONS; i++) {
@@ -54,13 +54,90 @@ public class MethodInvocationPerformanceIT extends JavaSpec<DiamondTestContext> 
                 });
             });
 
-            it("2 fastest with exact method-handles access",()->{
+            it("converted unreflected method-handles invocation",()->{
+                try {
+                    Method nativeMethodA = MethodInvocationTestObject.class.getDeclaredMethod("methodA");
+                    Method nativeMethodB = MethodInvocationTestObject.class.getDeclaredMethod("methodB");
+                    Method nativeMethodC = MethodInvocationTestObject.class.getDeclaredMethod("methodC");
+                    Method nativeMethodD = MethodInvocationTestObject.class.getDeclaredMethod("methodD");
+
+                    MethodHandle originalMethodA = MethodHandles.lookup().unreflect(nativeMethodA);
+                    MethodHandle originalMethodB = MethodHandles.lookup().unreflect(nativeMethodB);
+                    MethodHandle originalMethodC = MethodHandles.lookup().unreflect(nativeMethodC);
+                    MethodHandle originalMethodD = MethodHandles.lookup().unreflect(nativeMethodD);
+
+                    MethodHandle methodA = originalMethodA.asType(MethodType.methodType(Object.class, Object.class));
+                    MethodHandle methodB = originalMethodB.asType(MethodType.methodType(Object.class, Object.class));
+                    MethodHandle methodC = originalMethodC.asType(MethodType.methodType(Object.class, Object.class));
+                    MethodHandle methodD = originalMethodD.asType(MethodType.methodType(Object.class, Object.class));
+
+                    measureTest("2.1 converted methodhandle", (object) -> {
+                        int result = 0;
+                        for (int i = 0; i < ITERATIONS; i++) {
+                            result = invokeConvertedWithHandles(methodA, methodB, methodC, methodD, object);
+                        }
+                        assertThat(result).isEqualTo(4);
+                    });
+                } catch (Exception e) {
+                    throw new RuntimeException("Unexpected test error", e);
+                }
+            });
+            it("inexact method-handles invocation",()->{
                 try {
                     MethodHandle methodA = MethodHandles.lookup().findVirtual(MethodInvocationTestObject.class, "methodA", MethodType.methodType(MethodInvocationTestObject.class));
                     MethodHandle methodB = MethodHandles.lookup().findVirtual(MethodInvocationTestObject.class, "methodB", MethodType.methodType(MethodInvocationTestObject.class));
                     MethodHandle methodC = MethodHandles.lookup().findVirtual(MethodInvocationTestObject.class, "methodC", MethodType.methodType(MethodInvocationTestObject.class));
                     MethodHandle methodD = MethodHandles.lookup().findVirtual(MethodInvocationTestObject.class, "methodD", MethodType.methodType(int.class));
-                    measureTest("2. methodhandle", (object) -> {
+                    measureTest("2.2 inexact methodhandle", (object) -> {
+                        int result = 0;
+                        for (int i = 0; i < ITERATIONS; i++) {
+                            try {
+                                Object resultA = methodA.invoke(object);
+                                Object resultB = methodB.invoke(resultA);
+                                Object resultC = methodC.invoke(resultB);
+                                result = ((int)methodD.invoke(resultC));
+                            } catch (Throwable e) {
+                                throw new RuntimeException("Unexpected test error", e);
+                            }
+                        }
+                        assertThat(result).isEqualTo(4);
+                    });
+                } catch (Exception e) {
+                    throw new RuntimeException("Unexpected test error", e);
+                }
+            });
+
+
+            it("exact unreflected method-handles invocation",()->{
+                try {
+                    Method nativeMethodA = MethodInvocationTestObject.class.getDeclaredMethod("methodA");
+                    Method nativeMethodB = MethodInvocationTestObject.class.getDeclaredMethod("methodB");
+                    Method nativeMethodC = MethodInvocationTestObject.class.getDeclaredMethod("methodC");
+                    Method nativeMethodD = MethodInvocationTestObject.class.getDeclaredMethod("methodD");
+
+                    MethodHandle methodA = MethodHandles.lookup().unreflect(nativeMethodA);
+                    MethodHandle methodB = MethodHandles.lookup().unreflect(nativeMethodB);
+                    MethodHandle methodC = MethodHandles.lookup().unreflect(nativeMethodC);
+                    MethodHandle methodD = MethodHandles.lookup().unreflect(nativeMethodD);
+                    measureTest("3.1 exact unreflected methodhandle", (object) -> {
+                        int result = 0;
+                        for (int i = 0; i < ITERATIONS; i++) {
+                            result = invokeExactlyWithHandles(methodA, methodB, methodC, methodD, object);
+                        }
+                        assertThat(result).isEqualTo(4);
+                    });
+                } catch (Exception e) {
+                    throw new RuntimeException("Unexpected test error", e);
+                }
+            });
+
+            it("exact method-handles invocation",()->{
+                try {
+                    MethodHandle methodA = MethodHandles.lookup().findVirtual(MethodInvocationTestObject.class, "methodA", MethodType.methodType(MethodInvocationTestObject.class));
+                    MethodHandle methodB = MethodHandles.lookup().findVirtual(MethodInvocationTestObject.class, "methodB", MethodType.methodType(MethodInvocationTestObject.class));
+                    MethodHandle methodC = MethodHandles.lookup().findVirtual(MethodInvocationTestObject.class, "methodC", MethodType.methodType(MethodInvocationTestObject.class));
+                    MethodHandle methodD = MethodHandles.lookup().findVirtual(MethodInvocationTestObject.class, "methodD", MethodType.methodType(int.class));
+                    measureTest("3.2 methodhandle", (object) -> {
                         int result = 0;
                         for (int i = 0; i < ITERATIONS; i++) {
                             try {
@@ -78,29 +155,8 @@ public class MethodInvocationPerformanceIT extends JavaSpec<DiamondTestContext> 
                     throw new RuntimeException("Unexpected test error", e);
                 }
             });
-            it("3 fastest with exact unreflected method-handles access",()->{
-                try {
-                    Method nativeMethodA = MethodInvocationTestObject.class.getDeclaredMethod("methodA");
-                    Method nativeMethodB = MethodInvocationTestObject.class.getDeclaredMethod("methodB");
-                    Method nativeMethodC = MethodInvocationTestObject.class.getDeclaredMethod("methodC");
-                    Method nativeMethodD = MethodInvocationTestObject.class.getDeclaredMethod("methodD");
 
-                    MethodHandle methodA = MethodHandles.lookup().unreflect(nativeMethodA);
-                    MethodHandle methodB = MethodHandles.lookup().unreflect(nativeMethodB);
-                    MethodHandle methodC = MethodHandles.lookup().unreflect(nativeMethodC);
-                    MethodHandle methodD = MethodHandles.lookup().unreflect(nativeMethodD);
-                    measureTest("3. exact unreflected methodhandle", (object) -> {
-                        int result = 0;
-                        for (int i = 0; i < ITERATIONS; i++) {
-                            result = invokeExactlyWithHandles(methodA, methodB, methodC, methodD, object);
-                        }
-                        assertThat(result).isEqualTo(4);
-                    });
-                } catch (Exception e) {
-                    throw new RuntimeException("Unexpected test error", e);
-                }
-            });
-            it("4 fastest with native reflection access",()->{
+            it("native reflection invocation",()->{
                 try {
                     Method nativeMethodA = MethodInvocationTestObject.class.getDeclaredMethod("methodA");
                     Method nativeMethodB = MethodInvocationTestObject.class.getDeclaredMethod("methodB");
@@ -114,9 +170,7 @@ public class MethodInvocationPerformanceIT extends JavaSpec<DiamondTestContext> 
                                 Object resultB = nativeMethodB.invoke(resultA);
                                 Object resultC = nativeMethodC.invoke(resultB);
                                 result = ((Number)nativeMethodD.invoke(resultC)).intValue();
-                            } catch (IllegalAccessException e) {
-                                throw new RuntimeException("Unexpected test error", e);
-                            } catch (InvocationTargetException e) {
+                            } catch (IllegalAccessException | InvocationTargetException e) {
                                 throw new RuntimeException("Unexpected test error", e);
                             }
                         }
@@ -126,7 +180,7 @@ public class MethodInvocationPerformanceIT extends JavaSpec<DiamondTestContext> 
                     throw new RuntimeException("Unexpected test error", e);
                 }
             });
-            it("5 fastest with typeMethod access",()->{
+            it("typeMethod invocation",()->{
                 TypeMethod methodA = Diamond.of(MethodInvocationTestObject.class).methods().named("methodA").get();
                 TypeMethod methodB = Diamond.of(MethodInvocationTestObject.class).methods().named("methodB").get();
                 TypeMethod methodC = Diamond.of(MethodInvocationTestObject.class).methods().named("methodC").get();
@@ -141,34 +195,6 @@ public class MethodInvocationPerformanceIT extends JavaSpec<DiamondTestContext> 
                     }
                     assertThat(result).isEqualTo(4);
                 });
-            });
-            it("6 fastest with converted unreflected method-handles access",()->{
-                try {
-                    Method nativeMethodA = MethodInvocationTestObject.class.getDeclaredMethod("methodA");
-                    Method nativeMethodB = MethodInvocationTestObject.class.getDeclaredMethod("methodB");
-                    Method nativeMethodC = MethodInvocationTestObject.class.getDeclaredMethod("methodC");
-                    Method nativeMethodD = MethodInvocationTestObject.class.getDeclaredMethod("methodD");
-
-                    MethodHandle originalMethodA = MethodHandles.lookup().unreflect(nativeMethodA);
-                    MethodHandle originalMethodB = MethodHandles.lookup().unreflect(nativeMethodB);
-                    MethodHandle originalMethodC = MethodHandles.lookup().unreflect(nativeMethodC);
-                    MethodHandle originalMethodD = MethodHandles.lookup().unreflect(nativeMethodD);
-
-                    MethodHandle methodA = originalMethodA.asType(MethodType.methodType(Object.class, Object.class));
-                    MethodHandle methodB = originalMethodB.asType(MethodType.methodType(Object.class, Object.class));
-                    MethodHandle methodC = originalMethodC.asType(MethodType.methodType(Object.class, Object.class));
-                    MethodHandle methodD = originalMethodD.asType(MethodType.methodType(Object.class, Object.class));
-
-                    measureTest("6. converted methodhandle", (object) -> {
-                        int result = 0;
-                        for (int i = 0; i < ITERATIONS; i++) {
-                            result = invokeConvertedWithHandles(methodA, methodB, methodC, methodD, object);
-                        }
-                        assertThat(result).isEqualTo(4);
-                    });
-                } catch (Exception e) {
-                    throw new RuntimeException("Unexpected test error", e);
-                }
             });
 
         });
