@@ -1,5 +1,6 @@
 package ar.com.kfgodel.diamond.impl.sources;
 
+import ar.com.kfgodel.diamond.api.cache.DiamondCache;
 import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 import ar.com.kfgodel.diamond.api.sources.TypeSources;
 import ar.com.kfgodel.diamond.api.types.TypeDescription;
@@ -14,9 +15,10 @@ import ar.com.kfgodel.diamond.impl.types.description.TypeDescriptor;
  */
 public class TypeSourceImpl implements TypeSources {
 
+    private DiamondCache cache;
+
     @Override
     public TypeInstance fromDescription(TypeDescription description) {
-        // If we plan to cache values this should be the place
         return createTypeFrom(description);
     }
 
@@ -35,8 +37,7 @@ public class TypeSourceImpl implements TypeSources {
 
     @Override
     public TypeInstance from(Object type) throws DiamondException {
-        TypeDescription typeDescription = TypeDescriptor.INSTANCE.describe(type);
-        return fromDescription(typeDescription);
+        return cache.reuseOrCreateRepresentationFor(type, () -> fromDescription(TypeDescriptor.INSTANCE.describe(type)));
     }
 
     @Override
@@ -55,8 +56,9 @@ public class TypeSourceImpl implements TypeSources {
         return from(nativeType);
     }
 
-    public static TypeSourceImpl create() {
+    public static TypeSourceImpl create(DiamondCache cache) {
         TypeSourceImpl source = new TypeSourceImpl();
+        source.cache = cache;
         return source;
     }
 

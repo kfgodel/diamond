@@ -1,5 +1,6 @@
 package ar.com.kfgodel.diamond.api;
 
+import ar.com.kfgodel.diamond.api.cache.DiamondCache;
 import ar.com.kfgodel.diamond.api.sources.*;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.DiamondApi;
@@ -101,4 +102,9 @@ public interface Diamond {
     public static ConstructorSources constructors() {
         return API.constructors();
     }
+
+    /**
+     * @return The cache instance used to reference reused instances
+     */
+    public static DiamondCache cache() {return API.getCache();}
 }

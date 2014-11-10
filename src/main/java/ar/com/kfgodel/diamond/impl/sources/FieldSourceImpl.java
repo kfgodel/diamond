@@ -1,6 +1,7 @@
 package ar.com.kfgodel.diamond.impl.sources;
 
 import ar.com.kfgodel.diamond.api.Diamond;
+import ar.com.kfgodel.diamond.api.cache.DiamondCache;
 import ar.com.kfgodel.diamond.api.fields.FieldDescription;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.api.fields.TypeFields;
@@ -16,9 +17,12 @@ import java.lang.reflect.Field;
  */
 public class FieldSourceImpl implements FieldSources {
 
-    public static FieldSourceImpl create() {
-        FieldSourceImpl classFieldSource = new FieldSourceImpl();
-        return classFieldSource;
+    private DiamondCache cache;
+
+    public static FieldSourceImpl create(DiamondCache cache) {
+        FieldSourceImpl source = new FieldSourceImpl();
+        source.cache = cache;
+        return source;
     }
 
     @Override
@@ -27,14 +31,12 @@ public class FieldSourceImpl implements FieldSources {
     }
 
     @Override
-    public TypeField from(Field fieldInstance) {
-        FieldDescription fieldDescription = FieldDescriptor.INSTANCE.describe(fieldInstance);
-        return from(fieldDescription);
+    public TypeField from(Field nativeField) {
+        return cache.reuseOrCreateRepresentationFor(nativeField, () -> from(FieldDescriptor.INSTANCE.describe(nativeField)));
     }
 
     @Override
     public TypeField from(FieldDescription fieldDescription) {
-        // This is the place to cache instances
         return createFieldFrom(fieldDescription);
     }
 
