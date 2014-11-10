@@ -3,12 +3,16 @@ package ar.com.kfgodel.diamond.unit.fields;
 import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.api.Diamond;
+import ar.com.kfgodel.diamond.api.fields.FieldDescription;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
+import ar.com.kfgodel.diamond.impl.fields.description.FieldDescriptor;
 import ar.com.kfgodel.diamond.impl.fields.equality.FieldEquality;
 import ar.com.kfgodel.diamond.unit.DiamondTestContext;
 import ar.com.kfgodel.diamond.unit.testobjects.equality.FieldEqualityTestObjectA;
 import ar.com.kfgodel.diamond.unit.testobjects.equality.FieldEqualityTestObjectB;
 import org.junit.runner.RunWith;
+
+import java.lang.reflect.Field;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -50,8 +54,16 @@ public class FieldEqualityTest extends JavaSpec<DiamondTestContext> {
             describe("hashcode", () -> {
 
                 it("is equal if fields are equals",()->{
-                    TypeField one = getStringAField();
-                    TypeField other = getStringAField();
+                    // Creation from description is not cached
+                    Field field = null;
+                    try {
+                        field = FieldEqualityTestObjectB.class.getDeclaredField("b");
+                    } catch (NoSuchFieldException e) {
+                        throw new RuntimeException("Test assumption failed",e);
+                    }
+                    FieldDescription fieldDescription = FieldDescriptor.INSTANCE.describe(field);
+                    TypeField one = Diamond.fields().fromDescription(fieldDescription);
+                    TypeField other = Diamond.fields().fromDescription(fieldDescription);
 
                     assertThat(one).isNotSameAs(other);
                     assertThat(one).isEqualTo(other);

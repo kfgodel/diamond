@@ -36,11 +36,11 @@ public class MethodSourceImpl implements MethodSources {
      * @return The diamond representation
      */
     public TypeMethod from(Method nativeMethod){
-        return cache.reuseOrCreateRepresentationFor(nativeMethod, ()-> from(MethodDescriptor.INSTANCE.describe(nativeMethod)));
+        return cache.reuseOrCreateRepresentationFor(nativeMethod, ()-> fromDescription(MethodDescriptor.INSTANCE.describe(nativeMethod)));
     }
 
     @Override
-    public TypeMethod from(MethodDescription methodDescription) {
+    public TypeMethod fromDescription(MethodDescription methodDescription) {
         return createMethodFrom(methodDescription);
     }
 

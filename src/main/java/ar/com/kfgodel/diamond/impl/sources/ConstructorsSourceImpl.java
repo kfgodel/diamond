@@ -27,11 +27,11 @@ public class ConstructorsSourceImpl implements ConstructorSources {
 
     @Override
     public TypeConstructor from(Constructor<?> nativeConstructor) {
-        return cache.reuseOrCreateRepresentationFor(nativeConstructor, ()-> from(ConstructorDescriptor.INSTANCE.describe(nativeConstructor)));
+        return cache.reuseOrCreateRepresentationFor(nativeConstructor, ()-> fromDescription(ConstructorDescriptor.INSTANCE.describe(nativeConstructor)));
     }
 
     @Override
-    public TypeConstructor from(ConstructorDescription constructorDescription) {
+    public TypeConstructor fromDescription(ConstructorDescription constructorDescription) {
         return createConstructorFrom(constructorDescription);
     }
 

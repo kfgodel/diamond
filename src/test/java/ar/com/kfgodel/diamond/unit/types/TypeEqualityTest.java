@@ -2,11 +2,13 @@ package ar.com.kfgodel.diamond.unit.types;
 
 import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
-import ar.com.kfgodel.diamond.unit.DiamondTestContext;
 import ar.com.kfgodel.diamond.api.Diamond;
+import ar.com.kfgodel.diamond.api.types.TypeDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.reference.ReferenceOf;
+import ar.com.kfgodel.diamond.impl.types.description.TypeDescriptor;
 import ar.com.kfgodel.diamond.impl.types.equality.TypeEquality;
+import ar.com.kfgodel.diamond.unit.DiamondTestContext;
 import org.junit.runner.RunWith;
 
 import java.lang.reflect.AnnotatedType;
@@ -106,8 +108,10 @@ public class TypeEqualityTest extends JavaSpec<DiamondTestContext> {
             describe("hashcode", () -> {
 
                 it("is equal if type are equals",()->{
-                    TypeInstance one = getStringType();
-                    TypeInstance other = getStringType();
+                    //Creation from description is not cached
+                    TypeDescription stringDescription = TypeDescriptor.INSTANCE.describe(String.class);
+                    TypeInstance one = Diamond.types().fromDescription(stringDescription);
+                    TypeInstance other = Diamond.types().fromDescription(stringDescription);
 
                     assertThat(one).isNotSameAs(other);
                     assertThat(one).isEqualTo(other);

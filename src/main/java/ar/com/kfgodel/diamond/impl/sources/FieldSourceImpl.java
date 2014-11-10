@@ -32,11 +32,11 @@ public class FieldSourceImpl implements FieldSources {
 
     @Override
     public TypeField from(Field nativeField) {
-        return cache.reuseOrCreateRepresentationFor(nativeField, () -> from(FieldDescriptor.INSTANCE.describe(nativeField)));
+        return cache.reuseOrCreateRepresentationFor(nativeField, () -> fromDescription(FieldDescriptor.INSTANCE.describe(nativeField)));
     }
 
     @Override
-    public TypeField from(FieldDescription fieldDescription) {
+    public TypeField fromDescription(FieldDescription fieldDescription) {
         return createFieldFrom(fieldDescription);
     }
 

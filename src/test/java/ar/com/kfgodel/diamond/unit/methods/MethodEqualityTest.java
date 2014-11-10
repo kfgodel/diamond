@@ -3,12 +3,16 @@ package ar.com.kfgodel.diamond.unit.methods;
 import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.api.Diamond;
+import ar.com.kfgodel.diamond.api.methods.MethodDescription;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
+import ar.com.kfgodel.diamond.impl.methods.description.MethodDescriptor;
 import ar.com.kfgodel.diamond.impl.methods.equality.MethodEquality;
 import ar.com.kfgodel.diamond.unit.DiamondTestContext;
 import ar.com.kfgodel.diamond.unit.testobjects.equality.MethodEqualityTestObjectA;
 import ar.com.kfgodel.diamond.unit.testobjects.equality.MethodEqualityTestObjectB;
 import org.junit.runner.RunWith;
+
+import java.lang.reflect.Method;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -62,8 +66,16 @@ public class MethodEqualityTest extends JavaSpec<DiamondTestContext> {
             describe("hashcode", () -> {
 
                 it("is equal if method are equals",()->{
-                    TypeMethod one = getStringParameterAMethod();
-                    TypeMethod other = getStringParameterAMethod();
+                    // Creation from description is not cached
+                    Method method = null;
+                    try {
+                        method = MethodEqualityTestObjectA.class.getDeclaredMethod("a", String.class);
+                    } catch (NoSuchMethodException e) {
+                        throw new RuntimeException("Test assumption failed", e);
+                    }
+                    MethodDescription methodDescription = MethodDescriptor.INSTANCE.describe(method);
+                    TypeMethod one = Diamond.methods().fromDescription(methodDescription);
+                    TypeMethod other = Diamond.methods().fromDescription(methodDescription);
 
                     assertThat(one).isNotSameAs(other);
                     assertThat(one).isEqualTo(other);

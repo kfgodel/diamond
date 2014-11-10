@@ -25,11 +25,11 @@ public class ParameterSourcesImpl implements ParameterSources {
 
     @Override
     public ExecutableParameter from(Parameter nativeParameter) {
-        return cache.reuseOrCreateRepresentationFor(nativeParameter, ()-> from(ParameterDescriptor.INSTANCE.describe(nativeParameter)));
+        return cache.reuseOrCreateRepresentationFor(nativeParameter, ()-> fromDescription(ParameterDescriptor.INSTANCE.describe(nativeParameter)));
     }
 
     @Override
-    public ExecutableParameter from(ParameterDescription description) {
+    public ExecutableParameter fromDescription(ParameterDescription description) {
         return createParameterFrom(description);
     }
 

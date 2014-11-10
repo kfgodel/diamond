@@ -24,11 +24,11 @@ public class PackageSourcesImpl implements PackageSources {
 
     @Override
     public TypePackage from(Package nativePackage) {
-        return cache.reuseOrCreateRepresentationFor(nativePackage, ()-> from(PackageDescriptor.INSTANCE.describe(nativePackage)));
+        return cache.reuseOrCreateRepresentationFor(nativePackage, ()-> fromDescription(PackageDescriptor.INSTANCE.describe(nativePackage)));
     }
 
     @Override
-    public TypePackage from(PackageDescription description){
+    public TypePackage fromDescription(PackageDescription description){
         return createPackageFrom(description);
     }
 

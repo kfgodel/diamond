@@ -2,13 +2,17 @@ package ar.com.kfgodel.diamond.unit.constructors;
 
 import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
-import ar.com.kfgodel.diamond.unit.DiamondTestContext;
 import ar.com.kfgodel.diamond.api.Diamond;
+import ar.com.kfgodel.diamond.api.constructors.ConstructorDescription;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
+import ar.com.kfgodel.diamond.impl.constructors.description.ConstructorDescriptor;
 import ar.com.kfgodel.diamond.impl.constructors.equality.ConstructorEquality;
+import ar.com.kfgodel.diamond.unit.DiamondTestContext;
 import ar.com.kfgodel.diamond.unit.testobjects.equality.ConstructorEqualityTestObjectA;
 import ar.com.kfgodel.diamond.unit.testobjects.equality.ConstructorEqualityTestObjectB;
 import org.junit.runner.RunWith;
+
+import java.lang.reflect.Constructor;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -55,8 +59,16 @@ public class ConstructorEqualityTest extends JavaSpec<DiamondTestContext> {
             describe("hashcode", () -> {
 
                 it("is equal if constructors are equals",()->{
-                    TypeConstructor one = getStringParameterConstructor();
-                    TypeConstructor other = getStringParameterConstructor();
+                    // Creation from description is not cached
+                    Constructor<ConstructorEqualityTestObjectA> nativeConstructor = null;
+                    try {
+                        nativeConstructor = ConstructorEqualityTestObjectA.class.getDeclaredConstructor(String.class);
+                    } catch (NoSuchMethodException e) {
+                        throw new RuntimeException("Failed test assumption", e);
+                    }
+                    ConstructorDescription constructorDescription = ConstructorDescriptor.INSTANCE.describe(nativeConstructor);
+                    TypeConstructor one = Diamond.constructors().fromDescription(constructorDescription);
+                    TypeConstructor other = Diamond.constructors().fromDescription(constructorDescription);
 
                     assertThat(one).isNotSameAs(other);
                     assertThat(one).isEqualTo(other);
