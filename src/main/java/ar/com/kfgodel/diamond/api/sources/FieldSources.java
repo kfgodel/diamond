@@ -32,5 +32,5 @@ public interface FieldSources {
      * @param fieldDescription The description of the field
      * @return The class field representation
      */
-    TypeField from(FieldDescription fieldDescription);
+    TypeField fromDescription(FieldDescription fieldDescription);
 }

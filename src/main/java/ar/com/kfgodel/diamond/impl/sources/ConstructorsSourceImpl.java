@@ -1,6 +1,7 @@
 package ar.com.kfgodel.diamond.impl.sources;
 
 import ar.com.kfgodel.diamond.api.Diamond;
+import ar.com.kfgodel.diamond.api.cache.DiamondCache;
 import ar.com.kfgodel.diamond.api.constructors.ConstructorDescription;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructors;
@@ -16,20 +17,21 @@ import java.lang.reflect.Constructor;
  */
 public class ConstructorsSourceImpl implements ConstructorSources {
 
-    public static ConstructorsSourceImpl create() {
+    private DiamondCache cache;
+
+    public static ConstructorsSourceImpl create(DiamondCache cache) {
         ConstructorsSourceImpl source = new ConstructorsSourceImpl();
+        source.cache = cache;
         return source;
     }
 
     @Override
     public TypeConstructor from(Constructor<?> nativeConstructor) {
-        ConstructorDescription constructorDescription = ConstructorDescriptor.INSTANCE.describe(nativeConstructor);
-        return from(constructorDescription);
+        return cache.reuseOrCreateRepresentationFor(nativeConstructor, ()-> fromDescription(ConstructorDescriptor.INSTANCE.describe(nativeConstructor)));
     }
 
     @Override
-    public TypeConstructor from(ConstructorDescription constructorDescription) {
-        // This is the place to cache instances
+    public TypeConstructor fromDescription(ConstructorDescription constructorDescription) {
         return createConstructorFrom(constructorDescription);
     }
 

@@ -28,7 +28,7 @@ public class ArrayConstructorDescription implements ConstructorDescription {
 
     @Override
     public Supplier<Nary<ExecutableParameter>> getParameters() {
-        return NaryFromElementSupplier.lazilyBy(() -> Diamond.parameters().from(ArrayConstructorParameterDescription.INSTANCE));
+        return NaryFromElementSupplier.lazilyBy(() -> Diamond.parameters().fromDescription(ArrayConstructorParameterDescription.INSTANCE));
     }
 
     @Override

@@ -1,6 +1,7 @@
 package ar.com.kfgodel.diamond.impl.sources;
 
 import ar.com.kfgodel.diamond.api.Diamond;
+import ar.com.kfgodel.diamond.api.cache.DiamondCache;
 import ar.com.kfgodel.diamond.api.methods.MethodDescription;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.methods.TypeMethods;
@@ -16,9 +17,12 @@ import java.lang.reflect.Method;
  */
 public class MethodSourceImpl implements MethodSources {
 
-    public static MethodSourceImpl create() {
-        MethodSourceImpl classMethodSource = new MethodSourceImpl();
-        return classMethodSource;
+    private DiamondCache cache;
+
+    public static MethodSourceImpl create(DiamondCache cache) {
+        MethodSourceImpl source = new MethodSourceImpl();
+        source.cache = cache;
+        return source;
     }
 
     @Override
@@ -28,17 +32,15 @@ public class MethodSourceImpl implements MethodSources {
 
     /**
      * Retrieves the diamond instance of the given native method instance
-     * @param methodInstance The native method instance
+     * @param nativeMethod The native method instance
      * @return The diamond representation
      */
-    public TypeMethod from(Method methodInstance){
-        MethodDescription methodDescription = MethodDescriptor.INSTANCE.describe(methodInstance);
-        return from(methodDescription);
+    public TypeMethod from(Method nativeMethod){
+        return cache.reuseOrCreateRepresentationFor(nativeMethod, ()-> fromDescription(MethodDescriptor.INSTANCE.describe(nativeMethod)));
     }
 
     @Override
-    public TypeMethod from(MethodDescription methodDescription) {
-        // This is the place to cache instances
+    public TypeMethod fromDescription(MethodDescription methodDescription) {
         return createMethodFrom(methodDescription);
     }
 

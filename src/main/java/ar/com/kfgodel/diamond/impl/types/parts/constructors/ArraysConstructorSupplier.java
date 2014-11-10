@@ -21,7 +21,7 @@ public class ArraysConstructorSupplier {
     public static Supplier<Nary<TypeConstructor>> create(Class<?> nativeArrayClass) {
         return NaryFromElementSupplier.using(CachedValue.lazilyBy(() -> {
             ConstructorDescription arrayConstructorDescription = ArrayConstructorDescription.create(nativeArrayClass);
-            TypeConstructor constructor = Diamond.constructors().from(arrayConstructorDescription);
+            TypeConstructor constructor = Diamond.constructors().fromDescription(arrayConstructorDescription);
             return constructor;
         }));
     }

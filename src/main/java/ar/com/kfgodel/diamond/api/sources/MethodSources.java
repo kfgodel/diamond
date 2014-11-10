@@ -31,5 +31,5 @@ public interface MethodSources {
      * @param methodDescription The method description
      * @return The class methods
      */
-    TypeMethod from(MethodDescription methodDescription);
+    TypeMethod fromDescription(MethodDescription methodDescription);
 }

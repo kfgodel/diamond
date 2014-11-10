@@ -1,5 +1,6 @@
 package ar.com.kfgodel.diamond.impl.sources;
 
+import ar.com.kfgodel.diamond.api.cache.DiamondCache;
 import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 import ar.com.kfgodel.diamond.api.sources.PackageSources;
 import ar.com.kfgodel.diamond.api.types.packages.PackageDescription;
@@ -13,20 +14,21 @@ import ar.com.kfgodel.diamond.impl.types.packages.TypePackageImpl;
  */
 public class PackageSourcesImpl implements PackageSources {
 
-    public static PackageSourcesImpl create() {
+    private DiamondCache cache;
+
+    public static PackageSourcesImpl create(DiamondCache cache) {
         PackageSourcesImpl sources = new PackageSourcesImpl();
+        sources.cache = cache;
         return sources;
     }
 
     @Override
     public TypePackage from(Package nativePackage) {
-        PackageDescription description = PackageDescriptor.INSTANCE.describe(nativePackage);
-        return from(description);
+        return cache.reuseOrCreateRepresentationFor(nativePackage, ()-> fromDescription(PackageDescriptor.INSTANCE.describe(nativePackage)));
     }
 
     @Override
-    public TypePackage from(PackageDescription description){
-        // Cache?
+    public TypePackage fromDescription(PackageDescription description){
         return createPackageFrom(description);
     }
 

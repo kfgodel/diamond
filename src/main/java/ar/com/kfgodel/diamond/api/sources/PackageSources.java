@@ -30,5 +30,5 @@ public interface PackageSources {
      * @param description The package description
      * @return The package instance
      */
-    TypePackage from(PackageDescription description);
+    TypePackage fromDescription(PackageDescription description);
 }

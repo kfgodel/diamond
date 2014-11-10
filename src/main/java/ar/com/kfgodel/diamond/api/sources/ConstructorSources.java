@@ -23,7 +23,7 @@ public interface ConstructorSources {
      * @param constructorDescription The description to get an instance
      * @return The diamond representation for the description
      */
-    TypeConstructor from(ConstructorDescription constructorDescription);
+    TypeConstructor fromDescription(ConstructorDescription constructorDescription);
 
     /**
      * Defines the class in which the constructor is going to be accessed

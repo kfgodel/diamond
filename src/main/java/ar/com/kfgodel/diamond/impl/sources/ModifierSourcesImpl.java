@@ -1,5 +1,6 @@
 package ar.com.kfgodel.diamond.impl.sources;
 
+import ar.com.kfgodel.diamond.api.cache.DiamondCache;
 import ar.com.kfgodel.diamond.api.members.modifiers.*;
 import ar.com.kfgodel.diamond.api.sources.ModifierSources;
 import ar.com.kfgodel.nary.api.Nary;
@@ -17,8 +18,11 @@ import java.util.stream.Stream;
  */
 public class ModifierSourcesImpl implements ModifierSources {
 
-    public static ModifierSourcesImpl create() {
+    private DiamondCache cache;
+
+    public static ModifierSourcesImpl create(DiamondCache cache) {
         ModifierSourcesImpl sources = new ModifierSourcesImpl();
+        sources.cache = cache;
         return sources;
     }
 
@@ -30,6 +34,10 @@ public class ModifierSourcesImpl implements ModifierSources {
 
     @Override
     public List<Modifier> from(int modifierBitmap) {
+        return cache.reuseOrCreateRepresentationFor(modifierBitmap, ()-> createMemberModifierListFor(modifierBitmap));
+    }
+
+    private List<Modifier> createMemberModifierListFor(int modifierBitmap) {
         return all()
                 .filter((modifier) -> modifier.isPresentIn(modifierBitmap))
                 .collect(Collectors.toList());

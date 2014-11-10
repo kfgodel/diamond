@@ -210,8 +210,8 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
 
                     assertThat(parameter.declaredType().name()).isEqualTo("Object");
                 });
-                
             });
+
         });
     }
 }

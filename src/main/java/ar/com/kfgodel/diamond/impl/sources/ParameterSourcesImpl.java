@@ -1,5 +1,6 @@
 package ar.com.kfgodel.diamond.impl.sources;
 
+import ar.com.kfgodel.diamond.api.cache.DiamondCache;
 import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.diamond.api.parameters.description.ParameterDescription;
 import ar.com.kfgodel.diamond.api.sources.ParameterSources;
@@ -14,20 +15,21 @@ import java.lang.reflect.Parameter;
  */
 public class ParameterSourcesImpl implements ParameterSources {
 
-    public static ParameterSourcesImpl create() {
-        ParameterSourcesImpl parameterSources = new ParameterSourcesImpl();
-        return parameterSources;
+    private DiamondCache cache;
+
+    public static ParameterSourcesImpl create(DiamondCache cache) {
+        ParameterSourcesImpl source = new ParameterSourcesImpl();
+        source.cache = cache;
+        return source;
     }
 
     @Override
     public ExecutableParameter from(Parameter nativeParameter) {
-        // Cache here
-        ParameterDescription description = ParameterDescriptor.INSTANCE.describe(nativeParameter);
-        return from(description);
+        return cache.reuseOrCreateRepresentationFor(nativeParameter, ()-> fromDescription(ParameterDescriptor.INSTANCE.describe(nativeParameter)));
     }
 
     @Override
-    public ExecutableParameter from(ParameterDescription description) {
+    public ExecutableParameter fromDescription(ParameterDescription description) {
         return createParameterFrom(description);
     }
 

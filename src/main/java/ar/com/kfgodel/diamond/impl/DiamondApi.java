@@ -1,8 +1,10 @@
 package ar.com.kfgodel.diamond.impl;
 
 import ar.com.kfgodel.diamond.api.DiamondReflection;
+import ar.com.kfgodel.diamond.api.cache.DiamondCache;
 import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 import ar.com.kfgodel.diamond.api.sources.*;
+import ar.com.kfgodel.diamond.impl.cache.WeakMapCache;
 import ar.com.kfgodel.diamond.impl.sources.*;
 
 import java.lang.reflect.*;
@@ -17,6 +19,7 @@ import java.util.function.Function;
  */
 public class DiamondApi {
 
+    private DiamondCache cache;
     private MethodSources methods;
     private FieldSources fields;
     private TypeSources types;
@@ -28,13 +31,14 @@ public class DiamondApi {
 
     public static DiamondApi create() {
         DiamondApi diamondApi = new DiamondApi();
-        diamondApi.fields = FieldSourceImpl.create();
-        diamondApi.methods = MethodSourceImpl.create();
-        diamondApi.types = TypeSourceImpl.create();
-        diamondApi.constructors = ConstructorsSourceImpl.create();
-        diamondApi.modifiers = ModifierSourcesImpl.create();
-        diamondApi.packages = PackageSourcesImpl.create();
-        diamondApi.parameters = ParameterSourcesImpl.create();
+        diamondApi.cache = WeakMapCache.create();
+        diamondApi.types = TypeSourceImpl.create(diamondApi.cache);
+        diamondApi.fields = FieldSourceImpl.create(diamondApi.cache);
+        diamondApi.methods = MethodSourceImpl.create(diamondApi.cache);
+        diamondApi.constructors = ConstructorsSourceImpl.create(diamondApi.cache);
+        diamondApi.modifiers = ModifierSourcesImpl.create(diamondApi.cache);
+        diamondApi.packages = PackageSourcesImpl.create(diamondApi.cache);
+        diamondApi.parameters = ParameterSourcesImpl.create(diamondApi.cache);
         diamondApi.converterPerType = new LinkedHashMap<>();
         diamondApi.initialize();
         return diamondApi;
@@ -82,6 +86,16 @@ public class DiamondApi {
     }
 
     public <T extends DiamondReflection> T from(Object nativeReflection) {
+        return cache.reuseOrCreateRepresentationFor(nativeReflection, () -> delegateToCorrespondingType(nativeReflection));
+    }
+
+    /**
+     * Searches for the converter of the given native reflection object
+     * @param nativeReflection The native reflection representation
+     * @param <T> The expected returned diamond type
+     * @return The converted representation
+     */
+    private <T extends DiamondReflection> T delegateToCorrespondingType(Object nativeReflection) {
         Set<Map.Entry<Class<?>, Function<Object, DiamondReflection>>> entries = converterPerType.entrySet();
         for (Map.Entry<Class<?>, Function<Object, DiamondReflection>> entry : entries) {
             Class<?> sourceType = entry.getKey();
@@ -93,5 +107,9 @@ public class DiamondApi {
             return (T) representation;
         }
         throw new DiamondException("There's no conversion defined yet for: "+ nativeReflection);
+    }
+
+    public DiamondCache getCache() {
+        return cache;
     }
 }

@@ -22,5 +22,5 @@ public interface ParameterSources {
      * @param description The parameter description
      * @return The executable parameter
      */
-    ExecutableParameter from(ParameterDescription description);
+    ExecutableParameter fromDescription(ParameterDescription description);
 }
