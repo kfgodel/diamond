@@ -45,6 +45,11 @@ public class SuppliedTypesInheritance implements TypeInheritance {
         return FunctionBasedTypeLineage.create(type, (type) -> type.inheritance().superclass());
     }
 
+    @Override
+    public Nary<TypeInstance> supertypes() {
+        return superclass().joinedWith(interfaces());
+    }
+
     public static SuppliedTypesInheritance create(TypeInstance type, InheritanceDescription description) {
         SuppliedTypesInheritance inheritance = new SuppliedTypesInheritance();
         inheritance.type = type;

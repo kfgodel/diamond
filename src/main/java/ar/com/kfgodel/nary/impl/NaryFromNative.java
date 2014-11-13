@@ -320,6 +320,11 @@ public class NaryFromNative<T> implements Nary<T> {
         return getClass().getSimpleName() + "{stream: " + this.nativeStream + ", optional: " + this.nativeOptional + "}";
     }
 
+    @Override
+    public Nary<T> joinedWith(Nary<T> otherNary) {
+        return NaryFromNative.create(Stream.concat(this, otherNary));
+    }
+
     private Stream<T> asNativeStream() {
         if (nativeStream == null) {
             nativeStream = StreamFromOptional.create(this.asNativeOptional());

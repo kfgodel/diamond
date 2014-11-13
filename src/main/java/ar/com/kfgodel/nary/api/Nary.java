@@ -200,4 +200,12 @@ public interface Nary<T> extends Stream<T>, Optional<T> {
      */
     @Override
     public String toString();
+
+    /**
+     * Creates another nary that is the result of joining the elements of this nary, and the given parameter
+     *
+     * @param otherNary The other nary to join
+     * @return The created joined elements nary
+     */
+    Nary<T> joinedWith(Nary<T> otherNary);
 }
