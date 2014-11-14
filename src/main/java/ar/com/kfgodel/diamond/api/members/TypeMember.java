@@ -26,4 +26,11 @@ public interface TypeMember extends Named, Annotated, Modifiable, Generified, De
      */
     @Override
     Generics generics();
+
+    /**
+     * Indicates if this members belongs (an requires) an instance to be used on, or not.<br>
+     *     Static methods, static fields and constructors don't require an instance.
+     * @return true if this member requires an instance to be used
+     */
+    boolean isInstanceMember();
 }
