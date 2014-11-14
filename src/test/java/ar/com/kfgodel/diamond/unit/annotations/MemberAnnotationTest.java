@@ -3,13 +3,19 @@ package ar.com.kfgodel.diamond.unit.annotations;
 import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.api.Diamond;
+import ar.com.kfgodel.diamond.api.members.TypeMember;
+import ar.com.kfgodel.diamond.api.members.predicates.IsAnnotated;
+import ar.com.kfgodel.diamond.api.naming.Named;
 import ar.com.kfgodel.diamond.unit.DiamondTestContext;
 import ar.com.kfgodel.diamond.unit.testobjects.annotations.MemberAnnotationTestObject;
+import ar.com.kfgodel.diamond.unit.testobjects.annotations.TestAnnotation1;
+import ar.com.kfgodel.nary.api.Nary;
 import org.junit.runner.RunWith;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -87,11 +93,30 @@ public class MemberAnnotationTest extends JavaSpec<DiamondTestContext> {
 
                     Stream<Annotation> annotations = context().constructor().annotations();
 
-                    assertThat(annotations.map(Annotation::annotationType).map(Type::getTypeName).collect(Collectors.toList()))
+                    List<String> annotationTypeNames = annotations.map(Annotation::annotationType).map(Type::getTypeName).collect(Collectors.toList());
+                    assertThat(annotationTypeNames)
                             .isEqualTo(Arrays.asList("ar.com.kfgodel.diamond.unit.testobjects.annotations.TestAnnotation1", "ar.com.kfgodel.diamond.unit.testobjects.annotations.TestAnnotation2"));
 
                 });
             });
+
+            describe("on a member", () -> {
+
+                it("can be discriminated by annotation type",()->{
+
+                    Nary<TypeMember> allMembers = context().typeInstance().members();
+
+                    List<String> annotatedMemberNames = allMembers.filter(IsAnnotated.with(TestAnnotation1.class))
+                            .map(Named::name)
+                            .collect(Collectors.toList());
+
+                    assertThat(annotatedMemberNames)
+                            .contains("annotatedField", "annotatedMethod")
+                            .doesNotContain("unannotatedField", "unannotatedMethod");
+
+                });                  
+            });
+
 
         });
 
