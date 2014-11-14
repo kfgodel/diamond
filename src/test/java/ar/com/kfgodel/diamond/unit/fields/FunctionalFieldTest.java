@@ -75,7 +75,7 @@ public class FunctionalFieldTest extends JavaSpec<DiamondTestContext> {
                 } catch (Exception e) {
                     assertThat(e.getMessage())
                             .startsWith("Get for instance field[")
-                            .endsWith("FunctionalFieldTestObject.instanceField] cannot be done without an instance");
+                            .endsWith("FunctionalFieldTestObject.instanceField] cannot be done on null instance");
                 }
             });
 

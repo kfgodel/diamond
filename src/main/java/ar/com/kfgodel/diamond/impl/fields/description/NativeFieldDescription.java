@@ -12,6 +12,8 @@ import ar.com.kfgodel.diamond.impl.members.exceptions.NoExceptionsSupplier;
 import ar.com.kfgodel.diamond.impl.members.generics.UnGenerifiedMemberGenerics;
 import ar.com.kfgodel.diamond.impl.members.modifiers.suppliers.ImmutableMemberModifiers;
 import ar.com.kfgodel.diamond.impl.members.parameters.NoParametersSupplier;
+import ar.com.kfgodel.diamond.impl.natives.invokables.fields.NativeFieldGetter;
+import ar.com.kfgodel.diamond.impl.natives.invokables.fields.NativeFieldSetter;
 import ar.com.kfgodel.diamond.impl.natives.invokables.fields.NativeInstanceFieldInvoker;
 import ar.com.kfgodel.diamond.impl.natives.invokables.fields.NativeStaticFieldInvoker;
 import ar.com.kfgodel.diamond.impl.natives.suppliers.AnnotatedElementAnnotationsSupplier;
@@ -20,6 +22,8 @@ import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
@@ -73,6 +77,16 @@ public class NativeFieldDescription implements FieldDescription {
     @Override
     public Supplier<Nary<Annotation>> getAnnotations() {
         return AnnotatedElementAnnotationsSupplier.create(nativeField);
+    }
+
+    @Override
+    public Supplier<BiConsumer<Object, Object>> getSetter() {
+        return CachedValue.lazilyBy(() -> NativeFieldSetter.create(nativeField));
+    }
+
+    @Override
+    public Supplier<Function<Object, Object>> getGetter() {
+        return CachedValue.lazilyBy(() -> NativeFieldGetter.create(nativeField));
     }
 
     @Override
