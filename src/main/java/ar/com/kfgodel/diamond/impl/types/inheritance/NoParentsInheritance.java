@@ -40,6 +40,11 @@ public class NoParentsInheritance implements TypeInheritance {
         return SingleTypeLineage.create(type);
     }
 
+    @Override
+    public Nary<TypeInstance> supertypes() {
+        return NaryFromNative.empty();
+    }
+
     public static NoParentsInheritance create(TypeInstance type) {
         NoParentsInheritance inheritance = new NoParentsInheritance();
         inheritance.type = type;
