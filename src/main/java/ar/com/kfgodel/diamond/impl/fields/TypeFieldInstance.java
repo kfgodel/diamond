@@ -9,6 +9,8 @@ import ar.com.kfgodel.diamond.impl.members.TypeMemberSupport;
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.impl.NaryFromNative;
 
+import java.util.function.BiConsumer;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
@@ -18,6 +20,8 @@ import java.util.function.Supplier;
 public class TypeFieldInstance extends TypeMemberSupport implements TypeField {
 
     private Supplier<TypeInstance> fieldType;
+    private Supplier<BiConsumer<Object, Object>> setter;
+    private Supplier<Function<Object, Object>> getter;
 
     @Override
     public TypeInstance type() {
@@ -26,32 +30,32 @@ public class TypeFieldInstance extends TypeMemberSupport implements TypeField {
 
     @Override
     public <R> R getValueFrom(Object instance) {
-        return (R) asFunction().apply(instance);
+        return (R) getter.get().apply(instance);
     }
 
     @Override
     public void setValueOn(Object instance, Object value) {
-        asFunction().accept(instance, value);
+        setter.get().accept(instance, value);
     }
 
     @Override
     public Object get() {
-        return asFunction().get();
+        return getValueFrom(null);
     }
 
     @Override
     public void accept(Object argument) {
-        this.asFunction().accept(argument);
+        setValueOn(null, argument);
     }
 
     @Override
     public void accept(Object instance, Object value) {
-        asFunction().accept(instance, value);
+        setValueOn(instance, value);
     }
 
     @Override
     public Object apply(Object instance) {
-        return asFunction().apply(instance);
+        return getValueFrom(instance);
     }
 
     @Override
@@ -73,6 +77,8 @@ public class TypeFieldInstance extends TypeMemberSupport implements TypeField {
         TypeFieldInstance field = new TypeFieldInstance();
         field.initialize(description);
         field.fieldType = description.getType();
+        field.setter = description.getSetter();
+        field.getter = description.getGetter();
         return field;
     }
 
