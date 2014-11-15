@@ -55,4 +55,10 @@ public class TypeConstructorInstance extends TypeMemberSupport implements TypeCo
     public TypeInstance returnType() {
         return declaringType();
     }
+
+    @Override
+    public boolean isInstanceMember() {
+        // Constructors are always class members (don't require an instance)
+        return false;
+    }
 }
