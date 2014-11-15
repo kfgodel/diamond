@@ -1,5 +1,6 @@
 package ar.com.kfgodel.diamond.impl.natives.invokables.fields;
 
+import ar.com.kfgodel.diamond.impl.natives.NativeMemberAccessibility;
 import ar.com.kfgodel.diamond.impl.natives.fragments.NativeFieldSetterFragment;
 
 import java.lang.reflect.Field;
@@ -19,6 +20,7 @@ public class NativeFieldSetter implements BiConsumer<Object,Object> {
     }
 
     public static NativeFieldSetter create(Field nativeField) {
+        NativeMemberAccessibility.ensuredFor(nativeField);
         NativeFieldSetter setter = new NativeFieldSetter();
         setter.nativeField = nativeField;
         return setter;
