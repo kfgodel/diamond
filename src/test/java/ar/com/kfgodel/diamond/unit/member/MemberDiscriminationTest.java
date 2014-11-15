@@ -5,11 +5,17 @@ import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
+import ar.com.kfgodel.diamond.api.members.TypeMember;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
+import ar.com.kfgodel.diamond.api.naming.Named;
 import ar.com.kfgodel.diamond.unit.DiamondTestContext;
 import ar.com.kfgodel.diamond.unit.testobjects.modifiers.PublicMembersTestObject;
 import ar.com.kfgodel.diamond.unit.testobjects.modifiers.StaticMembersTestObject;
+import ar.com.kfgodel.nary.api.Nary;
 import org.junit.runner.RunWith;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -50,6 +56,18 @@ public class MemberDiscriminationTest extends JavaSpec<DiamondTestContext> {
                 TypeField method = Diamond.of(PublicMembersTestObject.class).fields().named("field").get();
                 assertThat(method.isInstanceMember()).isTrue();
             });
+        });
+
+        describe("all members", () -> {
+
+            it("can be accessed together",()->{
+                Nary<TypeMember> allMembers = Diamond.of(PublicMembersTestObject.class).members();
+
+                List<String> memberNames = allMembers.map(Named::name).collect(Collectors.toList());
+
+                assertThat(memberNames).contains("field","method","ar.com.kfgodel.diamond.unit.testobjects.modifiers.PublicMembersTestObject");
+            });
+
         });
 
 

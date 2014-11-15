@@ -321,9 +321,11 @@ public class NaryFromNative<T> implements Nary<T> {
     }
 
     @Override
-    public Nary<T> joinedWith(Nary<T> otherNary) {
-        return NaryFromNative.create(Stream.concat(this, otherNary));
+    public<S> Nary<S> joinedWith(Stream<? extends S> otherNary) {
+        return NaryFromNative.create(Stream.concat((Stream) this, otherNary));
     }
+
+
 
     private Stream<T> asNativeStream() {
         if (nativeStream == null) {

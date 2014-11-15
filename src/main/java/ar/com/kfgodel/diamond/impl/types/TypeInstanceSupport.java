@@ -4,6 +4,7 @@ import ar.com.kfgodel.diamond.api.constructors.TypeConstructors;
 import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.api.fields.TypeFields;
+import ar.com.kfgodel.diamond.api.members.TypeMember;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.methods.TypeMethods;
 import ar.com.kfgodel.diamond.api.types.TypeDescription;
@@ -168,6 +169,11 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     @Override
     public Nary<TypePackage> declaredPackage() {
         return typePackage.get();
+    }
+
+    @Override
+    public Nary<TypeMember> members() {
+        return fields().all().joinedWith(methods().all()).joinedWith(constructors().all());
     }
 
     protected void initializeSuper(TypeDescription description){

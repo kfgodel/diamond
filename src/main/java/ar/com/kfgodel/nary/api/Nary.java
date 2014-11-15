@@ -207,5 +207,5 @@ public interface Nary<T> extends Stream<T>, Optional<T> {
      * @param otherNary The other nary to join
      * @return The created joined elements nary
      */
-    Nary<T> joinedWith(Nary<T> otherNary);
+    <S> Nary<S> joinedWith(Stream<? extends S> otherNary);
 }

@@ -6,6 +6,7 @@ import ar.com.kfgodel.diamond.api.constructors.TypeConstructors;
 import ar.com.kfgodel.diamond.api.declaration.Declarable;
 import ar.com.kfgodel.diamond.api.fields.TypeFields;
 import ar.com.kfgodel.diamond.api.generics.Generified;
+import ar.com.kfgodel.diamond.api.members.TypeMember;
 import ar.com.kfgodel.diamond.api.methods.TypeMethods;
 import ar.com.kfgodel.diamond.api.naming.Named;
 import ar.com.kfgodel.diamond.api.types.generics.TypeGenerics;
@@ -90,4 +91,9 @@ public interface TypeInstance extends Named, Annotated, Supplier<Object>, Declar
      * @return The package declared for this type, or empty if this type has none
      */
     Nary<TypePackage> declaredPackage();
+
+    /**
+     * @return The nary of all the members (methods, fields and constructors)
+     */
+    Nary<TypeMember> members();
 }
