@@ -68,6 +68,14 @@ public class BoundFieldTest extends JavaSpec<DiamondTestContext> {
                 assertThat(bound.instance()).isSameAs(instance);
             });
 
+            it("has an easily accessible name",()->{
+                TypeField typeField = context().field();
+
+                BoundField bound = typeField.bindTo(context().object());
+
+                assertThat(bound.name()).isEqualTo("field");
+            });
+
 
             describe("requiring one less argument", () -> {
 

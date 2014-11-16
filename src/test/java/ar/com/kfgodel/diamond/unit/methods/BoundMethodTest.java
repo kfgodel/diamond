@@ -61,6 +61,14 @@ public class BoundMethodTest extends JavaSpec<DiamondTestContext> {
 
                 assertThat(bound.instance()).isSameAs(instance);
             });   
+            
+            it("has a easily accessible name",()->{
+                TypeMethod typeMethod = context().method();
+
+                BoundMethod bound = typeMethod.bindTo(context().object());
+
+                assertThat(bound.name()).isEqualTo("sum");
+            });
 
 
             describe("requiring one less argument", () -> {

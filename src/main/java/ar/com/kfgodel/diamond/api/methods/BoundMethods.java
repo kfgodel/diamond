@@ -7,15 +7,15 @@ import ar.com.kfgodel.nary.api.Nary;
 import java.lang.reflect.Type;
 
 /**
- * This type represents the source of class methods for a given type
- * Created by kfgodel on 18/09/14.
+ * This type represents the source of bound methods from a meta-object
+ * Created by kfgodel on 17/11/14.
  */
-public interface TypeMethods extends NamedBehaviorSource<TypeMethod> {
+public interface BoundMethods extends NamedBehaviorSource<BoundMethod> {
 
     /**
      * @return All the class methods for the type
      */
-    Nary<TypeMethod> all();
+    Nary<BoundMethod> all();
 
     /**
      * Retrieves this type methods that match the given name (including all of them, inherited and overloaded).<br>
@@ -23,7 +23,7 @@ public interface TypeMethods extends NamedBehaviorSource<TypeMethod> {
      * @param methodName The name for the searched methods
      * @return The nary of matching methods or an empty (if no match)
      */
-    Nary<TypeMethod> named(String methodName);
+    Nary<BoundMethod> named(String methodName);
 
     /**
      * Retrieves the methods of the type that matches name and parameter types (including inherited).<br>
@@ -32,7 +32,7 @@ public interface TypeMethods extends NamedBehaviorSource<TypeMethod> {
      * @param parameterTypes The method parameter types
      * @return The nary of matching methods
      */
-    Nary<TypeMethod> withSignature(String methodName, TypeInstance... parameterTypes);
+    Nary<BoundMethod> withSignature(String methodName, TypeInstance... parameterTypes);
 
     /**
      * Retrieves the methods of the type that matches name and parameter types (including inherited).<br>
@@ -41,7 +41,7 @@ public interface TypeMethods extends NamedBehaviorSource<TypeMethod> {
      * @param nativeParameterTypes The method parameter types
      * @return The nary of matching methods
      */
-    Nary<TypeMethod> withNativeSignature(String methodName, Type... nativeParameterTypes);
+    Nary<BoundMethod> withNativeSignature(String methodName, Type... nativeParameterTypes);
 
     /**
      * Retrieves the methods of the type that matches the given parameter types.<br>
@@ -50,6 +50,6 @@ public interface TypeMethods extends NamedBehaviorSource<TypeMethod> {
      * @return The found methods
      */
     @Override
-    Nary<TypeMethod> withParameters(TypeInstance... paramTypes);
+    Nary<BoundMethod> withParameters(TypeInstance... paramTypes);
 
 }

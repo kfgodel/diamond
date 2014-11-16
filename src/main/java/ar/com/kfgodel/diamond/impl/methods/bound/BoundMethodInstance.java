@@ -34,4 +34,8 @@ public class BoundMethodInstance implements BoundMethod {
         return boundMethod;
     }
 
+    @Override
+    public String name() {
+        return method.name();
+    }
 }

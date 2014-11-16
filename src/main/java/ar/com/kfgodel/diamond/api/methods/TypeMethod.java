@@ -1,5 +1,6 @@
 package ar.com.kfgodel.diamond.api.methods;
 
+import ar.com.kfgodel.diamond.api.behavior.Bindable;
 import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
 import ar.com.kfgodel.diamond.api.members.TypeMember;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
@@ -9,7 +10,7 @@ import ar.com.kfgodel.nary.api.Nary;
  * This type represents a method defined for a type that expresses behavior
  * Created by kfgodel on 18/09/14.
  */
-public interface TypeMethod extends TypeMember, PolymorphicInvokable {
+public interface TypeMethod extends TypeMember, PolymorphicInvokable, Bindable<BoundMethod> {
 
     /**
      * @return The method name selector
