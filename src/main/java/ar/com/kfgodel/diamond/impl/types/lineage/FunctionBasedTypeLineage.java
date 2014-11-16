@@ -2,6 +2,7 @@ package ar.com.kfgodel.diamond.impl.types.lineage;
 
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.inheritance.TypeLineage;
+import ar.com.kfgodel.diamond.impl.types.iteration.AllSuperTypesSpliterator;
 import ar.com.kfgodel.diamond.impl.types.iteration.TypeInstanceSpliterator;
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.impl.NaryFromNative;
@@ -95,6 +96,11 @@ public class FunctionBasedTypeLineage implements TypeLineage {
                         interfaz.inheritance().interfaces()));
         // If an indirect interface is inherited more than once, we want just one occurrence
         return NaryFromNative.create(indirectInterfaces.distinct());
+    }
+
+    @Override
+    public Nary<TypeInstance> allRelatedTypes() {
+        return NaryFromNative.create(AllSuperTypesSpliterator.create(lowestDescendant()));
     }
 
     public static FunctionBasedTypeLineage create(TypeInstance lowest, Function<TypeInstance, Nary<? extends TypeInstance>> advanceOperation) {

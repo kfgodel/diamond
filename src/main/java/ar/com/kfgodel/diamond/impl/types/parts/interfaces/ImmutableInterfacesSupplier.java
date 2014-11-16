@@ -13,6 +13,6 @@ import java.util.function.Supplier;
 public class ImmutableInterfacesSupplier {
 
     public static Supplier<Nary<TypeInstance>> create(Class<?> rawClass) {
-        return TypeNarySupplierFromNativeTypeArray.apply(rawClass::getAnnotatedInterfaces);
+        return TypeNarySupplierFromNativeTypeArray.apply(rawClass::getInterfaces);
     }
 }

@@ -90,10 +90,12 @@ public class AllTypeInterfacesTest extends JavaSpec<DiamondTestContext> {
             describe("for array types", () -> {
                 context().typeInstance(() -> Diamond.of(String[].class));
 
-                it("is empty",()->{
+                it("includes cloneable and serializable",()->{
                     Stream<TypeInstance> interfaces = context().typeInstance().inheritance().interfaces();
 
-                    assertThat(interfaces.count()).isEqualTo(0);
+                    List<String> interfaceNames = interfaces.map(Named::name).collect(Collectors.toList());
+
+                    assertThat(interfaceNames).isEqualTo(Arrays.asList("Cloneable", "Serializable"));
                 });
 
             });

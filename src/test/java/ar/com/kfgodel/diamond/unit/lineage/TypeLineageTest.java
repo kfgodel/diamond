@@ -28,9 +28,7 @@ public class TypeLineageTest extends JavaSpec<DiamondTestContext> {
 
         describe("type lineage", ()->{
 
-            beforeEach(()->{
-                context().lineage(()-> Diamond.of(ChildClass.class).inheritance().typeLineage());
-            });
+            context().lineage(()-> Diamond.of(ChildClass.class).inheritance().typeLineage());
 
             it("starts from its creator class as the lowest descendant", ()->{
                 assertThat(context().lineage().lowestDescendant().name())
@@ -79,7 +77,7 @@ public class TypeLineageTest extends JavaSpec<DiamondTestContext> {
 
             describe("generic arguments", ()->{
                 it("start from the lowest descendant", ()->{
-                    List<String> argumentNames = context().lineage().lowestDescendant().generics().arguments().map((arg) -> arg.name()).collect(Collectors.toList());
+                    List<String> argumentNames = context().lineage().lowestDescendant().generics().arguments().map(Named::name).collect(Collectors.toList());
                     assertThat(argumentNames).isEqualTo(Arrays.asList());
                 });
                 it("bubble up to its parent", ()->{
@@ -97,15 +95,22 @@ public class TypeLineageTest extends JavaSpec<DiamondTestContext> {
                 });
             });
 
+            it("can answer all the related types",()->{
+                List<String> allTypeNames = context().lineage().allRelatedTypes().map(Named::name).collect(Collectors.toList());
+                assertThat(allTypeNames)
+                        .isEqualTo(Arrays.asList("ChildClass", "ParentClass", "ChildInterface1", "ChildInterface2",
+                                "GrandParentClass", "ParentInterface2", "ParentInterface1", "Serializable", "Object",
+                                "GrandParentInterface1"));
+            });   
         });
 
-        describe("class lineage", ()->{
+        describe("class lineage", () -> {
 
             beforeEach(() -> {
                 context().lineage(() -> Diamond.of(ChildClass.class).inheritance().classLineage());
             });
 
-            it("doesn't have type arguments for any member", ()->{
+            it("doesn't have type arguments for any member", () -> {
                 TypeInstance childType = context().lineage().lowestDescendant();
                 assertThat(childType.generics().arguments().count()).isEqualTo(0);
 

@@ -43,4 +43,10 @@ public interface TypeLineage {
      * @return The complete set of interfaces that the lowest member inherits directly or indirectly by its supertype members
      */
     Nary<TypeInstance> inheritedInterfaces();
+
+    /**
+     * @return The set of types that are related to this lineage. That is all the types that are members, are direct supertypes of the members,
+     * or indirect supertypes of the members. The resulting nary is guaranteed to contain no duplicate
+     */
+    Nary<TypeInstance> allRelatedTypes();
 }
