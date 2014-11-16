@@ -2,6 +2,7 @@ package ar.com.kfgodel.diamond.unit;
 
 import ar.com.dgarcia.javaspec.api.TestContext;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
+import ar.com.kfgodel.diamond.api.fields.BoundField;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.api.invokable.Invokable;
 import ar.com.kfgodel.diamond.api.methods.BoundMethod;
@@ -66,4 +67,8 @@ public interface DiamondTestContext extends TestContext {
 
     BoundMethod boundMethod();
     void boundMethod(Supplier<BoundMethod> definition);
+
+    BoundField boundField();
+    void boundField(Supplier<BoundField> definition);
+
 }

@@ -1,8 +1,10 @@
 package ar.com.kfgodel.diamond.impl.fields;
 
+import ar.com.kfgodel.diamond.api.fields.BoundField;
 import ar.com.kfgodel.diamond.api.fields.FieldDescription;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.diamond.impl.fields.bound.BoundFieldInstance;
 import ar.com.kfgodel.diamond.impl.fields.declaration.FieldDeclaration;
 import ar.com.kfgodel.diamond.impl.fields.equality.FieldEquality;
 import ar.com.kfgodel.diamond.impl.members.TypeMemberSupport;
@@ -95,5 +97,10 @@ public class TypeFieldInstance extends TypeMemberSupport implements TypeField {
     @Override
     public TypeInstance returnType() {
         return type();
+    }
+
+    @Override
+    public BoundField bindTo(Object object) {
+        return BoundFieldInstance.create(this,object);
     }
 }
