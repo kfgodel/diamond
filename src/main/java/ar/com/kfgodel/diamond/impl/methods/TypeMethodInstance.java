@@ -1,9 +1,11 @@
 package ar.com.kfgodel.diamond.impl.methods;
 
+import ar.com.kfgodel.diamond.api.methods.BoundMethod;
 import ar.com.kfgodel.diamond.api.methods.MethodDescription;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.members.TypeMemberSupport;
+import ar.com.kfgodel.diamond.impl.methods.bound.BoundMethodInstance;
 import ar.com.kfgodel.diamond.impl.methods.declaration.MethodDeclaration;
 import ar.com.kfgodel.diamond.impl.methods.equality.MethodEquality;
 import ar.com.kfgodel.diamond.impl.natives.invokables.InstanceArguments;
@@ -92,5 +94,10 @@ public class TypeMethodInstance extends TypeMemberSupport implements TypeMethod 
     @Override
     public Nary<Object> defaultValue() {
         return defaultValue.get();
+    }
+
+    @Override
+    public BoundMethod bindTo(Object instance) {
+        return BoundMethodInstance.create(this, instance);
     }
 }
