@@ -235,6 +235,11 @@ public class NaryFromNative<T> implements Nary<T> {
         return create(nativeStream, null);
     }
 
+    public static<T> NaryFromNative<T> create(Spliterator<T> spliterator) {
+        return create(StreamSupport.stream(spliterator, false));
+    }
+
+
     public static<T> NaryFromNative<T> create(java.util.Optional<T> nativeOptional) {
         return create(null, nativeOptional);
     }

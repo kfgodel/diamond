@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 /**
- * This type represents a spliterator that generates values from previos, using a function.<br>
+ * This type represents a spliterator that generates values from previous, using a function.<br>
  *     The iteration is done when the function returns an empty optional
  * Created by kfgodel on 13/10/14.
  */

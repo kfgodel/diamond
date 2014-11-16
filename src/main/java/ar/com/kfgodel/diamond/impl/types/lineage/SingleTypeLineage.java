@@ -2,6 +2,7 @@ package ar.com.kfgodel.diamond.impl.types.lineage;
 
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.inheritance.TypeLineage;
+import ar.com.kfgodel.diamond.impl.types.iteration.AllSuperTypesSpliterator;
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.impl.NaryFromNative;
 
@@ -43,6 +44,11 @@ public class SingleTypeLineage implements TypeLineage {
     @Override
     public Nary<TypeInstance> inheritedInterfaces() {
         return NaryFromNative.empty();
+    }
+
+    @Override
+    public Nary<TypeInstance> allRelatedTypes() {
+        return NaryFromNative.create(AllSuperTypesSpliterator.create(lowestDescendant()));
     }
 
     public static SingleTypeLineage create(TypeInstance singleType) {
