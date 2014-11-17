@@ -101,4 +101,11 @@ public interface TypeMethod extends TypeMember, PolymorphicInvokable {
      * An empty nary otherwise.
      */
     Nary<Object> defaultValue();
+
+    /**
+     * Binds this method to the given object, making it implicit in every method call as 'this'
+     * @param instance The instance to bind
+     * @return The bound method
+     */
+    BoundMethod bindTo(Object instance);
 }

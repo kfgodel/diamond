@@ -4,6 +4,7 @@ import ar.com.dgarcia.javaspec.api.TestContext;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.api.invokable.Invokable;
+import ar.com.kfgodel.diamond.api.methods.BoundMethod;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
@@ -62,4 +63,7 @@ public interface DiamondTestContext extends TestContext {
 
     ExecutableParameter parameter();
     void parameter(Supplier<ExecutableParameter> definition);
+
+    BoundMethod boundMethod();
+    void boundMethod(Supplier<BoundMethod> definition);
 }
