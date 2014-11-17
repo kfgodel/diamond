@@ -107,4 +107,11 @@ public interface Diamond {
      * @return The cache instance used to reference reused instances
      */
     public static DiamondCache cache() {return API.getCache();}
+
+    /**
+     * @return An accessor to obtain meta-object instances that represent a meta-level view of an object
+     */
+    public static MetaObjectSources metaObjects() {
+        return API.metaObjects();
+    }
 }

@@ -46,4 +46,8 @@ public class BoundFieldInstance implements BoundField {
         return boundField;
     }
 
+    @Override
+    public String name() {
+        return field.name();
+    }
 }

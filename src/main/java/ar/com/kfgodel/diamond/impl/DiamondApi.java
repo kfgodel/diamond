@@ -27,6 +27,7 @@ public class DiamondApi {
     private ModifierSources modifiers;
     private PackageSources packages;
     private ParameterSources parameters;
+    private MetaObjectSources metaObjects;
     private LinkedHashMap<Class<?>, Function<Object, DiamondReflection>> converterPerType;
 
     public static DiamondApi create() {
@@ -39,6 +40,7 @@ public class DiamondApi {
         diamondApi.modifiers = ModifierSourcesImpl.create(diamondApi.cache);
         diamondApi.packages = PackageSourcesImpl.create(diamondApi.cache);
         diamondApi.parameters = ParameterSourcesImpl.create(diamondApi.cache);
+        diamondApi.metaObjects = MetaObjectSourcesImpl.create(diamondApi.cache);
         diamondApi.converterPerType = new LinkedHashMap<>();
         diamondApi.initialize();
         return diamondApi;
@@ -111,5 +113,9 @@ public class DiamondApi {
 
     public DiamondCache getCache() {
         return cache;
+    }
+
+    public MetaObjectSources metaObjects() {
+        return metaObjects;
     }
 }
