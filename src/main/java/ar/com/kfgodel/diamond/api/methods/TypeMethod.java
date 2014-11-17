@@ -1,8 +1,11 @@
 package ar.com.kfgodel.diamond.api.methods;
 
-import ar.com.kfgodel.diamond.api.behavior.Bindable;
+import ar.com.kfgodel.diamond.api.behavior.ArgumentBindable;
+import ar.com.kfgodel.diamond.api.behavior.InstanceBindable;
 import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
+import ar.com.kfgodel.diamond.api.members.TypeBehavior;
 import ar.com.kfgodel.diamond.api.members.TypeMember;
+import ar.com.kfgodel.diamond.api.members.call.BehaviorCall;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.nary.api.Nary;
 
@@ -10,7 +13,7 @@ import ar.com.kfgodel.nary.api.Nary;
  * This type represents a method defined for a type that expresses behavior
  * Created by kfgodel on 18/09/14.
  */
-public interface TypeMethod extends TypeMember, PolymorphicInvokable, Bindable<BoundMethod> {
+public interface TypeMethod extends TypeMember, TypeBehavior, PolymorphicInvokable, InstanceBindable<BoundMethod>, ArgumentBindable {
 
     /**
      * @return The method name selector
@@ -109,4 +112,11 @@ public interface TypeMethod extends TypeMember, PolymorphicInvokable, Bindable<B
      * @return The bound method
      */
     BoundMethod bindTo(Object instance);
+
+    /**
+     * Creates a method call of this method with the given arguments
+     * @param arguments The arguments to use when invoking this method in the method call
+     * @return The created method call
+     */
+    BehaviorCall withArguments(Object... arguments);
 }

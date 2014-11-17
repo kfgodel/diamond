@@ -1,10 +1,12 @@
 package ar.com.kfgodel.diamond.impl.methods;
 
+import ar.com.kfgodel.diamond.api.members.call.BehaviorCall;
 import ar.com.kfgodel.diamond.api.methods.BoundMethod;
 import ar.com.kfgodel.diamond.api.methods.MethodDescription;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.members.TypeMemberSupport;
+import ar.com.kfgodel.diamond.impl.members.call.BehaviorCallInstance;
 import ar.com.kfgodel.diamond.impl.methods.bound.BoundMethodInstance;
 import ar.com.kfgodel.diamond.impl.methods.declaration.MethodDeclaration;
 import ar.com.kfgodel.diamond.impl.methods.equality.MethodEquality;
@@ -99,5 +101,10 @@ public class TypeMethodInstance extends TypeMemberSupport implements TypeMethod 
     @Override
     public BoundMethod bindTo(Object instance) {
         return BoundMethodInstance.create(this, instance);
+    }
+
+    @Override
+    public BehaviorCall withArguments(Object... arguments) {
+        return BehaviorCallInstance.create(this, arguments);
     }
 }

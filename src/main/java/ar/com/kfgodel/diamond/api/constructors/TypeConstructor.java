@@ -1,7 +1,10 @@
 package ar.com.kfgodel.diamond.api.constructors;
 
+import ar.com.kfgodel.diamond.api.behavior.ArgumentBindable;
 import ar.com.kfgodel.diamond.api.invokable.Invokable;
+import ar.com.kfgodel.diamond.api.members.TypeBehavior;
 import ar.com.kfgodel.diamond.api.members.TypeMember;
+import ar.com.kfgodel.diamond.api.members.call.BehaviorCall;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.nary.api.Nary;
 
@@ -12,7 +15,7 @@ import java.util.function.Supplier;
  * This type represents the a constructor defined for a type that creates new type instances
  * Created by kfgodel on 15/10/14.
  */
-public interface TypeConstructor extends TypeMember, Supplier<Object>, Function<Object, Object>, Invokable {
+public interface TypeConstructor extends TypeMember, TypeBehavior, Supplier<Object>, Function<Object, Object>, Invokable, ArgumentBindable {
 
 
     /**
@@ -59,4 +62,12 @@ public interface TypeConstructor extends TypeMember, Supplier<Object>, Function<
      */
     @Override
     TypeInstance returnType();
+
+    /**
+     * Creates a behavior call of this constructor with the given arguments, making them implicit
+     * @param arguments The arguments to use when invoking this constructor in the method call
+     * @return The created method call
+     */
+    BehaviorCall withArguments(Object... arguments);
+
 }

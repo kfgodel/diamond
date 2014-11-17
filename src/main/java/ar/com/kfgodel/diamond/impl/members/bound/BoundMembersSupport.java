@@ -1,6 +1,6 @@
 package ar.com.kfgodel.diamond.impl.members.bound;
 
-import ar.com.kfgodel.diamond.api.behavior.Bindable;
+import ar.com.kfgodel.diamond.api.behavior.InstanceBindable;
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.impl.NaryFromNative;
 
@@ -21,7 +21,7 @@ public class BoundMembersSupport {
      * @param bindables The methods to bind
      * @return The bound methods
      */
-    protected <T> Nary<T> boundVersionOf(Nary<? extends Bindable<T>> bindables) {
+    protected <T> Nary<T> boundVersionOf(Nary<? extends InstanceBindable<T>> bindables) {
         return NaryFromNative.create(bindables.map((bindable) -> bindable.bindTo(bindInstance)));
     }
 

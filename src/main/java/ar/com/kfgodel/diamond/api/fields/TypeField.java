@@ -1,6 +1,6 @@
 package ar.com.kfgodel.diamond.api.fields;
 
-import ar.com.kfgodel.diamond.api.behavior.Bindable;
+import ar.com.kfgodel.diamond.api.behavior.InstanceBindable;
 import ar.com.kfgodel.diamond.api.invokable.Invokable;
 import ar.com.kfgodel.diamond.api.members.TypeMember;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
@@ -15,7 +15,7 @@ import java.util.function.Supplier;
  * This type represents a field defined for a type that can store state
  * Created by kfgodel on 18/09/14.
  */
-public interface TypeField extends TypeMember, Consumer<Object>, BiConsumer<Object, Object>, Supplier<Object>, Function<Object,Object>, Invokable, Bindable<BoundField> {
+public interface TypeField extends TypeMember, Consumer<Object>, BiConsumer<Object, Object>, Supplier<Object>, Function<Object,Object>, Invokable, InstanceBindable<BoundField> {
 
     /**
      * @return The name of the field
