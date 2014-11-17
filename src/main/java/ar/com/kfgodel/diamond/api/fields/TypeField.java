@@ -92,4 +92,11 @@ public interface TypeField extends TypeMember, Consumer<Object>, BiConsumer<Obje
      */
     @Override
     TypeInstance returnType();
+
+    /**
+     * Binds this field to the given object as 'this'
+     * @param object The instance to bind to
+     * @return The bound field
+     */
+    BoundField bindTo(Object object);
 }
