@@ -1,10 +1,11 @@
-package ar.com.kfgodel.diamond.unit;
+package ar.com.kfgodel.diamond.unit.invokables;
 
 import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 import ar.com.kfgodel.diamond.api.invokable.Invokable;
+import ar.com.kfgodel.diamond.unit.DiamondTestContext;
 import ar.com.kfgodel.diamond.unit.testobjects.invokables.InvokableTestObject;
 import org.junit.runner.RunWith;
 

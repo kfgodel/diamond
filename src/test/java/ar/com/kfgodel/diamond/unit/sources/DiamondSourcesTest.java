@@ -1,4 +1,4 @@
-package ar.com.kfgodel.diamond.unit;
+package ar.com.kfgodel.diamond.unit.sources;
 
 import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
@@ -9,6 +9,7 @@ import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
+import ar.com.kfgodel.diamond.unit.DiamondTestContext;
 import ar.com.kfgodel.diamond.unit.testobjects.ClassWithIdField;
 import ar.com.kfgodel.diamond.unit.testobjects.modifiers.PublicMembersTestObject;
 import org.junit.runner.RunWith;
