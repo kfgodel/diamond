@@ -13,7 +13,6 @@ import ar.com.kfgodel.diamond.unit.testobjects.modifiers.PublicMembersTestObject
 import ar.com.kfgodel.nary.api.Nary;
 import org.junit.runner.RunWith;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -69,7 +68,7 @@ public class MetaObjectTest extends JavaSpec<DiamondTestContext> {
                 Nary<BoundMethod> allMethods = metaObject.methods().all();
                 List<String> allMethodNames = allMethods.map(Named::name).collect(Collectors.toList());
 
-                assertThat(allMethodNames).isEqualTo(Arrays.asList("method", "finalize", "wait", "wait", "wait", "equals", "toString", "hashCode", "getClass", "clone", "registerNatives", "notify", "notifyAll"));
+                assertThat(allMethodNames).contains("method", "finalize", "wait", "wait", "wait", "equals", "toString", "hashCode", "getClass", "clone", "registerNatives", "notify", "notifyAll");
             }); 
             
             it("allows access to all the fields bound to the object",()->{
@@ -79,7 +78,7 @@ public class MetaObjectTest extends JavaSpec<DiamondTestContext> {
                 Nary<BoundField> allFields = metaObject.fields().all();
                 List<String> allFieldNames = allFields.map(Named::name).collect(Collectors.toList());
 
-                assertThat(allFieldNames).isEqualTo(Arrays.asList("field"));
+                assertThat(allFieldNames).contains("field");
             });
 
             it("allows access to the object type",()->{
