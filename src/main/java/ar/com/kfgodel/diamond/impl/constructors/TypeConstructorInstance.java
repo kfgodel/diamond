@@ -8,12 +8,18 @@ import ar.com.kfgodel.diamond.impl.constructors.declaration.ConstructorDeclarati
 import ar.com.kfgodel.diamond.impl.constructors.equality.ConstructorEquality;
 import ar.com.kfgodel.diamond.impl.members.TypeMemberSupport;
 import ar.com.kfgodel.diamond.impl.members.call.BehaviorCallInstance;
+import ar.com.kfgodel.nary.api.Nary;
+
+import java.lang.reflect.Constructor;
+import java.util.function.Supplier;
 
 /**
  * This type represents an instance of type constructor
  * Created by kfgodel on 15/10/14.
  */
 public class TypeConstructorInstance extends TypeMemberSupport implements TypeConstructor {
+
+    private Supplier<Nary<Constructor>> nativeConstructor;
 
     @Override
     public boolean equals(Object obj) {
@@ -45,6 +51,7 @@ public class TypeConstructorInstance extends TypeMemberSupport implements TypeCo
     public static TypeConstructor create(ConstructorDescription description) {
         TypeConstructorInstance constructor = new TypeConstructorInstance();
         constructor.initialize(description);
+        constructor.nativeConstructor = description.getNativeConstructor();
         return constructor;
     }
 
@@ -61,6 +68,11 @@ public class TypeConstructorInstance extends TypeMemberSupport implements TypeCo
     @Override
     public BehaviorCall withArguments(Object... arguments) {
         return BehaviorCallInstance.create(this, arguments);
+    }
+
+    @Override
+    public Nary<Constructor> nativeType() {
+        return nativeConstructor.get();
     }
 
     @Override

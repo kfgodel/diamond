@@ -6,6 +6,7 @@ import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -49,4 +50,9 @@ public interface FieldDescription extends MemberDescription {
      * @return The supplier of the getter function for the field
      */
     Supplier<Function<Object,Object>> getGetter();
+
+    /**
+     * @return The supplier of the fields native representation
+     */
+    Supplier<Nary<Field>> getNativeField();
 }

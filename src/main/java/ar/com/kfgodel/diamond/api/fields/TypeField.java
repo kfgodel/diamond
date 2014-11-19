@@ -6,6 +6,7 @@ import ar.com.kfgodel.diamond.api.members.TypeMember;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.nary.api.Nary;
 
+import java.lang.reflect.Field;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -100,4 +101,9 @@ public interface TypeField extends TypeMember, Consumer<Object>, BiConsumer<Obje
      * @return The bound field
      */
     BoundField bindTo(Object object);
+
+    /**
+     * @return The native representation of this field if any
+     */
+    Nary<Field> nativeType();
 }

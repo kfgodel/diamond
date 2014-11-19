@@ -7,6 +7,7 @@ import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
 import java.util.function.Supplier;
 
 /**
@@ -49,4 +50,9 @@ public interface MethodDescription extends MemberDescription {
      * @return The supplier of the method's default value
      */
     Supplier<Nary<Object>> getDefaultValue();
+
+    /**
+     * @return The supplier of the native representation
+     */
+    Supplier<Nary<Method>> getNativeMethod();
 }
