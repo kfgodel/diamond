@@ -62,6 +62,8 @@ public abstract class TypeInstanceSupport implements TypeInstance {
 
     private Supplier<Nary<TypePackage>> typePackage;
 
+    private Supplier<Nary<Class<?>>> rawClasses;
+
     /**
      * Use this to override default creation with no annotations
      * @param annotationSupplier The new annotations
@@ -176,11 +178,17 @@ public abstract class TypeInstanceSupport implements TypeInstance {
         return fields().all().joinedWith(methods().all()).joinedWith(constructors().all());
     }
 
+    @Override
+    public Nary<Class<?>> rawClasses() {
+        return rawClasses.get();
+    }
+
     protected void initializeSuper(TypeDescription description){
         this.setNames(description.getNames());
         this.setAnnotations(description.getAnnotations());
         this.setMethods(description.getTypeMethods());
         this.setFields(description.getTypeFields());
+        this.rawClasses = description.getRawClassesSupplier();
         this.typePackage = description.getDeclaredPackage();
         this.inheritance = SuppliedTypesInheritance.create(this, description.getInheritanceDescription());
     };

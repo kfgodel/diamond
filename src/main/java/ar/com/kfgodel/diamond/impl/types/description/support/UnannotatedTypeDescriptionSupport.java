@@ -18,6 +18,7 @@ import ar.com.kfgodel.diamond.impl.types.parts.methods.ClassMethodSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.typearguments.NoTypeArgumentsSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.typeparameters.NoTypeParametersSupplier;
 import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.impl.NaryFromCollectionSupplier;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
@@ -104,5 +105,10 @@ public abstract class UnannotatedTypeDescriptionSupport implements TypeDescripti
     @Override
     public Supplier<Nary<TypeConstructor>> getTypeConstructors() {
         return NonInstantiableConstructorSupplier.INSTANCE;
+    }
+
+    @Override
+    public Supplier<Nary<Class<?>>> getRawClassesSupplier() {
+        return NaryFromCollectionSupplier.from(getBehavioralClasses());
     }
 }

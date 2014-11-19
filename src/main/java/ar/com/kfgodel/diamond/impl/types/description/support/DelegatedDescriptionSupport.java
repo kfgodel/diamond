@@ -81,4 +81,9 @@ public abstract class DelegatedDescriptionSupport implements TypeDescription {
     }
 
     protected abstract TypeDescription getDelegateDescription();
+
+    @Override
+    public Supplier<Nary<Class<?>>> getRawClassesSupplier() {
+        return getDelegateDescription().getRawClassesSupplier();
+    }
 }
