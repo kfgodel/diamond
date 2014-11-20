@@ -82,4 +82,9 @@ public interface TypeDescription {
      * @return The supplier of the optional package for the type
      */
     Supplier<Nary<TypePackage>> getDeclaredPackage();
+
+    /**
+     * @return The supplier of the raw classes for the runtime descriptio nof the type
+     */
+    Supplier<Nary<Class<?>>> getRawClassesSupplier();
 }
