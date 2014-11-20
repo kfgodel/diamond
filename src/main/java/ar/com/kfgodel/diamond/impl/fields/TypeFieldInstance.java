@@ -11,6 +11,7 @@ import ar.com.kfgodel.diamond.impl.members.TypeMemberSupport;
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.impl.NaryFromNative;
 
+import java.lang.reflect.Field;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -24,6 +25,7 @@ public class TypeFieldInstance extends TypeMemberSupport implements TypeField {
     private Supplier<TypeInstance> fieldType;
     private Supplier<BiConsumer<Object, Object>> setter;
     private Supplier<Function<Object, Object>> getter;
+    private Supplier<Nary<Field>> nativeField;
 
     @Override
     public TypeInstance type() {
@@ -81,6 +83,7 @@ public class TypeFieldInstance extends TypeMemberSupport implements TypeField {
         field.fieldType = description.getType();
         field.setter = description.getSetter();
         field.getter = description.getGetter();
+        field.nativeField = description.getNativeField();
         return field;
     }
 
@@ -102,5 +105,10 @@ public class TypeFieldInstance extends TypeMemberSupport implements TypeField {
     @Override
     public BoundField bindTo(Object object) {
         return BoundFieldInstance.create(this,object);
+    }
+
+    @Override
+    public Nary<Field> nativeType() {
+        return nativeField.get();
     }
 }

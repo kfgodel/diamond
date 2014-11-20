@@ -9,6 +9,8 @@ import ar.com.kfgodel.diamond.api.members.call.BehaviorCall;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.nary.api.Nary;
 
+import java.lang.reflect.Method;
+
 /**
  * This type represents a method defined for a type that expresses behavior
  * Created by kfgodel on 18/09/14.
@@ -119,4 +121,9 @@ public interface TypeMethod extends TypeMember, TypeBehavior, PolymorphicInvokab
      * @return The created method call
      */
     BehaviorCall withArguments(Object... arguments);
+
+    /**
+     * @return The native representation of this method (if any)
+     */
+    Nary<Method> nativeType();
 }

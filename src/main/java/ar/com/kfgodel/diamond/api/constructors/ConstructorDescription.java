@@ -7,6 +7,7 @@ import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Constructor;
 import java.util.function.Supplier;
 
 /**
@@ -39,4 +40,9 @@ public interface ConstructorDescription extends MemberDescription {
      * @return The supplier of constructor's generics information
      */
     Supplier<Generics> getGenerics();
+
+    /**
+     * @return tHte supplier of the constructor native representation
+     */
+    Supplier<Nary<Constructor>> getNativeConstructor();
 }

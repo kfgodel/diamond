@@ -99,7 +99,7 @@ public interface TypeInstance extends Named, Annotated, Supplier<Object>, Declar
 
     /**
      * @return The nary of classes that represent this type in runtime (if any).<br>
-     *     More than one can be present if this is a upper bounded type
+     *     More than one can be present if this is an upper bounded type
      */
-    Nary<Class<?>> rawClasses();
+    Nary<Class<?>> nativeTypes();
 }

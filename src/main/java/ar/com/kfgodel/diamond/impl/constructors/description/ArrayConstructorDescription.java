@@ -15,8 +15,10 @@ import ar.com.kfgodel.diamond.impl.types.parts.annotations.NoAnnotationsSupplier
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.impl.NaryFromElementSupplier;
+import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Constructor;
 import java.util.function.Supplier;
 
 /**
@@ -60,6 +62,11 @@ public class ArrayConstructorDescription implements ConstructorDescription {
     @Override
     public Supplier<Generics> getGenerics() {
         return UnGenerifiedMemberGenerics::instance;
+    }
+
+    @Override
+    public Supplier<Nary<Constructor>> getNativeConstructor() {
+        return NaryFromNative::empty;
     }
 
     @Override

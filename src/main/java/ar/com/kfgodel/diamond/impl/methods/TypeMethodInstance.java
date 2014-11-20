@@ -13,6 +13,7 @@ import ar.com.kfgodel.diamond.impl.methods.equality.MethodEquality;
 import ar.com.kfgodel.diamond.impl.natives.invokables.InstanceArguments;
 import ar.com.kfgodel.nary.api.Nary;
 
+import java.lang.reflect.Method;
 import java.util.function.Supplier;
 
 /**
@@ -23,6 +24,7 @@ public class TypeMethodInstance extends TypeMemberSupport implements TypeMethod 
 
     private Supplier<TypeInstance> returnType;
     private Supplier<Nary<Object>> defaultValue;
+    private Supplier<Nary<Method>> nativeMethod;
 
     @Override
     public TypeInstance returnType() {
@@ -83,6 +85,7 @@ public class TypeMethodInstance extends TypeMemberSupport implements TypeMethod 
     public static TypeMethodInstance create(MethodDescription description) {
         TypeMethodInstance method = new TypeMethodInstance();
         method.initialize(description);
+        method.nativeMethod = description.getNativeMethod();
         method.returnType = description.getReturnType();
         method.defaultValue = description.getDefaultValue();
         return method;
@@ -106,5 +109,10 @@ public class TypeMethodInstance extends TypeMemberSupport implements TypeMethod 
     @Override
     public BehaviorCall withArguments(Object... arguments) {
         return BehaviorCallInstance.create(this, arguments);
+    }
+
+    @Override
+    public Nary<Method> nativeType() {
+        return nativeMethod.get();
     }
 }
