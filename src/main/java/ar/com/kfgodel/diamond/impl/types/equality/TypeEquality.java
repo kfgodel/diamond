@@ -17,6 +17,12 @@ public class TypeEquality {
     public static final TypeEquality INSTANCE = new TypeEquality();
 
     public boolean areEquals(TypeInstance one, Object obj){
+        if(one == obj){
+            return true;
+        }
+        if(one == null || obj == null || !(obj instanceof TypeInstance) || one.hashCode() != obj.hashCode()){
+            return false;
+        }
         boolean matchesAllConditions = Stream.of(obj)
                 .filter((object) -> object instanceof TypeInstance)
                 .map(TypeInstance.class::cast)
