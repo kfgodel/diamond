@@ -5,6 +5,7 @@ import ar.com.kfgodel.diamond.api.generics.Generics;
 import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
 import ar.com.kfgodel.diamond.api.members.modifiers.Modifier;
 import ar.com.kfgodel.diamond.api.methods.MethodDescription;
+import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.members.NativeMemberDeclaringTypeSupplier;
@@ -13,8 +14,10 @@ import ar.com.kfgodel.diamond.impl.members.exceptions.ExecutableExceptionsSuppli
 import ar.com.kfgodel.diamond.impl.members.generics.ExecutableGenericsSupplier;
 import ar.com.kfgodel.diamond.impl.members.modifiers.suppliers.ImmutableMemberModifiers;
 import ar.com.kfgodel.diamond.impl.members.parameters.ImmutableMemberParameters;
+import ar.com.kfgodel.diamond.impl.methods.equality.MethodEquality;
 import ar.com.kfgodel.diamond.impl.natives.invokables.methods.NativeMethodInvokerGenerator;
 import ar.com.kfgodel.diamond.impl.natives.suppliers.AnnotatedElementAnnotationsSupplier;
+import ar.com.kfgodel.hashcode.ImmutableHashcode;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.impl.NaryFromNative;
@@ -22,6 +25,7 @@ import ar.com.kfgodel.nary.impl.NaryFromNative;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.function.Supplier;
+import java.util.function.ToIntFunction;
 
 /**
  * This type represents a the method description of a native method
@@ -92,5 +96,8 @@ public class NativeMethodDescription implements MethodDescription {
         return description;
     }
 
-
+    @Override
+    public ToIntFunction<TypeMethod> getHashcoder() {
+        return ImmutableHashcode.create(MethodEquality.INSTANCE::hashcodeFor);
+    }
 }

@@ -2,16 +2,19 @@ package ar.com.kfgodel.diamond.impl.constructors.description;
 
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.constructors.ConstructorDescription;
+import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.api.generics.Generics;
 import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
 import ar.com.kfgodel.diamond.api.members.modifiers.Modifier;
 import ar.com.kfgodel.diamond.api.members.modifiers.Visibility;
 import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.diamond.impl.constructors.equality.ConstructorEquality;
 import ar.com.kfgodel.diamond.impl.members.exceptions.NoExceptionsSupplier;
 import ar.com.kfgodel.diamond.impl.members.generics.UnGenerifiedMemberGenerics;
 import ar.com.kfgodel.diamond.impl.natives.invokables.constructors.NativeArrayConstructor;
 import ar.com.kfgodel.diamond.impl.types.parts.annotations.NoAnnotationsSupplier;
+import ar.com.kfgodel.hashcode.ImmutableHashcode;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.impl.NaryFromElementSupplier;
@@ -20,6 +23,7 @@ import ar.com.kfgodel.nary.impl.NaryFromNative;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.util.function.Supplier;
+import java.util.function.ToIntFunction;
 
 /**
  * This type represents the description of an artificial array type constructor
@@ -80,4 +84,8 @@ public class ArrayConstructorDescription implements ConstructorDescription {
         return description;
     }
 
+    @Override
+    public ToIntFunction<TypeConstructor> getHashcoder() {
+        return ImmutableHashcode.create(ConstructorEquality.INSTANCE::hashcodeFor);
+    }
 }

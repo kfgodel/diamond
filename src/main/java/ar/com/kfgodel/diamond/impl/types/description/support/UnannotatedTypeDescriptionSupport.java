@@ -9,6 +9,7 @@ import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
 import ar.com.kfgodel.diamond.impl.natives.RawClassExtractor;
 import ar.com.kfgodel.diamond.impl.types.description.inheritance.NoInheritanceDescription;
+import ar.com.kfgodel.diamond.impl.types.equality.TypeEquality;
 import ar.com.kfgodel.diamond.impl.types.parts.annotations.NoAnnotationsSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.bounds.NoBoundsSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.componenttype.NoComponentTypeSupplier;
@@ -17,6 +18,7 @@ import ar.com.kfgodel.diamond.impl.types.parts.fields.ClassFieldSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.methods.ClassMethodSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.typearguments.NoTypeArgumentsSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.typeparameters.NoTypeParametersSupplier;
+import ar.com.kfgodel.hashcode.ImmutableHashcode;
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.impl.NaryFromCollectionSupplier;
 
@@ -24,6 +26,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 import java.util.Set;
 import java.util.function.Supplier;
+import java.util.function.ToIntFunction;
 
 /**
  * This type serves as base class for unannotated types
@@ -110,5 +113,10 @@ public abstract class UnannotatedTypeDescriptionSupport implements TypeDescripti
     @Override
     public Supplier<Nary<Class<?>>> getRawClassesSupplier() {
         return NaryFromCollectionSupplier.from(getBehavioralClasses());
+    }
+
+    @Override
+    public ToIntFunction<TypeInstance> getHashcoder() {
+        return ImmutableHashcode.create(TypeEquality.INSTANCE::hashcodeFor);
     }
 }

@@ -2,11 +2,13 @@ package ar.com.kfgodel.diamond.impl.fields.description;
 
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.fields.FieldDescription;
+import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.api.generics.Generics;
 import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
 import ar.com.kfgodel.diamond.api.members.modifiers.Modifier;
 import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.diamond.impl.fields.equality.FieldEquality;
 import ar.com.kfgodel.diamond.impl.members.NativeMemberDeclaringTypeSupplier;
 import ar.com.kfgodel.diamond.impl.members.exceptions.NoExceptionsSupplier;
 import ar.com.kfgodel.diamond.impl.members.generics.UnGenerifiedMemberGenerics;
@@ -17,6 +19,7 @@ import ar.com.kfgodel.diamond.impl.natives.invokables.fields.NativeFieldSetter;
 import ar.com.kfgodel.diamond.impl.natives.invokables.fields.NativeInstanceFieldInvoker;
 import ar.com.kfgodel.diamond.impl.natives.invokables.fields.NativeStaticFieldInvoker;
 import ar.com.kfgodel.diamond.impl.natives.suppliers.AnnotatedElementAnnotationsSupplier;
+import ar.com.kfgodel.hashcode.ImmutableHashcode;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.impl.NaryFromNative;
@@ -26,6 +29,7 @@ import java.lang.reflect.Field;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.function.ToIntFunction;
 
 /**
  * This type represents a field description of a native field instance
@@ -103,5 +107,10 @@ public class NativeFieldDescription implements FieldDescription {
     @Override
     public Supplier<Nary<TypeInstance>> getDeclaredExceptions() {
         return NoExceptionsSupplier::create;
+    }
+
+    @Override
+    public ToIntFunction<TypeField> getHashcoder() {
+        return ImmutableHashcode.create(FieldEquality.INSTANCE::hashcodeFor);
     }
 }

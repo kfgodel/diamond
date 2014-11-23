@@ -10,6 +10,7 @@ import java.lang.reflect.Field;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.function.ToIntFunction;
 
 /**
  * This type represents the description of a diamond field that can be used to get a {@link TypeField}
@@ -55,4 +56,9 @@ public interface FieldDescription extends MemberDescription {
      * @return The supplier of the fields native representation
      */
     Supplier<Nary<Field>> getNativeField();
+
+    /**
+     * @return The function to calculate the hashcode for this instance
+     */
+    ToIntFunction<TypeField> getHashcoder();
 }

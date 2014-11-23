@@ -13,6 +13,7 @@ import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.annotation.Annotation;
 import java.util.function.Supplier;
+import java.util.function.ToIntFunction;
 
 /**
  * This type represents a description that delegates part of it to another description
@@ -85,5 +86,10 @@ public abstract class DelegatedDescriptionSupport implements TypeDescription {
     @Override
     public Supplier<Nary<Class<?>>> getRawClassesSupplier() {
         return getDelegateDescription().getRawClassesSupplier();
+    }
+
+    @Override
+    public ToIntFunction<TypeInstance> getHashcoder() {
+        return getDelegateDescription().getHashcoder();
     }
 }

@@ -15,6 +15,7 @@ import java.lang.reflect.Field;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.function.ToIntFunction;
 
 /**
  * This type represents a class field instance for a type
@@ -26,6 +27,7 @@ public class TypeFieldInstance extends TypeMemberSupport implements TypeField {
     private Supplier<BiConsumer<Object, Object>> setter;
     private Supplier<Function<Object, Object>> getter;
     private Supplier<Nary<Field>> nativeField;
+    private ToIntFunction<TypeField> hashcoder;
 
     @Override
     public TypeInstance type() {
@@ -74,7 +76,7 @@ public class TypeFieldInstance extends TypeMemberSupport implements TypeField {
 
     @Override
     public int hashCode() {
-        return FieldEquality.INSTANCE.hashcodeFor(this);
+        return hashcoder.applyAsInt(this);
     }
 
     public static TypeFieldInstance create(FieldDescription description) {
@@ -84,6 +86,7 @@ public class TypeFieldInstance extends TypeMemberSupport implements TypeField {
         field.setter = description.getSetter();
         field.getter = description.getGetter();
         field.nativeField = description.getNativeField();
+        field.hashcoder = description.getHashcoder();
         return field;
     }
 

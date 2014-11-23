@@ -9,6 +9,7 @@ import ar.com.kfgodel.nary.api.Nary;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.util.function.Supplier;
+import java.util.function.ToIntFunction;
 
 /**
  * This type represents the Diamond description of a constructor abstracting the underlying implementation
@@ -45,4 +46,9 @@ public interface ConstructorDescription extends MemberDescription {
      * @return tHte supplier of the constructor native representation
      */
     Supplier<Nary<Constructor>> getNativeConstructor();
+
+    /**
+     * @return The function to calculate the hashcode of the created constructor
+     */
+    ToIntFunction<TypeConstructor> getHashcoder();
 }

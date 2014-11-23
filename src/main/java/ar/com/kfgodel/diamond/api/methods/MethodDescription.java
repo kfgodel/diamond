@@ -9,6 +9,7 @@ import ar.com.kfgodel.nary.api.Nary;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.function.Supplier;
+import java.util.function.ToIntFunction;
 
 /**
  * This type represents the description of a diamond method to get a {@link TypeMethod}
@@ -55,4 +56,9 @@ public interface MethodDescription extends MemberDescription {
      * @return The supplier of the native representation
      */
     Supplier<Nary<Method>> getNativeMethod();
+
+    /**
+     * @return The function to calculate the hascode of this method
+     */
+    ToIntFunction<TypeMethod> getHashcoder();
 }

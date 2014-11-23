@@ -29,6 +29,7 @@ import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 import java.lang.annotation.Annotation;
 import java.util.function.Supplier;
+import java.util.function.ToIntFunction;
 
 /**
  * This type serves as a base implementation for common TypeInstance behavior
@@ -63,6 +64,8 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     private Supplier<Nary<TypePackage>> typePackage;
 
     private Supplier<Nary<Class<?>>> rawClasses;
+
+    private ToIntFunction<TypeInstance> hashcoder;
 
     /**
      * Use this to override default creation with no annotations
@@ -148,7 +151,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
 
     @Override
     public int hashCode() {
-        return TypeEquality.INSTANCE.hashcodeFor(this);
+        return hashcoder.applyAsInt(this);
     }
 
     @Override
@@ -188,6 +191,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
         this.setAnnotations(description.getAnnotations());
         this.setMethods(description.getTypeMethods());
         this.setFields(description.getTypeFields());
+        this.hashcoder = description.getHashcoder();
         this.rawClasses = description.getRawClassesSupplier();
         this.typePackage = description.getDeclaredPackage();
         this.inheritance = SuppliedTypesInheritance.create(this, description.getInheritanceDescription());
