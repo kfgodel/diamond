@@ -257,7 +257,7 @@ public class NaryFromNative<T> implements Nary<T> {
      * @return The empty Nary
      */
     public static<T> Nary<T> empty(){
-        return create(Stream.empty());
+        return create(java.util.Optional.empty());
     }
 
     @Override

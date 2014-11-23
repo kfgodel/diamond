@@ -48,7 +48,10 @@ public class MethodByNameTest extends JavaSpec<DiamondTestContext> {
                     context().typeInstance().methods().named("redefinedAndOverloadedMethod").isPresent();
                     failBecauseExceptionWasNotThrown(MoreThanOneElementException.class);
                 } catch (MoreThanOneElementException e) {
-                    assertThat(e).hasMessage("There's more than one element in the stream to create an optional: [public void redefinedAndOverloadedMethod(int) /* RedefiningMethodTestObject */, public void redefinedAndOverloadedMethod() /* RedefiningMethodTestObject */]");
+                    // Check the string in parts because it may vary the order of reported elements
+                    assertThat(e.getMessage()).startsWith("There's more than one element in the stream to create an optional: [")
+                            .contains("public void redefinedAndOverloadedMethod(int) /* RedefiningMethodTestObject */")
+                            .contains("public void redefinedAndOverloadedMethod() /* RedefiningMethodTestObject */");
                 }
             });
 

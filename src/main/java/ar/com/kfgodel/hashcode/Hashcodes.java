@@ -1,6 +1,7 @@
 package ar.com.kfgodel.hashcode;
 
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.stream.Stream;
 
 /**
@@ -28,8 +29,14 @@ public class Hashcodes {
         if (stream == null){
             return 0;
         }
-        return stream.mapToInt((element) -> element == null ? 0 : element.hashCode())
-                .reduce(1, (result, elementHash) -> 31 * result + elementHash);
+        int hash = 1;
+        Iterator<?> iterator = stream.iterator();
+        while(iterator.hasNext()){
+            Object element = iterator.next();
+            int elementHash = element == null ? 0 : element.hashCode();
+            hash = 31 * hash + elementHash;
+        }
+        return hash;
     }
 
 }
