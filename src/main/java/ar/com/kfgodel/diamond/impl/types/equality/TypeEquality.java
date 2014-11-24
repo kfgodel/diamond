@@ -1,12 +1,13 @@
 package ar.com.kfgodel.diamond.impl.types.equality;
 
+import ar.com.kfgodel.diamond.api.equals.EqualsStructure;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
-import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
+import ar.com.kfgodel.diamond.impl.equals.CompositeEqualityToken;
 import ar.com.kfgodel.hashcode.Hashcodes;
-import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.streams.StreamEquality;
 
-import java.util.stream.Stream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * This type represents the reification of the equality concept for types
@@ -23,15 +24,8 @@ public class TypeEquality {
         if(one == null || obj == null || !(obj instanceof TypeInstance) || one.hashCode() != obj.hashCode()){
             return false;
         }
-        boolean matchesAllConditions = Stream.of(obj)
-                .filter((object) -> object instanceof TypeInstance)
-                .map(TypeInstance.class::cast)
-                .filter((other) -> one.names().bareName().equals(other.names().bareName()))
-                .filter((other) -> equalComponent(one, other))
-                .filter((other) -> equalTypeArguments(one, other))
-                .filter((other) -> equalBounds(one, other))
-                .count() == 1;
-        return matchesAllConditions;
+        TypeInstance other = (TypeInstance) obj;
+        return one.getIdentityToken().equals(other.getIdentityToken());
     }
 
     /**
@@ -49,27 +43,13 @@ public class TypeEquality {
                 );
     }
 
-    private boolean equalBounds(TypeInstance aType, TypeInstance other) {
-        TypeBounds aTypeBounds = aType.generics().bounds();
-        TypeBounds otherBounds = other.generics().bounds();
-        if(!StreamEquality.INSTANCE.areEquals(aTypeBounds.upper(), otherBounds.upper())){
-            return false;
-        }
-        return StreamEquality.INSTANCE.areEquals(aTypeBounds.lower(), otherBounds.lower());
-    }
-
-    private boolean equalTypeArguments(TypeInstance aType, TypeInstance other) {
-        return StreamEquality.INSTANCE.areEquals(aType.generics().arguments(), other.generics().arguments());
-    }
-
-    private boolean equalComponent(TypeInstance aType, TypeInstance other) {
-        Nary<TypeInstance> aComponentType = aType.componentType();
-        Nary<TypeInstance> otherComponentType = other.componentType();
-        if(aComponentType.isPresent() != otherComponentType.isPresent()){
-            return false;
-        }
-        ar.com.kfgodel.optionals.Optional<Boolean> componentComparison = aComponentType.mapOptional((aComponent) -> aComponent.equals(otherComponentType.get()));
-        boolean hasDifferentComponentType = componentComparison.isPresent() && !componentComparison.get();
-        return !hasDifferentComponentType;
+    public EqualsStructure calculateTokenFor(TypeInstance typeInstance) {
+        List<Object> typeParts = new ArrayList<>();
+        typeParts.add(typeInstance.names().bareName());
+        typeInstance.componentType().ifPresent(typeParts::add);
+        typeParts.add(CompositeEqualityToken.create(typeInstance.generics().arguments().collect(Collectors.toList())));
+        typeParts.add(CompositeEqualityToken.create(typeInstance.generics().bounds().upper().collect(Collectors.toList())));
+        typeParts.add(CompositeEqualityToken.create(typeInstance.generics().bounds().lower().collect(Collectors.toList())));
+        return CompositeEqualityToken.create(typeParts);
     }
 }

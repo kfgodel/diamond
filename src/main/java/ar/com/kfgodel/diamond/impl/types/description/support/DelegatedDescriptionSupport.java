@@ -1,6 +1,7 @@
 package ar.com.kfgodel.diamond.impl.types.description.support;
 
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
+import ar.com.kfgodel.diamond.api.equals.EqualsStructure;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.types.TypeDescription;
@@ -12,6 +13,7 @@ import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.annotation.Annotation;
+import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.function.ToIntFunction;
 
@@ -91,5 +93,10 @@ public abstract class DelegatedDescriptionSupport implements TypeDescription {
     @Override
     public ToIntFunction<TypeInstance> getHashcoder() {
         return getDelegateDescription().getHashcoder();
+    }
+
+    @Override
+    public Function<TypeInstance, EqualsStructure> getEqualsStructure() {
+        return getDelegateDescription().getEqualsStructure();
     }
 }

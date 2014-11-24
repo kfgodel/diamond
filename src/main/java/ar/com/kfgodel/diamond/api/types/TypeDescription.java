@@ -1,6 +1,7 @@
 package ar.com.kfgodel.diamond.api.types;
 
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
+import ar.com.kfgodel.diamond.api.equals.EqualsStructure;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
@@ -10,6 +11,7 @@ import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.annotation.Annotation;
+import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.function.ToIntFunction;
 
@@ -93,4 +95,9 @@ public interface TypeDescription {
      * @return The function to calculate hashcodes for the described type
      */
     ToIntFunction<TypeInstance> getHashcoder();
+
+    /**
+     * @return The function to get the compared structure for equality
+     */
+    Function<TypeInstance, EqualsStructure> getEqualsStructure();
 }
