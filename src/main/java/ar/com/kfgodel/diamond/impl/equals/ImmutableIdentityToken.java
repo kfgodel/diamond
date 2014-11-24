@@ -6,7 +6,7 @@ import java.util.function.Function;
  * This type represents the function to obtain equals structures for immutable types
  * Created by kfgodel on 23/11/14.
  */
-public class ImmutableTokenIdentity<T> implements Function<T, Object> {
+public class ImmutableIdentityToken<T> implements Function<T, Object> {
 
     private Function<T, Object> tokenCalculator;
     private Object calculatedToken;
@@ -22,9 +22,9 @@ public class ImmutableTokenIdentity<T> implements Function<T, Object> {
         return calculatedToken;
     }
 
-    public static<T> ImmutableTokenIdentity<T> create(Function<T, ?> structureCalculator) {
-        ImmutableTokenIdentity structure = new ImmutableTokenIdentity();
-        structure.tokenCalculator = structureCalculator;
+    public static<T> ImmutableIdentityToken<T> create(Function<T, ?> tokenCalculator) {
+        ImmutableIdentityToken structure = new ImmutableIdentityToken();
+        structure.tokenCalculator = tokenCalculator;
         return structure;
     }
 

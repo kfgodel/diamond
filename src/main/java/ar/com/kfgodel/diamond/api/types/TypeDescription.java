@@ -98,5 +98,5 @@ public interface TypeDescription {
     /**
      * @return The function to get the compared structure for equality
      */
-    Function<TypeInstance, Object> getTokenIdentity();
+    Function<TypeInstance, Object> getIdentityToken();
 }

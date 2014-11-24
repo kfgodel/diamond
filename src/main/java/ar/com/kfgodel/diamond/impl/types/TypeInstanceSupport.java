@@ -68,7 +68,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
 
     private ToIntFunction<TypeInstance> hashcoder;
 
-    private Function<TypeInstance,Object> tokenIdentity;
+    private Function<TypeInstance,Object> identityToken;
 
     /**
      * Use this to override default creation with no annotations
@@ -191,7 +191,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
 
     @Override
     public Object getIdentityToken() {
-        return tokenIdentity.apply(this);
+        return identityToken.apply(this);
     }
 
     protected void initializeSuper(TypeDescription description){
@@ -203,6 +203,6 @@ public abstract class TypeInstanceSupport implements TypeInstance {
         this.rawClasses = description.getRawClassesSupplier();
         this.typePackage = description.getDeclaredPackage();
         this.inheritance = SuppliedTypesInheritance.create(this, description.getInheritanceDescription());
-        this.tokenIdentity = description.getTokenIdentity();
+        this.identityToken = description.getIdentityToken();
     };
 }

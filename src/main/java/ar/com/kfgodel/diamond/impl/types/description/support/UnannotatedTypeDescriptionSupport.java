@@ -7,7 +7,7 @@ import ar.com.kfgodel.diamond.api.types.TypeDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
-import ar.com.kfgodel.diamond.impl.equals.ImmutableTokenIdentity;
+import ar.com.kfgodel.diamond.impl.equals.ImmutableIdentityToken;
 import ar.com.kfgodel.diamond.impl.natives.RawClassExtractor;
 import ar.com.kfgodel.diamond.impl.types.description.inheritance.NoInheritanceDescription;
 import ar.com.kfgodel.diamond.impl.types.equality.TypeEquality;
@@ -123,7 +123,7 @@ public abstract class UnannotatedTypeDescriptionSupport implements TypeDescripti
     }
 
     @Override
-    public Function<TypeInstance, Object> getTokenIdentity() {
-        return ImmutableTokenIdentity.create(TypeEquality.INSTANCE::calculateTokenFor);
+    public Function<TypeInstance, Object> getIdentityToken() {
+        return ImmutableIdentityToken.create(TypeEquality.INSTANCE::calculateTokenFor);
     }
 }

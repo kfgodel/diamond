@@ -95,7 +95,7 @@ public abstract class DelegatedDescriptionSupport implements TypeDescription {
     }
 
     @Override
-    public Function<TypeInstance, Object> getTokenIdentity() {
-        return getDelegateDescription().getTokenIdentity();
+    public Function<TypeInstance, Object> getIdentityToken() {
+        return getDelegateDescription().getIdentityToken();
     }
 }
