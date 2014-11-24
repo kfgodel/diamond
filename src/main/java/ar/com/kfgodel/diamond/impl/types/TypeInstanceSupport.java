@@ -1,7 +1,6 @@
 package ar.com.kfgodel.diamond.impl.types;
 
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructors;
-import ar.com.kfgodel.diamond.api.equals.EqualsStructure;
 import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.api.fields.TypeFields;
@@ -69,7 +68,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
 
     private ToIntFunction<TypeInstance> hashcoder;
 
-    private Function<TypeInstance,EqualsStructure> equalsStructure;
+    private Function<TypeInstance,Object> tokenIdentity;
 
     /**
      * Use this to override default creation with no annotations
@@ -191,8 +190,8 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     }
 
     @Override
-    public EqualsStructure getIdentityToken() {
-        return equalsStructure.apply(this);
+    public Object getIdentityToken() {
+        return tokenIdentity.apply(this);
     }
 
     protected void initializeSuper(TypeDescription description){
@@ -204,6 +203,6 @@ public abstract class TypeInstanceSupport implements TypeInstance {
         this.rawClasses = description.getRawClassesSupplier();
         this.typePackage = description.getDeclaredPackage();
         this.inheritance = SuppliedTypesInheritance.create(this, description.getInheritanceDescription());
-        this.equalsStructure = description.getEqualsStructure();
+        this.tokenIdentity = description.getTokenIdentity();
     };
 }

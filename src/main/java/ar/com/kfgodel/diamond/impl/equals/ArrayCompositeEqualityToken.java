@@ -1,6 +1,6 @@
 package ar.com.kfgodel.diamond.impl.equals;
 
-import ar.com.kfgodel.diamond.api.equals.EqualsStructure;
+import ar.com.kfgodel.diamond.api.equals.CompositeEqualityToken;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -10,7 +10,7 @@ import java.util.Collection;
  *     It's equal to other equally composed tokens
  * Created by kfgodel on 23/11/14.
  */
-public class CompositeEqualityToken implements EqualsStructure {
+public class ArrayCompositeEqualityToken implements CompositeEqualityToken {
 
     private Object[] parts;
 
@@ -19,10 +19,10 @@ public class CompositeEqualityToken implements EqualsStructure {
         if(this == obj){
             return true;
         }
-        if(obj == null || !(obj instanceof EqualsStructure)){
+        if(obj == null || !(obj instanceof CompositeEqualityToken)){
             return false;
         }
-        EqualsStructure other = (EqualsStructure) obj;
+        CompositeEqualityToken other = (CompositeEqualityToken) obj;
         return Arrays.equals(this.parts, other.getParts());
     }
 
@@ -31,13 +31,13 @@ public class CompositeEqualityToken implements EqualsStructure {
         return parts;
     }
 
-    public static CompositeEqualityToken create(Object... parts) {
-        CompositeEqualityToken structure = new CompositeEqualityToken();
+    public static ArrayCompositeEqualityToken create(Object... parts) {
+        ArrayCompositeEqualityToken structure = new ArrayCompositeEqualityToken();
         structure.parts = parts;
         return structure;
     }
 
-    public static CompositeEqualityToken create(Collection<?> parts) {
+    public static ArrayCompositeEqualityToken create(Collection<?> parts) {
         return create(parts.toArray());
     }
 

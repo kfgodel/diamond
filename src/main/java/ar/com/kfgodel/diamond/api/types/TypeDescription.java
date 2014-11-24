@@ -1,7 +1,6 @@
 package ar.com.kfgodel.diamond.api.types;
 
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
-import ar.com.kfgodel.diamond.api.equals.EqualsStructure;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
@@ -99,5 +98,5 @@ public interface TypeDescription {
     /**
      * @return The function to get the compared structure for equality
      */
-    Function<TypeInstance, EqualsStructure> getEqualsStructure();
+    Function<TypeInstance, Object> getTokenIdentity();
 }

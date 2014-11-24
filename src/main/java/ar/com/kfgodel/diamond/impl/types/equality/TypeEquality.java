@@ -1,8 +1,8 @@
 package ar.com.kfgodel.diamond.impl.types.equality;
 
-import ar.com.kfgodel.diamond.api.equals.EqualsStructure;
+import ar.com.kfgodel.diamond.api.equals.CompositeEqualityToken;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
-import ar.com.kfgodel.diamond.impl.equals.CompositeEqualityToken;
+import ar.com.kfgodel.diamond.impl.equals.ArrayCompositeEqualityToken;
 import ar.com.kfgodel.hashcode.Hashcodes;
 
 import java.util.ArrayList;
@@ -43,13 +43,13 @@ public class TypeEquality {
                 );
     }
 
-    public EqualsStructure calculateTokenFor(TypeInstance typeInstance) {
+    public CompositeEqualityToken calculateTokenFor(TypeInstance typeInstance) {
         List<Object> typeParts = new ArrayList<>();
         typeParts.add(typeInstance.names().bareName());
         typeInstance.componentType().ifPresent(typeParts::add);
-        typeParts.add(CompositeEqualityToken.create(typeInstance.generics().arguments().collect(Collectors.toList())));
-        typeParts.add(CompositeEqualityToken.create(typeInstance.generics().bounds().upper().collect(Collectors.toList())));
-        typeParts.add(CompositeEqualityToken.create(typeInstance.generics().bounds().lower().collect(Collectors.toList())));
-        return CompositeEqualityToken.create(typeParts);
+        typeParts.add(ArrayCompositeEqualityToken.create(typeInstance.generics().arguments().collect(Collectors.toList())));
+        typeParts.add(ArrayCompositeEqualityToken.create(typeInstance.generics().bounds().upper().collect(Collectors.toList())));
+        typeParts.add(ArrayCompositeEqualityToken.create(typeInstance.generics().bounds().lower().collect(Collectors.toList())));
+        return ArrayCompositeEqualityToken.create(typeParts);
     }
 }

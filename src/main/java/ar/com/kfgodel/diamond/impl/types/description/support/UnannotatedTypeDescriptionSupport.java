@@ -1,14 +1,13 @@
 package ar.com.kfgodel.diamond.impl.types.description.support;
 
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
-import ar.com.kfgodel.diamond.api.equals.EqualsStructure;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.types.TypeDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
-import ar.com.kfgodel.diamond.impl.equals.ImmutableEqualsStructure;
+import ar.com.kfgodel.diamond.impl.equals.ImmutableTokenIdentity;
 import ar.com.kfgodel.diamond.impl.natives.RawClassExtractor;
 import ar.com.kfgodel.diamond.impl.types.description.inheritance.NoInheritanceDescription;
 import ar.com.kfgodel.diamond.impl.types.equality.TypeEquality;
@@ -124,7 +123,7 @@ public abstract class UnannotatedTypeDescriptionSupport implements TypeDescripti
     }
 
     @Override
-    public Function<TypeInstance, EqualsStructure> getEqualsStructure() {
-        return ImmutableEqualsStructure.create(TypeEquality.INSTANCE::calculateTokenFor);
+    public Function<TypeInstance, Object> getTokenIdentity() {
+        return ImmutableTokenIdentity.create(TypeEquality.INSTANCE::calculateTokenFor);
     }
 }

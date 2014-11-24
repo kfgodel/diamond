@@ -1,7 +1,6 @@
 package ar.com.kfgodel.diamond.impl.types.description.support;
 
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
-import ar.com.kfgodel.diamond.api.equals.EqualsStructure;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.types.TypeDescription;
@@ -96,7 +95,7 @@ public abstract class DelegatedDescriptionSupport implements TypeDescription {
     }
 
     @Override
-    public Function<TypeInstance, EqualsStructure> getEqualsStructure() {
-        return getDelegateDescription().getEqualsStructure();
+    public Function<TypeInstance, Object> getTokenIdentity() {
+        return getDelegateDescription().getTokenIdentity();
     }
 }
