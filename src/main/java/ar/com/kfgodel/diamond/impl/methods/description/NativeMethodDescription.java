@@ -8,6 +8,7 @@ import ar.com.kfgodel.diamond.api.methods.MethodDescription;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.diamond.impl.equals.CachedTokenCalculator;
 import ar.com.kfgodel.diamond.impl.members.NativeMemberDeclaringTypeSupplier;
 import ar.com.kfgodel.diamond.impl.members.defaults.MethodDefaultValueSupplier;
 import ar.com.kfgodel.diamond.impl.members.exceptions.ExecutableExceptionsSupplier;
@@ -17,15 +18,14 @@ import ar.com.kfgodel.diamond.impl.members.parameters.ImmutableMemberParameters;
 import ar.com.kfgodel.diamond.impl.methods.equality.MethodEquality;
 import ar.com.kfgodel.diamond.impl.natives.invokables.methods.NativeMethodInvokerGenerator;
 import ar.com.kfgodel.diamond.impl.natives.suppliers.AnnotatedElementAnnotationsSupplier;
-import ar.com.kfgodel.hashcode.ImmutableHashcode;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.util.function.Function;
 import java.util.function.Supplier;
-import java.util.function.ToIntFunction;
 
 /**
  * This type represents a the method description of a native method
@@ -97,7 +97,7 @@ public class NativeMethodDescription implements MethodDescription {
     }
 
     @Override
-    public ToIntFunction<TypeMethod> getHashcoder() {
-        return ImmutableHashcode.create(MethodEquality.INSTANCE::hashcodeFor);
+    public Function<TypeMethod, Object> getIdentityToken() {
+        return CachedTokenCalculator.create(MethodEquality.INSTANCE::calculateTokenFor);
     }
 }

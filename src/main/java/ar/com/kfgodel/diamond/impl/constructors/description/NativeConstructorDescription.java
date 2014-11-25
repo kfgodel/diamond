@@ -8,6 +8,7 @@ import ar.com.kfgodel.diamond.api.members.modifiers.Modifier;
 import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.constructors.equality.ConstructorEquality;
+import ar.com.kfgodel.diamond.impl.equals.CachedTokenCalculator;
 import ar.com.kfgodel.diamond.impl.members.NativeMemberDeclaringTypeSupplier;
 import ar.com.kfgodel.diamond.impl.members.exceptions.ExecutableExceptionsSupplier;
 import ar.com.kfgodel.diamond.impl.members.generics.ExecutableGenericsSupplier;
@@ -15,15 +16,14 @@ import ar.com.kfgodel.diamond.impl.members.modifiers.suppliers.ImmutableMemberMo
 import ar.com.kfgodel.diamond.impl.members.parameters.ImmutableMemberParameters;
 import ar.com.kfgodel.diamond.impl.natives.invokables.constructors.NativeConstructorInvoker;
 import ar.com.kfgodel.diamond.impl.natives.suppliers.AnnotatedElementAnnotationsSupplier;
-import ar.com.kfgodel.hashcode.ImmutableHashcode;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
+import java.util.function.Function;
 import java.util.function.Supplier;
-import java.util.function.ToIntFunction;
 
 /**
  * This type represents a description for a constructor from a native instance
@@ -85,7 +85,7 @@ public class NativeConstructorDescription implements ConstructorDescription {
     }
 
     @Override
-    public ToIntFunction<TypeConstructor> getHashcoder() {
-        return ImmutableHashcode.create(ConstructorEquality.INSTANCE::hashcodeFor);
+    public Function<TypeConstructor, Object> getIdentityToken() {
+        return CachedTokenCalculator.create(ConstructorEquality.INSTANCE::calculateTokenFor);
     }
 }

@@ -1,10 +1,10 @@
 package ar.com.kfgodel.diamond.impl.constructors.equality;
 
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
-import ar.com.kfgodel.hashcode.Hashcodes;
-import ar.com.kfgodel.streams.StreamEquality;
+import ar.com.kfgodel.diamond.api.equals.CompositeIdentityToken;
+import ar.com.kfgodel.diamond.impl.equals.ImmutableIdentityParts;
 
-import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
 /**
  * This type captures the concept of equality for TypeConstructor
@@ -22,23 +22,25 @@ public class ConstructorEquality {
      * @return true if they represent the same constructor
      */
     public boolean areEquals(TypeConstructor one, Object obj){
-        boolean matchesAllConditions = Stream.of(obj)
-                .filter((object) -> object instanceof TypeConstructor)
-                .map(TypeConstructor.class::cast)
-                .filter((other) -> one.declaringType().equals(other.declaringType()))
-                .filter((other) -> StreamEquality.INSTANCE.areEquals(one.parameterTypes(), other.parameterTypes()))
-                .count() == 1;
-        return matchesAllConditions;
+        if(one == obj){
+            return true;
+        }
+        if(one == null || obj == null || !(obj instanceof TypeConstructor)){
+            return false;
+        }
+        TypeConstructor other = (TypeConstructor) obj;
+        return one.getIdentityToken().equals(other.getIdentityToken());
     }
 
     /**
-     * Calculates the hashcode of a constructor to be consistent with equals definition
-     * @param constructor The constructor to calculate its hashcode
-     * @return The hash of its declaring type and parameter types
+     * Creates the constructor token identifier
+     * @param constructor The constructor to represent
+     * @return The composite token
      */
-    public int hashcodeFor(TypeConstructor constructor){
-        return Hashcodes.joining(constructor.declaringType(), Hashcodes.forElementsIn(constructor.parameterTypes()));
+    public CompositeIdentityToken calculateTokenFor(TypeConstructor constructor) {
+        return ImmutableIdentityParts.create(
+                constructor.declaringType(),
+                ImmutableIdentityParts.create(constructor.parameterTypes().collect(Collectors.toList())));
     }
-
 
 }

@@ -11,8 +11,8 @@ import ar.com.kfgodel.diamond.impl.members.call.BehaviorCallInstance;
 import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.reflect.Constructor;
+import java.util.function.Function;
 import java.util.function.Supplier;
-import java.util.function.ToIntFunction;
 
 /**
  * This type represents an instance of type constructor
@@ -21,7 +21,7 @@ import java.util.function.ToIntFunction;
 public class TypeConstructorInstance extends TypeMemberSupport implements TypeConstructor {
 
     private Supplier<Nary<Constructor>> nativeConstructor;
-    private ToIntFunction<TypeConstructor> hashcoder;
+    private Function<TypeConstructor,Object> identityToken;
 
     @Override
     public boolean equals(Object obj) {
@@ -29,15 +29,14 @@ public class TypeConstructorInstance extends TypeMemberSupport implements TypeCo
     }
 
     @Override
-    public int hashCode() {
-        return hashcoder.applyAsInt(this);
+    public Object getIdentityToken() {
+        return identityToken.apply(this);
     }
 
     @Override
     public Object invoke(Object... arguments) {
         return asFunction().invoke(arguments);
     }
-
 
     @Override
     public Object get() {
@@ -54,7 +53,7 @@ public class TypeConstructorInstance extends TypeMemberSupport implements TypeCo
         TypeConstructorInstance constructor = new TypeConstructorInstance();
         constructor.initialize(description);
         constructor.nativeConstructor = description.getNativeConstructor();
-        constructor.hashcoder = description.getHashcoder();
+        constructor.identityToken = description.getIdentityToken();
         return constructor;
     }
 

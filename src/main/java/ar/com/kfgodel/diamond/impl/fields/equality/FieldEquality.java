@@ -1,9 +1,8 @@
 package ar.com.kfgodel.diamond.impl.fields.equality;
 
+import ar.com.kfgodel.diamond.api.equals.CompositeIdentityToken;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
-import ar.com.kfgodel.hashcode.Hashcodes;
-
-import java.util.stream.Stream;
+import ar.com.kfgodel.diamond.impl.equals.ImmutableIdentityParts;
 
 /**
  * This type represents the equality definition for fields
@@ -21,21 +20,26 @@ public class FieldEquality {
      * @return true if both represent the same field
      */
     public boolean areEquals(TypeField one, Object obj){
-        boolean matchesAllConditions = Stream.of(obj)
-                .filter((object) -> object instanceof TypeField)
-                .map(TypeField.class::cast)
-                .filter((other) -> one.name().equals(other.name()))
-                .filter((other) -> one.declaringType().equals(other.declaringType()))
-                .count() == 1;
-        return matchesAllConditions;
+        if(one == obj){
+            return true;
+        }
+        if(one == null || obj == null || !(obj instanceof TypeField)){
+            return false;
+        }
+        TypeField other = (TypeField) obj;
+        return one.getIdentityToken().equals(other.getIdentityToken());
     }
 
     /**
-     * Calculates the hashcode of a field to be consistent with equals definition
-     * @param field The field to calculate its hashcode
-     * @return The hash of its name and declaring type
+     * Generates the identity token of the given field
+     * @param field The field to compare
+     * @return The token that serves as a comparator element
      */
-    public int hashcodeFor(TypeField field){
-        return Hashcodes.joining(field.name(), field.declaringType());
+    public CompositeIdentityToken calculateTokenFor(TypeField field) {
+        return ImmutableIdentityParts.create(
+                field.name(),
+                field.declaringType());
     }
+
+
 }

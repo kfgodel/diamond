@@ -1,12 +1,9 @@
 package ar.com.kfgodel.diamond.impl.types.equality;
 
-import ar.com.kfgodel.diamond.api.equals.CompositeEqualityToken;
+import ar.com.kfgodel.diamond.api.equals.CompositeIdentityToken;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
-import ar.com.kfgodel.diamond.impl.equals.ArrayCompositeEqualityToken;
-import ar.com.kfgodel.hashcode.Hashcodes;
+import ar.com.kfgodel.diamond.impl.equals.ImmutableIdentityParts;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -21,35 +18,19 @@ public class TypeEquality {
         if(one == obj){
             return true;
         }
-        if(one == null || obj == null || !(obj instanceof TypeInstance) || one.hashCode() != obj.hashCode()){
+        if(one == null || obj == null || !(obj instanceof TypeInstance)){
             return false;
         }
         TypeInstance other = (TypeInstance) obj;
         return one.getIdentityToken().equals(other.getIdentityToken());
     }
 
-    /**
-     * Calculates the hashcode of a type to be consistent with equals definition
-     * @param type The type to calculate its hashcode
-     * @return The hash of its name, component type, type arguments, and bounds
-     */
-    public int hashcodeFor(TypeInstance type){
-        return Hashcodes.joining(
-                type.names().bareName(),
-                Hashcodes.forElementsIn(type.componentType()),
-                Hashcodes.forElementsIn(type.generics().arguments()),
-                Hashcodes.forElementsIn(type.generics().bounds().lower()),
-                Hashcodes.forElementsIn(type.generics().bounds().upper())
-                );
-    }
-
-    public CompositeEqualityToken calculateTokenFor(TypeInstance typeInstance) {
-        List<Object> typeParts = new ArrayList<>();
-        typeParts.add(typeInstance.names().bareName());
-        typeInstance.componentType().ifPresent(typeParts::add);
-        typeParts.add(ArrayCompositeEqualityToken.create(typeInstance.generics().arguments().collect(Collectors.toList())));
-        typeParts.add(ArrayCompositeEqualityToken.create(typeInstance.generics().bounds().upper().collect(Collectors.toList())));
-        typeParts.add(ArrayCompositeEqualityToken.create(typeInstance.generics().bounds().lower().collect(Collectors.toList())));
-        return ArrayCompositeEqualityToken.create(typeParts);
+    public CompositeIdentityToken calculateTokenFor(TypeInstance typeInstance) {
+        return ImmutableIdentityParts.create(
+                typeInstance.names().bareName(),
+                typeInstance.componentType().orElse(null),
+                ImmutableIdentityParts.create(typeInstance.generics().arguments().collect(Collectors.toList())),
+                ImmutableIdentityParts.create(typeInstance.generics().bounds().upper().collect(Collectors.toList())),
+                ImmutableIdentityParts.create(typeInstance.generics().bounds().lower().collect(Collectors.toList())));
     }
 }

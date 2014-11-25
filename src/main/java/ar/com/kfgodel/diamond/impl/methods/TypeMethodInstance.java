@@ -14,8 +14,8 @@ import ar.com.kfgodel.diamond.impl.natives.invokables.InstanceArguments;
 import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.reflect.Method;
+import java.util.function.Function;
 import java.util.function.Supplier;
-import java.util.function.ToIntFunction;
 
 /**
  * This type represents a method that belongs to a type
@@ -26,7 +26,8 @@ public class TypeMethodInstance extends TypeMemberSupport implements TypeMethod 
     private Supplier<TypeInstance> returnType;
     private Supplier<Nary<Object>> defaultValue;
     private Supplier<Nary<Method>> nativeMethod;
-    private ToIntFunction<TypeMethod> hashcoder;
+    private Function<TypeMethod,Object> identityToken;
+
 
     @Override
     public TypeInstance returnType() {
@@ -80,8 +81,8 @@ public class TypeMethodInstance extends TypeMemberSupport implements TypeMethod 
     }
 
     @Override
-    public int hashCode() {
-        return hashcoder.applyAsInt(this);
+    public Object getIdentityToken() {
+        return identityToken.apply(this);
     }
 
     public static TypeMethodInstance create(MethodDescription description) {
@@ -90,7 +91,7 @@ public class TypeMethodInstance extends TypeMemberSupport implements TypeMethod 
         method.nativeMethod = description.getNativeMethod();
         method.returnType = description.getReturnType();
         method.defaultValue = description.getDefaultValue();
-        method.hashcoder = description.getHashcoder();
+        method.identityToken = description.getIdentityToken();
         return method;
     }
 

@@ -12,7 +12,6 @@ import ar.com.kfgodel.nary.api.Nary;
 import java.lang.annotation.Annotation;
 import java.util.function.Function;
 import java.util.function.Supplier;
-import java.util.function.ToIntFunction;
 
 /**
  * This type represents a description of a diamond type and serves as an abstraction of the underlying represented type
@@ -89,11 +88,6 @@ public interface TypeDescription {
      * @return The supplier of the raw classes for the runtime descriptio nof the type
      */
     Supplier<Nary<Class<?>>> getRawClassesSupplier();
-
-    /**
-     * @return The function to calculate hashcodes for the described type
-     */
-    ToIntFunction<TypeInstance> getHashcoder();
 
     /**
      * @return The function to get the compared structure for equality

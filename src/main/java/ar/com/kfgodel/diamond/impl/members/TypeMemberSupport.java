@@ -38,7 +38,6 @@ public abstract class TypeMemberSupport implements TypeMember {
     private Supplier<Nary<TypeInstance>> exceptions = UndefinedMemberExceptions.create(this);
     private Supplier<Nary<ExecutableParameter>> parameters = UndefinedMemberParameters.create(this);
 
-
     @Override
     public TypeInstance declaringType() {
         return declaringType.get();
@@ -98,6 +97,11 @@ public abstract class TypeMemberSupport implements TypeMember {
     @Override
     public boolean isInstanceMember() {
         return !is(Mutability.STATIC);
+    }
+
+    @Override
+    public int hashCode() {
+        return getIdentityToken().hashCode();
     }
 
     protected void initialize(MemberDescription description){

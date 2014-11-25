@@ -15,7 +15,6 @@ import java.lang.reflect.Field;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
-import java.util.function.ToIntFunction;
 
 /**
  * This type represents a class field instance for a type
@@ -27,7 +26,8 @@ public class TypeFieldInstance extends TypeMemberSupport implements TypeField {
     private Supplier<BiConsumer<Object, Object>> setter;
     private Supplier<Function<Object, Object>> getter;
     private Supplier<Nary<Field>> nativeField;
-    private ToIntFunction<TypeField> hashcoder;
+    private Function<TypeField,Object> identityToken;
+
 
     @Override
     public TypeInstance type() {
@@ -69,15 +69,6 @@ public class TypeFieldInstance extends TypeMemberSupport implements TypeField {
         return asFunction().invoke(arguments);
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        return FieldEquality.INSTANCE.areEquals(this, obj);
-    }
-
-    @Override
-    public int hashCode() {
-        return hashcoder.applyAsInt(this);
-    }
 
     public static TypeFieldInstance create(FieldDescription description) {
         TypeFieldInstance field = new TypeFieldInstance();
@@ -86,7 +77,7 @@ public class TypeFieldInstance extends TypeMemberSupport implements TypeField {
         field.setter = description.getSetter();
         field.getter = description.getGetter();
         field.nativeField = description.getNativeField();
-        field.hashcoder = description.getHashcoder();
+        field.identityToken = description.getIdentityToken();
         return field;
     }
 
@@ -114,4 +105,15 @@ public class TypeFieldInstance extends TypeMemberSupport implements TypeField {
     public Nary<Field> nativeType() {
         return nativeField.get();
     }
+
+    @Override
+    public Object getIdentityToken() {
+        return identityToken.apply(this);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return FieldEquality.INSTANCE.areEquals(this, obj);
+    }
+
 }

@@ -10,11 +10,11 @@ import ar.com.kfgodel.diamond.api.members.modifiers.Visibility;
 import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.constructors.equality.ConstructorEquality;
+import ar.com.kfgodel.diamond.impl.equals.CachedTokenCalculator;
 import ar.com.kfgodel.diamond.impl.members.exceptions.NoExceptionsSupplier;
 import ar.com.kfgodel.diamond.impl.members.generics.UnGenerifiedMemberGenerics;
 import ar.com.kfgodel.diamond.impl.natives.invokables.constructors.NativeArrayConstructor;
 import ar.com.kfgodel.diamond.impl.types.parts.annotations.NoAnnotationsSupplier;
-import ar.com.kfgodel.hashcode.ImmutableHashcode;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.impl.NaryFromElementSupplier;
@@ -22,8 +22,8 @@ import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
+import java.util.function.Function;
 import java.util.function.Supplier;
-import java.util.function.ToIntFunction;
 
 /**
  * This type represents the description of an artificial array type constructor
@@ -85,7 +85,7 @@ public class ArrayConstructorDescription implements ConstructorDescription {
     }
 
     @Override
-    public ToIntFunction<TypeConstructor> getHashcoder() {
-        return ImmutableHashcode.create(ConstructorEquality.INSTANCE::hashcodeFor);
+    public Function<TypeConstructor, Object> getIdentityToken() {
+        return CachedTokenCalculator.create(ConstructorEquality.INSTANCE::calculateTokenFor);
     }
 }

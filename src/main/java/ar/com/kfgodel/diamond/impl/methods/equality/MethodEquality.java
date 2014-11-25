@@ -1,10 +1,10 @@
 package ar.com.kfgodel.diamond.impl.methods.equality;
 
+import ar.com.kfgodel.diamond.api.equals.CompositeIdentityToken;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
-import ar.com.kfgodel.hashcode.Hashcodes;
-import ar.com.kfgodel.streams.StreamEquality;
+import ar.com.kfgodel.diamond.impl.equals.ImmutableIdentityParts;
 
-import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
 /**
  * This type represents the equality criteria to compare methods
@@ -22,23 +22,26 @@ public class MethodEquality {
      * @return true if represent the same method
      */
     public boolean areEquals(TypeMethod one, Object obj){
-        boolean matchesAllConditions = Stream.of(obj)
-                .filter((object) -> object instanceof TypeMethod)
-                .map(TypeMethod.class::cast)
-                .filter((other) -> one.name().equals(other.name()))
-                .filter((other) -> one.declaringType().equals(other.declaringType()))
-                .filter((other) -> StreamEquality.INSTANCE.areEquals(one.parameterTypes(), other.parameterTypes()))
-                .count() == 1;
-        return matchesAllConditions;
+        if(one == obj){
+            return true;
+        }
+        if(one == null || obj == null || !(obj instanceof TypeMethod)){
+            return false;
+        }
+        TypeMethod other = (TypeMethod) obj;
+        return one.getIdentityToken().equals(other.getIdentityToken());
     }
 
     /**
-     * Calculates the hashcode of a method to be consistent with equals definition
-     * @param method The method to calculate its hashcode
-     * @return The hash of its name, declaring type and parameter types
+     * Creates the method token identifier
+     * @param method The method to represent
+     * @return The composite token
      */
-    public int hashcodeFor(TypeMethod method){
-        return Hashcodes.joining(method.name(), method.declaringType(), Hashcodes.forElementsIn(method.parameterTypes()));
+    public CompositeIdentityToken calculateTokenFor(TypeMethod method) {
+        return ImmutableIdentityParts.create(
+                method.name(),
+                method.declaringType(),
+                ImmutableIdentityParts.create(method.parameterTypes().collect(Collectors.toList())));
     }
 
 }

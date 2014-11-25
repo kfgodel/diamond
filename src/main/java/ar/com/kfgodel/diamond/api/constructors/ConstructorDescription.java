@@ -8,6 +8,7 @@ import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
+import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.function.ToIntFunction;
 
@@ -47,8 +48,5 @@ public interface ConstructorDescription extends MemberDescription {
      */
     Supplier<Nary<Constructor>> getNativeConstructor();
 
-    /**
-     * @return The function to calculate the hashcode of the created constructor
-     */
-    ToIntFunction<TypeConstructor> getHashcoder();
+    Function<TypeConstructor,Object> getIdentityToken();
 }
