@@ -7,7 +7,7 @@ import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.lambdas.Lambda;
 import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.diamond.unit.DiamondTestContext;
-import com.google.common.collect.Lists;
+import org.assertj.core.util.Lists;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,28 +55,28 @@ public class LambdaTests extends JavaSpec<DiamondTestContext> {
                     Lambda lambda = Diamond.lambdas().fromSupplier(() -> 1);
 
                     assertThat(lambda.parameters().count()).isEqualTo(0);
-                    assertThat(lambda.returnType().name()).isEqualTo("Object");
+                    assertThat(lambda.returnType().name()).isEqualTo("T");
                 });
                 
                 it("function",()->{
                     Lambda lambda = Diamond.lambdas().fromFunction((arg1) -> 1);
 
                     assertThat(lambda.parameters().count()).isEqualTo(1);
-                    assertThat(lambda.returnType().name()).isEqualTo("Object");
+                    assertThat(lambda.returnType().name()).isEqualTo("R");
                 });
                 
                 it("bifunction",()->{
                     Lambda lambda = Diamond.lambdas().fromBiFunction((arg1, arg2) -> 1);
 
                     assertThat(lambda.parameters().count()).isEqualTo(2);
-                    assertThat(lambda.returnType().name()).isEqualTo("Object");
+                    assertThat(lambda.returnType().name()).isEqualTo("R");
                 });
 
                 it("predicate",()->{
                     Lambda lambda = Diamond.lambdas().fromFunction((arg1) -> false);
 
                     assertThat(lambda.parameters().count()).isEqualTo(1);
-                    assertThat(lambda.returnType().name()).isEqualTo("Boolean");
+                    assertThat(lambda.returnType().name()).isEqualTo("R");
                 });
 
                 it("invokable",()->{
@@ -107,7 +107,7 @@ public class LambdaTests extends JavaSpec<DiamondTestContext> {
                             .map((parameter)-> parameter.declaredType().name())
                             .collect(Collectors.toList());
 
-                    assertThat(argNames).isEqualTo(Lists.newArrayList("Object", "Object"));
+                    assertThat(argNames).isEqualTo(Lists.newArrayList("T", "U"));
                 });
 
             });
@@ -117,7 +117,7 @@ public class LambdaTests extends JavaSpec<DiamondTestContext> {
                 it("is usually Object due to compiler type inference limitations",()->{
                     Lambda lambda = Diamond.lambdas().fromSupplier(() -> 1);
 
-                    assertThat(lambda.returnType().name()).isEqualTo("Object");
+                    assertThat(lambda.returnType().name()).isEqualTo("T");
                 });   
             });
 
@@ -154,9 +154,15 @@ public class LambdaTests extends JavaSpec<DiamondTestContext> {
                     assertThat(argumentCount.get()).isEqualTo(1);
                 });
                 
-                it("not as bi-function due to incompatible inheritability");
+                it("as pseudo bi-function due to incompatible inheritance", () -> {
+                    context().lambda().asFunction().apply(1,2);
+
+                    assertThat(argumentCount.get()).isEqualTo(2);
+                });
                 
                 it("as predicate",()->{
+                    context().lambda(()-> Diamond.lambdas().fromInvokable((args)-> argumentCount.set(args.length) != null));
+
                     context().lambda().asFunction().test(1);
 
                     assertThat(argumentCount.get()).isEqualTo(1);

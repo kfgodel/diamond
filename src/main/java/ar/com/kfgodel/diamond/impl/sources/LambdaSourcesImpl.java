@@ -4,6 +4,8 @@ import ar.com.kfgodel.diamond.api.invokable.Invokable;
 import ar.com.kfgodel.diamond.api.lambdas.Lambda;
 import ar.com.kfgodel.diamond.api.lambdas.LambdaDescription;
 import ar.com.kfgodel.diamond.api.sources.LambdaSources;
+import ar.com.kfgodel.diamond.impl.lambdas.LambdaInstance;
+import ar.com.kfgodel.diamond.impl.lambdas.description.LambdaDescriptor;
 
 import java.util.function.*;
 
@@ -20,46 +22,46 @@ public class LambdaSourcesImpl implements LambdaSources {
 
     @Override
     public Lambda fromRunnable(Runnable expression) {
-        return null;
+        return fromDescription(LambdaDescriptor.INSTANCE.describe(expression));
     }
 
     @Override
     public Lambda fromConsumer(Consumer expression) {
-        return null;
+        return fromDescription(LambdaDescriptor.INSTANCE.describe(expression));
     }
 
     @Override
     public Lambda fromBiConsumer(BiConsumer expression) {
-        return null;
+        return fromDescription(LambdaDescriptor.INSTANCE.describe(expression));
     }
 
     @Override
     public Lambda fromSupplier(Supplier expression) {
-        return null;
+        return fromDescription(LambdaDescriptor.INSTANCE.describe(expression));
     }
 
     @Override
     public Lambda fromFunction(Function expression) {
-        return null;
+        return fromDescription(LambdaDescriptor.INSTANCE.describe(expression));
     }
 
     @Override
     public Lambda fromBiFunction(BiFunction expression) {
-        return null;
+        return fromDescription(LambdaDescriptor.INSTANCE.describe(expression));
     }
 
     @Override
     public Lambda fromPredicate(Predicate expression) {
-        return null;
+        return fromDescription(LambdaDescriptor.INSTANCE.describe(expression));
     }
 
     @Override
     public Lambda fromInvokable(Invokable expression) {
-        return null;
+        return fromDescription(LambdaDescriptor.INSTANCE.describe(expression));
     }
 
     @Override
     public Lambda fromDescription(LambdaDescription description) {
-        return null;
+        return LambdaInstance.create(description);
     }
 }

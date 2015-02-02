@@ -202,13 +202,6 @@ of a fixed location is recommended. -->
   
   <dependencies>
 
-      <!-- Adds fluent capabilities -->
-      <dependency>
-          <groupId>ar.com.dgarcia</groupId>
-          <artifactId>fluentizer</artifactId>
-          <version>1.0</version>
-      </dependency>
-
     <!-- Logging -->
     <dependency>
       <groupId>org.slf4j</groupId>
