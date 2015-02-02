@@ -55,28 +55,28 @@ public class LambdaTests extends JavaSpec<DiamondTestContext> {
                     Lambda lambda = Diamond.lambdas().fromSupplier(() -> 1);
 
                     assertThat(lambda.parameters().count()).isEqualTo(0);
-                    assertThat(lambda.returnType().name()).isEqualTo("T");
+                    assertThat(lambda.returnType().name()).isEqualTo("Object");
                 });
                 
                 it("function",()->{
                     Lambda lambda = Diamond.lambdas().fromFunction((arg1) -> 1);
 
                     assertThat(lambda.parameters().count()).isEqualTo(1);
-                    assertThat(lambda.returnType().name()).isEqualTo("R");
+                    assertThat(lambda.returnType().name()).isEqualTo("Object");
                 });
                 
                 it("bifunction",()->{
                     Lambda lambda = Diamond.lambdas().fromBiFunction((arg1, arg2) -> 1);
 
                     assertThat(lambda.parameters().count()).isEqualTo(2);
-                    assertThat(lambda.returnType().name()).isEqualTo("R");
+                    assertThat(lambda.returnType().name()).isEqualTo("Object");
                 });
 
                 it("predicate",()->{
                     Lambda lambda = Diamond.lambdas().fromFunction((arg1) -> false);
 
                     assertThat(lambda.parameters().count()).isEqualTo(1);
-                    assertThat(lambda.returnType().name()).isEqualTo("R");
+                    assertThat(lambda.returnType().name()).isEqualTo("Object");
                 });
 
                 it("invokable",()->{
@@ -107,17 +107,17 @@ public class LambdaTests extends JavaSpec<DiamondTestContext> {
                             .map((parameter)-> parameter.declaredType().name())
                             .collect(Collectors.toList());
 
-                    assertThat(argNames).isEqualTo(Lists.newArrayList("T", "U"));
+                    assertThat(argNames).isEqualTo(Lists.newArrayList("Object", "Object"));
                 });
 
             });
 
             describe("return type", () -> {
                 
-                it("is usually Object due to compiler type inference limitations",()->{
+                it("is Object due to compiler type inference limitations",()->{
                     Lambda lambda = Diamond.lambdas().fromSupplier(() -> 1);
 
-                    assertThat(lambda.returnType().name()).isEqualTo("T");
+                    assertThat(lambda.returnType().name()).isEqualTo("Object");
                 });   
             });
 

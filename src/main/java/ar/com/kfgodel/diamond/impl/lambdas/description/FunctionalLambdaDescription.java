@@ -41,10 +41,10 @@ public class FunctionalLambdaDescription implements LambdaDescription {
         return NaryFromNative::empty;
     }
 
-    public static FunctionalLambdaDescription create(PolymorphicInvokable invokableAdapter, Class<?> functionalInterface, String functionalMethodName) {
+    public static FunctionalLambdaDescription create(PolymorphicInvokable invokableAdapter, Object functionalInstance, String functionalMethodName) {
         FunctionalLambdaDescription description = new FunctionalLambdaDescription();
         description.invokable = invokableAdapter;
-        description.functionalMethod = CachedValue.lazilyBy(()-> Diamond.methods().in(functionalInterface).named(functionalMethodName).get());
+        description.functionalMethod = CachedValue.lazilyBy(()-> Diamond.of(functionalInstance.getClass()).methods().named(functionalMethodName).get());
         return description;
     }
 
