@@ -205,6 +205,12 @@ public abstract class TypeInstanceSupport implements TypeInstance {
         return this.kinds().anyMatch(testedKind::equals);
     }
 
+
+    @Override
+    public boolean isTypeFor(Object anObject) {
+        return nativeTypes().anyMatch((nativeType)-> nativeType.isInstance(anObject));
+    }
+
     protected void initializeSuper(TypeDescription description){
         this.setNames(description.getNames());
         this.setAnnotations(description.getAnnotations());

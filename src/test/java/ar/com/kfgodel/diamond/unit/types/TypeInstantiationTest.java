@@ -53,6 +53,7 @@ public class TypeInstantiationTest extends JavaSpec<DiamondTestContext> {
                     assertThat(e).hasMessage("Type[ar.com.kfgodel.diamond.unit.testobjects.constructors.NoNiladicTestObject] doesn't have a no-arg constructor to create the instance from");
                 }
             });
+            
         });
 
     }
