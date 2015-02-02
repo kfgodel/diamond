@@ -49,12 +49,24 @@ public interface PolymorphicInvokable extends Invokable,
         return this.invoke(argument);
     };
 
+    /**
+     * BiFunction version. As the BiFunction and Function are not both inheritable, we add the bi-function version
+     * of the method but we cannot extend the interface
+     * @param oneArg The first argument of teh function
+     * @param otherArg The second argument
+     * @return The function result
+     */
+    default Object apply(Object oneArg, Object otherArg){
+        return this.invoke(oneArg, otherArg);
+    }
+
     @Override
     default boolean test(Object predicated){
         Object result = this.invoke(predicated);
         if(result instanceof Boolean){
             return (Boolean) result;
         }
-        throw new DiamondException("This invokable["+this+"] cannot be used as predicate for["+predicated+"] because result is not Boolean["+result+"]");
+        throw new DiamondException("This invokable["+this+"] cannot be used as predicate for argument["+predicated+"] because result["+result+"] is not Boolean");
     };
+
 }

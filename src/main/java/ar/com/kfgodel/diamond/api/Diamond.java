@@ -114,4 +114,9 @@ public interface Diamond {
     public static MetaObjectSources metaObjects() {
         return API.metaObjects();
     }
+
+    /**
+     * @return An accessor to obtain lambda reification that represent a meta-level view of the lambdas
+     */
+    public static LambdaSources lambdas() { return API.lambdas(); }
 }

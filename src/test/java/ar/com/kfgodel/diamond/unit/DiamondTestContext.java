@@ -5,6 +5,7 @@ import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.api.fields.BoundField;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.api.invokable.Invokable;
+import ar.com.kfgodel.diamond.api.lambdas.Lambda;
 import ar.com.kfgodel.diamond.api.methods.BoundMethod;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
@@ -70,5 +71,8 @@ public interface DiamondTestContext extends TestContext {
 
     BoundField boundField();
     void boundField(Supplier<BoundField> definition);
+    
+    Lambda lambda();
+    void lambda(Supplier<Lambda> definition);
 
 }

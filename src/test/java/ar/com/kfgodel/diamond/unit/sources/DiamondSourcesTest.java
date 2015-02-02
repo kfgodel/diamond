@@ -5,6 +5,7 @@ import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
+import ar.com.kfgodel.diamond.api.lambdas.Lambda;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
@@ -213,6 +214,24 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
                 });
             });
 
+            describe("lambdas", () -> {
+                it("can be obtained from inline expressions",()->{
+                    
+                    Lambda lambda = Diamond.lambdas().fromSupplier(() -> 3);
+
+                    assertThat(lambda.parameters().count()).isEqualTo(0);
+                });
+                it("can be obtained from a method reference",()->{
+                    Lambda lambda = Diamond.lambdas().fromSupplier(DiamondSourcesTest::method);
+
+                    assertThat(lambda.parameters().count()).isEqualTo(0);
+                });
+            });
+
         });
+    }
+    
+    public static int method(){
+        return 3;
     }
 }
