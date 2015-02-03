@@ -11,6 +11,7 @@ import ar.com.kfgodel.diamond.api.types.TypeDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.generics.TypeGenerics;
 import ar.com.kfgodel.diamond.api.types.inheritance.TypeInheritance;
+import ar.com.kfgodel.diamond.api.types.kinds.Kind;
 import ar.com.kfgodel.diamond.api.types.names.TypeNames;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.diamond.impl.constructors.sources.NoConstructors;
@@ -66,6 +67,8 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     private Supplier<Nary<Class<?>>> rawClasses;
 
     private Function<TypeInstance,Object> identityToken;
+    
+    private Supplier<Nary<Kind>> kinds;
 
     /**
      * Use this to override default creation with no annotations
@@ -191,6 +194,17 @@ public abstract class TypeInstanceSupport implements TypeInstance {
         return identityToken.apply(this);
     }
 
+
+    @Override
+    public Nary<Kind> kinds() {
+        return kinds.get();
+    }
+
+    @Override
+    public boolean isA(Kind testedKind) {
+        return this.kinds().anyMatch(testedKind::equals);
+    }
+
     protected void initializeSuper(TypeDescription description){
         this.setNames(description.getNames());
         this.setAnnotations(description.getAnnotations());
@@ -200,5 +214,6 @@ public abstract class TypeInstanceSupport implements TypeInstance {
         this.typePackage = description.getDeclaredPackage();
         this.inheritance = SuppliedTypesInheritance.create(this, description.getInheritanceDescription());
         this.identityToken = description.getIdentityToken();
+        this.kinds = description.getKindsFor(this);
     };
 }

@@ -7,6 +7,8 @@ import ar.com.kfgodel.diamond.api.types.TypeDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
+import ar.com.kfgodel.diamond.api.types.kinds.Kind;
+import ar.com.kfgodel.diamond.api.types.kinds.KindOf;
 import ar.com.kfgodel.diamond.impl.equals.CachedTokenCalculator;
 import ar.com.kfgodel.diamond.impl.natives.RawClassExtractor;
 import ar.com.kfgodel.diamond.impl.types.description.inheritance.NoInheritanceDescription;
@@ -24,9 +26,11 @@ import ar.com.kfgodel.nary.impl.NaryFromCollectionSupplier;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
+import java.util.Arrays;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 /**
  * This type serves as base class for unannotated types
@@ -118,5 +122,12 @@ public abstract class UnannotatedTypeDescriptionSupport implements TypeDescripti
     @Override
     public Function<TypeInstance, Object> getIdentityToken() {
         return CachedTokenCalculator.create(TypeEquality.INSTANCE::calculateTokenFor);
+    }
+
+    @Override
+    public Supplier<Nary<Kind>> getKindsFor(TypeInstance type) {
+        return NaryFromCollectionSupplier.lazilyBy(()-> Arrays.stream(KindOf.values())
+                .filter((kind)-> kind.contains(type))
+                .collect(Collectors.toList()));
     }
 }
