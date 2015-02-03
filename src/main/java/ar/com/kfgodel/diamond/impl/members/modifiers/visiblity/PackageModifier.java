@@ -1,7 +1,7 @@
 package ar.com.kfgodel.diamond.impl.members.modifiers.visiblity;
 
 import ar.com.kfgodel.diamond.api.members.modifiers.Modifier;
-import ar.com.kfgodel.diamond.api.members.modifiers.Visibility;
+import ar.com.kfgodel.diamond.api.members.modifiers.Modifiers;
 
 import java.util.stream.Stream;
 
@@ -19,9 +19,9 @@ public class PackageModifier implements Modifier {
     @Override
     public boolean isPresentIn(int modifierBitmap) {
         boolean otherVisibilityModifierIsPresent =
-                Visibility.PUBLIC.isPresentIn(modifierBitmap) ||
-                Visibility.PRIVATE.isPresentIn(modifierBitmap) ||
-                Visibility.PROTECTED.isPresentIn(modifierBitmap);
+                Modifiers.PUBLIC.isPresentIn(modifierBitmap) ||
+                Modifiers.PRIVATE.isPresentIn(modifierBitmap) ||
+                Modifiers.PROTECTED.isPresentIn(modifierBitmap);
         return !otherVisibilityModifierIsPresent;
     }
 

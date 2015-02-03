@@ -4,9 +4,7 @@ import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
-import ar.com.kfgodel.diamond.api.members.modifiers.FieldModifier;
-import ar.com.kfgodel.diamond.api.members.modifiers.Mutability;
-import ar.com.kfgodel.diamond.api.members.modifiers.Visibility;
+import ar.com.kfgodel.diamond.api.members.modifiers.Modifiers;
 import ar.com.kfgodel.diamond.unit.DiamondTestContext;
 import ar.com.kfgodel.diamond.unit.testobjects.modifiers.*;
 import org.junit.runner.RunWith;
@@ -24,42 +22,42 @@ public class FieldModifiersTest extends JavaSpec<DiamondTestContext> {
         describe("a field modifier", () -> {
             it("can be public",()->{
                 TypeField field = getPublicField();
-                assertThat(field.is(Visibility.PUBLIC));
+                assertThat(field.is(Modifiers.PUBLIC));
             });
 
             it("can be private",()->{
                 TypeField field = getPrivateField();
-                assertThat(field.is(Visibility.PRIVATE));
+                assertThat(field.is(Modifiers.PRIVATE));
             });
 
             it("can be protected",()->{
                 TypeField field = getProtectedField();
-                assertThat(field.is(Visibility.PROTECTED));
+                assertThat(field.is(Modifiers.PROTECTED));
             });
 
             it("can be package (default)",()->{
                 TypeField field = getDefaultField();
-                assertThat(field.is(Visibility.PACKAGE));
+                assertThat(field.is(Modifiers.PACKAGE));
             });
             
             it("can be static",()->{
                 TypeField field = getStaticField();
-                assertThat(field.is(Mutability.STATIC));
+                assertThat(field.is(Modifiers.STATIC));
             });
 
             it("can be final",()->{
                 TypeField field = getFinalField();
-                assertThat(field.is(Mutability.FINAL));
+                assertThat(field.is(Modifiers.FINAL));
             });
 
             it("can be transient",()->{
                 TypeField field = getTransientField();
-                assertThat(field.is(FieldModifier.TRANSIENT));
+                assertThat(field.is(Modifiers.TRANSIENT));
             });
 
             it("can be volatile",()->{
                 TypeField field = getVolatileField();
-                assertThat(field.is(FieldModifier.VOLATILE));
+                assertThat(field.is(Modifiers.VOLATILE));
             });
         });
     }

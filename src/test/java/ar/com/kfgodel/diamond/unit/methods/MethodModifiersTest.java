@@ -3,9 +3,7 @@ package ar.com.kfgodel.diamond.unit.methods;
 import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.api.Diamond;
-import ar.com.kfgodel.diamond.api.members.modifiers.MethodModifier;
-import ar.com.kfgodel.diamond.api.members.modifiers.Mutability;
-import ar.com.kfgodel.diamond.api.members.modifiers.Visibility;
+import ar.com.kfgodel.diamond.api.members.modifiers.Modifiers;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.unit.DiamondTestContext;
 import ar.com.kfgodel.diamond.unit.testobjects.modifiers.*;
@@ -26,53 +24,53 @@ public class MethodModifiersTest extends JavaSpec<DiamondTestContext> {
         describe("a method modifier", () -> {
             it("can be public",()->{
                 TypeMethod method = getPublicMethod();
-                assertThat(method.is(Visibility.PUBLIC));
+                assertThat(method.is(Modifiers.PUBLIC));
             });
 
             it("can be private",()->{
                 TypeMethod method = getPrivateMethod();
-                assertThat(method.is(Visibility.PRIVATE));
+                assertThat(method.is(Modifiers.PRIVATE));
             });
 
             it("can be protected",()->{
                 TypeMethod method = getProtectedMethod();
-                assertThat(method.is(Visibility.PROTECTED));
+                assertThat(method.is(Modifiers.PROTECTED));
             });
 
             it("can be package (default)",()->{
                 TypeMethod method = getDefaultMethod();
-                assertThat(method.is(Visibility.PACKAGE));
+                assertThat(method.is(Modifiers.PACKAGE));
             });
 
             it("can be static",()->{
                 TypeMethod method = getStaticMethod();
                 assertThat(method.modifiers().collect(Collectors.toList()))
-                        .contains(Mutability.STATIC);
+                        .contains(Modifiers.STATIC);
             });
 
             it("can be final",()->{
                 TypeMethod method = getFinalMethod();
-                assertThat(method.is(Mutability.FINAL));
+                assertThat(method.is(Modifiers.FINAL));
             });
 
             it("can be native",()->{
                 TypeMethod method = getNativeMethod();
-                assertThat(method.is(MethodModifier.NATIVE));
+                assertThat(method.is(Modifiers.NATIVE));
             });
             
             it("can be synchronized",()->{
                 TypeMethod method = getSyncMethod();
-                assertThat(method.is(MethodModifier.SYNCHRONIZED));
+                assertThat(method.is(Modifiers.SYNCHRONIZED));
             });
             
             it("can be strictfp",()->{
                 TypeMethod method = getStrictMethod();
-                assertThat(method.is(MethodModifier.STRICTFP));
+                assertThat(method.is(Modifiers.STRICTFP));
             });
 
             it("can be abstract",()->{
                 TypeMethod method = getAbstractMethod();
-                assertThat(method.is(MethodModifier.ABSTRACT));
+                assertThat(method.is(Modifiers.ABSTRACT));
             });
         });
     }
