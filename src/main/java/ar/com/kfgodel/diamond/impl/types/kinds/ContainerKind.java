@@ -3,7 +3,7 @@ package ar.com.kfgodel.diamond.impl.types.kinds;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.inheritance.TypeInheritance;
 import ar.com.kfgodel.diamond.api.types.kinds.Kind;
-import ar.com.kfgodel.diamond.api.types.kinds.KindOf;
+import ar.com.kfgodel.diamond.api.types.kinds.Kinds;
 
 import java.util.Collection;
 import java.util.Map;
@@ -16,7 +16,7 @@ public class ContainerKind implements Kind {
     @Override
     public boolean contains(TypeInstance testedType) {
         TypeInheritance typeInheritance = testedType.inheritance();
-        return typeInheritance.isSubTypeOfNative(Collection.class) || typeInheritance.isSubTypeOfNative(Map.class) || KindOf.ARRAY.contains(testedType);
+        return typeInheritance.isSubTypeOfNative(Collection.class) || typeInheritance.isSubTypeOfNative(Map.class) || Kinds.ARRAY.contains(testedType);
     }
 
     public static ContainerKind create() {

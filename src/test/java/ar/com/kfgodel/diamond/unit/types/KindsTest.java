@@ -5,7 +5,7 @@ import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.kinds.Kind;
-import ar.com.kfgodel.diamond.api.types.kinds.KindOf;
+import ar.com.kfgodel.diamond.api.types.kinds.Kinds;
 import ar.com.kfgodel.diamond.unit.DiamondTestContext;
 import ar.com.kfgodel.diamond.unit.testobjects.TestEnum;
 import org.junit.runner.RunWith;
@@ -23,7 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Created by kfgodel on 03/02/15.
  */
 @RunWith(JavaSpecRunner.class)
-public class KindOfTest extends JavaSpec<DiamondTestContext> {
+public class KindsTest extends JavaSpec<DiamondTestContext> {
     @Override
     public void define() {
         describe("a type kind", () -> {
@@ -31,7 +31,7 @@ public class KindOfTest extends JavaSpec<DiamondTestContext> {
             it("is a categorization used to group similar types without a type hierarchy",()->{
                 TypeInstance objectType = Diamond.of(Object.class);
                 
-                boolean answer = objectType.isA(KindOf.REFERENCE);
+                boolean answer = objectType.is(Kinds.REFERENCE);
                 
                 assertThat(answer).isTrue();
             });
@@ -41,8 +41,8 @@ public class KindOfTest extends JavaSpec<DiamondTestContext> {
 
                 List<Kind> kindList = listType.kinds().collect(Collectors.toList());
 
-                assertThat(kindList).contains(KindOf.REFERENCE);
-                assertThat(kindList).contains(KindOf.CONTAINER);
+                assertThat(kindList).contains(Kinds.REFERENCE);
+                assertThat(kindList).contains(Kinds.CONTAINER);
             });
 
             describe("allows discrimination of", () -> {
@@ -50,7 +50,7 @@ public class KindOfTest extends JavaSpec<DiamondTestContext> {
                 it("primitive types",()->{
                     TypeInstance objectType = Diamond.of(int.class);
 
-                    boolean answer = objectType.isA(KindOf.PRIMITIVE);
+                    boolean answer = objectType.is(Kinds.PRIMITIVE);
 
                     assertThat(answer).isTrue();
                 });
@@ -58,7 +58,7 @@ public class KindOfTest extends JavaSpec<DiamondTestContext> {
                 it("reference types (a.k.a non-primitives)",()->{
                     TypeInstance objectType = Diamond.of(Object.class);
 
-                    boolean answer = objectType.isA(KindOf.REFERENCE);
+                    boolean answer = objectType.is(Kinds.REFERENCE);
 
                     assertThat(answer).isTrue();
                 });
@@ -66,7 +66,7 @@ public class KindOfTest extends JavaSpec<DiamondTestContext> {
                 it("reference types (a.k.a non-primitives)",()->{
                     TypeInstance objectType = Diamond.of(Object.class);
 
-                    boolean answer = objectType.isA(KindOf.REFERENCE);
+                    boolean answer = objectType.is(Kinds.REFERENCE);
 
                     assertThat(answer).isTrue();
                 });
@@ -74,7 +74,7 @@ public class KindOfTest extends JavaSpec<DiamondTestContext> {
                 it("array types",()->{
                     TypeInstance objectType = Diamond.of(int[].class);
 
-                    boolean answer = objectType.isA(KindOf.ARRAY);
+                    boolean answer = objectType.is(Kinds.ARRAY);
 
                     assertThat(answer).isTrue();
                 });
@@ -82,7 +82,7 @@ public class KindOfTest extends JavaSpec<DiamondTestContext> {
                 it("value types (numbers and text)",()->{
                     TypeInstance objectType = Diamond.of(String.class);
 
-                    boolean answer = objectType.isA(KindOf.VALUE);
+                    boolean answer = objectType.is(Kinds.VALUE);
 
                     assertThat(answer).isTrue();
                 });
@@ -90,7 +90,7 @@ public class KindOfTest extends JavaSpec<DiamondTestContext> {
                 it("boolean types (boxed and unboxed)",()->{
                     TypeInstance objectType = Diamond.of(boolean.class);
 
-                    boolean answer = objectType.isA(KindOf.BOOLEAN);
+                    boolean answer = objectType.is(Kinds.BOOLEAN);
 
                     assertThat(answer).isTrue();
                 });
@@ -98,7 +98,7 @@ public class KindOfTest extends JavaSpec<DiamondTestContext> {
                 it("numeric types (boxed and unboxed)",()->{
                     TypeInstance objectType = Diamond.of(long.class);
 
-                    boolean answer = objectType.isA(KindOf.NUMERIC);
+                    boolean answer = objectType.is(Kinds.NUMERIC);
 
                     assertThat(answer).isTrue();
                 });
@@ -106,7 +106,7 @@ public class KindOfTest extends JavaSpec<DiamondTestContext> {
                 it("text types",()->{
                     TypeInstance objectType = Diamond.of(StringBuffer.class);
 
-                    boolean answer = objectType.isA(KindOf.TEXT);
+                    boolean answer = objectType.is(Kinds.TEXT);
 
                     assertThat(answer).isTrue();
                 });
@@ -114,7 +114,7 @@ public class KindOfTest extends JavaSpec<DiamondTestContext> {
                 it("enum types",()->{
                     TypeInstance objectType = Diamond.of(TestEnum.class);
 
-                    boolean answer = objectType.isA(KindOf.ENUM);
+                    boolean answer = objectType.is(Kinds.ENUM);
 
                     assertThat(answer).isTrue();
                 });
@@ -122,28 +122,28 @@ public class KindOfTest extends JavaSpec<DiamondTestContext> {
                 it("container types",()->{
                     TypeInstance objectType = Diamond.of(Map.class);
 
-                    boolean answer = objectType.isA(KindOf.CONTAINER);
+                    boolean answer = objectType.is(Kinds.CONTAINER);
 
                     assertThat(answer).isTrue();
                 });
                 it("interface types",()->{
                     TypeInstance objectType = Diamond.of(List.class);
 
-                    boolean answer = objectType.isA(KindOf.INTERFACE);
+                    boolean answer = objectType.is(Kinds.INTERFACE);
 
                     assertThat(answer).isTrue();
                 });
                 it("class types",()->{
                     TypeInstance objectType = Diamond.of(ArrayList.class);
 
-                    boolean answer = objectType.isA(KindOf.CLASS);
+                    boolean answer = objectType.is(Kinds.CLASS);
 
                     assertThat(answer).isTrue();
                 });
                 it("annotation types",()->{
                     TypeInstance objectType = Diamond.of(Documented.class);
 
-                    boolean answer = objectType.isA(KindOf.ANNOTATION);
+                    boolean answer = objectType.is(Kinds.ANNOTATION);
 
                     assertThat(answer).isTrue();
                 });
@@ -154,7 +154,7 @@ public class KindOfTest extends JavaSpec<DiamondTestContext> {
                         }
                     }.getClass());
 
-                    boolean answer = objectType.isA(KindOf.ANONYMOUS);
+                    boolean answer = objectType.is(Kinds.ANONYMOUS);
 
                     assertThat(answer).isTrue();
                 });

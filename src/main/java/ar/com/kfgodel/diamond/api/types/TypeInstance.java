@@ -121,7 +121,7 @@ public interface TypeInstance extends Named, Annotated, Supplier<Object>, Declar
      * @param testedKind The kind to test this type on
      * @return true if this type can be considered of the given kind
      */
-    boolean isA(Kind testedKind);
+    boolean is(Kind testedKind);
 
     /**
      * The set of kinds this type belongs to.<br> This set is usually defined on the language

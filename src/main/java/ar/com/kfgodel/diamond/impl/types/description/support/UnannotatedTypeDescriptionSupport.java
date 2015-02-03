@@ -8,7 +8,7 @@ import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
 import ar.com.kfgodel.diamond.api.types.kinds.Kind;
-import ar.com.kfgodel.diamond.api.types.kinds.KindOf;
+import ar.com.kfgodel.diamond.api.types.kinds.Kinds;
 import ar.com.kfgodel.diamond.impl.equals.CachedTokenCalculator;
 import ar.com.kfgodel.diamond.impl.natives.RawClassExtractor;
 import ar.com.kfgodel.diamond.impl.types.description.inheritance.NoInheritanceDescription;
@@ -127,7 +127,7 @@ public abstract class UnannotatedTypeDescriptionSupport implements TypeDescripti
 
     @Override
     public Supplier<Nary<Kind>> getKindsFor(TypeInstance type) {
-        return NaryFromCollectionSupplier.lazilyBy(()-> Arrays.stream(KindOf.values())
+        return NaryFromCollectionSupplier.lazilyBy(()-> Arrays.stream(Kinds.values())
                 .filter((kind)-> kind.contains(type))
                 .collect(Collectors.toList()));
     }

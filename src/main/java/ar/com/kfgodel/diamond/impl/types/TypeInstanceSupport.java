@@ -204,7 +204,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     }
 
     @Override
-    public boolean isA(Kind testedKind) {
+    public boolean is(Kind testedKind) {
         return this.kinds().anyMatch(testedKind::equals);
     }
 

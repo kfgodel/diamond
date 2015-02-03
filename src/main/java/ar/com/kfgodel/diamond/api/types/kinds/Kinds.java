@@ -6,7 +6,7 @@ import ar.com.kfgodel.diamond.impl.types.kinds.*;
  * This type serves as single access point to all standard kinds
  * Created by kfgodel on 03/02/15.
  */
-public class KindOf {
+public class Kinds {
 
     /**
      * Types that represent objects (non-primitive types)

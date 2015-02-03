@@ -2,7 +2,7 @@ package ar.com.kfgodel.diamond.impl.types.kinds;
 
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.kinds.Kind;
-import ar.com.kfgodel.diamond.api.types.kinds.KindOf;
+import ar.com.kfgodel.diamond.api.types.kinds.Kinds;
 
 /**
  * This type represents the kind of value types
@@ -11,7 +11,7 @@ import ar.com.kfgodel.diamond.api.types.kinds.KindOf;
 public class ValueKind implements Kind {
     @Override
     public boolean contains(TypeInstance testedType) {
-        return KindOf.TEXT.contains(testedType) || KindOf.BOOLEAN.contains(testedType) || KindOf.NUMERIC.contains(testedType);
+        return Kinds.TEXT.contains(testedType) || Kinds.BOOLEAN.contains(testedType) || Kinds.NUMERIC.contains(testedType);
     }
 
     public static ValueKind create() {
