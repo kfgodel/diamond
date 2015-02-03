@@ -137,4 +137,12 @@ public abstract class UnannotatedTypeDescriptionSupport implements TypeDescripti
         return (testedObject) -> getBehavioralClasses().stream()
                 .anyMatch((nativeType) -> nativeType.isInstance(testedObject));
     }
+
+    @Override
+    public Predicate<TypeInstance> getAssignabilityPredicate() {
+        // We check if any of our native types is assignable from any of the other native types
+        return (otherType) -> getBehavioralClasses().stream()
+                .anyMatch((thisNativeType)-> otherType.nativeTypes()
+                        .anyMatch(thisNativeType::isAssignableFrom));
+    }
 }

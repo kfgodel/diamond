@@ -72,6 +72,8 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     private Supplier<Nary<Kind>> kinds;
     
     private Predicate<Object> typeForPredicate;
+    
+    private Predicate<TypeInstance> assignabilityPredicate;
 
     /**
      * Use this to override default creation with no annotations
@@ -214,6 +216,16 @@ public abstract class TypeInstanceSupport implements TypeInstance {
         return typeForPredicate.test(anObject);
     }
 
+    @Override
+    public boolean isAssignableFrom(TypeInstance possibleSubtype) {
+        return assignabilityPredicate.test(possibleSubtype);
+    }
+
+    @Override
+    public boolean isAssignableTo(TypeInstance possibleSuperType) {
+        return possibleSuperType.isAssignableFrom(this);
+    }
+
     protected void initializeSuper(TypeDescription description){
         this.setNames(description.getNames());
         this.setAnnotations(description.getAnnotations());
@@ -225,5 +237,6 @@ public abstract class TypeInstanceSupport implements TypeInstance {
         this.identityToken = description.getIdentityToken();
         this.kinds = description.getKindsFor(this);
         this.typeForPredicate = description.getTypeForPredicate();
+        this.assignabilityPredicate = description.getAssignabilityPredicate();
     };
 }

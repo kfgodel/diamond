@@ -106,4 +106,9 @@ public interface TypeDescription {
      * @return The predicate to test instances against the described type to verify its type
      */
     Predicate<Object> getTypeForPredicate();
+
+    /**
+     * @return The predicate to use when checking described type assignability
+     */
+    Predicate<TypeInstance> getAssignabilityPredicate();
 }

@@ -94,6 +94,35 @@ public interface TypeInstance extends Named, Annotated, Supplier<Object>, Declar
     boolean isTypeFor(Object anObject);
 
     /**
+     * Answers if this type belongs to the given kind. Kinds are groups of types
+     * usually defined by the language designers
+     * @param testedKind The kind to test this type on
+     * @return true if this type can be considered of the given kind
+     */
+    boolean is(Kind testedKind);
+
+    /**
+     * The set of kinds this type belongs to.<br> This set is usually defined on the language
+     * specification
+     * @return The kinds for this type
+     */
+    Nary<Kind> kinds();
+
+    /**
+     * Answers if this type is a cast-safe supertype of the given type
+     * @param possibleSubtype other type to test the relation
+     * @return true if an object of the other type can be assigned to a variable of this type
+     */
+    boolean isAssignableFrom(TypeInstance possibleSubtype);
+
+    /**
+     * Answers if this type can be assigned to the other type
+     * @param possibleSuperType other type to test the relation
+     * @return true if an object of this type can be assigned to a variable of the other type
+     */
+    boolean isAssignableTo(TypeInstance possibleSuperType);
+
+    /**
      * @return Sames as calling newInstance()
      */
     @Override
@@ -115,18 +144,4 @@ public interface TypeInstance extends Named, Annotated, Supplier<Object>, Declar
      */
     Nary<Class<?>> nativeTypes();
 
-    /**
-     * Answers if this type belongs to the given kind. Kinds are groups of types
-     * usually defined by the language designers
-     * @param testedKind The kind to test this type on
-     * @return true if this type can be considered of the given kind
-     */
-    boolean is(Kind testedKind);
-
-    /**
-     * The set of kinds this type belongs to.<br> This set is usually defined on the language
-     * specification
-     * @return The kinds for this type
-     */
-    Nary<Kind> kinds();
 }
