@@ -12,6 +12,7 @@ import ar.com.kfgodel.diamond.api.methods.TypeMethods;
 import ar.com.kfgodel.diamond.api.naming.Named;
 import ar.com.kfgodel.diamond.api.types.generics.TypeGenerics;
 import ar.com.kfgodel.diamond.api.types.inheritance.TypeInheritance;
+import ar.com.kfgodel.diamond.api.types.kinds.Kind;
 import ar.com.kfgodel.diamond.api.types.names.TypeNames;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.nary.api.Nary;
@@ -103,4 +104,19 @@ public interface TypeInstance extends Named, Annotated, Supplier<Object>, Declar
      *     More than one can be present if this is an upper bounded type
      */
     Nary<Class<?>> nativeTypes();
+
+    /**
+     * Answers if this type belongs to the given kind. Kinds are groups of types
+     * usually defined by the language designers
+     * @param testedKind The kind to test this type on
+     * @return true if this type can be considered of the given kind
+     */
+    boolean isA(Kind testedKind);
+
+    /**
+     * The set of kinds this type belongs to.<br> This set is usually defined on the language
+     * specification
+     * @return The kinds for this type
+     */
+    Nary<Kind> kinds();
 }
