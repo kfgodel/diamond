@@ -14,6 +14,7 @@ import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.annotation.Annotation;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 /**
@@ -97,5 +98,10 @@ public abstract class DelegatedDescriptionSupport implements TypeDescription {
     @Override
     public Supplier<Nary<Kind>> getKindsFor(TypeInstance type) {
         return getDelegateDescription().getKindsFor(type);
+    }
+
+    @Override
+    public Predicate<Object> getTypeForPredicate() {
+        return getDelegateDescription().getTypeForPredicate();
     }
 }
