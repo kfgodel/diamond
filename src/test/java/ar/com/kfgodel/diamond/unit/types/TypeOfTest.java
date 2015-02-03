@@ -7,13 +7,17 @@ import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.unit.DiamondTestContext;
 import org.junit.runner.RunWith;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
+ * This type verifies correct behavior of instance of and assignment tests
  * Created by kfgodel on 02/02/15.
  */
 @RunWith(JavaSpecRunner.class)
-public class TypeInstanceOfTest extends JavaSpec<DiamondTestContext> {
+public class TypeOfTest extends JavaSpec<DiamondTestContext> {
     @Override
     public void define() {
 
@@ -38,6 +42,29 @@ public class TypeInstanceOfTest extends JavaSpec<DiamondTestContext> {
             });   
             
         });
+
+        describe("type test", () -> {
+            
+            it("allows to check assignability to a type",()->{
+                TypeInstance subtype = Diamond.of(ArrayList.class);
+                TypeInstance superType = Diamond.of(List.class);
+                
+                boolean answer = subtype.isAssignableTo(superType);
+
+                assertThat(answer).isTrue();
+            });
+            
+            it("allows to check assignability from a type",()->{
+                TypeInstance subtype = Diamond.of(ArrayList.class);
+                TypeInstance superType = Diamond.of(List.class);
+
+                boolean answer = superType.isAssignableFrom(subtype);
+
+                assertThat(answer).isTrue();
+            });
+            
+        });
+
 
     }
 }
