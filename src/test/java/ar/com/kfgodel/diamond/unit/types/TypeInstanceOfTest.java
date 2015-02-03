@@ -28,6 +28,15 @@ public class TypeInstanceOfTest extends JavaSpec<DiamondTestContext> {
                 assertThat(answer).isTrue();
             });
             
+            it("is even usable on arrays",()->{
+                Object anObject = new int[]{1,2,4};
+
+                TypeInstance objectType = Diamond.of(int[].class);
+                boolean answer = objectType.isTypeFor(anObject);
+
+                assertThat(answer).isTrue();
+            });   
+            
         });
 
     }
