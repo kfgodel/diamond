@@ -2,12 +2,12 @@ package ar.com.kfgodel.diamond.unit.constructors;
 
 import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
-import ar.com.kfgodel.diamond.unit.DiamondTestContext;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
-import ar.com.kfgodel.diamond.api.members.modifiers.Visibility;
+import ar.com.kfgodel.diamond.api.members.modifiers.Modifiers;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.reference.ReferenceOf;
+import ar.com.kfgodel.diamond.unit.DiamondTestContext;
 import ar.com.kfgodel.diamond.unit.testobjects.lineage.ChildClass;
 import ar.com.kfgodel.diamond.unit.testobjects.lineage.ParentClass;
 import org.junit.runner.RunWith;
@@ -35,25 +35,25 @@ public class AllConstructorsPerTypeTest extends JavaSpec<DiamondTestContext> {
 
                 it("includes public constructors",()->{
                     assertThat(context().typeInstance().constructors().all()
-                            .anyMatch((constructor) -> constructor.modifiers().anyMatch(Visibility.PUBLIC)))
+                            .anyMatch((constructor) -> constructor.modifiers().anyMatch(Modifiers.PUBLIC)))
                             .isTrue();
                 });
 
                 it("includes protected constructors",()->{
                     assertThat(context().typeInstance().constructors().all()
-                            .anyMatch((constructor)->  constructor.modifiers().anyMatch(Visibility.PROTECTED)))
+                            .anyMatch((constructor)->  constructor.modifiers().anyMatch(Modifiers.PROTECTED)))
                             .isTrue();
                 });
 
                 it("includes private constructors",()->{
                     assertThat(context().typeInstance().constructors().all()
-                            .anyMatch((constructor)->  constructor.modifiers().anyMatch(Visibility.PRIVATE)))
+                            .anyMatch((constructor)->  constructor.modifiers().anyMatch(Modifiers.PRIVATE)))
                             .isTrue();
                 });
 
                 it("includes default constructors",()->{
                     assertThat(context().typeInstance().constructors().all()
-                            .anyMatch((constructor)->  constructor.modifiers().anyMatch(Visibility.PACKAGE)))
+                            .anyMatch((constructor)->  constructor.modifiers().anyMatch(Modifiers.PACKAGE)))
                             .isTrue();
                 });
 

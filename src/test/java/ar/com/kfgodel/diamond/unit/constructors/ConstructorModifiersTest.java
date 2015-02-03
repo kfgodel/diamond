@@ -2,10 +2,10 @@ package ar.com.kfgodel.diamond.unit.constructors;
 
 import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
-import ar.com.kfgodel.diamond.unit.DiamondTestContext;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
-import ar.com.kfgodel.diamond.api.members.modifiers.Visibility;
+import ar.com.kfgodel.diamond.api.members.modifiers.Modifiers;
+import ar.com.kfgodel.diamond.unit.DiamondTestContext;
 import ar.com.kfgodel.diamond.unit.testobjects.modifiers.DefaultMembersTestObject;
 import ar.com.kfgodel.diamond.unit.testobjects.modifiers.PrivateMembersTestObject;
 import ar.com.kfgodel.diamond.unit.testobjects.modifiers.ProtectedMembersTestObject;
@@ -25,22 +25,22 @@ public class ConstructorModifiersTest extends JavaSpec<DiamondTestContext> {
         describe("a constructor modifier", () -> {
             it("can be public",()->{
                 TypeConstructor constructor = getPublicConstructor();
-                assertThat(constructor.is(Visibility.PUBLIC));
+                assertThat(constructor.is(Modifiers.PUBLIC));
             });
 
             it("can be private",()->{
                 TypeConstructor constructor = getPrivateConstructor();
-                assertThat(constructor.is(Visibility.PRIVATE));
+                assertThat(constructor.is(Modifiers.PRIVATE));
             });
 
             it("can be protected",()->{
                 TypeConstructor constructor = getProtectedConstructor();
-                assertThat(constructor.is(Visibility.PROTECTED));
+                assertThat(constructor.is(Modifiers.PROTECTED));
             });
 
             it("can be package (default)",()->{
                 TypeConstructor constructor = getDefaultConstructor();
-                assertThat(constructor.is(Visibility.PACKAGE));
+                assertThat(constructor.is(Modifiers.PACKAGE));
             });
         });
     }

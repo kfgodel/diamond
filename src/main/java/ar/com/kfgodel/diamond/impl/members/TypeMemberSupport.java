@@ -5,7 +5,7 @@ import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
 import ar.com.kfgodel.diamond.api.members.MemberDescription;
 import ar.com.kfgodel.diamond.api.members.TypeMember;
 import ar.com.kfgodel.diamond.api.members.modifiers.Modifier;
-import ar.com.kfgodel.diamond.api.members.modifiers.Mutability;
+import ar.com.kfgodel.diamond.api.members.modifiers.Modifiers;
 import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.invokables.UndefinedInvoker;
@@ -96,7 +96,7 @@ public abstract class TypeMemberSupport implements TypeMember {
 
     @Override
     public boolean isInstanceMember() {
-        return !is(Mutability.STATIC);
+        return !is(Modifiers.STATIC);
     }
 
     @Override

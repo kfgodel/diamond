@@ -1,7 +1,8 @@
 package ar.com.kfgodel.diamond.impl.sources;
 
 import ar.com.kfgodel.diamond.api.cache.DiamondCache;
-import ar.com.kfgodel.diamond.api.members.modifiers.*;
+import ar.com.kfgodel.diamond.api.members.modifiers.Modifier;
+import ar.com.kfgodel.diamond.api.members.modifiers.Modifiers;
 import ar.com.kfgodel.diamond.api.sources.ModifierSources;
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.impl.NaryFromNative;
@@ -10,7 +11,6 @@ import java.lang.reflect.Member;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * This type implements the sources for type member modifiers
@@ -47,18 +47,12 @@ public class ModifierSourcesImpl implements ModifierSources {
     public List<Modifier> fromParameter(int modifierBitmap) {
         // We exclude package that is present by default (lack of other visibility)
         return from(modifierBitmap).stream()
-                .filter((modifier) -> !Visibility.PACKAGE.equals(modifier))
+                .filter((modifier) -> !Modifiers.PACKAGE.equals(modifier))
                 .collect(Collectors.toList());
     }
 
     @Override
     public Nary<Modifier> all() {
-        return NaryFromNative.create(Stream.concat(
-                Stream.concat(
-                        Stream.concat(
-                                Arrays.stream(Visibility.values()),
-                                Arrays.stream(Mutability.values())),
-                        Arrays.stream(FieldModifier.values())),
-                Arrays.stream(MethodModifier.values())));
+        return NaryFromNative.create(Arrays.stream(Modifiers.values()));
     }
 }

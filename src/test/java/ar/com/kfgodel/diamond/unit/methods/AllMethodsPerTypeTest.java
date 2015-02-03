@@ -3,8 +3,7 @@ package ar.com.kfgodel.diamond.unit.methods;
 import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.api.Diamond;
-import ar.com.kfgodel.diamond.api.members.modifiers.Mutability;
-import ar.com.kfgodel.diamond.api.members.modifiers.Visibility;
+import ar.com.kfgodel.diamond.api.members.modifiers.Modifiers;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.reference.ReferenceOf;
@@ -36,31 +35,31 @@ public class AllMethodsPerTypeTest extends JavaSpec<DiamondTestContext> {
 
                 it("includes public methods",()->{
                     assertThat(context().typeInstance().methods().all()
-                            .anyMatch((method) -> method.modifiers().anyMatch(Visibility.PUBLIC)))
+                            .anyMatch((method) -> method.modifiers().anyMatch(Modifiers.PUBLIC)))
                             .isTrue();
                 });
 
                 it("includes protected methods",()->{
                     assertThat(context().typeInstance().methods().all()
-                            .anyMatch((method)-> method.modifiers().anyMatch(Visibility.PROTECTED)))
+                            .anyMatch((method)-> method.modifiers().anyMatch(Modifiers.PROTECTED)))
                             .isTrue();
                 });
 
                 it("includes private methods",()->{
                     assertThat(context().typeInstance().methods().all()
-                            .anyMatch((method)-> method.modifiers().anyMatch(Visibility.PRIVATE)))
+                            .anyMatch((method)-> method.modifiers().anyMatch(Modifiers.PRIVATE)))
                             .isTrue();
                 });
 
                 it("includes default methods",()->{
                     assertThat(context().typeInstance().methods().all()
-                            .anyMatch((method)-> method.modifiers().anyMatch(Visibility.PACKAGE)))
+                            .anyMatch((method)-> method.modifiers().anyMatch(Modifiers.PACKAGE)))
                             .isTrue();
                 });
 
                 it("includes static methods",()->{
                     assertThat(context().typeInstance().methods().all()
-                            .anyMatch((method)-> method.modifiers().anyMatch(Mutability.STATIC)))
+                            .anyMatch((method)-> method.modifiers().anyMatch(Modifiers.STATIC)))
                             .isTrue();
                 });
 

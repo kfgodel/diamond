@@ -6,7 +6,7 @@ import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.api.generics.Generics;
 import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
 import ar.com.kfgodel.diamond.api.members.modifiers.Modifier;
-import ar.com.kfgodel.diamond.api.members.modifiers.Visibility;
+import ar.com.kfgodel.diamond.api.members.modifiers.Modifiers;
 import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.constructors.equality.ConstructorEquality;
@@ -45,7 +45,7 @@ public class ArrayConstructorDescription implements ConstructorDescription {
     @Override
     public Supplier<Nary<Modifier>> getModifiers() {
         // Array creation is similar to public visibility
-        return NaryFromElementSupplier.from(Visibility.PUBLIC);
+        return NaryFromElementSupplier.from(Modifiers.PUBLIC);
     }
 
     @Override
