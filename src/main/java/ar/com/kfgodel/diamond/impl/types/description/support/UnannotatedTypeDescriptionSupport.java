@@ -29,6 +29,7 @@ import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -129,5 +130,11 @@ public abstract class UnannotatedTypeDescriptionSupport implements TypeDescripti
         return NaryFromCollectionSupplier.lazilyBy(()-> Arrays.stream(KindOf.values())
                 .filter((kind)-> kind.contains(type))
                 .collect(Collectors.toList()));
+    }
+
+    @Override
+    public Predicate<Object> getTypeForPredicate() {
+        return (testedObject) -> getBehavioralClasses().stream()
+                .anyMatch((nativeType) -> nativeType.isInstance(testedObject));
     }
 }

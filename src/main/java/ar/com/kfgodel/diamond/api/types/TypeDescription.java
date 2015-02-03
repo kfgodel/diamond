@@ -12,6 +12,7 @@ import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.annotation.Annotation;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 /**
@@ -100,4 +101,9 @@ public interface TypeDescription {
      * @return The function to get the kinds of the described type
      */
     Supplier<Nary<Kind>> getKindsFor(TypeInstance type);
+
+    /**
+     * @return The predicate to test instances against the described type to verify its type
+     */
+    Predicate<Object> getTypeForPredicate();
 }
