@@ -42,7 +42,10 @@ public class ExecutableParameterTest extends JavaSpec<DiamondTestContext> {
                 // Depending on the compilation options this test may fails if one option asserted
                 assertThat(parameterName.equals("arg0") || parameterName.equals("parameter")).isTrue();
             });
-            
+
+            /**
+             * This test fails sometimes. It seems the compiler omits the modifier in the generated .class?
+             */
             it("has modifiers",()->{
                 List<String> parameterModifiers = context().parameter().modifiers().map(Modifier::declaration).collect(Collectors.toList());
 
