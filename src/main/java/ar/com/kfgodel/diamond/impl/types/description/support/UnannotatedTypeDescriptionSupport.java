@@ -1,5 +1,6 @@
 package ar.com.kfgodel.diamond.impl.types.description.support;
 
+import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
@@ -144,5 +145,10 @@ public abstract class UnannotatedTypeDescriptionSupport implements TypeDescripti
         return (otherType) -> getBehavioralClasses().stream()
                 .anyMatch((thisNativeType)-> otherType.nativeTypes()
                         .anyMatch(thisNativeType::isAssignableFrom));
+    }
+
+    @Override
+    public Supplier<TypeInstance> getRuntimeType() {
+        return ()-> Diamond.of(getRawClass());
     }
 }

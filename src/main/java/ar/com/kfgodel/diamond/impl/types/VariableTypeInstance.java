@@ -10,13 +10,6 @@ import ar.com.kfgodel.diamond.impl.types.generics.BoundedTypeGenerics;
  */
 public class VariableTypeInstance extends TypeInstanceSupport {
 
-    private BoundedTypeGenerics generics;
-
-    @Override
-    public TypeGenerics generics() {
-        return generics;
-    }
-
     /**
      * Creates a type variable from its description
      * @param description The parts needed to crete the instance
@@ -25,9 +18,12 @@ public class VariableTypeInstance extends TypeInstanceSupport {
     public static VariableTypeInstance create(TypeDescription description) {
         VariableTypeInstance variableType = new VariableTypeInstance();
         variableType.initializeSuper(description);
-        variableType.generics = BoundedTypeGenerics.create(description.getBounds());
         return variableType;
     }
 
 
+    @Override
+    protected TypeGenerics createGenericsInfoFrom(TypeDescription description) {
+        return BoundedTypeGenerics.create(description.getBounds(), description.getRuntimeType());
+    }
 }
