@@ -16,6 +16,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedType;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -93,6 +94,12 @@ public class ParameterizedTypeTest extends JavaSpec<DiamondTestContext> {
                 // with reflection. Limitation from current reflection API
                 assertThat(parameterAnnotationsCount).isEqualTo(0);
             });
+            
+            it("is a subtype of its raw type",()->{
+                TypeInstance parameterizedMap = Diamond.types().from(new ReferenceOf<Map<String, Integer>>() {}.getReferencedAnnotatedType());
+                
+                assertThat(parameterizedMap.inheritance().isSubTypeOf(Diamond.of(Map.class))).isTrue();
+            });   
 
         });
     }
