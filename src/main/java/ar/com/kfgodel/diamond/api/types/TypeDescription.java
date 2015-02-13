@@ -111,4 +111,9 @@ public interface TypeDescription {
      * @return The predicate to use when checking described type assignability
      */
     Predicate<TypeInstance> getAssignabilityPredicate();
+
+    /**
+     * @return The supplier of the type used in runtime to represent the described type
+     */
+    Supplier<TypeInstance> getRuntimeType();
 }

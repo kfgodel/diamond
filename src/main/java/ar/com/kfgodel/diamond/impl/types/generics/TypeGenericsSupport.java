@@ -7,27 +7,21 @@ import ar.com.kfgodel.diamond.impl.types.bounds.NoBounds;
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.impl.NaryFromNative;
 
+import java.util.function.Supplier;
+
 /**
- * This type represents the generics information for an ungenerified type
- * Created by kfgodel on 05/10/14.
+ * This type serves as a base class for type generics implementations
+ * Created by kfgodel on 12/02/15.
  */
-public class UnGenerifiedTypeGenerics implements TypeGenerics {
+public abstract class TypeGenericsSupport implements TypeGenerics {
 
-    public static final UnGenerifiedTypeGenerics INSTANCE = new UnGenerifiedTypeGenerics();
+    private Supplier<TypeInstance> runtimeType;
 
-    /**
-     * Default implementation with no bounds
-     * @return A no bounds instance
-     */
     @Override
     public TypeBounds bounds() {
         return NoBounds.INSTANCE;
     }
 
-    /**
-     * Default implementation with no arguments
-     * @return An empty stream
-     */
     @Override
     public Nary<TypeInstance> arguments() {
         return NaryFromNative.empty();
@@ -36,5 +30,14 @@ public class UnGenerifiedTypeGenerics implements TypeGenerics {
     @Override
     public Nary<TypeInstance> parameters() {
         return NaryFromNative.empty();
+    }
+    
+    @Override
+    public TypeInstance runtimeType() {
+        return runtimeType.get();
+    }
+
+    protected void setRuntimeType(Supplier<TypeInstance> runtimeType) {
+        this.runtimeType = runtimeType;
     }
 }

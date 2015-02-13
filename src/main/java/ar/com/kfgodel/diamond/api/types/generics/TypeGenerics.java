@@ -31,4 +31,10 @@ public interface TypeGenerics extends Generics {
      */
     Nary<TypeInstance> parameters();
 
+    /**
+     * @return The type used in runtime to represent this type. Usually it's the raw class version of this type 
+     * parameterized version. For type variables it can be Object or its upper bound. For arrays it's the non-generic 
+     * array type
+     */
+    TypeInstance runtimeType();
 }

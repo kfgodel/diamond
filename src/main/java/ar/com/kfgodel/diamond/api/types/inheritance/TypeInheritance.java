@@ -46,7 +46,7 @@ public interface TypeInheritance {
     /**
      * Returns this class lineage (starting from this type, the set of inherited classes up until Object).<br>
      *     This lineage does have type parameters coherency, because follows raw class inheritance.<br>
-     *     In this lineage you will find runtime tim related types
+     *     In this lineage you will find run time related types
      * @return The class lineage of this type
      */
     TypeLineage classLineage();

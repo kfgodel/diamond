@@ -23,18 +23,12 @@ import java.util.function.Supplier;
 public class FixedTypeInstance extends TypeInstanceSupport {
 
     private Supplier<Nary<TypeInstance>> componentType;
-    private TypeGenerics generics;
     private TypeConstructors constructors;
 
 
     @Override
     public Nary<TypeInstance> componentType() {
         return componentType.get();
-    }
-
-    @Override
-    public TypeGenerics generics() {
-        return generics;
     }
 
     @Override
@@ -52,8 +46,13 @@ public class FixedTypeInstance extends TypeInstanceSupport {
         FixedTypeInstance fixedType = new FixedTypeInstance();
         fixedType.initializeSuper(description);
         fixedType.componentType = description.getComponentType();
-        fixedType.generics = ParameterizedTypeGenerics.create(description.getTypeParametersSupplier(), description.getTypeArguments());
         fixedType.constructors = TypeConstructorsImpl.create(description.getTypeConstructors());
         return fixedType;
     }
+
+    @Override
+    protected TypeGenerics createGenericsInfoFrom(TypeDescription description) {
+        return ParameterizedTypeGenerics.create(description.getTypeParametersSupplier(), description.getTypeArguments(), description.getRuntimeType());
+    }
+
 }

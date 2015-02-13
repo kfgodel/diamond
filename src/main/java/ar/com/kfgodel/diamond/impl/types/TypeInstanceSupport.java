@@ -21,7 +21,6 @@ import ar.com.kfgodel.diamond.impl.methods.sources.NoMethods;
 import ar.com.kfgodel.diamond.impl.methods.sources.TypeMethodsImpl;
 import ar.com.kfgodel.diamond.impl.types.declaration.TypeDeclaration;
 import ar.com.kfgodel.diamond.impl.types.equality.TypeEquality;
-import ar.com.kfgodel.diamond.impl.types.generics.UnGenerifiedTypeGenerics;
 import ar.com.kfgodel.diamond.impl.types.inheritance.SuppliedTypesInheritance;
 import ar.com.kfgodel.diamond.impl.types.parts.annotations.NoAnnotationsSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.names.NoNamesSupplier;
@@ -74,6 +73,8 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     private Predicate<Object> typeForPredicate;
     
     private Predicate<TypeInstance> assignabilityPredicate;
+    
+    private TypeGenerics generics;
 
     /**
      * Use this to override default creation with no annotations
@@ -108,7 +109,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
 
     @Override
     public TypeGenerics generics() {
-        return UnGenerifiedTypeGenerics.INSTANCE;
+        return generics;
     }
 
     @Override
@@ -238,5 +239,8 @@ public abstract class TypeInstanceSupport implements TypeInstance {
         this.kinds = description.getKindsFor(this);
         this.typeForPredicate = description.getTypeForPredicate();
         this.assignabilityPredicate = description.getAssignabilityPredicate();
-    };
+        this.generics = createGenericsInfoFrom(description);
+    }
+
+    protected abstract TypeGenerics createGenericsInfoFrom(TypeDescription description);
 }
