@@ -87,9 +87,14 @@ public interface TypeDescription {
     Supplier<Nary<TypePackage>> getDeclaredPackage();
 
     /**
-     * @return The supplier of the raw classes for the runtime descriptio nof the type
+     * @return The supplier of the raw classes for the runtime description of the type
      */
     Supplier<Nary<Class<?>>> getRawClassesSupplier();
+
+    /**
+     * @return The supplier of the native raw class
+     */
+    Supplier<Nary<Class<?>>> getRawClassSupplier();
 
     /**
      * @return The function to get the compared structure for equality

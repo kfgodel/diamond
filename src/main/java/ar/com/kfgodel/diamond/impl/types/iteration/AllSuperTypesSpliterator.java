@@ -13,17 +13,24 @@ public class AllSuperTypesSpliterator implements Spliterator<TypeInstance> {
 
     private Set<TypeInstance> visitedTypes;
     private Queue<TypeInstance> pendingTypes;
+    private TypeInstance lastVisitedType;
 
     @Override
     public boolean tryAdvance(Consumer<? super TypeInstance> action) {
+        //Not executed the first nor the last time
+        if(lastVisitedType != null){
+            // We explore the supertypes of the last visited type for the next ones
+            addNonVisitedSuperTypesAsPending(lastVisitedType);
+            lastVisitedType = null;
+        }
         if(pendingTypes.isEmpty()){
             // No more elements
             return false;
         }
         TypeInstance currentType = pendingTypes.poll();
         visitedTypes.add(currentType);
-        addNonVisitedSuperTypesAsPending(currentType);
         action.accept(currentType);
+        lastVisitedType = currentType;
         return true;
     }
 

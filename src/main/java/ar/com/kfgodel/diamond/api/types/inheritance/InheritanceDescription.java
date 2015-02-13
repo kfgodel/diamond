@@ -26,4 +26,8 @@ public interface InheritanceDescription {
      */
     Supplier<Nary<TypeInstance>> getInterfacesSupplier();
 
+    /**
+     * @return The supplier of compile time interface types
+     */
+    Supplier<Nary<TypeInstance>> getImplementedTypesSupplier();
 }

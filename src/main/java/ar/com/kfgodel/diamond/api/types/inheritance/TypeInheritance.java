@@ -27,6 +27,13 @@ public interface TypeInheritance {
      */
     Nary<TypeInstance> superclass();
 
+
+    /**
+     * @return The set of interfaces implemented by this type under the compile type definition (with type arguments).<br>
+     *     Can be empty if this type has no interface implementation
+     */
+    Nary<TypeInstance> implementedTypes();
+
     /**
      * @return The set of interfaces implemented by this type. This can be empty if this instance
      * represents a type that cannot implement interfaces or doesn't implement any.<br>

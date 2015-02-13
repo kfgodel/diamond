@@ -70,12 +70,20 @@ public class ClassTypeTest extends JavaSpec<DiamondTestContext> {
                 });
 
                 /**
-                 * This is the runtime interfaces super types
+                 * This is the runtime interface types
                  */
                 it("has several interfaces",()->{
                     List<String> interfaces = context().typeInstance().inheritance().interfaces().map(Named::name).collect(Collectors.toList());
                     assertThat(interfaces).isEqualTo(Arrays.asList("ChildInterface1", "ChildInterface2"));
                 });
+
+                /**
+                 * This is the compile time interfaces type
+                 */
+                it("has several implemented types",()->{
+                    List<String> interfaces = context().typeInstance().inheritance().implementedTypes().map(Named::name).collect(Collectors.toList());
+                    assertThat(interfaces).isEqualTo(Arrays.asList("ChildInterface1", "ChildInterface2"));
+                });   
                 
                 it("has supertypes ( superclass and interfaces)",()->{
                     List<String> supertypeNames = context().typeInstance().inheritance().supertypes().map(Named::name).collect(Collectors.toList());

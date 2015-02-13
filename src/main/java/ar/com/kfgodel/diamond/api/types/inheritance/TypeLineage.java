@@ -45,8 +45,14 @@ public interface TypeLineage {
     Nary<TypeInstance> inheritedInterfaces();
 
     /**
-     * @return The set of types that are related to this lineage. That is all the types that are members, are direct supertypes of the members,
-     * or indirect supertypes of the members. The resulting nary is guaranteed to contain no duplicate
+     * @return All the types that are related to this lineage. The Nary includes all the types that are inherited by the lowest descendant (and itself) and
+     * their runtime representation.<br>
+     * Some guarantees:<br>
+     * - There are no duplicates<br>
+     * - The parameterized version is presented first (if any), and then the runtime counterpart
+     * - The super class are presented before super interfaces
+     * - lowest types (closer to the lowest descendant) are presented before higher ancestors (the tree is explored from the lowest descendant to its
+     *  parent types per hierarchy level)
      */
     Nary<TypeInstance> allRelatedTypes();
 }

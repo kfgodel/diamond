@@ -24,6 +24,7 @@ import ar.com.kfgodel.diamond.impl.types.parts.typearguments.NoTypeArgumentsSupp
 import ar.com.kfgodel.diamond.impl.types.parts.typeparameters.NoTypeParametersSupplier;
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.impl.NaryFromCollectionSupplier;
+import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
@@ -119,6 +120,11 @@ public abstract class UnannotatedTypeDescriptionSupport implements TypeDescripti
     @Override
     public Supplier<Nary<Class<?>>> getRawClassesSupplier() {
         return NaryFromCollectionSupplier.from(getBehavioralClasses());
+    }
+
+    @Override
+    public Supplier<Nary<Class<?>>> getRawClassSupplier() {
+        return ()-> NaryFromNative.of(getRawClass());
     }
 
     @Override

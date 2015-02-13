@@ -1,5 +1,6 @@
 package ar.com.kfgodel.diamond.impl.sources;
 
+import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.cache.DiamondCache;
 import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 import ar.com.kfgodel.diamond.api.sources.TypeSources;
@@ -8,6 +9,14 @@ import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.types.FixedTypeInstance;
 import ar.com.kfgodel.diamond.impl.types.VariableTypeInstance;
 import ar.com.kfgodel.diamond.impl.types.description.TypeDescriptor;
+import ar.com.kfgodel.diamond.impl.types.description.extended.ExtendedTypeDescription;
+import ar.com.kfgodel.diamond.impl.types.generics.parameters.ActualArgumentReplacer;
+import ar.com.kfgodel.diamond.impl.types.generics.parameters.SupertypeParametrizationAnalyzer;
+import ar.com.kfgodel.diamond.impl.types.generics.parameters.parametrization.SupertypeParametrization;
+
+import java.lang.reflect.AnnotatedType;
+import java.lang.reflect.Type;
+import java.util.List;
 
 /**
  * This type implements the spurces for type instances
@@ -54,6 +63,15 @@ public class TypeSourceImpl implements TypeSources {
         }
 
         return from(nativeType);
+    }
+
+    @Override
+    public TypeInstance fromParameterizedNativeTypes(Class<?> parameterizableSubtype, List<TypeInstance> subtypeArguments, AnnotatedType annotatedSuperType, Type genericSupertype) {
+        TypeDescription supertypeDescription = TypeDescriptor.INSTANCE.describe(annotatedSuperType);
+        SupertypeParametrization parametrization = SupertypeParametrizationAnalyzer.create(parameterizableSubtype, genericSupertype).get();
+        ActualArgumentReplacer typeArgumentsReplacer = ActualArgumentReplacer.create(subtypeArguments, parametrization);
+        ExtendedTypeDescription extendedTypeDescription = ExtendedTypeDescription.create(supertypeDescription, typeArgumentsReplacer);
+        return Diamond.types().fromDescription(extendedTypeDescription);
     }
 
     public static TypeSourceImpl create(DiamondCache cache) {

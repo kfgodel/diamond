@@ -19,21 +19,21 @@ import java.util.function.Supplier;
  *
  * Created by kfgodel on 27/09/14.
  */
-public class ParametrizationAnalyzer implements Supplier<SupertypeParametrization> {
+public class SupertypeParametrizationAnalyzer implements Supplier<SupertypeParametrization> {
 
-    private Class<?> nativeClass;
+    private Class<?> subtype;
+    private Type superType;
 
     @Override
     public SupertypeParametrization get() {
-        Type genericSupertype = nativeClass.getGenericSuperclass();
-        if (!(genericSupertype instanceof ParameterizedType)) {
+        if (!(superType instanceof ParameterizedType)) {
             // There's no parameters at all
             return NoParametrization.INSTANCE;
         }
-        ParameterizedType parameterizedSupertype = (ParameterizedType) genericSupertype;
+        ParameterizedType parameterizedSupertype = (ParameterizedType) superType;
         List<Type> supertypeArguments = Arrays.asList(parameterizedSupertype.getActualTypeArguments());
 
-        List<TypeVariable> declaredParameters = Arrays.asList(nativeClass.getTypeParameters());
+        List<TypeVariable> declaredParameters = Arrays.asList(subtype.getTypeParameters());
         return createParametrizationFrom(declaredParameters, supertypeArguments);
     }
 
@@ -45,9 +45,10 @@ public class ParametrizationAnalyzer implements Supplier<SupertypeParametrizatio
         return GenericParametrization.create(substitutions);
     }
 
-    public static ParametrizationAnalyzer create(Class<?> nativeClass) {
-        ParametrizationAnalyzer analyzer = new ParametrizationAnalyzer();
-        analyzer.nativeClass = nativeClass;
+    public static SupertypeParametrizationAnalyzer create(Class<?> nativeClass, Type superType) {
+        SupertypeParametrizationAnalyzer analyzer = new SupertypeParametrizationAnalyzer();
+        analyzer.subtype = nativeClass;
+        analyzer.superType = superType;
         return analyzer;
     }
 
