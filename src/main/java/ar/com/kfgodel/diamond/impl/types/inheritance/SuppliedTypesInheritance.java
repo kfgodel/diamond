@@ -20,10 +20,16 @@ public class SuppliedTypesInheritance implements TypeInheritance {
     private Supplier<Nary<TypeInstance>> superclass;
     private Supplier<Nary<TypeInstance>> extendedType;
     private Supplier<Nary<TypeInstance>> interfaces;
+    private Supplier<Nary<TypeInstance>> implementedTypes;
 
     @Override
     public Nary<TypeInstance> superclass() {
         return superclass.get();
+    }
+
+    @Override
+    public Nary<TypeInstance> implementedTypes() {
+        return implementedTypes.get();
     }
 
     @Override
@@ -48,7 +54,7 @@ public class SuppliedTypesInheritance implements TypeInheritance {
 
     @Override
     public Nary<TypeInstance> supertypes() {
-        return extendedType().joinedWith(interfaces());
+        return extendedType().joinedWith(implementedTypes());
     }
 
     @Override
@@ -77,6 +83,7 @@ public class SuppliedTypesInheritance implements TypeInheritance {
         inheritance.superclass = description.getSuperclassSupplier();
         inheritance.extendedType = description.getExtendedTypeSupplier();
         inheritance.interfaces = description.getInterfacesSupplier();
+        inheritance.implementedTypes = description.getImplementedTypesSupplier();
         return inheritance;
     }
 

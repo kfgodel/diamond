@@ -1,12 +1,7 @@
 package ar.com.kfgodel.diamond.impl.types.parts.extendedtype;
 
 import ar.com.kfgodel.diamond.api.Diamond;
-import ar.com.kfgodel.diamond.api.types.TypeDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
-import ar.com.kfgodel.diamond.impl.types.description.TypeDescriptor;
-import ar.com.kfgodel.diamond.impl.types.description.extended.ExtendedTypeDescription;
-import ar.com.kfgodel.diamond.impl.types.generics.parameters.ActualArgumentReplacer;
-import ar.com.kfgodel.diamond.impl.types.generics.parameters.ParametrizationAnalyzer;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.impl.NaryFromNative;
@@ -36,18 +31,19 @@ public class ExtendedTypeSupplier implements Supplier<Nary<TypeInstance>> {
 
     public static Supplier<Nary<TypeInstance>> create(Class<?> nativeClass, Stream<TypeInstance> typeArguments) {
         ExtendedTypeSupplier supplier = new ExtendedTypeSupplier();
-        supplier.extendedType = CachedValue.lazilyBy(() -> {
-            AnnotatedType annotatedSuperclass = nativeClass.getAnnotatedSuperclass();
-            if (annotatedSuperclass == null) {
-                // There's no extended type
-                return null;
-            }
-            TypeDescription supertypeDescription = TypeDescriptor.INSTANCE.describe(annotatedSuperclass);
-            ActualArgumentReplacer typeArgumentsReplacer = ActualArgumentReplacer.create(typeArguments.collect(Collectors.toList()), ParametrizationAnalyzer.create(nativeClass).get());
-            ExtendedTypeDescription extendedTypeDescription = ExtendedTypeDescription.create(supertypeDescription, typeArgumentsReplacer);
-            return Diamond.types().fromDescription(extendedTypeDescription);
-        });
+        supplier.extendedType = CachedValue.lazilyBy(() -> describeExtendedType(nativeClass, typeArguments));
         return supplier;
+    }
+
+    private static TypeInstance describeExtendedType(Class<?> nativeClass, Stream<TypeInstance> typeArguments) {
+        AnnotatedType annotatedSuperclass = nativeClass.getAnnotatedSuperclass();
+        if (annotatedSuperclass == null) {
+            // There's no extended type
+            return null;
+        }
+        TypeInstance describedType = Diamond.types().fromParameterizedNativeTypes(nativeClass, typeArguments.collect(Collectors.toList()),
+                annotatedSuperclass, nativeClass.getGenericSuperclass());
+        return describedType;
     }
 
 }

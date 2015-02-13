@@ -114,4 +114,9 @@ public abstract class DelegatedDescriptionSupport implements TypeDescription {
     public Supplier<TypeInstance> getRuntimeType() {
         return getDelegateDescription().getRuntimeType();
     }
+
+    @Override
+    public Supplier<Nary<Class<?>>> getRawClassSupplier() {
+        return getDelegateDescription().getRawClassSupplier();
+    }
 }

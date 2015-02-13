@@ -2,6 +2,8 @@ package ar.com.kfgodel.diamond.impl.types.description.extended;
 
 import ar.com.kfgodel.diamond.api.types.TypeDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
+import ar.com.kfgodel.diamond.impl.types.description.inheritance.FixedTypeInheritanceDescription;
 import ar.com.kfgodel.diamond.impl.types.description.support.DelegatedDescriptionSupport;
 import ar.com.kfgodel.diamond.impl.types.parts.typearguments.ExtendedTypeArgumentsSupplier;
 import ar.com.kfgodel.nary.api.Nary;
@@ -17,22 +19,27 @@ import java.util.function.Supplier;
  */
 public class ExtendedTypeDescription extends DelegatedDescriptionSupport {
 
-    private TypeDescription extendedTypeDescription;
+    private TypeDescription baseDescription;
     private Consumer<List<TypeInstance>> extendedTypeArgumentsReplacer;
 
     @Override
     protected TypeDescription getDelegateDescription() {
-        return extendedTypeDescription;
+        return baseDescription;
     }
 
     @Override
     public Supplier<Nary<TypeInstance>> getTypeArguments() {
-        return ExtendedTypeArgumentsSupplier.create(extendedTypeDescription.getTypeArguments(), extendedTypeArgumentsReplacer);
+        return ExtendedTypeArgumentsSupplier.create(baseDescription.getTypeArguments(), extendedTypeArgumentsReplacer);
+    }
+
+    @Override
+    public InheritanceDescription getInheritanceDescription() {
+        return FixedTypeInheritanceDescription.create(baseDescription.getRawClassSupplier().get().get(), getTypeArguments());
     }
 
     public static ExtendedTypeDescription create(TypeDescription otherTypeDescription, Consumer<List<TypeInstance>> extendedTypeArgumentsReplacer) {
         ExtendedTypeDescription description = new ExtendedTypeDescription();
-        description.extendedTypeDescription = otherTypeDescription;
+        description.baseDescription = otherTypeDescription;
         description.extendedTypeArgumentsReplacer = extendedTypeArgumentsReplacer;
         return description;
     }

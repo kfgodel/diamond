@@ -4,6 +4,10 @@ import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 import ar.com.kfgodel.diamond.api.types.TypeDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 
+import java.lang.reflect.AnnotatedType;
+import java.lang.reflect.Type;
+import java.util.List;
+
 /**
  * This type represents the possible sources for a type instance
  * Created by kfgodel on 20/09/14.
@@ -34,4 +38,14 @@ public interface TypeSources {
      * @throws ar.com.kfgodel.diamond.api.exceptions.DiamondException If the class name doesn't exists
      */
     TypeInstance named(String typeName) throws DiamondException;
+
+    /**
+     * Retrieves a type instance based on the actual parametrization of a subtype to get the actual arguments of the generic type
+     * @param parameterizableSubtype The parameterizable subtype used to match parameters on the subtype
+     * @param subtypeArguments The actual subtype arguments
+     * @param annotatedSuperType The annotated type definition (contains annotations)
+     * @param genericSupertype the generic type definition (contains generic information)
+     * @return The complete type with annotations, generics, and the calculated actual arguments according to the sub-super type parametrization
+     */
+    TypeInstance fromParameterizedNativeTypes(Class<?> parameterizableSubtype, List<TypeInstance> subtypeArguments, AnnotatedType annotatedSuperType, Type genericSupertype);
 }

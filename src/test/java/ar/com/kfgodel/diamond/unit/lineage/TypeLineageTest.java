@@ -105,15 +105,20 @@ public class TypeLineageTest extends JavaSpec<DiamondTestContext> {
                             .isEqualTo(Arrays.asList(
                                     "ar.com.kfgodel.diamond.unit.testobjects.lineage.ChildClass",
                                     "ar.com.kfgodel.diamond.unit.testobjects.lineage.ParentClass<C extends java.lang.Object, java.lang.Integer>",
-                                    "ar.com.kfgodel.diamond.unit.testobjects.lineage.ParentClass", 
-                                    "ar.com.kfgodel.diamond.unit.testobjects.interfaces.ChildInterface1", 
+                                    "ar.com.kfgodel.diamond.unit.testobjects.lineage.ParentClass",
+                                    "ar.com.kfgodel.diamond.unit.testobjects.interfaces.ChildInterface1<java.lang.Integer>",
+                                    "ar.com.kfgodel.diamond.unit.testobjects.interfaces.ChildInterface1",
+                                    "ar.com.kfgodel.diamond.unit.testobjects.interfaces.ChildInterface2<java.lang.String>",
                                     "ar.com.kfgodel.diamond.unit.testobjects.interfaces.ChildInterface2",
                                     "ar.com.kfgodel.diamond.unit.testobjects.lineage.GrandParentClass<java.lang.Integer>",
-                                    "ar.com.kfgodel.diamond.unit.testobjects.lineage.GrandParentClass", 
-                                    "ar.com.kfgodel.diamond.unit.testobjects.interfaces.ParentInterface2", 
-                                    "ar.com.kfgodel.diamond.unit.testobjects.interfaces.ParentInterface1", 
-                                    "java.io.Serializable", 
-                                    "java.lang.Object", 
+                                    "ar.com.kfgodel.diamond.unit.testobjects.lineage.GrandParentClass",
+                                    "ar.com.kfgodel.diamond.unit.testobjects.interfaces.ParentInterface2<java.lang.Integer, java.lang.Integer>",
+                                    "ar.com.kfgodel.diamond.unit.testobjects.interfaces.ParentInterface2",
+                                    "ar.com.kfgodel.diamond.unit.testobjects.interfaces.ParentInterface1<java.lang.Integer, java.lang.Integer>",
+                                    "ar.com.kfgodel.diamond.unit.testobjects.interfaces.ParentInterface1",
+                                    "java.io.Serializable",
+                                    "java.lang.Object",
+                                    "ar.com.kfgodel.diamond.unit.testobjects.interfaces.GrandParentInterface1<java.lang.Integer>",
                                     "ar.com.kfgodel.diamond.unit.testobjects.interfaces.GrandParentInterface1"));
                 });
 
@@ -127,6 +132,8 @@ public class TypeLineageTest extends JavaSpec<DiamondTestContext> {
                                     "java.util.Collection<java.lang.String>", "java.util.Collection",
                                     "java.lang.Iterable<java.lang.String>", "java.lang.Iterable"));
                 });
+
+
             });
 
         });

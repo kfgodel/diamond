@@ -31,4 +31,9 @@ public class NoInheritanceDescription implements InheritanceDescription {
     public Supplier<Nary<TypeInstance>> getInterfacesSupplier() {
         return NaryFromNative::empty;
     }
+
+    @Override
+    public Supplier<Nary<TypeInstance>> getImplementedTypesSupplier() {
+        return NaryFromNative::empty;
+    }
 }

@@ -17,9 +17,9 @@ public class AllSuperTypesSpliterator implements Spliterator<TypeInstance> {
 
     @Override
     public boolean tryAdvance(Consumer<? super TypeInstance> action) {
-        //Not executed the first time nor the last time
+        //Not executed the first nor the last time
         if(lastVisitedType != null){
-            // We explore the supertypes of the last type as the next ones
+            // We explore the supertypes of the last visited type for the next ones
             addNonVisitedSuperTypesAsPending(lastVisitedType);
             lastVisitedType = null;
         }

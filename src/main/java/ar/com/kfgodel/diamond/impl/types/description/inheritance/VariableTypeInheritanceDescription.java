@@ -50,6 +50,11 @@ public class VariableTypeInheritanceDescription implements InheritanceDescriptio
         return VariableTypeInterfaceSupplier.create(upperBoundClasses);
     }
 
+    @Override
+    public Supplier<Nary<TypeInstance>> getImplementedTypesSupplier() {
+        return getInterfacesSupplier();
+    }
+
     public static VariableTypeInheritanceDescription create(Set<Class<?>> rawClasses, Supplier<Nary<TypeInstance>> typeArguments) {
         VariableTypeInheritanceDescription description = new VariableTypeInheritanceDescription();
         description.upperBoundClasses = rawClasses;
