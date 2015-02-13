@@ -1,18 +1,14 @@
 package ar.com.kfgodel.diamond.impl.types.lineage;
 
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
-import ar.com.kfgodel.diamond.api.types.inheritance.TypeLineage;
-import ar.com.kfgodel.diamond.impl.types.iteration.AllSuperTypesSpliterator;
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.impl.NaryFromNative;
-
-import java.util.Arrays;
 
 /**
  * This type represents a type lineage for types that don't extend another type
  * Created by kfgodel on 30/09/14.
  */
-public class SingleTypeLineage implements TypeLineage {
+public class SingleTypeLineage extends TypeLineageSupport {
 
     private TypeInstance onlyType;
 
@@ -28,7 +24,7 @@ public class SingleTypeLineage implements TypeLineage {
 
     @Override
     public Nary<TypeInstance> allMembers() {
-        return NaryFromNative.create(Arrays.asList(onlyType).stream());
+        return NaryFromNative.of(onlyType);
     }
 
     @Override
@@ -44,11 +40,6 @@ public class SingleTypeLineage implements TypeLineage {
     @Override
     public Nary<TypeInstance> inheritedInterfaces() {
         return NaryFromNative.empty();
-    }
-
-    @Override
-    public Nary<TypeInstance> allRelatedTypes() {
-        return NaryFromNative.create(AllSuperTypesSpliterator.create(lowestDescendant()));
     }
 
     public static SingleTypeLineage create(TypeInstance singleType) {
