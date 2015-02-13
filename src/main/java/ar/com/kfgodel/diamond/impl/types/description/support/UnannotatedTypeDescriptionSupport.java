@@ -22,6 +22,7 @@ import ar.com.kfgodel.diamond.impl.types.parts.fields.ClassFieldSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.methods.ClassMethodSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.typearguments.NoTypeArgumentsSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.typeparameters.NoTypeParametersSupplier;
+import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.impl.NaryFromCollectionSupplier;
 import ar.com.kfgodel.nary.impl.NaryFromNative;
@@ -155,6 +156,6 @@ public abstract class UnannotatedTypeDescriptionSupport implements TypeDescripti
 
     @Override
     public Supplier<TypeInstance> getRuntimeType() {
-        return ()-> Diamond.of(getRawClass());
+        return CachedValue.lazilyBy(()-> Diamond.of(getRawClass()));
     }
 }
