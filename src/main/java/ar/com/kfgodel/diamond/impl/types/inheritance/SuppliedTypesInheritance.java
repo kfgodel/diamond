@@ -48,18 +48,13 @@ public class SuppliedTypesInheritance implements TypeInheritance {
     }
 
     @Override
-    public TypeLineage classLineage() {
-        return FunctionBasedTypeLineage.create(type, (type) -> type.inheritance().superclass());
-    }
-
-    @Override
     public Nary<TypeInstance> supertypes() {
         return extendedType().joinedWith(implementedTypes());
     }
 
     @Override
     public boolean isSubTypeOf(TypeInstance objectType) {
-        return classLineage().allRelatedTypes().anyMatch(objectType::equals);
+        return typeLineage().allRelatedTypes().anyMatch(objectType::equals);
     }
 
     @Override

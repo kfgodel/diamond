@@ -126,7 +126,7 @@ public class TypeLineageTest extends JavaSpec<DiamondTestContext> {
                     TypeInheritance inheritance = Diamond.types().from(new ReferenceOf<List<String>>() {
                     }.getReferencedAnnotatedType()).inheritance();
 
-                    List<String> allTypeNames = inheritance.classLineage().allRelatedTypes().map(TypeInstance::declaration).collect(Collectors.toList());
+                    List<String> allTypeNames = inheritance.typeLineage().allRelatedTypes().map(TypeInstance::declaration).collect(Collectors.toList());
                     assertThat(allTypeNames)
                             .isEqualTo(Arrays.asList("java.util.List<java.lang.String>", "java.util.List",
                                     "java.util.Collection<java.lang.String>", "java.util.Collection",
@@ -136,24 +136,6 @@ public class TypeLineageTest extends JavaSpec<DiamondTestContext> {
 
             });
 
-        });
-
-        describe("class lineage", () -> {
-
-            beforeEach(() -> {
-                context().lineage(() -> Diamond.of(ChildClass.class).inheritance().classLineage());
-            });
-
-            it("doesn't have type arguments for any member", () -> {
-                TypeInstance childType = context().lineage().lowestDescendant();
-                assertThat(childType.generics().arguments().count()).isEqualTo(0);
-
-                TypeInstance parentType = context().lineage().ancestorOf(childType).get();
-                assertThat(parentType.generics().arguments().count()).isEqualTo(0);
-
-                TypeInstance grandParentType = context().lineage().ancestorOf(parentType).get();
-                assertThat(grandParentType.generics().arguments().count()).isEqualTo(0);
-            });
         });
 
     }
