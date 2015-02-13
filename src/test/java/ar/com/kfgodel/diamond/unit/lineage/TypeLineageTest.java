@@ -5,6 +5,8 @@ import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.naming.Named;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.diamond.api.types.inheritance.TypeInheritance;
+import ar.com.kfgodel.diamond.api.types.reference.ReferenceOf;
 import ar.com.kfgodel.diamond.unit.DiamondTestContext;
 import ar.com.kfgodel.diamond.unit.testobjects.lineage.ChildClass;
 import ar.com.kfgodel.nary.api.Nary;
@@ -95,13 +97,35 @@ public class TypeLineageTest extends JavaSpec<DiamondTestContext> {
                 });
             });
 
-            it("can answer all the related types",()->{
-                List<String> allTypeNames = context().lineage().allRelatedTypes().map(Named::name).collect(Collectors.toList());
-                assertThat(allTypeNames)
-                        .isEqualTo(Arrays.asList("ChildClass", "ParentClass", "ChildInterface1", "ChildInterface2",
-                                "GrandParentClass", "ParentInterface2", "ParentInterface1", "Serializable", "Object",
-                                "GrandParentInterface1"));
-            });   
+            describe("all related types", () -> {
+
+                it("includes all the types related to the lineage (hiearchy tree)", () -> {
+                    List<String> allTypeNames = context().lineage().allRelatedTypes().map(TypeInstance::declaration).collect(Collectors.toList());
+                    assertThat(allTypeNames)
+                            .isEqualTo(Arrays.asList("ar.com.kfgodel.diamond.unit.testobjects.lineage.ChildClass", 
+                                    "ar.com.kfgodel.diamond.unit.testobjects.lineage.ParentClass", 
+                                    "ar.com.kfgodel.diamond.unit.testobjects.interfaces.ChildInterface1", 
+                                    "ar.com.kfgodel.diamond.unit.testobjects.interfaces.ChildInterface2", 
+                                    "ar.com.kfgodel.diamond.unit.testobjects.lineage.GrandParentClass", 
+                                    "ar.com.kfgodel.diamond.unit.testobjects.interfaces.ParentInterface2", 
+                                    "ar.com.kfgodel.diamond.unit.testobjects.interfaces.ParentInterface1", 
+                                    "java.io.Serializable", 
+                                    "java.lang.Object", 
+                                    "ar.com.kfgodel.diamond.unit.testobjects.interfaces.GrandParentInterface1"));
+                });
+
+                it("includes parameterized and raw types", () -> {
+                    TypeInheritance inheritance = Diamond.types().from(new ReferenceOf<List<String>>() {
+                    }.getReferencedAnnotatedType()).inheritance();
+
+                    List<String> allTypeNames = inheritance.classLineage().allRelatedTypes().map(TypeInstance::declaration).collect(Collectors.toList());
+                    assertThat(allTypeNames)
+                            .isEqualTo(Arrays.asList("java.util.List<java.lang.String>", "java.util.List",
+                                    "java.util.Collection<java.lang.String>", "java.util.Collection",
+                                    "java.lang.Iterable<java.lang.String>", "java.lang.Iterable"));
+                });
+            });
+
         });
 
         describe("class lineage", () -> {
