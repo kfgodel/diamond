@@ -48,7 +48,7 @@ public class SuppliedTypesInheritance implements TypeInheritance {
 
     @Override
     public Nary<TypeInstance> supertypes() {
-        return superclass().joinedWith(interfaces());
+        return extendedType().joinedWith(interfaces());
     }
 
     @Override

@@ -102,10 +102,13 @@ public class TypeLineageTest extends JavaSpec<DiamondTestContext> {
                 it("includes all the types related to the lineage (hiearchy tree)", () -> {
                     List<String> allTypeNames = context().lineage().allRelatedTypes().map(TypeInstance::declaration).collect(Collectors.toList());
                     assertThat(allTypeNames)
-                            .isEqualTo(Arrays.asList("ar.com.kfgodel.diamond.unit.testobjects.lineage.ChildClass", 
+                            .isEqualTo(Arrays.asList(
+                                    "ar.com.kfgodel.diamond.unit.testobjects.lineage.ChildClass",
+                                    "ar.com.kfgodel.diamond.unit.testobjects.lineage.ParentClass<C extends java.lang.Object, java.lang.Integer>",
                                     "ar.com.kfgodel.diamond.unit.testobjects.lineage.ParentClass", 
                                     "ar.com.kfgodel.diamond.unit.testobjects.interfaces.ChildInterface1", 
-                                    "ar.com.kfgodel.diamond.unit.testobjects.interfaces.ChildInterface2", 
+                                    "ar.com.kfgodel.diamond.unit.testobjects.interfaces.ChildInterface2",
+                                    "ar.com.kfgodel.diamond.unit.testobjects.lineage.GrandParentClass<java.lang.Integer>",
                                     "ar.com.kfgodel.diamond.unit.testobjects.lineage.GrandParentClass", 
                                     "ar.com.kfgodel.diamond.unit.testobjects.interfaces.ParentInterface2", 
                                     "ar.com.kfgodel.diamond.unit.testobjects.interfaces.ParentInterface1", 
