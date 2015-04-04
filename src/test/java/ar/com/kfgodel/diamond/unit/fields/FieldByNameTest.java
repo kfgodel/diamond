@@ -6,7 +6,7 @@ import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.unit.DiamondTestContext;
 import ar.com.kfgodel.diamond.unit.testobjects.fields.RedefiningFieldTestObject;
-import ar.com.kfgodel.nary.api.MoreThanOneElementException;
+import ar.com.kfgodel.nary.exceptions.MoreThanOneElementException;
 import org.junit.runner.RunWith;
 
 import java.util.NoSuchElementException;

@@ -11,10 +11,8 @@ import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.inheritance.TypeLineage;
-import ar.com.kfgodel.diamond.api.types.names.TypeNames;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.lazyvalue.api.LazyValue;
-import ar.com.kfgodel.nary.api.Nary;
 
 import java.util.function.Supplier;
 
@@ -32,9 +30,6 @@ public interface DiamondTestContext extends TestContext {
 
     LazyValue<Integer> value();
     void value(Supplier<LazyValue<Integer>> definition);
-
-    TypeNames names();
-    void names(Supplier<TypeNames> definition);
 
     <T> T object();
     <T> void object(Supplier<T> definition);
@@ -59,9 +54,6 @@ public interface DiamondTestContext extends TestContext {
 
     TypePackage typePackage();
     void typePackage(Supplier<TypePackage> definition);
-
-    Nary<Integer> nary();
-    void nary(Supplier<Nary<Integer>> definition);
 
     ExecutableParameter parameter();
     void parameter(Supplier<ExecutableParameter> definition);

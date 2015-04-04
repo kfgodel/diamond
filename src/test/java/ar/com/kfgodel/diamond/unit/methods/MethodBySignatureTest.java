@@ -6,7 +6,7 @@ import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.unit.DiamondTestContext;
 import ar.com.kfgodel.diamond.unit.testobjects.methods.RedefiningMethodTestObject;
-import ar.com.kfgodel.nary.api.MoreThanOneElementException;
+import ar.com.kfgodel.nary.exceptions.MoreThanOneElementException;
 import ar.com.kfgodel.optionals.Optional;
 import org.junit.runner.RunWith;
 

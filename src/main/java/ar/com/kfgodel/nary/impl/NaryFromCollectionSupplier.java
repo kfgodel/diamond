@@ -7,7 +7,7 @@ import java.util.Collection;
 import java.util.function.Supplier;
 
 /**
- * This type represents a supplier for stream taken from a collection.<br>
+ * This type represents a supplier for streams taken from a collection.<br>
  *     Each time this supplier is called, a stream is generated from the collection
  * Created by kfgodel on 22/10/14.
  */
