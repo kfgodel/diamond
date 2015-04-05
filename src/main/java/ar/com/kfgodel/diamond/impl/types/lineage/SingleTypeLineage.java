@@ -42,6 +42,14 @@ public class SingleTypeLineage extends TypeLineageSupport {
         return NaryFromNative.empty();
     }
 
+    @Override
+    public Nary<TypeInstance> genericArgumentsOf(TypeInstance referenceType) {
+        if(referenceType.equals(onlyType)){
+            return onlyType.generics().arguments();
+        }
+        return NaryFromNative.empty();
+    }
+
     public static SingleTypeLineage create(TypeInstance singleType) {
         SingleTypeLineage lineage = new SingleTypeLineage();
         lineage.onlyType = singleType;

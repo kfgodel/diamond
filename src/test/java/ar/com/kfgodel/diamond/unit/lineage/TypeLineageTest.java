@@ -8,6 +8,7 @@ import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.inheritance.TypeInheritance;
 import ar.com.kfgodel.diamond.api.types.reference.ReferenceOf;
 import ar.com.kfgodel.diamond.unit.DiamondTestContext;
+import ar.com.kfgodel.diamond.unit.testobjects.interfaces.GrandParentInterface1;
 import ar.com.kfgodel.diamond.unit.testobjects.lineage.ChildClass;
 import ar.com.kfgodel.nary.api.Nary;
 import org.junit.runner.RunWith;
@@ -32,7 +33,7 @@ public class TypeLineageTest extends JavaSpec<DiamondTestContext> {
 
             context().lineage(()-> Diamond.of(ChildClass.class).inheritance().typeLineage());
 
-            it("starts from its creator class as the lowest descendant", ()->{
+            it("starts from its creator class as the lowest descendant", () -> {
                 assertThat(context().lineage().lowestDescendant().name())
                         .isEqualTo("ChildClass");
             });
@@ -77,18 +78,18 @@ public class TypeLineageTest extends JavaSpec<DiamondTestContext> {
                 assertThat(interfaceNames).isEqualTo(Arrays.asList("ChildInterface1", "ParentInterface1", "ChildInterface2", "Serializable", "ParentInterface2", "GrandParentInterface1"));
             });
 
-            describe("generic arguments", ()->{
-                it("start from the lowest descendant", ()->{
+            describe("generic arguments", () -> {
+                it("start from the lowest descendant", () -> {
                     List<String> argumentNames = context().lineage().lowestDescendant().generics().arguments().map(Named::name).collect(Collectors.toList());
                     assertThat(argumentNames).isEqualTo(Arrays.asList());
                 });
-                it("bubble up to its parent", ()->{
+                it("bubble up to its parent", () -> {
                     TypeInstance childType = context().lineage().lowestDescendant();
                     List<String> argumentNames = context().lineage().ancestorOf(childType).get()
                             .generics().arguments().map((arg) -> arg.name()).collect(Collectors.toList());
                     assertThat(argumentNames).isEqualTo(Arrays.asList("C", "Integer"));
                 });
-                it("grand parents, and so on", ()->{
+                it("grand parents, and so on", () -> {
                     TypeInstance childType = context().lineage().lowestDescendant();
                     TypeInstance parentType = context().lineage().ancestorOf(childType).get();
                     List<String> argumentNames = context().lineage().ancestorOf(parentType).get()
@@ -133,8 +134,14 @@ public class TypeLineageTest extends JavaSpec<DiamondTestContext> {
                                     "java.lang.Iterable<java.lang.String>", "java.lang.Iterable"));
                 });
 
-
             });
+
+            it("can answer the type arguments of any related type",()->{
+                List<String> argumentNames = context().lineage()
+                        .genericArgumentsOf(Diamond.of(GrandParentInterface1.class))
+                        .map((arg) -> arg.name()).collect(Collectors.toList());;
+                assertThat(argumentNames).isEqualTo(Arrays.asList("Integer"));
+            });   
 
         });
 
