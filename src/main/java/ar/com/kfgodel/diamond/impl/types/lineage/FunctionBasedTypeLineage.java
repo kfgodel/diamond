@@ -6,6 +6,7 @@ import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -94,6 +95,18 @@ public class FunctionBasedTypeLineage extends TypeLineageSupport {
                         interfaz.inheritance().interfaces()));
         // If an indirect interface is inherited more than once, we want just one occurrence
         return NaryFromNative.create(indirectInterfaces.distinct());
+    }
+
+    @Override
+    public Nary<TypeInstance> genericArgumentsOf(TypeInstance referenceType) {
+        Optional<TypeInstance> foundType = this.allRelatedTypes()
+                .filter((relatedType) ->
+                                referenceType.names().canonicalName().equals(relatedType.names().canonicalName())
+                                        && relatedType.generics().arguments().count() > 0
+                ).findFirst();
+        return foundType
+                .map((type)-> type.generics().arguments())
+                .orElse(NaryFromNative.empty());
     }
 
     public static FunctionBasedTypeLineage create(TypeInstance lowest, Function<TypeInstance, Nary<? extends TypeInstance>> advanceOperation) {

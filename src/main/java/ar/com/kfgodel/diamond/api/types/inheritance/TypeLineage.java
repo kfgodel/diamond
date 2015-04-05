@@ -55,4 +55,13 @@ public interface TypeLineage {
      *  parent types per hierarchy level)
      */
     Nary<TypeInstance> allRelatedTypes();
+
+    /**
+     * Searches the relatedTypes of this lineage for the given reference type, and tries to get the generic arguments
+     * used to parameterize it.<br>
+     *     If the given type is not part of the related types, or it has no type arguments, an empty nary is returned
+     * @param referenceType The type that is related to this lineage
+     * @return The set of type arguments used to parameterize the reference type
+     */
+    Nary<TypeInstance> genericArgumentsOf(TypeInstance referenceType);
 }
