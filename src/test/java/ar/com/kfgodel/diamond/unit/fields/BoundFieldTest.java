@@ -77,11 +77,11 @@ public class BoundFieldTest extends JavaSpec<DiamondTestContext> {
             });
 
 
-            describe("requiring one less argument", () -> {
+            describe("when used as functional types", () -> {
 
                 context().boundField(() -> context().field().bindTo(context().object()));
 
-                it("used as supplier gets the value", () -> {
+                it("gets the field value as supplier", () -> {
                     context().<BoundFieldTestObject>object().field = 23;
 
                     Supplier<Object> asSupplier = context().boundField();
@@ -89,7 +89,7 @@ public class BoundFieldTest extends JavaSpec<DiamondTestContext> {
                     assertThat(asSupplier.get()).isEqualTo(23);
                 });
 
-                it("used as consumer sets the value",()->{
+                it("sets the field value as consumer",()->{
                     Consumer<Object> asConsumer = context().boundField();
 
                     asConsumer.accept(17);
@@ -97,19 +97,13 @@ public class BoundFieldTest extends JavaSpec<DiamondTestContext> {
                     assertThat(context().<BoundFieldTestObject>object().field).isEqualTo(17);
                 });
                 
-                it("used as function it sets the value",()->{
+                it("set the value and return null as a function",()->{
                     Function<Object,Object> asFunction = context().boundField();
 
                     Object returned = asFunction.apply(18);
 
                     assertThat(context().<BoundFieldTestObject>object().field).isEqualTo(18);
                     assertThat(returned).isNull();
-                });
-
-                it("used as runnable gets the value but loses it",()->{
-                    Runnable asRunnable = context().boundField();
-
-                    asRunnable.run();
                 });
 
                 it("fails with an exception on every other combination", () -> {
@@ -124,6 +118,39 @@ public class BoundFieldTest extends JavaSpec<DiamondTestContext> {
                     }
                 });
             });
+
+            describe("equality", () -> {
+                it("is true for bound fields that represent the same field and are bound to the same instance",()->{
+                    BoundField firstBoundField = context().field().bindTo(context().object());
+                    BoundField secondBoundField = context().field().bindTo(context().object());
+
+                    assertThat(firstBoundField).isNotSameAs(secondBoundField);
+                    assertThat(firstBoundField).isEqualTo(secondBoundField);
+                });
+                
+                it("is false if the represented field is different",()->{
+                    BoundField boundToField = context().field().bindTo(context().object());
+                    BoundField boundToOtherField = context().typeInstance().fields().named("otherField").get().bindTo(context().object());
+
+                    assertThat(boundToField).isNotEqualTo(boundToOtherField);
+                });
+
+                it("is false if they are bound to different instance",()->{
+                    BoundField boundToTestObject = context().field().bindTo(context().object());
+                    BoundField boundToOtherObject = context().field().bindTo(new BoundFieldTestObject());
+
+                    assertThat(boundToTestObject).isNotEqualTo(boundToOtherObject);
+                });
+            });
+
+            describe("string representation", () -> {
+                it("includes the field information as well as the bounded instance",()->{
+                    BoundField bound = context().field().bindTo(context().object());
+                    assertThat(bound.toString()).startsWith("int field bound to ar.com.kfgodel.diamond.unit.testobjects.fields.BoundFieldTestObject");
+                });
+            });
+
+
         });
     }
 }
