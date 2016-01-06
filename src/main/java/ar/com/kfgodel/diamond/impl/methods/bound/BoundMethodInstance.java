@@ -2,6 +2,7 @@ package ar.com.kfgodel.diamond.impl.methods.bound;
 
 import ar.com.kfgodel.diamond.api.methods.BoundMethod;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
+import ar.com.kfgodel.diamond.impl.methods.equality.BoundMethodEquality;
 
 /**
  * This type represents a method bound to an instance
@@ -37,5 +38,24 @@ public class BoundMethodInstance implements BoundMethod {
     @Override
     public String name() {
         return method.name();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(method.name());
+        builder.append("() bound to ");
+        builder.append(instance());
+        return builder.toString();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return BoundMethodEquality.INSTANCE.areEquals(this, obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return BoundMethodEquality.INSTANCE.hash(this);
     }
 }

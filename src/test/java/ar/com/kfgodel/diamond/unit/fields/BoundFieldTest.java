@@ -129,10 +129,10 @@ public class BoundFieldTest extends JavaSpec<DiamondTestContext> {
                 });
                 
                 it("is false if the represented field is different",()->{
-                    BoundField boundToField = context().field().bindTo(context().object());
+                    BoundField boundToTestField = context().field().bindTo(context().object());
                     BoundField boundToOtherField = context().typeInstance().fields().named("otherField").get().bindTo(context().object());
 
-                    assertThat(boundToField).isNotEqualTo(boundToOtherField);
+                    assertThat(boundToTestField).isNotEqualTo(boundToOtherField);
                 });
 
                 it("is false if they are bound to different instance",()->{
@@ -144,7 +144,7 @@ public class BoundFieldTest extends JavaSpec<DiamondTestContext> {
             });
 
             describe("string representation", () -> {
-                it("includes the field information as well as the bounded instance",()->{
+                it("includes the field information as well as the bound instance",()->{
                     BoundField bound = context().field().bindTo(context().object());
                     assertThat(bound.toString()).startsWith("int field bound to ar.com.kfgodel.diamond.unit.testobjects.fields.BoundFieldTestObject");
                 });
