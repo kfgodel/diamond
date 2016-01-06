@@ -43,4 +43,10 @@ public class BoundMethodTestObject {
         invokedName = "("+arg+") boolean";
         return arg > 0;
     }
+
+    // Redefined to force an identity comparison in bound method test
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof BoundMethodTestObject;
+    }
 }

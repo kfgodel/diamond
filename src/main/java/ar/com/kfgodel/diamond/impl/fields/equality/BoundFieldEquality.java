@@ -30,6 +30,11 @@ public class BoundFieldEquality {
         return one.instance() == other.instance() && one.typeField().equals(other.typeField());
     }
 
+    /**
+     * Generates a hashcode using the instance and method as equality criteria
+     * @param boundField The field to hash
+     * @return The hashcode compatible with this equality definition
+     */
     public int hash(BoundField boundField) {
         return Objects.hash(boundField.instance(), boundField.typeField());
     }
