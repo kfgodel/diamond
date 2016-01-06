@@ -8,4 +8,11 @@ public class BoundFieldTestObject {
 
     public int field;
 
+    public int otherField;
+
+    //Redefined to make test fail, and force bound equality use identity comparison
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof BoundFieldTestObject;
+    }
 }
