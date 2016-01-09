@@ -29,12 +29,12 @@ public class PackageEquality {
   }
 
   /**
-   * Generates the hashcode compatible with this equality definitino
+   * Generates the hashcode compatible with this equality definition
    * @param typePackage The package to hash
    * @return The code that can be compared
    */
   public int hashcodeFor(TypePackage typePackage){
-    return typePackage.hashCode();
+    return typePackage.name().hashCode();
   }
 
 }

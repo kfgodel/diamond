@@ -1,5 +1,6 @@
 package ar.com.kfgodel.diamond.api.members.modifiers;
 
+import ar.com.kfgodel.diamond.api.DiamondReflection;
 import ar.com.kfgodel.diamond.api.declaration.Declarable;
 
 import java.util.function.Predicate;
@@ -10,7 +11,7 @@ import java.util.function.Predicate;
  *
  * Created by kfgodel on 18/10/14.
  */
-public interface Modifier extends Predicate<Modifier>, Declarable {
+public interface Modifier extends Predicate<Modifier>, Declarable, DiamondReflection {
 
     /**
      * Indicates if this modifier is coded as present in the given bitmap

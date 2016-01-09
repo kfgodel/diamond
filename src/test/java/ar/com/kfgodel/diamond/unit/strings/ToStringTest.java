@@ -3,6 +3,7 @@ package ar.com.kfgodel.diamond.unit.strings;
 import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.api.Diamond;
+import ar.com.kfgodel.diamond.api.members.modifiers.Modifiers;
 import ar.com.kfgodel.diamond.api.types.reference.ReferenceOf;
 import ar.com.kfgodel.diamond.unit.DiamondTestContext;
 import ar.com.kfgodel.diamond.unit.testobjects.constructors.ConstructorAccessTestObject;
@@ -123,6 +124,14 @@ public class ToStringTest extends JavaSpec<DiamondTestContext> {
             context().toStringResult().equals("Object arg0") ||
               context().toStringResult().equals("Object obj");
           assertThat(matchesTheExpectedName).isTrue();
+        });
+      });
+
+      describe("for modifiers", () -> {
+        context().object(()-> Modifiers.TRANSIENT);
+
+        it("is the declaration",()->{
+            assertThat(context().toStringResult()).isEqualTo("transient");
         });
       });
 

@@ -1,5 +1,6 @@
 package ar.com.kfgodel.diamond.api.lambdas;
 
+import ar.com.kfgodel.diamond.api.DiamondReflection;
 import ar.com.kfgodel.diamond.api.executables.Executable;
 
 /**
@@ -7,6 +8,6 @@ import ar.com.kfgodel.diamond.api.executables.Executable;
  *     Also the possibility to execute the underlying lambda with a single method signature for all the possible variations
  * Created by kfgodel on 01/02/15.
  */
-public interface Lambda extends Executable {
+public interface Lambda extends Executable, DiamondReflection {
     
 }

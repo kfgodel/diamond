@@ -16,7 +16,7 @@ public interface Diamond {
     /**
      * Singleton instance to avoid creation
      */
-    public static final DiamondApi API = DiamondApi.create();
+    DiamondApi API = DiamondApi.create();
 
 
     /**

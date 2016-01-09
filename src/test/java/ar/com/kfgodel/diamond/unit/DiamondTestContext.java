@@ -6,6 +6,7 @@ import ar.com.kfgodel.diamond.api.fields.BoundField;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.api.invokable.Invokable;
 import ar.com.kfgodel.diamond.api.lambdas.Lambda;
+import ar.com.kfgodel.diamond.api.members.modifiers.Modifier;
 import ar.com.kfgodel.diamond.api.methods.BoundMethod;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
@@ -69,6 +70,9 @@ public interface DiamondTestContext extends TestContext {
 
     String toStringResult();
     void toStringResult(Supplier<String> definition);
+
+    Modifier modifier();
+    void modifier(Supplier<Modifier> definition);
 
 
 }
