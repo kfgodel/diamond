@@ -6,6 +6,7 @@ import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.diamond.api.types.reference.ReferenceOf;
+import ar.com.kfgodel.diamond.impl.types.packages.PackageDescriptor;
 import ar.com.kfgodel.diamond.unit.DiamondTestContext;
 import ar.com.kfgodel.diamond.unit.testobjects.lineage.ChildClass;
 import ar.com.kfgodel.nary.api.Nary;
@@ -71,6 +72,21 @@ public class TypePackageTest extends JavaSpec<DiamondTestContext> {
                     Nary<TypePackage> typePackage = Diamond.of(String[].class).declaredPackage();
 
                     assertThat(typePackage.isPresent()).isFalse();
+                });
+            });
+
+            describe("equality", () -> {
+
+                context().typePackage(() -> Diamond.of(ChildClass.class).declaredPackage().get());
+
+                it("is true if both are named equal",()->{
+                    TypePackage otherPackage = Diamond.packages().fromDescription(PackageDescriptor.INSTANCE.describe(Package.getPackage("ar.com.kfgodel.diamond.unit.testobjects.lineage")));
+                    assertThat(context().typePackage()).isEqualTo(otherPackage);
+                });
+
+                it("is false if name is different",()->{
+                    TypePackage otherPackage = Diamond.packages().named("java.lang");
+                    assertThat(context().typePackage()).isNotEqualTo(otherPackage);
                 });
             });
 

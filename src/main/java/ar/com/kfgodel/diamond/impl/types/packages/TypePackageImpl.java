@@ -1,5 +1,6 @@
 package ar.com.kfgodel.diamond.impl.types.packages;
 
+import ar.com.kfgodel.diamond.api.types.packages.PackageDescription;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.diamond.impl.strings.DebugPrinter;
 import ar.com.kfgodel.nary.api.Nary;
@@ -26,15 +27,25 @@ public class TypePackageImpl implements TypePackage {
         return name.get();
     }
 
-    public static TypePackageImpl create(Supplier<String> name, Supplier<Nary<Annotation>> annotations) {
+    public static TypePackageImpl create(PackageDescription description) {
         TypePackageImpl aPackage = new TypePackageImpl();
-        aPackage.name = name;
-        aPackage.annotations = annotations;
+        aPackage.name = description.getNameSupplier();
+        aPackage.annotations = description.getAnnotationsSupplier();
         return aPackage;
     }
 
     @Override
     public String toString() {
         return DebugPrinter.print(this);
+    }
+
+    @Override
+    public int hashCode() {
+        return PackageEquality.INSTANCE.hashcodeFor(this);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return PackageEquality.INSTANCE.areEquals(this, obj);
     }
 }

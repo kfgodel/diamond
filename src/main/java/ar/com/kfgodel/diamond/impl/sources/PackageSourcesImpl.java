@@ -37,7 +37,7 @@ public class PackageSourcesImpl implements PackageSources {
      * Creates a new type package from its native representation
      */
     private TypePackage createPackageFrom(PackageDescription description) {
-        return TypePackageImpl.create(description.getNameSupplier(), description.getAnnotationsSupplier());
+        return TypePackageImpl.create(description);
     }
 
     @Override
