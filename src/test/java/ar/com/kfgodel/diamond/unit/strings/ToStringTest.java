@@ -143,6 +143,14 @@ public class ToStringTest extends JavaSpec<DiamondTestContext> {
         });   
       });
 
+      describe("for lambdas", () -> {
+        context().object(()-> Diamond.lambdas().fromPredicate((a)-> false));
+        
+        it("is the invocation signature",()->{
+            assertThat(context().toStringResult()).isEqualTo("lambda(Object)->boolean");
+        });   
+      });
+
 
     });
   }

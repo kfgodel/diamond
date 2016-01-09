@@ -3,8 +3,11 @@ package ar.com.kfgodel.diamond.impl.strings;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.api.fields.BoundField;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
+import ar.com.kfgodel.diamond.api.lambdas.Lambda;
+import ar.com.kfgodel.diamond.api.members.modifiers.Modifier;
 import ar.com.kfgodel.diamond.api.methods.BoundMethod;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
+import ar.com.kfgodel.diamond.api.objects.MetaObject;
 import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
@@ -141,6 +144,33 @@ public class DebugPrinter {
     });
   }
 
+  /**
+   * Generates a string representation of a meta object
+   */
+  public static String print(MetaObject metaObject) {
+    return "meta-" + metaObject.instance().toString();
+  }
+
+
+  /**
+   * Generates a String representation of the given modifier
+   */
+  public static String print(Modifier modifier) {
+    return modifier.declaration();
+  }
+
+
+  /**
+   * Generates a string representation of the given lambda
+   */
+  public static String print(Lambda lambda) {
+    return builtString(builder ->{
+      builder.append("lambda");
+      appendParametersTo(builder, lambda.parameterTypes());
+      builder.append("->");
+      builder.append(lambda.returnType().name());
+    });
+  }
 
 
   /**
@@ -171,4 +201,5 @@ public class DebugPrinter {
     operation.accept(builder);
     return builder.toString();
   }
+
 }

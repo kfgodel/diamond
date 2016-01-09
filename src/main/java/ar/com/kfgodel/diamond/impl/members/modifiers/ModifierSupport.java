@@ -1,6 +1,7 @@
 package ar.com.kfgodel.diamond.impl.members.modifiers;
 
 import ar.com.kfgodel.diamond.api.members.modifiers.Modifier;
+import ar.com.kfgodel.diamond.impl.strings.DebugPrinter;
 
 /**
  * This type serves as a base class for modifiers
@@ -45,6 +46,6 @@ public class ModifierSupport implements Modifier {
 
     @Override
     public String toString() {
-        return declaration();
+        return DebugPrinter.print(this);
     }
 }

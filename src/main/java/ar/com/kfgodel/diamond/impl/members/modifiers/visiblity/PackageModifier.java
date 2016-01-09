@@ -3,6 +3,7 @@ package ar.com.kfgodel.diamond.impl.members.modifiers.visiblity;
 import ar.com.kfgodel.diamond.api.members.modifiers.Modifier;
 import ar.com.kfgodel.diamond.api.members.modifiers.Modifiers;
 import ar.com.kfgodel.diamond.impl.members.modifiers.ModifierEquality;
+import ar.com.kfgodel.diamond.impl.strings.DebugPrinter;
 
 /**
  * This type represents the private visibility member modifier
@@ -46,6 +47,6 @@ public class PackageModifier implements Modifier {
 
     @Override
     public String toString() {
-        return declaration();
+        return DebugPrinter.print(this);
     }
 }

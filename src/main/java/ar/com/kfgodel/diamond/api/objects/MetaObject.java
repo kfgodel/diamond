@@ -26,4 +26,8 @@ public interface MetaObject extends DiamondReflection {
      */
     BoundFields fields();
 
+  /**
+   * @return The instance of this object
+   */
+  Object instance();
 }
