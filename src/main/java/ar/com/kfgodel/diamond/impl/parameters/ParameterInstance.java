@@ -8,6 +8,7 @@ import ar.com.kfgodel.diamond.impl.strings.DebugPrinter;
 import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.annotation.Annotation;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
@@ -20,6 +21,7 @@ public class ParameterInstance implements ExecutableParameter {
     private Supplier<String> name;
     private Supplier<Nary<Modifier>> modifiers;
     private Supplier<Nary<Annotation>> annotations;
+    private Function<ExecutableParameter, Object> identityToken;
 
     @Override
     public TypeInstance declaredType() {
@@ -32,6 +34,7 @@ public class ParameterInstance implements ExecutableParameter {
         parameter.name = description.getName();
         parameter.modifiers = description.getModifiers();
         parameter.annotations = description.getAnnotations();
+        parameter.identityToken = description.getIdentityToken();
         return parameter;
     }
 
@@ -58,5 +61,20 @@ public class ParameterInstance implements ExecutableParameter {
     @Override
     public String toString() {
         return DebugPrinter.print(this);
+    }
+
+    @Override
+    public Object getIdentityToken() {
+        return identityToken.apply(this);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return ParameterEquality.INSTANCE.areEquals(this, obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return getIdentityToken().hashCode();
     }
 }

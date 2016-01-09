@@ -2,8 +2,8 @@ package ar.com.kfgodel.diamond.impl.members.modifiers.visiblity;
 
 import ar.com.kfgodel.diamond.api.members.modifiers.Modifier;
 import ar.com.kfgodel.diamond.api.members.modifiers.Modifiers;
-
-import java.util.stream.Stream;
+import ar.com.kfgodel.diamond.impl.members.modifiers.ModifierEquality;
+import ar.com.kfgodel.diamond.impl.strings.DebugPrinter;
 
 /**
  * This type represents the private visibility member modifier
@@ -36,16 +36,17 @@ public class PackageModifier implements Modifier {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        return Stream.of(obj)
-                .filter((object) -> object instanceof Modifier)
-                .map(Modifier.class::cast)
-                .filter((other) -> this.declaration().equals(other.declaration()) )
-                .findAny().isPresent();
+    public int hashCode() {
+        return ModifierEquality.INSTANCE.hashcodeFor(this);
     }
 
     @Override
-    public int hashCode() {
-        return declaration().hashCode();
+    public boolean equals(Object obj) {
+        return ModifierEquality.INSTANCE.areEquals(this, obj);
+    }
+
+    @Override
+    public String toString() {
+        return DebugPrinter.print(this);
     }
 }

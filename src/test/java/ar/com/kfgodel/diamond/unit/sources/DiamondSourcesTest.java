@@ -6,6 +6,8 @@ import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.api.lambdas.Lambda;
+import ar.com.kfgodel.diamond.api.members.modifiers.Modifier;
+import ar.com.kfgodel.diamond.api.members.modifiers.Modifiers;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
@@ -13,12 +15,14 @@ import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.diamond.unit.DiamondTestContext;
 import ar.com.kfgodel.diamond.unit.testobjects.ClassWithIdField;
 import ar.com.kfgodel.diamond.unit.testobjects.modifiers.PublicMembersTestObject;
+import org.assertj.core.util.Lists;
 import org.junit.runner.RunWith;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -213,6 +217,25 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
                     assertThat(parameter.declaredType().name()).isEqualTo("Object");
                 });
             });
+
+            describe("modifiers", () -> {
+                it("can be obtained from a class member",()->{
+                    Method method = null;
+                    try {
+                        method = Object.class.getDeclaredMethod("equals", Object.class);
+                    } catch (NoSuchMethodException e) {
+                        throw new RuntimeException("This is why reflection api turns difficult to use", e);
+                    }
+
+                    List<Modifier> methodModifiers = Diamond.modifiers().from(method);
+                    assertThat(methodModifiers).isEqualTo(Lists.newArrayList(Modifiers.PUBLIC));
+                });
+                it("can be obtained from an int bitmap",()->{
+                    List<Modifier> methodModifiers = Diamond.modifiers().from(java.lang.reflect.Modifier.PUBLIC | java.lang.reflect.Modifier.ABSTRACT);
+                    assertThat(methodModifiers).isEqualTo(Lists.newArrayList(Modifiers.PUBLIC, Modifiers.ABSTRACT));
+                });   
+            });
+
 
             describe("lambdas", () -> {
                 it("can be obtained from inline expressions",()->{

@@ -1,10 +1,12 @@
 package ar.com.kfgodel.diamond.api.parameters.description;
 
 import ar.com.kfgodel.diamond.api.members.modifiers.Modifier;
+import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.annotation.Annotation;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
@@ -32,4 +34,9 @@ public interface ParameterDescription {
      * @return The supplier of parameter annotations
      */
     Supplier<Nary<Annotation>> getAnnotations();
+
+    /**
+     * @return The function to get the token that represents the instance identity
+     */
+    Function<ExecutableParameter, Object> getIdentityToken();
 }

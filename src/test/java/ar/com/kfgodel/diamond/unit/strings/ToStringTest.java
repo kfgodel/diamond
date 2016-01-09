@@ -3,6 +3,7 @@ package ar.com.kfgodel.diamond.unit.strings;
 import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.api.Diamond;
+import ar.com.kfgodel.diamond.api.members.modifiers.Modifiers;
 import ar.com.kfgodel.diamond.api.types.reference.ReferenceOf;
 import ar.com.kfgodel.diamond.unit.DiamondTestContext;
 import ar.com.kfgodel.diamond.unit.testobjects.constructors.ConstructorAccessTestObject;
@@ -124,6 +125,30 @@ public class ToStringTest extends JavaSpec<DiamondTestContext> {
               context().toStringResult().equals("Object obj");
           assertThat(matchesTheExpectedName).isTrue();
         });
+      });
+
+      describe("for modifiers", () -> {
+        context().object(()-> Modifiers.TRANSIENT);
+
+        it("is the declaration",()->{
+            assertThat(context().toStringResult()).isEqualTo("transient");
+        });
+      });
+
+      describe("for meta objects", () -> {
+        context().object(()-> Diamond.metaObjects().from("hola"));
+        
+        it("is usual string plus a meta prefix",()->{
+            assertThat(context().toStringResult()).isEqualTo("meta-hola");
+        });   
+      });
+
+      describe("for lambdas", () -> {
+        context().object(()-> Diamond.lambdas().fromPredicate((a)-> false));
+        
+        it("is the invocation signature",()->{
+            assertThat(context().toStringResult()).isEqualTo("lambda(Object)->boolean");
+        });   
       });
 
 

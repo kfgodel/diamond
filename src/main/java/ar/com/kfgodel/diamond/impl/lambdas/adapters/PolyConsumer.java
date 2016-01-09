@@ -1,14 +1,12 @@
 package ar.com.kfgodel.diamond.impl.lambdas.adapters;
 
-import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
-
 import java.util.function.Consumer;
 
 /**
  * This type is a poly invokable adapter around a consumer instance
  * Created by kfgodel on 02/02/15.
  */
-public class PolyConsumer implements PolymorphicInvokable {
+public class PolyConsumer extends PolyAdapterSupport {
     
     private Consumer consumer;
 
@@ -35,4 +33,8 @@ public class PolyConsumer implements PolymorphicInvokable {
         return polyConsumer;
     }
 
+    @Override
+    public Object adaptedCode() {
+        return consumer;
+    }
 }

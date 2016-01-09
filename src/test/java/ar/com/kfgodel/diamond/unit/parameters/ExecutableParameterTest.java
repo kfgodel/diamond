@@ -4,6 +4,7 @@ import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.members.modifiers.Modifier;
+import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.unit.DiamondTestContext;
 import ar.com.kfgodel.diamond.unit.testobjects.modifiers.PublicMembersTestObject;
@@ -26,7 +27,8 @@ public class ExecutableParameterTest extends JavaSpec<DiamondTestContext> {
     public void define() {
         describe("an executable parameter", () -> {
 
-            context().parameter(()-> Diamond.of(PublicMembersTestObject.class).constructors().withParameters(Diamond.of(Integer.class)).get().parameters().get());
+            context().parameter(()-> context().typeInstance().constructors().withParameters(Diamond.of(Integer.class)).get().parameters().get());
+            context().typeInstance(()-> Diamond.of(PublicMembersTestObject.class));
 
             it("has a declared type", () -> {
 
@@ -58,6 +60,27 @@ public class ExecutableParameterTest extends JavaSpec<DiamondTestContext> {
 
                 assertThat(parameterModifiers).isEqualTo(Arrays.asList("TestAnnotation1"));
             });
+
+            describe("equality", () -> {
+                it("is true if declared type and name are equals",()->{
+                    ExecutableParameter otherParameter = context().typeInstance().methods().named("methodWithEqualParam")
+                      .get().parameters().findFirst().get();
+                    assertThat(context().parameter()).isEqualTo(otherParameter);
+                });
+
+                it("is false if name is different",()->{
+                    ExecutableParameter otherParameter = context().typeInstance().methods().named("methodWithDiffParamName")
+                      .get().parameters().findFirst().get();
+                    assertThat(context().parameter()).isNotEqualTo(otherParameter);
+                });
+
+                it("is false if declared type is different",()->{
+                    ExecutableParameter otherParameter = context().typeInstance().methods().named("methodWithDiffParamType")
+                      .get().parameters().findFirst().get();
+                    assertThat(context().parameter()).isNotEqualTo(otherParameter);
+                });
+            });
+
 
         });
 

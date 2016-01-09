@@ -1,8 +1,7 @@
 package ar.com.kfgodel.diamond.impl.members.modifiers;
 
 import ar.com.kfgodel.diamond.api.members.modifiers.Modifier;
-
-import java.util.stream.Stream;
+import ar.com.kfgodel.diamond.impl.strings.DebugPrinter;
 
 /**
  * This type serves as a base class for modifiers
@@ -37,15 +36,16 @@ public class ModifierSupport implements Modifier {
 
     @Override
     public int hashCode() {
-        return declaration().hashCode();
+        return ModifierEquality.INSTANCE.hashcodeFor(this);
     }
 
     @Override
     public boolean equals(Object obj) {
-        return Stream.of(obj)
-                .filter((object) -> object instanceof Modifier)
-                .map(Modifier.class::cast)
-                .filter((other) -> this.declaration().equals(other.declaration()) )
-                .findAny().isPresent();
+        return ModifierEquality.INSTANCE.areEquals(this, obj);
+    }
+
+    @Override
+    public String toString() {
+        return DebugPrinter.print(this);
     }
 }

@@ -1,12 +1,10 @@
 package ar.com.kfgodel.diamond.impl.lambdas.adapters;
 
-import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
-
 /**
  * This type is a poly invokable adapter around a runnable instance
  * Created by kfgodel on 02/02/15.
  */
-public class PolyRunnable implements PolymorphicInvokable {
+public class PolyRunnable extends PolyAdapterSupport{
     
     private Runnable runnable;
     
@@ -27,4 +25,8 @@ public class PolyRunnable implements PolymorphicInvokable {
         return polyRunnable;
     }
 
+    @Override
+    public Object adaptedCode() {
+        return runnable;
+    }
 }

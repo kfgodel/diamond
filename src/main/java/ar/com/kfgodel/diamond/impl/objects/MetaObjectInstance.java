@@ -7,6 +7,7 @@ import ar.com.kfgodel.diamond.api.objects.MetaObject;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.fields.bound.BoundFieldsImpl;
 import ar.com.kfgodel.diamond.impl.methods.bound.BoundMethodsImpl;
+import ar.com.kfgodel.diamond.impl.strings.DebugPrinter;
 
 /**
  * This type represents a meta-level view of an object
@@ -43,6 +44,11 @@ public class MetaObjectInstance implements MetaObject {
         return fields;
     }
 
+    @Override
+    public Object instance() {
+        return instance;
+    }
+
 
     @Override
     public int hashCode() {
@@ -56,7 +62,7 @@ public class MetaObjectInstance implements MetaObject {
 
     @Override
     public String toString() {
-        return "meta-" + instance.toString();
+        return DebugPrinter.print(this);
     }
 
     public static MetaObjectInstance create(Object instance) {

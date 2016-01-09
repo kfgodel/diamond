@@ -5,6 +5,7 @@ import ar.com.kfgodel.diamond.api.lambdas.Lambda;
 import ar.com.kfgodel.diamond.api.lambdas.LambdaDescription;
 import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.diamond.impl.strings.DebugPrinter;
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.impl.NaryFromNative;
 
@@ -40,6 +41,21 @@ public class LambdaInstance implements Lambda {
     @Override
     public Nary<TypeInstance> declaredExceptions() {
         return declaredExceptions.get();
+    }
+
+    @Override
+    public String toString() {
+        return DebugPrinter.print(this);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return LambdaEquality.INSTANCE.areEquals(this, obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return LambdaEquality.INSTANCE.hashcodeFor(this);
     }
 
     @Override

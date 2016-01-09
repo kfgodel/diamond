@@ -35,6 +35,11 @@ public class MetaObjectTest extends JavaSpec<DiamondTestContext> {
                 assertThat(metaObject).isNotNull();
             }); 
             
+            it("has the object as instance",()->{
+                MetaObject metaObject = Diamond.metaObjects().from("hi");
+                assertThat(metaObject.instance()).isEqualTo("hi");
+            });   
+            
             it("has the same hashcode as the object",()->{
                 PublicMembersTestObject instance = new PublicMembersTestObject();
 
@@ -53,14 +58,6 @@ public class MetaObjectTest extends JavaSpec<DiamondTestContext> {
                 assertThat(instance.equals(metaObject)).isFalse();
             });
 
-            it("has a 'meta' prefix on toString() representation",()->{
-                PublicMembersTestObject instance = new PublicMembersTestObject();
-
-                MetaObject metaObject = Diamond.metaObjects().from(instance);
-
-                assertThat(metaObject.toString()).isEqualTo("meta-" + instance.toString());
-            });   
-            
             it("allows access to all the methods bound to the object",()->{
                 PublicMembersTestObject instance = new PublicMembersTestObject();
                 MetaObject metaObject = Diamond.metaObjects().from(instance);

@@ -21,4 +21,17 @@ public class PublicMembersTestObject {
 
 
     }
+
+    public void methodWithEqualParam(Integer parameter){
+
+    }
+
+    public void methodWithDiffParamType(String parameter){
+
+    }
+
+    public void methodWithDiffParamName(Integer otherName){
+
+    }
+
 }

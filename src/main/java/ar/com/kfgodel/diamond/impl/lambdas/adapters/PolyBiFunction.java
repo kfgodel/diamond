@@ -1,14 +1,12 @@
 package ar.com.kfgodel.diamond.impl.lambdas.adapters;
 
-import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
-
 import java.util.function.BiFunction;
 
 /**
  * This type represents a poly invokable adapter around a bifunction instance 
  * Created by kfgodel on 02/02/15.
  */
-public class PolyBiFunction implements PolymorphicInvokable {
+public class PolyBiFunction extends PolyAdapterSupport {
     
     private BiFunction function;
     
@@ -34,4 +32,8 @@ public class PolyBiFunction implements PolymorphicInvokable {
         return polyBiFunction;
     }
 
+    @Override
+    public Object adaptedCode() {
+        return function;
+    }
 }
