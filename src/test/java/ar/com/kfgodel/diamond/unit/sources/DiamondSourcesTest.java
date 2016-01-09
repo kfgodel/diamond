@@ -7,6 +7,7 @@ import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.api.lambdas.Lambda;
 import ar.com.kfgodel.diamond.api.members.modifiers.Modifier;
+import ar.com.kfgodel.diamond.api.members.modifiers.Modifiers;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
@@ -227,7 +228,11 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
                     }
 
                     List<Modifier> methodModifiers = Diamond.modifiers().from(method);
-                    assertThat(methodModifiers).isEqualTo(Lists.newArrayList());
+                    assertThat(methodModifiers).isEqualTo(Lists.newArrayList(Modifiers.PUBLIC));
+                });
+                it("can be obtained from an int bitmap",()->{
+                    List<Modifier> methodModifiers = Diamond.modifiers().from(java.lang.reflect.Modifier.PUBLIC | java.lang.reflect.Modifier.ABSTRACT);
+                    assertThat(methodModifiers).isEqualTo(Lists.newArrayList(Modifiers.PUBLIC, Modifiers.ABSTRACT));
                 });   
             });
 
