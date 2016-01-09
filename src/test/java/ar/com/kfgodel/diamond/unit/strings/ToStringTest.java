@@ -135,6 +135,14 @@ public class ToStringTest extends JavaSpec<DiamondTestContext> {
         });
       });
 
+      describe("for meta objects", () -> {
+        context().object(()-> Diamond.metaObjects().from("hola"));
+        
+        it("is usual string plus a meta prefix",()->{
+            assertThat(context().toStringResult()).isEqualTo("meta-hola");
+        });   
+      });
+
 
     });
   }
