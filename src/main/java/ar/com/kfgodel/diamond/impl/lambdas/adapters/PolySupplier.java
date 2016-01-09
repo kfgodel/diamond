@@ -1,14 +1,12 @@
 package ar.com.kfgodel.diamond.impl.lambdas.adapters;
 
-import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
-
 import java.util.function.Supplier;
 
 /**
  * This type represents a poly invokable adapter around a supplier instance
  * Created by kfgodel on 02/02/15.
  */
-public class PolySupplier implements PolymorphicInvokable {
+public class PolySupplier extends PolyAdapterSupport {
 
     private Supplier supplier;
 
@@ -28,4 +26,8 @@ public class PolySupplier implements PolymorphicInvokable {
         return polySupplier;
     }
 
+    @Override
+    public Object adaptedCode() {
+        return supplier;
+    }
 }

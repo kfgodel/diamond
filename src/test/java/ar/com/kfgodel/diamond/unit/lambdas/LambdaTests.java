@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -175,7 +176,31 @@ public class LambdaTests extends JavaSpec<DiamondTestContext> {
 
             });
 
+            describe("equality", () -> {
+                it("is true if both represent the same code",()->{
+                    Function code = this::method;
+                    Lambda oneLambda = Diamond.lambdas().fromFunction(code);
+                    Lambda otherLambda = Diamond.lambdas().fromFunction(code);
+                    assertThat(oneLambda).isEqualTo(otherLambda);
+                });
+
+                it("is false if they represent different code",()->{
+                    Lambda oneLambda = Diamond.lambdas().fromFunction(this::method);
+                    Lambda otherLambda = Diamond.lambdas().fromFunction(this::otherMethod);
+                    assertThat(oneLambda).isNotEqualTo(otherLambda);
+                });
+            });
+
+
         });
 
+    }
+
+    private Object otherMethod(Object o) {
+        return null;
+    }
+
+    private boolean method(Object o) {
+        return false;
     }
 }

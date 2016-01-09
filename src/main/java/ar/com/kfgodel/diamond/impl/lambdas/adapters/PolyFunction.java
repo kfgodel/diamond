@@ -1,7 +1,5 @@
 package ar.com.kfgodel.diamond.impl.lambdas.adapters;
 
-import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
-
 import java.util.function.Function;
 
 /**
@@ -9,7 +7,7 @@ import java.util.function.Function;
  * * 
  * Created by kfgodel on 02/02/15.
  */
-public class PolyFunction implements PolymorphicInvokable {
+public class PolyFunction extends PolyAdapterSupport {
 
     private Function function;
 
@@ -33,5 +31,10 @@ public class PolyFunction implements PolymorphicInvokable {
     @Override
     public Object apply(Object argument) {
         return this.function.apply(argument);
+    }
+
+    @Override
+    public Object adaptedCode() {
+        return function;
     }
 }

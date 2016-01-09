@@ -1,13 +1,12 @@
 package ar.com.kfgodel.diamond.impl.lambdas.adapters;
 
 import ar.com.kfgodel.diamond.api.invokable.Invokable;
-import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
 
 /**
  * This type represents a poly invokable adapter around an invokable instance
  * Created by kfgodel on 02/02/15.
  */
-public class PolyInvokable implements PolymorphicInvokable {
+public class PolyInvokable extends PolyAdapterSupport {
 
     private Invokable invokable;
 
@@ -22,4 +21,8 @@ public class PolyInvokable implements PolymorphicInvokable {
         return polyInvokable;
     }
 
+    @Override
+    public Object adaptedCode() {
+        return invokable;
+    }
 }

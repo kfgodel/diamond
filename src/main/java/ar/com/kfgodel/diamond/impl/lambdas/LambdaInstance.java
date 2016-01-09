@@ -49,6 +49,16 @@ public class LambdaInstance implements Lambda {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        return LambdaEquality.INSTANCE.areEquals(this, obj);
+    }
+
+    @Override
+    public int hashCode() {
+        return LambdaEquality.INSTANCE.hashcodeFor(this);
+    }
+
+    @Override
     public Nary<TypeInstance> parameterTypes() {
         Stream<TypeInstance> nativeStream = parameters().map(ExecutableParameter::declaredType);
         return NaryFromNative.create(nativeStream);

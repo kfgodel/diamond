@@ -1,14 +1,12 @@
 package ar.com.kfgodel.diamond.impl.lambdas.adapters;
 
-import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
-
 import java.util.function.Predicate;
 
 /**
  * This type represents a poly invokable adapter around a predicate instance
  * Created by kfgodel on 02/02/15.
  */
-public class PolyPredicate implements PolymorphicInvokable {
+public class PolyPredicate extends PolyAdapterSupport {
     
     private Predicate predicate;
 
@@ -34,4 +32,8 @@ public class PolyPredicate implements PolymorphicInvokable {
         return polyPredicate;
     }
 
+    @Override
+    public Object adaptedCode() {
+        return predicate;
+    }
 }
