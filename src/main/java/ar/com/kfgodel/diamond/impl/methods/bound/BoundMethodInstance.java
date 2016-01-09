@@ -1,17 +1,18 @@
 package ar.com.kfgodel.diamond.impl.methods.bound;
 
+import ar.com.kfgodel.diamond.api.members.TypeMember;
 import ar.com.kfgodel.diamond.api.methods.BoundMethod;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
-import ar.com.kfgodel.diamond.impl.methods.equality.BoundMethodEquality;
+import ar.com.kfgodel.diamond.impl.members.bound.BoundMemberSupport;
+import ar.com.kfgodel.diamond.impl.strings.DebugPrinter;
 
 /**
  * This type represents a method bound to an instance
  * Created by kfgodel on 16/11/14.
  */
-public class BoundMethodInstance implements BoundMethod {
+public class BoundMethodInstance extends BoundMemberSupport implements BoundMethod {
 
     private TypeMethod method;
-    private Object instance;
 
     @Override
     public TypeMethod typeMethod() {
@@ -19,43 +20,25 @@ public class BoundMethodInstance implements BoundMethod {
     }
 
     @Override
-    public Object instance() {
-        return instance;
+    public TypeMember typeMember() {
+        return typeMethod();
     }
 
     @Override
     public Object invoke(Object... arguments) {
-        return method.invokeOn(instance, arguments);
+        return method.invokeOn(instance(), arguments);
     }
 
     public static BoundMethodInstance create(TypeMethod method, Object instance) {
         BoundMethodInstance boundMethod = new BoundMethodInstance();
+        boundMethod.setInstance(instance);
         boundMethod.method = method;
-        boundMethod.instance = instance;
         return boundMethod;
     }
 
     @Override
-    public String name() {
-        return method.name();
-    }
-
-    @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder();
-        builder.append(method.name());
-        builder.append("() bound to ");
-        builder.append(instance());
-        return builder.toString();
+        return DebugPrinter.print(this);
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        return BoundMethodEquality.INSTANCE.areEquals(this, obj);
-    }
-
-    @Override
-    public int hashCode() {
-        return BoundMethodEquality.INSTANCE.hash(this);
-    }
 }

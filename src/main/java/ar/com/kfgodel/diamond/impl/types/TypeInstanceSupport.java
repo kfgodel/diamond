@@ -19,6 +19,7 @@ import ar.com.kfgodel.diamond.impl.fields.sources.NoFields;
 import ar.com.kfgodel.diamond.impl.fields.sources.TypeFieldsImpl;
 import ar.com.kfgodel.diamond.impl.methods.sources.NoMethods;
 import ar.com.kfgodel.diamond.impl.methods.sources.TypeMethodsImpl;
+import ar.com.kfgodel.diamond.impl.strings.DebugPrinter;
 import ar.com.kfgodel.diamond.impl.types.declaration.TypeDeclaration;
 import ar.com.kfgodel.diamond.impl.types.equality.TypeEquality;
 import ar.com.kfgodel.diamond.impl.types.inheritance.SuppliedTypesInheritance;
@@ -150,7 +151,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     }
     @Override
     public String toString() {
-        return this.declaration();
+        return DebugPrinter.print(this);
     }
 
     @Override

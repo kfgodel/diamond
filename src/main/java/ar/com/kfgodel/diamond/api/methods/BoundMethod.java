@@ -1,13 +1,12 @@
 package ar.com.kfgodel.diamond.api.methods;
 
-import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
-import ar.com.kfgodel.diamond.api.naming.Named;
+import ar.com.kfgodel.diamond.api.members.BoundMember;
 
 /**
  * This type represents a TypeMethod bound to a specific instance as the "this" reference
  * Created by kfgodel on 16/11/14.
  */
-public interface BoundMethod extends PolymorphicInvokable, Named {
+public interface BoundMethod extends BoundMember {
 
 
     /**

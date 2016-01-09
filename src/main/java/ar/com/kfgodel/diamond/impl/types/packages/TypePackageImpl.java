@@ -1,6 +1,7 @@
 package ar.com.kfgodel.diamond.impl.types.packages;
 
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
+import ar.com.kfgodel.diamond.impl.strings.DebugPrinter;
 import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.annotation.Annotation;
@@ -32,4 +33,8 @@ public class TypePackageImpl implements TypePackage {
         return aPackage;
     }
 
+    @Override
+    public String toString() {
+        return DebugPrinter.print(this);
+    }
 }

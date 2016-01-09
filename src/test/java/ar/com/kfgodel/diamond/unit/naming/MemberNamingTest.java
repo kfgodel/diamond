@@ -32,9 +32,6 @@ public class MemberNamingTest extends JavaSpec<DiamondTestContext> {
                             .isEqualTo("@ar.com.kfgodel.diamond.unit.testobjects.annotations.FieldTestAnnotation() @ar.com.kfgodel.diamond.unit.testobjects.annotations.TestAnnotation2() public @ar.com.kfgodel.diamond.unit.testobjects.annotations.TestAnnotation2() java.util.List<java.lang.String> stringList /* MemberNamingTestObject */");
                 });
                 
-                it("toString is equal to the declaration",()->{
-                    assertThat(context().field().toString()).isEqualTo(context().field().declaration());
-                });   
             });
 
 
@@ -52,10 +49,6 @@ public class MemberNamingTest extends JavaSpec<DiamondTestContext> {
                             .isEqualTo("@ar.com.kfgodel.diamond.unit.testobjects.annotations.MethodTestAnnotation() @ar.com.kfgodel.diamond.unit.testobjects.annotations.TestAnnotation3() public <S extends java.lang.Object> @ar.com.kfgodel.diamond.unit.testobjects.annotations.TestAnnotation3() int methodWithArgs(java.lang.String, S extends java.lang.Object) /* MemberNamingTestObject */");
                 });
 
-                it("toString is equal to the declaration",()->{
-                    assertThat(context().method().toString()).isEqualTo(context().method().declaration());
-                });
-
             });
 
             describe("for constructors", () -> {
@@ -69,10 +62,6 @@ public class MemberNamingTest extends JavaSpec<DiamondTestContext> {
                 it("only has a declaration name", () -> {
                     assertThat(context().constructor().declaration())
                             .isEqualTo("@ar.com.kfgodel.diamond.unit.testobjects.annotations.TestAnnotation1() public <R extends java.lang.Object> MemberNamingTestObject(java.lang.Integer)");
-                });
-
-                it("toString is equal to the declaration",()->{
-                    assertThat(context().constructor().toString()).isEqualTo(context().constructor().declaration());
                 });
 
             });

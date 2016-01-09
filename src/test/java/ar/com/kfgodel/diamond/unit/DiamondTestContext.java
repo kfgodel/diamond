@@ -67,4 +67,8 @@ public interface DiamondTestContext extends TestContext {
     Lambda lambda();
     void lambda(Supplier<Lambda> definition);
 
+    String toStringResult();
+    void toStringResult(Supplier<String> definition);
+
+
 }
