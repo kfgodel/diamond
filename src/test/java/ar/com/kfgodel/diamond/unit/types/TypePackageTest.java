@@ -66,6 +66,14 @@ public class TypePackageTest extends JavaSpec<DiamondTestContext> {
                 });
             });
 
+            describe("for array types", () -> {
+                it("is always absent",()->{
+                    Nary<TypePackage> typePackage = Diamond.of(String[].class).declaredPackage();
+
+                    assertThat(typePackage.isPresent()).isFalse();
+                });
+            });
+
 
         });
 

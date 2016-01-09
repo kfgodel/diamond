@@ -18,7 +18,14 @@ public class TypePackageSupplier implements Supplier<Nary<TypePackage>> {
 
     public static Supplier<Nary<TypePackage>> create(Class<?> rawClass) {
         TypePackageSupplier supplier = new TypePackageSupplier();
-        supplier.typePackage = CachedValue.lazilyBy(() -> Diamond.packages().from(rawClass.getPackage()));
+        supplier.typePackage = CachedValue.lazilyBy(() -> {
+            Package nativePackage = rawClass.getPackage();
+            if(nativePackage == null){
+                return null; // Some classes don't have package
+            }else{
+                return Diamond.packages().from(nativePackage);
+            }
+        });
         return supplier;
     }
 
