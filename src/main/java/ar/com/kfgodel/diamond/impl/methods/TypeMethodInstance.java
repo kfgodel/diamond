@@ -11,6 +11,7 @@ import ar.com.kfgodel.diamond.impl.methods.bound.BoundMethodInstance;
 import ar.com.kfgodel.diamond.impl.methods.declaration.MethodDeclaration;
 import ar.com.kfgodel.diamond.impl.methods.equality.MethodEquality;
 import ar.com.kfgodel.diamond.impl.natives.invokables.InstanceArguments;
+import ar.com.kfgodel.diamond.impl.strings.DebugPrinter;
 import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.reflect.Method;
@@ -118,5 +119,10 @@ public class TypeMethodInstance extends TypeMemberSupport implements TypeMethod 
     @Override
     public Nary<Method> nativeType() {
         return nativeMethod.get();
+    }
+
+    @Override
+    public String toString() {
+        return DebugPrinter.print(this);
     }
 }

@@ -43,7 +43,7 @@ public class FunctionalTypeTest extends JavaSpec<DiamondTestContext> {
                     supplier.get();
                     failBecauseExceptionWasNotThrown(DiamondException.class);
                 } catch (DiamondException e) {
-                    assertThat(e).hasMessage("Type[? extends ar.com.kfgodel.diamond.unit.testobjects.lineage.ChildClass] doesn't have a no-arg constructor to create the instance from");
+                    assertThat(e).hasMessage("Type[? extends ChildClass] doesn't have a no-arg constructor to create the instance from");
                 }
             });
 
@@ -55,7 +55,7 @@ public class FunctionalTypeTest extends JavaSpec<DiamondTestContext> {
                     supplier.get();
                     failBecauseExceptionWasNotThrown(DiamondException.class);
                 } catch (DiamondException e) {
-                    assertThat(e).hasMessage("Type[java.lang.String[]] doesn't have a no-arg constructor to create the instance from");
+                    assertThat(e).hasMessage("Type[String[]] doesn't have a no-arg constructor to create the instance from");
                 }
             });
         });

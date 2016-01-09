@@ -49,4 +49,10 @@ public class BoundMethodTestObject {
     public boolean equals(Object obj) {
         return obj instanceof BoundMethodTestObject;
     }
+
+    // Redefined to make test assertions predictable
+    @Override
+    public String toString() {
+        return "BoundMethodTestObject instance";
+    }
 }

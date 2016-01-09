@@ -8,6 +8,7 @@ import ar.com.kfgodel.diamond.impl.fields.bound.BoundFieldInstance;
 import ar.com.kfgodel.diamond.impl.fields.declaration.FieldDeclaration;
 import ar.com.kfgodel.diamond.impl.fields.equality.FieldEquality;
 import ar.com.kfgodel.diamond.impl.members.TypeMemberSupport;
+import ar.com.kfgodel.diamond.impl.strings.DebugPrinter;
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.impl.NaryFromNative;
 
@@ -116,4 +117,8 @@ public class TypeFieldInstance extends TypeMemberSupport implements TypeField {
         return FieldEquality.INSTANCE.areEquals(this, obj);
     }
 
+    @Override
+    public String toString() {
+        return DebugPrinter.print(this);
+    }
 }

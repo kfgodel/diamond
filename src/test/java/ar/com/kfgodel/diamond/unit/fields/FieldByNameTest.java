@@ -48,7 +48,7 @@ public class FieldByNameTest extends JavaSpec<DiamondTestContext> {
                     context().typeInstance().fields().named("duplicatedField").isPresent();
                     failBecauseExceptionWasNotThrown(MoreThanOneElementException.class);
                 } catch (MoreThanOneElementException e) {
-                    assertThat(e).hasMessage("There's more than one element in the stream to create an optional: [public int duplicatedField /* RedefiningFieldTestObject */, protected int duplicatedField /* RedefinedFieldTestObject */]");
+                    assertThat(e).hasMessage("There's more than one element in the stream to create an optional: [duplicatedField @ RedefiningFieldTestObject, duplicatedField @ RedefinedFieldTestObject]");
                 }
             });
             

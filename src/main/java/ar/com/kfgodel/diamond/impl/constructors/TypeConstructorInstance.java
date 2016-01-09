@@ -8,6 +8,7 @@ import ar.com.kfgodel.diamond.impl.constructors.declaration.ConstructorDeclarati
 import ar.com.kfgodel.diamond.impl.constructors.equality.ConstructorEquality;
 import ar.com.kfgodel.diamond.impl.members.TypeMemberSupport;
 import ar.com.kfgodel.diamond.impl.members.call.BehaviorCallInstance;
+import ar.com.kfgodel.diamond.impl.strings.DebugPrinter;
 import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.reflect.Constructor;
@@ -87,5 +88,10 @@ public class TypeConstructorInstance extends TypeMemberSupport implements TypeCo
     public Object invokeOn(Object instance, Object... arguments) {
         // The instance has no relevance for a constructor
         return invoke(arguments);
+    }
+
+    @Override
+    public String toString() {
+        return DebugPrinter.print(this);
     }
 }

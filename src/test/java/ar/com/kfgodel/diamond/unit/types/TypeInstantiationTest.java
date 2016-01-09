@@ -50,7 +50,7 @@ public class TypeInstantiationTest extends JavaSpec<DiamondTestContext> {
                     type.newInstance();
                     failBecauseExceptionWasNotThrown(DiamondException.class);
                 } catch (DiamondException e) {
-                    assertThat(e).hasMessage("Type[ar.com.kfgodel.diamond.unit.testobjects.constructors.NoNiladicTestObject] doesn't have a no-arg constructor to create the instance from");
+                    assertThat(e).hasMessage("Type[NoNiladicTestObject @ ar.com.kfgodel.diamond.unit.testobjects.constructors] doesn't have a no-arg constructor to create the instance from");
                 }
             });
             

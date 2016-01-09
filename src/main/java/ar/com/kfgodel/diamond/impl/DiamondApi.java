@@ -56,7 +56,6 @@ public class DiamondApi {
         addConverterForInstancesOf(Constructor.class, (nativeConstructor) -> constructors().from(nativeConstructor));
         addConverterForInstancesOf(Package.class, (nativePackage) -> packages().from(nativePackage));
         addConverterForInstancesOf(Parameter.class, (nativeParameter) -> parameters().from(nativeParameter));
-        addConverterForInstancesOf(Parameter.class, (nativeParameter) -> parameters().from(nativeParameter));
     }
 
     private <T> void addConverterForInstancesOf(Class<T> sourceType, Function<T, DiamondReflection> converter){

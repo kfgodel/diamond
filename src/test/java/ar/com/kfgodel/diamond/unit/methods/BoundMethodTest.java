@@ -164,13 +164,6 @@ public class BoundMethodTest extends JavaSpec<DiamondTestContext> {
                 });
             });
 
-            describe("string representation", () -> {
-                it("includes the method information as well as the bound instance",()->{
-                    BoundMethod bound = context().method().bindTo(context().object());
-                    assertThat(bound.toString()).startsWith("sum() bound to ar.com.kfgodel.diamond.unit.testobjects.methods.BoundMethodTestObject");
-                });
-            });
-
         });
     }
 }

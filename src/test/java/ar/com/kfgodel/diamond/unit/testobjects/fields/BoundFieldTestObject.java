@@ -15,4 +15,10 @@ public class BoundFieldTestObject {
     public boolean equals(Object obj) {
         return obj instanceof BoundFieldTestObject;
     }
+
+    // Redefined to make test assertion predictable
+    @Override
+    public String toString() {
+        return "BoundFieldTestObject instance";
+    }
 }

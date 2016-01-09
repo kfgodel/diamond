@@ -59,11 +59,6 @@ public abstract class TypeMemberSupport implements TypeMember {
     }
 
     @Override
-    public String toString() {
-        return this.declaration();
-    }
-
-    @Override
     public String name() {
         return name.get();
     }

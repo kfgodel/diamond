@@ -4,6 +4,7 @@ import ar.com.kfgodel.diamond.api.members.modifiers.Modifier;
 import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.diamond.api.parameters.description.ParameterDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.diamond.impl.strings.DebugPrinter;
 import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.annotation.Annotation;
@@ -52,5 +53,10 @@ public class ParameterInstance implements ExecutableParameter {
     @Override
     public Nary<Annotation> annotations() {
         return annotations.get();
+    }
+
+    @Override
+    public String toString() {
+        return DebugPrinter.print(this);
     }
 }

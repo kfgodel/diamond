@@ -8,7 +8,7 @@ import ar.com.kfgodel.nary.impl.NaryFromNative;
  * This type serves as base class for sources of bindable types
  * Created by kfgodel on 17/11/14.
  */
-public class BoundMembersSupport {
+public abstract class BoundMembersSupport {
 
     private Object bindInstance;
 

@@ -53,4 +53,5 @@ public class BoundMethodsImpl extends BoundMembersSupport implements BoundMethod
     public Nary<BoundMethod> withNativeParameters(Type... parameterTypes) {
         return boundVersionOf(methodSource.withNativeParameters(parameterTypes));
     }
+
 }

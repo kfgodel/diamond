@@ -113,8 +113,7 @@ public class BoundFieldTest extends JavaSpec<DiamondTestContext> {
                         asBiConsumer.accept(1, 2);
                         failBecauseExceptionWasNotThrown(DiamondException.class);
                     } catch (Exception e) {
-                        assertThat(e.getMessage()).startsWith("This field[public int ar.com.kfgodel.diamond.unit.testobjects.fields.BoundFieldTestObject.field] only accepts 1 or 2 arguments: [ar.com.kfgodel.diamond.unit.testobjects.fields.BoundFieldTestObject@")
-                        .endsWith(", 1, 2]");
+                        assertThat(e.getMessage()).isEqualTo("This field[public int ar.com.kfgodel.diamond.unit.testobjects.fields.BoundFieldTestObject.field] only accepts 1 or 2 arguments: [BoundFieldTestObject instance, 1, 2]");
                     }
                 });
             });
@@ -142,14 +141,6 @@ public class BoundFieldTest extends JavaSpec<DiamondTestContext> {
                     assertThat(boundToTestObject).isNotEqualTo(boundToOtherObject);
                 });
             });
-
-            describe("string representation", () -> {
-                it("includes the field information as well as the bound instance",()->{
-                    BoundField bound = context().field().bindTo(context().object());
-                    assertThat(bound.toString()).startsWith("int field bound to ar.com.kfgodel.diamond.unit.testobjects.fields.BoundFieldTestObject");
-                });
-            });
-
 
         });
     }
