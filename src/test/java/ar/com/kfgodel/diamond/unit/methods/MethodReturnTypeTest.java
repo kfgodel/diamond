@@ -24,15 +24,15 @@ public class MethodReturnTypeTest extends JavaSpec<DiamondTestContext> {
 
 
             it("is the type declared by the method as its return type",()->{
-                TypeMethod method = context().typeInstance().methods().all().filter((aMethod) -> aMethod.name().equals("stringReturnedMethod")).findFirst().get();
+                TypeMethod method = context().typeInstance().methods().named("stringReturnedMethod").get();
                 assertThat(method.returnType().name())
                         .isEqualTo("String");
             });
             
             it("is void for void methods",()->{
-                TypeMethod method = context().typeInstance().methods().all().filter((aMethod) -> aMethod.name().equals("voidReturnedMethod")).findFirst().get();
-                assertThat(method.returnType().name())
-                        .isEqualTo("void");
+                TypeMethod method = context().typeInstance().methods().named("voidReturnedMethod").get();
+                assertThat(method.returnType())
+                        .isEqualTo(Diamond.of(void.class));
             });   
         });
 
