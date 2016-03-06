@@ -60,7 +60,7 @@ public class TypeDeclaration {
 
     private void withComponentTypeDeclaration(Consumer<String> componentTypeDeclarationConsumer){
         ar.com.kfgodel.optionals.Optional<String> componentDeclaration = type.componentType()
-                .mapOptional((component) -> component.declaration());
+                .mapOptional(TypeInstance::declaration);
         componentDeclaration.ifPresent(componentTypeDeclarationConsumer);
     }
 
