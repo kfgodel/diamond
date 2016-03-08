@@ -5,7 +5,6 @@ import ar.com.kfgodel.diamond.api.members.modifiers.Modifier;
 import ar.com.kfgodel.diamond.api.members.modifiers.Modifiers;
 import ar.com.kfgodel.diamond.api.sources.ModifierSources;
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 import java.lang.reflect.Member;
 import java.util.Arrays;
@@ -53,6 +52,6 @@ public class ModifierSourcesImpl implements ModifierSources {
 
     @Override
     public Nary<Modifier> all() {
-        return NaryFromNative.create(Arrays.stream(Modifiers.values()));
+        return Nary.create(Arrays.stream(Modifiers.values()));
     }
 }

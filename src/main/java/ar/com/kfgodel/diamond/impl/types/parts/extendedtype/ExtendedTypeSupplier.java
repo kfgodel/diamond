@@ -4,7 +4,6 @@ import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 import java.lang.reflect.AnnotatedType;
 import java.util.function.Supplier;
@@ -23,9 +22,9 @@ public class ExtendedTypeSupplier implements Supplier<Nary<TypeInstance>> {
     public Nary<TypeInstance> get() {
         TypeInstance typeInstance = extendedType.get();
         if(typeInstance == null){
-            return NaryFromNative.empty();
+            return Nary.empty();
         }
-        return NaryFromNative.of(typeInstance);
+        return Nary.of(typeInstance);
     }
 
 

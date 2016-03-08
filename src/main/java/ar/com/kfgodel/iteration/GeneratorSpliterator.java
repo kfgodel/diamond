@@ -1,7 +1,6 @@
 package ar.com.kfgodel.iteration;
 
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 import java.util.Spliterator;
 import java.util.function.Consumer;
@@ -94,7 +93,7 @@ public class GeneratorSpliterator<T> implements Spliterator<T> {
      * @return The created spliterator
      */
     public static<T> GeneratorSpliterator<T> create(Nary<? extends T> firstValue) {
-        return create(firstValue, (value)-> NaryFromNative.empty());
+        return create(firstValue, (value)-> Nary.empty());
     }
 
 

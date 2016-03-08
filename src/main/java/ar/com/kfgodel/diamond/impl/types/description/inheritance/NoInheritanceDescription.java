@@ -5,7 +5,6 @@ import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
 import ar.com.kfgodel.diamond.impl.types.parts.extendedtype.NoExtendedTypeSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.superclass.NoSuperclassSupplier;
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 import java.util.function.Supplier;
 
@@ -29,11 +28,11 @@ public class NoInheritanceDescription implements InheritanceDescription {
 
     @Override
     public Supplier<Nary<TypeInstance>> getInterfacesSupplier() {
-        return NaryFromNative::empty;
+        return Nary::empty;
     }
 
     @Override
     public Supplier<Nary<TypeInstance>> getImplementedTypesSupplier() {
-        return NaryFromNative::empty;
+        return Nary::empty;
     }
 }

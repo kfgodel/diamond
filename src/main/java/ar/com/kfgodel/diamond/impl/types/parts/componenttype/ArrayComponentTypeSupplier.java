@@ -5,7 +5,6 @@ import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 import java.lang.reflect.AnnotatedArrayType;
 import java.lang.reflect.GenericArrayType;
@@ -49,8 +48,8 @@ public class ArrayComponentTypeSupplier implements Supplier<Nary<TypeInstance>> 
     public Nary<TypeInstance> get() {
         TypeInstance component = componentType.get();
         if(component == null){
-            return NaryFromNative.empty();
+            return Nary.empty();
         }
-        return NaryFromNative.of(component);
+        return Nary.of(component);
     }
 }

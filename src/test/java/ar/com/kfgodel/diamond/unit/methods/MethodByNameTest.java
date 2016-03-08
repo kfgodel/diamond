@@ -6,7 +6,7 @@ import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.unit.DiamondTestContext;
 import ar.com.kfgodel.diamond.unit.testobjects.methods.RedefiningMethodTestObject;
-import ar.com.kfgodel.nary.exceptions.MoreThanOneElementException;
+import ar.com.kfgodel.nary.api.exceptions.MoreThanOneElementException;
 import org.junit.runner.RunWith;
 
 import java.util.NoSuchElementException;
@@ -39,7 +39,7 @@ public class MethodByNameTest extends JavaSpec<DiamondTestContext> {
             });
 
             it("can assume only one optional occurrence",()->{
-                ar.com.kfgodel.optionals.Optional<TypeMethod> matchingMethod = context().typeInstance().methods().named("uniqueMethod");
+                ar.com.kfgodel.nary.api.optionals.Optional<TypeMethod> matchingMethod = context().typeInstance().methods().named("uniqueMethod");
                 assertThat(matchingMethod.isPresent()).isTrue();
             });
 
@@ -48,8 +48,7 @@ public class MethodByNameTest extends JavaSpec<DiamondTestContext> {
                     context().typeInstance().methods().named("redefinedAndOverloadedMethod").isPresent();
                     failBecauseExceptionWasNotThrown(MoreThanOneElementException.class);
                 } catch (MoreThanOneElementException e) {
-                    // Check the string in parts because it may vary the order of reported elements
-                    assertThat(e.getMessage()).isEqualTo("There's more than one element in the stream to create an optional: [redefinedAndOverloadedMethod(int) @ RedefiningMethodTestObject, redefinedAndOverloadedMethod() @ RedefiningMethodTestObject]");
+                    assertThat(e.getMessage()).isEqualTo("Expecting 1 element in the stream to create an optional but found at least 2: [redefinedAndOverloadedMethod(int) @ RedefiningMethodTestObject, redefinedAndOverloadedMethod() @ RedefiningMethodTestObject]");
                 }
             });
 
@@ -64,7 +63,7 @@ public class MethodByNameTest extends JavaSpec<DiamondTestContext> {
                     context().typeInstance().methods().named("nonExistingMethod").get();
                     failBecauseExceptionWasNotThrown(NoSuchElementException.class);
                 } catch (NoSuchElementException e) {
-                    assertThat(e).hasMessage("No value present");
+                    assertThat(e).hasMessage("Can't call get() on an empty nary: No value present");
                 }
             });
         });

@@ -20,7 +20,6 @@ import ar.com.kfgodel.diamond.impl.natives.invokables.methods.NativeMethodInvoke
 import ar.com.kfgodel.diamond.impl.natives.suppliers.AnnotatedElementAnnotationsSupplier;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -82,7 +81,7 @@ public class NativeMethodDescription implements MethodDescription {
 
     @Override
     public Supplier<Nary<Method>> getNativeMethod() {
-        return () -> NaryFromNative.of(nativeMethod);
+        return () -> Nary.of(nativeMethod);
     }
 
     @Override

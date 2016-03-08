@@ -16,7 +16,7 @@ public class NaryFromElementSupplier<T> implements Supplier<Nary<T>> {
 
     @Override
     public Nary<T> get() {
-        return NaryFromNative.of(element.get());
+        return Nary.of(element.get());
     }
 
     /**

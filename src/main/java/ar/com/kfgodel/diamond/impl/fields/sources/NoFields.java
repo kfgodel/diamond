@@ -3,7 +3,6 @@ package ar.com.kfgodel.diamond.impl.fields.sources;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.api.fields.TypeFields;
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 /**
  * This type represents the fields of a type that has no fields
@@ -15,12 +14,12 @@ public class NoFields implements TypeFields {
 
     @Override
     public Nary<TypeField> all() {
-        return NaryFromNative.empty();
+        return Nary.empty();
     }
 
     @Override
     public Nary<TypeField> named(String fieldName) {
-        return NaryFromNative.empty();
+        return Nary.empty();
     }
 
 }

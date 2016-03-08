@@ -17,7 +17,7 @@ public class NaryFromCollectionSupplier<T> implements Supplier<Nary<T>> {
 
     @Override
     public Nary<T> get() {
-        return NaryFromNative.create(collection.get().stream());
+        return Nary.create(collection.get().stream());
     }
 
     /**

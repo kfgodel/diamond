@@ -1,7 +1,6 @@
 package ar.com.kfgodel.diamond.impl.types.parts.annotations;
 
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 import java.lang.annotation.Annotation;
 import java.util.function.Supplier;
@@ -16,6 +15,6 @@ public class NoAnnotationsSupplier implements Supplier<Nary<Annotation>> {
 
     @Override
     public Nary<Annotation> get() {
-        return NaryFromNative.empty();
+        return Nary.empty();
     }
 }

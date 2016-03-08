@@ -2,7 +2,6 @@ package ar.com.kfgodel.diamond.impl.types.parts.superclass;
 
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 import java.util.function.Supplier;
 
@@ -16,6 +15,6 @@ public class NoSuperclassSupplier implements Supplier<Nary<TypeInstance>> {
 
     @Override
     public Nary<TypeInstance> get() {
-        return NaryFromNative.empty();
+        return Nary.empty();
     }
 }

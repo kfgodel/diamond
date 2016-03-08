@@ -2,7 +2,6 @@ package ar.com.kfgodel.diamond.impl.types.lineage;
 
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 /**
  * This type represents a type lineage for types that don't extend another type
@@ -24,22 +23,22 @@ public class SingleTypeLineage extends TypeLineageSupport {
 
     @Override
     public Nary<TypeInstance> allMembers() {
-        return NaryFromNative.of(onlyType);
+        return Nary.of(onlyType);
     }
 
     @Override
     public Nary<TypeInstance> ancestorOf(TypeInstance descendant) {
-        return NaryFromNative.empty();
+        return Nary.empty();
     }
 
     @Override
     public Nary<TypeInstance> descendantOf(TypeInstance ancestor) {
-        return NaryFromNative.empty();
+        return Nary.empty();
     }
 
     @Override
     public Nary<TypeInstance> inheritedInterfaces() {
-        return NaryFromNative.empty();
+        return Nary.empty();
     }
 
     @Override
@@ -47,7 +46,7 @@ public class SingleTypeLineage extends TypeLineageSupport {
         if(referenceType.equals(onlyType)){
             return onlyType.generics().arguments();
         }
-        return NaryFromNative.empty();
+        return Nary.empty();
     }
 
     public static SingleTypeLineage create(TypeInstance singleType) {

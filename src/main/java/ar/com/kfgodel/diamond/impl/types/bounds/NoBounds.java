@@ -3,7 +3,6 @@ package ar.com.kfgodel.diamond.impl.types.bounds;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 /**
  * This type represents an unbounded bounds
@@ -15,12 +14,12 @@ public class NoBounds implements TypeBounds {
 
     @Override
     public Nary<TypeInstance> upper() {
-        return NaryFromNative.empty();
+        return Nary.empty();
     }
 
     @Override
     public Nary<TypeInstance> lower() {
-        return NaryFromNative.empty();
+        return Nary.empty();
     }
 
     public static NoBounds create() {

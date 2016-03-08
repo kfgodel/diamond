@@ -6,10 +6,7 @@ import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
 import ar.com.kfgodel.diamond.impl.types.parts.interfaces.VariableTypeInterfaceSupplier;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.nary.impl.NaryFromNative;
-import ar.com.kfgodel.optionals.OptionalFromStream;
 
-import java.util.Optional;
 import java.util.Set;
 import java.util.function.Supplier;
 
@@ -25,7 +22,7 @@ public class VariableTypeInheritanceDescription implements InheritanceDescriptio
 
     @Override
     public Supplier<Nary<TypeInstance>> getSuperclassSupplier() {
-        return CachedValue.lazilyBy(() -> NaryFromNative.of(Diamond.of(getParentClassFromUpperBounds())));
+        return CachedValue.lazilyBy(() -> Nary.of(Diamond.of(getParentClassFromUpperBounds())));
     }
 
     /**
@@ -35,8 +32,10 @@ public class VariableTypeInheritanceDescription implements InheritanceDescriptio
      */
     private Class<?> getParentClassFromUpperBounds() {
         // We look for the only allowed class as upper bound
-        Optional<Class<?>> optionalClass = OptionalFromStream.using(upperBoundClasses.stream()
-                .filter((upper) -> !upper.isInterface()));
+        Nary<Class<?>> optionalClass = Nary.create(
+          upperBoundClasses.stream()
+            .filter((upper) -> !upper.isInterface())
+        );
         return optionalClass.orElse(Object.class);
     }
 

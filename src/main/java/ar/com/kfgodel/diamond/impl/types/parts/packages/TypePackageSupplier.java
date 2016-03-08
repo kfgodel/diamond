@@ -4,7 +4,6 @@ import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 import java.util.function.Supplier;
 
@@ -31,6 +30,6 @@ public class TypePackageSupplier implements Supplier<Nary<TypePackage>> {
 
     @Override
     public Nary<TypePackage> get() {
-        return NaryFromNative.of(typePackage.get());
+        return Nary.ofNullable(typePackage.get());
     }
 }

@@ -1,7 +1,6 @@
 package ar.com.kfgodel.diamond.impl.natives.suppliers;
 
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
@@ -18,7 +17,7 @@ public class AnnotatedElementAnnotationsSupplier implements Supplier<Nary<Annota
 
     @Override
     public Nary<Annotation> get() {
-        return NaryFromNative.create(Arrays.stream(annotatedType.getAnnotations()));
+        return Nary.create(Arrays.stream(annotatedType.getAnnotations()));
     }
 
     public static AnnotatedElementAnnotationsSupplier create(AnnotatedElement annotatedType) {

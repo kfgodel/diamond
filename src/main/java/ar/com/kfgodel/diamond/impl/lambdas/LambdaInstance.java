@@ -7,7 +7,6 @@ import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.strings.DebugPrinter;
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 import java.util.function.Supplier;
 import java.util.stream.Stream;
@@ -61,7 +60,7 @@ public class LambdaInstance implements Lambda {
     @Override
     public Nary<TypeInstance> parameterTypes() {
         Stream<TypeInstance> nativeStream = parameters().map(ExecutableParameter::declaredType);
-        return NaryFromNative.create(nativeStream);
+        return Nary.create(nativeStream);
     }
 
     public static LambdaInstance create(LambdaDescription description) {

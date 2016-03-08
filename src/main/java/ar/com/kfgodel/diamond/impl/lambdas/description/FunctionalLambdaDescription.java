@@ -8,7 +8,6 @@ import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 import java.util.function.Supplier;
 
@@ -38,7 +37,7 @@ public class FunctionalLambdaDescription implements LambdaDescription {
 
     @Override
     public Supplier<Nary<TypeInstance>> getDeclaredExceptions() {
-        return NaryFromNative::empty;
+        return Nary::empty;
     }
 
     public static FunctionalLambdaDescription create(PolymorphicInvokable invokableAdapter, Object functionalInstance, String functionalMethodName) {

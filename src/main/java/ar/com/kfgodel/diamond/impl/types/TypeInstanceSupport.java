@@ -26,7 +26,6 @@ import ar.com.kfgodel.diamond.impl.types.inheritance.SuppliedTypesInheritance;
 import ar.com.kfgodel.diamond.impl.types.parts.annotations.NoAnnotationsSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.names.NoNamesSupplier;
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 import java.lang.annotation.Annotation;
 import java.util.function.Function;
@@ -142,7 +141,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
      */
     @Override
     public Nary<TypeInstance> componentType() {
-        return NaryFromNative.empty();
+        return Nary.empty();
     }
 
     @Override
@@ -188,7 +187,9 @@ public abstract class TypeInstanceSupport implements TypeInstance {
 
     @Override
     public Nary<TypeMember> members() {
-        return fields().all().joinedWith(methods().all()).joinedWith(constructors().all());
+        // Need to cast to an upper type of element
+        Nary<TypeMember> fields = (Nary) fields().all();
+        return fields.concatStream(methods().all()).concatStream(constructors().all());
     }
 
     @Override

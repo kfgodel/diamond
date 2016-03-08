@@ -7,7 +7,6 @@ import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.members.executables.FilterByParameterType;
 import ar.com.kfgodel.diamond.impl.named.NamedSourceSupport;
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.nary.impl.NaryFromNative;
 import ar.com.kfgodel.streams.StreamEquality;
 
 import java.lang.reflect.Type;
@@ -30,7 +29,7 @@ public class TypeMethodsImpl extends NamedSourceSupport<TypeMethod> implements T
 
     @Override
     public Nary<TypeMethod> withSignature(String methodName, TypeInstance... parameterTypes) {
-        return NaryFromNative.create(named(methodName).filter((method)-> StreamEquality.INSTANCE.areEquals(method.parameterTypes(), Arrays.stream(parameterTypes))));
+        return Nary.create(named(methodName).filter((method)-> StreamEquality.INSTANCE.areEquals(method.parameterTypes(), Arrays.stream(parameterTypes))));
     }
 
     @Override

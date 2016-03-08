@@ -5,7 +5,6 @@ import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.generics.TypeGenerics;
 import ar.com.kfgodel.diamond.impl.types.bounds.NoBounds;
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 import java.util.function.Supplier;
 
@@ -24,12 +23,12 @@ public abstract class TypeGenericsSupport implements TypeGenerics {
 
     @Override
     public Nary<TypeInstance> arguments() {
-        return NaryFromNative.empty();
+        return Nary.empty();
     }
 
     @Override
     public Nary<TypeInstance> parameters() {
-        return NaryFromNative.empty();
+        return Nary.empty();
     }
     
     @Override

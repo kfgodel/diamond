@@ -2,11 +2,11 @@ package ar.com.kfgodel.diamond.unit.constructors;
 
 import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
-import ar.com.kfgodel.diamond.unit.DiamondTestContext;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
+import ar.com.kfgodel.diamond.unit.DiamondTestContext;
 import ar.com.kfgodel.diamond.unit.testobjects.constructors.ConstructorAccessTestObject;
-import ar.com.kfgodel.optionals.Optional;
+import ar.com.kfgodel.nary.api.optionals.Optional;
 import org.junit.runner.RunWith;
 
 import java.io.Serializable;
@@ -52,7 +52,7 @@ public class ConstructorByParamTypeTest extends JavaSpec<DiamondTestContext> {
                     context().typeInstance().constructors().withParameters(Diamond.of(Serializable.class)).get();
                     failBecauseExceptionWasNotThrown(NoSuchElementException.class);
                 } catch (NoSuchElementException e) {
-                    assertThat(e).hasMessage("No value present");
+                    assertThat(e).hasMessage("Can't call get() on an empty nary: No value present");
                 }
             });
 

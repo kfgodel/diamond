@@ -17,7 +17,6 @@ import ar.com.kfgodel.diamond.impl.members.parameters.UndefinedMemberParameters;
 import ar.com.kfgodel.diamond.impl.named.UndefinedName;
 import ar.com.kfgodel.diamond.impl.types.parts.annotations.NoAnnotationsSupplier;
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 import java.lang.annotation.Annotation;
 import java.util.function.Supplier;
@@ -76,7 +75,7 @@ public abstract class TypeMemberSupport implements TypeMember {
     @Override
     public Nary<TypeInstance> parameterTypes() {
         Stream<TypeInstance> nativeStream = parameters().map(ExecutableParameter::declaredType);
-        return NaryFromNative.create(nativeStream);
+        return Nary.create(nativeStream);
     }
 
     @Override

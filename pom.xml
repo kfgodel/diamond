@@ -30,7 +30,7 @@
     <version.plugin.surefire>2.17</version.plugin.surefire>
     <version.jacoco>0.7.1.201405082137</version.jacoco>
 
-    
+
     <version.slf4j>1.7.6</version.slf4j>
     <version.logback>1.1.1</version.logback>
     <version.junit>4.11</version.junit>
@@ -39,6 +39,7 @@
     <version.mockito>1.9.5</version.mockito>
     <version.javaspec>2.0</version.javaspec>
     <version.mirror>1.6.1</version.mirror>
+    <version.nary>2.0.0-SNAPSHOT</version.nary>
 
       <!-- Location of the JaCoCo output file created by the agent execution during ITs. We want
 all modules to dump their coverage information into a single file for Sonar to pick up.
@@ -206,7 +207,7 @@ of a fixed location is recommended. -->
     <dependency>
       <groupId>ar.com.kfgodel</groupId>
       <artifactId>nary</artifactId>
-      <version>1.0</version>
+      <version>${version.nary}</version>
     </dependency>
 
     <!-- Logging -->

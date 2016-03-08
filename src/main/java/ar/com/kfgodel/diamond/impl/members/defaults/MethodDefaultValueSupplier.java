@@ -1,7 +1,6 @@
 package ar.com.kfgodel.diamond.impl.members.defaults;
 
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 import java.lang.reflect.Method;
 import java.util.function.Supplier;
@@ -24,8 +23,8 @@ public class MethodDefaultValueSupplier implements Supplier<Nary<Object>> {
     public Nary<Object> get() {
         Object value = nativeMethod.getDefaultValue();
         if(value == null){
-            return NaryFromNative.empty();
+            return Nary.empty();
         }
-        return NaryFromNative.of(value);
+        return Nary.of(value);
     }
 }

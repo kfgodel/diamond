@@ -18,7 +18,6 @@ import ar.com.kfgodel.diamond.impl.natives.invokables.constructors.NativeConstru
 import ar.com.kfgodel.diamond.impl.natives.suppliers.AnnotatedElementAnnotationsSupplier;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
@@ -70,7 +69,7 @@ public class NativeConstructorDescription implements ConstructorDescription {
 
     @Override
     public Supplier<Nary<Constructor>> getNativeConstructor() {
-        return ()-> NaryFromNative.of(nativeConstructor);
+        return ()-> Nary.of(nativeConstructor);
     }
 
     @Override

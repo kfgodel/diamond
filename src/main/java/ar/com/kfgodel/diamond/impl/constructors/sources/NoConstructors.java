@@ -4,7 +4,6 @@ import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructors;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 import java.lang.reflect.Type;
 
@@ -18,22 +17,22 @@ public class NoConstructors implements TypeConstructors {
 
     @Override
     public Nary<TypeConstructor> all() {
-        return NaryFromNative.empty();
+        return Nary.empty();
     }
 
     @Override
     public Nary<TypeConstructor> niladic() {
-        return NaryFromNative.empty();
+        return Nary.empty();
     }
 
     @Override
     public Nary<TypeConstructor> withParameters(TypeInstance... paramTypes) {
-        return NaryFromNative.empty();
+        return Nary.empty();
     }
 
     @Override
     public Nary<TypeConstructor> withNativeParameters(Type... parameterTypes) {
-        return NaryFromNative.empty();
+        return Nary.empty();
     }
 
 }

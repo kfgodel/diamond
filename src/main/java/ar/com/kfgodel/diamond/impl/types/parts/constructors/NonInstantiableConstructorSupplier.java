@@ -2,7 +2,6 @@ package ar.com.kfgodel.diamond.impl.types.parts.constructors;
 
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 import java.util.function.Supplier;
 
@@ -16,6 +15,6 @@ public class NonInstantiableConstructorSupplier implements Supplier<Nary<TypeCon
 
     @Override
     public Nary<TypeConstructor> get() {
-        return NaryFromNative.empty();
+        return Nary.empty();
     }
 }

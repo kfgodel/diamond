@@ -6,7 +6,7 @@ import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.unit.DiamondTestContext;
 import ar.com.kfgodel.diamond.unit.testobjects.fields.RedefiningFieldTestObject;
-import ar.com.kfgodel.nary.exceptions.MoreThanOneElementException;
+import ar.com.kfgodel.nary.api.exceptions.MoreThanOneElementException;
 import org.junit.runner.RunWith;
 
 import java.util.NoSuchElementException;
@@ -39,7 +39,7 @@ public class FieldByNameTest extends JavaSpec<DiamondTestContext> {
             });   
             
             it("can assume only one optional occurrence",()->{
-                ar.com.kfgodel.optionals.Optional<TypeField> matchingFields = context().typeInstance().fields().named("uniqueField");
+                ar.com.kfgodel.nary.api.optionals.Optional<TypeField> matchingFields = context().typeInstance().fields().named("uniqueField");
                 assertThat(matchingFields.isPresent()).isTrue();
             });
             
@@ -48,7 +48,7 @@ public class FieldByNameTest extends JavaSpec<DiamondTestContext> {
                     context().typeInstance().fields().named("duplicatedField").isPresent();
                     failBecauseExceptionWasNotThrown(MoreThanOneElementException.class);
                 } catch (MoreThanOneElementException e) {
-                    assertThat(e).hasMessage("There's more than one element in the stream to create an optional: [duplicatedField @ RedefiningFieldTestObject, duplicatedField @ RedefinedFieldTestObject]");
+                    assertThat(e).hasMessage("Expecting 1 element in the stream to create an optional but found at least 2: [duplicatedField @ RedefiningFieldTestObject, duplicatedField @ RedefinedFieldTestObject]");
                 }
             });
             
@@ -63,7 +63,7 @@ public class FieldByNameTest extends JavaSpec<DiamondTestContext> {
                     context().typeInstance().fields().named("nonExistingField").get();
                     failBecauseExceptionWasNotThrown(NoSuchElementException.class);
                 } catch (NoSuchElementException e) {
-                    assertThat(e).hasMessage("No value present");
+                    assertThat(e).hasMessage("Can't call get() on an empty nary: No value present");
                 }
             });
         });

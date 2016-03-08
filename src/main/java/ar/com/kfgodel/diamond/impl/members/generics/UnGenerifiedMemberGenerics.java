@@ -3,7 +3,6 @@ package ar.com.kfgodel.diamond.impl.members.generics;
 import ar.com.kfgodel.diamond.api.generics.Generics;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 /**
  * This type represents generics information for a non generified member
@@ -20,6 +19,6 @@ public class UnGenerifiedMemberGenerics implements Generics {
 
     @Override
     public Nary<TypeInstance> parameters() {
-        return NaryFromNative.empty();
+        return Nary.empty();
     }
 }

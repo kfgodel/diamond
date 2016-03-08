@@ -6,8 +6,8 @@ import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.unit.DiamondTestContext;
 import ar.com.kfgodel.diamond.unit.testobjects.methods.RedefiningMethodTestObject;
-import ar.com.kfgodel.nary.exceptions.MoreThanOneElementException;
-import ar.com.kfgodel.optionals.Optional;
+import ar.com.kfgodel.nary.api.exceptions.MoreThanOneElementException;
+import ar.com.kfgodel.nary.api.optionals.Optional;
 import org.junit.runner.RunWith;
 
 import java.util.NoSuchElementException;
@@ -49,7 +49,7 @@ public class MethodBySignatureTest extends JavaSpec<DiamondTestContext> {
                     context().typeInstance().methods().withSignature("redefinedAndOverloadedMethod").isPresent();
                     failBecauseExceptionWasNotThrown(MoreThanOneElementException.class);
                 } catch (MoreThanOneElementException e) {
-                    assertThat(e).hasMessage("There's more than one element in the stream to create an optional: [redefinedAndOverloadedMethod() @ RedefiningMethodTestObject, redefinedAndOverloadedMethod() @ RedefinedMethodTestObject]");
+                    assertThat(e).hasMessage("Expecting 1 element in the stream to create an optional but found at least 2: [redefinedAndOverloadedMethod() @ RedefiningMethodTestObject, redefinedAndOverloadedMethod() @ RedefinedMethodTestObject]");
                 }
             });
 
@@ -64,7 +64,7 @@ public class MethodBySignatureTest extends JavaSpec<DiamondTestContext> {
                     context().typeInstance().methods().withSignature("nonExistingMethod").get();
                     failBecauseExceptionWasNotThrown(NoSuchElementException.class);
                 } catch (NoSuchElementException e) {
-                    assertThat(e).hasMessage("No value present");
+                    assertThat(e).hasMessage("Can't call get() on an empty nary: No value present");
                 }
             });
         });

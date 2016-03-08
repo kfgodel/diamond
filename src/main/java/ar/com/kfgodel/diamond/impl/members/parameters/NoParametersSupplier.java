@@ -2,7 +2,6 @@ package ar.com.kfgodel.diamond.impl.members.parameters;
 
 import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 import java.util.function.Supplier;
 
@@ -16,6 +15,6 @@ public class NoParametersSupplier implements Supplier<Nary<ExecutableParameter>>
 
     @Override
     public Nary<ExecutableParameter> get() {
-        return NaryFromNative.empty();
+        return Nary.empty();
     }
 }

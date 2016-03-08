@@ -3,7 +3,6 @@ package ar.com.kfgodel.diamond.impl.types.bounds;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 import java.util.List;
 
@@ -17,12 +16,12 @@ public class UpperOnlyTypeBounds implements TypeBounds {
 
     @Override
     public Nary<TypeInstance> upper() {
-        return NaryFromNative.create(upperBounds.stream());
+        return Nary.create(upperBounds.stream());
     }
 
     @Override
     public Nary<TypeInstance> lower() {
-        return NaryFromNative.empty();
+        return Nary.empty();
     }
 
     public static UpperOnlyTypeBounds create(List<TypeInstance> upper) {

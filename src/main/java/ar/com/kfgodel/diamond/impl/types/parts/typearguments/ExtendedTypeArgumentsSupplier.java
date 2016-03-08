@@ -2,7 +2,6 @@ package ar.com.kfgodel.diamond.impl.types.parts.typearguments;
 
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -22,7 +21,7 @@ public class ExtendedTypeArgumentsSupplier implements Supplier<Nary<TypeInstance
     public Nary<TypeInstance> get() {
         List<TypeInstance> originalTypeArguments = originalSupplier.get().collect(Collectors.toList());
         extendedTypeArgumentsReplacer.accept(originalTypeArguments);
-        return NaryFromNative.create(originalTypeArguments.stream());
+        return Nary.create(originalTypeArguments.stream());
     }
 
     public static ExtendedTypeArgumentsSupplier create(Supplier<Nary<TypeInstance>> originalSupplier, Consumer<List<TypeInstance>> extendedTypeArgumentsReplacer) {

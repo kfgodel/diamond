@@ -22,7 +22,6 @@ import ar.com.kfgodel.diamond.impl.natives.invokables.fields.NativeStaticFieldIn
 import ar.com.kfgodel.diamond.impl.natives.suppliers.AnnotatedElementAnnotationsSupplier;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -95,7 +94,7 @@ public class NativeFieldDescription implements FieldDescription {
 
     @Override
     public Supplier<Nary<Field>> getNativeField() {
-        return () -> NaryFromNative.of(nativeField);
+        return () -> Nary.of(nativeField);
     }
 
     @Override

@@ -2,7 +2,6 @@ package ar.com.kfgodel.diamond.impl.members.bound;
 
 import ar.com.kfgodel.diamond.api.behavior.InstanceBindable;
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 /**
  * This type serves as base class for sources of bindable types
@@ -22,7 +21,7 @@ public abstract class BoundMembersSupport {
      * @return The bound methods
      */
     protected <T> Nary<T> boundVersionOf(Nary<? extends InstanceBindable<T>> bindables) {
-        return NaryFromNative.create(bindables.map((bindable) -> bindable.bindTo(bindInstance)));
+        return Nary.create(bindables.map((bindable) -> bindable.bindTo(bindInstance)));
     }
 
 }

@@ -5,7 +5,6 @@ import ar.com.kfgodel.diamond.api.types.inheritance.TypeLineage;
 import ar.com.kfgodel.diamond.impl.types.iteration.AllSuperTypesSpliterator;
 import ar.com.kfgodel.diamond.impl.types.iteration.RuntimeAlternativesSpliterator;
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 import java.util.Spliterators;
 
@@ -17,7 +16,7 @@ public abstract class TypeLineageSupport implements TypeLineage {
 
     @Override
     public Nary<TypeInstance> allRelatedTypes() {
-        return NaryFromNative.create(
+        return Nary.create(
                 RuntimeAlternativesSpliterator.create(
                         Spliterators.iterator(AllSuperTypesSpliterator.create(lowestDescendant()))));
     }

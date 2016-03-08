@@ -3,7 +3,6 @@ package ar.com.kfgodel.diamond.impl.types.lineage;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.types.iteration.TypeInstanceSpliterator;
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 import java.util.List;
 import java.util.Optional;
@@ -51,7 +50,7 @@ public class FunctionBasedTypeLineage extends TypeLineageSupport {
 
     @Override
     public Nary<TypeInstance> allMembers() {
-        return NaryFromNative.create(classes.stream());
+        return Nary.create(classes.stream());
     }
 
     @Override
@@ -74,15 +73,15 @@ public class FunctionBasedTypeLineage extends TypeLineageSupport {
         int referentIndex = classes.indexOf(referentClass);
         if(referentIndex == NOT_FOUND){
             // Class is not part of this lineage
-            return NaryFromNative.empty();
+            return Nary.empty();
         }
         int askedIndex = referentIndex + offset;
         if(askedIndex < firstIndex() || askedIndex > lastIndex()){
             // Class is already an extreme
-            return NaryFromNative.empty();
+            return Nary.empty();
         }
         TypeInstance askedClass = classes.get(askedIndex);
-        return NaryFromNative.of(askedClass);
+        return Nary.of(askedClass);
     }
 
     @Override
@@ -94,7 +93,7 @@ public class FunctionBasedTypeLineage extends TypeLineageSupport {
                         Stream.of(interfaz),
                         interfaz.inheritance().interfaces()));
         // If an indirect interface is inherited more than once, we want just one occurrence
-        return NaryFromNative.create(indirectInterfaces.distinct());
+        return Nary.create(indirectInterfaces.distinct());
     }
 
     @Override
@@ -106,7 +105,7 @@ public class FunctionBasedTypeLineage extends TypeLineageSupport {
                 ).findFirst();
         return foundType
                 .map((type)-> type.generics().arguments())
-                .orElse(NaryFromNative.empty());
+                .orElse(Nary.empty());
     }
 
     public static FunctionBasedTypeLineage create(TypeInstance lowest, Function<TypeInstance, Nary<? extends TypeInstance>> advanceOperation) {

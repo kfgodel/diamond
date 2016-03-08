@@ -2,7 +2,6 @@ package ar.com.kfgodel.diamond.impl.members.exceptions;
 
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 /**
  * This type represents the supplier for types that have no exceptions
@@ -11,6 +10,6 @@ import ar.com.kfgodel.nary.impl.NaryFromNative;
 public class NoExceptionsSupplier {
 
     public static Nary<TypeInstance> create() {
-        return NaryFromNative.empty();
+        return Nary.empty();
     }
 }

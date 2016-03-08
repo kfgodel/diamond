@@ -10,7 +10,6 @@ import ar.com.kfgodel.diamond.impl.fields.equality.FieldEquality;
 import ar.com.kfgodel.diamond.impl.members.TypeMemberSupport;
 import ar.com.kfgodel.diamond.impl.strings.DebugPrinter;
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 import java.lang.reflect.Field;
 import java.util.function.BiConsumer;
@@ -89,7 +88,7 @@ public class TypeFieldInstance extends TypeMemberSupport implements TypeField {
 
     @Override
     public Nary<TypeInstance> parameterTypes() {
-        return NaryFromNative.empty();
+        return Nary.empty();
     }
 
     @Override

@@ -3,7 +3,6 @@ package ar.com.kfgodel.diamond.impl.named;
 import ar.com.kfgodel.diamond.api.naming.Named;
 import ar.com.kfgodel.diamond.api.naming.NamedSource;
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.nary.impl.NaryFromNative;
 
 import java.util.stream.Stream;
 
@@ -17,7 +16,7 @@ public abstract class NamedSourceSupport<N extends Named> implements NamedSource
 
     @Override
     public Nary<N> named(String elementName) {
-        return NaryFromNative.create(getAll().filter((element) -> element.name().equals(elementName)));
+        return Nary.create(getAll().filter((element) -> element.name().equals(elementName)));
     }
 
 
