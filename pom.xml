@@ -29,17 +29,18 @@
     </repository>
   </repositories>
 
-  <properties>
-    <version.nary>2.0.0-SNAPSHOT</version.nary>
-  </properties>
-
   <dependencies>
 
     <!-- Nary: Stream and optional -->
     <dependency>
       <groupId>ar.com.kfgodel</groupId>
       <artifactId>nary</artifactId>
-      <version>${version.nary}</version>
+    </dependency>
+
+    <!-- Rspec like testing -->
+    <dependency>
+      <groupId>ar.com.dgarcia</groupId>
+      <artifactId>java-spec</artifactId>
     </dependency>
 
   </dependencies>
