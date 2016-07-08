@@ -2,7 +2,7 @@ package ar.com.kfgodel.diamond.unit.lambdas;
 
 import ar.com.dgarcia.javaspec.api.JavaSpec;
 import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
-import ar.com.dgarcia.javaspec.api.Variable;
+import ar.com.dgarcia.javaspec.api.variable.Variable;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.lambdas.Lambda;
 import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;

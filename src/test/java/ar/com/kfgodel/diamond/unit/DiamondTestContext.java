@@ -1,6 +1,6 @@
 package ar.com.kfgodel.diamond.unit;
 
-import ar.com.dgarcia.javaspec.api.TestContext;
+import ar.com.dgarcia.javaspec.api.contexts.TestContext;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.api.fields.BoundField;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
