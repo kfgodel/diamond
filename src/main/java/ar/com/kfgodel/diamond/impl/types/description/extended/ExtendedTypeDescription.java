@@ -19,29 +19,32 @@ import java.util.function.Supplier;
  */
 public class ExtendedTypeDescription extends DelegatedDescriptionSupport {
 
-    private TypeDescription baseDescription;
-    private Consumer<List<TypeInstance>> extendedTypeArgumentsReplacer;
+  private TypeDescription baseDescription;
+  private Consumer<List<TypeInstance>> extendedTypeArgumentsReplacer;
 
-    @Override
-    protected TypeDescription getDelegateDescription() {
-        return baseDescription;
-    }
+  @Override
+  protected TypeDescription getDelegateDescription() {
+    return baseDescription;
+  }
 
-    @Override
-    public Supplier<Nary<TypeInstance>> getTypeArguments() {
-        return ExtendedTypeArgumentsSupplier.create(baseDescription.getTypeArguments(), extendedTypeArgumentsReplacer);
-    }
+  @Override
+  public Supplier<Nary<TypeInstance>> getTypeArguments() {
+    Supplier<Nary<TypeInstance>> typeArguments = baseDescription.getTypeArguments();
+    return ExtendedTypeArgumentsSupplier.create(typeArguments, extendedTypeArgumentsReplacer);
+  }
 
-    @Override
-    public InheritanceDescription getInheritanceDescription() {
-        return FixedTypeInheritanceDescription.create(baseDescription.getRawClassSupplier().get().get(), getTypeArguments());
-    }
+  @Override
+  public InheritanceDescription getInheritanceDescription() {
+    Nary<Class<?>> rawClasses = baseDescription.getRawClassSupplier().get();
+    Class<?> singleRawClass = rawClasses.get(); // Aca asumimos que solo hay una
+    return FixedTypeInheritanceDescription.create(singleRawClass, getTypeArguments());
+  }
 
-    public static ExtendedTypeDescription create(TypeDescription otherTypeDescription, Consumer<List<TypeInstance>> extendedTypeArgumentsReplacer) {
-        ExtendedTypeDescription description = new ExtendedTypeDescription();
-        description.baseDescription = otherTypeDescription;
-        description.extendedTypeArgumentsReplacer = extendedTypeArgumentsReplacer;
-        return description;
-    }
+  public static ExtendedTypeDescription create(TypeDescription otherTypeDescription, Consumer<List<TypeInstance>> extendedTypeArgumentsReplacer) {
+    ExtendedTypeDescription description = new ExtendedTypeDescription();
+    description.baseDescription = otherTypeDescription;
+    description.extendedTypeArgumentsReplacer = extendedTypeArgumentsReplacer;
+    return description;
+  }
 
 }

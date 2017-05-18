@@ -20,15 +20,12 @@ public class ParameterizedTypeArgumentsSupplier {
     }
 
     private static Object[] getActualTypeArgumentsFrom(Object nativeType) {
-        Object[] actualTypeArguments;
         if(nativeType instanceof AnnotatedParameterizedType){
-            actualTypeArguments = ((AnnotatedParameterizedType) nativeType).getAnnotatedActualTypeArguments();
+            return ((AnnotatedParameterizedType) nativeType).getAnnotatedActualTypeArguments();
         }else if(nativeType instanceof ParameterizedType){
-            actualTypeArguments = ((ParameterizedType) nativeType).getActualTypeArguments();
-        }else{
-            throw new DiamondException("The type["+nativeType+"] is not a parameterized type representation");
+            return ((ParameterizedType) nativeType).getActualTypeArguments();
         }
-        return actualTypeArguments;
+        throw new DiamondException("The type["+nativeType+"] is not a parameterized type representation");
     }
 
 }
