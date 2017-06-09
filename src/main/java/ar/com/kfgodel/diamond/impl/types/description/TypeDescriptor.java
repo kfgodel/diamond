@@ -24,10 +24,6 @@ public class TypeDescriptor {
 
 
   public Map<Class<?>, Function<Object, TypeDescription>> getDescriptorsPerType() {
-    if (descriptorsPerType == null) {
-      descriptorsPerType = new LinkedHashMap<>();
-      defineDefaultTypeDescriptors();
-    }
     return descriptorsPerType;
   }
 
@@ -118,6 +114,8 @@ public class TypeDescriptor {
 
   public static TypeDescriptor create() {
     TypeDescriptor descriptor = new TypeDescriptor();
+    descriptor.descriptorsPerType = new LinkedHashMap<>();
+    descriptor.defineDefaultTypeDescriptors();
     return descriptor;
   }
 
