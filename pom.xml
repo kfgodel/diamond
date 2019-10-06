@@ -17,7 +17,7 @@
   
   <scm>
     <developerConnection>scm:git:ssh://github.com/kfgodel/diamond.git</developerConnection>
-    <connection>${scm.developerConnection}</connection>
+    <connection>${project.scm.developerConnection}</connection>
     <url>https://github.com/kfgodel/diamond</url>
   </scm>
 
