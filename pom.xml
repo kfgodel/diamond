@@ -21,6 +21,10 @@
     <url>https://github.com/kfgodel/diamond</url>
   </scm>
 
+  <properties>
+    <sonar.projectKey>info.kfgodel:diamond</sonar.projectKey>
+  </properties>
+
   <repositories>
     <repository>
       <id>kfgodel_mosquito</id>
