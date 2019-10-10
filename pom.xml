@@ -4,7 +4,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>ar.com.kfgodel</groupId>
+  <groupId>info.kfgodel</groupId>
   <artifactId>diamond</artifactId>
   <version>1.0.5-SNAPSHOT</version>
 
@@ -36,14 +36,6 @@
     <!-- Sonar properties to prevent unintentional id changes (Reference: https://docs.sonarqube.org/latest/analysis/analysis-parameters/) -->
     <sonar.projectKey>ar.com.kfgodel:diamond</sonar.projectKey>
   </properties>
-
-  <repositories>
-    <repository>
-      <id>kfgodel_mosquito</id>
-      <name>Repo Mosquito</name>
-      <url>http://kfgodel.info:8081/nexus/repository/public/</url>
-    </repository>
-  </repositories>
 
   <dependencies>
 
