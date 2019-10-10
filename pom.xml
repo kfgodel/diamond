@@ -9,9 +9,9 @@
   <version>1.0.5-SNAPSHOT</version>
 
   <parent>
-    <groupId>ar.com.kfgodel</groupId>
+    <groupId>info.kfgodel</groupId>
     <artifactId>java-pom</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>0.1.7-SNAPSHOT</version>
   </parent>
 
   <name>Diamond</name>
@@ -51,14 +51,12 @@
     <dependency>
       <groupId>info.kfgodel</groupId>
       <artifactId>nary</artifactId>
-      <version>2.0.7</version>
     </dependency>
 
     <!-- Rspec like testing -->
     <dependency>
       <groupId>info.kfgodel</groupId>
       <artifactId>jspek</artifactId>
-      <version>1.0.0</version>
     </dependency>
 
   </dependencies>
