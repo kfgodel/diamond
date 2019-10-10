@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
 
+  <groupId>ar.com.kfgodel</groupId>
   <artifactId>diamond</artifactId>
   <version>1.0.5-SNAPSHOT</version>
 
@@ -14,11 +16,20 @@
 
   <name>Diamond</name>
   <description>A Java project that extends reflection making it really easy to use. "Where your reflection shines best!" </description>
-  
+  <url>https://github.com/kfgodel/diamond</url>
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
   <scm>
     <developerConnection>scm:git:ssh://github.com/kfgodel/diamond.git</developerConnection>
     <connection>${project.scm.developerConnection}</connection>
-    <url>https://github.com/kfgodel/diamond</url>
+    <url>${project.url}</url>
   </scm>
 
   <properties>
@@ -38,16 +49,32 @@
 
     <!-- Nary: Stream and optional -->
     <dependency>
-      <groupId>ar.com.kfgodel</groupId>
+      <groupId>info.kfgodel</groupId>
       <artifactId>nary</artifactId>
+      <version>2.0.7</version>
     </dependency>
 
     <!-- Rspec like testing -->
     <dependency>
-      <groupId>ar.com.dgarcia</groupId>
-      <artifactId>java-spec</artifactId>
+      <groupId>info.kfgodel</groupId>
+      <artifactId>jspek</artifactId>
+      <version>1.0.0</version>
     </dependency>
 
   </dependencies>
+
+  <developers>
+    <developer>
+      <id>dlgarcia</id>
+      <name>Dario L Garcia</name>
+      <email>dario.garcia@10pines.com</email>
+      <organization>10Pines SRL</organization>
+      <organizationUrl>https://www.10pines.com/</organizationUrl>
+      <roles>
+        <role>architect</role>
+        <role>developer</role>
+      </roles>
+    </developer>
+  </developers>
 
 </project>
