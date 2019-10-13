@@ -1,10 +1,10 @@
 package ar.com.kfgodel.diamond.unit.generics;
 
-import ar.com.dgarcia.javaspec.api.JavaSpec;
-import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.impl.types.generics.parameters.substitutions.SubstitutionAnalyzer;
 import ar.com.kfgodel.diamond.impl.types.generics.parameters.substitutions.ValueSubstituter;
 import ar.com.kfgodel.diamond.impl.types.generics.parameters.substitutions.ValueSubstitution;
+import info.kfgodel.jspek.api.JavaSpec;
+import info.kfgodel.jspek.api.JavaSpecRunner;
 import org.junit.runner.RunWith;
 
 import java.util.ArrayList;

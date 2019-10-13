@@ -1,7 +1,5 @@
 package ar.com.kfgodel.diamond.unit.fields;
 
-import ar.com.dgarcia.javaspec.api.JavaSpec;
-import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.api.members.modifiers.Modifiers;
@@ -10,6 +8,8 @@ import ar.com.kfgodel.diamond.api.types.reference.ReferenceOf;
 import ar.com.kfgodel.diamond.unit.DiamondTestContext;
 import ar.com.kfgodel.diamond.unit.testobjects.lineage.ChildClass;
 import ar.com.kfgodel.diamond.unit.testobjects.lineage.ParentClass;
+import info.kfgodel.jspek.api.JavaSpec;
+import info.kfgodel.jspek.api.JavaSpecRunner;
 import org.junit.runner.RunWith;
 
 import java.lang.reflect.AnnotatedType;

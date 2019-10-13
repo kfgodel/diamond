@@ -1,7 +1,5 @@
 package ar.com.kfgodel.diamond.unit.interfaces;
 
-import ar.com.dgarcia.javaspec.api.JavaSpec;
-import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.naming.Named;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
@@ -11,6 +9,8 @@ import ar.com.kfgodel.diamond.unit.testobjects.interfaces.ChildInterface1;
 import ar.com.kfgodel.diamond.unit.testobjects.interfaces.ChildInterface2;
 import ar.com.kfgodel.diamond.unit.testobjects.lineage.ChildClass;
 import ar.com.kfgodel.diamond.unit.testobjects.lineage.GrandParentClass;
+import info.kfgodel.jspek.api.JavaSpec;
+import info.kfgodel.jspek.api.JavaSpecRunner;
 import org.junit.runner.RunWith;
 
 import java.lang.reflect.AnnotatedType;

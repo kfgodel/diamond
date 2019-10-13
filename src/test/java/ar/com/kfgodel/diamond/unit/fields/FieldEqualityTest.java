@@ -1,7 +1,5 @@
 package ar.com.kfgodel.diamond.unit.fields;
 
-import ar.com.dgarcia.javaspec.api.JavaSpec;
-import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.fields.FieldDescription;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
@@ -10,6 +8,8 @@ import ar.com.kfgodel.diamond.impl.fields.equality.FieldEquality;
 import ar.com.kfgodel.diamond.unit.DiamondTestContext;
 import ar.com.kfgodel.diamond.unit.testobjects.equality.FieldEqualityTestObjectA;
 import ar.com.kfgodel.diamond.unit.testobjects.equality.FieldEqualityTestObjectB;
+import info.kfgodel.jspek.api.JavaSpec;
+import info.kfgodel.jspek.api.JavaSpecRunner;
 import org.junit.runner.RunWith;
 
 import java.lang.reflect.Field;

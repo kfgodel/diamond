@@ -1,12 +1,12 @@
 package ar.com.kfgodel.diamond.unit.lambdas;
 
-import ar.com.dgarcia.javaspec.api.JavaSpec;
-import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
-import ar.com.dgarcia.javaspec.api.variable.Variable;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.lambdas.Lambda;
 import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.diamond.unit.DiamondTestContext;
+import info.kfgodel.jspek.api.JavaSpec;
+import info.kfgodel.jspek.api.JavaSpecRunner;
+import info.kfgodel.jspek.api.variable.Variable;
 import org.assertj.core.util.Lists;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;

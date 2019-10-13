@@ -1,7 +1,5 @@
 package ar.com.kfgodel.diamond.unit.strings;
 
-import ar.com.dgarcia.javaspec.api.JavaSpec;
-import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.members.modifiers.Modifiers;
 import ar.com.kfgodel.diamond.api.types.reference.ReferenceOf;
@@ -9,6 +7,8 @@ import ar.com.kfgodel.diamond.unit.DiamondTestContext;
 import ar.com.kfgodel.diamond.unit.testobjects.constructors.ConstructorAccessTestObject;
 import ar.com.kfgodel.diamond.unit.testobjects.fields.BoundFieldTestObject;
 import ar.com.kfgodel.diamond.unit.testobjects.methods.BoundMethodTestObject;
+import info.kfgodel.jspek.api.JavaSpec;
+import info.kfgodel.jspek.api.JavaSpecRunner;
 import org.junit.runner.RunWith;
 
 import java.util.List;

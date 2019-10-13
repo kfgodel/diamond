@@ -1,7 +1,5 @@
 package ar.com.kfgodel.diamond.unit.constructors;
 
-import ar.com.dgarcia.javaspec.api.JavaSpec;
-import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.constructors.ConstructorDescription;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
@@ -10,6 +8,8 @@ import ar.com.kfgodel.diamond.impl.constructors.equality.ConstructorEquality;
 import ar.com.kfgodel.diamond.unit.DiamondTestContext;
 import ar.com.kfgodel.diamond.unit.testobjects.equality.ConstructorEqualityTestObjectA;
 import ar.com.kfgodel.diamond.unit.testobjects.equality.ConstructorEqualityTestObjectB;
+import info.kfgodel.jspek.api.JavaSpec;
+import info.kfgodel.jspek.api.JavaSpecRunner;
 import org.junit.runner.RunWith;
 
 import java.lang.reflect.Constructor;

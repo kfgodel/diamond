@@ -1,7 +1,8 @@
 package ar.com.kfgodel.diamond.unit.generics;
 
 
-import ar.com.dgarcia.javaspec.api.contexts.TestContext;
+
+import info.kfgodel.jspek.api.contexts.TestContext;
 
 import java.util.List;
 import java.util.function.Supplier;

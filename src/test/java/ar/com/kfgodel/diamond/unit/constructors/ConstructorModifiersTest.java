@@ -1,7 +1,5 @@
 package ar.com.kfgodel.diamond.unit.constructors;
 
-import ar.com.dgarcia.javaspec.api.JavaSpec;
-import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.api.members.modifiers.Modifiers;
@@ -10,6 +8,8 @@ import ar.com.kfgodel.diamond.unit.testobjects.modifiers.DefaultMembersTestObjec
 import ar.com.kfgodel.diamond.unit.testobjects.modifiers.PrivateMembersTestObject;
 import ar.com.kfgodel.diamond.unit.testobjects.modifiers.ProtectedMembersTestObject;
 import ar.com.kfgodel.diamond.unit.testobjects.modifiers.PublicMembersTestObject;
+import info.kfgodel.jspek.api.JavaSpec;
+import info.kfgodel.jspek.api.JavaSpecRunner;
 import org.junit.runner.RunWith;
 
 import static org.assertj.core.api.Assertions.assertThat;

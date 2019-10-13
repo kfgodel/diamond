@@ -1,12 +1,19 @@
 package ar.com.kfgodel.diamond.unit.fields;
 
-import ar.com.dgarcia.javaspec.api.JavaSpec;
-import ar.com.dgarcia.javaspec.api.JavaSpecRunner;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.api.members.modifiers.Modifiers;
 import ar.com.kfgodel.diamond.unit.DiamondTestContext;
-import ar.com.kfgodel.diamond.unit.testobjects.modifiers.*;
+import ar.com.kfgodel.diamond.unit.testobjects.modifiers.DefaultMembersTestObject;
+import ar.com.kfgodel.diamond.unit.testobjects.modifiers.FinalMembersTestObject;
+import ar.com.kfgodel.diamond.unit.testobjects.modifiers.PrivateMembersTestObject;
+import ar.com.kfgodel.diamond.unit.testobjects.modifiers.ProtectedMembersTestObject;
+import ar.com.kfgodel.diamond.unit.testobjects.modifiers.PublicMembersTestObject;
+import ar.com.kfgodel.diamond.unit.testobjects.modifiers.StaticMembersTestObject;
+import ar.com.kfgodel.diamond.unit.testobjects.modifiers.TransientMemberTestObject;
+import ar.com.kfgodel.diamond.unit.testobjects.modifiers.VolatileMemberTestObject;
+import info.kfgodel.jspek.api.JavaSpec;
+import info.kfgodel.jspek.api.JavaSpecRunner;
 import org.junit.runner.RunWith;
 
 import static org.assertj.core.api.Assertions.assertThat;

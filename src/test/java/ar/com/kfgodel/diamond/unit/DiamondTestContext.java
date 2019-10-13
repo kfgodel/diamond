@@ -1,6 +1,5 @@
 package ar.com.kfgodel.diamond.unit;
 
-import ar.com.dgarcia.javaspec.api.contexts.TestContext;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.api.fields.BoundField;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
@@ -14,6 +13,7 @@ import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.inheritance.TypeLineage;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.lazyvalue.api.LazyValue;
+import info.kfgodel.jspek.api.contexts.TestContext;
 
 import java.util.function.Supplier;
 
