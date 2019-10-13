@@ -6,7 +6,7 @@
 
   <groupId>info.kfgodel</groupId>
   <artifactId>diamond</artifactId>
-  <version>1.0.5</version>
+  <version>1.0.6-SNAPSHOT</version>
 
   <parent>
     <groupId>info.kfgodel</groupId>
