@@ -6,7 +6,7 @@ package ar.com.kfgodel.diamond.unit.testobjects.methods;
  */
 public class RedefinedMethodTestObject {
 
-    public void redefinedAndOverloadedMethod(){
+  public void redefinedAndOverloadedMethod() {
 
-    }
+  }
 }

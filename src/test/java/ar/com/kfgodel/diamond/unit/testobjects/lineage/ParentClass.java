@@ -11,22 +11,22 @@ import java.util.List;
  * This type represents a middle ancestor type
  * Created by kfgodel on 19/09/14.
  */
-public class ParentClass<@TestAnnotation1 P1,P2> extends GrandParentClass<@TestAnnotation2 P2> implements ParentInterface2<Integer, Integer> {
+public class ParentClass<@TestAnnotation1 P1, P2> extends GrandParentClass<@TestAnnotation2 P2> implements ParentInterface2<Integer, Integer> {
 
-    private int aParentsPrivateField;
-    public List<String> aParentsPublicField;
+  private int aParentsPrivateField;
+  public List<String> aParentsPublicField;
 
 
-    public void aParentMethod(){
+  public void aParentMethod() {
 
-    }
+  }
 
-    protected ParentClass(Number number){
+  protected ParentClass(Number number) {
 
-    }
+  }
 
-    public ParentClass(Number number, Serializable serializable){
+  public ParentClass(Number number, Serializable serializable) {
 
-    }
+  }
 
 }

@@ -13,14 +13,15 @@ import java.util.stream.Collectors;
  */
 public class TypeInstanceListFromNativeTypeArrayFragment {
 
-    /**
-     * Takes an array of native types and converts each object to its diamond representation
-     * @param nativeTypes The array of native types
-     * @return The Diamond type list
-     */
-    public static List<TypeInstance> apply(Object[] nativeTypes){
-        return Arrays.stream(nativeTypes)
-                .map((nativeType) -> Diamond.types().from(nativeType))
-                .collect(Collectors.toList());
-    }
+  /**
+   * Takes an array of native types and converts each object to its diamond representation
+   *
+   * @param nativeTypes The array of native types
+   * @return The Diamond type list
+   */
+  public static List<TypeInstance> apply(Object[] nativeTypes) {
+    return Arrays.stream(nativeTypes)
+      .map((nativeType) -> Diamond.types().from(nativeType))
+      .collect(Collectors.toList());
+  }
 }

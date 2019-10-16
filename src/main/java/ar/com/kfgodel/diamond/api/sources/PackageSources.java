@@ -10,25 +10,28 @@ import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
  */
 public interface PackageSources {
 
-    /**
-     * Retrieves the diamond representation of the native package
-     * @param nativePackage The native package representation
-     * @return The Diamond representation
-     */
-    TypePackage from(Package nativePackage);
+  /**
+   * Retrieves the diamond representation of the native package
+   *
+   * @param nativePackage The native package representation
+   * @return The Diamond representation
+   */
+  TypePackage from(Package nativePackage);
 
-    /**
-     * Retrieves a package by name
-     * @param packageName The name of the existing package
-     * @return The package representation
-     * @throws ar.com.kfgodel.diamond.api.exceptions.DiamondException If the package doesn't exist
-     */
-    TypePackage named(String packageName) throws DiamondException;
+  /**
+   * Retrieves a package by name
+   *
+   * @param packageName The name of the existing package
+   * @return The package representation
+   * @throws ar.com.kfgodel.diamond.api.exceptions.DiamondException If the package doesn't exist
+   */
+  TypePackage named(String packageName) throws DiamondException;
 
-    /**
-     * Retrieves the package by its description
-     * @param description The package description
-     * @return The package instance
-     */
-    TypePackage fromDescription(PackageDescription description);
+  /**
+   * Retrieves the package by its description
+   *
+   * @param description The package description
+   * @return The package instance
+   */
+  TypePackage fromDescription(PackageDescription description);
 }

@@ -13,8 +13,8 @@ import java.util.function.Supplier;
  */
 public class GenericTypeParametersSupplier {
 
-    public static Supplier<Nary<TypeInstance>> create(GenericDeclaration genericDeclaration) {
-        return TypeNarySupplierFromNativeTypeArray.apply(genericDeclaration::getTypeParameters);
-    }
+  public static Supplier<Nary<TypeInstance>> create(GenericDeclaration genericDeclaration) {
+    return TypeNarySupplierFromNativeTypeArray.apply(genericDeclaration::getTypeParameters);
+  }
 
 }

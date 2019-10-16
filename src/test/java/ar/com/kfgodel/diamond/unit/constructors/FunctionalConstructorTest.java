@@ -20,55 +20,55 @@ import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
  */
 @RunWith(JavaSpecRunner.class)
 public class FunctionalConstructorTest extends JavaSpec<DiamondTestContext> {
-    @Override
-    public void define() {
-        describe("constructor as a function", () -> {
+  @Override
+  public void define() {
+    describe("constructor as a function", () -> {
 
-            context().testClass(()-> FunctionalConstructorTestObject.class);
-            context().typeInstance(()-> Diamond.of(context().testClass()));
+      context().testClass(() -> FunctionalConstructorTestObject.class);
+      context().typeInstance(() -> Diamond.of(context().testClass()));
 
-            it("is a supplier if niladic", () -> {
-                Supplier<Object> supplier = context().typeInstance().constructors().niladic().get();
+      it("is a supplier if niladic", () -> {
+        Supplier<Object> supplier = context().typeInstance().constructors().niladic().get();
 
-                Object createdInstance = supplier.get();
+        Object createdInstance = supplier.get();
 
-                assertThat(createdInstance).isInstanceOf(context().testClass());
-            }); 
-            
-            it("is a function if one argument",()->{
-                Function<Object, Object> function = context().typeInstance().constructors().withParameters(Diamond.of(Integer.class)).get();
+        assertThat(createdInstance).isInstanceOf(context().testClass());
+      });
 
-                Object createdInstance = function.apply(1);
+      it("is a function if one argument", () -> {
+        Function<Object, Object> function = context().typeInstance().constructors().withParameters(Diamond.of(Integer.class)).get();
 
-                assertThat(createdInstance).isInstanceOf(context().testClass());
-            });
+        Object createdInstance = function.apply(1);
 
-            it("throws an exception if functionally called with wrong argument count",()->{
-                Function<Object, Object> function = context().typeInstance().constructors().niladic().get();
+        assertThat(createdInstance).isInstanceOf(context().testClass());
+      });
 
-                try {
-                    function.apply(1);
-                    failBecauseExceptionWasNotThrown(DiamondException.class);
-                } catch (Exception e) {
-                    assertThat(e.getMessage())
-                            .startsWith("Invocation rejected for constructor[")
-                            .endsWith("FunctionalConstructorTestObject()] due to wrong arguments[1]");
-                }
-            });
+      it("throws an exception if functionally called with wrong argument count", () -> {
+        Function<Object, Object> function = context().typeInstance().constructors().niladic().get();
 
-            it("throws an exception if functionally called with wrong argument types",()->{
-                Function<Object, Object> function = context().typeInstance().constructors().withParameters(Diamond.of(Integer.class)).get();
+        try {
+          function.apply(1);
+          failBecauseExceptionWasNotThrown(DiamondException.class);
+        } catch (Exception e) {
+          assertThat(e.getMessage())
+            .startsWith("Invocation rejected for constructor[")
+            .endsWith("FunctionalConstructorTestObject()] due to wrong arguments[1]");
+        }
+      });
 
-                try {
-                    function.apply("a");
-                    failBecauseExceptionWasNotThrown(DiamondException.class);
-                } catch (Exception e) {
-                    assertThat(e.getMessage())
-                            .startsWith("Invocation rejected for constructor[")
-                            .endsWith("FunctionalConstructorTestObject(java.lang.Integer)] due to wrong arguments[a]");
-                }
-            });
-        });
+      it("throws an exception if functionally called with wrong argument types", () -> {
+        Function<Object, Object> function = context().typeInstance().constructors().withParameters(Diamond.of(Integer.class)).get();
 
-    }
+        try {
+          function.apply("a");
+          failBecauseExceptionWasNotThrown(DiamondException.class);
+        } catch (Exception e) {
+          assertThat(e.getMessage())
+            .startsWith("Invocation rejected for constructor[")
+            .endsWith("FunctionalConstructorTestObject(java.lang.Integer)] due to wrong arguments[a]");
+        }
+      });
+    });
+
+  }
 }

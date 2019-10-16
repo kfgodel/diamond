@@ -8,30 +8,31 @@ import ar.com.kfgodel.diamond.unit.testobjects.annotations.TestAnnotation1;
  */
 public class PublicMembersTestObject {
 
-    public PublicMembersTestObject(){
+  public PublicMembersTestObject() {
 
-    }
-    public PublicMembersTestObject(@TestAnnotation1 final Integer parameter){
+  }
 
-    }
+  public PublicMembersTestObject(@TestAnnotation1 final Integer parameter) {
 
-    public int field;
+  }
 
-    public void method(){
+  public int field;
+
+  public void method() {
 
 
-    }
+  }
 
-    public void methodWithEqualParam(Integer parameter){
+  public void methodWithEqualParam(Integer parameter) {
 
-    }
+  }
 
-    public void methodWithDiffParamType(String parameter){
+  public void methodWithDiffParamType(String parameter) {
 
-    }
+  }
 
-    public void methodWithDiffParamName(Integer otherName){
+  public void methodWithDiffParamName(Integer otherName) {
 
-    }
+  }
 
 }

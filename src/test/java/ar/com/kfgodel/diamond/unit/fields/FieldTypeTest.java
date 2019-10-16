@@ -15,23 +15,23 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @RunWith(JavaSpecRunner.class)
 public class FieldTypeTest extends JavaSpec<DiamondTestContext> {
-    @Override
-    public void define() {
-        describe("a field's type", () -> {
+  @Override
+  public void define() {
+    describe("a field's type", () -> {
 
-            context().field(() -> Diamond.of(FieldTypeTestObject.class).fields().named("intField").get());
+      context().field(() -> Diamond.of(FieldTypeTestObject.class).fields().named("intField").get());
 
-            it("is the type declared for a field",()->{
-                assertThat(context().field().type().name())
-                        .isEqualTo("int");
-            });
-            
-            it("is the same as the return type",()->{
-                assertThat(context().field().type())
-                        .isEqualTo(context().field().returnType());
-            });   
+      it("is the type declared for a field", () -> {
+        assertThat(context().field().type().name())
+          .isEqualTo("int");
+      });
 
-        });
+      it("is the same as the return type", () -> {
+        assertThat(context().field().type())
+          .isEqualTo(context().field().returnType());
+      });
 
-    }
+    });
+
+  }
 }

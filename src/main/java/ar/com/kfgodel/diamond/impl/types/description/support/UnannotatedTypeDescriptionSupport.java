@@ -41,120 +41,121 @@ import java.util.stream.Collectors;
  */
 public abstract class UnannotatedTypeDescriptionSupport implements TypeDescription {
 
-    private Class<?> rawClass;
-    private Set<Class<?>> rawClasses;
+  private Class<?> rawClass;
+  private Set<Class<?>> rawClasses;
 
-    /**
-     * The set of classes that define the behavior of this type.<br>
-     *     It can be more than one if this is a multiple upper bounded type description.<br>
-     *     The behavior of this type is then defined as the join of the upper bounds (it's a type that subclasses
-     *     all this behavioral classes).<br>
-     *     It can be just one class if this description represents a fixed type
-     * @return The list of raw classes that define this type behavior description
-     */
-    protected Set<Class<?>> getBehavioralClasses() {
-        if (rawClasses == null) {
-            rawClasses = RawClassExtractor.fromUnspecific(getNativeType());
-        }
-        return rawClasses;
+  /**
+   * The set of classes that define the behavior of this type.<br>
+   * It can be more than one if this is a multiple upper bounded type description.<br>
+   * The behavior of this type is then defined as the join of the upper bounds (it's a type that subclasses
+   * all this behavioral classes).<br>
+   * It can be just one class if this description represents a fixed type
+   *
+   * @return The list of raw classes that define this type behavior description
+   */
+  protected Set<Class<?>> getBehavioralClasses() {
+    if (rawClasses == null) {
+      rawClasses = RawClassExtractor.fromUnspecific(getNativeType());
     }
+    return rawClasses;
+  }
 
-    /**
-     * @return The class that represents this type without any annotations or generics
-     */
-    protected Class<?> getRawClass(){
-        if (rawClass == null) {
-            rawClass = RawClassExtractor.coalesce(getBehavioralClasses());
-        }
-        return rawClass;
+  /**
+   * @return The class that represents this type without any annotations or generics
+   */
+  protected Class<?> getRawClass() {
+    if (rawClass == null) {
+      rawClass = RawClassExtractor.coalesce(getBehavioralClasses());
     }
+    return rawClass;
+  }
 
-    protected abstract Type getNativeType();
+  protected abstract Type getNativeType();
 
 
-    @Override
-    public Supplier<Nary<Annotation>> getAnnotations() {
-        return NoAnnotationsSupplier.INSTANCE;
-    }
+  @Override
+  public Supplier<Nary<Annotation>> getAnnotations() {
+    return NoAnnotationsSupplier.INSTANCE;
+  }
 
-    @Override
-    public InheritanceDescription getInheritanceDescription() {
-        return NoInheritanceDescription.INSTANCE;
-    }
+  @Override
+  public InheritanceDescription getInheritanceDescription() {
+    return NoInheritanceDescription.INSTANCE;
+  }
 
-    @Override
-    public Supplier<Nary<TypeInstance>> getTypeArguments() {
-        return NoTypeArgumentsSupplier.INSTANCE;
-    }
+  @Override
+  public Supplier<Nary<TypeInstance>> getTypeArguments() {
+    return NoTypeArgumentsSupplier.INSTANCE;
+  }
 
-    @Override
-    public Supplier<Nary<TypeInstance>> getTypeParametersSupplier() {
-        return NoTypeParametersSupplier.INSTANCE;
-    }
+  @Override
+  public Supplier<Nary<TypeInstance>> getTypeParametersSupplier() {
+    return NoTypeParametersSupplier.INSTANCE;
+  }
 
-    @Override
-    public Supplier<Nary<TypeInstance>> getComponentType() {
-        return NoComponentTypeSupplier.INSTANCE;
-    }
+  @Override
+  public Supplier<Nary<TypeInstance>> getComponentType() {
+    return NoComponentTypeSupplier.INSTANCE;
+  }
 
-    @Override
-    public Supplier<TypeBounds> getBounds() {
-        return NoBoundsSupplier.INSTANCE;
-    }
+  @Override
+  public Supplier<TypeBounds> getBounds() {
+    return NoBoundsSupplier.INSTANCE;
+  }
 
-    @Override
-    public Supplier<Nary<TypeMethod>> getTypeMethods() {
-        return ClassMethodSupplier.create(getBehavioralClasses());
-    }
+  @Override
+  public Supplier<Nary<TypeMethod>> getTypeMethods() {
+    return ClassMethodSupplier.create(getBehavioralClasses());
+  }
 
-    @Override
-    public Supplier<Nary<TypeField>> getTypeFields() {
-        return ClassFieldSupplier.create(getBehavioralClasses());
-    }
+  @Override
+  public Supplier<Nary<TypeField>> getTypeFields() {
+    return ClassFieldSupplier.create(getBehavioralClasses());
+  }
 
-    @Override
-    public Supplier<Nary<TypeConstructor>> getTypeConstructors() {
-        return NonInstantiableConstructorSupplier.INSTANCE;
-    }
+  @Override
+  public Supplier<Nary<TypeConstructor>> getTypeConstructors() {
+    return NonInstantiableConstructorSupplier.INSTANCE;
+  }
 
-    @Override
-    public Supplier<Nary<Class<?>>> getRawClassesSupplier() {
-        return NaryFromCollectionSupplier.from(getBehavioralClasses());
-    }
+  @Override
+  public Supplier<Nary<Class<?>>> getRawClassesSupplier() {
+    return NaryFromCollectionSupplier.from(getBehavioralClasses());
+  }
 
-    @Override
-    public Supplier<Nary<Class<?>>> getRawClassSupplier() {
-        return ()-> Nary.of(getRawClass());
-    }
+  @Override
+  public Supplier<Nary<Class<?>>> getRawClassSupplier() {
+    return () -> Nary.of(getRawClass());
+  }
 
-    @Override
-    public Function<TypeInstance, Object> getIdentityToken() {
-        return CachedTokenCalculator.create(TypeEquality.INSTANCE::calculateTokenFor);
-    }
+  @Override
+  public Function<TypeInstance, Object> getIdentityToken() {
+    return CachedTokenCalculator.create(TypeEquality.INSTANCE::calculateTokenFor);
+  }
 
-    @Override
-    public Supplier<Nary<Kind>> getKindsFor(TypeInstance type) {
-        return NaryFromCollectionSupplier.lazilyBy(()-> Arrays.stream(Kinds.values())
-                .filter((kind)-> kind.contains(type))
-                .collect(Collectors.toList()));
-    }
+  @Override
+  public Supplier<Nary<Kind>> getKindsFor(TypeInstance type) {
+    return NaryFromCollectionSupplier.lazilyBy(() -> Arrays.stream(Kinds.values())
+      .filter((kind) -> kind.contains(type))
+      .collect(Collectors.toList()));
+  }
 
-    @Override
-    public Predicate<Object> getTypeForPredicate() {
-        return (testedObject) -> getBehavioralClasses().stream()
-                .anyMatch((nativeType) -> nativeType.isInstance(testedObject));
-    }
+  @Override
+  public Predicate<Object> getTypeForPredicate() {
+    return (testedObject) -> getBehavioralClasses().stream()
+      .anyMatch((nativeType) -> nativeType.isInstance(testedObject));
+  }
 
-    @Override
-    public Predicate<TypeInstance> getAssignabilityPredicate() {
-        // We check if any of our native types is assignable from any of the other native types
-        return (otherType) -> getBehavioralClasses().stream()
-                .anyMatch((thisNativeType)-> otherType.nativeTypes()
-                        .anyMatch(thisNativeType::isAssignableFrom));
-    }
+  @Override
+  public Predicate<TypeInstance> getAssignabilityPredicate() {
+    // We check if any of our native types is assignable from any of the other native types
+    return (otherType) -> getBehavioralClasses().stream()
+      .anyMatch((thisNativeType) -> otherType.nativeTypes()
+        .anyMatch(thisNativeType::isAssignableFrom));
+  }
 
-    @Override
-    public Supplier<TypeInstance> getRuntimeType() {
-        return CachedValue.lazilyBy(()-> Diamond.of(getRawClass()));
-    }
+  @Override
+  public Supplier<TypeInstance> getRuntimeType() {
+    return CachedValue.lazilyBy(() -> Diamond.of(getRawClass()));
+  }
 }

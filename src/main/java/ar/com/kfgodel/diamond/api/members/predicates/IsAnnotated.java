@@ -11,31 +11,32 @@ import java.util.function.Predicate;
  */
 public class IsAnnotated implements Predicate<TypeMember> {
 
-    private Class<? extends Annotation>[] annotationTypes;
+  private Class<? extends Annotation>[] annotationTypes;
 
-    @Override
-    public boolean test(TypeMember member) {
-        return member.annotations().anyMatch(this::isExpectedAnnotation);
-    }
+  @Override
+  public boolean test(TypeMember member) {
+    return member.annotations().anyMatch(this::isExpectedAnnotation);
+  }
 
-    /**
-     * indicates if the given annotation is from one of the expected types
-     * @param annotation The annotation to test
-     * @return true if an expected annotation
-     */
-    private boolean isExpectedAnnotation(Annotation annotation) {
-        for (Class<? extends Annotation> annotationType : annotationTypes) {
-            if (annotationType.isInstance(annotation)) {
-                return true;
-            }
-        }
-        return false;
+  /**
+   * indicates if the given annotation is from one of the expected types
+   *
+   * @param annotation The annotation to test
+   * @return true if an expected annotation
+   */
+  private boolean isExpectedAnnotation(Annotation annotation) {
+    for (Class<? extends Annotation> annotationType : annotationTypes) {
+      if (annotationType.isInstance(annotation)) {
+        return true;
+      }
     }
+    return false;
+  }
 
-    public static IsAnnotated with(Class<? extends Annotation>... annotationTypes) {
-        IsAnnotated annotated = new IsAnnotated();
-        annotated.annotationTypes = annotationTypes;
-        return annotated;
-    }
+  public static IsAnnotated with(Class<? extends Annotation>... annotationTypes) {
+    IsAnnotated annotated = new IsAnnotated();
+    annotated.annotationTypes = annotationTypes;
+    return annotated;
+  }
 
 }

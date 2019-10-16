@@ -8,21 +8,21 @@ import ar.com.kfgodel.diamond.api.invokable.Invokable;
  */
 public class PolyInvokable extends PolyAdapterSupport {
 
-    private Invokable invokable;
+  private Invokable invokable;
 
-    @Override
-    public Object invoke(Object... arguments) {
-        return invokable.invoke(arguments);
-    }
+  @Override
+  public Object invoke(Object... arguments) {
+    return invokable.invoke(arguments);
+  }
 
-    public static PolyInvokable create(Invokable invokable) {
-        PolyInvokable polyInvokable = new PolyInvokable();
-        polyInvokable.invokable = invokable;
-        return polyInvokable;
-    }
+  public static PolyInvokable create(Invokable invokable) {
+    PolyInvokable polyInvokable = new PolyInvokable();
+    polyInvokable.invokable = invokable;
+    return polyInvokable;
+  }
 
-    @Override
-    public Object adaptedCode() {
-        return invokable;
-    }
+  @Override
+  public Object adaptedCode() {
+    return invokable;
+  }
 }

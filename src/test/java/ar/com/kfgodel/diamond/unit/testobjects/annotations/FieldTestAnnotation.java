@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({
-        ElementType.FIELD
-        })
+  ElementType.FIELD
+})
 public @interface FieldTestAnnotation {
 }

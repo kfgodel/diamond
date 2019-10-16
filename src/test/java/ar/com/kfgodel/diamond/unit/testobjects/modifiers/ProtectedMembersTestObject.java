@@ -6,13 +6,13 @@ package ar.com.kfgodel.diamond.unit.testobjects.modifiers;
  */
 public class ProtectedMembersTestObject {
 
-    protected ProtectedMembersTestObject(){
+  protected ProtectedMembersTestObject() {
 
-    }
+  }
 
-    protected int field;
+  protected int field;
 
-    protected void method(){
-        
-    }
+  protected void method() {
+
+  }
 }

@@ -18,34 +18,34 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @RunWith(JavaSpecRunner.class)
 public class MethodDefaultTest extends JavaSpec<DiamondTestContext> {
-    @Override
-    public void define() {
-        describe("method default value", () -> {
+  @Override
+  public void define() {
+    describe("method default value", () -> {
 
-            it("is defined for annotation members with default value",()->{
-                TypeMethod methodWithDefault = Diamond.of(DefaultValueAnnotation.class).methods().named("memberWithDefault").get();
+      it("is defined for annotation members with default value", () -> {
+        TypeMethod methodWithDefault = Diamond.of(DefaultValueAnnotation.class).methods().named("memberWithDefault").get();
 
-                Nary<Object> defaultValue = methodWithDefault.defaultValue();
+        Nary<Object> defaultValue = methodWithDefault.defaultValue();
 
-                assertThat(defaultValue.get()).isEqualTo(23);
-            });
-            
-            it("is not present for annotations members without a default",()->{
-                TypeMethod methodWithDefault = Diamond.of(DefaultValueAnnotation.class).methods().named("memberWithoutDefault").get();
+        assertThat(defaultValue.get()).isEqualTo(23);
+      });
 
-                Nary<Object> defaultValue = methodWithDefault.defaultValue();
+      it("is not present for annotations members without a default", () -> {
+        TypeMethod methodWithDefault = Diamond.of(DefaultValueAnnotation.class).methods().named("memberWithoutDefault").get();
 
-                assertThat(defaultValue.isPresent()).isFalse();
-            });
+        Nary<Object> defaultValue = methodWithDefault.defaultValue();
 
-            it("is not present for non annotation methods",()->{
-                TypeMethod normalMethod = Diamond.of(PublicMembersTestObject.class).methods().named("method").get();
+        assertThat(defaultValue.isPresent()).isFalse();
+      });
 
-                Nary<Object> defaultValue = normalMethod.defaultValue();
+      it("is not present for non annotation methods", () -> {
+        TypeMethod normalMethod = Diamond.of(PublicMembersTestObject.class).methods().named("method").get();
 
-                assertThat(defaultValue.isPresent()).isFalse();
-            });
-        });
+        Nary<Object> defaultValue = normalMethod.defaultValue();
 
-    }
+        assertThat(defaultValue.isPresent()).isFalse();
+      });
+    });
+
+  }
 }

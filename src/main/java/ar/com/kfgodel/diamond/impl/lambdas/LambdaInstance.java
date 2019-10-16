@@ -16,60 +16,60 @@ import java.util.stream.Stream;
  * Created by kfgodel on 02/02/15.
  */
 public class LambdaInstance implements Lambda {
-    
-    private Supplier<PolymorphicInvokable> function;
-    private Supplier<Nary<ExecutableParameter>> parameters;
-    private Supplier<TypeInstance> returnType;
-    private Supplier<Nary<TypeInstance>> declaredExceptions;
-    
-    @Override
-    public PolymorphicInvokable asFunction() {
-        return function.get();
-    }
 
-    @Override
-    public Nary<ExecutableParameter> parameters() {
-        return parameters.get();
-    }
+  private Supplier<PolymorphicInvokable> function;
+  private Supplier<Nary<ExecutableParameter>> parameters;
+  private Supplier<TypeInstance> returnType;
+  private Supplier<Nary<TypeInstance>> declaredExceptions;
 
-    @Override
-    public TypeInstance returnType() {
-        return returnType.get();
-    }
+  @Override
+  public PolymorphicInvokable asFunction() {
+    return function.get();
+  }
 
-    @Override
-    public Nary<TypeInstance> declaredExceptions() {
-        return declaredExceptions.get();
-    }
+  @Override
+  public Nary<ExecutableParameter> parameters() {
+    return parameters.get();
+  }
 
-    @Override
-    public String toString() {
-        return DebugPrinter.print(this);
-    }
+  @Override
+  public TypeInstance returnType() {
+    return returnType.get();
+  }
 
-    @Override
-    public boolean equals(Object obj) {
-        return LambdaEquality.INSTANCE.areEquals(this, obj);
-    }
+  @Override
+  public Nary<TypeInstance> declaredExceptions() {
+    return declaredExceptions.get();
+  }
 
-    @Override
-    public int hashCode() {
-        return LambdaEquality.INSTANCE.hashcodeFor(this);
-    }
+  @Override
+  public String toString() {
+    return DebugPrinter.print(this);
+  }
 
-    @Override
-    public Nary<TypeInstance> parameterTypes() {
-        Stream<TypeInstance> nativeStream = parameters().map(ExecutableParameter::declaredType);
-        return Nary.create(nativeStream);
-    }
+  @Override
+  public boolean equals(Object obj) {
+    return LambdaEquality.INSTANCE.areEquals(this, obj);
+  }
 
-    public static LambdaInstance create(LambdaDescription description) {
-        LambdaInstance instance = new LambdaInstance();
-        instance.function = description.getPolymorphicFunction();
-        instance.parameters = description.getParameters();
-        instance.returnType = description.getReturnType();
-        instance.declaredExceptions = description.getDeclaredExceptions();
-        return instance;
-    }
+  @Override
+  public int hashCode() {
+    return LambdaEquality.INSTANCE.hashcodeFor(this);
+  }
+
+  @Override
+  public Nary<TypeInstance> parameterTypes() {
+    Stream<TypeInstance> nativeStream = parameters().map(ExecutableParameter::declaredType);
+    return Nary.create(nativeStream);
+  }
+
+  public static LambdaInstance create(LambdaDescription description) {
+    LambdaInstance instance = new LambdaInstance();
+    instance.function = description.getPolymorphicFunction();
+    instance.parameters = description.getParameters();
+    instance.returnType = description.getReturnType();
+    instance.declaredExceptions = description.getDeclaredExceptions();
+    return instance;
+  }
 
 }

@@ -10,36 +10,38 @@ import ar.com.kfgodel.diamond.impl.equals.ImmutableIdentityParts;
  */
 public class FieldEquality {
 
-    public static final FieldEquality INSTANCE = new FieldEquality();
+  public static final FieldEquality INSTANCE = new FieldEquality();
 
 
-    /**
-     * Compares fields by equality using the name and the storage type
-     * @param one One field to compare
-     * @param obj the other object
-     * @return true if both represent the same field
-     */
-    public boolean areEquals(TypeField one, Object obj){
-        if(one == obj){
-            return true;
-        }
-        if(one == null || obj == null || !(obj instanceof TypeField)){
-            return false;
-        }
-        TypeField other = (TypeField) obj;
-        return one.getIdentityToken().equals(other.getIdentityToken());
+  /**
+   * Compares fields by equality using the name and the storage type
+   *
+   * @param one One field to compare
+   * @param obj the other object
+   * @return true if both represent the same field
+   */
+  public boolean areEquals(TypeField one, Object obj) {
+    if (one == obj) {
+      return true;
     }
-
-    /**
-     * Generates the identity token of the given field
-     * @param field The field to compare
-     * @return The token that serves as a comparator element
-     */
-    public CompositeIdentityToken calculateTokenFor(TypeField field) {
-        return ImmutableIdentityParts.create(
-                field.name(),
-                field.declaringType());
+    if (one == null || obj == null || !(obj instanceof TypeField)) {
+      return false;
     }
+    TypeField other = (TypeField) obj;
+    return one.getIdentityToken().equals(other.getIdentityToken());
+  }
+
+  /**
+   * Generates the identity token of the given field
+   *
+   * @param field The field to compare
+   * @return The token that serves as a comparator element
+   */
+  public CompositeIdentityToken calculateTokenFor(TypeField field) {
+    return ImmutableIdentityParts.create(
+      field.name(),
+      field.declaringType());
+  }
 
 
 }

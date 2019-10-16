@@ -9,13 +9,13 @@ import java.lang.reflect.Modifier;
  * Created by kfgodel on 18/10/14.
  */
 public class PublicModifier extends ModifierSupport {
-    protected PublicModifier() {
-        super(Modifier.PUBLIC, "public");
-    }
+  protected PublicModifier() {
+    super(Modifier.PUBLIC, "public");
+  }
 
-    public static PublicModifier create() {
-        PublicModifier modifier = new PublicModifier();
-        return modifier;
-    }
+  public static PublicModifier create() {
+    PublicModifier modifier = new PublicModifier();
+    return modifier;
+  }
 
 }

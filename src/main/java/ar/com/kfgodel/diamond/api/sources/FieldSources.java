@@ -12,25 +12,28 @@ import java.lang.reflect.Field;
  */
 public interface FieldSources {
 
-    /**
-     * Defines the class in which the field is going to be accessed
-     * @param objectClass The instance that represents the class
-     * @return The partially defined source
-     */
-    TypeFields in(Class<?> objectClass);
+  /**
+   * Defines the class in which the field is going to be accessed
+   *
+   * @param objectClass The instance that represents the class
+   * @return The partially defined source
+   */
+  TypeFields in(Class<?> objectClass);
 
 
-    /**
-     * Retrieves the class field representation for the given field instance
-     * @param fieldInstance the Field that identifies the class field
-     * @return The class field representation
-     */
-    TypeField from(Field fieldInstance);
+  /**
+   * Retrieves the class field representation for the given field instance
+   *
+   * @param fieldInstance the Field that identifies the class field
+   * @return The class field representation
+   */
+  TypeField from(Field fieldInstance);
 
-    /**
-     * Retrieves the class field representation for the given description
-     * @param fieldDescription The description of the field
-     * @return The class field representation
-     */
-    TypeField fromDescription(FieldDescription fieldDescription);
+  /**
+   * Retrieves the class field representation for the given description
+   *
+   * @param fieldDescription The description of the field
+   * @return The class field representation
+   */
+  TypeField fromDescription(FieldDescription fieldDescription);
 }

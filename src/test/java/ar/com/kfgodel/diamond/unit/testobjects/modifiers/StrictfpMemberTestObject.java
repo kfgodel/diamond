@@ -6,5 +6,6 @@ package ar.com.kfgodel.diamond.unit.testobjects.modifiers;
  */
 public class StrictfpMemberTestObject {
 
-    strictfp void method(){}
+  strictfp void method() {
+  }
 }

@@ -23,56 +23,73 @@ import java.util.function.Supplier;
  */
 public interface DiamondTestContext extends TestContext {
 
-    TypeLineage lineage();
-    void lineage(Supplier<TypeLineage> definition);
+  TypeLineage lineage();
 
-    TypeInstance typeInstance();
-    void typeInstance(Supplier<TypeInstance> definition);
+  void lineage(Supplier<TypeLineage> definition);
 
-    LazyValue<Integer> value();
-    void value(Supplier<LazyValue<Integer>> definition);
+  TypeInstance typeInstance();
 
-    <T> T object();
-    <T> void object(Supplier<T> definition);
+  void typeInstance(Supplier<TypeInstance> definition);
 
-    TypeField field();
-    void field(Supplier<TypeField> definition);
+  LazyValue<Integer> value();
 
-    TypeMethod method();
-    void method(Supplier<TypeMethod> definition);
+  void value(Supplier<LazyValue<Integer>> definition);
 
-    TypeConstructor constructor();
-    void constructor(Supplier<TypeConstructor> definition);
+  <T> T object();
 
-    String name();
-    void name(Supplier<String> definition);
+  <T> void object(Supplier<T> definition);
 
-    Class<?> testClass();
-    void testClass(Supplier<Class<?>> definition);
+  TypeField field();
 
-    Invokable invokable();
-    void invokable(Supplier<Invokable> definition);
+  void field(Supplier<TypeField> definition);
 
-    TypePackage typePackage();
-    void typePackage(Supplier<TypePackage> definition);
+  TypeMethod method();
 
-    ExecutableParameter parameter();
-    void parameter(Supplier<ExecutableParameter> definition);
+  void method(Supplier<TypeMethod> definition);
 
-    BoundMethod boundMethod();
-    void boundMethod(Supplier<BoundMethod> definition);
+  TypeConstructor constructor();
 
-    BoundField boundField();
-    void boundField(Supplier<BoundField> definition);
-    
-    Lambda lambda();
-    void lambda(Supplier<Lambda> definition);
+  void constructor(Supplier<TypeConstructor> definition);
 
-    String toStringResult();
-    void toStringResult(Supplier<String> definition);
+  String name();
 
-    Modifier modifier();
-    void modifier(Supplier<Modifier> definition);
+  void name(Supplier<String> definition);
+
+  Class<?> testClass();
+
+  void testClass(Supplier<Class<?>> definition);
+
+  Invokable invokable();
+
+  void invokable(Supplier<Invokable> definition);
+
+  TypePackage typePackage();
+
+  void typePackage(Supplier<TypePackage> definition);
+
+  ExecutableParameter parameter();
+
+  void parameter(Supplier<ExecutableParameter> definition);
+
+  BoundMethod boundMethod();
+
+  void boundMethod(Supplier<BoundMethod> definition);
+
+  BoundField boundField();
+
+  void boundField(Supplier<BoundField> definition);
+
+  Lambda lambda();
+
+  void lambda(Supplier<Lambda> definition);
+
+  String toStringResult();
+
+  void toStringResult(Supplier<String> definition);
+
+  Modifier modifier();
+
+  void modifier(Supplier<Modifier> definition);
 
 
 }

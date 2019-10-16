@@ -10,16 +10,16 @@ import ar.com.kfgodel.nary.api.Nary;
  */
 public class NoFields implements TypeFields {
 
-    public static final NoFields INSTANCE = new NoFields();
+  public static final NoFields INSTANCE = new NoFields();
 
-    @Override
-    public Nary<TypeField> all() {
-        return Nary.empty();
-    }
+  @Override
+  public Nary<TypeField> all() {
+    return Nary.empty();
+  }
 
-    @Override
-    public Nary<TypeField> named(String fieldName) {
-        return Nary.empty();
-    }
+  @Override
+  public Nary<TypeField> named(String fieldName) {
+    return Nary.empty();
+  }
 
 }

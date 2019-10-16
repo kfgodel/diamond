@@ -8,37 +8,37 @@ import ar.com.kfgodel.diamond.api.types.names.TypeNames;
  */
 public class WildCardNames implements TypeNames {
 
-    private String typeName;
+  private String typeName;
 
-    @Override
-    public String shortName() {
-        return "?";
-    }
+  @Override
+  public String shortName() {
+    return "?";
+  }
 
-    @Override
-    public String classloaderName() {
-        return typeName();
-    }
+  @Override
+  public String classloaderName() {
+    return typeName();
+  }
 
-    @Override
-    public String canonicalName() {
-        return typeName();
-    }
+  @Override
+  public String canonicalName() {
+    return typeName();
+  }
 
-    @Override
-    public String typeName() {
-        return typeName;
-    }
+  @Override
+  public String typeName() {
+    return typeName;
+  }
 
-    @Override
-    public String bareName() {
-        return shortName();
-    }
+  @Override
+  public String bareName() {
+    return shortName();
+  }
 
-    public static WildCardNames create(String typeName) {
-        WildCardNames names = new WildCardNames();
-        names.typeName = typeName;
-        return names;
-    }
+  public static WildCardNames create(String typeName) {
+    WildCardNames names = new WildCardNames();
+    names.typeName = typeName;
+    return names;
+  }
 
 }

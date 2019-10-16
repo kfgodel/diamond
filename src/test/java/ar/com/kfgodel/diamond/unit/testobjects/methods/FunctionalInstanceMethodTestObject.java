@@ -6,21 +6,22 @@ package ar.com.kfgodel.diamond.unit.testobjects.methods;
  */
 public class FunctionalInstanceMethodTestObject {
 
-    public int lastResult;
+  public int lastResult;
 
-    public int getLastResult() {
-        return lastResult;
-    }
+  public int getLastResult() {
+    return lastResult;
+  }
 
-    public void consumer(){
-        lastResult = 7;
-    }
-    public void biConsumer(int param){
-        lastResult = param;
-    }
+  public void consumer() {
+    lastResult = 7;
+  }
 
-    public int function(){
-        return 21;
-    }
+  public void biConsumer(int param) {
+    lastResult = param;
+  }
+
+  public int function() {
+    return 21;
+  }
 
 }

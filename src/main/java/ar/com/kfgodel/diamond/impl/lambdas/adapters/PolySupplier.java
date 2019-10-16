@@ -8,26 +8,26 @@ import java.util.function.Supplier;
  */
 public class PolySupplier extends PolyAdapterSupport {
 
-    private Supplier supplier;
+  private Supplier supplier;
 
-    @Override
-    public Object invoke(Object... arguments) {
-        return get();
-    }
+  @Override
+  public Object invoke(Object... arguments) {
+    return get();
+  }
 
-    @Override
-    public Object get() {
-        return supplier.get();
-    }
+  @Override
+  public Object get() {
+    return supplier.get();
+  }
 
-    public static PolySupplier create(Supplier supplier) {
-        PolySupplier polySupplier = new PolySupplier();
-        polySupplier.supplier = supplier;
-        return polySupplier;
-    }
+  public static PolySupplier create(Supplier supplier) {
+    PolySupplier polySupplier = new PolySupplier();
+    polySupplier.supplier = supplier;
+    return polySupplier;
+  }
 
-    @Override
-    public Object adaptedCode() {
-        return supplier;
-    }
+  @Override
+  public Object adaptedCode() {
+    return supplier;
+  }
 }

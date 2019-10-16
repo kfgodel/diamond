@@ -8,14 +8,14 @@ import java.util.Map;
  */
 public class GenericMembersTestObject<T> {
 
-    T field;
+  T field;
 
-    <R> Map<T, R> method(){
-        return null;
-    }
+  <R> Map<T, R> method() {
+    return null;
+  }
 
-    <S> GenericMembersTestObject(S s){
+  <S> GenericMembersTestObject(S s) {
 
-    }
+  }
 
 }

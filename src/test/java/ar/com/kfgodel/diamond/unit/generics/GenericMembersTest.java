@@ -21,53 +21,54 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @RunWith(JavaSpecRunner.class)
 public class GenericMembersTest extends JavaSpec<DiamondTestContext> {
-    @Override
-    public void define() {
-        describe("generics", () -> {
+  @Override
+  public void define() {
+    describe("generics", () -> {
 
-            context().typeInstance(()-> Diamond.of(GenericMembersTestObject.class));
+      context().typeInstance(() -> Diamond.of(GenericMembersTestObject.class));
 
-            describe("for a field", () -> {
-                context().field(()-> context().typeInstance().fields().named("field").get());
-                
-                it("contains an empty stream for generic parameters",()->{
+      describe("for a field", () -> {
+        context().field(() -> context().typeInstance().fields().named("field").get());
 
-                    Stream<TypeInstance> parameters = context().field().generics().parameters();
+        it("contains an empty stream for generic parameters", () -> {
 
-                    assertThat(parameters.count()).isEqualTo(0);
-                });   
-            });
+          Stream<TypeInstance> parameters = context().field().generics().parameters();
 
-            describe("for a method", () -> {
-                context().method(()-> context().typeInstance().methods().named("method").get());
-                
-                it("contains only method declared type variables",()->{
+          assertThat(parameters.count()).isEqualTo(0);
+        });
+      });
 
-                    Stream<TypeInstance> parameters = context().method().generics().parameters();
+      describe("for a method", () -> {
+        context().method(() -> context().typeInstance().methods().named("method").get());
 
-                    assertThat(parameters.map(TypeInstance::name).collect(Collectors.toList()))
-                            .isEqualTo(Arrays.asList("R"));
-                });   
+        it("contains only method declared type variables", () -> {
 
-            });
+          Stream<TypeInstance> parameters = context().method().generics().parameters();
 
-            describe("for a constructor", () -> {
-                context().constructor(() -> context().typeInstance().constructors().withParameters(getTypeVariableS()).get());
-
-                it("contains only constructor declared type variables",()->{
-
-                    Stream<TypeInstance> parameters = context().constructor().generics().parameters();
-
-                    assertThat(parameters.map(TypeInstance::name).collect(Collectors.toList()))
-                            .isEqualTo(Arrays.asList("S"));
-
-                });   
-            });
+          assertThat(parameters.map(TypeInstance::name).collect(Collectors.toList()))
+            .isEqualTo(Arrays.asList("R"));
         });
 
-    }
+      });
 
-    private static <S> TypeInstance getTypeVariableS() {
-        return Diamond.types().from(new ReferenceOf<S>(){}.getReferencedTypeVariable());
-    }
+      describe("for a constructor", () -> {
+        context().constructor(() -> context().typeInstance().constructors().withParameters(getTypeVariableS()).get());
+
+        it("contains only constructor declared type variables", () -> {
+
+          Stream<TypeInstance> parameters = context().constructor().generics().parameters();
+
+          assertThat(parameters.map(TypeInstance::name).collect(Collectors.toList()))
+            .isEqualTo(Arrays.asList("S"));
+
+        });
+      });
+    });
+
+  }
+
+  private static <S> TypeInstance getTypeVariableS() {
+    return Diamond.types().from(new ReferenceOf<S>() {
+    }.getReferencedTypeVariable());
+  }
 }

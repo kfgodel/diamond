@@ -13,22 +13,22 @@ import java.util.function.Supplier;
  */
 public class WildcardTypeDescription extends UnannotatedVariableTypeDescriptionSupport {
 
-    private WildcardType nativeType;
+  private WildcardType nativeType;
 
-    @Override
-    public WildcardType getNativeType() {
-        return nativeType;
-    }
+  @Override
+  public WildcardType getNativeType() {
+    return nativeType;
+  }
 
-    @Override
-    public Supplier<TypeBounds> getBounds() {
-        return WildcardBoundsSupplier.create(nativeType);
-    }
+  @Override
+  public Supplier<TypeBounds> getBounds() {
+    return WildcardBoundsSupplier.create(nativeType);
+  }
 
-    public static WildcardTypeDescription create(WildcardType nativeType) {
-        WildcardTypeDescription description = new WildcardTypeDescription();
-        description.nativeType = nativeType;
-        return description;
-    }
+  public static WildcardTypeDescription create(WildcardType nativeType) {
+    WildcardTypeDescription description = new WildcardTypeDescription();
+    description.nativeType = nativeType;
+    return description;
+  }
 
 }

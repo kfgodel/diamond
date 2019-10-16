@@ -8,20 +8,21 @@ import ar.com.kfgodel.diamond.api.types.packages.PackageDescription;
  */
 public class PackageDescriptor {
 
-    public static final PackageDescriptor INSTANCE = PackageDescriptor.create();
+  public static final PackageDescriptor INSTANCE = PackageDescriptor.create();
 
-    /**
-     * Creates a description of the given native package based on its features
-     * @param nativePackage The package to describe
-     * @return The description for diamond
-     */
-    public PackageDescription describe(Package nativePackage){
-        return NativePackageDescription.create(nativePackage);
-    }
+  /**
+   * Creates a description of the given native package based on its features
+   *
+   * @param nativePackage The package to describe
+   * @return The description for diamond
+   */
+  public PackageDescription describe(Package nativePackage) {
+    return NativePackageDescription.create(nativePackage);
+  }
 
-    public static PackageDescriptor create() {
-        PackageDescriptor descriptor = new PackageDescriptor();
-        return descriptor;
-    }
+  public static PackageDescriptor create() {
+    PackageDescriptor descriptor = new PackageDescriptor();
+    return descriptor;
+  }
 
 }

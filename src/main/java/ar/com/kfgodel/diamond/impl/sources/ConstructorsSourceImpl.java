@@ -17,33 +17,33 @@ import java.lang.reflect.Constructor;
  */
 public class ConstructorsSourceImpl implements ConstructorSources {
 
-    private DiamondCache cache;
+  private DiamondCache cache;
 
-    public static ConstructorsSourceImpl create(DiamondCache cache) {
-        ConstructorsSourceImpl source = new ConstructorsSourceImpl();
-        source.cache = cache;
-        return source;
-    }
+  public static ConstructorsSourceImpl create(DiamondCache cache) {
+    ConstructorsSourceImpl source = new ConstructorsSourceImpl();
+    source.cache = cache;
+    return source;
+  }
 
-    @Override
-    public TypeConstructor from(Constructor<?> nativeConstructor) {
-        return cache.reuseOrCreateRepresentationFor(nativeConstructor, ()-> fromDescription(ConstructorDescriptor.INSTANCE.describe(nativeConstructor)));
-    }
+  @Override
+  public TypeConstructor from(Constructor<?> nativeConstructor) {
+    return cache.reuseOrCreateRepresentationFor(nativeConstructor, () -> fromDescription(ConstructorDescriptor.INSTANCE.describe(nativeConstructor)));
+  }
 
-    @Override
-    public TypeConstructor fromDescription(ConstructorDescription constructorDescription) {
-        return createConstructorFrom(constructorDescription);
-    }
+  @Override
+  public TypeConstructor fromDescription(ConstructorDescription constructorDescription) {
+    return createConstructorFrom(constructorDescription);
+  }
 
-    @Override
-    public TypeConstructors in(Class<?> nativeClass) {
-        return Diamond.of(nativeClass).constructors();
-    }
+  @Override
+  public TypeConstructors in(Class<?> nativeClass) {
+    return Diamond.of(nativeClass).constructors();
+  }
 
-    /**
-     * Creates a new instances of a type constructor from the given description
-     */
-    private TypeConstructor createConstructorFrom(ConstructorDescription constructorDescription) {
-        return TypeConstructorInstance.create(constructorDescription);
-    }
+  /**
+   * Creates a new instances of a type constructor from the given description
+   */
+  private TypeConstructor createConstructorFrom(ConstructorDescription constructorDescription) {
+    return TypeConstructorInstance.create(constructorDescription);
+  }
 }

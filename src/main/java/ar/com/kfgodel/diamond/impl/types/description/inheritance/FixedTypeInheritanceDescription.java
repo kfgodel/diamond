@@ -16,34 +16,34 @@ import java.util.function.Supplier;
  */
 public class FixedTypeInheritanceDescription implements InheritanceDescription {
 
-    private Class<?> rawClass;
-    private Supplier<Nary<TypeInstance>> typeArguments;
+  private Class<?> rawClass;
+  private Supplier<Nary<TypeInstance>> typeArguments;
 
-    @Override
-    public Supplier<Nary<TypeInstance>> getSuperclassSupplier() {
-        return SuperClassSupplier.create(rawClass);
-    }
+  @Override
+  public Supplier<Nary<TypeInstance>> getSuperclassSupplier() {
+    return SuperClassSupplier.create(rawClass);
+  }
 
-    @Override
-    public Supplier<Nary<TypeInstance>> getExtendedTypeSupplier() {
-        return ExtendedTypeSupplier.create(rawClass, typeArguments.get());
-    }
+  @Override
+  public Supplier<Nary<TypeInstance>> getExtendedTypeSupplier() {
+    return ExtendedTypeSupplier.create(rawClass, typeArguments.get());
+  }
 
-    @Override
-    public Supplier<Nary<TypeInstance>> getInterfacesSupplier() {
-        return ImmutableInterfacesSupplier.create(rawClass);
-    }
+  @Override
+  public Supplier<Nary<TypeInstance>> getInterfacesSupplier() {
+    return ImmutableInterfacesSupplier.create(rawClass);
+  }
 
-    @Override
-    public Supplier<Nary<TypeInstance>> getImplementedTypesSupplier() {
-        return ImplementedTypesSupplier.create(rawClass, typeArguments.get());
-    }
+  @Override
+  public Supplier<Nary<TypeInstance>> getImplementedTypesSupplier() {
+    return ImplementedTypesSupplier.create(rawClass, typeArguments.get());
+  }
 
-    public static FixedTypeInheritanceDescription create(Class<?> rawClass, Supplier<Nary<TypeInstance>> typeArguments) {
-        FixedTypeInheritanceDescription description = new FixedTypeInheritanceDescription();
-        description.rawClass = rawClass;
-        description.typeArguments = typeArguments;
-        return description;
-    }
+  public static FixedTypeInheritanceDescription create(Class<?> rawClass, Supplier<Nary<TypeInstance>> typeArguments) {
+    FixedTypeInheritanceDescription description = new FixedTypeInheritanceDescription();
+    description.rawClass = rawClass;
+    description.typeArguments = typeArguments;
+    return description;
+  }
 
 }

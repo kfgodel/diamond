@@ -9,13 +9,13 @@ import java.lang.reflect.Modifier;
  * Created by kfgodel on 19/10/14.
  */
 public class VolatileModifier extends ModifierSupport {
-    protected VolatileModifier() {
-        super(Modifier.VOLATILE, "volatile");
-    }
+  protected VolatileModifier() {
+    super(Modifier.VOLATILE, "volatile");
+  }
 
-    public static VolatileModifier create() {
-        VolatileModifier modifier = new VolatileModifier();
-        return modifier;
-    }
+  public static VolatileModifier create() {
+    VolatileModifier modifier = new VolatileModifier();
+    return modifier;
+  }
 
 }

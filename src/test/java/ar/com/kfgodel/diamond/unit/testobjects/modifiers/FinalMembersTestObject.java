@@ -6,6 +6,8 @@ package ar.com.kfgodel.diamond.unit.testobjects.modifiers;
  */
 public class FinalMembersTestObject {
 
-    final int field = 0;
-    final void method(){}
+  final int field = 0;
+
+  final void method() {
+  }
 }

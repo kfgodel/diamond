@@ -11,10 +11,10 @@ import java.util.function.Supplier;
  */
 public class NonInstantiableConstructorSupplier implements Supplier<Nary<TypeConstructor>> {
 
-    public static final NonInstantiableConstructorSupplier INSTANCE = new NonInstantiableConstructorSupplier();
+  public static final NonInstantiableConstructorSupplier INSTANCE = new NonInstantiableConstructorSupplier();
 
-    @Override
-    public Nary<TypeConstructor> get() {
-        return Nary.empty();
-    }
+  @Override
+  public Nary<TypeConstructor> get() {
+    return Nary.empty();
+  }
 }

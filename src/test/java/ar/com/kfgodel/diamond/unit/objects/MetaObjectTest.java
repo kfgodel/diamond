@@ -20,74 +20,74 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * This type verifies the behavior of a meta object
- * 
+ * <p>
  * Created by kfgodel on 17/11/14.
  */
 @RunWith(JavaSpecRunner.class)
 public class MetaObjectTest extends JavaSpec<DiamondTestContext> {
-    @Override
-    public void define() {
-        describe("a meta object", () -> {
+  @Override
+  public void define() {
+    describe("a meta object", () -> {
 
-            it("is a meta-level description of an object",()->{
-                MetaObject metaObject = Diamond.metaObjects().from(new PublicMembersTestObject());
+      it("is a meta-level description of an object", () -> {
+        MetaObject metaObject = Diamond.metaObjects().from(new PublicMembersTestObject());
 
-                assertThat(metaObject).isNotNull();
-            }); 
-            
-            it("has the object as instance",()->{
-                MetaObject metaObject = Diamond.metaObjects().from("hi");
-                assertThat(metaObject.instance()).isEqualTo("hi");
-            });   
-            
-            it("has the same hashcode as the object",()->{
-                PublicMembersTestObject instance = new PublicMembersTestObject();
+        assertThat(metaObject).isNotNull();
+      });
 
-                MetaObject metaObject = Diamond.metaObjects().from(instance);
+      it("has the object as instance", () -> {
+        MetaObject metaObject = Diamond.metaObjects().from("hi");
+        assertThat(metaObject.instance()).isEqualTo("hi");
+      });
 
-                assertThat(metaObject.hashCode()).isEqualTo(instance.hashCode());
-            });
-            
-            it("has the same equality criteria as the object",()->{
-                PublicMembersTestObject instance = new PublicMembersTestObject();
+      it("has the same hashcode as the object", () -> {
+        PublicMembersTestObject instance = new PublicMembersTestObject();
 
-                MetaObject metaObject = Diamond.metaObjects().from(instance);
+        MetaObject metaObject = Diamond.metaObjects().from(instance);
 
-                assertThat(metaObject.equals(instance)).isTrue();
-                // But the converse is not true
-                assertThat(instance.equals(metaObject)).isFalse();
-            });
+        assertThat(metaObject.hashCode()).isEqualTo(instance.hashCode());
+      });
 
-            it("allows access to all the methods bound to the object",()->{
-                PublicMembersTestObject instance = new PublicMembersTestObject();
-                MetaObject metaObject = Diamond.metaObjects().from(instance);
+      it("has the same equality criteria as the object", () -> {
+        PublicMembersTestObject instance = new PublicMembersTestObject();
 
-                Nary<BoundMethod> allMethods = metaObject.methods().all();
-                List<String> allMethodNames = allMethods.map(Named::name).collect(Collectors.toList());
+        MetaObject metaObject = Diamond.metaObjects().from(instance);
 
-                assertThat(allMethodNames).contains("method", "finalize", "wait", "wait", "wait", "equals", "toString", "hashCode", "getClass", "clone", "registerNatives", "notify", "notifyAll");
-            }); 
-            
-            it("allows access to all the fields bound to the object",()->{
-                PublicMembersTestObject instance = new PublicMembersTestObject();
-                MetaObject metaObject = Diamond.metaObjects().from(instance);
+        assertThat(metaObject.equals(instance)).isTrue();
+        // But the converse is not true
+        assertThat(instance.equals(metaObject)).isFalse();
+      });
 
-                Nary<BoundField> allFields = metaObject.fields().all();
-                List<String> allFieldNames = allFields.map(Named::name).collect(Collectors.toList());
+      it("allows access to all the methods bound to the object", () -> {
+        PublicMembersTestObject instance = new PublicMembersTestObject();
+        MetaObject metaObject = Diamond.metaObjects().from(instance);
 
-                assertThat(allFieldNames).contains("field");
-            });
+        Nary<BoundMethod> allMethods = metaObject.methods().all();
+        List<String> allMethodNames = allMethods.map(Named::name).collect(Collectors.toList());
 
-            it("allows access to the object type",()->{
-                PublicMembersTestObject instance = new PublicMembersTestObject();
-                MetaObject metaObject = Diamond.metaObjects().from(instance);
+        assertThat(allMethodNames).contains("method", "finalize", "wait", "wait", "wait", "equals", "toString", "hashCode", "getClass", "clone", "registerNatives", "notify", "notifyAll");
+      });
 
-                TypeInstance type = metaObject.type();
+      it("allows access to all the fields bound to the object", () -> {
+        PublicMembersTestObject instance = new PublicMembersTestObject();
+        MetaObject metaObject = Diamond.metaObjects().from(instance);
 
-                assertThat(type.name()).isEqualTo("PublicMembersTestObject");
-            });
+        Nary<BoundField> allFields = metaObject.fields().all();
+        List<String> allFieldNames = allFields.map(Named::name).collect(Collectors.toList());
 
-        });
+        assertThat(allFieldNames).contains("field");
+      });
 
-    }
+      it("allows access to the object type", () -> {
+        PublicMembersTestObject instance = new PublicMembersTestObject();
+        MetaObject metaObject = Diamond.metaObjects().from(instance);
+
+        TypeInstance type = metaObject.type();
+
+        assertThat(type.name()).isEqualTo("PublicMembersTestObject");
+      });
+
+    });
+
+  }
 }

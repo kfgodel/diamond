@@ -7,15 +7,15 @@ import java.util.function.Predicate;
  * Created by kfgodel on 03/02/15.
  */
 public class EnumKind extends NativeClassKindSupport {
-    
-    @Override
-    protected Predicate<Class<?>> getClassPredicate() {
-        return Class::isEnum;
-    }
 
-    public static EnumKind create() {
-        EnumKind kind = new EnumKind();
-        return kind;
-    }
+  @Override
+  protected Predicate<Class<?>> getClassPredicate() {
+    return Class::isEnum;
+  }
+
+  public static EnumKind create() {
+    EnumKind kind = new EnumKind();
+    return kind;
+  }
 
 }

@@ -3,11 +3,32 @@ package ar.com.kfgodel.diamond.impl;
 import ar.com.kfgodel.diamond.api.DiamondReflection;
 import ar.com.kfgodel.diamond.api.cache.DiamondCache;
 import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
-import ar.com.kfgodel.diamond.api.sources.*;
+import ar.com.kfgodel.diamond.api.sources.ConstructorSources;
+import ar.com.kfgodel.diamond.api.sources.FieldSources;
+import ar.com.kfgodel.diamond.api.sources.LambdaSources;
+import ar.com.kfgodel.diamond.api.sources.MetaObjectSources;
+import ar.com.kfgodel.diamond.api.sources.MethodSources;
+import ar.com.kfgodel.diamond.api.sources.ModifierSources;
+import ar.com.kfgodel.diamond.api.sources.PackageSources;
+import ar.com.kfgodel.diamond.api.sources.ParameterSources;
+import ar.com.kfgodel.diamond.api.sources.TypeSources;
 import ar.com.kfgodel.diamond.impl.cache.WeakMapCache;
-import ar.com.kfgodel.diamond.impl.sources.*;
+import ar.com.kfgodel.diamond.impl.sources.ConstructorsSourceImpl;
+import ar.com.kfgodel.diamond.impl.sources.FieldSourceImpl;
+import ar.com.kfgodel.diamond.impl.sources.LambdaSourcesImpl;
+import ar.com.kfgodel.diamond.impl.sources.MetaObjectSourcesImpl;
+import ar.com.kfgodel.diamond.impl.sources.MethodSourceImpl;
+import ar.com.kfgodel.diamond.impl.sources.ModifierSourcesImpl;
+import ar.com.kfgodel.diamond.impl.sources.PackageSourcesImpl;
+import ar.com.kfgodel.diamond.impl.sources.ParameterSourcesImpl;
+import ar.com.kfgodel.diamond.impl.sources.TypeSourceImpl;
 
-import java.lang.reflect.*;
+import java.lang.reflect.AnnotatedType;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
+import java.lang.reflect.Type;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
@@ -19,108 +40,113 @@ import java.util.function.Function;
  */
 public class DiamondApi {
 
-    private DiamondCache cache;
-    private MethodSources methods;
-    private FieldSources fields;
-    private TypeSources types;
-    private ConstructorSources constructors;
-    private ModifierSources modifiers;
-    private PackageSources packages;
-    private ParameterSources parameters;
-    private MetaObjectSources metaObjects;
-    private LambdaSources lambdas;
-    private LinkedHashMap<Class<?>, Function<Object, DiamondReflection>> converterPerType;
+  private DiamondCache cache;
+  private MethodSources methods;
+  private FieldSources fields;
+  private TypeSources types;
+  private ConstructorSources constructors;
+  private ModifierSources modifiers;
+  private PackageSources packages;
+  private ParameterSources parameters;
+  private MetaObjectSources metaObjects;
+  private LambdaSources lambdas;
+  private LinkedHashMap<Class<?>, Function<Object, DiamondReflection>> converterPerType;
 
-    public static DiamondApi create() {
-        DiamondApi diamondApi = new DiamondApi();
-        diamondApi.cache = WeakMapCache.create();
-        diamondApi.types = TypeSourceImpl.create(diamondApi.cache);
-        diamondApi.fields = FieldSourceImpl.create(diamondApi.cache);
-        diamondApi.methods = MethodSourceImpl.create(diamondApi.cache);
-        diamondApi.constructors = ConstructorsSourceImpl.create(diamondApi.cache);
-        diamondApi.modifiers = ModifierSourcesImpl.create(diamondApi.cache);
-        diamondApi.packages = PackageSourcesImpl.create(diamondApi.cache);
-        diamondApi.parameters = ParameterSourcesImpl.create(diamondApi.cache);
-        diamondApi.metaObjects = MetaObjectSourcesImpl.create(diamondApi.cache);
-        diamondApi.converterPerType = new LinkedHashMap<>();
-        diamondApi.lambdas = LambdaSourcesImpl.create();
-        diamondApi.initialize();
-        return diamondApi;
+  public static DiamondApi create() {
+    DiamondApi diamondApi = new DiamondApi();
+    diamondApi.cache = WeakMapCache.create();
+    diamondApi.types = TypeSourceImpl.create(diamondApi.cache);
+    diamondApi.fields = FieldSourceImpl.create(diamondApi.cache);
+    diamondApi.methods = MethodSourceImpl.create(diamondApi.cache);
+    diamondApi.constructors = ConstructorsSourceImpl.create(diamondApi.cache);
+    diamondApi.modifiers = ModifierSourcesImpl.create(diamondApi.cache);
+    diamondApi.packages = PackageSourcesImpl.create(diamondApi.cache);
+    diamondApi.parameters = ParameterSourcesImpl.create(diamondApi.cache);
+    diamondApi.metaObjects = MetaObjectSourcesImpl.create(diamondApi.cache);
+    diamondApi.converterPerType = new LinkedHashMap<>();
+    diamondApi.lambdas = LambdaSourcesImpl.create();
+    diamondApi.initialize();
+    return diamondApi;
+  }
+
+  private void initialize() {
+    addConverterForInstancesOf(Type.class, (nativeType) -> types().from(nativeType));
+    addConverterForInstancesOf(AnnotatedType.class, (nativeType) -> types().from(nativeType));
+    addConverterForInstancesOf(Method.class, (nativeMethod) -> methods().from(nativeMethod));
+    addConverterForInstancesOf(Field.class, (nativeField) -> fields().from(nativeField));
+    addConverterForInstancesOf(Constructor.class, (nativeConstructor) -> constructors().from(nativeConstructor));
+    addConverterForInstancesOf(Package.class, (nativePackage) -> packages().from(nativePackage));
+    addConverterForInstancesOf(Parameter.class, (nativeParameter) -> parameters().from(nativeParameter));
+  }
+
+  private <T> void addConverterForInstancesOf(Class<T> sourceType, Function<T, DiamondReflection> converter) {
+    this.converterPerType.put(sourceType, (Function<Object, DiamondReflection>) converter);
+  }
+
+  public MethodSources methods() {
+    return methods;
+  }
+
+  public FieldSources fields() {
+    return fields;
+  }
+
+  public TypeSources types() {
+    return types;
+  }
+
+  public ConstructorSources constructors() {
+    return constructors;
+  }
+
+  public ModifierSources modifiers() {
+    return modifiers;
+  }
+
+  ;
+
+  public PackageSources packages() {
+    return packages;
+  }
+
+  public ParameterSources parameters() {
+    return parameters;
+  }
+
+  public <T extends DiamondReflection> T from(Object nativeReflection) {
+    return cache.reuseOrCreateRepresentationFor(nativeReflection, () -> delegateToCorrespondingType(nativeReflection));
+  }
+
+  /**
+   * Searches for the converter of the given native reflection object
+   *
+   * @param nativeReflection The native reflection representation
+   * @param <T>              The expected returned diamond type
+   * @return The converted representation
+   */
+  private <T extends DiamondReflection> T delegateToCorrespondingType(Object nativeReflection) {
+    Set<Map.Entry<Class<?>, Function<Object, DiamondReflection>>> entries = converterPerType.entrySet();
+    for (Map.Entry<Class<?>, Function<Object, DiamondReflection>> entry : entries) {
+      Class<?> sourceType = entry.getKey();
+      if (!sourceType.isInstance(nativeReflection)) {
+        continue;
+      }
+      Function<Object, DiamondReflection> converter = entry.getValue();
+      DiamondReflection representation = converter.apply(nativeReflection);
+      return (T) representation;
     }
+    throw new DiamondException("There's no conversion defined yet for: " + nativeReflection);
+  }
 
-    private void initialize() {
-        addConverterForInstancesOf(Type.class, (nativeType) -> types().from(nativeType));
-        addConverterForInstancesOf(AnnotatedType.class, (nativeType) -> types().from(nativeType));
-        addConverterForInstancesOf(Method.class, (nativeMethod) -> methods().from(nativeMethod));
-        addConverterForInstancesOf(Field.class, (nativeField) -> fields().from(nativeField));
-        addConverterForInstancesOf(Constructor.class, (nativeConstructor) -> constructors().from(nativeConstructor));
-        addConverterForInstancesOf(Package.class, (nativePackage) -> packages().from(nativePackage));
-        addConverterForInstancesOf(Parameter.class, (nativeParameter) -> parameters().from(nativeParameter));
-    }
+  public DiamondCache getCache() {
+    return cache;
+  }
 
-    private <T> void addConverterForInstancesOf(Class<T> sourceType, Function<T, DiamondReflection> converter){
-        this.converterPerType.put(sourceType, (Function<Object, DiamondReflection>) converter);
-    }
+  public MetaObjectSources metaObjects() {
+    return metaObjects;
+  }
 
-    public MethodSources methods() {
-        return methods;
-    }
-
-    public FieldSources fields() {
-        return fields;
-    }
-
-    public TypeSources types() {
-        return types;
-    }
-
-    public ConstructorSources constructors() {
-        return constructors;
-    }
-
-    public ModifierSources modifiers(){return modifiers; };
-
-    public PackageSources packages() {
-        return packages;
-    }
-
-    public ParameterSources parameters() {
-        return parameters;
-    }
-
-    public <T extends DiamondReflection> T from(Object nativeReflection) {
-        return cache.reuseOrCreateRepresentationFor(nativeReflection, () -> delegateToCorrespondingType(nativeReflection));
-    }
-
-    /**
-     * Searches for the converter of the given native reflection object
-     * @param nativeReflection The native reflection representation
-     * @param <T> The expected returned diamond type
-     * @return The converted representation
-     */
-    private <T extends DiamondReflection> T delegateToCorrespondingType(Object nativeReflection) {
-        Set<Map.Entry<Class<?>, Function<Object, DiamondReflection>>> entries = converterPerType.entrySet();
-        for (Map.Entry<Class<?>, Function<Object, DiamondReflection>> entry : entries) {
-            Class<?> sourceType = entry.getKey();
-            if(!sourceType.isInstance(nativeReflection)){
-                continue;
-            }
-            Function<Object, DiamondReflection> converter = entry.getValue();
-            DiamondReflection representation = converter.apply(nativeReflection);
-            return (T) representation;
-        }
-        throw new DiamondException("There's no conversion defined yet for: "+ nativeReflection);
-    }
-
-    public DiamondCache getCache() {
-        return cache;
-    }
-
-    public MetaObjectSources metaObjects() {
-        return metaObjects;
-    }
-
-    public LambdaSources lambdas() {
-        return lambdas;
-    }
+  public LambdaSources lambdas() {
+    return lambdas;
+  }
 }

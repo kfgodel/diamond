@@ -7,10 +7,10 @@ package ar.com.kfgodel.diamond.api.generics;
 public interface Generified {
 
 
-    /**
-     * @return The information about this entity generification.<br>
-     *     The generics metadata for this element
-     */
-    Generics generics();
+  /**
+   * @return The information about this entity generification.<br>
+   * The generics metadata for this element
+   */
+  Generics generics();
 
 }

@@ -29,62 +29,62 @@ import java.util.function.Supplier;
  * Created by kfgodel on 16/10/14.
  */
 public class ArrayConstructorDescription implements ConstructorDescription {
-    private Class<?> nativeArrayClass;
+  private Class<?> nativeArrayClass;
 
-    @Override
-    public Supplier<Nary<ExecutableParameter>> getParameters() {
-        return NaryFromElementSupplier.lazilyBy(() -> Diamond.parameters().fromDescription(ArrayConstructorParameterDescription.INSTANCE));
-    }
+  @Override
+  public Supplier<Nary<ExecutableParameter>> getParameters() {
+    return NaryFromElementSupplier.lazilyBy(() -> Diamond.parameters().fromDescription(ArrayConstructorParameterDescription.INSTANCE));
+  }
 
-    @Override
-    public Supplier<TypeInstance> getDeclaringType() {
-        return CachedValue.eagerlyFrom(Diamond.of(nativeArrayClass));
-    }
+  @Override
+  public Supplier<TypeInstance> getDeclaringType() {
+    return CachedValue.eagerlyFrom(Diamond.of(nativeArrayClass));
+  }
 
-    @Override
-    public Supplier<Nary<Modifier>> getModifiers() {
-        // Array creation is similar to public visibility
-        return NaryFromElementSupplier.from(Modifiers.PUBLIC);
-    }
+  @Override
+  public Supplier<Nary<Modifier>> getModifiers() {
+    // Array creation is similar to public visibility
+    return NaryFromElementSupplier.from(Modifiers.PUBLIC);
+  }
 
-    @Override
-    public Supplier<PolymorphicInvokable> getInvoker() {
-        return CachedValue.lazilyBy(() -> NativeArrayConstructor.create(nativeArrayClass));
-    }
+  @Override
+  public Supplier<PolymorphicInvokable> getInvoker() {
+    return CachedValue.lazilyBy(() -> NativeArrayConstructor.create(nativeArrayClass));
+  }
 
-    @Override
-    public Supplier<String> getName() {
-        return CachedValue.lazilyBy(nativeArrayClass::getSimpleName);
-    }
+  @Override
+  public Supplier<String> getName() {
+    return CachedValue.lazilyBy(nativeArrayClass::getSimpleName);
+  }
 
-    @Override
-    public Supplier<Nary<Annotation>> getAnnotations() {
-        return NoAnnotationsSupplier.INSTANCE;
-    }
+  @Override
+  public Supplier<Nary<Annotation>> getAnnotations() {
+    return NoAnnotationsSupplier.INSTANCE;
+  }
 
-    @Override
-    public Supplier<Generics> getGenerics() {
-        return UnGenerifiedMemberGenerics::instance;
-    }
+  @Override
+  public Supplier<Generics> getGenerics() {
+    return UnGenerifiedMemberGenerics::instance;
+  }
 
-    @Override
-    public Supplier<Nary<Constructor>> getNativeConstructor() {
-        return Nary::empty;
-    }
+  @Override
+  public Supplier<Nary<Constructor>> getNativeConstructor() {
+    return Nary::empty;
+  }
 
-    @Override
-    public Supplier<Nary<TypeInstance>> getDeclaredExceptions() {
-        return NoExceptionsSupplier::create;
-    }
+  @Override
+  public Supplier<Nary<TypeInstance>> getDeclaredExceptions() {
+    return NoExceptionsSupplier::create;
+  }
 
-    public static ArrayConstructorDescription create(Class<?> nativeArrayType) {
-        ArrayConstructorDescription description = new ArrayConstructorDescription();
-        description.nativeArrayClass = nativeArrayType;
-        return description;
-    }
+  public static ArrayConstructorDescription create(Class<?> nativeArrayType) {
+    ArrayConstructorDescription description = new ArrayConstructorDescription();
+    description.nativeArrayClass = nativeArrayType;
+    return description;
+  }
 
-    @Override
-    public Function<TypeConstructor, Object> getIdentityToken() {
-        return CachedTokenCalculator.create(ConstructorEquality.INSTANCE::calculateTokenFor);
-    }
+  @Override
+  public Function<TypeConstructor, Object> getIdentityToken() {
+    return CachedTokenCalculator.create(ConstructorEquality.INSTANCE::calculateTokenFor);
+  }
 }

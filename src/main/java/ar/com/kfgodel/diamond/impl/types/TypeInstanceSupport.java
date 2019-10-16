@@ -38,211 +38,215 @@ import java.util.function.Supplier;
  */
 public abstract class TypeInstanceSupport implements TypeInstance {
 
-    /**
-     * Attached type annotations
-     */
-    private Supplier<Nary<Annotation>> annotations = NoAnnotationsSupplier.INSTANCE;
-    /**
-     * Variations on the name for this type
-     */
-    private Supplier<TypeNames> names = NoNamesSupplier.create(this);
+  /**
+   * Attached type annotations
+   */
+  private Supplier<Nary<Annotation>> annotations = NoAnnotationsSupplier.INSTANCE;
+  /**
+   * Variations on the name for this type
+   */
+  private Supplier<TypeNames> names = NoNamesSupplier.create(this);
 
-    /**
-     * This type callable methods
-     */
-    private TypeMethods methods = NoMethods.INSTANCE;
+  /**
+   * This type callable methods
+   */
+  private TypeMethods methods = NoMethods.INSTANCE;
 
-    /**
-     * This type state fields
-     */
-    private TypeFields fields = NoFields.INSTANCE;
+  /**
+   * This type state fields
+   */
+  private TypeFields fields = NoFields.INSTANCE;
 
-    /**
-     * Inheritance information
-     */
-    private TypeInheritance inheritance;
+  /**
+   * Inheritance information
+   */
+  private TypeInheritance inheritance;
 
-    private Supplier<Nary<TypePackage>> typePackage;
+  private Supplier<Nary<TypePackage>> typePackage;
 
-    private Supplier<Nary<Class<?>>> rawClasses;
+  private Supplier<Nary<Class<?>>> rawClasses;
 
-    private Function<TypeInstance,Object> identityToken;
-    
-    private Supplier<Nary<Kind>> kinds;
-    
-    private Predicate<Object> typeForPredicate;
-    
-    private Predicate<TypeInstance> assignabilityPredicate;
-    
-    private TypeGenerics generics;
+  private Function<TypeInstance, Object> identityToken;
 
-    /**
-     * Use this to override default creation with no annotations
-     * @param annotationSupplier The new annotations
-     */
-    protected void setAnnotations(Supplier<Nary<Annotation>> annotationSupplier) {
-        this.annotations = annotationSupplier;
-    }
+  private Supplier<Nary<Kind>> kinds;
 
-    @Override
-    public Nary<Annotation> annotations() {
-        return this.annotations.get();
-    }
+  private Predicate<Object> typeForPredicate;
 
-    @Override
-    public String name() {
-        return this.names().shortName();
-    }
+  private Predicate<TypeInstance> assignabilityPredicate;
 
-    @Override
-    public TypeNames names() {
-        return this.names.get();
-    }
+  private TypeGenerics generics;
 
-    /**
-     * Setter available to subclasses to define this instance names
-     * @param namesSupplier The multiple names of this instance
-     */
-    protected void setNames(Supplier<TypeNames> namesSupplier) {
-        this.names = namesSupplier;
-    }
+  /**
+   * Use this to override default creation with no annotations
+   *
+   * @param annotationSupplier The new annotations
+   */
+  protected void setAnnotations(Supplier<Nary<Annotation>> annotationSupplier) {
+    this.annotations = annotationSupplier;
+  }
 
-    @Override
-    public TypeGenerics generics() {
-        return generics;
-    }
+  @Override
+  public Nary<Annotation> annotations() {
+    return this.annotations.get();
+  }
 
-    @Override
-    public TypeMethods methods() {
-        return methods;
-    }
+  @Override
+  public String name() {
+    return this.names().shortName();
+  }
 
-    protected void setMethods(Supplier<Nary<TypeMethod>> typeMethods){
-        this.methods = TypeMethodsImpl.create(typeMethods);
-    }
+  @Override
+  public TypeNames names() {
+    return this.names.get();
+  }
 
-    @Override
-    public TypeFields fields() {
-        return fields;
-    }
+  /**
+   * Setter available to subclasses to define this instance names
+   *
+   * @param namesSupplier The multiple names of this instance
+   */
+  protected void setNames(Supplier<TypeNames> namesSupplier) {
+    this.names = namesSupplier;
+  }
 
-    protected void setFields(Supplier<Nary<TypeField>> typeFields){
-        this.fields = TypeFieldsImpl.create(typeFields);
-    }
+  @Override
+  public TypeGenerics generics() {
+    return generics;
+  }
 
-    @Override
-    public TypeConstructors constructors() {
-        return NoConstructors.INSTANCE;
-    }
+  @Override
+  public TypeMethods methods() {
+    return methods;
+  }
 
-    /**
-     * Default implementation with no component type
-     * @return An empty optional
-     */
-    @Override
-    public Nary<TypeInstance> componentType() {
-        return Nary.empty();
-    }
+  protected void setMethods(Supplier<Nary<TypeMethod>> typeMethods) {
+    this.methods = TypeMethodsImpl.create(typeMethods);
+  }
 
-    @Override
-    public String declaration() {
-        return TypeDeclaration.create(this).asString();
-    }
-    @Override
-    public String toString() {
-        return DebugPrinter.print(this);
-    }
+  @Override
+  public TypeFields fields() {
+    return fields;
+  }
 
-    @Override
-    public boolean equals(Object obj) {
-        return TypeEquality.INSTANCE.areEquals(this, obj);
-    }
+  protected void setFields(Supplier<Nary<TypeField>> typeFields) {
+    this.fields = TypeFieldsImpl.create(typeFields);
+  }
 
-    @Override
-    public int hashCode() {
-        return getIdentityToken().hashCode();
-    }
+  @Override
+  public TypeConstructors constructors() {
+    return NoConstructors.INSTANCE;
+  }
 
-    @Override
-    public Object newInstance() {
-        return constructors().niladic()
-                .mapOptional((constructor) -> constructor.invoke())
-                .orElseThrow(() -> new DiamondException("Type[" + this + "] doesn't have a no-arg constructor to create the instance from"));
-    }
+  /**
+   * Default implementation with no component type
+   *
+   * @return An empty optional
+   */
+  @Override
+  public Nary<TypeInstance> componentType() {
+    return Nary.empty();
+  }
 
-    @Override
-    public Object get() {
-        return newInstance();
-    }
+  @Override
+  public String declaration() {
+    return TypeDeclaration.create(this).asString();
+  }
 
-    @Override
-    public TypeInheritance inheritance() {
-        return inheritance;
-    }
+  @Override
+  public String toString() {
+    return DebugPrinter.print(this);
+  }
 
-    @Override
-    public Nary<TypePackage> declaredPackage() {
-        return typePackage.get();
-    }
+  @Override
+  public boolean equals(Object obj) {
+    return TypeEquality.INSTANCE.areEquals(this, obj);
+  }
 
-    @Override
-    public Nary<TypeMember> members() {
-        // Need to cast to an upper type of element
-        Nary<TypeMember> fields = (Nary) fields().all();
-        return fields.concatStream(methods().all()).concatStream(constructors().all());
-    }
+  @Override
+  public int hashCode() {
+    return getIdentityToken().hashCode();
+  }
 
-    @Override
-    public Nary<Class<?>> nativeTypes() {
-        return rawClasses.get();
-    }
+  @Override
+  public Object newInstance() {
+    return constructors().niladic()
+      .mapOptional((constructor) -> constructor.invoke())
+      .orElseThrow(() -> new DiamondException("Type[" + this + "] doesn't have a no-arg constructor to create the instance from"));
+  }
 
-    @Override
-    public Object getIdentityToken() {
-        return identityToken.apply(this);
-    }
+  @Override
+  public Object get() {
+    return newInstance();
+  }
 
+  @Override
+  public TypeInheritance inheritance() {
+    return inheritance;
+  }
 
-    @Override
-    public Nary<Kind> kinds() {
-        return kinds.get();
-    }
+  @Override
+  public Nary<TypePackage> declaredPackage() {
+    return typePackage.get();
+  }
 
-    @Override
-    public boolean is(Kind testedKind) {
-        return this.kinds().anyMatch(testedKind::equals);
-    }
+  @Override
+  public Nary<TypeMember> members() {
+    // Need to cast to an upper type of element
+    Nary<TypeMember> fields = (Nary) fields().all();
+    return fields.concatStream(methods().all()).concatStream(constructors().all());
+  }
+
+  @Override
+  public Nary<Class<?>> nativeTypes() {
+    return rawClasses.get();
+  }
+
+  @Override
+  public Object getIdentityToken() {
+    return identityToken.apply(this);
+  }
 
 
-    @Override
-    public boolean isTypeFor(Object anObject) {
-        return typeForPredicate.test(anObject);
-    }
+  @Override
+  public Nary<Kind> kinds() {
+    return kinds.get();
+  }
 
-    @Override
-    public boolean isAssignableFrom(TypeInstance possibleSubtype) {
-        return assignabilityPredicate.test(possibleSubtype);
-    }
+  @Override
+  public boolean is(Kind testedKind) {
+    return this.kinds().anyMatch(testedKind::equals);
+  }
 
-    @Override
-    public boolean isAssignableTo(TypeInstance possibleSuperType) {
-        return possibleSuperType.isAssignableFrom(this);
-    }
 
-    protected void initializeSuper(TypeDescription description){
-        this.setNames(description.getNames());
-        this.setAnnotations(description.getAnnotations());
-        this.setMethods(description.getTypeMethods());
-        this.setFields(description.getTypeFields());
-        this.rawClasses = description.getRawClassesSupplier();
-        this.typePackage = description.getDeclaredPackage();
-        this.inheritance = SuppliedTypesInheritance.create(this, description.getInheritanceDescription());
-        this.identityToken = description.getIdentityToken();
-        this.kinds = description.getKindsFor(this);
-        this.typeForPredicate = description.getTypeForPredicate();
-        this.assignabilityPredicate = description.getAssignabilityPredicate();
-        this.generics = createGenericsInfoFrom(description);
-    }
+  @Override
+  public boolean isTypeFor(Object anObject) {
+    return typeForPredicate.test(anObject);
+  }
 
-    protected abstract TypeGenerics createGenericsInfoFrom(TypeDescription description);
+  @Override
+  public boolean isAssignableFrom(TypeInstance possibleSubtype) {
+    return assignabilityPredicate.test(possibleSubtype);
+  }
+
+  @Override
+  public boolean isAssignableTo(TypeInstance possibleSuperType) {
+    return possibleSuperType.isAssignableFrom(this);
+  }
+
+  protected void initializeSuper(TypeDescription description) {
+    this.setNames(description.getNames());
+    this.setAnnotations(description.getAnnotations());
+    this.setMethods(description.getTypeMethods());
+    this.setFields(description.getTypeFields());
+    this.rawClasses = description.getRawClassesSupplier();
+    this.typePackage = description.getDeclaredPackage();
+    this.inheritance = SuppliedTypesInheritance.create(this, description.getInheritanceDescription());
+    this.identityToken = description.getIdentityToken();
+    this.kinds = description.getKindsFor(this);
+    this.typeForPredicate = description.getTypeForPredicate();
+    this.assignabilityPredicate = description.getAssignabilityPredicate();
+    this.generics = createGenericsInfoFrom(description);
+  }
+
+  protected abstract TypeGenerics createGenericsInfoFrom(TypeDescription description);
 }

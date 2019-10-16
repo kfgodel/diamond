@@ -12,11 +12,11 @@ import java.util.function.Supplier;
  * This type represents the generics supplier for
  * Created by kfgodel on 01/11/14.
  */
-public class ExecutableGenericsSupplier{
+public class ExecutableGenericsSupplier {
 
-    public static Generics create(Executable nativeExecutable) {
-        Supplier<Nary<TypeInstance>> genericParametersSupplier = GenericTypeParametersSupplier.create(nativeExecutable);
-        return ParameterizedMemberGenerics.create(genericParametersSupplier);
-    }
+  public static Generics create(Executable nativeExecutable) {
+    Supplier<Nary<TypeInstance>> genericParametersSupplier = GenericTypeParametersSupplier.create(nativeExecutable);
+    return ParameterizedMemberGenerics.create(genericParametersSupplier);
+  }
 
 }

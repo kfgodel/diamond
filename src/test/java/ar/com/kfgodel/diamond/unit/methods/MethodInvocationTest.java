@@ -17,66 +17,66 @@ import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
  */
 @RunWith(JavaSpecRunner.class)
 public class MethodInvocationTest extends JavaSpec<DiamondTestContext> {
-    @Override
-    public void define() {
-        describe("TypeMethod as method invoker", () -> {
+  @Override
+  public void define() {
+    describe("TypeMethod as method invoker", () -> {
 
-            context().object(MethodInvocationTestObject::new);
-            context().typeInstance(() -> Diamond.of(context().object().getClass()));
-            context().method(() -> context().typeInstance().methods().named(context().name()).get());
+      context().object(MethodInvocationTestObject::new);
+      context().typeInstance(() -> Diamond.of(context().object().getClass()));
+      context().method(() -> context().typeInstance().methods().named(context().name()).get());
 
 
-            describe("accessibility", () -> {
-                it("can invoke public methods",()->{
-                    context().name(() -> "publicMethod");
+      describe("accessibility", () -> {
+        it("can invoke public methods", () -> {
+          context().name(() -> "publicMethod");
 
-                    Object result = context().method().invokeOn(context().object());
+          Object result = context().method().invokeOn(context().object());
 
-                    assertThat(result).isEqualTo(1);
-                });
-                it("can invoke protected methods",()->{
-                    context().name(() -> "protectedMethod");
-
-                    Object result = context().method().invokeOn(context().object());
-
-                    assertThat(result).isEqualTo(2);
-
-                });
-                it("can invoke default methods",()->{
-                    context().name(() -> "defaultMethod");
-
-                    Object result = context().method().invokeOn(context().object());
-
-                    assertThat(result).isEqualTo(3);
-
-                });
-                it("can invoke private methods",()->{
-                    context().name(() -> "privateMethod");
-
-                    Object result = context().method().invokeOn(context().object());
-
-                    assertThat(result).isEqualTo(4);
-                });
-            });
-
-            it("throws a special exception for method's own exceptions",()->{
-                context().name(()-> "exceptionMethod");
-
-                try {
-                    context().method().invokeOn(context().object());
-                    failBecauseExceptionWasNotThrown(HaltedMethodInvocationException.class);
-                } catch (HaltedMethodInvocationException e) {
-                    assertThat(e.getMessage())
-                            .startsWith("Invocation halted for method[")
-                            .endsWith("MethodInvocationTestObject.exceptionMethod()] and arguments[a test instance]: I don't finish successfully");
-                    assertThat(e.getHaltingCause()).hasMessage("I don't finish successfully");
-                    assertThat(e.getInvokedInstance()).isSameAs(context().object());
-                    assertThat(e.getInvokedArguments()).isEqualTo(new Object[]{context().object()});
-                    assertThat(e.getInvokedMethod().getName()).isEqualTo(context().name());
-                }
-            });   
-            
+          assertThat(result).isEqualTo(1);
         });
+        it("can invoke protected methods", () -> {
+          context().name(() -> "protectedMethod");
 
-    }
+          Object result = context().method().invokeOn(context().object());
+
+          assertThat(result).isEqualTo(2);
+
+        });
+        it("can invoke default methods", () -> {
+          context().name(() -> "defaultMethod");
+
+          Object result = context().method().invokeOn(context().object());
+
+          assertThat(result).isEqualTo(3);
+
+        });
+        it("can invoke private methods", () -> {
+          context().name(() -> "privateMethod");
+
+          Object result = context().method().invokeOn(context().object());
+
+          assertThat(result).isEqualTo(4);
+        });
+      });
+
+      it("throws a special exception for method's own exceptions", () -> {
+        context().name(() -> "exceptionMethod");
+
+        try {
+          context().method().invokeOn(context().object());
+          failBecauseExceptionWasNotThrown(HaltedMethodInvocationException.class);
+        } catch (HaltedMethodInvocationException e) {
+          assertThat(e.getMessage())
+            .startsWith("Invocation halted for method[")
+            .endsWith("MethodInvocationTestObject.exceptionMethod()] and arguments[a test instance]: I don't finish successfully");
+          assertThat(e.getHaltingCause()).hasMessage("I don't finish successfully");
+          assertThat(e.getInvokedInstance()).isSameAs(context().object());
+          assertThat(e.getInvokedArguments()).isEqualTo(new Object[]{context().object()});
+          assertThat(e.getInvokedMethod().getName()).isEqualTo(context().name());
+        }
+      });
+
+    });
+
+  }
 }

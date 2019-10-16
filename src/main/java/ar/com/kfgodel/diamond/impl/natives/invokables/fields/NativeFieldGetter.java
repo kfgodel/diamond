@@ -12,18 +12,18 @@ import java.util.function.Function;
  */
 public class NativeFieldGetter implements Function<Object, Object> {
 
-    private Field nativeField;
+  private Field nativeField;
 
-    @Override
-    public Object apply(Object instance) {
-        return NativeFieldGetterFragment.apply(nativeField, instance);
-    }
+  @Override
+  public Object apply(Object instance) {
+    return NativeFieldGetterFragment.apply(nativeField, instance);
+  }
 
-    public static NativeFieldGetter create(Field nativeField) {
-        NativeMemberAccessibility.ensuredFor(nativeField);
-        NativeFieldGetter getter = new NativeFieldGetter();
-        getter.nativeField = nativeField;
-        return getter;
-    }
+  public static NativeFieldGetter create(Field nativeField) {
+    NativeMemberAccessibility.ensuredFor(nativeField);
+    NativeFieldGetter getter = new NativeFieldGetter();
+    getter.nativeField = nativeField;
+    return getter;
+  }
 
 }

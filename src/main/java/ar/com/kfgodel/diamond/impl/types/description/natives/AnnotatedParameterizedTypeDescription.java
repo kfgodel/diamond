@@ -17,27 +17,27 @@ import java.util.function.Supplier;
  */
 public class AnnotatedParameterizedTypeDescription extends AnnotatedTypeDescriptionSupport {
 
-    private AnnotatedParameterizedType nativeType;
+  private AnnotatedParameterizedType nativeType;
 
-    @Override
-    protected AnnotatedType getAnnotatedType() {
-        return nativeType;
-    }
+  @Override
+  protected AnnotatedType getAnnotatedType() {
+    return nativeType;
+  }
 
-    @Override
-    protected TypeDescription createUnannotatedDescription() {
-        return ParameterizedTypeDescription.create((ParameterizedType) nativeType.getType());
-    }
+  @Override
+  protected TypeDescription createUnannotatedDescription() {
+    return ParameterizedTypeDescription.create((ParameterizedType) nativeType.getType());
+  }
 
-    @Override
-    public Supplier<Nary<TypeInstance>> getTypeArguments() {
-        return ParameterizedTypeArgumentsSupplier.create(nativeType);
-    }
+  @Override
+  public Supplier<Nary<TypeInstance>> getTypeArguments() {
+    return ParameterizedTypeArgumentsSupplier.create(nativeType);
+  }
 
-    public static AnnotatedParameterizedTypeDescription create(AnnotatedParameterizedType nativeType) {
-        AnnotatedParameterizedTypeDescription description = new AnnotatedParameterizedTypeDescription();
-        description.nativeType = nativeType;
-        return description;
-    }
+  public static AnnotatedParameterizedTypeDescription create(AnnotatedParameterizedType nativeType) {
+    AnnotatedParameterizedTypeDescription description = new AnnotatedParameterizedTypeDescription();
+    description.nativeType = nativeType;
+    return description;
+  }
 
 }

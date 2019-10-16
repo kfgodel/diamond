@@ -7,14 +7,14 @@ import java.util.function.Predicate;
  * Created by kfgodel on 03/02/15.
  */
 public class ArrayKind extends NativeClassKindSupport {
-    @Override
-    protected Predicate<Class<?>> getClassPredicate() {
-        return Class::isArray;
-    }
+  @Override
+  protected Predicate<Class<?>> getClassPredicate() {
+    return Class::isArray;
+  }
 
-    public static ArrayKind create() {
-        ArrayKind kind = new ArrayKind();
-        return kind;
-    }
+  public static ArrayKind create() {
+    ArrayKind kind = new ArrayKind();
+    return kind;
+  }
 
 }

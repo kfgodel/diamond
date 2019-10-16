@@ -17,64 +17,64 @@ import java.util.function.Supplier;
  */
 public class ParameterInstance implements ExecutableParameter {
 
-    private Supplier<TypeInstance> declaredType;
-    private Supplier<String> name;
-    private Supplier<Nary<Modifier>> modifiers;
-    private Supplier<Nary<Annotation>> annotations;
-    private Function<ExecutableParameter, Object> identityToken;
+  private Supplier<TypeInstance> declaredType;
+  private Supplier<String> name;
+  private Supplier<Nary<Modifier>> modifiers;
+  private Supplier<Nary<Annotation>> annotations;
+  private Function<ExecutableParameter, Object> identityToken;
 
-    @Override
-    public TypeInstance declaredType() {
-        return declaredType.get();
-    }
+  @Override
+  public TypeInstance declaredType() {
+    return declaredType.get();
+  }
 
-    public static ParameterInstance create(ParameterDescription description) {
-        ParameterInstance parameter = new ParameterInstance();
-        parameter.declaredType = description.getDeclaredType();
-        parameter.name = description.getName();
-        parameter.modifiers = description.getModifiers();
-        parameter.annotations = description.getAnnotations();
-        parameter.identityToken = description.getIdentityToken();
-        return parameter;
-    }
+  public static ParameterInstance create(ParameterDescription description) {
+    ParameterInstance parameter = new ParameterInstance();
+    parameter.declaredType = description.getDeclaredType();
+    parameter.name = description.getName();
+    parameter.modifiers = description.getModifiers();
+    parameter.annotations = description.getAnnotations();
+    parameter.identityToken = description.getIdentityToken();
+    return parameter;
+  }
 
-    @Override
-    public String name() {
-        return name.get();
-    }
+  @Override
+  public String name() {
+    return name.get();
+  }
 
-    @Override
-    public Nary<Modifier> modifiers() {
-        return modifiers.get();
-    }
+  @Override
+  public Nary<Modifier> modifiers() {
+    return modifiers.get();
+  }
 
-    @Override
-    public boolean is(Modifier expectedModifier) {
-        return modifiers().anyMatch(expectedModifier);
-    }
+  @Override
+  public boolean is(Modifier expectedModifier) {
+    return modifiers().anyMatch(expectedModifier);
+  }
 
-    @Override
-    public Nary<Annotation> annotations() {
-        return annotations.get();
-    }
+  @Override
+  public Nary<Annotation> annotations() {
+    return annotations.get();
+  }
 
-    @Override
-    public String toString() {
-        return DebugPrinter.print(this);
-    }
+  @Override
+  public String toString() {
+    return DebugPrinter.print(this);
+  }
 
-    @Override
-    public Object getIdentityToken() {
-        return identityToken.apply(this);
-    }
+  @Override
+  public Object getIdentityToken() {
+    return identityToken.apply(this);
+  }
 
-    @Override
-    public boolean equals(Object obj) {
-        return ParameterEquality.INSTANCE.areEquals(this, obj);
-    }
+  @Override
+  public boolean equals(Object obj) {
+    return ParameterEquality.INSTANCE.areEquals(this, obj);
+  }
 
-    @Override
-    public int hashCode() {
-        return getIdentityToken().hashCode();
-    }
+  @Override
+  public int hashCode() {
+    return getIdentityToken().hashCode();
+  }
 }

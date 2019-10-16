@@ -9,24 +9,24 @@ import java.lang.reflect.Method;
  */
 public class HeptaArgumentMethodInvoker extends MethodHandleInvokerSupport {
 
-    public static HeptaArgumentMethodInvoker create(Method nativeMethod) {
-        HeptaArgumentMethodInvoker invoker = new HeptaArgumentMethodInvoker();
-        invoker.setNativeMethod(nativeMethod);
-        return invoker;
-    }
+  public static HeptaArgumentMethodInvoker create(Method nativeMethod) {
+    HeptaArgumentMethodInvoker invoker = new HeptaArgumentMethodInvoker();
+    invoker.setNativeMethod(nativeMethod);
+    return invoker;
+  }
 
-    @Override
-    protected int getExpectedArgumentCount() {
-        return 7;
-    }
+  @Override
+  protected int getExpectedArgumentCount() {
+    return 7;
+  }
 
-    @Override
-    protected Object realInvocation(Object[] arguments) throws Throwable {
-        return methodHandle.invoke(arguments[0], arguments[1], arguments[2], arguments[3], arguments[4], arguments[5], arguments[6]);
-    }
+  @Override
+  protected Object realInvocation(Object[] arguments) throws Throwable {
+    return methodHandle.invoke(arguments[0], arguments[1], arguments[2], arguments[3], arguments[4], arguments[5], arguments[6]);
+  }
 
-    @Override
-    protected MethodType getExpectedMethodType() {
-        return MethodType.methodType(Object.class, Object.class, Object.class, Object.class, Object.class, Object.class, Object.class, Object.class);
-    }
+  @Override
+  protected MethodType getExpectedMethodType() {
+    return MethodType.methodType(Object.class, Object.class, Object.class, Object.class, Object.class, Object.class, Object.class, Object.class);
+  }
 }

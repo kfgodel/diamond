@@ -9,13 +9,13 @@ import java.lang.reflect.Modifier;
  * Created by kfgodel on 19/10/14.
  */
 public class TransientModifier extends ModifierSupport {
-    protected TransientModifier() {
-        super(Modifier.TRANSIENT, "transient");
-    }
+  protected TransientModifier() {
+    super(Modifier.TRANSIENT, "transient");
+  }
 
-    public static TransientModifier create() {
-        TransientModifier modifier = new TransientModifier();
-        return modifier;
-    }
+  public static TransientModifier create() {
+    TransientModifier modifier = new TransientModifier();
+    return modifier;
+  }
 
 }

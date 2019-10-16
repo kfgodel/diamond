@@ -22,101 +22,101 @@ import java.util.function.Supplier;
  * Created by kfgodel on 29/09/14.
  */
 public abstract class DelegatedDescriptionSupport implements TypeDescription {
-    
-    @Override
-    public Supplier<TypeNames> getNames() {
-        return getDelegateDescription().getNames();
-    }
 
-    @Override
-    public Supplier<Nary<Annotation>> getAnnotations() {
-        return getDelegateDescription().getAnnotations();
-    }
+  @Override
+  public Supplier<TypeNames> getNames() {
+    return getDelegateDescription().getNames();
+  }
 
-    @Override
-    public InheritanceDescription getInheritanceDescription() {
-        return getDelegateDescription().getInheritanceDescription();
-    }
+  @Override
+  public Supplier<Nary<Annotation>> getAnnotations() {
+    return getDelegateDescription().getAnnotations();
+  }
 
-    @Override
-    public Supplier<Nary<TypeInstance>> getTypeArguments() {
-        return getDelegateDescription().getTypeArguments();
-    }
+  @Override
+  public InheritanceDescription getInheritanceDescription() {
+    return getDelegateDescription().getInheritanceDescription();
+  }
 
-    @Override
-    public Supplier<Nary<TypeInstance>> getTypeParametersSupplier() {
-        return getDelegateDescription().getTypeParametersSupplier();
-    }
+  @Override
+  public Supplier<Nary<TypeInstance>> getTypeArguments() {
+    return getDelegateDescription().getTypeArguments();
+  }
 
-    @Override
-    public Supplier<Nary<TypeInstance>> getComponentType() {
-        return getDelegateDescription().getComponentType();
-    }
+  @Override
+  public Supplier<Nary<TypeInstance>> getTypeParametersSupplier() {
+    return getDelegateDescription().getTypeParametersSupplier();
+  }
 
-    @Override
-    public Supplier<TypeBounds> getBounds() {
-        return getDelegateDescription().getBounds();
-    }
+  @Override
+  public Supplier<Nary<TypeInstance>> getComponentType() {
+    return getDelegateDescription().getComponentType();
+  }
 
-    @Override
-    public boolean isForVariableType() {
-        return getDelegateDescription().isForVariableType();
-    }
+  @Override
+  public Supplier<TypeBounds> getBounds() {
+    return getDelegateDescription().getBounds();
+  }
 
-    @Override
-    public Supplier<Nary<TypeMethod>> getTypeMethods() {
-        return getDelegateDescription().getTypeMethods();
-    }
+  @Override
+  public boolean isForVariableType() {
+    return getDelegateDescription().isForVariableType();
+  }
 
-    @Override
-    public Supplier<Nary<TypeField>> getTypeFields() {
-        return getDelegateDescription().getTypeFields();
-    }
+  @Override
+  public Supplier<Nary<TypeMethod>> getTypeMethods() {
+    return getDelegateDescription().getTypeMethods();
+  }
 
-    @Override
-    public Supplier<Nary<TypeConstructor>> getTypeConstructors() {
-        return getDelegateDescription().getTypeConstructors();
-    }
+  @Override
+  public Supplier<Nary<TypeField>> getTypeFields() {
+    return getDelegateDescription().getTypeFields();
+  }
 
-    @Override
-    public Supplier<Nary<TypePackage>> getDeclaredPackage() {
-        return getDelegateDescription().getDeclaredPackage();
-    }
+  @Override
+  public Supplier<Nary<TypeConstructor>> getTypeConstructors() {
+    return getDelegateDescription().getTypeConstructors();
+  }
 
-    protected abstract TypeDescription getDelegateDescription();
+  @Override
+  public Supplier<Nary<TypePackage>> getDeclaredPackage() {
+    return getDelegateDescription().getDeclaredPackage();
+  }
 
-    @Override
-    public Supplier<Nary<Class<?>>> getRawClassesSupplier() {
-        return getDelegateDescription().getRawClassesSupplier();
-    }
+  protected abstract TypeDescription getDelegateDescription();
 
-    @Override
-    public Function<TypeInstance, Object> getIdentityToken() {
-        return getDelegateDescription().getIdentityToken();
-    }
+  @Override
+  public Supplier<Nary<Class<?>>> getRawClassesSupplier() {
+    return getDelegateDescription().getRawClassesSupplier();
+  }
 
-    @Override
-    public Supplier<Nary<Kind>> getKindsFor(TypeInstance type) {
-        return getDelegateDescription().getKindsFor(type);
-    }
+  @Override
+  public Function<TypeInstance, Object> getIdentityToken() {
+    return getDelegateDescription().getIdentityToken();
+  }
 
-    @Override
-    public Predicate<Object> getTypeForPredicate() {
-        return getDelegateDescription().getTypeForPredicate();
-    }
+  @Override
+  public Supplier<Nary<Kind>> getKindsFor(TypeInstance type) {
+    return getDelegateDescription().getKindsFor(type);
+  }
 
-    @Override
-    public Predicate<TypeInstance> getAssignabilityPredicate() {
-        return getDelegateDescription().getAssignabilityPredicate();
-    }
+  @Override
+  public Predicate<Object> getTypeForPredicate() {
+    return getDelegateDescription().getTypeForPredicate();
+  }
 
-    @Override
-    public Supplier<TypeInstance> getRuntimeType() {
-        return getDelegateDescription().getRuntimeType();
-    }
+  @Override
+  public Predicate<TypeInstance> getAssignabilityPredicate() {
+    return getDelegateDescription().getAssignabilityPredicate();
+  }
 
-    @Override
-    public Supplier<Nary<Class<?>>> getRawClassSupplier() {
-        return getDelegateDescription().getRawClassSupplier();
-    }
+  @Override
+  public Supplier<TypeInstance> getRuntimeType() {
+    return getDelegateDescription().getRuntimeType();
+  }
+
+  @Override
+  public Supplier<Nary<Class<?>>> getRawClassSupplier() {
+    return getDelegateDescription().getRawClassSupplier();
+  }
 }

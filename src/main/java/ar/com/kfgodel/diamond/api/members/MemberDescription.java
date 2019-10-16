@@ -16,45 +16,46 @@ import java.util.function.Supplier;
  */
 public interface MemberDescription {
 
-    /**
-     * @return The supplier of the type that declared the member
-     */
-    Supplier<TypeInstance> getDeclaringType();
+  /**
+   * @return The supplier of the type that declared the member
+   */
+  Supplier<TypeInstance> getDeclaringType();
 
-    /**
-     * @return The supplier of modifiers applied to the member
-     */
-    Supplier<Nary<Modifier>> getModifiers();
+  /**
+   * @return The supplier of modifiers applied to the member
+   */
+  Supplier<Nary<Modifier>> getModifiers();
 
-    /**
-     * @return The supplier of the member invoker function
-     */
-    Supplier<PolymorphicInvokable> getInvoker();
+  /**
+   * @return The supplier of the member invoker function
+   */
+  Supplier<PolymorphicInvokable> getInvoker();
 
-    /**
-     * @return The supplier to get the member name
-     */
-    Supplier<String> getName();
+  /**
+   * @return The supplier to get the member name
+   */
+  Supplier<String> getName();
 
-    /**
-     * @return The supplier for member's annotations
-     */
-    Supplier<Nary<Annotation>> getAnnotations();
+  /**
+   * @return The supplier for member's annotations
+   */
+  Supplier<Nary<Annotation>> getAnnotations();
 
-    /**
-     * @return The supplier of member's generics information
-     */
-    Supplier<Generics> getGenerics();
+  /**
+   * @return The supplier of member's generics information
+   */
+  Supplier<Generics> getGenerics();
 
-    /**
-     * @return the supplier of declared exceptions for this member
-     */
-    Supplier<Nary<TypeInstance>> getDeclaredExceptions();
+  /**
+   * @return the supplier of declared exceptions for this member
+   */
+  Supplier<Nary<TypeInstance>> getDeclaredExceptions();
 
-    /**
-     * The supplier of parameters of the described member
-     * @return The parameters supplier
-     */
-    Supplier<Nary<ExecutableParameter>> getParameters();
+  /**
+   * The supplier of parameters of the described member
+   *
+   * @return The parameters supplier
+   */
+  Supplier<Nary<ExecutableParameter>> getParameters();
 
 }

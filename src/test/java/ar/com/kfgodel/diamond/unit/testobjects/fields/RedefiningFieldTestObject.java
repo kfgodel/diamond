@@ -6,7 +6,7 @@ package ar.com.kfgodel.diamond.unit.testobjects.fields;
  */
 public class RedefiningFieldTestObject extends RedefinedFieldTestObject {
 
-    private int uniqueField;
+  private int uniqueField;
 
-    public int duplicatedField ;
+  public int duplicatedField;
 }

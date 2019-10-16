@@ -9,9 +9,10 @@ import ar.com.kfgodel.nary.api.Nary;
  */
 public interface Exceptionable {
 
-    /**
-     * The set of declared exceptions for this element
-     * @return The stream containing all the exceptions or empty if none declared
-     */
-    Nary<TypeInstance> declaredExceptions();
+  /**
+   * The set of declared exceptions for this element
+   *
+   * @return The stream containing all the exceptions or empty if none declared
+   */
+  Nary<TypeInstance> declaredExceptions();
 }

@@ -6,8 +6,8 @@ package ar.com.kfgodel.diamond.unit.testobjects.equality;
  */
 public class ConstructorEqualityTestObjectB {
 
-    ConstructorEqualityTestObjectB(){
+  ConstructorEqualityTestObjectB() {
 
-    }
+  }
 
 }

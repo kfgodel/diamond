@@ -9,24 +9,24 @@ import java.lang.reflect.Method;
  */
 public class TriArgumentMethodInvoker extends MethodHandleInvokerSupport {
 
-    public static TriArgumentMethodInvoker create(Method nativeMethod) {
-        TriArgumentMethodInvoker invoker = new TriArgumentMethodInvoker();
-        invoker.setNativeMethod(nativeMethod);
-        return invoker;
-    }
+  public static TriArgumentMethodInvoker create(Method nativeMethod) {
+    TriArgumentMethodInvoker invoker = new TriArgumentMethodInvoker();
+    invoker.setNativeMethod(nativeMethod);
+    return invoker;
+  }
 
-    @Override
-    protected int getExpectedArgumentCount() {
-        return 3;
-    }
+  @Override
+  protected int getExpectedArgumentCount() {
+    return 3;
+  }
 
-    @Override
-    protected Object realInvocation(Object[] arguments) throws Throwable {
-        return methodHandle.invoke(arguments[0], arguments[1], arguments[2]);
-    }
+  @Override
+  protected Object realInvocation(Object[] arguments) throws Throwable {
+    return methodHandle.invoke(arguments[0], arguments[1], arguments[2]);
+  }
 
-    @Override
-    protected MethodType getExpectedMethodType() {
-        return MethodType.methodType(Object.class, Object.class, Object.class, Object.class);
-    }
+  @Override
+  protected MethodType getExpectedMethodType() {
+    return MethodType.methodType(Object.class, Object.class, Object.class, Object.class);
+  }
 }

@@ -6,8 +6,8 @@ package ar.com.kfgodel.diamond.api.declaration;
  */
 public interface Declarable {
 
-    /**
-     * @return The source code declaration equivalent of this instance (or approximate)
-     */
-    String declaration();
+  /**
+   * @return The source code declaration equivalent of this instance (or approximate)
+   */
+  String declaration();
 }

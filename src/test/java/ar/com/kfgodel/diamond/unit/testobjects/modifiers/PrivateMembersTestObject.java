@@ -6,13 +6,13 @@ package ar.com.kfgodel.diamond.unit.testobjects.modifiers;
  */
 public class PrivateMembersTestObject {
 
-    private PrivateMembersTestObject(){
+  private PrivateMembersTestObject() {
 
-    }
+  }
 
-    private int field;
+  private int field;
 
-    private void method(){
-        
-    }
+  private void method() {
+
+  }
 }

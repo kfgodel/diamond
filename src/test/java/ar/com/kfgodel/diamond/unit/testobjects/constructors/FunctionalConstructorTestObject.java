@@ -6,15 +6,15 @@ package ar.com.kfgodel.diamond.unit.testobjects.constructors;
  */
 public class FunctionalConstructorTestObject {
 
-    FunctionalConstructorTestObject(){
+  FunctionalConstructorTestObject() {
 
-    }
+  }
 
-    FunctionalConstructorTestObject(Integer a){
+  FunctionalConstructorTestObject(Integer a) {
 
-    }
+  }
 
-    FunctionalConstructorTestObject(Integer a, String b){
+  FunctionalConstructorTestObject(Integer a, String b) {
 
-    }
+  }
 }

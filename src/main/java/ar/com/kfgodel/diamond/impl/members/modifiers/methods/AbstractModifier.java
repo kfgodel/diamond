@@ -9,13 +9,13 @@ import java.lang.reflect.Modifier;
  * Created by kfgodel on 19/10/14.
  */
 public class AbstractModifier extends ModifierSupport {
-    protected AbstractModifier() {
-        super(Modifier.ABSTRACT, "abstract");
-    }
+  protected AbstractModifier() {
+    super(Modifier.ABSTRACT, "abstract");
+  }
 
-    public static AbstractModifier create() {
-        AbstractModifier modifier = new AbstractModifier();
-        return modifier;
-    }
+  public static AbstractModifier create() {
+    AbstractModifier modifier = new AbstractModifier();
+    return modifier;
+  }
 
 }

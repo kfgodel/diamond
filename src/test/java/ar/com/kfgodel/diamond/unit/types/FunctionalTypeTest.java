@@ -24,51 +24,52 @@ import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
  */
 @RunWith(JavaSpecRunner.class)
 public class FunctionalTypeTest extends JavaSpec<DiamondTestContext> {
-    @Override
-    public void define() {
-        describe("type as function", () -> {
+  @Override
+  public void define() {
+    describe("type as function", () -> {
 
-            it("is a supplier of new instances",()->{
-                Supplier<Object> supplier = Diamond.of(PublicMembersTestObject.class);
+      it("is a supplier of new instances", () -> {
+        Supplier<Object> supplier = Diamond.of(PublicMembersTestObject.class);
 
-                Object createdInstance = supplier.get();
+        Object createdInstance = supplier.get();
 
-                assertThat(createdInstance).isInstanceOf(PublicMembersTestObject.class);
-            });
+        assertThat(createdInstance).isInstanceOf(PublicMembersTestObject.class);
+      });
 
-            it("throws an error for type variables or wildcards",()->{
-                Supplier<Object> supplier = getChildClassSubTypeWildcardType();
+      it("throws an error for type variables or wildcards", () -> {
+        Supplier<Object> supplier = getChildClassSubTypeWildcardType();
 
-                try {
-                    supplier.get();
-                    failBecauseExceptionWasNotThrown(DiamondException.class);
-                } catch (DiamondException e) {
-                    assertThat(e).hasMessage("Type[? extends ChildClass] doesn't have a no-arg constructor to create the instance from");
-                }
-            });
+        try {
+          supplier.get();
+          failBecauseExceptionWasNotThrown(DiamondException.class);
+        } catch (DiamondException e) {
+          assertThat(e).hasMessage("Type[? extends ChildClass] doesn't have a no-arg constructor to create the instance from");
+        }
+      });
 
 
-            it("throws an error for array types or other non niladic constructor types",()->{
-                Supplier<Object> supplier = Diamond.of(String [].class);
+      it("throws an error for array types or other non niladic constructor types", () -> {
+        Supplier<Object> supplier = Diamond.of(String[].class);
 
-                try {
-                    supplier.get();
-                    failBecauseExceptionWasNotThrown(DiamondException.class);
-                } catch (DiamondException e) {
-                    assertThat(e).hasMessage("Type[String[]] doesn't have a no-arg constructor to create the instance from");
-                }
-            });
-        });
-    }
+        try {
+          supplier.get();
+          failBecauseExceptionWasNotThrown(DiamondException.class);
+        } catch (DiamondException e) {
+          assertThat(e).hasMessage("Type[String[]] doesn't have a no-arg constructor to create the instance from");
+        }
+      });
+    });
+  }
 
-    private static TypeInstance getChildClassSubTypeWildcardType(){
-        return getTypeFrom(new ReferenceOf<List<? extends ChildClass>>() {}).generics().arguments().findFirst().get();
-    }
+  private static TypeInstance getChildClassSubTypeWildcardType() {
+    return getTypeFrom(new ReferenceOf<List<? extends ChildClass>>() {
+    }).generics().arguments().findFirst().get();
+  }
 
-    private static TypeInstance getTypeFrom(ReferenceOf<?> reference) {
-        AnnotatedType annotatedType = reference.getReferencedAnnotatedType();
-        TypeInstance typeInstance = Diamond.types().from(annotatedType);
-        return typeInstance;
-    }
+  private static TypeInstance getTypeFrom(ReferenceOf<?> reference) {
+    AnnotatedType annotatedType = reference.getReferencedAnnotatedType();
+    TypeInstance typeInstance = Diamond.types().from(annotatedType);
+    return typeInstance;
+  }
 
 }

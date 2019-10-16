@@ -6,31 +6,30 @@ package ar.com.kfgodel.diamond.unit.testobjects.annotations;
  */
 public class MemberAnnotationTestObject {
 
-    int unannotatedField;
+  int unannotatedField;
 
-    @TestAnnotation1
-    @TestAnnotation2
-    int annotatedField;
+  @TestAnnotation1
+  @TestAnnotation2
+  int annotatedField;
 
-    void unannotatedMethod(){
+  void unannotatedMethod() {
 
-    }
+  }
 
-    @TestAnnotation1
-    @TestAnnotation2
-    void annotatedMethod(){
+  @TestAnnotation1
+  @TestAnnotation2
+  void annotatedMethod() {
 
 
-    }
+  }
 
-    MemberAnnotationTestObject(){
+  MemberAnnotationTestObject() {
 
-    }
+  }
 
-    @TestAnnotation1
-    @TestAnnotation2
-    MemberAnnotationTestObject(Integer a){
+  @TestAnnotation1
+  @TestAnnotation2 MemberAnnotationTestObject(Integer a) {
 
-    }
+  }
 
 }

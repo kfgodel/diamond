@@ -6,6 +6,8 @@ package ar.com.kfgodel.diamond.unit.testobjects.modifiers;
  */
 public class StaticMembersTestObject {
 
-    static int field;
-    static void method(){}
+  static int field;
+
+  static void method() {
+  }
 }

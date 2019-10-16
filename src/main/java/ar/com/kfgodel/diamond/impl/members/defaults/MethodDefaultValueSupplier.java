@@ -11,20 +11,20 @@ import java.util.function.Supplier;
  */
 public class MethodDefaultValueSupplier implements Supplier<Nary<Object>> {
 
-    private Method nativeMethod;
+  private Method nativeMethod;
 
-    public static Supplier<Nary<Object>> create(Method nativeMethod) {
-        MethodDefaultValueSupplier supplier = new MethodDefaultValueSupplier();
-        supplier.nativeMethod = nativeMethod;
-        return supplier;
-    }
+  public static Supplier<Nary<Object>> create(Method nativeMethod) {
+    MethodDefaultValueSupplier supplier = new MethodDefaultValueSupplier();
+    supplier.nativeMethod = nativeMethod;
+    return supplier;
+  }
 
-    @Override
-    public Nary<Object> get() {
-        Object value = nativeMethod.getDefaultValue();
-        if(value == null){
-            return Nary.empty();
-        }
-        return Nary.of(value);
+  @Override
+  public Nary<Object> get() {
+    Object value = nativeMethod.getDefaultValue();
+    if (value == null) {
+      return Nary.empty();
     }
+    return Nary.of(value);
+  }
 }

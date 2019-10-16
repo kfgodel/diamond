@@ -15,11 +15,11 @@ import java.util.stream.Collectors;
  */
 public class VariableTypeInterfaceSupplier {
 
-    public static Supplier<Nary<TypeInstance>> create(Set<Class<?>> rawClasses) {
-        return NaryFromCollectionSupplier.lazilyBy(() -> rawClasses.stream()
-                        .filter(Class::isInterface)
-                        .map(Diamond::of)
-                        .collect(Collectors.toList())
-        );
-    }
+  public static Supplier<Nary<TypeInstance>> create(Set<Class<?>> rawClasses) {
+    return NaryFromCollectionSupplier.lazilyBy(() -> rawClasses.stream()
+      .filter(Class::isInterface)
+      .map(Diamond::of)
+      .collect(Collectors.toList())
+    );
+  }
 }

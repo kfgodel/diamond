@@ -6,5 +6,5 @@ package ar.com.kfgodel.diamond.unit.testobjects.fields;
  */
 public class RedefinedFieldTestObject {
 
-    protected int duplicatedField;
+  protected int duplicatedField;
 }

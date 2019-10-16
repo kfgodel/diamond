@@ -9,27 +9,27 @@ import java.util.function.Supplier;
 
 /**
  * This type represents the description of a native package
- *
+ * <p>
  * Created by kfgodel on 05/11/14.
  */
 public class NativePackageDescription implements PackageDescription {
 
-    private Package nativePackage;
+  private Package nativePackage;
 
 
-    public static PackageDescription create(Package nativePackage) {
-        NativePackageDescription description = new NativePackageDescription();
-        description.nativePackage = nativePackage;
-        return description;
-    }
+  public static PackageDescription create(Package nativePackage) {
+    NativePackageDescription description = new NativePackageDescription();
+    description.nativePackage = nativePackage;
+    return description;
+  }
 
-    @Override
-    public Supplier<String> getNameSupplier() {
-        return nativePackage::getName;
-    }
+  @Override
+  public Supplier<String> getNameSupplier() {
+    return nativePackage::getName;
+  }
 
-    @Override
-    public Supplier<Nary<Annotation>> getAnnotationsSupplier() {
-        return AnnotatedElementAnnotationsSupplier.create(nativePackage);
-    }
+  @Override
+  public Supplier<Nary<Annotation>> getAnnotationsSupplier() {
+    return AnnotatedElementAnnotationsSupplier.create(nativePackage);
+  }
 }

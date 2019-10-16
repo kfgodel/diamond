@@ -10,16 +10,17 @@ public class PolyAdapterEquality {
 
   /**
    * Compares the given adapter with the object indicating if they are equals.<br>
-   *     They are equals if have same declaration
+   * They are equals if have same declaration
+   *
    * @param one The modifier to compare
    * @param obj The object to be compared with
    * @return true if represent the same code
    */
-  public boolean areEquals(PolyAdapter one, Object obj){
-    if(one == obj){
+  public boolean areEquals(PolyAdapter one, Object obj) {
+    if (one == obj) {
       return true;
     }
-    if(one == null || obj == null || !(obj instanceof PolyAdapter)){
+    if (one == null || obj == null || !(obj instanceof PolyAdapter)) {
       return false;
     }
     PolyAdapter other = (PolyAdapter) obj;
@@ -28,10 +29,11 @@ public class PolyAdapterEquality {
 
   /**
    * Generates the hashcode compatible with this equality definition
+   *
    * @param adapter The modifier to hash
    * @return The code that can be compared
    */
-  public int hashcodeFor(PolyAdapter adapter){
+  public int hashcodeFor(PolyAdapter adapter) {
     return adapter.adaptedCode().hashCode();
   }
 

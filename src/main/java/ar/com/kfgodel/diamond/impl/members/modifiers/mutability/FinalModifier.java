@@ -9,13 +9,13 @@ import java.lang.reflect.Modifier;
  * Created by kfgodel on 19/10/14.
  */
 public class FinalModifier extends ModifierSupport {
-    protected FinalModifier() {
-        super(Modifier.FINAL, "final");
-    }
+  protected FinalModifier() {
+    super(Modifier.FINAL, "final");
+  }
 
-    public static FinalModifier create() {
-        FinalModifier modifier = new FinalModifier();
-        return modifier;
-    }
+  public static FinalModifier create() {
+    FinalModifier modifier = new FinalModifier();
+    return modifier;
+  }
 
 }

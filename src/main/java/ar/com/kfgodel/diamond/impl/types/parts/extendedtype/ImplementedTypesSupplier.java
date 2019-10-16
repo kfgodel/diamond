@@ -20,38 +20,38 @@ import java.util.stream.Stream;
  * Created by kfgodel on 12/02/15.
  */
 public class ImplementedTypesSupplier implements Supplier<Nary<TypeInstance>> {
-    private NaryFromCollectionSupplier<TypeInstance> implementedTypes;
+  private NaryFromCollectionSupplier<TypeInstance> implementedTypes;
 
-    @Override
-    public Nary<TypeInstance> get() {
-        return implementedTypes.get();
+  @Override
+  public Nary<TypeInstance> get() {
+    return implementedTypes.get();
+  }
+
+
+  public static Supplier<Nary<TypeInstance>> create(Class<?> nativeClass, Stream<TypeInstance> typeArguments) {
+    ImplementedTypesSupplier supplier = new ImplementedTypesSupplier();
+    supplier.implementedTypes = NaryFromCollectionSupplier.lazilyBy(() -> describeImplementedTypes(nativeClass, typeArguments));
+    return supplier;
+  }
+
+  private static Collection<TypeInstance> describeImplementedTypes(Class<?> nativeClass, Stream<TypeInstance> typeArguments) {
+    AnnotatedType[] annotatedInterfaces = nativeClass.getAnnotatedInterfaces();
+    if (annotatedInterfaces.length == 0) {
+      //Optimization if there are no interfaces
+      return Collections.emptyList();
     }
+    List<TypeInstance> actualArguments = typeArguments.collect(Collectors.toList());
 
 
-    public static Supplier<Nary<TypeInstance>> create(Class<?> nativeClass, Stream<TypeInstance> typeArguments) {
-        ImplementedTypesSupplier supplier = new ImplementedTypesSupplier();
-        supplier.implementedTypes = NaryFromCollectionSupplier.lazilyBy(() -> describeImplementedTypes(nativeClass, typeArguments));
-        return supplier;
+    List<TypeInstance> describedTypes = new ArrayList<>(annotatedInterfaces.length);
+    Type[] genericInterfaces = nativeClass.getGenericInterfaces();
+    for (int i = 0; i < annotatedInterfaces.length; i++) {
+      AnnotatedType annotatedInterface = annotatedInterfaces[i];
+      Type genericInterface = genericInterfaces[i];
+      TypeInstance describedType = Diamond.types().fromParameterizedNativeTypes(nativeClass, actualArguments, annotatedInterface, genericInterface);
+      describedTypes.add(describedType);
     }
-
-    private static Collection<TypeInstance> describeImplementedTypes(Class<?> nativeClass, Stream<TypeInstance> typeArguments) {
-        AnnotatedType[] annotatedInterfaces = nativeClass.getAnnotatedInterfaces();
-        if(annotatedInterfaces.length == 0){
-            //Optimization if there are no interfaces
-            return Collections.emptyList();
-        }
-        List<TypeInstance> actualArguments = typeArguments.collect(Collectors.toList());
-
-
-        List<TypeInstance> describedTypes = new ArrayList<>(annotatedInterfaces.length);
-        Type[] genericInterfaces = nativeClass.getGenericInterfaces();
-        for (int i = 0; i < annotatedInterfaces.length; i++) {
-            AnnotatedType annotatedInterface = annotatedInterfaces[i];
-            Type genericInterface = genericInterfaces[i];
-            TypeInstance describedType = Diamond.types().fromParameterizedNativeTypes(nativeClass, actualArguments, annotatedInterface, genericInterface);
-            describedTypes.add(describedType);
-        }
-        return describedTypes;
-    }
+    return describedTypes;
+  }
 
 }

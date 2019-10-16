@@ -13,7 +13,7 @@ import java.util.function.Function;
  */
 public class TypeInstanceSpliterator {
 
-    public static Spliterator<TypeInstance> create(TypeInstance firstInstance, Function<? super TypeInstance, Nary<? extends TypeInstance>> advanceOperation ) {
-        return GeneratorSpliterator.create(Nary.of(firstInstance), advanceOperation, Spliterator.DISTINCT & Spliterator.IMMUTABLE & Spliterator.NONNULL & Spliterator.ORDERED);
-    }
+  public static Spliterator<TypeInstance> create(TypeInstance firstInstance, Function<? super TypeInstance, Nary<? extends TypeInstance>> advanceOperation) {
+    return GeneratorSpliterator.create(Nary.of(firstInstance), advanceOperation, Spliterator.DISTINCT & Spliterator.IMMUTABLE & Spliterator.NONNULL & Spliterator.ORDERED);
+  }
 }

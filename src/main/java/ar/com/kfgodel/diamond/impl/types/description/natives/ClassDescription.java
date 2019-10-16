@@ -14,22 +14,22 @@ import java.util.function.Supplier;
  */
 public class ClassDescription extends UnannotatedFixedTypeDescriptionSupport {
 
-    private Class<?> nativeType;
+  private Class<?> nativeType;
 
-    @Override
-    protected Type getNativeType() {
-        return nativeType;
-    }
+  @Override
+  protected Type getNativeType() {
+    return nativeType;
+  }
 
-    @Override
-    public Supplier<Nary<TypeInstance>> getComponentType() {
-        return ArrayComponentTypeSupplier.create(nativeType);
-    }
+  @Override
+  public Supplier<Nary<TypeInstance>> getComponentType() {
+    return ArrayComponentTypeSupplier.create(nativeType);
+  }
 
-    public static ClassDescription create(Class<?> nativeType) {
-        ClassDescription description = new ClassDescription();
-        description.nativeType = nativeType;
-        return description;
-    }
+  public static ClassDescription create(Class<?> nativeType) {
+    ClassDescription description = new ClassDescription();
+    description.nativeType = nativeType;
+    return description;
+  }
 
 }

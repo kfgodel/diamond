@@ -13,26 +13,26 @@ import java.lang.reflect.Type;
  */
 public class NoConstructors implements TypeConstructors {
 
-    public static final NoConstructors INSTANCE = new NoConstructors();
+  public static final NoConstructors INSTANCE = new NoConstructors();
 
-    @Override
-    public Nary<TypeConstructor> all() {
-        return Nary.empty();
-    }
+  @Override
+  public Nary<TypeConstructor> all() {
+    return Nary.empty();
+  }
 
-    @Override
-    public Nary<TypeConstructor> niladic() {
-        return Nary.empty();
-    }
+  @Override
+  public Nary<TypeConstructor> niladic() {
+    return Nary.empty();
+  }
 
-    @Override
-    public Nary<TypeConstructor> withParameters(TypeInstance... paramTypes) {
-        return Nary.empty();
-    }
+  @Override
+  public Nary<TypeConstructor> withParameters(TypeInstance... paramTypes) {
+    return Nary.empty();
+  }
 
-    @Override
-    public Nary<TypeConstructor> withNativeParameters(Type... parameterTypes) {
-        return Nary.empty();
-    }
+  @Override
+  public Nary<TypeConstructor> withNativeParameters(Type... parameterTypes) {
+    return Nary.empty();
+  }
 
 }

@@ -9,13 +9,13 @@ import java.lang.reflect.Modifier;
  * Created by kfgodel on 18/10/14.
  */
 public class PrivateModifier extends ModifierSupport {
-    protected PrivateModifier() {
-        super(Modifier.PRIVATE, "private");
-    }
+  protected PrivateModifier() {
+    super(Modifier.PRIVATE, "private");
+  }
 
-    public static PrivateModifier create() {
-        PrivateModifier modifier = new PrivateModifier();
-        return modifier;
-    }
+  public static PrivateModifier create() {
+    PrivateModifier modifier = new PrivateModifier();
+    return modifier;
+  }
 
 }

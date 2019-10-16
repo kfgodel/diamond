@@ -21,52 +21,52 @@ import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
  */
 @RunWith(JavaSpecRunner.class)
 public class FieldByNameTest extends JavaSpec<DiamondTestContext> {
-    @Override
-    public void define() {
-        describe("field accessed by name", () -> {
+  @Override
+  public void define() {
+    describe("field accessed by name", () -> {
 
-            context().object(RedefiningFieldTestObject::new);
-            context().typeInstance(()-> Diamond.of(context().object().getClass()));
+      context().object(RedefiningFieldTestObject::new);
+      context().typeInstance(() -> Diamond.of(context().object().getClass()));
 
-            it("can have no match",()->{
-                Stream<TypeField> matchingFields = context().typeInstance().fields().named("nonExistingField");
-                assertThat(matchingFields.count()).isEqualTo(0);
-            });
+      it("can have no match", () -> {
+        Stream<TypeField> matchingFields = context().typeInstance().fields().named("nonExistingField");
+        assertThat(matchingFields.count()).isEqualTo(0);
+      });
 
-            it("can have more than one match",()->{
-                Stream<TypeField> matchingFields = context().typeInstance().fields().named("duplicatedField");
-                assertThat(matchingFields.count()).isEqualTo(2);
-            });   
-            
-            it("can assume only one optional occurrence",()->{
-                ar.com.kfgodel.nary.api.optionals.Optional<TypeField> matchingFields = context().typeInstance().fields().named("uniqueField");
-                assertThat(matchingFields.isPresent()).isTrue();
-            });
-            
-            it("throws exception if more than one match when unique assumed",()->{
-                try {
-                    context().typeInstance().fields().named("duplicatedField").isPresent();
-                    failBecauseExceptionWasNotThrown(MoreThanOneElementException.class);
-                } catch (MoreThanOneElementException e) {
-                    assertThat(e).hasMessage("Expecting 1 element in the stream to create an optional but found at least 2: [duplicatedField @ RedefiningFieldTestObject, duplicatedField @ RedefinedFieldTestObject]");
-                }
-            });
-            
-            
-            it("can assume a non optional occurrence",()->{
-                TypeField matchingField = context().typeInstance().fields().named("uniqueField").get();
-                assertThat(matchingField).isNotNull();
-            });
-            
-            it("throws exception if no match for non optional unique",()->{
-                try {
-                    context().typeInstance().fields().named("nonExistingField").get();
-                    failBecauseExceptionWasNotThrown(NoSuchElementException.class);
-                } catch (NoSuchElementException e) {
-                    assertThat(e).hasMessage("Can't call get() on an empty nary: No value present");
-                }
-            });
-        });
+      it("can have more than one match", () -> {
+        Stream<TypeField> matchingFields = context().typeInstance().fields().named("duplicatedField");
+        assertThat(matchingFields.count()).isEqualTo(2);
+      });
 
-    }
+      it("can assume only one optional occurrence", () -> {
+        ar.com.kfgodel.nary.api.optionals.Optional<TypeField> matchingFields = context().typeInstance().fields().named("uniqueField");
+        assertThat(matchingFields.isPresent()).isTrue();
+      });
+
+      it("throws exception if more than one match when unique assumed", () -> {
+        try {
+          context().typeInstance().fields().named("duplicatedField").isPresent();
+          failBecauseExceptionWasNotThrown(MoreThanOneElementException.class);
+        } catch (MoreThanOneElementException e) {
+          assertThat(e).hasMessage("Expecting 1 element in the stream to create an optional but found at least 2: [duplicatedField @ RedefiningFieldTestObject, duplicatedField @ RedefinedFieldTestObject]");
+        }
+      });
+
+
+      it("can assume a non optional occurrence", () -> {
+        TypeField matchingField = context().typeInstance().fields().named("uniqueField").get();
+        assertThat(matchingField).isNotNull();
+      });
+
+      it("throws exception if no match for non optional unique", () -> {
+        try {
+          context().typeInstance().fields().named("nonExistingField").get();
+          failBecauseExceptionWasNotThrown(NoSuchElementException.class);
+        } catch (NoSuchElementException e) {
+          assertThat(e).hasMessage("Can't call get() on an empty nary: No value present");
+        }
+      });
+    });
+
+  }
 }

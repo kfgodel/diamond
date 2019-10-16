@@ -6,11 +6,11 @@ package ar.com.kfgodel.diamond.unit.testobjects;
  */
 public class MethodParameterTypesTestObject {
 
-    public void noParameters(){
+  public void noParameters() {
 
-    }
+  }
 
-    public void oneStringOneNumberParameters(String first, Number second){
+  public void oneStringOneNumberParameters(String first, Number second) {
 
-    }
+  }
 }

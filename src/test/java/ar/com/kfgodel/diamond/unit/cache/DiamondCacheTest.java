@@ -23,61 +23,61 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @RunWith(JavaSpecRunner.class)
 public class DiamondCacheTest extends JavaSpec<DiamondTestContext> {
-    @Override
-    public void define() {
-        describe("diamond instance cache", () -> {
+  @Override
+  public void define() {
+    describe("diamond instance cache", () -> {
 
-            it("is used types accessed from its native representation",()->{
-                TypeInstance firstInstance = Diamond.of(CachedMemberTestObject.class);
-                TypeInstance secondInstance = Diamond.of(CachedMemberTestObject.class);
+      it("is used types accessed from its native representation", () -> {
+        TypeInstance firstInstance = Diamond.of(CachedMemberTestObject.class);
+        TypeInstance secondInstance = Diamond.of(CachedMemberTestObject.class);
 
-                assertThat(firstInstance).isSameAs(secondInstance);
-            });
+        assertThat(firstInstance).isSameAs(secondInstance);
+      });
 
-            it("is used for methods accessed from its native version",()->{
-                Method nativeMethod = null;
-                try {
-                    nativeMethod = CachedMemberTestObject.class.getDeclaredMethod("method");
-                } catch (NoSuchMethodException e) {
-                    throw new RuntimeException("failed test",e);
-                }
-                TypeMethod firstInstance = Diamond.methods().from(nativeMethod);
-                TypeMethod secondInstance = Diamond.methods().from(nativeMethod);
-                assertThat(firstInstance).isSameAs(secondInstance);
-            });
+      it("is used for methods accessed from its native version", () -> {
+        Method nativeMethod = null;
+        try {
+          nativeMethod = CachedMemberTestObject.class.getDeclaredMethod("method");
+        } catch (NoSuchMethodException e) {
+          throw new RuntimeException("failed test", e);
+        }
+        TypeMethod firstInstance = Diamond.methods().from(nativeMethod);
+        TypeMethod secondInstance = Diamond.methods().from(nativeMethod);
+        assertThat(firstInstance).isSameAs(secondInstance);
+      });
 
-            it("is used for fields accessed from its native version",()->{
-                Field nativeField = null;
-                try {
-                    nativeField = CachedMemberTestObject.class.getDeclaredField("field");
-                } catch (NoSuchFieldException e) {
-                    throw new RuntimeException("failed test",e);
-                }
-                TypeField firstInstance = Diamond.fields().from(nativeField);
-                TypeField secondInstance = Diamond.fields().from(nativeField);
-                assertThat(firstInstance).isSameAs(secondInstance);
-            });
+      it("is used for fields accessed from its native version", () -> {
+        Field nativeField = null;
+        try {
+          nativeField = CachedMemberTestObject.class.getDeclaredField("field");
+        } catch (NoSuchFieldException e) {
+          throw new RuntimeException("failed test", e);
+        }
+        TypeField firstInstance = Diamond.fields().from(nativeField);
+        TypeField secondInstance = Diamond.fields().from(nativeField);
+        assertThat(firstInstance).isSameAs(secondInstance);
+      });
 
-            it("is used for constructor accessed from its native version",()->{
-                Constructor nativeConstructor = null;
-                try {
-                    nativeConstructor = CachedMemberTestObject.class.getDeclaredConstructor();
-                } catch (NoSuchMethodException e) {
-                    throw new RuntimeException("failed test",e);
-                }
-                TypeConstructor firstInstance = Diamond.constructors().from(nativeConstructor);
-                TypeConstructor secondInstance = Diamond.constructors().from(nativeConstructor);
-                assertThat(firstInstance).isSameAs(secondInstance);
-            });
+      it("is used for constructor accessed from its native version", () -> {
+        Constructor nativeConstructor = null;
+        try {
+          nativeConstructor = CachedMemberTestObject.class.getDeclaredConstructor();
+        } catch (NoSuchMethodException e) {
+          throw new RuntimeException("failed test", e);
+        }
+        TypeConstructor firstInstance = Diamond.constructors().from(nativeConstructor);
+        TypeConstructor secondInstance = Diamond.constructors().from(nativeConstructor);
+        assertThat(firstInstance).isSameAs(secondInstance);
+      });
 
-            it("can be invalidated",()->{
-                TypeInstance firstInstance = Diamond.of(CachedMemberTestObject.class);
-                Diamond.cache().invalidate();
-                TypeInstance secondInstance = Diamond.of(CachedMemberTestObject.class);
+      it("can be invalidated", () -> {
+        TypeInstance firstInstance = Diamond.of(CachedMemberTestObject.class);
+        Diamond.cache().invalidate();
+        TypeInstance secondInstance = Diamond.of(CachedMemberTestObject.class);
 
-                assertThat(firstInstance).isNotSameAs(secondInstance);
+        assertThat(firstInstance).isNotSameAs(secondInstance);
 
-            });
-        });
-    }
+      });
+    });
+  }
 }

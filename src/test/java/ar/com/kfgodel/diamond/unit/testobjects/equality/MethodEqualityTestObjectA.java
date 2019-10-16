@@ -6,19 +6,19 @@ package ar.com.kfgodel.diamond.unit.testobjects.equality;
  */
 public class MethodEqualityTestObjectA {
 
-    public void a(Number param){
+  public void a(Number param) {
 
-    }
+  }
 
-    public void a(String param){
+  public void a(String param) {
 
-    }
+  }
 
-    public void a(){
+  public void a() {
 
-    }
+  }
 
-    public void b(){
+  public void b() {
 
-    }
+  }
 }

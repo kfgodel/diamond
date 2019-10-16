@@ -10,20 +10,21 @@ import java.lang.reflect.Field;
  */
 public class FieldDescriptor {
 
-    public static final FieldDescriptor INSTANCE = FieldDescriptor.create();
+  public static final FieldDescriptor INSTANCE = FieldDescriptor.create();
 
-    /**
-     * Creates a description of the given native field based on its features
-     * @param nativeField The field to describe
-     * @return The description for diamond
-     */
-    public FieldDescription describe(Field nativeField){
-        return NativeFieldDescription.create(nativeField);
-    }
+  /**
+   * Creates a description of the given native field based on its features
+   *
+   * @param nativeField The field to describe
+   * @return The description for diamond
+   */
+  public FieldDescription describe(Field nativeField) {
+    return NativeFieldDescription.create(nativeField);
+  }
 
-    public static FieldDescriptor create() {
-        FieldDescriptor descriptor = new FieldDescriptor();
-        return descriptor;
-    }
+  public static FieldDescriptor create() {
+    FieldDescriptor descriptor = new FieldDescriptor();
+    return descriptor;
+  }
 
 }

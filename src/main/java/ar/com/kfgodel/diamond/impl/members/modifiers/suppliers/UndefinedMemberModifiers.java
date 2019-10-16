@@ -13,17 +13,17 @@ import java.util.function.Supplier;
  */
 public class UndefinedMemberModifiers implements Supplier<Nary<Modifier>> {
 
-    private TypeMember member;
+  private TypeMember member;
 
-    @Override
-    public Nary<Modifier> get() {
-        throw new DiamondException("Modifiers weren't defined for this member: " + member);
-    }
+  @Override
+  public Nary<Modifier> get() {
+    throw new DiamondException("Modifiers weren't defined for this member: " + member);
+  }
 
-    public static UndefinedMemberModifiers create(TypeMember member) {
-        UndefinedMemberModifiers supplier = new UndefinedMemberModifiers();
-        supplier.member = member;
-        return supplier;
-    }
+  public static UndefinedMemberModifiers create(TypeMember member) {
+    UndefinedMemberModifiers supplier = new UndefinedMemberModifiers();
+    supplier.member = member;
+    return supplier;
+  }
 
 }

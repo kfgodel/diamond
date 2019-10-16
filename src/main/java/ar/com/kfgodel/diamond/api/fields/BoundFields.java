@@ -9,16 +9,17 @@ import ar.com.kfgodel.nary.api.Nary;
  */
 public interface BoundFields extends NamedSource<BoundField> {
 
-    /**
-     * @return All the fields bound to the instance
-     */
-    Nary<BoundField> all();
+  /**
+   * @return All the fields bound to the instance
+   */
+  Nary<BoundField> all();
 
-    /**
-     * Retrieves the instance fields that match the given name (including all of them, inherited and overlapping)
-     * @param fieldName The name for the searched fields
-     * @return The stream of matching fields or an empty (if no match)
-     */
-    Nary<BoundField> named(String fieldName);
+  /**
+   * Retrieves the instance fields that match the given name (including all of them, inherited and overlapping)
+   *
+   * @param fieldName The name for the searched fields
+   * @return The stream of matching fields or an empty (if no match)
+   */
+  Nary<BoundField> named(String fieldName);
 
 }

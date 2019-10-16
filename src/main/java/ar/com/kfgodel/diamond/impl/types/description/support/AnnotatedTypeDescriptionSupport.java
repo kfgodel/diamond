@@ -14,23 +14,23 @@ import java.util.function.Supplier;
  */
 public abstract class AnnotatedTypeDescriptionSupport extends DelegatedDescriptionSupport {
 
-    private TypeDescription unannotatedDescription;
+  private TypeDescription unannotatedDescription;
 
-    @Override
-    protected TypeDescription getDelegateDescription() {
-        if (unannotatedDescription == null) {
-            unannotatedDescription = createUnannotatedDescription();
-        }
-        return unannotatedDescription;
+  @Override
+  protected TypeDescription getDelegateDescription() {
+    if (unannotatedDescription == null) {
+      unannotatedDescription = createUnannotatedDescription();
     }
+    return unannotatedDescription;
+  }
 
-    @Override
-    public Supplier<Nary<Annotation>> getAnnotations() {
-        return AnnotatedElementAnnotationsSupplier.create(getAnnotatedType());
-    }
+  @Override
+  public Supplier<Nary<Annotation>> getAnnotations() {
+    return AnnotatedElementAnnotationsSupplier.create(getAnnotatedType());
+  }
 
-    protected abstract AnnotatedType getAnnotatedType();
+  protected abstract AnnotatedType getAnnotatedType();
 
-    protected abstract TypeDescription createUnannotatedDescription();
+  protected abstract TypeDescription createUnannotatedDescription();
 
 }

@@ -9,24 +9,24 @@ import java.lang.reflect.Method;
  */
 public class OctaArgumentMethodInvoker extends MethodHandleInvokerSupport {
 
-    public static OctaArgumentMethodInvoker create(Method nativeMethod) {
-        OctaArgumentMethodInvoker invoker = new OctaArgumentMethodInvoker();
-        invoker.setNativeMethod(nativeMethod);
-        return invoker;
-    }
+  public static OctaArgumentMethodInvoker create(Method nativeMethod) {
+    OctaArgumentMethodInvoker invoker = new OctaArgumentMethodInvoker();
+    invoker.setNativeMethod(nativeMethod);
+    return invoker;
+  }
 
-    @Override
-    protected int getExpectedArgumentCount() {
-        return 8;
-    }
+  @Override
+  protected int getExpectedArgumentCount() {
+    return 8;
+  }
 
-    @Override
-    protected Object realInvocation(Object[] arguments) throws Throwable {
-        return methodHandle.invoke(arguments[0], arguments[1], arguments[2], arguments[3], arguments[4], arguments[5], arguments[6], arguments[7]);
-    }
+  @Override
+  protected Object realInvocation(Object[] arguments) throws Throwable {
+    return methodHandle.invoke(arguments[0], arguments[1], arguments[2], arguments[3], arguments[4], arguments[5], arguments[6], arguments[7]);
+  }
 
-    @Override
-    protected MethodType getExpectedMethodType() {
-        return MethodType.methodType(Object.class, Object.class, Object.class, Object.class, Object.class, Object.class, Object.class, Object.class, Object.class);
-    }
+  @Override
+  protected MethodType getExpectedMethodType() {
+    return MethodType.methodType(Object.class, Object.class, Object.class, Object.class, Object.class, Object.class, Object.class, Object.class, Object.class);
+  }
 }

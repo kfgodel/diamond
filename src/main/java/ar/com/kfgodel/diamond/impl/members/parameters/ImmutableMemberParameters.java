@@ -16,10 +16,10 @@ import java.util.stream.Collectors;
  */
 public class ImmutableMemberParameters {
 
-    public static Supplier<Nary<ExecutableParameter>> create(Executable nativeExecutable) {
-        return NaryFromCollectionSupplier.lazilyBy(() -> Arrays.stream(nativeExecutable.getParameters())
-                .map((nativeParameter) -> Diamond.parameters().from(nativeParameter))
-                .collect(Collectors.toList()));
-    }
+  public static Supplier<Nary<ExecutableParameter>> create(Executable nativeExecutable) {
+    return NaryFromCollectionSupplier.lazilyBy(() -> Arrays.stream(nativeExecutable.getParameters())
+      .map((nativeParameter) -> Diamond.parameters().from(nativeParameter))
+      .collect(Collectors.toList()));
+  }
 
 }

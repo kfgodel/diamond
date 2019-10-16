@@ -6,24 +6,24 @@ package ar.com.kfgodel.diamond.unit.testobjects.accessors;
  */
 public class FieldAccessorTestObject {
 
-    private int privateField;
-    int defaultField;
-    protected int protectedField;
-    public int publicField;
+  private int privateField;
+  int defaultField;
+  protected int protectedField;
+  public int publicField;
 
-    public int getPrivateField() {
-        return privateField;
-    }
+  public int getPrivateField() {
+    return privateField;
+  }
 
-    public void setPrivateField(int privateField) {
-        this.privateField = privateField;
-    }
+  public void setPrivateField(int privateField) {
+    this.privateField = privateField;
+  }
 
-    public int getPublicField() {
-        return publicField;
-    }
+  public int getPublicField() {
+    return publicField;
+  }
 
-    public void setPublicField(int publicField) {
-        this.publicField = publicField;
-    }
+  public void setPublicField(int publicField) {
+    this.publicField = publicField;
+  }
 }

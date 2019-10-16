@@ -11,11 +11,11 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({
-        ElementType.METHOD
+  ElementType.METHOD
 })
 public @interface DefaultValueAnnotation {
 
-    int memberWithDefault() default 23;
+  int memberWithDefault() default 23;
 
-    int memberWithoutDefault();
+  int memberWithoutDefault();
 }

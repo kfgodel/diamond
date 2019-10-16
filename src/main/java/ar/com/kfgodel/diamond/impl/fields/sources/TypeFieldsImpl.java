@@ -13,22 +13,22 @@ import java.util.function.Supplier;
  */
 public class TypeFieldsImpl extends NamedSourceSupport<TypeField> implements TypeFields {
 
-    private Supplier<Nary<TypeField>> typeFields;
+  private Supplier<Nary<TypeField>> typeFields;
 
-    @Override
-    public Nary<TypeField> all() {
-        return typeFields.get();
-    }
+  @Override
+  public Nary<TypeField> all() {
+    return typeFields.get();
+  }
 
-    @Override
-    protected Nary<TypeField> getAll() {
-        return all();
-    }
+  @Override
+  protected Nary<TypeField> getAll() {
+    return all();
+  }
 
-    public static TypeFieldsImpl create(Supplier<Nary<TypeField>> typeFields) {
-        TypeFieldsImpl fieldSource = new TypeFieldsImpl();
-        fieldSource.typeFields = typeFields;
-        return fieldSource;
-    }
+  public static TypeFieldsImpl create(Supplier<Nary<TypeField>> typeFields) {
+    TypeFieldsImpl fieldSource = new TypeFieldsImpl();
+    fieldSource.typeFields = typeFields;
+    return fieldSource;
+  }
 
 }

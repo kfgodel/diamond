@@ -16,27 +16,27 @@ import java.util.function.Supplier;
  */
 public class AnnotatedTypeVariableDescription extends AnnotatedTypeDescriptionSupport {
 
-    private AnnotatedTypeVariable nativeType;
+  private AnnotatedTypeVariable nativeType;
 
-    @Override
-    protected AnnotatedType getAnnotatedType() {
-        return nativeType;
-    }
+  @Override
+  protected AnnotatedType getAnnotatedType() {
+    return nativeType;
+  }
 
-    @Override
-    protected TypeDescription createUnannotatedDescription() {
-        return TypeVariableDescription.create((TypeVariable) nativeType.getType());
-    }
+  @Override
+  protected TypeDescription createUnannotatedDescription() {
+    return TypeVariableDescription.create((TypeVariable) nativeType.getType());
+  }
 
-    @Override
-    public Supplier<TypeBounds> getBounds() {
-        return TypeVariableBoundSupplier.create(nativeType);
-    }
+  @Override
+  public Supplier<TypeBounds> getBounds() {
+    return TypeVariableBoundSupplier.create(nativeType);
+  }
 
-    public static AnnotatedTypeVariableDescription create(AnnotatedTypeVariable nativeType) {
-        AnnotatedTypeVariableDescription description = new AnnotatedTypeVariableDescription();
-        description.nativeType = nativeType;
-        return description;
-    }
+  public static AnnotatedTypeVariableDescription create(AnnotatedTypeVariable nativeType) {
+    AnnotatedTypeVariableDescription description = new AnnotatedTypeVariableDescription();
+    description.nativeType = nativeType;
+    return description;
+  }
 
 }

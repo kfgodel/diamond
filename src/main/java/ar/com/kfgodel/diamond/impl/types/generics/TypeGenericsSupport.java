@@ -14,29 +14,29 @@ import java.util.function.Supplier;
  */
 public abstract class TypeGenericsSupport implements TypeGenerics {
 
-    private Supplier<TypeInstance> runtimeType;
+  private Supplier<TypeInstance> runtimeType;
 
-    @Override
-    public TypeBounds bounds() {
-        return NoBounds.INSTANCE;
-    }
+  @Override
+  public TypeBounds bounds() {
+    return NoBounds.INSTANCE;
+  }
 
-    @Override
-    public Nary<TypeInstance> arguments() {
-        return Nary.empty();
-    }
+  @Override
+  public Nary<TypeInstance> arguments() {
+    return Nary.empty();
+  }
 
-    @Override
-    public Nary<TypeInstance> parameters() {
-        return Nary.empty();
-    }
-    
-    @Override
-    public TypeInstance runtimeType() {
-        return runtimeType.get();
-    }
+  @Override
+  public Nary<TypeInstance> parameters() {
+    return Nary.empty();
+  }
 
-    protected void setRuntimeType(Supplier<TypeInstance> runtimeType) {
-        this.runtimeType = runtimeType;
-    }
+  @Override
+  public TypeInstance runtimeType() {
+    return runtimeType.get();
+  }
+
+  protected void setRuntimeType(Supplier<TypeInstance> runtimeType) {
+    this.runtimeType = runtimeType;
+  }
 }

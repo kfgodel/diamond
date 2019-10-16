@@ -17,12 +17,12 @@ import java.util.stream.Stream;
  */
 public class ClassConstructorsSupplier {
 
-    public static Supplier<Nary<TypeConstructor>>  create(Class<?> nativeClass) {
-        return NaryFromCollectionSupplier.lazilyBy(() -> {
-            Stream<Constructor<?>> constructorSupplier = NativeConstructorsSupplier.create(nativeClass).get();
-            return constructorSupplier.map((nativeConstructor) -> Diamond.constructors().from(nativeConstructor))
-                    .collect(Collectors.toList());
-        });
-    }
+  public static Supplier<Nary<TypeConstructor>> create(Class<?> nativeClass) {
+    return NaryFromCollectionSupplier.lazilyBy(() -> {
+      Stream<Constructor<?>> constructorSupplier = NativeConstructorsSupplier.create(nativeClass).get();
+      return constructorSupplier.map((nativeConstructor) -> Diamond.constructors().from(nativeConstructor))
+        .collect(Collectors.toList());
+    });
+  }
 
 }

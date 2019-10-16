@@ -6,12 +6,12 @@ package ar.com.kfgodel.diamond.unit.testobjects.constructors;
  */
 public class ConstructorAccessTestObject {
 
-    public ConstructorAccessTestObject(){
+  public ConstructorAccessTestObject() {
 
-    }
+  }
 
-    private ConstructorAccessTestObject(Integer param){
+  private ConstructorAccessTestObject(Integer param) {
 
-    }
+  }
 
 }

@@ -21,29 +21,29 @@ import java.util.stream.Collectors;
  */
 public class TypeVariableBoundSupplier {
 
-    public static Supplier<TypeBounds>  create(Object nativeType) {
-        return CachedValue.lazilyBy(() -> {
-            AnnotatedType[] upperBounds = getUpperBoundsFrom(nativeType);
-            return UpperOnlyTypeBounds.create(typeListFrom(upperBounds));
-        });
-    }
+  public static Supplier<TypeBounds> create(Object nativeType) {
+    return CachedValue.lazilyBy(() -> {
+      AnnotatedType[] upperBounds = getUpperBoundsFrom(nativeType);
+      return UpperOnlyTypeBounds.create(typeListFrom(upperBounds));
+    });
+  }
 
-    public static List<TypeInstance> typeListFrom(Object[] types) {
-        return Arrays.stream(types)
-                .map((type) -> Diamond.types().from(type))
-                .collect(Collectors.toList());
-    }
+  public static List<TypeInstance> typeListFrom(Object[] types) {
+    return Arrays.stream(types)
+      .map((type) -> Diamond.types().from(type))
+      .collect(Collectors.toList());
+  }
 
-    private static AnnotatedType[] getUpperBoundsFrom(Object nativeType) {
-        AnnotatedType[] upperBounds;
-        if(nativeType instanceof AnnotatedTypeVariable){
-            upperBounds = ((AnnotatedTypeVariable) nativeType).getAnnotatedBounds();
-        }else if(nativeType instanceof TypeVariable){
-            upperBounds =  ((TypeVariable) nativeType).getAnnotatedBounds();
-        } else{
-            throw new DiamondException("The type["+nativeType+"] is not a type variable representation");
-        }
-        return upperBounds;
+  private static AnnotatedType[] getUpperBoundsFrom(Object nativeType) {
+    AnnotatedType[] upperBounds;
+    if (nativeType instanceof AnnotatedTypeVariable) {
+      upperBounds = ((AnnotatedTypeVariable) nativeType).getAnnotatedBounds();
+    } else if (nativeType instanceof TypeVariable) {
+      upperBounds = ((TypeVariable) nativeType).getAnnotatedBounds();
+    } else {
+      throw new DiamondException("The type[" + nativeType + "] is not a type variable representation");
     }
+    return upperBounds;
+  }
 
 }

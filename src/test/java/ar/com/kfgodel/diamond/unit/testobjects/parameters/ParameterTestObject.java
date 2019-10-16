@@ -6,7 +6,7 @@ package ar.com.kfgodel.diamond.unit.testobjects.parameters;
  */
 public class ParameterTestObject {
 
-    void oneIntegerParam(Integer a){
+  void oneIntegerParam(Integer a) {
 
-    }
+  }
 }

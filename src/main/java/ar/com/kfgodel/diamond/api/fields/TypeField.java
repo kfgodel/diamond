@@ -16,94 +16,101 @@ import java.util.function.Supplier;
  * This type represents a field defined for a type that can store state
  * Created by kfgodel on 18/09/14.
  */
-public interface TypeField extends TypeMember, Consumer<Object>, BiConsumer<Object, Object>, Supplier<Object>, Function<Object,Object>, Invokable, InstanceBindable<BoundField> {
+public interface TypeField extends TypeMember, Consumer<Object>, BiConsumer<Object, Object>, Supplier<Object>, Function<Object, Object>, Invokable, InstanceBindable<BoundField> {
 
-    /**
-     * @return The name of the field
-     */
-    @Override
-    String name();
+  /**
+   * @return The name of the field
+   */
+  @Override
+  String name();
 
-    /**
-     * @return The type of this field storage.<br>
-     *     This corresponds to the type declared for this field
-     */
-    TypeInstance type();
+  /**
+   * @return The type of this field storage.<br>
+   * This corresponds to the type declared for this field
+   */
+  TypeInstance type();
 
-    /**
-     * Gets the value stored in the given object under the field represented by this instance
-     * @param instance The object to take the value from (null for static fields)
-     * @param <R> The expected value type
-     * @return The value obtained
-     */
-    <R> R getValueFrom(Object instance);
+  /**
+   * Gets the value stored in the given object under the field represented by this instance
+   *
+   * @param instance The object to take the value from (null for static fields)
+   * @param <R>      The expected value type
+   * @return The value obtained
+   */
+  <R> R getValueFrom(Object instance);
 
-    /**
-     * Sets the value in the given object under the field represented by this instance
-     * @param instance The object to set the value into (null for static fields)
-     * @param value The value to set to
-     */
-    void setValueOn(Object instance, Object value);
+  /**
+   * Sets the value in the given object under the field represented by this instance
+   *
+   * @param instance The object to set the value into (null for static fields)
+   * @param value    The value to set to
+   */
+  void setValueOn(Object instance, Object value);
 
-    /**
-     * Treats this field as a static field, and tries to get its value
-     * @return The value from this field as a static field
-     */
-    @Override
-    Object get();
+  /**
+   * Treats this field as a static field, and tries to get its value
+   *
+   * @return The value from this field as a static field
+   */
+  @Override
+  Object get();
 
-    /**
-     * Treats this field as a static field and sets its value to the given argument
-     * @param argument The value to set in the static field
-     */
-    @Override
-    void accept(Object argument);
+  /**
+   * Treats this field as a static field and sets its value to the given argument
+   *
+   * @param argument The value to set in the static field
+   */
+  @Override
+  void accept(Object argument);
 
-    /**
-     * Treats this field as an instance field and gets its value from teh given instance
-     * @param instance The instance to read the value from
-     * @return The value of this field in the given instance
-     */
-    @Override
-    Object apply(Object instance);
+  /**
+   * Treats this field as an instance field and gets its value from teh given instance
+   *
+   * @param instance The instance to read the value from
+   * @return The value of this field in the given instance
+   */
+  @Override
+  Object apply(Object instance);
 
-    /**
-     * Treats this field as an instance field and sets its value to the given value
-     * @param instance The instance to set the value into
-     * @param argument The value to set in the instance
-     */
-    @Override
-    void accept(Object instance, Object argument);
+  /**
+   * Treats this field as an instance field and sets its value to the given value
+   *
+   * @param instance The instance to set the value into
+   * @param argument The value to set in the instance
+   */
+  @Override
+  void accept(Object instance, Object argument);
 
-    /**
-     * @return An empty stream as fields don't have parameters.<br>
-     *     This method allows polymorphic compatibility between methods and constructors
-     */
-    @Override
-    Nary<TypeInstance> parameterTypes();
+  /**
+   * @return An empty stream as fields don't have parameters.<br>
+   * This method allows polymorphic compatibility between methods and constructors
+   */
+  @Override
+  Nary<TypeInstance> parameterTypes();
 
-    /**
-     * @return An empty stream as fields don't declare exceptions.<br>
-     *     This method allows polymorphism between methods and constructors
-     */
-    @Override
-    Nary<TypeInstance> declaredExceptions();
+  /**
+   * @return An empty stream as fields don't declare exceptions.<br>
+   * This method allows polymorphism between methods and constructors
+   */
+  @Override
+  Nary<TypeInstance> declaredExceptions();
 
-    /**
-     * @return Type of values returned when used as a getter. Same as this field type
-     */
-    @Override
-    TypeInstance returnType();
+  /**
+   * @return Type of values returned when used as a getter. Same as this field type
+   */
+  @Override
+  TypeInstance returnType();
 
-    /**
-     * Binds this field to the given object as 'this'
-     * @param object The instance to bind to
-     * @return The bound field
-     */
-    BoundField bindTo(Object object);
+  /**
+   * Binds this field to the given object as 'this'
+   *
+   * @param object The instance to bind to
+   * @return The bound field
+   */
+  BoundField bindTo(Object object);
 
-    /**
-     * @return The native representation of this field if any
-     */
-    Nary<Field> nativeType();
+  /**
+   * @return The native representation of this field if any
+   */
+  Nary<Field> nativeType();
 }

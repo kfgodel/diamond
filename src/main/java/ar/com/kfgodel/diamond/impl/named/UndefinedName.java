@@ -11,17 +11,17 @@ import java.util.function.Supplier;
  */
 public class UndefinedName implements Supplier<String> {
 
-    private Named unnamed;
+  private Named unnamed;
 
-    @Override
-    public String get() {
-        throw new DiamondException("The object doesn't have a name");
-    }
+  @Override
+  public String get() {
+    throw new DiamondException("The object doesn't have a name");
+  }
 
-    public static UndefinedName create(Named unnamed) {
-        UndefinedName supplier = new UndefinedName();
-        supplier.unnamed = unnamed;
-        return supplier;
-    }
+  public static UndefinedName create(Named unnamed) {
+    UndefinedName supplier = new UndefinedName();
+    supplier.unnamed = unnamed;
+    return supplier;
+  }
 
 }

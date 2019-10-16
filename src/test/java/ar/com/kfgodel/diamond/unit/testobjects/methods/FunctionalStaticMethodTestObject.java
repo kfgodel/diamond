@@ -6,25 +6,25 @@ package ar.com.kfgodel.diamond.unit.testobjects.methods;
  */
 public class FunctionalStaticMethodTestObject {
 
-    public static int lastResult;
+  public static int lastResult;
 
-    public static void runnable(){
-        lastResult = 10;
-    }
+  public static void runnable() {
+    lastResult = 10;
+  }
 
-    public static void consumer(int param){
-        lastResult = param;
-    }
+  public static void consumer(int param) {
+    lastResult = param;
+  }
 
-    public static void biConsumer(int param1, int param2){
-        lastResult = param1 + param2;
-    }
+  public static void biConsumer(int param1, int param2) {
+    lastResult = param1 + param2;
+  }
 
-    public static int supplier(){
-        return 1;
-    }
+  public static int supplier() {
+    return 1;
+  }
 
-    public static int function(int param){
-        return param;
-    }
+  public static int function(int param) {
+    return param;
+  }
 }

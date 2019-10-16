@@ -11,23 +11,23 @@ import java.util.function.Supplier;
  */
 public interface InheritanceDescription {
 
-    /**
-     * @return The supplier of superclass for this type
-     */
-    Supplier<Nary<TypeInstance>> getSuperclassSupplier();
+  /**
+   * @return The supplier of superclass for this type
+   */
+  Supplier<Nary<TypeInstance>> getSuperclassSupplier();
 
-    /**
-     * @return The supplier of extended types
-     */
-    Supplier<Nary<TypeInstance>> getExtendedTypeSupplier();
+  /**
+   * @return The supplier of extended types
+   */
+  Supplier<Nary<TypeInstance>> getExtendedTypeSupplier();
 
-    /**
-     * @return The supplier of the type implemented interfaces
-     */
-    Supplier<Nary<TypeInstance>> getInterfacesSupplier();
+  /**
+   * @return The supplier of the type implemented interfaces
+   */
+  Supplier<Nary<TypeInstance>> getInterfacesSupplier();
 
-    /**
-     * @return The supplier of compile time interface types
-     */
-    Supplier<Nary<TypeInstance>> getImplementedTypesSupplier();
+  /**
+   * @return The supplier of compile time interface types
+   */
+  Supplier<Nary<TypeInstance>> getImplementedTypesSupplier();
 }

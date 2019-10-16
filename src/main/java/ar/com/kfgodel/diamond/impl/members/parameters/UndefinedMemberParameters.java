@@ -13,17 +13,17 @@ import java.util.function.Supplier;
  */
 public class UndefinedMemberParameters implements Supplier<Nary<ExecutableParameter>> {
 
-    private TypeMember member;
+  private TypeMember member;
 
-    @Override
-    public Nary<ExecutableParameter> get() {
-        throw new DiamondException("The parameters for the member["+member+"] were not defined");
-    }
+  @Override
+  public Nary<ExecutableParameter> get() {
+    throw new DiamondException("The parameters for the member[" + member + "] were not defined");
+  }
 
-    public static UndefinedMemberParameters create(TypeMember type) {
-        UndefinedMemberParameters supplier = new UndefinedMemberParameters();
-        supplier.member = type;
-        return supplier;
-    }
+  public static UndefinedMemberParameters create(TypeMember type) {
+    UndefinedMemberParameters supplier = new UndefinedMemberParameters();
+    supplier.member = type;
+    return supplier;
+  }
 
 }

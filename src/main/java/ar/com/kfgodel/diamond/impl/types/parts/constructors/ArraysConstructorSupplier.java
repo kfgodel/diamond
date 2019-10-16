@@ -12,18 +12,18 @@ import java.util.function.Supplier;
 
 /**
  * This type represents the artificial constructor supplier for native array types.<br>
- *  Arrays don't have a constructor method but they can be instantiated with an int argument using native reflection
- *  helpers. This supplier fills the gap to simulate a constructor for arrays
+ * Arrays don't have a constructor method but they can be instantiated with an int argument using native reflection
+ * helpers. This supplier fills the gap to simulate a constructor for arrays
  * Created by kfgodel on 16/10/14.
  */
 public class ArraysConstructorSupplier {
 
-    public static Supplier<Nary<TypeConstructor>> create(Class<?> nativeArrayClass) {
-        return NaryFromElementSupplier.using(CachedValue.lazilyBy(() -> {
-            ConstructorDescription arrayConstructorDescription = ArrayConstructorDescription.create(nativeArrayClass);
-            TypeConstructor constructor = Diamond.constructors().fromDescription(arrayConstructorDescription);
-            return constructor;
-        }));
-    }
+  public static Supplier<Nary<TypeConstructor>> create(Class<?> nativeArrayClass) {
+    return NaryFromElementSupplier.using(CachedValue.lazilyBy(() -> {
+      ConstructorDescription arrayConstructorDescription = ArrayConstructorDescription.create(nativeArrayClass);
+      TypeConstructor constructor = Diamond.constructors().fromDescription(arrayConstructorDescription);
+      return constructor;
+    }));
+  }
 
 }

@@ -6,16 +6,16 @@ package ar.com.kfgodel.diamond.unit.testobjects.methods;
  */
 public class RedefiningMethodTestObject extends RedefinedMethodTestObject {
 
-    public void redefinedAndOverloadedMethod(){
+  public void redefinedAndOverloadedMethod() {
 
-    }
+  }
 
-    public void redefinedAndOverloadedMethod(int param){
+  public void redefinedAndOverloadedMethod(int param) {
 
-    }
+  }
 
-    public void uniqueMethod(){
+  public void uniqueMethod() {
 
-    }
+  }
 
 }

@@ -6,14 +6,14 @@ package ar.com.kfgodel.diamond.unit.testobjects.exceptions;
  */
 public class MemberExceptionsTestObject {
 
-    int field;
+  int field;
 
-    void method() throws RuntimeException, Exception, Throwable{
+  void method() throws RuntimeException, Exception, Throwable {
 
-    }
+  }
 
-    MemberExceptionsTestObject() throws IllegalArgumentException {
+  MemberExceptionsTestObject() throws IllegalArgumentException {
 
-    }
+  }
 
 }

@@ -20,50 +20,53 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @RunWith(JavaSpecRunner.class)
 public class ConstructorModifiersTest extends JavaSpec<DiamondTestContext> {
-    @Override
-    public void define() {
-        describe("a constructor modifier", () -> {
-            it("can be public",()->{
-                TypeConstructor constructor = getPublicConstructor();
-                assertThat(constructor.is(Modifiers.PUBLIC));
-            });
+  @Override
+  public void define() {
+    describe("a constructor modifier", () -> {
+      it("can be public", () -> {
+        TypeConstructor constructor = getPublicConstructor();
+        assertThat(constructor.is(Modifiers.PUBLIC));
+      });
 
-            it("can be private",()->{
-                TypeConstructor constructor = getPrivateConstructor();
-                assertThat(constructor.is(Modifiers.PRIVATE));
-            });
+      it("can be private", () -> {
+        TypeConstructor constructor = getPrivateConstructor();
+        assertThat(constructor.is(Modifiers.PRIVATE));
+      });
 
-            it("can be protected",()->{
-                TypeConstructor constructor = getProtectedConstructor();
-                assertThat(constructor.is(Modifiers.PROTECTED));
-            });
+      it("can be protected", () -> {
+        TypeConstructor constructor = getProtectedConstructor();
+        assertThat(constructor.is(Modifiers.PROTECTED));
+      });
 
-            it("can be package (default)",()->{
-                TypeConstructor constructor = getDefaultConstructor();
-                assertThat(constructor.is(Modifiers.PACKAGE));
-            });
-        });
-    }
+      it("can be package (default)", () -> {
+        TypeConstructor constructor = getDefaultConstructor();
+        assertThat(constructor.is(Modifiers.PACKAGE));
+      });
+    });
+  }
 
-    private TypeConstructor getPublicConstructor() {
-        return getTypeConstructor(PublicMembersTestObject.class);
-    }
-    private TypeConstructor getPrivateConstructor() {
-        return getTypeConstructor(PrivateMembersTestObject.class);
-    }
-    private TypeConstructor getProtectedConstructor() {
-        return getTypeConstructor(ProtectedMembersTestObject.class);
-    }
-    private TypeConstructor getDefaultConstructor() {
-        return getTypeConstructor(DefaultMembersTestObject.class);
-    }
+  private TypeConstructor getPublicConstructor() {
+    return getTypeConstructor(PublicMembersTestObject.class);
+  }
 
-    private TypeConstructor getTypeConstructor(Class<?> clase) {
-        try {
-            return Diamond.constructors().from(clase.getDeclaredConstructor());
-        } catch (NoSuchMethodException e) {
-            throw new RuntimeException("Unexpected test error", e);
-        }
+  private TypeConstructor getPrivateConstructor() {
+    return getTypeConstructor(PrivateMembersTestObject.class);
+  }
+
+  private TypeConstructor getProtectedConstructor() {
+    return getTypeConstructor(ProtectedMembersTestObject.class);
+  }
+
+  private TypeConstructor getDefaultConstructor() {
+    return getTypeConstructor(DefaultMembersTestObject.class);
+  }
+
+  private TypeConstructor getTypeConstructor(Class<?> clase) {
+    try {
+      return Diamond.constructors().from(clase.getDeclaredConstructor());
+    } catch (NoSuchMethodException e) {
+      throw new RuntimeException("Unexpected test error", e);
     }
+  }
 
 }

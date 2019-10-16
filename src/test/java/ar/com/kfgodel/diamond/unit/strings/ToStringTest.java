@@ -30,7 +30,7 @@ public class ToStringTest extends JavaSpec<DiamondTestContext> {
       describe("for packages", () -> {
         context().object(() -> Diamond.packages().named("java.lang"));
 
-        it("is the full name",()->{
+        it("is the full name", () -> {
           assertThat(context().toStringResult()).isEqualTo("java.lang");
         });
       });
@@ -44,63 +44,65 @@ public class ToStringTest extends JavaSpec<DiamondTestContext> {
       });
 
       describe("for array types", () -> {
-        context().object(()-> Diamond.of(String[][].class));
-        
-        it("is component dimensions",()->{
+        context().object(() -> Diamond.of(String[][].class));
+
+        it("is component dimensions", () -> {
           assertThat(context().toStringResult()).isEqualTo("String[][]");
-        });   
+        });
       });
 
       describe("for generic types", () -> {
-        context().object(()-> Diamond.types().from(new ReferenceOf<Map<String, Integer>>() {}.getReferencedAnnotatedType()));
+        context().object(() -> Diamond.types().from(new ReferenceOf<Map<String, Integer>>() {
+        }.getReferencedAnnotatedType()));
 
-        it("is name <arguments> @ package",()->{
+        it("is name <arguments> @ package", () -> {
           assertThat(context().toStringResult()).isEqualTo("Map<String, Integer> @ java.util");
-        });   
+        });
       });
 
       describe("for variable types", () -> {
-        context().object(()->
-          Diamond.types().from(new ReferenceOf<List<? extends String>>() {}.getReferencedAnnotatedType())
-          .generics().arguments().findFirst().get()
+        context().object(() ->
+          Diamond.types().from(new ReferenceOf<List<? extends String>>() {
+          }.getReferencedAnnotatedType())
+            .generics().arguments().findFirst().get()
         );
 
-        it("is name and bounds",()->{
+        it("is name and bounds", () -> {
           assertThat(context().toStringResult()).isEqualTo("? extends String");
         });
       });
 
 
       describe("for fields", () -> {
-        context().object(()-> Diamond.of(BoundFieldTestObject.class).fields().named("field").get());
-        
-        it("is name @ class",()->{
+        context().object(() -> Diamond.of(BoundFieldTestObject.class).fields().named("field").get());
+
+        it("is name @ class", () -> {
           assertThat(context().toStringResult()).isEqualTo("field @ BoundFieldTestObject");
         });
 
         describe("when bound", () -> {
-          context().object(()-> Diamond.of(BoundFieldTestObject.class).fields().named("field").get()
-          .bindTo(new BoundFieldTestObject()));
-          
-          it("is name @ instance",()->{
+          context().object(() -> Diamond.of(BoundFieldTestObject.class).fields().named("field").get()
+            .bindTo(new BoundFieldTestObject()));
+
+          it("is name @ instance", () -> {
             assertThat(context().toStringResult()).isEqualTo("field @@ BoundFieldTestObject instance");
-          });   
+          });
         });
 
       });
 
       describe("for methods", () -> {
-        context().object(()-> Diamond.of(BoundMethodTestObject.class).methods().named("biconsumer").get());
+        context().object(() -> Diamond.of(BoundMethodTestObject.class).methods().named("biconsumer").get());
 
-        it("is name (arg types) @ class",()->{
+        it("is name (arg types) @ class", () -> {
           assertThat(context().toStringResult()).isEqualTo("biconsumer(int, int) @ BoundMethodTestObject");
         });
 
         describe("when bound", () -> {
-          context().object(()-> Diamond.of(BoundMethodTestObject.class).methods().named("biconsumer").get()
+          context().object(() -> Diamond.of(BoundMethodTestObject.class).methods().named("biconsumer").get()
             .bindTo(new BoundMethodTestObject()));
 
-          it("is name (arg types) @ instance",()->{
+          it("is name (arg types) @ instance", () -> {
             assertThat(context().toStringResult()).isEqualTo("biconsumer(int, int) @@ BoundMethodTestObject instance");
           });
         });
@@ -108,17 +110,17 @@ public class ToStringTest extends JavaSpec<DiamondTestContext> {
       });
 
       describe("for constructors", () -> {
-        context().object(()-> Diamond.of(ConstructorAccessTestObject.class).constructors().withParameters(Diamond.of(Integer.class)).get());
+        context().object(() -> Diamond.of(ConstructorAccessTestObject.class).constructors().withParameters(Diamond.of(Integer.class)).get());
 
-        it("is name (arg types) @ package",()->{
+        it("is name (arg types) @ package", () -> {
           assertThat(context().toStringResult()).isEqualTo("ConstructorAccessTestObject(Integer) @ ar.com.kfgodel.diamond.unit.testobjects.constructors");
         });
       });
 
       describe("for method parameters", () -> {
-        context().object(()-> Diamond.of(Object.class).methods().named("equals").get().parameters().get() );
-        
-        it("is the type and name",()->{
+        context().object(() -> Diamond.of(Object.class).methods().named("equals").get().parameters().get());
+
+        it("is the type and name", () -> {
           // Depending on the JDK version and the compilation config the name varies
           boolean matchesTheExpectedName =
             context().toStringResult().equals("Object arg0") ||
@@ -128,27 +130,27 @@ public class ToStringTest extends JavaSpec<DiamondTestContext> {
       });
 
       describe("for modifiers", () -> {
-        context().object(()-> Modifiers.TRANSIENT);
+        context().object(() -> Modifiers.TRANSIENT);
 
-        it("is the declaration",()->{
-            assertThat(context().toStringResult()).isEqualTo("transient");
+        it("is the declaration", () -> {
+          assertThat(context().toStringResult()).isEqualTo("transient");
         });
       });
 
       describe("for meta objects", () -> {
-        context().object(()-> Diamond.metaObjects().from("hola"));
-        
-        it("is usual string plus a meta prefix",()->{
-            assertThat(context().toStringResult()).isEqualTo("meta-hola");
-        });   
+        context().object(() -> Diamond.metaObjects().from("hola"));
+
+        it("is usual string plus a meta prefix", () -> {
+          assertThat(context().toStringResult()).isEqualTo("meta-hola");
+        });
       });
 
       describe("for lambdas", () -> {
-        context().object(()-> Diamond.lambdas().fromPredicate((a)-> false));
-        
-        it("is the invocation signature",()->{
-            assertThat(context().toStringResult()).isEqualTo("lambda(Object)->boolean");
-        });   
+        context().object(() -> Diamond.lambdas().fromPredicate((a) -> false));
+
+        it("is the invocation signature", () -> {
+          assertThat(context().toStringResult()).isEqualTo("lambda(Object)->boolean");
+        });
       });
 
 

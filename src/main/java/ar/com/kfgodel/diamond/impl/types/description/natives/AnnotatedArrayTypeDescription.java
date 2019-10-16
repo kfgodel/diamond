@@ -18,33 +18,33 @@ import java.util.function.Supplier;
  */
 public class AnnotatedArrayTypeDescription extends AnnotatedTypeDescriptionSupport {
 
-    private AnnotatedArrayType nativeType;
+  private AnnotatedArrayType nativeType;
 
-    @Override
-    protected AnnotatedType getAnnotatedType() {
-        return nativeType;
-    }
+  @Override
+  protected AnnotatedType getAnnotatedType() {
+    return nativeType;
+  }
 
-    @Override
-    protected TypeDescription createUnannotatedDescription() {
-        Type type = nativeType.getType();
-        if(type instanceof Class){
-            // Non generic array
-            return ClassDescription.create((Class<?>) type);
-        }
-        // Generic array
-        return GenericArrayTypeDescription.create((GenericArrayType) type);
+  @Override
+  protected TypeDescription createUnannotatedDescription() {
+    Type type = nativeType.getType();
+    if (type instanceof Class) {
+      // Non generic array
+      return ClassDescription.create((Class<?>) type);
     }
+    // Generic array
+    return GenericArrayTypeDescription.create((GenericArrayType) type);
+  }
 
-    @Override
-    public Supplier<Nary<TypeInstance>> getComponentType() {
-        return ArrayComponentTypeSupplier.create(nativeType);
-    }
+  @Override
+  public Supplier<Nary<TypeInstance>> getComponentType() {
+    return ArrayComponentTypeSupplier.create(nativeType);
+  }
 
-    public static AnnotatedArrayTypeDescription create(AnnotatedArrayType nativeType) {
-        AnnotatedArrayTypeDescription description = new AnnotatedArrayTypeDescription();
-        description.nativeType = nativeType;
-        return description;
-    }
+  public static AnnotatedArrayTypeDescription create(AnnotatedArrayType nativeType) {
+    AnnotatedArrayTypeDescription description = new AnnotatedArrayTypeDescription();
+    description.nativeType = nativeType;
+    return description;
+  }
 
 }

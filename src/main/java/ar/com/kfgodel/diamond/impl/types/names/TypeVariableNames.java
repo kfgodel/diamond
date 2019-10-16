@@ -8,39 +8,39 @@ import ar.com.kfgodel.diamond.api.types.names.TypeNames;
  */
 public class TypeVariableNames implements TypeNames {
 
-    private String variableName;
-    private String typeName;
+  private String variableName;
+  private String typeName;
 
-    @Override
-    public String shortName() {
-        return variableName;
-    }
+  @Override
+  public String shortName() {
+    return variableName;
+  }
 
-    @Override
-    public String classloaderName() {
-        return typeName();
-    }
+  @Override
+  public String classloaderName() {
+    return typeName();
+  }
 
-    @Override
-    public String canonicalName() {
-        return typeName();
-    }
+  @Override
+  public String canonicalName() {
+    return typeName();
+  }
 
-    @Override
-    public String typeName() {
-        return typeName;
-    }
+  @Override
+  public String typeName() {
+    return typeName;
+  }
 
-    @Override
-    public String bareName() {
-        return variableName;
-    }
+  @Override
+  public String bareName() {
+    return variableName;
+  }
 
-    public static TypeVariableNames create(String variableName, String typeName) {
-        TypeVariableNames names = new TypeVariableNames();
-        names.variableName = variableName;
-        names.typeName = typeName;
-        return names;
-    }
+  public static TypeVariableNames create(String variableName, String typeName) {
+    TypeVariableNames names = new TypeVariableNames();
+    names.variableName = variableName;
+    names.typeName = typeName;
+    return names;
+  }
 
 }

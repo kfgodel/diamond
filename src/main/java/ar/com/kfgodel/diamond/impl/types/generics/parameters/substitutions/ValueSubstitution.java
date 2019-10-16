@@ -10,25 +10,25 @@ import java.util.List;
  */
 public class ValueSubstitution {
 
-    private int replacedIndex;
-    private int replacementIndex;
+  private int replacedIndex;
+  private int replacementIndex;
 
-    public static ValueSubstitution create(int substitutedIndex, int substituteIndex) {
-        ValueSubstitution substitution = new ValueSubstitution();
-        substitution.replacedIndex = substitutedIndex;
-        substitution.replacementIndex = substituteIndex;
-        return substitution;
-    }
+  public static ValueSubstitution create(int substitutedIndex, int substituteIndex) {
+    ValueSubstitution substitution = new ValueSubstitution();
+    substitution.replacedIndex = substitutedIndex;
+    substitution.replacementIndex = substituteIndex;
+    return substitution;
+  }
 
-    public<T> void executeOn(List<T> replacementValues, List<T> replacedValues){
-        if(replacementIndex >= replacementValues.size()){
-            throw new DiamondException("The replacement index["+replacementIndex+"] exceeds replacement values size" + replacementValues);
-        }
-        if(replacedIndex >= replacedValues.size()){
-            throw new DiamondException("The replaced index["+replacedIndex+"] exceeds replaced values size" + replacedValues);
-        }
-        T replacement = replacementValues.get(replacementIndex);
-        replacedValues.set(replacedIndex, replacement);
+  public <T> void executeOn(List<T> replacementValues, List<T> replacedValues) {
+    if (replacementIndex >= replacementValues.size()) {
+      throw new DiamondException("The replacement index[" + replacementIndex + "] exceeds replacement values size" + replacementValues);
     }
+    if (replacedIndex >= replacedValues.size()) {
+      throw new DiamondException("The replaced index[" + replacedIndex + "] exceeds replaced values size" + replacedValues);
+    }
+    T replacement = replacementValues.get(replacementIndex);
+    replacedValues.set(replacedIndex, replacement);
+  }
 
 }

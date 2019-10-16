@@ -24,44 +24,44 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @RunWith(JavaSpecRunner.class)
 public class NativeTypeTest extends JavaSpec<DiamondTestContext> {
-    @Override
-    public void define() {
-        describe("a native type", () -> {
+  @Override
+  public void define() {
+    describe("a native type", () -> {
 
-            it("can be obtained from classes",()->{
-                TypeInstance typeInstance = Diamond.of(PublicMembersTestObject.class);
+      it("can be obtained from classes", () -> {
+        TypeInstance typeInstance = Diamond.of(PublicMembersTestObject.class);
 
-                Class<?> rawClass = typeInstance.nativeTypes().get();
+        Class<?> rawClass = typeInstance.nativeTypes().get();
 
-                assertThat(rawClass).isEqualTo(PublicMembersTestObject.class);
-            });
+        assertThat(rawClass).isEqualTo(PublicMembersTestObject.class);
+      });
 
-            it("can be obtained from methods",()->{
-                TypeMethod method = Diamond.of(PublicMembersTestObject.class).methods().named("method").get();
+      it("can be obtained from methods", () -> {
+        TypeMethod method = Diamond.of(PublicMembersTestObject.class).methods().named("method").get();
 
-                Nary<Method> nativeMethod = method.nativeType();
+        Nary<Method> nativeMethod = method.nativeType();
 
-                assertThat(nativeMethod.isPresent()).isTrue();
-                assertThat(nativeMethod.get().getName()).isEqualTo("method");
-            });
+        assertThat(nativeMethod.isPresent()).isTrue();
+        assertThat(nativeMethod.get().getName()).isEqualTo("method");
+      });
 
-            it("can be obtained from fields",()->{
-                TypeField field = Diamond.of(PublicMembersTestObject.class).fields().named("field").get();
+      it("can be obtained from fields", () -> {
+        TypeField field = Diamond.of(PublicMembersTestObject.class).fields().named("field").get();
 
-                Nary<Field> nativeField = field.nativeType();
+        Nary<Field> nativeField = field.nativeType();
 
-                assertThat(nativeField.isPresent()).isTrue();
-                assertThat(nativeField.get().getName()).isEqualTo("field");
-            });
+        assertThat(nativeField.isPresent()).isTrue();
+        assertThat(nativeField.get().getName()).isEqualTo("field");
+      });
 
-            it("can be obtained from constructors",()->{
-                TypeConstructor constructor = Diamond.of(PublicMembersTestObject.class).constructors().niladic().get();
+      it("can be obtained from constructors", () -> {
+        TypeConstructor constructor = Diamond.of(PublicMembersTestObject.class).constructors().niladic().get();
 
-                Nary<Constructor> nativeConstructor = constructor.nativeType();
+        Nary<Constructor> nativeConstructor = constructor.nativeType();
 
-                assertThat(nativeConstructor.isPresent()).isTrue();
-            });
-        });
+        assertThat(nativeConstructor.isPresent()).isTrue();
+      });
+    });
 
-    }
+  }
 }

@@ -6,26 +6,26 @@ package ar.com.kfgodel.diamond.unit.testobjects.invokables;
  */
 public class InvokableTestObject {
 
-    public InvokableTestObject(){
+  public InvokableTestObject() {
 
-    }
+  }
 
-    public InvokableTestObject(int a, int b){
+  public InvokableTestObject(int a, int b) {
 
-    }
+  }
 
-    public static int staticSumMethod(int a, int b){
-        return a + b;
-    }
+  public static int staticSumMethod(int a, int b) {
+    return a + b;
+  }
 
-    public int instanceMultiply(int a, int b){
-        return a * b;
-    }
+  public int instanceMultiply(int a, int b) {
+    return a * b;
+  }
 
-    public static void staticVoidMethod(){
+  public static void staticVoidMethod() {
 
-    }
+  }
 
-    public static int staticField;
-    public int instanceField;
+  public static int staticField;
+  public int instanceField;
 }

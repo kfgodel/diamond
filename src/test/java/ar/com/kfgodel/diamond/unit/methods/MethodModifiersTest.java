@@ -28,103 +28,108 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @RunWith(JavaSpecRunner.class)
 public class MethodModifiersTest extends JavaSpec<DiamondTestContext> {
-    @Override
-    public void define() {
-        describe("a method modifier", () -> {
-            it("can be public",()->{
-                TypeMethod method = getPublicMethod();
-                assertThat(method.is(Modifiers.PUBLIC));
-            });
+  @Override
+  public void define() {
+    describe("a method modifier", () -> {
+      it("can be public", () -> {
+        TypeMethod method = getPublicMethod();
+        assertThat(method.is(Modifiers.PUBLIC));
+      });
 
-            it("can be private",()->{
-                TypeMethod method = getPrivateMethod();
-                assertThat(method.is(Modifiers.PRIVATE));
-            });
+      it("can be private", () -> {
+        TypeMethod method = getPrivateMethod();
+        assertThat(method.is(Modifiers.PRIVATE));
+      });
 
-            it("can be protected",()->{
-                TypeMethod method = getProtectedMethod();
-                assertThat(method.is(Modifiers.PROTECTED));
-            });
+      it("can be protected", () -> {
+        TypeMethod method = getProtectedMethod();
+        assertThat(method.is(Modifiers.PROTECTED));
+      });
 
-            it("can be package (default)",()->{
-                TypeMethod method = getDefaultMethod();
-                assertThat(method.is(Modifiers.PACKAGE));
-            });
+      it("can be package (default)", () -> {
+        TypeMethod method = getDefaultMethod();
+        assertThat(method.is(Modifiers.PACKAGE));
+      });
 
-            it("can be static",()->{
-                TypeMethod method = getStaticMethod();
-                assertThat(method.modifiers().collect(Collectors.toList()))
-                        .contains(Modifiers.STATIC);
-            });
+      it("can be static", () -> {
+        TypeMethod method = getStaticMethod();
+        assertThat(method.modifiers().collect(Collectors.toList()))
+          .contains(Modifiers.STATIC);
+      });
 
-            it("can be final",()->{
-                TypeMethod method = getFinalMethod();
-                assertThat(method.is(Modifiers.FINAL));
-            });
+      it("can be final", () -> {
+        TypeMethod method = getFinalMethod();
+        assertThat(method.is(Modifiers.FINAL));
+      });
 
-            it("can be native",()->{
-                TypeMethod method = getNativeMethod();
-                assertThat(method.is(Modifiers.NATIVE));
-            });
-            
-            it("can be synchronized",()->{
-                TypeMethod method = getSyncMethod();
-                assertThat(method.is(Modifiers.SYNCHRONIZED));
-            });
-            
-            it("can be strictfp",()->{
-                TypeMethod method = getStrictMethod();
-                assertThat(method.is(Modifiers.STRICTFP));
-            });
+      it("can be native", () -> {
+        TypeMethod method = getNativeMethod();
+        assertThat(method.is(Modifiers.NATIVE));
+      });
 
-            it("can be abstract",()->{
-                TypeMethod method = getAbstractMethod();
-                assertThat(method.is(Modifiers.ABSTRACT));
-            });
-        });
+      it("can be synchronized", () -> {
+        TypeMethod method = getSyncMethod();
+        assertThat(method.is(Modifiers.SYNCHRONIZED));
+      });
+
+      it("can be strictfp", () -> {
+        TypeMethod method = getStrictMethod();
+        assertThat(method.is(Modifiers.STRICTFP));
+      });
+
+      it("can be abstract", () -> {
+        TypeMethod method = getAbstractMethod();
+        assertThat(method.is(Modifiers.ABSTRACT));
+      });
+    });
+  }
+
+  private TypeMethod getAbstractMethod() {
+    return getTypeMethod(AbstractMemberTestObject.class);
+  }
+
+  private TypeMethod getStrictMethod() {
+    return getTypeMethod(StrictfpMemberTestObject.class);
+  }
+
+  private TypeMethod getSyncMethod() {
+    return getTypeMethod(SynchronizedMemberTestObject.class);
+  }
+
+  private TypeMethod getNativeMethod() {
+    return getTypeMethod(NativeMemberTestObject.class);
+  }
+
+  private TypeMethod getPublicMethod() {
+    return getTypeMethod(PublicMembersTestObject.class);
+  }
+
+  private TypeMethod getPrivateMethod() {
+    return getTypeMethod(PrivateMembersTestObject.class);
+  }
+
+  private TypeMethod getProtectedMethod() {
+    return getTypeMethod(ProtectedMembersTestObject.class);
+  }
+
+  private TypeMethod getDefaultMethod() {
+    return getTypeMethod(DefaultMembersTestObject.class);
+  }
+
+  private TypeMethod getStaticMethod() {
+    return getTypeMethod(StaticMembersTestObject.class);
+  }
+
+  private TypeMethod getFinalMethod() {
+    return getTypeMethod(FinalMembersTestObject.class);
+  }
+
+  private TypeMethod getTypeMethod(Class<?> clase) {
+    try {
+      return Diamond.methods().from(clase.getDeclaredMethod("method"));
+    } catch (NoSuchMethodException e) {
+      throw new RuntimeException("Unexpected test error", e);
     }
-
-    private TypeMethod getAbstractMethod() {
-        return getTypeMethod(AbstractMemberTestObject.class);
-    }
-
-    private TypeMethod getStrictMethod() {
-        return getTypeMethod(StrictfpMemberTestObject.class);
-    }
-
-    private TypeMethod getSyncMethod() {
-        return getTypeMethod(SynchronizedMemberTestObject.class);
-    }
-
-    private TypeMethod getNativeMethod() {
-        return getTypeMethod(NativeMemberTestObject.class);
-    }
-
-    private TypeMethod getPublicMethod() {
-        return getTypeMethod(PublicMembersTestObject.class);
-    }
-    private TypeMethod getPrivateMethod() {
-        return getTypeMethod(PrivateMembersTestObject.class);
-    }
-    private TypeMethod getProtectedMethod() {
-        return getTypeMethod(ProtectedMembersTestObject.class);
-    }
-    private TypeMethod getDefaultMethod() {
-        return getTypeMethod(DefaultMembersTestObject.class);
-    }
-    private TypeMethod getStaticMethod() {
-        return getTypeMethod(StaticMembersTestObject.class);
-    }
-    private TypeMethod getFinalMethod() {
-        return getTypeMethod(FinalMembersTestObject.class);
-    }
-
-    private TypeMethod getTypeMethod(Class<?> clase) {
-        try {
-            return Diamond.methods().from(clase.getDeclaredMethod("method"));
-        } catch (NoSuchMethodException e) {
-            throw new RuntimeException("Unexpected test error", e);
-        }
-    }
+  }
 
 }

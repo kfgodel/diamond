@@ -6,8 +6,8 @@ package ar.com.kfgodel.diamond.api.naming;
  */
 public interface Named {
 
-    /**
-     * @return The name of this instance
-     */
-    String name();
+  /**
+   * @return The name of this instance
+   */
+  String name();
 }

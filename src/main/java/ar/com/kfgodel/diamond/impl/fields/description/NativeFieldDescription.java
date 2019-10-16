@@ -35,80 +35,80 @@ import java.util.function.Supplier;
  */
 public class NativeFieldDescription implements FieldDescription {
 
-    private Field nativeField;
+  private Field nativeField;
 
-    public static NativeFieldDescription create(Field nativeField) {
-        NativeFieldDescription description = new NativeFieldDescription();
-        description.nativeField = nativeField;
-        return description;
-    }
+  public static NativeFieldDescription create(Field nativeField) {
+    NativeFieldDescription description = new NativeFieldDescription();
+    description.nativeField = nativeField;
+    return description;
+  }
 
-    @Override
-    public Supplier<String> getName() {
-        return CachedValue.lazilyBy(nativeField::getName);
-    }
+  @Override
+  public Supplier<String> getName() {
+    return CachedValue.lazilyBy(nativeField::getName);
+  }
 
-    @Override
-    public Supplier<TypeInstance> getType() {
-        return CachedValue.lazilyBy(() -> Diamond.types().from(nativeField.getAnnotatedType()));
-    }
+  @Override
+  public Supplier<TypeInstance> getType() {
+    return CachedValue.lazilyBy(() -> Diamond.types().from(nativeField.getAnnotatedType()));
+  }
 
-    @Override
-    public Supplier<TypeInstance> getDeclaringType() {
-        return NativeMemberDeclaringTypeSupplier.create(nativeField);
-    }
+  @Override
+  public Supplier<TypeInstance> getDeclaringType() {
+    return NativeMemberDeclaringTypeSupplier.create(nativeField);
+  }
 
-    @Override
-    public Supplier<Nary<ExecutableParameter>> getParameters() {
-        return NoParametersSupplier.INSTANCE;
-    }
+  @Override
+  public Supplier<Nary<ExecutableParameter>> getParameters() {
+    return NoParametersSupplier.INSTANCE;
+  }
 
-    @Override
-    public Supplier<Nary<Modifier>> getModifiers() {
-        return ImmutableMemberModifiers.create(nativeField);
-    }
+  @Override
+  public Supplier<Nary<Modifier>> getModifiers() {
+    return ImmutableMemberModifiers.create(nativeField);
+  }
 
 
-    @Override
-    public Supplier<PolymorphicInvokable> getInvoker() {
-        return CachedValue.lazilyBy(() -> java.lang.reflect.Modifier.isStatic(nativeField.getModifiers()) ?
-                        NativeStaticFieldInvoker.create(nativeField) :
-                        NativeInstanceFieldInvoker.create(nativeField)
-        );
-    }
+  @Override
+  public Supplier<PolymorphicInvokable> getInvoker() {
+    return CachedValue.lazilyBy(() -> java.lang.reflect.Modifier.isStatic(nativeField.getModifiers()) ?
+      NativeStaticFieldInvoker.create(nativeField) :
+      NativeInstanceFieldInvoker.create(nativeField)
+    );
+  }
 
-    @Override
-    public Supplier<Nary<Annotation>> getAnnotations() {
-        return AnnotatedElementAnnotationsSupplier.create(nativeField);
-    }
+  @Override
+  public Supplier<Nary<Annotation>> getAnnotations() {
+    return AnnotatedElementAnnotationsSupplier.create(nativeField);
+  }
 
-    @Override
-    public Supplier<BiConsumer<Object, Object>> getSetter() {
-        return CachedValue.lazilyBy(() -> NativeFieldSetter.create(nativeField));
-    }
+  @Override
+  public Supplier<BiConsumer<Object, Object>> getSetter() {
+    return CachedValue.lazilyBy(() -> NativeFieldSetter.create(nativeField));
+  }
 
-    @Override
-    public Supplier<Function<Object, Object>> getGetter() {
-        return CachedValue.lazilyBy(() -> NativeFieldGetter.create(nativeField));
-    }
+  @Override
+  public Supplier<Function<Object, Object>> getGetter() {
+    return CachedValue.lazilyBy(() -> NativeFieldGetter.create(nativeField));
+  }
 
-    @Override
-    public Supplier<Nary<Field>> getNativeField() {
-        return () -> Nary.of(nativeField);
-    }
+  @Override
+  public Supplier<Nary<Field>> getNativeField() {
+    return () -> Nary.of(nativeField);
+  }
 
-    @Override
-    public Supplier<Generics> getGenerics() {
-        return UnGenerifiedMemberGenerics::instance;
-    }
+  @Override
+  public Supplier<Generics> getGenerics() {
+    return UnGenerifiedMemberGenerics::instance;
+  }
 
-    @Override
-    public Supplier<Nary<TypeInstance>> getDeclaredExceptions() {
-        return NoExceptionsSupplier::create;
-    }
+  @Override
+  public Supplier<Nary<TypeInstance>> getDeclaredExceptions() {
+    return NoExceptionsSupplier::create;
+  }
 
-    @Override
-    public Function<TypeField, Object> getIdentityToken() {
-        return CachedTokenCalculator.create(FieldEquality.INSTANCE::calculateTokenFor);
-    }
+  @Override
+  public Function<TypeField, Object> getIdentityToken() {
+    return CachedTokenCalculator.create(FieldEquality.INSTANCE::calculateTokenFor);
+  }
 }

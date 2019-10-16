@@ -16,27 +16,27 @@ import java.util.function.Supplier;
  */
 public class AnnotatedWildcardDescription extends AnnotatedTypeDescriptionSupport {
 
-    private AnnotatedWildcardType nativeType;
+  private AnnotatedWildcardType nativeType;
 
-    @Override
-    protected AnnotatedType getAnnotatedType() {
-        return nativeType;
-    }
+  @Override
+  protected AnnotatedType getAnnotatedType() {
+    return nativeType;
+  }
 
-    @Override
-    protected TypeDescription createUnannotatedDescription() {
-        return WildcardTypeDescription.create((WildcardType) nativeType.getType());
-    }
+  @Override
+  protected TypeDescription createUnannotatedDescription() {
+    return WildcardTypeDescription.create((WildcardType) nativeType.getType());
+  }
 
-    @Override
-    public Supplier<TypeBounds> getBounds() {
-        return WildcardBoundsSupplier.create(nativeType);
-    }
+  @Override
+  public Supplier<TypeBounds> getBounds() {
+    return WildcardBoundsSupplier.create(nativeType);
+  }
 
-    public static AnnotatedWildcardDescription create(AnnotatedWildcardType nativeType) {
-        AnnotatedWildcardDescription description = new AnnotatedWildcardDescription();
-        description.nativeType = nativeType;
-        return description;
-    }
+  public static AnnotatedWildcardDescription create(AnnotatedWildcardType nativeType) {
+    AnnotatedWildcardDescription description = new AnnotatedWildcardDescription();
+    description.nativeType = nativeType;
+    return description;
+  }
 
 }

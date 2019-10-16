@@ -8,16 +8,17 @@ import ar.com.kfgodel.nary.api.Nary;
  */
 public interface Modifiable {
 
-    /**
-     * @return The set of member modifiers applied to this member declaration
-     */
-    Nary<Modifier> modifiers();
+  /**
+   * @return The set of member modifiers applied to this member declaration
+   */
+  Nary<Modifier> modifiers();
 
-    /**
-     * Verifies if the given modifier is present in this instance
-     * @param expectedModifier The modifier to verify
-     * @return True if this instance is modified with the given modifier
-     */
-    boolean is(Modifier expectedModifier);
+  /**
+   * Verifies if the given modifier is present in this instance
+   *
+   * @param expectedModifier The modifier to verify
+   * @return True if this instance is modified with the given modifier
+   */
+  boolean is(Modifier expectedModifier);
 
 }

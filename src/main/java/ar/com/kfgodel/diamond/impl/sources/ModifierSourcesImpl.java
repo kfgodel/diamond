@@ -17,41 +17,41 @@ import java.util.stream.Collectors;
  */
 public class ModifierSourcesImpl implements ModifierSources {
 
-    private DiamondCache cache;
+  private DiamondCache cache;
 
-    public static ModifierSourcesImpl create(DiamondCache cache) {
-        ModifierSourcesImpl sources = new ModifierSourcesImpl();
-        sources.cache = cache;
-        return sources;
-    }
+  public static ModifierSourcesImpl create(DiamondCache cache) {
+    ModifierSourcesImpl sources = new ModifierSourcesImpl();
+    sources.cache = cache;
+    return sources;
+  }
 
-    @Override
-    public List<Modifier> from(Member nativeMember) {
-        int modifiersBitmap = nativeMember.getModifiers();
-        return from(modifiersBitmap);
-    }
+  @Override
+  public List<Modifier> from(Member nativeMember) {
+    int modifiersBitmap = nativeMember.getModifiers();
+    return from(modifiersBitmap);
+  }
 
-    @Override
-    public List<Modifier> from(int modifierBitmap) {
-        return cache.reuseOrCreateRepresentationFor(modifierBitmap, ()-> createMemberModifierListFor(modifierBitmap));
-    }
+  @Override
+  public List<Modifier> from(int modifierBitmap) {
+    return cache.reuseOrCreateRepresentationFor(modifierBitmap, () -> createMemberModifierListFor(modifierBitmap));
+  }
 
-    private List<Modifier> createMemberModifierListFor(int modifierBitmap) {
-        return all()
-                .filter((modifier) -> modifier.isPresentIn(modifierBitmap))
-                .collect(Collectors.toList());
-    }
+  private List<Modifier> createMemberModifierListFor(int modifierBitmap) {
+    return all()
+      .filter((modifier) -> modifier.isPresentIn(modifierBitmap))
+      .collect(Collectors.toList());
+  }
 
-    @Override
-    public List<Modifier> fromParameter(int modifierBitmap) {
-        // We exclude package that is present by default (lack of other visibility)
-        return from(modifierBitmap).stream()
-                .filter((modifier) -> !Modifiers.PACKAGE.equals(modifier))
-                .collect(Collectors.toList());
-    }
+  @Override
+  public List<Modifier> fromParameter(int modifierBitmap) {
+    // We exclude package that is present by default (lack of other visibility)
+    return from(modifierBitmap).stream()
+      .filter((modifier) -> !Modifiers.PACKAGE.equals(modifier))
+      .collect(Collectors.toList());
+  }
 
-    @Override
-    public Nary<Modifier> all() {
-        return Nary.create(Arrays.stream(Modifiers.values()));
-    }
+  @Override
+  public Nary<Modifier> all() {
+    return Nary.create(Arrays.stream(Modifiers.values()));
+  }
 }

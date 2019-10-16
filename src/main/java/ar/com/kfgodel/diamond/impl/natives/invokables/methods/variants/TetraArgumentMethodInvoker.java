@@ -9,24 +9,24 @@ import java.lang.reflect.Method;
  */
 public class TetraArgumentMethodInvoker extends MethodHandleInvokerSupport {
 
-    public static TetraArgumentMethodInvoker create(Method nativeMethod) {
-        TetraArgumentMethodInvoker invoker = new TetraArgumentMethodInvoker();
-        invoker.setNativeMethod(nativeMethod);
-        return invoker;
-    }
+  public static TetraArgumentMethodInvoker create(Method nativeMethod) {
+    TetraArgumentMethodInvoker invoker = new TetraArgumentMethodInvoker();
+    invoker.setNativeMethod(nativeMethod);
+    return invoker;
+  }
 
-    @Override
-    protected int getExpectedArgumentCount() {
-        return 4;
-    }
+  @Override
+  protected int getExpectedArgumentCount() {
+    return 4;
+  }
 
-    @Override
-    protected Object realInvocation(Object[] arguments) throws Throwable {
-        return methodHandle.invoke(arguments[0], arguments[1], arguments[2], arguments[3]);
-    }
+  @Override
+  protected Object realInvocation(Object[] arguments) throws Throwable {
+    return methodHandle.invoke(arguments[0], arguments[1], arguments[2], arguments[3]);
+  }
 
-    @Override
-    protected MethodType getExpectedMethodType() {
-        return MethodType.methodType(Object.class, Object.class, Object.class, Object.class, Object.class);
-    }
+  @Override
+  protected MethodType getExpectedMethodType() {
+    return MethodType.methodType(Object.class, Object.class, Object.class, Object.class, Object.class);
+  }
 }

@@ -10,20 +10,21 @@ import java.lang.reflect.Parameter;
  */
 public class ParameterDescriptor {
 
-    public static final ParameterDescriptor INSTANCE = ParameterDescriptor.create();
+  public static final ParameterDescriptor INSTANCE = ParameterDescriptor.create();
 
-    /**
-     * Creates a description of the given native parameter based on its features
-     * @param nativeParameter The parameter to describe
-     * @return The description for diamond
-     */
-    public ParameterDescription describe(Parameter nativeParameter){
-        return NativeParameterDescription.create(nativeParameter);
-    }
+  /**
+   * Creates a description of the given native parameter based on its features
+   *
+   * @param nativeParameter The parameter to describe
+   * @return The description for diamond
+   */
+  public ParameterDescription describe(Parameter nativeParameter) {
+    return NativeParameterDescription.create(nativeParameter);
+  }
 
-    public static ParameterDescriptor create() {
-        ParameterDescriptor descriptor = new ParameterDescriptor();
-        return descriptor;
-    }
+  public static ParameterDescriptor create() {
+    ParameterDescriptor descriptor = new ParameterDescriptor();
+    return descriptor;
+  }
 
 }

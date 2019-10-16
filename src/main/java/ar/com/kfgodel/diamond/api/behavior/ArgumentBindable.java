@@ -8,11 +8,12 @@ import ar.com.kfgodel.diamond.api.members.call.BehaviorCall;
  */
 public interface ArgumentBindable {
 
-    /**
-     * Creates a method call of this behavior with the given arguments
-     * @param arguments The arguments to use when invoking this behavior in the method call
-     * @return The created method call
-     */
-    BehaviorCall withArguments(Object... arguments);
+  /**
+   * Creates a method call of this behavior with the given arguments
+   *
+   * @param arguments The arguments to use when invoking this behavior in the method call
+   * @return The created method call
+   */
+  BehaviorCall withArguments(Object... arguments);
 
 }

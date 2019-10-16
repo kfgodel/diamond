@@ -11,14 +11,14 @@ import ar.com.kfgodel.nary.api.Nary;
 public class UnGenerifiedMemberGenerics implements Generics {
 
 
-    private static final UnGenerifiedMemberGenerics INSTANCE = new UnGenerifiedMemberGenerics();
+  private static final UnGenerifiedMemberGenerics INSTANCE = new UnGenerifiedMemberGenerics();
 
-    public static UnGenerifiedMemberGenerics instance(){
-        return INSTANCE;
-    }
+  public static UnGenerifiedMemberGenerics instance() {
+    return INSTANCE;
+  }
 
-    @Override
-    public Nary<TypeInstance> parameters() {
-        return Nary.empty();
-    }
+  @Override
+  public Nary<TypeInstance> parameters() {
+    return Nary.empty();
+  }
 }

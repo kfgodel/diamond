@@ -17,37 +17,38 @@ import java.lang.reflect.Field;
  */
 public class FieldSourceImpl implements FieldSources {
 
-    private DiamondCache cache;
+  private DiamondCache cache;
 
-    public static FieldSourceImpl create(DiamondCache cache) {
-        FieldSourceImpl source = new FieldSourceImpl();
-        source.cache = cache;
-        return source;
-    }
+  public static FieldSourceImpl create(DiamondCache cache) {
+    FieldSourceImpl source = new FieldSourceImpl();
+    source.cache = cache;
+    return source;
+  }
 
-    @Override
-    public TypeFields in(Class<?> objectClass) {
-        return Diamond.of(objectClass).fields();
-    }
+  @Override
+  public TypeFields in(Class<?> objectClass) {
+    return Diamond.of(objectClass).fields();
+  }
 
-    @Override
-    public TypeField from(Field nativeField) {
-        return cache.reuseOrCreateRepresentationFor(nativeField, () -> fromDescription(FieldDescriptor.INSTANCE.describe(nativeField)));
-    }
+  @Override
+  public TypeField from(Field nativeField) {
+    return cache.reuseOrCreateRepresentationFor(nativeField, () -> fromDescription(FieldDescriptor.INSTANCE.describe(nativeField)));
+  }
 
-    @Override
-    public TypeField fromDescription(FieldDescription fieldDescription) {
-        return createFieldFrom(fieldDescription);
-    }
+  @Override
+  public TypeField fromDescription(FieldDescription fieldDescription) {
+    return createFieldFrom(fieldDescription);
+  }
 
-    /**
-     * Creates a new class field instance from a its description
-     * @param fieldDescription The description of the field features
-     * @return The instance that represents a field
-     */
-    private TypeField createFieldFrom(FieldDescription fieldDescription) {
-        return TypeFieldInstance.create(fieldDescription);
-    }
+  /**
+   * Creates a new class field instance from a its description
+   *
+   * @param fieldDescription The description of the field features
+   * @return The instance that represents a field
+   */
+  private TypeField createFieldFrom(FieldDescription fieldDescription) {
+    return TypeFieldInstance.create(fieldDescription);
+  }
 
 
 }

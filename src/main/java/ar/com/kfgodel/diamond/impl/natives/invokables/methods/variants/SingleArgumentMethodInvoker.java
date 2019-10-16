@@ -9,24 +9,24 @@ import java.lang.reflect.Method;
  */
 public class SingleArgumentMethodInvoker extends MethodHandleInvokerSupport {
 
-    public static SingleArgumentMethodInvoker create(Method nativeMethod) {
-        SingleArgumentMethodInvoker invoker = new SingleArgumentMethodInvoker();
-        invoker.setNativeMethod(nativeMethod);
-        return invoker;
-    }
+  public static SingleArgumentMethodInvoker create(Method nativeMethod) {
+    SingleArgumentMethodInvoker invoker = new SingleArgumentMethodInvoker();
+    invoker.setNativeMethod(nativeMethod);
+    return invoker;
+  }
 
-    @Override
-    protected int getExpectedArgumentCount() {
-        return 1;
-    }
+  @Override
+  protected int getExpectedArgumentCount() {
+    return 1;
+  }
 
-    @Override
-    protected Object realInvocation(Object[] arguments) throws Throwable {
-        return methodHandle.invoke(arguments[0]);
-    }
+  @Override
+  protected Object realInvocation(Object[] arguments) throws Throwable {
+    return methodHandle.invoke(arguments[0]);
+  }
 
-    @Override
-    protected MethodType getExpectedMethodType() {
-        return MethodType.methodType(Object.class, Object.class);
-    }
+  @Override
+  protected MethodType getExpectedMethodType() {
+    return MethodType.methodType(Object.class, Object.class);
+  }
 }

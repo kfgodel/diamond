@@ -11,16 +11,17 @@ public class LambdaEquality {
 
   /**
    * Compares the given modifier with the object indicating if they are equals.<br>
-   *     They are equals if have same declaration
+   * They are equals if have same declaration
+   *
    * @param one The modifier to compare
    * @param obj The object to be compared with
    * @return true if represent the same modifier
    */
-  public boolean areEquals(Lambda one, Object obj){
-    if(one == obj){
+  public boolean areEquals(Lambda one, Object obj) {
+    if (one == obj) {
       return true;
     }
-    if(one == null || obj == null || !(obj instanceof Lambda)){
+    if (one == null || obj == null || !(obj instanceof Lambda)) {
       return false;
     }
     Lambda other = (Lambda) obj;
@@ -29,10 +30,11 @@ public class LambdaEquality {
 
   /**
    * Generates the hashcode compatible with this equality definition
+   *
    * @param typePackage The modifier to hash
    * @return The code that can be compared
    */
-  public int hashcodeFor(Lambda typePackage){
+  public int hashcodeFor(Lambda typePackage) {
     return typePackage.asFunction().hashCode();
   }
 

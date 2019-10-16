@@ -1,6 +1,10 @@
 package ar.com.kfgodel.diamond.unit.testobjects;
 
-import ar.com.kfgodel.diamond.unit.testobjects.annotations.*;
+import ar.com.kfgodel.diamond.unit.testobjects.annotations.FieldTestAnnotation;
+import ar.com.kfgodel.diamond.unit.testobjects.annotations.MethodTestAnnotation;
+import ar.com.kfgodel.diamond.unit.testobjects.annotations.TestAnnotation1;
+import ar.com.kfgodel.diamond.unit.testobjects.annotations.TestAnnotation2;
+import ar.com.kfgodel.diamond.unit.testobjects.annotations.TestAnnotation3;
 
 import java.util.List;
 
@@ -10,16 +14,16 @@ import java.util.List;
  */
 public class MemberNamingTestObject {
 
-    @TestAnnotation1
-    public <R> MemberNamingTestObject(Integer a){
+  @TestAnnotation1
+  public <R> MemberNamingTestObject(Integer a) {
 
-    }
+  }
 
-    @FieldTestAnnotation
-    public @TestAnnotation2 List<String> stringList;
+  @FieldTestAnnotation
+  public @TestAnnotation2 List<String> stringList;
 
-    @MethodTestAnnotation
-    public @TestAnnotation3 <S>   int methodWithArgs(String a, S b){
-        return 0;
-    }
+  @MethodTestAnnotation
+  public @TestAnnotation3 <S> int methodWithArgs(String a, S b) {
+    return 0;
+  }
 }

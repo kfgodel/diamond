@@ -6,13 +6,13 @@ package ar.com.kfgodel.diamond.unit.testobjects;
  */
 public class CachedMemberTestObject {
 
-    CachedMemberTestObject(){
+  CachedMemberTestObject() {
 
-    }
+  }
 
-    int field;
+  int field;
 
-    void method(){
+  void method() {
 
-    }
+  }
 }

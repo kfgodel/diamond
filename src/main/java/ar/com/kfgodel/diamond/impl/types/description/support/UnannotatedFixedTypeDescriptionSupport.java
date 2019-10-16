@@ -21,41 +21,40 @@ import java.util.function.Supplier;
  */
 public abstract class UnannotatedFixedTypeDescriptionSupport extends UnannotatedTypeDescriptionSupport {
 
-    @Override
-    public Supplier<TypeNames> getNames() {
-        return FixedTypeNameSupplier.create(getRawClass(), getNativeType());
-    }
+  @Override
+  public Supplier<TypeNames> getNames() {
+    return FixedTypeNameSupplier.create(getRawClass(), getNativeType());
+  }
 
-    @Override
-    public InheritanceDescription getInheritanceDescription() {
-        return FixedTypeInheritanceDescription.create(getRawClass(), getTypeArguments());
-    }
+  @Override
+  public InheritanceDescription getInheritanceDescription() {
+    return FixedTypeInheritanceDescription.create(getRawClass(), getTypeArguments());
+  }
 
-    @Override
-    public Supplier<Nary<TypeInstance>> getTypeParametersSupplier() {
-        return GenericTypeParametersSupplier.create(getRawClass());
-    }
+  @Override
+  public Supplier<Nary<TypeInstance>> getTypeParametersSupplier() {
+    return GenericTypeParametersSupplier.create(getRawClass());
+  }
 
-    @Override
-    public Supplier<Nary<TypeConstructor>> getTypeConstructors() {
-        Class<?> rawClass = getRawClass();
-        if(rawClass.isArray()){
-            // Artificial constructor for arrays: https://github.com/kfgodel/diamond/issues/88
-            return ArraysConstructorSupplier.create(rawClass);
-        }
-        return ClassConstructorsSupplier.create(rawClass);
+  @Override
+  public Supplier<Nary<TypeConstructor>> getTypeConstructors() {
+    Class<?> rawClass = getRawClass();
+    if (rawClass.isArray()) {
+      // Artificial constructor for arrays: https://github.com/kfgodel/diamond/issues/88
+      return ArraysConstructorSupplier.create(rawClass);
     }
+    return ClassConstructorsSupplier.create(rawClass);
+  }
 
-    @Override
-    public Supplier<Nary<TypePackage>> getDeclaredPackage() {
-        return TypePackageSupplier.create(getRawClass());
-    }
+  @Override
+  public Supplier<Nary<TypePackage>> getDeclaredPackage() {
+    return TypePackageSupplier.create(getRawClass());
+  }
 
-    @Override
-    public boolean isForVariableType() {
-        return false;
-    }
-
+  @Override
+  public boolean isForVariableType() {
+    return false;
+  }
 
 
 }

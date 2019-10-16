@@ -6,19 +6,19 @@ package ar.com.kfgodel.diamond.unit.testobjects.invokables;
  */
 public class CompositeFunctionTestObject {
 
-    private CompositeFunctionTestObject a = this;
-    private CompositeFunctionTestObject b = this;
-    private CompositeFunctionTestObject c = this;
+  private CompositeFunctionTestObject a = this;
+  private CompositeFunctionTestObject b = this;
+  private CompositeFunctionTestObject c = this;
 
-    public CompositeFunctionTestObject getA() {
-        return a;
-    }
+  public CompositeFunctionTestObject getA() {
+    return a;
+  }
 
-    public CompositeFunctionTestObject getB() {
-        return b;
-    }
+  public CompositeFunctionTestObject getB() {
+    return b;
+  }
 
-    public CompositeFunctionTestObject getC() {
-        return c;
-    }
+  public CompositeFunctionTestObject getC() {
+    return c;
+  }
 }

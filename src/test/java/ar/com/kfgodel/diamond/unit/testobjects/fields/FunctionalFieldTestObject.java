@@ -6,8 +6,8 @@ package ar.com.kfgodel.diamond.unit.testobjects.fields;
  */
 public class FunctionalFieldTestObject {
 
-    public int instanceField;
+  public int instanceField;
 
-    public static int staticField;
+  public static int staticField;
 
 }

@@ -16,32 +16,32 @@ import java.util.function.Supplier;
  */
 public class TypeConstructorsImpl implements TypeConstructors {
 
-    private Supplier<Nary<TypeConstructor>> typeConstructors;
+  private Supplier<Nary<TypeConstructor>> typeConstructors;
 
-    @Override
-    public Nary<TypeConstructor> all() {
-        return typeConstructors.get();
-    }
+  @Override
+  public Nary<TypeConstructor> all() {
+    return typeConstructors.get();
+  }
 
-    @Override
-    public Nary<TypeConstructor> niladic() {
-        return withParameters();
-    }
+  @Override
+  public Nary<TypeConstructor> niladic() {
+    return withParameters();
+  }
 
-    @Override
-    public Nary<TypeConstructor> withParameters(TypeInstance... paramTypes) {
-        return FilterByParameterType.create(all(), paramTypes);
-    }
+  @Override
+  public Nary<TypeConstructor> withParameters(TypeInstance... paramTypes) {
+    return FilterByParameterType.create(all(), paramTypes);
+  }
 
-    @Override
-    public Nary<TypeConstructor> withNativeParameters(Type... parameterTypes) {
-        return withParameters(Diamond.ofNative(parameterTypes));
-    }
+  @Override
+  public Nary<TypeConstructor> withNativeParameters(Type... parameterTypes) {
+    return withParameters(Diamond.ofNative(parameterTypes));
+  }
 
-    public static TypeConstructorsImpl create(Supplier<Nary<TypeConstructor>> constructorSupplier) {
-        TypeConstructorsImpl methodSource = new TypeConstructorsImpl();
-        methodSource.typeConstructors = constructorSupplier;
-        return methodSource;
-    }
+  public static TypeConstructorsImpl create(Supplier<Nary<TypeConstructor>> constructorSupplier) {
+    TypeConstructorsImpl methodSource = new TypeConstructorsImpl();
+    methodSource.typeConstructors = constructorSupplier;
+    return methodSource;
+  }
 
 }

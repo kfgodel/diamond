@@ -8,15 +8,15 @@ import java.util.function.Predicate;
  * Created by kfgodel on 03/02/15.
  */
 public class PrimitiveKind extends NativeClassKindSupport {
-    
-    @Override
-    protected Predicate<Class<?>> getClassPredicate() {
-        return Class::isPrimitive;
-    }
 
-    public static PrimitiveKind create() {
-        PrimitiveKind kind = new PrimitiveKind();
-        return kind;
-    }
+  @Override
+  protected Predicate<Class<?>> getClassPredicate() {
+    return Class::isPrimitive;
+  }
+
+  public static PrimitiveKind create() {
+    PrimitiveKind kind = new PrimitiveKind();
+    return kind;
+  }
 
 }

@@ -13,27 +13,27 @@ import java.util.function.Supplier;
  */
 public class SuperClassSupplier implements Supplier<Nary<TypeInstance>> {
 
-    private CachedValue<TypeInstance> superclass;
+  private CachedValue<TypeInstance> superclass;
 
-    @Override
-    public Nary<TypeInstance> get() {
-        TypeInstance superType = superclass.get();
-        if(superType == null){
-            return Nary.empty();
-        }
-        return Nary.of(superType);
+  @Override
+  public Nary<TypeInstance> get() {
+    TypeInstance superType = superclass.get();
+    if (superType == null) {
+      return Nary.empty();
     }
+    return Nary.of(superType);
+  }
 
-    public static Supplier<Nary<TypeInstance>>  create(Class<?> nativeClass) {
-        SuperClassSupplier supplier = new SuperClassSupplier();
-        supplier.superclass = CachedValue.lazilyBy(() -> {
-            Class<?> superclass = nativeClass.getSuperclass();
-            if (superclass == null) {
-                return null;
-            }
-            return Diamond.of(superclass);
-        });
-        return supplier;
-    }
+  public static Supplier<Nary<TypeInstance>> create(Class<?> nativeClass) {
+    SuperClassSupplier supplier = new SuperClassSupplier();
+    supplier.superclass = CachedValue.lazilyBy(() -> {
+      Class<?> superclass = nativeClass.getSuperclass();
+      if (superclass == null) {
+        return null;
+      }
+      return Diamond.of(superclass);
+    });
+    return supplier;
+  }
 
 }

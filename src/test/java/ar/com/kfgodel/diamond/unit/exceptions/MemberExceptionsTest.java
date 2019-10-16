@@ -21,46 +21,46 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @RunWith(JavaSpecRunner.class)
 public class MemberExceptionsTest extends JavaSpec<DiamondTestContext> {
-    @Override
-    public void define() {
-        describe("exceptions", () -> {
+  @Override
+  public void define() {
+    describe("exceptions", () -> {
 
-            context().typeInstance(()-> Diamond.of(MemberExceptionsTestObject.class));
+      context().typeInstance(() -> Diamond.of(MemberExceptionsTestObject.class));
 
-            describe("on fields", () -> {
+      describe("on fields", () -> {
 
-                context().field(()-> context().typeInstance().fields().named("field").get());
+        context().field(() -> context().typeInstance().fields().named("field").get());
 
-                it("is an empty stream", () -> {
-                    Stream<TypeInstance> exceptions = context().field().declaredExceptions();
+        it("is an empty stream", () -> {
+          Stream<TypeInstance> exceptions = context().field().declaredExceptions();
 
-                    assertThat(exceptions.count()).isEqualTo(0);
-                });
-            });
-
-            describe("on methods", () -> {
-
-                context().method(() -> context().typeInstance().methods().named("method").get());
-
-                it("is the full exception list declared by the method", () -> {
-                    Stream<TypeInstance> exceptions = context().method().declaredExceptions();
-
-                    assertThat(exceptions.map(Named::name).collect(Collectors.toList()))
-                            .isEqualTo(Arrays.asList("RuntimeException", "Exception", "Throwable"));
-                });
-            });
-
-            describe("on constructors", () -> {
-
-                context().constructor(()-> context().typeInstance().constructors().niladic().get());
-
-                it("is the full exception list as methods",()->{
-                    Stream<TypeInstance> exceptions = context().constructor().declaredExceptions();
-
-                    assertThat(exceptions.map(Named::name).collect(Collectors.toList()))
-                            .isEqualTo(Arrays.asList("IllegalArgumentException"));
-                });   
-            });
+          assertThat(exceptions.count()).isEqualTo(0);
         });
-    }
+      });
+
+      describe("on methods", () -> {
+
+        context().method(() -> context().typeInstance().methods().named("method").get());
+
+        it("is the full exception list declared by the method", () -> {
+          Stream<TypeInstance> exceptions = context().method().declaredExceptions();
+
+          assertThat(exceptions.map(Named::name).collect(Collectors.toList()))
+            .isEqualTo(Arrays.asList("RuntimeException", "Exception", "Throwable"));
+        });
+      });
+
+      describe("on constructors", () -> {
+
+        context().constructor(() -> context().typeInstance().constructors().niladic().get());
+
+        it("is the full exception list as methods", () -> {
+          Stream<TypeInstance> exceptions = context().constructor().declaredExceptions();
+
+          assertThat(exceptions.map(Named::name).collect(Collectors.toList()))
+            .isEqualTo(Arrays.asList("IllegalArgumentException"));
+        });
+      });
+    });
+  }
 }

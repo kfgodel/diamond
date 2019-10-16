@@ -6,7 +6,7 @@ import ar.com.kfgodel.diamond.api.naming.Named;
 
 /**
  * This type represents the package of a type
- *
+ * <p>
  * Created by kfgodel on 05/11/14.
  */
 public interface TypePackage extends Named, Annotated, DiamondReflection {

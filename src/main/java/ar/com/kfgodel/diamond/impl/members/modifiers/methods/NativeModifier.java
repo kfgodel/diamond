@@ -9,13 +9,13 @@ import java.lang.reflect.Modifier;
  * Created by kfgodel on 19/10/14.
  */
 public class NativeModifier extends ModifierSupport {
-    protected NativeModifier() {
-        super(Modifier.NATIVE, "native");
-    }
+  protected NativeModifier() {
+    super(Modifier.NATIVE, "native");
+  }
 
-    public static NativeModifier create() {
-        NativeModifier modifier = new NativeModifier();
-        return modifier;
-    }
+  public static NativeModifier create() {
+    NativeModifier modifier = new NativeModifier();
+    return modifier;
+  }
 
 }

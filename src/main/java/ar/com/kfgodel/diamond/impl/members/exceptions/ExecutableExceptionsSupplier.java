@@ -14,7 +14,7 @@ import java.util.function.Supplier;
 public class ExecutableExceptionsSupplier {
 
 
-    public static Supplier<Nary<TypeInstance>> create(Executable nativeExecutable) {
-        return TypeNarySupplierFromNativeTypeArray.apply(nativeExecutable::getAnnotatedExceptionTypes);
-    }
+  public static Supplier<Nary<TypeInstance>> create(Executable nativeExecutable) {
+    return TypeNarySupplierFromNativeTypeArray.apply(nativeExecutable::getAnnotatedExceptionTypes);
+  }
 }

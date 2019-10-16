@@ -12,17 +12,17 @@ import java.util.function.Supplier;
  */
 public class UndefinedInvoker implements Supplier<PolymorphicInvokable> {
 
-    private TypeMember member;
+  private TypeMember member;
 
-    @Override
-    public PolymorphicInvokable get() {
-        throw new DiamondException("This member["+member+"] doesn't define an invoker");
-    }
+  @Override
+  public PolymorphicInvokable get() {
+    throw new DiamondException("This member[" + member + "] doesn't define an invoker");
+  }
 
-    public static UndefinedInvoker create(TypeMember member) {
-        UndefinedInvoker invoker = new UndefinedInvoker();
-        invoker.member = member;
-        return invoker;
-    }
+  public static UndefinedInvoker create(TypeMember member) {
+    UndefinedInvoker invoker = new UndefinedInvoker();
+    invoker.member = member;
+    return invoker;
+  }
 
 }

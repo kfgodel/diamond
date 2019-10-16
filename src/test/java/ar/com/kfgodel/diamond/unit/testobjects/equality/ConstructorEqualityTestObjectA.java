@@ -6,16 +6,16 @@ package ar.com.kfgodel.diamond.unit.testobjects.equality;
  */
 public class ConstructorEqualityTestObjectA {
 
-    ConstructorEqualityTestObjectA(){
+  ConstructorEqualityTestObjectA() {
 
-    }
+  }
 
-    ConstructorEqualityTestObjectA(String parameter){
+  ConstructorEqualityTestObjectA(String parameter) {
 
-    }
+  }
 
-    ConstructorEqualityTestObjectA(Number parameter){
+  ConstructorEqualityTestObjectA(Number parameter) {
 
-    }
+  }
 
 }

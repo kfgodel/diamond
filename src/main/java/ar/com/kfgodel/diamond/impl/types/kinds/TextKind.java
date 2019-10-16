@@ -8,14 +8,14 @@ import ar.com.kfgodel.diamond.api.types.kinds.Kind;
  * Created by kfgodel on 03/02/15.
  */
 public class TextKind implements Kind {
-    @Override
-    public boolean contains(TypeInstance testedType) {
-        return testedType.inheritance().isSubTypeOfNative(CharSequence.class);
-    }
+  @Override
+  public boolean contains(TypeInstance testedType) {
+    return testedType.inheritance().isSubTypeOfNative(CharSequence.class);
+  }
 
-    public static TextKind create() {
-        TextKind kind = new TextKind();
-        return kind;
-    }
+  public static TextKind create() {
+    TextKind kind = new TextKind();
+    return kind;
+  }
 
 }

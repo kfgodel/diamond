@@ -12,8 +12,8 @@ import java.util.stream.Stream;
  */
 public class NativeMethodsSupplier {
 
-    public static Supplier<Stream<Method>>  create(Set<Class<?>> baseClasses) {
-        return InheritedMemberSupplier.create(baseClasses, (superClass) -> Arrays.stream(superClass.getDeclaredMethods()));
-    }
+  public static Supplier<Stream<Method>> create(Set<Class<?>> baseClasses) {
+    return InheritedMemberSupplier.create(baseClasses, (superClass) -> Arrays.stream(superClass.getDeclaredMethods()));
+  }
 
 }

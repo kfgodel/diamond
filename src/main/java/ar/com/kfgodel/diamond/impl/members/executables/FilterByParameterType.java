@@ -13,8 +13,8 @@ import java.util.Arrays;
  */
 public class FilterByParameterType {
 
-    public static<T extends TypeMember> Nary<T> create(Nary<T> all, TypeInstance[] paramTypes) {
-        return Nary.create(all
-                .filter((member) -> StreamEquality.INSTANCE.areEquals(member.parameterTypes(), Arrays.stream(paramTypes))));
-    }
+  public static <T extends TypeMember> Nary<T> create(Nary<T> all, TypeInstance[] paramTypes) {
+    return Nary.create(all
+      .filter((member) -> StreamEquality.INSTANCE.areEquals(member.parameterTypes(), Arrays.stream(paramTypes))));
+  }
 }

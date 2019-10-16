@@ -11,16 +11,17 @@ public class ModifierEquality {
 
   /**
    * Compares the given modifier with the object indicating if they are equals.<br>
-   *     They are equals if have same declaration
+   * They are equals if have same declaration
+   *
    * @param one The modifier to compare
    * @param obj The object to be compared with
    * @return true if represent the same modifier
    */
-  public boolean areEquals(Modifier one, Object obj){
-    if(one == obj){
+  public boolean areEquals(Modifier one, Object obj) {
+    if (one == obj) {
       return true;
     }
-    if(one == null || obj == null || !(obj instanceof Modifier)){
+    if (one == null || obj == null || !(obj instanceof Modifier)) {
       return false;
     }
     Modifier other = (Modifier) obj;
@@ -29,10 +30,11 @@ public class ModifierEquality {
 
   /**
    * Generates the hashcode compatible with this equality definition
+   *
    * @param typePackage The modifier to hash
    * @return The code that can be compared
    */
-  public int hashcodeFor(Modifier typePackage){
+  public int hashcodeFor(Modifier typePackage) {
     return typePackage.declaration().hashCode();
   }
 }

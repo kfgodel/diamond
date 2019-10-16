@@ -14,38 +14,38 @@ import java.util.function.Supplier;
  */
 public class TypePackageImpl implements TypePackage {
 
-    private Supplier<String> name;
-    private Supplier<Nary<Annotation>> annotations;
+  private Supplier<String> name;
+  private Supplier<Nary<Annotation>> annotations;
 
-    @Override
-    public Nary<Annotation> annotations() {
-        return annotations.get();
-    }
+  @Override
+  public Nary<Annotation> annotations() {
+    return annotations.get();
+  }
 
-    @Override
-    public String name() {
-        return name.get();
-    }
+  @Override
+  public String name() {
+    return name.get();
+  }
 
-    public static TypePackageImpl create(PackageDescription description) {
-        TypePackageImpl aPackage = new TypePackageImpl();
-        aPackage.name = description.getNameSupplier();
-        aPackage.annotations = description.getAnnotationsSupplier();
-        return aPackage;
-    }
+  public static TypePackageImpl create(PackageDescription description) {
+    TypePackageImpl aPackage = new TypePackageImpl();
+    aPackage.name = description.getNameSupplier();
+    aPackage.annotations = description.getAnnotationsSupplier();
+    return aPackage;
+  }
 
-    @Override
-    public String toString() {
-        return DebugPrinter.print(this);
-    }
+  @Override
+  public String toString() {
+    return DebugPrinter.print(this);
+  }
 
-    @Override
-    public int hashCode() {
-        return PackageEquality.INSTANCE.hashcodeFor(this);
-    }
+  @Override
+  public int hashCode() {
+    return PackageEquality.INSTANCE.hashcodeFor(this);
+  }
 
-    @Override
-    public boolean equals(Object obj) {
-        return PackageEquality.INSTANCE.areEquals(this, obj);
-    }
+  @Override
+  public boolean equals(Object obj) {
+    return PackageEquality.INSTANCE.areEquals(this, obj);
+  }
 }

@@ -1,7 +1,6 @@
 package ar.com.kfgodel.diamond.unit.generics;
 
 
-
 import info.kfgodel.jspek.api.contexts.TestContext;
 
 import java.util.List;
@@ -13,17 +12,21 @@ import java.util.function.Supplier;
  */
 public interface SubstituterTestContext extends TestContext {
 
-    List<Object> subtypeArguments();
-    void subtypeArguments(Supplier<List<Object>> definition);
+  List<Object> subtypeArguments();
 
-    List<Object> subtypeParameters();
-    void subtypeParameters(Supplier<List<Object>> definition);
+  void subtypeArguments(Supplier<List<Object>> definition);
 
-    List<Object> superTypeArguments();
-    void superTypeArguments(Supplier<List<Object>> definition);
+  List<Object> subtypeParameters();
 
-    List<Object> replacedSuperTypeArguments();
-    void replacedSuperTypeArguments(Supplier<List<Object>> definition);
+  void subtypeParameters(Supplier<List<Object>> definition);
+
+  List<Object> superTypeArguments();
+
+  void superTypeArguments(Supplier<List<Object>> definition);
+
+  List<Object> replacedSuperTypeArguments();
+
+  void replacedSuperTypeArguments(Supplier<List<Object>> definition);
 
 
 }

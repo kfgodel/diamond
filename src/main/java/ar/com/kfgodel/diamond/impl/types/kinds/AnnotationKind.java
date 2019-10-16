@@ -7,14 +7,14 @@ import java.util.function.Predicate;
  * Created by kfgodel on 03/02/15.
  */
 public class AnnotationKind extends NativeClassKindSupport {
-    @Override
-    protected Predicate<Class<?>> getClassPredicate() {
-        return Class::isAnnotation;
-    }
+  @Override
+  protected Predicate<Class<?>> getClassPredicate() {
+    return Class::isAnnotation;
+  }
 
-    public static AnnotationKind create() {
-        AnnotationKind kind = new AnnotationKind();
-        return kind;
-    }
+  public static AnnotationKind create() {
+    AnnotationKind kind = new AnnotationKind();
+    return kind;
+  }
 
 }

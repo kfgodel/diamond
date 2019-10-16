@@ -8,33 +8,33 @@ import java.util.function.BiConsumer;
  */
 public class PolyBiConsumer extends PolyAdapterSupport {
 
-    private BiConsumer consumer;
+  private BiConsumer consumer;
 
-    public static PolyBiConsumer create(BiConsumer biConsumer) {
-        PolyBiConsumer polyBiConsumer = new PolyBiConsumer();
-        polyBiConsumer.consumer = biConsumer;
-        return polyBiConsumer;
-    }
+  public static PolyBiConsumer create(BiConsumer biConsumer) {
+    PolyBiConsumer polyBiConsumer = new PolyBiConsumer();
+    polyBiConsumer.consumer = biConsumer;
+    return polyBiConsumer;
+  }
 
-    @Override
-    public Object invoke(Object... arguments) {
-        if (arguments == null) {
-            throw new IllegalArgumentException("null is not accepted as valid bi-consumer argument");
-        }
-        if (arguments.length != 2) {
-            throw new IllegalArgumentException("BiConsumer invokable only accepts 2 arguments");
-        }
-        this.accept(arguments[0], arguments[1]);
-        return null;
+  @Override
+  public Object invoke(Object... arguments) {
+    if (arguments == null) {
+      throw new IllegalArgumentException("null is not accepted as valid bi-consumer argument");
     }
+    if (arguments.length != 2) {
+      throw new IllegalArgumentException("BiConsumer invokable only accepts 2 arguments");
+    }
+    this.accept(arguments[0], arguments[1]);
+    return null;
+  }
 
-    @Override
-    public void accept(Object oneConsumed, Object otherConsumed) {
-        this.consumer.accept(oneConsumed, otherConsumed);
-    }
+  @Override
+  public void accept(Object oneConsumed, Object otherConsumed) {
+    this.consumer.accept(oneConsumed, otherConsumed);
+  }
 
-    @Override
-    public Object adaptedCode() {
-        return consumer;
-    }
+  @Override
+  public Object adaptedCode() {
+    return consumer;
+  }
 }

@@ -13,36 +13,36 @@ import java.lang.reflect.Type;
  */
 public class NoMethods implements TypeMethods {
 
-    public static final NoMethods INSTANCE = new NoMethods();
+  public static final NoMethods INSTANCE = new NoMethods();
 
-    @Override
-    public Nary<TypeMethod> all() {
-        return Nary.empty();
-    }
+  @Override
+  public Nary<TypeMethod> all() {
+    return Nary.empty();
+  }
 
-    @Override
-    public Nary<TypeMethod> named(String methodName) {
-        return Nary.empty();
-    }
+  @Override
+  public Nary<TypeMethod> named(String methodName) {
+    return Nary.empty();
+  }
 
-    @Override
-    public Nary<TypeMethod> withSignature(String methodName, TypeInstance... parameterTypes) {
-        return Nary.empty();
-    }
+  @Override
+  public Nary<TypeMethod> withSignature(String methodName, TypeInstance... parameterTypes) {
+    return Nary.empty();
+  }
 
-    @Override
-    public Nary<TypeMethod> withNativeSignature(String methodName, Type... parameterTypes) {
-        return Nary.empty();
-    }
+  @Override
+  public Nary<TypeMethod> withNativeSignature(String methodName, Type... parameterTypes) {
+    return Nary.empty();
+  }
 
-    @Override
-    public Nary<TypeMethod> withParameters(TypeInstance... paramTypes) {
-        return Nary.empty();
-    }
+  @Override
+  public Nary<TypeMethod> withParameters(TypeInstance... paramTypes) {
+    return Nary.empty();
+  }
 
-    @Override
-    public Nary<TypeMethod> withNativeParameters(Type... parameterTypes) {
-        return null;
-    }
+  @Override
+  public Nary<TypeMethod> withNativeParameters(Type... parameterTypes) {
+    return null;
+  }
 
 }

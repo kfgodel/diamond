@@ -11,8 +11,8 @@ import java.util.stream.Stream;
  */
 public class NativeConstructorsSupplier {
 
-    public static Supplier<Stream<Constructor<?>>> create(Class<?> nativeClass) {
-        return () -> Arrays.stream(nativeClass.getDeclaredConstructors());
-    }
+  public static Supplier<Stream<Constructor<?>>> create(Class<?> nativeClass) {
+    return () -> Arrays.stream(nativeClass.getDeclaredConstructors());
+  }
 
 }

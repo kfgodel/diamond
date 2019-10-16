@@ -9,53 +9,53 @@ import ar.com.kfgodel.diamond.api.members.call.BehaviorCall;
  */
 public class BehaviorCallInstance implements BehaviorCall {
 
-    private Object[] arguments;
-    private TypeBehavior behavior;
+  private Object[] arguments;
+  private TypeBehavior behavior;
 
-    public static BehaviorCallInstance create(TypeBehavior behavior, Object[] arguments) {
-        BehaviorCallInstance callInstance = new BehaviorCallInstance();
-        callInstance.behavior = behavior;
-        callInstance.arguments = arguments;
-        return callInstance;
-    }
+  public static BehaviorCallInstance create(TypeBehavior behavior, Object[] arguments) {
+    BehaviorCallInstance callInstance = new BehaviorCallInstance();
+    callInstance.behavior = behavior;
+    callInstance.arguments = arguments;
+    return callInstance;
+  }
 
-    @Override
-    public <R> R invokeOn(Object instance) {
-        return (R) behavior.invokeOn(instance, arguments);
-    }
+  @Override
+  public <R> R invokeOn(Object instance) {
+    return (R) behavior.invokeOn(instance, arguments);
+  }
 
-    @Override
-    public <R> R invoke() {
-        return (R) behavior.invoke(arguments);
-    }
+  @Override
+  public <R> R invoke() {
+    return (R) behavior.invoke(arguments);
+  }
 
-    @Override
-    public TypeBehavior boundBehavior() {
-        return behavior;
-    }
+  @Override
+  public TypeBehavior boundBehavior() {
+    return behavior;
+  }
 
-    @Override
-    public Object[] arguments() {
-        return arguments;
-    }
+  @Override
+  public Object[] arguments() {
+    return arguments;
+  }
 
-    @Override
-    public void accept(Object instance) {
-        invokeOn(instance);
-    }
+  @Override
+  public void accept(Object instance) {
+    invokeOn(instance);
+  }
 
-    @Override
-    public Object apply(Object instance) {
-        return invokeOn(instance);
-    }
+  @Override
+  public Object apply(Object instance) {
+    return invokeOn(instance);
+  }
 
-    @Override
-    public void run() {
-        invoke();
-    }
+  @Override
+  public void run() {
+    invoke();
+  }
 
-    @Override
-    public Object get() {
-        return invoke();
-    }
+  @Override
+  public Object get() {
+    return invoke();
+  }
 }

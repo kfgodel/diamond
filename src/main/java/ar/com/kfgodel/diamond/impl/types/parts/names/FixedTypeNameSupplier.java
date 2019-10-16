@@ -13,8 +13,8 @@ import java.util.function.Supplier;
  */
 public class FixedTypeNameSupplier {
 
-    public static Supplier<TypeNames> create(Class<?> rawClass, Type nativeType) {
-        return CachedValue.lazilyBy(() -> ClassTypeNames.create(rawClass, nativeType.getTypeName()));
-    }
+  public static Supplier<TypeNames> create(Class<?> rawClass, Type nativeType) {
+    return CachedValue.lazilyBy(() -> ClassTypeNames.create(rawClass, nativeType.getTypeName()));
+  }
 
 }

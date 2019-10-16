@@ -6,9 +6,9 @@ package ar.com.kfgodel.diamond.unit.testobjects.modifiers;
  */
 public abstract class AbstractMemberTestObject {
 
-    abstract void method();
+  abstract void method();
 
-    protected AbstractMemberTestObject(){
+  protected AbstractMemberTestObject() {
 
-    }
+  }
 }

@@ -6,34 +6,35 @@ package ar.com.kfgodel.diamond.unit.testobjects.methods;
  */
 public class MethodCallTestObject {
 
-    public String instanceInvoked = "none";
-    public static String staticInvoked = "none";
+  public String instanceInvoked = "none";
+  public static String staticInvoked = "none";
 
-    private Object firstParam;
-    public MethodCallTestObject(Object a, Object b, Object c){
-        staticInvoked = "constructor("+a+", "+b+", " + c +")";
-        firstParam = a;
-    }
+  private Object firstParam;
 
-    public Object function(Object a, Object b, Object c){
-        instanceInvoked = "function("+a+", "+b+", " + c +")";
-        return a;
-    }
+  public MethodCallTestObject(Object a, Object b, Object c) {
+    staticInvoked = "constructor(" + a + ", " + b + ", " + c + ")";
+    firstParam = a;
+  }
 
-    public void consumer(Object a, Object b, Object c){
-        instanceInvoked = "consumer("+a+", "+b+", " + c +")";
-    }
+  public Object function(Object a, Object b, Object c) {
+    instanceInvoked = "function(" + a + ", " + b + ", " + c + ")";
+    return a;
+  }
 
-    static int supplier(Object a, Object b, Object c){
-        staticInvoked = "supplier("+a+", "+b+", " + c +")";
-        return 1;
-    }
+  public void consumer(Object a, Object b, Object c) {
+    instanceInvoked = "consumer(" + a + ", " + b + ", " + c + ")";
+  }
 
-    static void runnable(Object a, Object b, Object c){
-        staticInvoked = "runnable("+a+", "+b+", " + c +")";
-    }
+  static int supplier(Object a, Object b, Object c) {
+    staticInvoked = "supplier(" + a + ", " + b + ", " + c + ")";
+    return 1;
+  }
 
-    public boolean createdWith(Object a){
-        return firstParam.equals(a);
-    }
+  static void runnable(Object a, Object b, Object c) {
+    staticInvoked = "runnable(" + a + ", " + b + ", " + c + ")";
+  }
+
+  public boolean createdWith(Object a) {
+    return firstParam.equals(a);
+  }
 }

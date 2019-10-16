@@ -23,69 +23,69 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @RunWith(JavaSpecRunner.class)
 public class ExecutableParameterTest extends JavaSpec<DiamondTestContext> {
-    @Override
-    public void define() {
-        describe("an executable parameter", () -> {
+  @Override
+  public void define() {
+    describe("an executable parameter", () -> {
 
-            context().parameter(()-> context().typeInstance().constructors().withParameters(Diamond.of(Integer.class)).get().parameters().get());
-            context().typeInstance(()-> Diamond.of(PublicMembersTestObject.class));
+      context().parameter(() -> context().typeInstance().constructors().withParameters(Diamond.of(Integer.class)).get().parameters().get());
+      context().typeInstance(() -> Diamond.of(PublicMembersTestObject.class));
 
-            it("has a declared type", () -> {
+      it("has a declared type", () -> {
 
-                TypeInstance parameterType = context().parameter().declaredType();
+        TypeInstance parameterType = context().parameter().declaredType();
 
-                assertThat(parameterType.name()).isEqualTo("Integer");
-            });
+        assertThat(parameterType.name()).isEqualTo("Integer");
+      });
 
-            it("has a runtime name",()->{
+      it("has a runtime name", () -> {
 
-                String parameterName = context().parameter().name();
+        String parameterName = context().parameter().name();
 
-                // Depending on the compilation options this test may fails if one option asserted
-                assertThat(parameterName.equals("arg0") || parameterName.equals("parameter")).isTrue();
-            });
+        // Depending on the compilation options this test may fails if one option asserted
+        assertThat(parameterName.equals("arg0") || parameterName.equals("parameter")).isTrue();
+      });
 
-            /**
-             * This test fails sometimes. It seems the compiler omits the modifier in the generated .class?
-             */
-            xit("has modifiers",()->{
-                List<String> parameterModifiers = context().parameter().modifiers().map(Modifier::declaration).collect(Collectors.toList());
+      /**
+       * This test fails sometimes. It seems the compiler omits the modifier in the generated .class?
+       */
+      xit("has modifiers", () -> {
+        List<String> parameterModifiers = context().parameter().modifiers().map(Modifier::declaration).collect(Collectors.toList());
 
-                assertThat(parameterModifiers).isEqualTo(Arrays.asList("final"));
-            });
+        assertThat(parameterModifiers).isEqualTo(Arrays.asList("final"));
+      });
 
-            it("has annotations",()->{
-                List<String> parameterModifiers = context().parameter().annotations().map(Annotation::annotationType)
-                        .map(Class::getSimpleName).collect(Collectors.toList());
+      it("has annotations", () -> {
+        List<String> parameterModifiers = context().parameter().annotations().map(Annotation::annotationType)
+          .map(Class::getSimpleName).collect(Collectors.toList());
 
-                assertThat(parameterModifiers).isEqualTo(Arrays.asList("TestAnnotation1"));
-            });
+        assertThat(parameterModifiers).isEqualTo(Arrays.asList("TestAnnotation1"));
+      });
 
-            describe("equality", () -> {
-                it("is true if declared type and name are equals",()->{
-                    ExecutableParameter otherParameter = context().typeInstance().methods().named("methodWithEqualParam")
-                      .get().parameters().findFirst().get();
-                    assertThat(context().parameter()).isEqualTo(otherParameter);
-                });
-
-              /**
-               * This test fails sometimes. The compiler doesn't generate proper parameter names on some machines
-               */
-                xit("is false if name is different",()->{
-                    ExecutableParameter otherParameter = context().typeInstance().methods().named("methodWithDiffParamName")
-                      .get().parameters().findFirst().get();
-                    assertThat(context().parameter()).isNotEqualTo(otherParameter);
-                });
-
-                it("is false if declared type is different",()->{
-                    ExecutableParameter otherParameter = context().typeInstance().methods().named("methodWithDiffParamType")
-                      .get().parameters().findFirst().get();
-                    assertThat(context().parameter()).isNotEqualTo(otherParameter);
-                });
-            });
-
-
+      describe("equality", () -> {
+        it("is true if declared type and name are equals", () -> {
+          ExecutableParameter otherParameter = context().typeInstance().methods().named("methodWithEqualParam")
+            .get().parameters().findFirst().get();
+          assertThat(context().parameter()).isEqualTo(otherParameter);
         });
 
-    }
+        /**
+         * This test fails sometimes. The compiler doesn't generate proper parameter names on some machines
+         */
+        xit("is false if name is different", () -> {
+          ExecutableParameter otherParameter = context().typeInstance().methods().named("methodWithDiffParamName")
+            .get().parameters().findFirst().get();
+          assertThat(context().parameter()).isNotEqualTo(otherParameter);
+        });
+
+        it("is false if declared type is different", () -> {
+          ExecutableParameter otherParameter = context().typeInstance().methods().named("methodWithDiffParamType")
+            .get().parameters().findFirst().get();
+          assertThat(context().parameter()).isNotEqualTo(otherParameter);
+        });
+      });
+
+
+    });
+
+  }
 }

@@ -6,8 +6,8 @@ package ar.com.kfgodel.diamond.unit.testobjects.constructors;
  */
 public class ExceptionConstructorTestObject {
 
-    public ExceptionConstructorTestObject(){
-        throw new RuntimeException("I don't finish successfully");
-    }
+  public ExceptionConstructorTestObject() {
+    throw new RuntimeException("I don't finish successfully");
+  }
 
 }

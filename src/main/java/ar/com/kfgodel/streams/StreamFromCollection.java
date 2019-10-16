@@ -10,17 +10,17 @@ import java.util.stream.Stream;
  */
 public class StreamFromCollection<T> implements Supplier<Stream<T>> {
 
-    private Collection<T> aCollection;
+  private Collection<T> aCollection;
 
-    @Override
-    public Stream<T> get() {
-        return aCollection.stream();
-    }
+  @Override
+  public Stream<T> get() {
+    return aCollection.stream();
+  }
 
-    public static<T> StreamFromCollection<T> create(Collection<T> aCollection) {
-        StreamFromCollection streamer = new StreamFromCollection();
-        streamer.aCollection = aCollection;
-        return streamer;
-    }
+  public static <T> StreamFromCollection<T> create(Collection<T> aCollection) {
+    StreamFromCollection streamer = new StreamFromCollection();
+    streamer.aCollection = aCollection;
+    return streamer;
+  }
 
 }

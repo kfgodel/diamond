@@ -19,60 +19,63 @@ import java.util.function.Supplier;
 public interface TypeConstructor extends TypeMember, TypeBehavior, Supplier<Object>, Function<Object, Object>, Invokable, ArgumentBindable {
 
 
-    /**
-     * @return The name given to this constructor (usually the short name of its declaring type)
-     */
-    @Override
-    String name();
+  /**
+   * @return The name given to this constructor (usually the short name of its declaring type)
+   */
+  @Override
+  String name();
 
-    /**
-     * @return The type of parameters accepted by this constructor in the order they are required
-     */
-    @Override
-    Nary<TypeInstance> parameterTypes();
+  /**
+   * @return The type of parameters accepted by this constructor in the order they are required
+   */
+  @Override
+  Nary<TypeInstance> parameterTypes();
 
-    /**
-     * Invokes the constructor represented by this instance and returns the created object
-     * @param arguments The arguments needed to invoke this constructor
-     * @return The created object
-     */
-    Object invoke(Object... arguments);
+  /**
+   * Invokes the constructor represented by this instance and returns the created object
+   *
+   * @param arguments The arguments needed to invoke this constructor
+   * @return The created object
+   */
+  Object invoke(Object... arguments);
 
-    /**
-     * @return Sames as invoke() without arguments
-     */
-    @Override
-    Object get();
+  /**
+   * @return Sames as invoke() without arguments
+   */
+  @Override
+  Object get();
 
-    /**
-     * Same as invoke(argument)
-     * @param argument
-     * @return The created instance
-     */
-    @Override
-    Object apply(Object argument);
+  /**
+   * Same as invoke(argument)
+   *
+   * @param argument
+   * @return The created instance
+   */
+  @Override
+  Object apply(Object argument);
 
-    /**
-     * @return The exceptions types declared by this constructor in its throws clause
-     */
-    @Override
-    Nary<TypeInstance> declaredExceptions();
+  /**
+   * @return The exceptions types declared by this constructor in its throws clause
+   */
+  @Override
+  Nary<TypeInstance> declaredExceptions();
 
-    /**
-     * @return The type of instances created by this constructor. Same as the declaring type
-     */
-    @Override
-    TypeInstance returnType();
+  /**
+   * @return The type of instances created by this constructor. Same as the declaring type
+   */
+  @Override
+  TypeInstance returnType();
 
-    /**
-     * Creates a behavior call of this constructor with the given arguments, making them implicit
-     * @param arguments The arguments to use when invoking this constructor in the method call
-     * @return The created method call
-     */
-    BehaviorCall withArguments(Object... arguments);
+  /**
+   * Creates a behavior call of this constructor with the given arguments, making them implicit
+   *
+   * @param arguments The arguments to use when invoking this constructor in the method call
+   * @return The created method call
+   */
+  BehaviorCall withArguments(Object... arguments);
 
-    /**
-     * @return The native representation of this constructor if any
-     */
-    Nary<Constructor> nativeType();
+  /**
+   * @return The native representation of this constructor if any
+   */
+  Nary<Constructor> nativeType();
 }

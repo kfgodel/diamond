@@ -20,38 +20,38 @@ import java.util.function.Supplier;
  */
 public class ArrayConstructorParameterDescription implements ParameterDescription {
 
-    public static final String SIZE_PARAMETER_NAME = "size";
-    public static ArrayConstructorParameterDescription INSTANCE = new ArrayConstructorParameterDescription();
+  public static final String SIZE_PARAMETER_NAME = "size";
+  public static ArrayConstructorParameterDescription INSTANCE = new ArrayConstructorParameterDescription();
 
-    @Override
-    public Supplier<TypeInstance> getDeclaredType() {
-        return CachedValue.lazilyBy(()-> Diamond.of(int.class));
-    }
+  @Override
+  public Supplier<TypeInstance> getDeclaredType() {
+    return CachedValue.lazilyBy(() -> Diamond.of(int.class));
+  }
 
-    @Override
-    public Supplier<String> getName() {
-        return () -> SIZE_PARAMETER_NAME;
-    }
+  @Override
+  public Supplier<String> getName() {
+    return () -> SIZE_PARAMETER_NAME;
+  }
 
-    @Override
-    public Supplier<Nary<Modifier>> getModifiers() {
-        return Nary::empty;
-    }
+  @Override
+  public Supplier<Nary<Modifier>> getModifiers() {
+    return Nary::empty;
+  }
 
-    @Override
-    public Supplier<Nary<Annotation>> getAnnotations() {
-        return Nary::empty;
-    }
+  @Override
+  public Supplier<Nary<Annotation>> getAnnotations() {
+    return Nary::empty;
+  }
 
-    @Override
-    public Function<ExecutableParameter, Object> getIdentityToken() {
-        return CachedTokenCalculator.create(ParameterEquality.INSTANCE::calculateTokenFor);
-    }
+  @Override
+  public Function<ExecutableParameter, Object> getIdentityToken() {
+    return CachedTokenCalculator.create(ParameterEquality.INSTANCE::calculateTokenFor);
+  }
 
 
-    public static ArrayConstructorParameterDescription create() {
-        ArrayConstructorParameterDescription description = new ArrayConstructorParameterDescription();
-        return description;
-    }
+  public static ArrayConstructorParameterDescription create() {
+    ArrayConstructorParameterDescription description = new ArrayConstructorParameterDescription();
+    return description;
+  }
 
 }

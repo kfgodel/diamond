@@ -16,43 +16,44 @@ import java.util.function.Supplier;
  * <br>
  * Implementation notes:
  * - Due to class being an access point for many different use cases and data, most of their attributes are implemented lazy
- *   so their don't prematurely explode the entire possible tree. LazyValue variables allow ignoring aspects of a class until needed
- *
+ * so their don't prematurely explode the entire possible tree. LazyValue variables allow ignoring aspects of a class until needed
+ * <p>
  * Created by kfgodel on 18/09/14.
  */
 public class FixedTypeInstance extends TypeInstanceSupport {
 
-    private Supplier<Nary<TypeInstance>> componentType;
-    private TypeConstructors constructors;
+  private Supplier<Nary<TypeInstance>> componentType;
+  private TypeConstructors constructors;
 
 
-    @Override
-    public Nary<TypeInstance> componentType() {
-        return componentType.get();
-    }
+  @Override
+  public Nary<TypeInstance> componentType() {
+    return componentType.get();
+  }
 
-    @Override
-    public TypeConstructors constructors() {
-        return constructors;
-    }
+  @Override
+  public TypeConstructors constructors() {
+    return constructors;
+  }
 
 
-    /**
-     * Creates a class instance with its minimum data
-     * @param description the description for this type
-     * @return The created instance
-     */
-    public static FixedTypeInstance create(TypeDescription description) {
-        FixedTypeInstance fixedType = new FixedTypeInstance();
-        fixedType.initializeSuper(description);
-        fixedType.componentType = description.getComponentType();
-        fixedType.constructors = TypeConstructorsImpl.create(description.getTypeConstructors());
-        return fixedType;
-    }
+  /**
+   * Creates a class instance with its minimum data
+   *
+   * @param description the description for this type
+   * @return The created instance
+   */
+  public static FixedTypeInstance create(TypeDescription description) {
+    FixedTypeInstance fixedType = new FixedTypeInstance();
+    fixedType.initializeSuper(description);
+    fixedType.componentType = description.getComponentType();
+    fixedType.constructors = TypeConstructorsImpl.create(description.getTypeConstructors());
+    return fixedType;
+  }
 
-    @Override
-    protected TypeGenerics createGenericsInfoFrom(TypeDescription description) {
-        return ParameterizedTypeGenerics.create(description.getTypeParametersSupplier(), description.getTypeArguments(), description.getRuntimeType());
-    }
+  @Override
+  protected TypeGenerics createGenericsInfoFrom(TypeDescription description) {
+    return ParameterizedTypeGenerics.create(description.getTypeParametersSupplier(), description.getTypeArguments(), description.getRuntimeType());
+  }
 
 }

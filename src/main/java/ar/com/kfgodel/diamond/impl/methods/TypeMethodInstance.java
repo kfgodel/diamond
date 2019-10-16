@@ -24,105 +24,105 @@ import java.util.function.Supplier;
  */
 public class TypeMethodInstance extends TypeMemberSupport implements TypeMethod {
 
-    private Supplier<TypeInstance> returnType;
-    private Supplier<Nary<Object>> defaultValue;
-    private Supplier<Nary<Method>> nativeMethod;
-    private Function<TypeMethod,Object> identityToken;
+  private Supplier<TypeInstance> returnType;
+  private Supplier<Nary<Object>> defaultValue;
+  private Supplier<Nary<Method>> nativeMethod;
+  private Function<TypeMethod, Object> identityToken;
 
 
-    @Override
-    public TypeInstance returnType() {
-        return returnType.get();
-    }
+  @Override
+  public TypeInstance returnType() {
+    return returnType.get();
+  }
 
-    @Override
-    public Object invokeOn(Object instance, Object... arguments) {
-        Object[] invokableArguments  = InstanceArguments.join(instance, arguments);
-        return this.invoke(invokableArguments);
-    }
+  @Override
+  public Object invokeOn(Object instance, Object... arguments) {
+    Object[] invokableArguments = InstanceArguments.join(instance, arguments);
+    return this.invoke(invokableArguments);
+  }
 
-    @Override
-    public Object invoke(Object... arguments) {
-        return asFunction().invoke(arguments);
-    }
+  @Override
+  public Object invoke(Object... arguments) {
+    return asFunction().invoke(arguments);
+  }
 
-    @Override
-    public void run() {
-        asFunction().run();
-    }
+  @Override
+  public void run() {
+    asFunction().run();
+  }
 
-    @Override
-    public Object get() {
-        return asFunction().get();
-    }
+  @Override
+  public Object get() {
+    return asFunction().get();
+  }
 
-    @Override
-    public void accept(Object argumentOrInstance) {
-        asFunction().accept(argumentOrInstance);
-    }
+  @Override
+  public void accept(Object argumentOrInstance) {
+    asFunction().accept(argumentOrInstance);
+  }
 
-    @Override
-    public Object apply(Object argumentOrInstance) {
-        return asFunction().apply(argumentOrInstance);
-    }
+  @Override
+  public Object apply(Object argumentOrInstance) {
+    return asFunction().apply(argumentOrInstance);
+  }
 
-    @Override
-    public void accept(Object argumentOrInstance, Object extraArgument) {
-        asFunction().accept(argumentOrInstance, extraArgument);
-    }
+  @Override
+  public void accept(Object argumentOrInstance, Object extraArgument) {
+    asFunction().accept(argumentOrInstance, extraArgument);
+  }
 
-    @Override
-    public boolean test(Object argumentOrInstance) {
-        return asFunction().test(argumentOrInstance);
-    }
+  @Override
+  public boolean test(Object argumentOrInstance) {
+    return asFunction().test(argumentOrInstance);
+  }
 
-    @Override
-    public boolean equals(Object obj) {
-        return MethodEquality.INSTANCE.areEquals(this, obj);
-    }
+  @Override
+  public boolean equals(Object obj) {
+    return MethodEquality.INSTANCE.areEquals(this, obj);
+  }
 
-    @Override
-    public Object getIdentityToken() {
-        return identityToken.apply(this);
-    }
+  @Override
+  public Object getIdentityToken() {
+    return identityToken.apply(this);
+  }
 
-    public static TypeMethodInstance create(MethodDescription description) {
-        TypeMethodInstance method = new TypeMethodInstance();
-        method.initialize(description);
-        method.nativeMethod = description.getNativeMethod();
-        method.returnType = description.getReturnType();
-        method.defaultValue = description.getDefaultValue();
-        method.identityToken = description.getIdentityToken();
-        return method;
-    }
+  public static TypeMethodInstance create(MethodDescription description) {
+    TypeMethodInstance method = new TypeMethodInstance();
+    method.initialize(description);
+    method.nativeMethod = description.getNativeMethod();
+    method.returnType = description.getReturnType();
+    method.defaultValue = description.getDefaultValue();
+    method.identityToken = description.getIdentityToken();
+    return method;
+  }
 
-    @Override
-    public String declaration() {
-        return MethodDeclaration.create(this).asString();
-    }
+  @Override
+  public String declaration() {
+    return MethodDeclaration.create(this).asString();
+  }
 
-    @Override
-    public Nary<Object> defaultValue() {
-        return defaultValue.get();
-    }
+  @Override
+  public Nary<Object> defaultValue() {
+    return defaultValue.get();
+  }
 
-    @Override
-    public BoundMethod bindTo(Object instance) {
-        return BoundMethodInstance.create(this, instance);
-    }
+  @Override
+  public BoundMethod bindTo(Object instance) {
+    return BoundMethodInstance.create(this, instance);
+  }
 
-    @Override
-    public BehaviorCall withArguments(Object... arguments) {
-        return BehaviorCallInstance.create(this, arguments);
-    }
+  @Override
+  public BehaviorCall withArguments(Object... arguments) {
+    return BehaviorCallInstance.create(this, arguments);
+  }
 
-    @Override
-    public Nary<Method> nativeType() {
-        return nativeMethod.get();
-    }
+  @Override
+  public Nary<Method> nativeType() {
+    return nativeMethod.get();
+  }
 
-    @Override
-    public String toString() {
-        return DebugPrinter.print(this);
-    }
+  @Override
+  public String toString() {
+    return DebugPrinter.print(this);
+  }
 }

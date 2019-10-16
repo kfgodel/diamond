@@ -28,84 +28,84 @@ import java.util.stream.Stream;
  */
 public abstract class TypeMemberSupport implements TypeMember {
 
-    private Supplier<Nary<Annotation>> annotations = NoAnnotationsSupplier.INSTANCE;
-    private Supplier<String> name = UndefinedName.create(this);
-    private Supplier<TypeInstance> declaringType = UndefinedDeclaringType.create(this);
-    private Supplier<Nary<Modifier>> modifiers = UndefinedMemberModifiers.create(this);
-    private Supplier<PolymorphicInvokable> invoker = UndefinedInvoker.create(this);
-    private Supplier<Generics> generics = UndefinedMemberGenerics.create(this);
-    private Supplier<Nary<TypeInstance>> exceptions = UndefinedMemberExceptions.create(this);
-    private Supplier<Nary<ExecutableParameter>> parameters = UndefinedMemberParameters.create(this);
+  private Supplier<Nary<Annotation>> annotations = NoAnnotationsSupplier.INSTANCE;
+  private Supplier<String> name = UndefinedName.create(this);
+  private Supplier<TypeInstance> declaringType = UndefinedDeclaringType.create(this);
+  private Supplier<Nary<Modifier>> modifiers = UndefinedMemberModifiers.create(this);
+  private Supplier<PolymorphicInvokable> invoker = UndefinedInvoker.create(this);
+  private Supplier<Generics> generics = UndefinedMemberGenerics.create(this);
+  private Supplier<Nary<TypeInstance>> exceptions = UndefinedMemberExceptions.create(this);
+  private Supplier<Nary<ExecutableParameter>> parameters = UndefinedMemberParameters.create(this);
 
-    @Override
-    public TypeInstance declaringType() {
-        return declaringType.get();
-    }
+  @Override
+  public TypeInstance declaringType() {
+    return declaringType.get();
+  }
 
-    @Override
-    public Nary<Modifier> modifiers() {
-        return modifiers.get();
-    }
+  @Override
+  public Nary<Modifier> modifiers() {
+    return modifiers.get();
+  }
 
-    @Override
-    public boolean is(Modifier expectedModifier) {
-        return modifiers().anyMatch(expectedModifier);
-    }
+  @Override
+  public boolean is(Modifier expectedModifier) {
+    return modifiers().anyMatch(expectedModifier);
+  }
 
-    @Override
-    public PolymorphicInvokable asFunction() {
-        return this.invoker.get();
-    }
+  @Override
+  public PolymorphicInvokable asFunction() {
+    return this.invoker.get();
+  }
 
-    @Override
-    public String name() {
-        return name.get();
-    }
+  @Override
+  public String name() {
+    return name.get();
+  }
 
-    @Override
-    public Nary<Annotation> annotations() {
-        return annotations.get();
-    }
+  @Override
+  public Nary<Annotation> annotations() {
+    return annotations.get();
+  }
 
-    @Override
-    public Generics generics() {
-        return generics.get();
-    }
+  @Override
+  public Generics generics() {
+    return generics.get();
+  }
 
-    @Override
-    public Nary<TypeInstance> parameterTypes() {
-        Stream<TypeInstance> nativeStream = parameters().map(ExecutableParameter::declaredType);
-        return Nary.create(nativeStream);
-    }
+  @Override
+  public Nary<TypeInstance> parameterTypes() {
+    Stream<TypeInstance> nativeStream = parameters().map(ExecutableParameter::declaredType);
+    return Nary.create(nativeStream);
+  }
 
-    @Override
-    public Nary<TypeInstance> declaredExceptions() {
-        return exceptions.get();
-    }
+  @Override
+  public Nary<TypeInstance> declaredExceptions() {
+    return exceptions.get();
+  }
 
-    @Override
-    public Nary<ExecutableParameter> parameters() {
-        return parameters.get();
-    }
+  @Override
+  public Nary<ExecutableParameter> parameters() {
+    return parameters.get();
+  }
 
-    @Override
-    public boolean isInstanceMember() {
-        return !is(Modifiers.STATIC);
-    }
+  @Override
+  public boolean isInstanceMember() {
+    return !is(Modifiers.STATIC);
+  }
 
-    @Override
-    public int hashCode() {
-        return getIdentityToken().hashCode();
-    }
+  @Override
+  public int hashCode() {
+    return getIdentityToken().hashCode();
+  }
 
-    protected void initialize(MemberDescription description){
-        this.name = description.getName();
-        this.declaringType = description.getDeclaringType();
-        this.modifiers = description.getModifiers();
-        this.invoker = description.getInvoker();
-        this.annotations = description.getAnnotations();
-        this.parameters = description.getParameters();
-        this.generics = description.getGenerics();
-        this.exceptions = description.getDeclaredExceptions();
-    }
+  protected void initialize(MemberDescription description) {
+    this.name = description.getName();
+    this.declaringType = description.getDeclaringType();
+    this.modifiers = description.getModifiers();
+    this.invoker = description.getInvoker();
+    this.annotations = description.getAnnotations();
+    this.parameters = description.getParameters();
+    this.generics = description.getGenerics();
+    this.exceptions = description.getDeclaredExceptions();
+  }
 }

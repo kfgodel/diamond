@@ -15,22 +15,22 @@ import java.util.function.Supplier;
  */
 public class ParameterizedTypeDescription extends UnannotatedFixedTypeDescriptionSupport {
 
-    private ParameterizedType nativeType;
+  private ParameterizedType nativeType;
 
-    @Override
-    protected Type getNativeType() {
-        return nativeType;
-    }
+  @Override
+  protected Type getNativeType() {
+    return nativeType;
+  }
 
-    @Override
-    public Supplier<Nary<TypeInstance>> getTypeArguments() {
-        return ParameterizedTypeArgumentsSupplier.create(nativeType);
-    }
+  @Override
+  public Supplier<Nary<TypeInstance>> getTypeArguments() {
+    return ParameterizedTypeArgumentsSupplier.create(nativeType);
+  }
 
-    public static ParameterizedTypeDescription create(ParameterizedType nativeType) {
-        ParameterizedTypeDescription description = new ParameterizedTypeDescription();
-        description.nativeType = nativeType;
-        return description;
-    }
+  public static ParameterizedTypeDescription create(ParameterizedType nativeType) {
+    ParameterizedTypeDescription description = new ParameterizedTypeDescription();
+    description.nativeType = nativeType;
+    return description;
+  }
 
 }

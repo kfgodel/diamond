@@ -30,61 +30,61 @@ import java.util.function.Supplier;
  */
 public class NativeConstructorDescription implements ConstructorDescription {
 
-    private Constructor<?> nativeConstructor;
+  private Constructor<?> nativeConstructor;
 
-    @Override
-    public Supplier<Nary<ExecutableParameter>> getParameters() {
-        return ImmutableMemberParameters.create(nativeConstructor);
-    }
+  @Override
+  public Supplier<Nary<ExecutableParameter>> getParameters() {
+    return ImmutableMemberParameters.create(nativeConstructor);
+  }
 
-    @Override
-    public Supplier<TypeInstance> getDeclaringType() {
-        return NativeMemberDeclaringTypeSupplier.create(nativeConstructor);
-    }
+  @Override
+  public Supplier<TypeInstance> getDeclaringType() {
+    return NativeMemberDeclaringTypeSupplier.create(nativeConstructor);
+  }
 
-    @Override
-    public Supplier<Nary<Modifier>> getModifiers() {
-        return ImmutableMemberModifiers.create(nativeConstructor);
-    }
+  @Override
+  public Supplier<Nary<Modifier>> getModifiers() {
+    return ImmutableMemberModifiers.create(nativeConstructor);
+  }
 
-    @Override
-    public Supplier<PolymorphicInvokable> getInvoker() {
-        return CachedValue.lazilyBy(() -> NativeConstructorInvoker.create(nativeConstructor));
-    }
+  @Override
+  public Supplier<PolymorphicInvokable> getInvoker() {
+    return CachedValue.lazilyBy(() -> NativeConstructorInvoker.create(nativeConstructor));
+  }
 
-    @Override
-    public Supplier<String> getName() {
-        return CachedValue.lazilyBy(nativeConstructor::getName);
-    }
+  @Override
+  public Supplier<String> getName() {
+    return CachedValue.lazilyBy(nativeConstructor::getName);
+  }
 
-    @Override
-    public Supplier<Nary<Annotation>> getAnnotations() {
-        return AnnotatedElementAnnotationsSupplier.create(nativeConstructor);
-    }
+  @Override
+  public Supplier<Nary<Annotation>> getAnnotations() {
+    return AnnotatedElementAnnotationsSupplier.create(nativeConstructor);
+  }
 
-    @Override
-    public Supplier<Generics> getGenerics() {
-        return CachedValue.lazilyBy(() -> ExecutableGenericsSupplier.create(nativeConstructor));
-    }
+  @Override
+  public Supplier<Generics> getGenerics() {
+    return CachedValue.lazilyBy(() -> ExecutableGenericsSupplier.create(nativeConstructor));
+  }
 
-    @Override
-    public Supplier<Nary<Constructor>> getNativeConstructor() {
-        return ()-> Nary.of(nativeConstructor);
-    }
+  @Override
+  public Supplier<Nary<Constructor>> getNativeConstructor() {
+    return () -> Nary.of(nativeConstructor);
+  }
 
-    @Override
-    public Supplier<Nary<TypeInstance>> getDeclaredExceptions() {
-        return ExecutableExceptionsSupplier.create(nativeConstructor);
-    }
+  @Override
+  public Supplier<Nary<TypeInstance>> getDeclaredExceptions() {
+    return ExecutableExceptionsSupplier.create(nativeConstructor);
+  }
 
-    public static NativeConstructorDescription create(Constructor<?> nativeConstructor) {
-        NativeConstructorDescription description = new NativeConstructorDescription();
-        description.nativeConstructor = nativeConstructor;
-        return description;
-    }
+  public static NativeConstructorDescription create(Constructor<?> nativeConstructor) {
+    NativeConstructorDescription description = new NativeConstructorDescription();
+    description.nativeConstructor = nativeConstructor;
+    return description;
+  }
 
-    @Override
-    public Function<TypeConstructor, Object> getIdentityToken() {
-        return CachedTokenCalculator.create(ConstructorEquality.INSTANCE::calculateTokenFor);
-    }
+  @Override
+  public Function<TypeConstructor, Object> getIdentityToken() {
+    return CachedTokenCalculator.create(ConstructorEquality.INSTANCE::calculateTokenFor);
+  }
 }

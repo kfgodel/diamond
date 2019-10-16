@@ -16,33 +16,33 @@ import java.util.stream.Stream;
  */
 public class ExtendedTypeSupplier implements Supplier<Nary<TypeInstance>> {
 
-    private CachedValue<TypeInstance> extendedType;
+  private CachedValue<TypeInstance> extendedType;
 
-    @Override
-    public Nary<TypeInstance> get() {
-        TypeInstance typeInstance = extendedType.get();
-        if(typeInstance == null){
-            return Nary.empty();
-        }
-        return Nary.of(typeInstance);
+  @Override
+  public Nary<TypeInstance> get() {
+    TypeInstance typeInstance = extendedType.get();
+    if (typeInstance == null) {
+      return Nary.empty();
     }
+    return Nary.of(typeInstance);
+  }
 
 
-    public static Supplier<Nary<TypeInstance>> create(Class<?> nativeClass, Stream<TypeInstance> typeArguments) {
-        ExtendedTypeSupplier supplier = new ExtendedTypeSupplier();
-        supplier.extendedType = CachedValue.lazilyBy(() -> describeExtendedType(nativeClass, typeArguments));
-        return supplier;
+  public static Supplier<Nary<TypeInstance>> create(Class<?> nativeClass, Stream<TypeInstance> typeArguments) {
+    ExtendedTypeSupplier supplier = new ExtendedTypeSupplier();
+    supplier.extendedType = CachedValue.lazilyBy(() -> describeExtendedType(nativeClass, typeArguments));
+    return supplier;
+  }
+
+  private static TypeInstance describeExtendedType(Class<?> nativeClass, Stream<TypeInstance> typeArguments) {
+    AnnotatedType annotatedSuperclass = nativeClass.getAnnotatedSuperclass();
+    if (annotatedSuperclass == null) {
+      // There's no extended type
+      return null;
     }
-
-    private static TypeInstance describeExtendedType(Class<?> nativeClass, Stream<TypeInstance> typeArguments) {
-        AnnotatedType annotatedSuperclass = nativeClass.getAnnotatedSuperclass();
-        if (annotatedSuperclass == null) {
-            // There's no extended type
-            return null;
-        }
-        TypeInstance describedType = Diamond.types().fromParameterizedNativeTypes(nativeClass, typeArguments.collect(Collectors.toList()),
-                annotatedSuperclass, nativeClass.getGenericSuperclass());
-        return describedType;
-    }
+    TypeInstance describedType = Diamond.types().fromParameterizedNativeTypes(nativeClass, typeArguments.collect(Collectors.toList()),
+      annotatedSuperclass, nativeClass.getGenericSuperclass());
+    return describedType;
+  }
 
 }

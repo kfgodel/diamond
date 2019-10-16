@@ -17,102 +17,103 @@ import java.util.stream.StreamSupport;
  */
 public class FunctionBasedTypeLineage extends TypeLineageSupport {
 
-    /**
-     * List return value to indicate not found
-     */
-    public static final int NOT_FOUND = -1;
+  /**
+   * List return value to indicate not found
+   */
+  public static final int NOT_FOUND = -1;
 
-    private List<TypeInstance> classes;
+  private List<TypeInstance> classes;
 
-    @Override
-    public TypeInstance lowestDescendant() {
-        return classes.get(firstIndex());
+  @Override
+  public TypeInstance lowestDescendant() {
+    return classes.get(firstIndex());
+  }
+
+  @Override
+  public TypeInstance highestAncestor() {
+    return classes.get(lastIndex());
+  }
+
+  /**
+   * @return The index of the first member (lowest descendant)
+   */
+  private int firstIndex() {
+    return 0;
+  }
+
+  /**
+   * @return The index of the last member (highest ancestor)
+   */
+  private int lastIndex() {
+    return classes.size() - 1;
+  }
+
+  @Override
+  public Nary<TypeInstance> allMembers() {
+    return Nary.create(classes.stream());
+  }
+
+  @Override
+  public Nary<TypeInstance> ancestorOf(TypeInstance descendant) {
+    return memberRelativeTo(descendant, +1);
+  }
+
+  @Override
+  public Nary<TypeInstance> descendantOf(TypeInstance ancestor) {
+    return memberRelativeTo(ancestor, -1);
+  }
+
+  /**
+   * Returns a member of this lineage relative in position to given member
+   *
+   * @param referentClass The referent member
+   * @param offset        The offset position of the asked member
+   * @return The relative member or empty if there's no member on that position or referent doesn't belong to this lineage
+   */
+  private Nary<TypeInstance> memberRelativeTo(TypeInstance referentClass, int offset) {
+    int referentIndex = classes.indexOf(referentClass);
+    if (referentIndex == NOT_FOUND) {
+      // Class is not part of this lineage
+      return Nary.empty();
     }
-
-    @Override
-    public TypeInstance highestAncestor() {
-        return classes.get(lastIndex());
+    int askedIndex = referentIndex + offset;
+    if (askedIndex < firstIndex() || askedIndex > lastIndex()) {
+      // Class is already an extreme
+      return Nary.empty();
     }
+    TypeInstance askedClass = classes.get(askedIndex);
+    return Nary.of(askedClass);
+  }
 
-    /**
-     * @return The index of the first member (lowest descendant)
-     */
-    private int firstIndex() {
-        return 0;
-    }
+  @Override
+  public Nary<TypeInstance> inheritedInterfaces() {
+    Stream<TypeInstance> memberDirectInterfaces = allMembers()
+      .flatMap((member) -> member.inheritance().interfaces());
+    Stream<TypeInstance> indirectInterfaces = memberDirectInterfaces
+      .flatMap((interfaz) -> Stream.concat(
+        Stream.of(interfaz),
+        interfaz.inheritance().interfaces()));
+    // If an indirect interface is inherited more than once, we want just one occurrence
+    return Nary.create(indirectInterfaces.distinct());
+  }
 
-    /**
-     * @return The index of the last member (highest ancestor)
-     */
-    private int lastIndex() {
-        return classes.size() -1;
-    }
+  @Override
+  public Nary<TypeInstance> genericArgumentsOf(TypeInstance referenceType) {
+    Optional<TypeInstance> foundType = this.allRelatedTypes()
+      .filter((relatedType) ->
+        referenceType.names().canonicalName().equals(relatedType.names().canonicalName())
+          && relatedType.generics().arguments().count() > 0
+      ).findFirst();
+    return foundType
+      .map((type) -> type.generics().arguments())
+      .orElse(Nary.empty());
+  }
 
-    @Override
-    public Nary<TypeInstance> allMembers() {
-        return Nary.create(classes.stream());
-    }
-
-    @Override
-    public Nary<TypeInstance> ancestorOf(TypeInstance descendant) {
-        return memberRelativeTo(descendant, +1);
-    }
-
-    @Override
-    public Nary<TypeInstance> descendantOf(TypeInstance ancestor) {
-        return memberRelativeTo(ancestor, -1);
-    }
-
-    /**
-     * Returns a member of this lineage relative in position to given member
-     * @param referentClass The referent member
-     * @param offset The offset position of the asked member
-     * @return The relative member or empty if there's no member on that position or referent doesn't belong to this lineage
-     */
-    private Nary<TypeInstance> memberRelativeTo(TypeInstance referentClass, int offset) {
-        int referentIndex = classes.indexOf(referentClass);
-        if(referentIndex == NOT_FOUND){
-            // Class is not part of this lineage
-            return Nary.empty();
-        }
-        int askedIndex = referentIndex + offset;
-        if(askedIndex < firstIndex() || askedIndex > lastIndex()){
-            // Class is already an extreme
-            return Nary.empty();
-        }
-        TypeInstance askedClass = classes.get(askedIndex);
-        return Nary.of(askedClass);
-    }
-
-    @Override
-    public Nary<TypeInstance> inheritedInterfaces() {
-        Stream<TypeInstance> memberDirectInterfaces = allMembers()
-                .flatMap((member) -> member.inheritance().interfaces());
-        Stream<TypeInstance> indirectInterfaces = memberDirectInterfaces
-                .flatMap((interfaz) -> Stream.concat(
-                        Stream.of(interfaz),
-                        interfaz.inheritance().interfaces()));
-        // If an indirect interface is inherited more than once, we want just one occurrence
-        return Nary.create(indirectInterfaces.distinct());
-    }
-
-    @Override
-    public Nary<TypeInstance> genericArgumentsOf(TypeInstance referenceType) {
-        Optional<TypeInstance> foundType = this.allRelatedTypes()
-                .filter((relatedType) ->
-                                referenceType.names().canonicalName().equals(relatedType.names().canonicalName())
-                                        && relatedType.generics().arguments().count() > 0
-                ).findFirst();
-        return foundType
-                .map((type)-> type.generics().arguments())
-                .orElse(Nary.empty());
-    }
-
-    public static FunctionBasedTypeLineage create(TypeInstance lowest, Function<TypeInstance, Nary<? extends TypeInstance>> advanceOperation) {
-        FunctionBasedTypeLineage lineage = new FunctionBasedTypeLineage();
-        lineage.classes = StreamSupport.stream(TypeInstanceSpliterator.create(lowest, advanceOperation), false).collect(Collectors.toList());
-        return lineage;
-    }
+  public static FunctionBasedTypeLineage create(TypeInstance lowest, Function<TypeInstance, Nary<? extends TypeInstance>> advanceOperation) {
+    FunctionBasedTypeLineage lineage = new FunctionBasedTypeLineage();
+    lineage.classes = StreamSupport.stream(TypeInstanceSpliterator.create(lowest, advanceOperation), false).collect(Collectors.toList());
+    return lineage;
+  }
 
 
 }

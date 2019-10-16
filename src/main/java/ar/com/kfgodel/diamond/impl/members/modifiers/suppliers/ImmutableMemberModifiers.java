@@ -14,8 +14,8 @@ import java.util.function.Supplier;
  */
 public class ImmutableMemberModifiers {
 
-    public static Supplier<Nary<Modifier>> create(Member nativeMember) {
-        return NaryFromCollectionSupplier.lazilyBy(() -> Diamond.modifiers().from(nativeMember));
-    }
+  public static Supplier<Nary<Modifier>> create(Member nativeMember) {
+    return NaryFromCollectionSupplier.lazilyBy(() -> Diamond.modifiers().from(nativeMember));
+  }
 
 }

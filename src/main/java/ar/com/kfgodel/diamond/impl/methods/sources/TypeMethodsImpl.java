@@ -20,43 +20,43 @@ import java.util.stream.Stream;
  */
 public class TypeMethodsImpl extends NamedSourceSupport<TypeMethod> implements TypeMethods {
 
-    private Supplier<Nary<TypeMethod>> typeMethods;
+  private Supplier<Nary<TypeMethod>> typeMethods;
 
-    @Override
-    public Nary<TypeMethod> all() {
-        return typeMethods.get();
-    }
+  @Override
+  public Nary<TypeMethod> all() {
+    return typeMethods.get();
+  }
 
-    @Override
-    public Nary<TypeMethod> withSignature(String methodName, TypeInstance... parameterTypes) {
-        return Nary.create(named(methodName).filter((method)-> StreamEquality.INSTANCE.areEquals(method.parameterTypes(), Arrays.stream(parameterTypes))));
-    }
+  @Override
+  public Nary<TypeMethod> withSignature(String methodName, TypeInstance... parameterTypes) {
+    return Nary.create(named(methodName).filter((method) -> StreamEquality.INSTANCE.areEquals(method.parameterTypes(), Arrays.stream(parameterTypes))));
+  }
 
-    @Override
-    public Nary<TypeMethod> withNativeSignature(String methodName, Type... parameterTypes) {
-        return withSignature(methodName, Diamond.ofNative(parameterTypes));
-    }
+  @Override
+  public Nary<TypeMethod> withNativeSignature(String methodName, Type... parameterTypes) {
+    return withSignature(methodName, Diamond.ofNative(parameterTypes));
+  }
 
-    @Override
-    public Nary<TypeMethod> withParameters(TypeInstance... paramTypes) {
-        return FilterByParameterType.create(all(), paramTypes);
-    }
+  @Override
+  public Nary<TypeMethod> withParameters(TypeInstance... paramTypes) {
+    return FilterByParameterType.create(all(), paramTypes);
+  }
 
-    @Override
-    public Nary<TypeMethod> withNativeParameters(Type... parameterTypes) {
-        return withParameters(Diamond.ofNative(parameterTypes));
-    }
+  @Override
+  public Nary<TypeMethod> withNativeParameters(Type... parameterTypes) {
+    return withParameters(Diamond.ofNative(parameterTypes));
+  }
 
-    @Override
-    protected Stream<TypeMethod> getAll() {
-        return all();
-    }
+  @Override
+  protected Stream<TypeMethod> getAll() {
+    return all();
+  }
 
-    public static TypeMethodsImpl create(Supplier<Nary<TypeMethod>> classMethods) {
-        TypeMethodsImpl methodSource = new TypeMethodsImpl();
-        methodSource.typeMethods = classMethods;
-        return methodSource;
-    }
+  public static TypeMethodsImpl create(Supplier<Nary<TypeMethod>> classMethods) {
+    TypeMethodsImpl methodSource = new TypeMethodsImpl();
+    methodSource.typeMethods = classMethods;
+    return methodSource;
+  }
 
 
 }

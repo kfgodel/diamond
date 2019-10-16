@@ -29,72 +29,72 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @RunWith(JavaSpecRunner.class)
 public class MemberDiscriminationTest extends JavaSpec<DiamondTestContext> {
-    @Override
-    public void define() {
-        describe("a constructor", () -> {
-            it("is a class member",()->{
-                TypeConstructor constructor = Diamond.of(PublicMembersTestObject.class).constructors().niladic().get();
-                assertThat(constructor.isInstanceMember()).isFalse();
-            });
-            it("can be filtered by annotation",()->{
-                Optional<TypeConstructor> annotatedConstructor = Diamond.of(MemberAnnotationTestObject.class).constructors().all().filter(IsAnnotated.with(TestAnnotation1.class)).findFirst();
-                assertThat(annotatedConstructor.isPresent()).isTrue();
-            });   
-        });
+  @Override
+  public void define() {
+    describe("a constructor", () -> {
+      it("is a class member", () -> {
+        TypeConstructor constructor = Diamond.of(PublicMembersTestObject.class).constructors().niladic().get();
+        assertThat(constructor.isInstanceMember()).isFalse();
+      });
+      it("can be filtered by annotation", () -> {
+        Optional<TypeConstructor> annotatedConstructor = Diamond.of(MemberAnnotationTestObject.class).constructors().all().filter(IsAnnotated.with(TestAnnotation1.class)).findFirst();
+        assertThat(annotatedConstructor.isPresent()).isTrue();
+      });
+    });
 
-        describe("a method", () -> {
-            it("is a class member if static",()->{
-                TypeMethod method = Diamond.of(StaticMembersTestObject.class).methods().named("method").get();
-                assertThat(method.isInstanceMember()).isFalse();
-            }); 
-            
-            it("is an instance member if non static",()->{
-                TypeMethod method = Diamond.of(PublicMembersTestObject.class).methods().named("method").get();
-                assertThat(method.isInstanceMember()).isTrue();
-            });
-            it("can be filtered by annotation",()->{
-                Optional<TypeMethod> annotatedMethod = Diamond.of(MemberAnnotationTestObject.class).methods().all().filter(IsAnnotated.with(TestAnnotation1.class)).findFirst();
-                assertThat(annotatedMethod.isPresent()).isTrue();
-            });
-        });
+    describe("a method", () -> {
+      it("is a class member if static", () -> {
+        TypeMethod method = Diamond.of(StaticMembersTestObject.class).methods().named("method").get();
+        assertThat(method.isInstanceMember()).isFalse();
+      });
 
-        describe("a field", () -> {
-            it("is a class member if static",()->{
-                TypeField method = Diamond.of(StaticMembersTestObject.class).fields().named("field").get();
-                assertThat(method.isInstanceMember()).isFalse();
-            });
+      it("is an instance member if non static", () -> {
+        TypeMethod method = Diamond.of(PublicMembersTestObject.class).methods().named("method").get();
+        assertThat(method.isInstanceMember()).isTrue();
+      });
+      it("can be filtered by annotation", () -> {
+        Optional<TypeMethod> annotatedMethod = Diamond.of(MemberAnnotationTestObject.class).methods().all().filter(IsAnnotated.with(TestAnnotation1.class)).findFirst();
+        assertThat(annotatedMethod.isPresent()).isTrue();
+      });
+    });
 
-            it("is an instance member if non static",()->{
-                TypeField method = Diamond.of(PublicMembersTestObject.class).fields().named("field").get();
-                assertThat(method.isInstanceMember()).isTrue();
-            });
-            it("can be filtered by annotation",()->{
-                Optional<TypeField> annotatedField = Diamond.of(MemberAnnotationTestObject.class).fields().all().filter(IsAnnotated.with(TestAnnotation1.class)).findFirst();
-                assertThat(annotatedField.isPresent()).isTrue();
-            });
-        });
+    describe("a field", () -> {
+      it("is a class member if static", () -> {
+        TypeField method = Diamond.of(StaticMembersTestObject.class).fields().named("field").get();
+        assertThat(method.isInstanceMember()).isFalse();
+      });
 
-        describe("all members", () -> {
+      it("is an instance member if non static", () -> {
+        TypeField method = Diamond.of(PublicMembersTestObject.class).fields().named("field").get();
+        assertThat(method.isInstanceMember()).isTrue();
+      });
+      it("can be filtered by annotation", () -> {
+        Optional<TypeField> annotatedField = Diamond.of(MemberAnnotationTestObject.class).fields().all().filter(IsAnnotated.with(TestAnnotation1.class)).findFirst();
+        assertThat(annotatedField.isPresent()).isTrue();
+      });
+    });
 
-            it("can be accessed together",()->{
-                Nary<TypeMember> allMembers = Diamond.of(PublicMembersTestObject.class).members();
+    describe("all members", () -> {
 
-                List<String> memberNames = allMembers.map(Named::name).collect(Collectors.toList());
+      it("can be accessed together", () -> {
+        Nary<TypeMember> allMembers = Diamond.of(PublicMembersTestObject.class).members();
 
-                assertThat(memberNames).contains("field","method","ar.com.kfgodel.diamond.unit.testobjects.modifiers.PublicMembersTestObject");
-            });
-            
-            it("discriminated by type of member",()->{
-                Nary<TypeMember> allMembers = Diamond.of(PublicMembersTestObject.class).members();
+        List<String> memberNames = allMembers.map(Named::name).collect(Collectors.toList());
 
-                List<String> memberNames = allMembers.filter((member)-> !TypeConstructor.class.isInstance(member) ).map(Named::name).collect(Collectors.toList());
+        assertThat(memberNames).contains("field", "method", "ar.com.kfgodel.diamond.unit.testobjects.modifiers.PublicMembersTestObject");
+      });
 
-                assertThat(memberNames).doesNotContain("ar.com.kfgodel.diamond.unit.testobjects.modifiers.PublicMembersTestObject");
+      it("discriminated by type of member", () -> {
+        Nary<TypeMember> allMembers = Diamond.of(PublicMembersTestObject.class).members();
 
-            });   
+        List<String> memberNames = allMembers.filter((member) -> !TypeConstructor.class.isInstance(member)).map(Named::name).collect(Collectors.toList());
 
-        });
+        assertThat(memberNames).doesNotContain("ar.com.kfgodel.diamond.unit.testobjects.modifiers.PublicMembersTestObject");
+
+      });
+
+    });
 
 
-    }
+  }
 }

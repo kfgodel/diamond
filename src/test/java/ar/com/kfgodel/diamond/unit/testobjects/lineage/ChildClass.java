@@ -11,46 +11,46 @@ import java.io.Serializable;
  */
 public class ChildClass<C> extends ParentClass<C, Integer> implements ChildInterface1<Integer>, ChildInterface2<String> {
 
-    private int aPrivateField;
-    protected float aProtectedField;
-    public Object aPublicField;
-    String aDefaultField;
-    static public Double aStaticField;
+  private int aPrivateField;
+  protected float aProtectedField;
+  public Object aPublicField;
+  String aDefaultField;
+  static public Double aStaticField;
 
 
-    private ChildClass(){
-        super(0);
-    }
+  private ChildClass() {
+    super(0);
+  }
 
-    protected ChildClass(String string){
-        super(0);
-    }
+  protected ChildClass(String string) {
+    super(0);
+  }
 
-    public ChildClass(String string, Serializable serializable){
-        super(0);
-    }
+  public ChildClass(String string, Serializable serializable) {
+    super(0);
+  }
 
-    ChildClass(String string, Double doubleValue, Serializable serializable){
-        super(0);
-    }
+  ChildClass(String string, Double doubleValue, Serializable serializable) {
+    super(0);
+  }
 
 
-    public void aPublicMethod(){
-    }
+  public void aPublicMethod() {
+  }
 
-    protected void aProtectedMethod(){
+  protected void aProtectedMethod() {
 
-    }
+  }
 
-    private void aPrivateMethod(){
+  private void aPrivateMethod() {
 
-    }
+  }
 
-    void aDefaultMethod(){
+  void aDefaultMethod() {
 
-    }
+  }
 
-    public static void aStaticMethod(){
+  public static void aStaticMethod() {
 
-    }
+  }
 }

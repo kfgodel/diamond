@@ -14,24 +14,24 @@ import java.lang.reflect.Field;
  */
 public abstract class NativeFieldInvokerSupport implements PolymorphicInvokable {
 
-    private Field nativeField;
+  private Field nativeField;
 
 
-    protected void setValueOn(Object instance, Object value) throws DiamondException {
-        NativeFieldSetterFragment.accept(nativeField, instance, value);
-    }
+  protected void setValueOn(Object instance, Object value) throws DiamondException {
+    NativeFieldSetterFragment.accept(nativeField, instance, value);
+  }
 
-    protected Object getValueFrom(Object instance) throws  DiamondException{
-        return NativeFieldGetterFragment.apply(nativeField, instance);
-    }
+  protected Object getValueFrom(Object instance) throws DiamondException {
+    return NativeFieldGetterFragment.apply(nativeField, instance);
+  }
 
 
-    protected Field getNativeField() {
-        return nativeField;
-    }
+  protected Field getNativeField() {
+    return nativeField;
+  }
 
-    protected void setNativeField(Field nativeField) {
-        NativeMemberAccessibility.ensuredFor(nativeField);
-        this.nativeField = nativeField;
-    }
+  protected void setNativeField(Field nativeField) {
+    NativeMemberAccessibility.ensuredFor(nativeField);
+    this.nativeField = nativeField;
+  }
 }

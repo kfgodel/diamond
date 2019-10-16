@@ -6,6 +6,6 @@ package ar.com.kfgodel.diamond.unit.testobjects.equality;
  */
 public class FieldEqualityTestObjectB {
 
-    private Number a;
-    private String b;
+  private Number a;
+  private String b;
 }

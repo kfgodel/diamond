@@ -17,21 +17,22 @@ import ar.com.kfgodel.diamond.api.types.TypeInstance;
  */
 public interface TypeMember extends Named, Annotated, Modifiable, Generified, Declarable, Executable, DiamondReflection, TokenIdentifiable {
 
-    /**
-     * @return The type in which this member is declared and who owns this member
-     */
-    TypeInstance declaringType();
+  /**
+   * @return The type in which this member is declared and who owns this member
+   */
+  TypeInstance declaringType();
 
-    /**
-     * @return The generics information for this member
-     */
-    @Override
-    Generics generics();
+  /**
+   * @return The generics information for this member
+   */
+  @Override
+  Generics generics();
 
-    /**
-     * Indicates if this members belongs (an requires) an instance to be used on, or not.<br>
-     *     Static methods, static fields and constructors don't require an instance.
-     * @return true if this member requires an instance to be used
-     */
-    boolean isInstanceMember();
+  /**
+   * Indicates if this members belongs (an requires) an instance to be used on, or not.<br>
+   * Static methods, static fields and constructors don't require an instance.
+   *
+   * @return true if this member requires an instance to be used
+   */
+  boolean isInstanceMember();
 }

@@ -12,17 +12,17 @@ import java.util.function.Supplier;
  */
 public class ParameterizedMemberGenerics implements Generics {
 
-    private Supplier<Nary<TypeInstance>> typeParameters;
+  private Supplier<Nary<TypeInstance>> typeParameters;
 
-    @Override
-    public Nary<TypeInstance> parameters() {
-        return typeParameters.get();
-    }
+  @Override
+  public Nary<TypeInstance> parameters() {
+    return typeParameters.get();
+  }
 
-    public static ParameterizedMemberGenerics create(Supplier<Nary<TypeInstance>> typeParameters) {
-        ParameterizedMemberGenerics generics = new ParameterizedMemberGenerics();
-        generics.typeParameters = typeParameters;
-        return generics;
-    }
+  public static ParameterizedMemberGenerics create(Supplier<Nary<TypeInstance>> typeParameters) {
+    ParameterizedMemberGenerics generics = new ParameterizedMemberGenerics();
+    generics.typeParameters = typeParameters;
+    return generics;
+  }
 
 }

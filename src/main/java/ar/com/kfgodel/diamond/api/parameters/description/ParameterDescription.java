@@ -15,28 +15,28 @@ import java.util.function.Supplier;
  */
 public interface ParameterDescription {
 
-    /**
-     * @return The supplier to get the parameter declared type
-     */
-    Supplier<TypeInstance> getDeclaredType();
+  /**
+   * @return The supplier to get the parameter declared type
+   */
+  Supplier<TypeInstance> getDeclaredType();
 
-    /**
-     * @return The supplier of the parameter name
-     */
-    Supplier<String> getName();
+  /**
+   * @return The supplier of the parameter name
+   */
+  Supplier<String> getName();
 
-    /**
-     * @return The supplier of the parameter modifiers
-     */
-    Supplier<Nary<Modifier>> getModifiers();
+  /**
+   * @return The supplier of the parameter modifiers
+   */
+  Supplier<Nary<Modifier>> getModifiers();
 
-    /**
-     * @return The supplier of parameter annotations
-     */
-    Supplier<Nary<Annotation>> getAnnotations();
+  /**
+   * @return The supplier of parameter annotations
+   */
+  Supplier<Nary<Annotation>> getAnnotations();
 
-    /**
-     * @return The function to get the token that represents the instance identity
-     */
-    Function<ExecutableParameter, Object> getIdentityToken();
+  /**
+   * @return The function to get the token that represents the instance identity
+   */
+  Function<ExecutableParameter, Object> getIdentityToken();
 }

@@ -12,16 +12,17 @@ public class PackageEquality {
 
   /**
    * Compares the given package with the object indicating if they are equals.<br>
-   *     They are equals if have same name
+   * They are equals if have same name
+   *
    * @param one The package to compare
    * @param obj The object to be compared with
    * @return true if represent the same method
    */
-  public boolean areEquals(TypePackage one, Object obj){
-    if(one == obj){
+  public boolean areEquals(TypePackage one, Object obj) {
+    if (one == obj) {
       return true;
     }
-    if(one == null || obj == null || !(obj instanceof TypePackage)){
+    if (one == null || obj == null || !(obj instanceof TypePackage)) {
       return false;
     }
     TypePackage other = (TypePackage) obj;
@@ -30,10 +31,11 @@ public class PackageEquality {
 
   /**
    * Generates the hashcode compatible with this equality definition
+   *
    * @param typePackage The package to hash
    * @return The code that can be compared
    */
-  public int hashcodeFor(TypePackage typePackage){
+  public int hashcodeFor(TypePackage typePackage) {
     return typePackage.name().hashCode();
   }
 

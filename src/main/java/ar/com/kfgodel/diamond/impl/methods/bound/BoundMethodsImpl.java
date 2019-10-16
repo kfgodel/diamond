@@ -15,43 +15,43 @@ import java.lang.reflect.Type;
  */
 public class BoundMethodsImpl extends BoundMembersSupport implements BoundMethods {
 
-    private TypeMethods methodSource;
+  private TypeMethods methodSource;
 
-    public static BoundMethodsImpl create(TypeMethods typeMethods, Object instance) {
-        BoundMethodsImpl methods = new BoundMethodsImpl();
-        methods.setBindInstance(instance);
-        methods.methodSource = typeMethods;
-        return methods;
-    }
+  public static BoundMethodsImpl create(TypeMethods typeMethods, Object instance) {
+    BoundMethodsImpl methods = new BoundMethodsImpl();
+    methods.setBindInstance(instance);
+    methods.methodSource = typeMethods;
+    return methods;
+  }
 
-    @Override
-    public Nary<BoundMethod> all() {
-        return boundVersionOf(methodSource.all());
-    }
+  @Override
+  public Nary<BoundMethod> all() {
+    return boundVersionOf(methodSource.all());
+  }
 
-    @Override
-    public Nary<BoundMethod> named(String methodName) {
-        return boundVersionOf(methodSource.named(methodName));
-    }
+  @Override
+  public Nary<BoundMethod> named(String methodName) {
+    return boundVersionOf(methodSource.named(methodName));
+  }
 
-    @Override
-    public Nary<BoundMethod> withSignature(String methodName, TypeInstance... parameterTypes) {
-        return boundVersionOf(methodSource.withSignature(methodName, parameterTypes));
-    }
+  @Override
+  public Nary<BoundMethod> withSignature(String methodName, TypeInstance... parameterTypes) {
+    return boundVersionOf(methodSource.withSignature(methodName, parameterTypes));
+  }
 
-    @Override
-    public Nary<BoundMethod> withNativeSignature(String methodName, Type... nativeParameterTypes) {
-        return boundVersionOf(methodSource.withNativeSignature(methodName, nativeParameterTypes));
-    }
+  @Override
+  public Nary<BoundMethod> withNativeSignature(String methodName, Type... nativeParameterTypes) {
+    return boundVersionOf(methodSource.withNativeSignature(methodName, nativeParameterTypes));
+  }
 
-    @Override
-    public Nary<BoundMethod> withParameters(TypeInstance... paramTypes) {
-        return boundVersionOf(methodSource.withParameters(paramTypes));
-    }
+  @Override
+  public Nary<BoundMethod> withParameters(TypeInstance... paramTypes) {
+    return boundVersionOf(methodSource.withParameters(paramTypes));
+  }
 
-    @Override
-    public Nary<BoundMethod> withNativeParameters(Type... parameterTypes) {
-        return boundVersionOf(methodSource.withNativeParameters(parameterTypes));
-    }
+  @Override
+  public Nary<BoundMethod> withNativeParameters(Type... parameterTypes) {
+    return boundVersionOf(methodSource.withNativeParameters(parameterTypes));
+  }
 
 }

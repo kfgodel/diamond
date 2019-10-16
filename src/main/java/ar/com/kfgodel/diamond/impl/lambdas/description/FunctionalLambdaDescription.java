@@ -16,35 +16,35 @@ import java.util.function.Supplier;
  * Created by kfgodel on 02/02/15.
  */
 public class FunctionalLambdaDescription implements LambdaDescription {
-    
-    private Supplier<TypeMethod> functionalMethod;
-    private PolymorphicInvokable invokable;
-    
-    @Override
-    public Supplier<PolymorphicInvokable> getPolymorphicFunction() {
-        return CachedValue.eagerlyFrom(invokable);
-    }
 
-    @Override
-    public Supplier<Nary<ExecutableParameter>> getParameters() {
-        return functionalMethod.get()::parameters;
-    }
+  private Supplier<TypeMethod> functionalMethod;
+  private PolymorphicInvokable invokable;
 
-    @Override
-    public Supplier<TypeInstance> getReturnType() {
-        return functionalMethod.get()::returnType;
-    }
+  @Override
+  public Supplier<PolymorphicInvokable> getPolymorphicFunction() {
+    return CachedValue.eagerlyFrom(invokable);
+  }
 
-    @Override
-    public Supplier<Nary<TypeInstance>> getDeclaredExceptions() {
-        return Nary::empty;
-    }
+  @Override
+  public Supplier<Nary<ExecutableParameter>> getParameters() {
+    return functionalMethod.get()::parameters;
+  }
 
-    public static FunctionalLambdaDescription create(PolymorphicInvokable invokableAdapter, Object functionalInstance, String functionalMethodName) {
-        FunctionalLambdaDescription description = new FunctionalLambdaDescription();
-        description.invokable = invokableAdapter;
-        description.functionalMethod = CachedValue.lazilyBy(()-> Diamond.of(functionalInstance.getClass()).methods().named(functionalMethodName).get());
-        return description;
-    }
+  @Override
+  public Supplier<TypeInstance> getReturnType() {
+    return functionalMethod.get()::returnType;
+  }
+
+  @Override
+  public Supplier<Nary<TypeInstance>> getDeclaredExceptions() {
+    return Nary::empty;
+  }
+
+  public static FunctionalLambdaDescription create(PolymorphicInvokable invokableAdapter, Object functionalInstance, String functionalMethodName) {
+    FunctionalLambdaDescription description = new FunctionalLambdaDescription();
+    description.invokable = invokableAdapter;
+    description.functionalMethod = CachedValue.lazilyBy(() -> Diamond.of(functionalInstance.getClass()).methods().named(functionalMethodName).get());
+    return description;
+  }
 
 }

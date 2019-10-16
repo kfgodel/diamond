@@ -6,12 +6,13 @@ package ar.com.kfgodel.diamond.api.behavior;
  */
 public interface InstanceBindable<T> {
 
-    /**
-     * Binds this element to the given object, making it implicit in every interaction
-     * @param instance The instance to bind
-     * @return The bound version of this instance
-     */
-    T bindTo(Object instance);
+  /**
+   * Binds this element to the given object, making it implicit in every interaction
+   *
+   * @param instance The instance to bind
+   * @return The bound version of this instance
+   */
+  T bindTo(Object instance);
 
 }
 

@@ -38,13 +38,13 @@ public class DebugPrinter {
    * Generates a string representation of the given type
    */
   public static String print(TypeInstance type) {
-    return builtString((builder)->{
+    return builtString((builder) -> {
       builder.append(type.name());
 
       String argNames = type.generics().arguments()
         .map(TypeInstance::name)
         .collect(Collectors.joining(COMA));
-      if(!argNames.isEmpty()){
+      if (!argNames.isEmpty()) {
         builder.append("<");
         builder.append(argNames);
         builder.append(">");
@@ -53,7 +53,7 @@ public class DebugPrinter {
       String upperBoundName = type.generics().bounds().upper()
         .map(TypeInstance::name)
         .collect(Collectors.joining(AND));
-      if(!upperBoundName.isEmpty()){
+      if (!upperBoundName.isEmpty()) {
         builder.append(" extends ");
         builder.append(upperBoundName);
       }
@@ -61,7 +61,7 @@ public class DebugPrinter {
       String lowerBound = type.generics().bounds().lower()
         .map(TypeInstance::name)
         .collect(Collectors.joining(AND));
-      if(!lowerBound.isEmpty()){
+      if (!lowerBound.isEmpty()) {
         builder.append(" super ");
         builder.append(lowerBound);
       }
@@ -77,7 +77,7 @@ public class DebugPrinter {
    * Generates a string representation for the given type member
    */
   public static String print(TypeField typeField) {
-    return builtString((builder)->{
+    return builtString((builder) -> {
       builder.append(typeField.name());
       builder.append(AT);
       builder.append(typeField.declaringType().name());
@@ -88,7 +88,7 @@ public class DebugPrinter {
    * Generates a string representation for the given type member
    */
   public static String print(TypeMethod typeMethod) {
-    return builtString((builder)->{
+    return builtString((builder) -> {
       appendSignatureDataFrom(typeMethod, builder);
       builder.append(AT);
       builder.append(typeMethod.declaringType().name());
@@ -100,7 +100,7 @@ public class DebugPrinter {
    */
   public static String print(TypeConstructor typeConstructor) {
     TypeInstance declaringType = typeConstructor.declaringType();
-    return builtString((builder)->{
+    return builtString((builder) -> {
       builder.append(declaringType.name());
       appendParametersTo(builder, typeConstructor.parameterTypes());
       declaringType.declaredPackage().ifPresent(typePackage -> {
@@ -115,7 +115,7 @@ public class DebugPrinter {
    * Generates a string representation for the given bound member
    */
   public static String print(BoundField boundField) {
-    return builtString((builder)->{
+    return builtString((builder) -> {
       builder.append(boundField.name());
       builder.append(ATAT);
       builder.append(boundField.instance());
@@ -126,7 +126,7 @@ public class DebugPrinter {
    * Generates a string representation for the given bound member
    */
   public static String print(BoundMethod boundMethod) {
-    return builtString((builder)->{
+    return builtString((builder) -> {
       appendSignatureDataFrom(boundMethod.typeMethod(), builder);
       builder.append(ATAT);
       builder.append(boundMethod.instance());
@@ -137,7 +137,7 @@ public class DebugPrinter {
    * Generates a string representation of the given parameter
    */
   public static String print(ExecutableParameter parameter) {
-    return builtString((builder)->{
+    return builtString((builder) -> {
       builder.append(parameter.declaredType().name());
       builder.append(" ");
       builder.append(parameter.name());
@@ -164,7 +164,7 @@ public class DebugPrinter {
    * Generates a string representation of the given lambda
    */
   public static String print(Lambda lambda) {
-    return builtString(builder ->{
+    return builtString(builder -> {
       builder.append("lambda");
       appendParametersTo(builder, lambda.parameterTypes());
       builder.append("->");

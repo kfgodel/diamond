@@ -17,35 +17,35 @@ import java.util.function.Supplier;
  */
 public interface ConstructorDescription extends MemberDescription {
 
-    /**
-     * @return The supplier of the type that declared the constructor
-     */
-    Supplier<TypeInstance> getDeclaringType();
+  /**
+   * @return The supplier of the type that declared the constructor
+   */
+  Supplier<TypeInstance> getDeclaringType();
 
-    /**
-     * @return The supplier of the constructor invoker function
-     */
-    Supplier<PolymorphicInvokable> getInvoker();
+  /**
+   * @return The supplier of the constructor invoker function
+   */
+  Supplier<PolymorphicInvokable> getInvoker();
 
-    /**
-     * @return The supplier to get the constructor name
-     */
-    Supplier<String> getName();
+  /**
+   * @return The supplier to get the constructor name
+   */
+  Supplier<String> getName();
 
-    /**
-     * @return The supplier for constructor's annotations
-     */
-    Supplier<Nary<Annotation>> getAnnotations();
+  /**
+   * @return The supplier for constructor's annotations
+   */
+  Supplier<Nary<Annotation>> getAnnotations();
 
-    /**
-     * @return The supplier of constructor's generics information
-     */
-    Supplier<Generics> getGenerics();
+  /**
+   * @return The supplier of constructor's generics information
+   */
+  Supplier<Generics> getGenerics();
 
-    /**
-     * @return tHte supplier of the constructor native representation
-     */
-    Supplier<Nary<Constructor>> getNativeConstructor();
+  /**
+   * @return tHte supplier of the constructor native representation
+   */
+  Supplier<Nary<Constructor>> getNativeConstructor();
 
-    Function<TypeConstructor,Object> getIdentityToken();
+  Function<TypeConstructor, Object> getIdentityToken();
 }

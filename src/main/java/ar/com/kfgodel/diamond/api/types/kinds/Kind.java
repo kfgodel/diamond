@@ -8,10 +8,11 @@ import ar.com.kfgodel.diamond.api.types.TypeInstance;
  */
 public interface Kind {
 
-    /**
-     * Indicates if the given type belong to this kind (shares its properties)
-     * @param testedType The teste type
-     * @return True if the type is of this kind
-     */
-    boolean contains(TypeInstance testedType);
+  /**
+   * Indicates if the given type belong to this kind (shares its properties)
+   *
+   * @param testedType The teste type
+   * @return True if the type is of this kind
+   */
+  boolean contains(TypeInstance testedType);
 }

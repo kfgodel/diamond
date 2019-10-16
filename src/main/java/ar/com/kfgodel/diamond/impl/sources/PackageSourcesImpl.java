@@ -14,38 +14,38 @@ import ar.com.kfgodel.diamond.impl.types.packages.TypePackageImpl;
  */
 public class PackageSourcesImpl implements PackageSources {
 
-    private DiamondCache cache;
+  private DiamondCache cache;
 
-    public static PackageSourcesImpl create(DiamondCache cache) {
-        PackageSourcesImpl sources = new PackageSourcesImpl();
-        sources.cache = cache;
-        return sources;
+  public static PackageSourcesImpl create(DiamondCache cache) {
+    PackageSourcesImpl sources = new PackageSourcesImpl();
+    sources.cache = cache;
+    return sources;
+  }
+
+  @Override
+  public TypePackage from(Package nativePackage) {
+    return cache.reuseOrCreateRepresentationFor(nativePackage, () -> fromDescription(PackageDescriptor.INSTANCE.describe(nativePackage)));
+  }
+
+  @Override
+  public TypePackage fromDescription(PackageDescription description) {
+    return createPackageFrom(description);
+  }
+
+
+  /**
+   * Creates a new type package from its native representation
+   */
+  private TypePackage createPackageFrom(PackageDescription description) {
+    return TypePackageImpl.create(description);
+  }
+
+  @Override
+  public TypePackage named(String packageName) throws DiamondException {
+    Package nativePackage = Package.getPackage(packageName);
+    if (nativePackage == null) {
+      throw new DiamondException("The package[" + packageName + "] could not be found, or is not yet loaded");
     }
-
-    @Override
-    public TypePackage from(Package nativePackage) {
-        return cache.reuseOrCreateRepresentationFor(nativePackage, ()-> fromDescription(PackageDescriptor.INSTANCE.describe(nativePackage)));
-    }
-
-    @Override
-    public TypePackage fromDescription(PackageDescription description){
-        return createPackageFrom(description);
-    }
-
-
-    /**
-     * Creates a new type package from its native representation
-     */
-    private TypePackage createPackageFrom(PackageDescription description) {
-        return TypePackageImpl.create(description);
-    }
-
-    @Override
-    public TypePackage named(String packageName) throws DiamondException {
-        Package nativePackage = Package.getPackage(packageName);
-        if(nativePackage == null){
-            throw new DiamondException("The package["+packageName+"] could not be found, or is not yet loaded");
-        }
-        return from(nativePackage);
-    }
+    return from(nativePackage);
+  }
 }

@@ -11,10 +11,10 @@ import java.util.Spliterator;
  */
 public class NativeSuperclassSpliterator {
 
-    public static GeneratorSpliterator<Class<?>> create(Class<?> startingClass) {
-        return GeneratorSpliterator.create(Nary.of(startingClass),
-                (clazz) -> Nary.ofNullable(clazz.getSuperclass()),
-                Spliterator.DISTINCT & Spliterator.IMMUTABLE & Spliterator.NONNULL & Spliterator.ORDERED);
-    }
+  public static GeneratorSpliterator<Class<?>> create(Class<?> startingClass) {
+    return GeneratorSpliterator.create(Nary.of(startingClass),
+      (clazz) -> Nary.ofNullable(clazz.getSuperclass()),
+      Spliterator.DISTINCT & Spliterator.IMMUTABLE & Spliterator.NONNULL & Spliterator.ORDERED);
+  }
 
 }

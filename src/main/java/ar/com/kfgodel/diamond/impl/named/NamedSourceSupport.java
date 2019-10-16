@@ -12,12 +12,12 @@ import java.util.stream.Stream;
  */
 public abstract class NamedSourceSupport<N extends Named> implements NamedSource<N> {
 
-    protected abstract Stream<N> getAll();
+  protected abstract Stream<N> getAll();
 
-    @Override
-    public Nary<N> named(String elementName) {
-        return Nary.create(getAll().filter((element) -> element.name().equals(elementName)));
-    }
+  @Override
+  public Nary<N> named(String elementName) {
+    return Nary.create(getAll().filter((element) -> element.name().equals(elementName)));
+  }
 
 
 }

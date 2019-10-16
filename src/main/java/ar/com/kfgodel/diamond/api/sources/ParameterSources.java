@@ -10,17 +10,19 @@ import java.lang.reflect.Parameter;
  * Created by kfgodel on 07/11/14.
  */
 public interface ParameterSources {
-    /**
-     * Retrieves the diamond representation of the parameter given as native reflection object
-     * @param nativeParameter The native representation of the parameter
-     * @return The diamond representation
-     */
-    ExecutableParameter from(Parameter nativeParameter);
+  /**
+   * Retrieves the diamond representation of the parameter given as native reflection object
+   *
+   * @param nativeParameter The native representation of the parameter
+   * @return The diamond representation
+   */
+  ExecutableParameter from(Parameter nativeParameter);
 
-    /**
-     * Retrieves the parameter described by the given description
-     * @param description The parameter description
-     * @return The executable parameter
-     */
-    ExecutableParameter fromDescription(ParameterDescription description);
+  /**
+   * Retrieves the parameter described by the given description
+   *
+   * @param description The parameter description
+   * @return The executable parameter
+   */
+  ExecutableParameter fromDescription(ParameterDescription description);
 }

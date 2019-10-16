@@ -6,10 +6,11 @@ package ar.com.kfgodel.diamond.api.invokable;
  */
 public interface Invokable {
 
-    /**
-     * Invokes this piece of behavior with the given arguments, and returns the optional return value
-     * @param arguments The arguments to use with this behavior
-     * @return The  optional return value (null can indicate a no-result)
-     */
-    Object invoke(Object... arguments);
+  /**
+   * Invokes this piece of behavior with the given arguments, and returns the optional return value
+   *
+   * @param arguments The arguments to use with this behavior
+   * @return The  optional return value (null can indicate a no-result)
+   */
+  Object invoke(Object... arguments);
 }

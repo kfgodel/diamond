@@ -12,22 +12,22 @@ import java.util.List;
  */
 public class UpperOnlyTypeBounds implements TypeBounds {
 
-    private List<TypeInstance> upperBounds;
+  private List<TypeInstance> upperBounds;
 
-    @Override
-    public Nary<TypeInstance> upper() {
-        return Nary.create(upperBounds.stream());
-    }
+  @Override
+  public Nary<TypeInstance> upper() {
+    return Nary.create(upperBounds.stream());
+  }
 
-    @Override
-    public Nary<TypeInstance> lower() {
-        return Nary.empty();
-    }
+  @Override
+  public Nary<TypeInstance> lower() {
+    return Nary.empty();
+  }
 
-    public static UpperOnlyTypeBounds create(List<TypeInstance> upper) {
-        UpperOnlyTypeBounds bounds = new UpperOnlyTypeBounds();
-        bounds.upperBounds = upper;
-        return bounds;
-    }
+  public static UpperOnlyTypeBounds create(List<TypeInstance> upper) {
+    UpperOnlyTypeBounds bounds = new UpperOnlyTypeBounds();
+    bounds.upperBounds = upper;
+    return bounds;
+  }
 
 }

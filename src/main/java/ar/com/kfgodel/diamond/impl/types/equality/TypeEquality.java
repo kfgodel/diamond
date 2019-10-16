@@ -12,25 +12,25 @@ import java.util.stream.Collectors;
  */
 public class TypeEquality {
 
-    public static final TypeEquality INSTANCE = new TypeEquality();
+  public static final TypeEquality INSTANCE = new TypeEquality();
 
-    public boolean areEquals(TypeInstance one, Object obj){
-        if(one == obj){
-            return true;
-        }
-        if(one == null || obj == null || !(obj instanceof TypeInstance)){
-            return false;
-        }
-        TypeInstance other = (TypeInstance) obj;
-        return one.getIdentityToken().equals(other.getIdentityToken());
+  public boolean areEquals(TypeInstance one, Object obj) {
+    if (one == obj) {
+      return true;
     }
+    if (one == null || obj == null || !(obj instanceof TypeInstance)) {
+      return false;
+    }
+    TypeInstance other = (TypeInstance) obj;
+    return one.getIdentityToken().equals(other.getIdentityToken());
+  }
 
-    public CompositeIdentityToken calculateTokenFor(TypeInstance typeInstance) {
-        return ImmutableIdentityParts.create(
-                typeInstance.names().bareName(),
-                typeInstance.componentType().orElse(null),
-                ImmutableIdentityParts.create(typeInstance.generics().arguments().collect(Collectors.toList())),
-                ImmutableIdentityParts.create(typeInstance.generics().bounds().upper().collect(Collectors.toList())),
-                ImmutableIdentityParts.create(typeInstance.generics().bounds().lower().collect(Collectors.toList())));
-    }
+  public CompositeIdentityToken calculateTokenFor(TypeInstance typeInstance) {
+    return ImmutableIdentityParts.create(
+      typeInstance.names().bareName(),
+      typeInstance.componentType().orElse(null),
+      ImmutableIdentityParts.create(typeInstance.generics().arguments().collect(Collectors.toList())),
+      ImmutableIdentityParts.create(typeInstance.generics().bounds().upper().collect(Collectors.toList())),
+      ImmutableIdentityParts.create(typeInstance.generics().bounds().lower().collect(Collectors.toList())));
+  }
 }

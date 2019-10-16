@@ -14,21 +14,21 @@ import java.util.stream.Collectors;
  */
 public class ExtendedTypeArgumentsSupplier implements Supplier<Nary<TypeInstance>> {
 
-    private Supplier<Nary<TypeInstance>> originalSupplier;
-    private Consumer<List<TypeInstance>> extendedTypeArgumentsReplacer;
+  private Supplier<Nary<TypeInstance>> originalSupplier;
+  private Consumer<List<TypeInstance>> extendedTypeArgumentsReplacer;
 
-    @Override
-    public Nary<TypeInstance> get() {
-        List<TypeInstance> originalTypeArguments = originalSupplier.get().collect(Collectors.toList());
-        extendedTypeArgumentsReplacer.accept(originalTypeArguments);
-        return Nary.create(originalTypeArguments);
-    }
+  @Override
+  public Nary<TypeInstance> get() {
+    List<TypeInstance> originalTypeArguments = originalSupplier.get().collect(Collectors.toList());
+    extendedTypeArgumentsReplacer.accept(originalTypeArguments);
+    return Nary.create(originalTypeArguments);
+  }
 
-    public static ExtendedTypeArgumentsSupplier create(Supplier<Nary<TypeInstance>> originalSupplier, Consumer<List<TypeInstance>> extendedTypeArgumentsReplacer) {
-        ExtendedTypeArgumentsSupplier supplier = new ExtendedTypeArgumentsSupplier();
-        supplier.extendedTypeArgumentsReplacer = extendedTypeArgumentsReplacer;
-        supplier.originalSupplier = originalSupplier;
-        return supplier;
-    }
+  public static ExtendedTypeArgumentsSupplier create(Supplier<Nary<TypeInstance>> originalSupplier, Consumer<List<TypeInstance>> extendedTypeArgumentsReplacer) {
+    ExtendedTypeArgumentsSupplier supplier = new ExtendedTypeArgumentsSupplier();
+    supplier.extendedTypeArgumentsReplacer = extendedTypeArgumentsReplacer;
+    supplier.originalSupplier = originalSupplier;
+    return supplier;
+  }
 
 }

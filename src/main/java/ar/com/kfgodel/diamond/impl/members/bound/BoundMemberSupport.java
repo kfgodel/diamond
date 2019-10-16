@@ -15,7 +15,7 @@ public abstract class BoundMemberSupport implements BoundMember {
     return instance;
   }
 
-  protected void setInstance(Object instance){
+  protected void setInstance(Object instance) {
     this.instance = instance;
   }
 

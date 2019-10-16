@@ -7,14 +7,14 @@ import java.util.function.Predicate;
  * Created by kfgodel on 03/02/15.
  */
 public class AnonymousKind extends NativeClassKindSupport {
-    @Override
-    protected Predicate<Class<?>> getClassPredicate() {
-        return Class::isAnonymousClass;
-    }
+  @Override
+  protected Predicate<Class<?>> getClassPredicate() {
+    return Class::isAnonymousClass;
+  }
 
-    public static AnonymousKind create() {
-        AnonymousKind kind = new AnonymousKind();
-        return kind;
-    }
+  public static AnonymousKind create() {
+    AnonymousKind kind = new AnonymousKind();
+    return kind;
+  }
 
 }

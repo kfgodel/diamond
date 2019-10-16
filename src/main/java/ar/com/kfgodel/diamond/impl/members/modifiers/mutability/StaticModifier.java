@@ -8,14 +8,14 @@ import java.lang.reflect.Modifier;
  * This type represents the static member modifier
  * Created by kfgodel on 19/10/14.
  */
-public class StaticModifier extends ModifierSupport{
-    protected StaticModifier() {
-        super(Modifier.STATIC, "static");
-    }
+public class StaticModifier extends ModifierSupport {
+  protected StaticModifier() {
+    super(Modifier.STATIC, "static");
+  }
 
-    public static StaticModifier create() {
-        StaticModifier modifier = new StaticModifier();
-        return modifier;
-    }
+  public static StaticModifier create() {
+    StaticModifier modifier = new StaticModifier();
+    return modifier;
+  }
 
 }

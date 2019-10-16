@@ -14,25 +14,25 @@ import java.util.function.Supplier;
  */
 public class NoInheritanceDescription implements InheritanceDescription {
 
-    public static final NoInheritanceDescription INSTANCE = new NoInheritanceDescription();
+  public static final NoInheritanceDescription INSTANCE = new NoInheritanceDescription();
 
-    @Override
-    public Supplier<Nary<TypeInstance>> getSuperclassSupplier() {
-        return NoSuperclassSupplier.INSTANCE;
-    }
+  @Override
+  public Supplier<Nary<TypeInstance>> getSuperclassSupplier() {
+    return NoSuperclassSupplier.INSTANCE;
+  }
 
-    @Override
-    public Supplier<Nary<TypeInstance>> getExtendedTypeSupplier() {
-        return NoExtendedTypeSupplier.INSTANCE;
-    }
+  @Override
+  public Supplier<Nary<TypeInstance>> getExtendedTypeSupplier() {
+    return NoExtendedTypeSupplier.INSTANCE;
+  }
 
-    @Override
-    public Supplier<Nary<TypeInstance>> getInterfacesSupplier() {
-        return Nary::empty;
-    }
+  @Override
+  public Supplier<Nary<TypeInstance>> getInterfacesSupplier() {
+    return Nary::empty;
+  }
 
-    @Override
-    public Supplier<Nary<TypeInstance>> getImplementedTypesSupplier() {
-        return Nary::empty;
-    }
+  @Override
+  public Supplier<Nary<TypeInstance>> getImplementedTypesSupplier() {
+    return Nary::empty;
+  }
 }

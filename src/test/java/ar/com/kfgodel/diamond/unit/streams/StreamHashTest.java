@@ -14,39 +14,39 @@ import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
 
 /**
  * This type verifies the correct hashcode implementation for streams
- *
+ * <p>
  * Created by kfgodel on 23/11/14.
  */
 @RunWith(JavaSpecRunner.class)
 public class StreamHashTest extends JavaSpec<DiamondTestContext> {
-    @Override
-    public void define() {
-        describe("hashcode for streams", ()->{
+  @Override
+  public void define() {
+    describe("hashcode for streams", () -> {
 
-            it("consumes the stream",()->{
-                Stream<Integer> stream = Stream.of(1);
+      it("consumes the stream", () -> {
+        Stream<Integer> stream = Stream.of(1);
 
-                Hashcodes.forElementsIn(stream);
+        Hashcodes.forElementsIn(stream);
 
-                try {
-                    stream.findFirst();
-                    failBecauseExceptionWasNotThrown(IllegalStateException.class);
-                } catch (IllegalStateException e) {
-                    assertThat(e).hasMessage("stream has already been operated upon or closed");
-                }
-            });
+        try {
+          stream.findFirst();
+          failBecauseExceptionWasNotThrown(IllegalStateException.class);
+        } catch (IllegalStateException e) {
+          assertThat(e).hasMessage("stream has already been operated upon or closed");
+        }
+      });
 
-            it("is defined as collection hashcode",()->{
-                int emptyStreamHashcode = Hashcodes.forElementsIn(Stream.empty());
+      it("is defined as collection hashcode", () -> {
+        int emptyStreamHashcode = Hashcodes.forElementsIn(Stream.empty());
 
-                assertThat(emptyStreamHashcode).isEqualTo(Arrays.asList().hashCode());
+        assertThat(emptyStreamHashcode).isEqualTo(Arrays.asList().hashCode());
 
-                int streamHashcode = Hashcodes.forElementsIn(Stream.of(1,2,3));
+        int streamHashcode = Hashcodes.forElementsIn(Stream.of(1, 2, 3));
 
-                assertThat(streamHashcode).isEqualTo(Arrays.asList(1,2,3).hashCode());
+        assertThat(streamHashcode).isEqualTo(Arrays.asList(1, 2, 3).hashCode());
 
-            });   
+      });
 
-        });
-    }
+    });
+  }
 }

@@ -11,19 +11,19 @@ import java.util.function.Supplier;
  */
 public class BoundedTypeGenerics extends TypeGenericsSupport {
 
-    private Supplier<TypeBounds> typeBounds;
+  private Supplier<TypeBounds> typeBounds;
 
-    @Override
-    public TypeBounds bounds() {
-        return typeBounds.get();
-    }
+  @Override
+  public TypeBounds bounds() {
+    return typeBounds.get();
+  }
 
-    public static BoundedTypeGenerics create(Supplier<TypeBounds> bounds, Supplier<TypeInstance> runtimeType) {
-        BoundedTypeGenerics generics = new BoundedTypeGenerics();
-        generics.typeBounds = bounds;
-        generics.setRuntimeType(runtimeType);
-        return generics;
-    }
+  public static BoundedTypeGenerics create(Supplier<TypeBounds> bounds, Supplier<TypeInstance> runtimeType) {
+    BoundedTypeGenerics generics = new BoundedTypeGenerics();
+    generics.typeBounds = bounds;
+    generics.setRuntimeType(runtimeType);
+    return generics;
+  }
 
 
 }

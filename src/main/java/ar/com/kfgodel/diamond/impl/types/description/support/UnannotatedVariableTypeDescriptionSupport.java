@@ -15,23 +15,23 @@ import java.util.function.Supplier;
  */
 public abstract class UnannotatedVariableTypeDescriptionSupport extends UnannotatedTypeDescriptionSupport {
 
-    @Override
-    public Supplier<TypeNames> getNames() {
-        return VariableTypeNamesSupplier.create(getNativeType());
-    }
+  @Override
+  public Supplier<TypeNames> getNames() {
+    return VariableTypeNamesSupplier.create(getNativeType());
+  }
 
-    @Override
-    public boolean isForVariableType() {
-        return true;
-    }
+  @Override
+  public boolean isForVariableType() {
+    return true;
+  }
 
-    @Override
-    public Supplier<Nary<TypePackage>> getDeclaredPackage() {
-        return Nary::empty;
-    }
+  @Override
+  public Supplier<Nary<TypePackage>> getDeclaredPackage() {
+    return Nary::empty;
+  }
 
-    @Override
-    public InheritanceDescription getInheritanceDescription() {
-        return VariableTypeInheritanceDescription.create(getBehavioralClasses(), getTypeArguments());
-    }
+  @Override
+  public InheritanceDescription getInheritanceDescription() {
+    return VariableTypeInheritanceDescription.create(getBehavioralClasses(), getTypeArguments());
+  }
 }

@@ -6,7 +6,7 @@ package ar.com.kfgodel.diamond.unit.testobjects.constructors;
  */
 public class NoNiladicTestObject {
 
-    public NoNiladicTestObject(Integer a){
+  public NoNiladicTestObject(Integer a) {
 
-    }
+  }
 }

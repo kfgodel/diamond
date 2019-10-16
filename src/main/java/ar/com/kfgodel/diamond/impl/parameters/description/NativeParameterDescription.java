@@ -23,37 +23,37 @@ import java.util.function.Supplier;
  */
 public class NativeParameterDescription implements ParameterDescription {
 
-    private Parameter nativeParameter;
+  private Parameter nativeParameter;
 
-    @Override
-    public Supplier<TypeInstance> getDeclaredType() {
-        return CachedValue.lazilyBy(() -> Diamond.types().from(nativeParameter.getAnnotatedType()));
-    }
+  @Override
+  public Supplier<TypeInstance> getDeclaredType() {
+    return CachedValue.lazilyBy(() -> Diamond.types().from(nativeParameter.getAnnotatedType()));
+  }
 
-    @Override
-    public Supplier<String> getName() {
-        return nativeParameter::getName;
-    }
+  @Override
+  public Supplier<String> getName() {
+    return nativeParameter::getName;
+  }
 
-    @Override
-    public Supplier<Nary<Modifier>> getModifiers() {
-        return NaryFromCollectionSupplier.lazilyBy(() -> Diamond.modifiers().fromParameter(nativeParameter.getModifiers()));
-    }
+  @Override
+  public Supplier<Nary<Modifier>> getModifiers() {
+    return NaryFromCollectionSupplier.lazilyBy(() -> Diamond.modifiers().fromParameter(nativeParameter.getModifiers()));
+  }
 
-    @Override
-    public Supplier<Nary<Annotation>> getAnnotations() {
-        return AnnotatedElementAnnotationsSupplier.create(nativeParameter);
-    }
+  @Override
+  public Supplier<Nary<Annotation>> getAnnotations() {
+    return AnnotatedElementAnnotationsSupplier.create(nativeParameter);
+  }
 
-    @Override
-    public Function<ExecutableParameter, Object> getIdentityToken() {
-        return CachedTokenCalculator.create(ParameterEquality.INSTANCE::calculateTokenFor);
-    }
+  @Override
+  public Function<ExecutableParameter, Object> getIdentityToken() {
+    return CachedTokenCalculator.create(ParameterEquality.INSTANCE::calculateTokenFor);
+  }
 
-    public static NativeParameterDescription create(Parameter nativeParameter) {
-        NativeParameterDescription description = new NativeParameterDescription();
-        description.nativeParameter = nativeParameter;
-        return description;
-    }
+  public static NativeParameterDescription create(Parameter nativeParameter) {
+    NativeParameterDescription description = new NativeParameterDescription();
+    description.nativeParameter = nativeParameter;
+    return description;
+  }
 
 }

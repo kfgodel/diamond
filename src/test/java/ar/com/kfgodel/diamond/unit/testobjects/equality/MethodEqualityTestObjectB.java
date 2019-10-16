@@ -6,12 +6,12 @@ package ar.com.kfgodel.diamond.unit.testobjects.equality;
  */
 public class MethodEqualityTestObjectB {
 
-    public String a(){
-        return null;
-    }
+  public String a() {
+    return null;
+  }
 
-    public void b(){
+  public void b() {
 
-    }
+  }
 
 }

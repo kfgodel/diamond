@@ -11,27 +11,27 @@ import java.util.function.Supplier;
  */
 public class WeakMapCache implements DiamondCache {
 
-    private WeakHashMap<Object,Object> cacheMap;
+  private WeakHashMap<Object, Object> cacheMap;
 
-    public static WeakMapCache create() {
-        WeakMapCache cache = new WeakMapCache();
-        cache.cacheMap = new WeakHashMap<>();
-        return cache;
-    }
+  public static WeakMapCache create() {
+    WeakMapCache cache = new WeakMapCache();
+    cache.cacheMap = new WeakHashMap<>();
+    return cache;
+  }
 
-    @Override
-    public void invalidate() {
-        cacheMap.clear();
-    }
+  @Override
+  public void invalidate() {
+    cacheMap.clear();
+  }
 
-    @Override
-    public <T> T reuseOrCreateRepresentationFor(Object nativeReflection, Supplier<T> representationSupplier) {
-        Object existingRepresentation = cacheMap.get(nativeReflection);
-        if(existingRepresentation != null){
-            return (T) existingRepresentation;
-        }
-        T createdRepresentation = representationSupplier.get();
-        cacheMap.put(nativeReflection, createdRepresentation);
-        return createdRepresentation;
+  @Override
+  public <T> T reuseOrCreateRepresentationFor(Object nativeReflection, Supplier<T> representationSupplier) {
+    Object existingRepresentation = cacheMap.get(nativeReflection);
+    if (existingRepresentation != null) {
+      return (T) existingRepresentation;
     }
+    T createdRepresentation = representationSupplier.get();
+    cacheMap.put(nativeReflection, createdRepresentation);
+    return createdRepresentation;
+  }
 }

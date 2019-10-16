@@ -9,7 +9,7 @@ import ar.com.kfgodel.nary.api.Nary;
  */
 public class NoExceptionsSupplier {
 
-    public static Nary<TypeInstance> create() {
-        return Nary.empty();
-    }
+  public static Nary<TypeInstance> create() {
+    return Nary.empty();
+  }
 }

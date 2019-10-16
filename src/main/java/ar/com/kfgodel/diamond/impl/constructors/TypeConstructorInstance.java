@@ -21,77 +21,77 @@ import java.util.function.Supplier;
  */
 public class TypeConstructorInstance extends TypeMemberSupport implements TypeConstructor {
 
-    private Supplier<Nary<Constructor>> nativeConstructor;
-    private Function<TypeConstructor,Object> identityToken;
+  private Supplier<Nary<Constructor>> nativeConstructor;
+  private Function<TypeConstructor, Object> identityToken;
 
-    @Override
-    public boolean equals(Object obj) {
-        return ConstructorEquality.INSTANCE.areEquals(this, obj);
-    }
+  @Override
+  public boolean equals(Object obj) {
+    return ConstructorEquality.INSTANCE.areEquals(this, obj);
+  }
 
-    @Override
-    public Object getIdentityToken() {
-        return identityToken.apply(this);
-    }
+  @Override
+  public Object getIdentityToken() {
+    return identityToken.apply(this);
+  }
 
-    @Override
-    public Object invoke(Object... arguments) {
-        return asFunction().invoke(arguments);
-    }
+  @Override
+  public Object invoke(Object... arguments) {
+    return asFunction().invoke(arguments);
+  }
 
-    @Override
-    public Object get() {
-        return asFunction().get();
-    }
+  @Override
+  public Object get() {
+    return asFunction().get();
+  }
 
-    @Override
-    public Object apply(Object argument) {
-        return asFunction().apply(argument);
-    }
+  @Override
+  public Object apply(Object argument) {
+    return asFunction().apply(argument);
+  }
 
 
-    public static TypeConstructor create(ConstructorDescription description) {
-        TypeConstructorInstance constructor = new TypeConstructorInstance();
-        constructor.initialize(description);
-        constructor.nativeConstructor = description.getNativeConstructor();
-        constructor.identityToken = description.getIdentityToken();
-        return constructor;
-    }
+  public static TypeConstructor create(ConstructorDescription description) {
+    TypeConstructorInstance constructor = new TypeConstructorInstance();
+    constructor.initialize(description);
+    constructor.nativeConstructor = description.getNativeConstructor();
+    constructor.identityToken = description.getIdentityToken();
+    return constructor;
+  }
 
-    @Override
-    public String declaration() {
-        return ConstructorDeclaration.create(this).asString();
-    }
+  @Override
+  public String declaration() {
+    return ConstructorDeclaration.create(this).asString();
+  }
 
-    @Override
-    public TypeInstance returnType() {
-        return declaringType();
-    }
+  @Override
+  public TypeInstance returnType() {
+    return declaringType();
+  }
 
-    @Override
-    public BehaviorCall withArguments(Object... arguments) {
-        return BehaviorCallInstance.create(this, arguments);
-    }
+  @Override
+  public BehaviorCall withArguments(Object... arguments) {
+    return BehaviorCallInstance.create(this, arguments);
+  }
 
-    @Override
-    public Nary<Constructor> nativeType() {
-        return nativeConstructor.get();
-    }
+  @Override
+  public Nary<Constructor> nativeType() {
+    return nativeConstructor.get();
+  }
 
-    @Override
-    public boolean isInstanceMember() {
-        // Constructors are always class members (don't require an instance)
-        return false;
-    }
+  @Override
+  public boolean isInstanceMember() {
+    // Constructors are always class members (don't require an instance)
+    return false;
+  }
 
-    @Override
-    public Object invokeOn(Object instance, Object... arguments) {
-        // The instance has no relevance for a constructor
-        return invoke(arguments);
-    }
+  @Override
+  public Object invokeOn(Object instance, Object... arguments) {
+    // The instance has no relevance for a constructor
+    return invoke(arguments);
+  }
 
-    @Override
-    public String toString() {
-        return DebugPrinter.print(this);
-    }
+  @Override
+  public String toString() {
+    return DebugPrinter.print(this);
+  }
 }

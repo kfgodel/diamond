@@ -9,15 +9,15 @@ import ar.com.kfgodel.diamond.api.types.kinds.Kind;
  * Created by kfgodel on 03/02/15.
  */
 public class BooleanKind implements Kind {
-    @Override
-    public boolean contains(TypeInstance testedType) {
-        TypeInheritance typeInheritance = testedType.inheritance();
-        return typeInheritance.isSubTypeOfNative(boolean.class) || typeInheritance.isSubTypeOfNative(Boolean.class);
-    }
+  @Override
+  public boolean contains(TypeInstance testedType) {
+    TypeInheritance typeInheritance = testedType.inheritance();
+    return typeInheritance.isSubTypeOfNative(boolean.class) || typeInheritance.isSubTypeOfNative(Boolean.class);
+  }
 
-    public static BooleanKind create() {
-        BooleanKind kind = new BooleanKind();
-        return kind;
-    }
+  public static BooleanKind create() {
+    BooleanKind kind = new BooleanKind();
+    return kind;
+  }
 
 }

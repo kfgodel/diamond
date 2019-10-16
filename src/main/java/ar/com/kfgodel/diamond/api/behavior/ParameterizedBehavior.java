@@ -9,9 +9,9 @@ import ar.com.kfgodel.nary.api.Nary;
  */
 public interface ParameterizedBehavior {
 
-    /**
-     * @return The type of parameters accepted by this behavior in the order they are required
-     */
-    Nary<TypeInstance> parameterTypes();
+  /**
+   * @return The type of parameters accepted by this behavior in the order they are required
+   */
+  Nary<TypeInstance> parameterTypes();
 
 }

@@ -21,25 +21,25 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(JavaSpecRunner.class)
 public class MethodParameterTypesTest extends JavaSpec<DiamondTestContext> {
-    @Override
-    public void define() {
-        describe("a method's parameters", () -> {
+  @Override
+  public void define() {
+    describe("a method's parameters", () -> {
 
-            context().typeInstance(() -> Diamond.of(MethodParameterTypesTestObject.class));
+      context().typeInstance(() -> Diamond.of(MethodParameterTypesTestObject.class));
 
-            it("is empty if the method takes no parameters",()->{
-                TypeMethod method = context().typeInstance().methods().all().filter((aMethod) -> aMethod.name().equals("noParameters")).findFirst().get();
-                assertThat(method.parameterTypes().count())
-                        .isEqualTo(0);
+      it("is empty if the method takes no parameters", () -> {
+        TypeMethod method = context().typeInstance().methods().all().filter((aMethod) -> aMethod.name().equals("noParameters")).findFirst().get();
+        assertThat(method.parameterTypes().count())
+          .isEqualTo(0);
 
-            }); 
-            
-            it("has the types for the accepted method parameter types",()->{
-                TypeMethod method = context().typeInstance().methods().all().filter((aMethod) -> aMethod.name().equals("oneStringOneNumberParameters")).findFirst().get();
-                assertThat(method.parameterTypes().map(Named::name).collect(Collectors.toList()))
-                        .isEqualTo(Arrays.asList("String", "Number"));
-            });   
-        });
+      });
 
-    }
+      it("has the types for the accepted method parameter types", () -> {
+        TypeMethod method = context().typeInstance().methods().all().filter((aMethod) -> aMethod.name().equals("oneStringOneNumberParameters")).findFirst().get();
+        assertThat(method.parameterTypes().map(Named::name).collect(Collectors.toList()))
+          .isEqualTo(Arrays.asList("String", "Number"));
+      });
+    });
+
+  }
 }

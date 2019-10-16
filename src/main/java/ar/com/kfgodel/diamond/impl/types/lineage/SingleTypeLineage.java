@@ -9,50 +9,50 @@ import ar.com.kfgodel.nary.api.Nary;
  */
 public class SingleTypeLineage extends TypeLineageSupport {
 
-    private TypeInstance onlyType;
+  private TypeInstance onlyType;
 
-    @Override
-    public TypeInstance lowestDescendant() {
-        return onlyType;
-    }
+  @Override
+  public TypeInstance lowestDescendant() {
+    return onlyType;
+  }
 
-    @Override
-    public TypeInstance highestAncestor() {
-        return onlyType;
-    }
+  @Override
+  public TypeInstance highestAncestor() {
+    return onlyType;
+  }
 
-    @Override
-    public Nary<TypeInstance> allMembers() {
-        return Nary.of(onlyType);
-    }
+  @Override
+  public Nary<TypeInstance> allMembers() {
+    return Nary.of(onlyType);
+  }
 
-    @Override
-    public Nary<TypeInstance> ancestorOf(TypeInstance descendant) {
-        return Nary.empty();
-    }
+  @Override
+  public Nary<TypeInstance> ancestorOf(TypeInstance descendant) {
+    return Nary.empty();
+  }
 
-    @Override
-    public Nary<TypeInstance> descendantOf(TypeInstance ancestor) {
-        return Nary.empty();
-    }
+  @Override
+  public Nary<TypeInstance> descendantOf(TypeInstance ancestor) {
+    return Nary.empty();
+  }
 
-    @Override
-    public Nary<TypeInstance> inheritedInterfaces() {
-        return Nary.empty();
-    }
+  @Override
+  public Nary<TypeInstance> inheritedInterfaces() {
+    return Nary.empty();
+  }
 
-    @Override
-    public Nary<TypeInstance> genericArgumentsOf(TypeInstance referenceType) {
-        if(referenceType.equals(onlyType)){
-            return onlyType.generics().arguments();
-        }
-        return Nary.empty();
+  @Override
+  public Nary<TypeInstance> genericArgumentsOf(TypeInstance referenceType) {
+    if (referenceType.equals(onlyType)) {
+      return onlyType.generics().arguments();
     }
+    return Nary.empty();
+  }
 
-    public static SingleTypeLineage create(TypeInstance singleType) {
-        SingleTypeLineage lineage = new SingleTypeLineage();
-        lineage.onlyType = singleType;
-        return lineage;
-    }
+  public static SingleTypeLineage create(TypeInstance singleType) {
+    SingleTypeLineage lineage = new SingleTypeLineage();
+    lineage.onlyType = singleType;
+    return lineage;
+  }
 
 }

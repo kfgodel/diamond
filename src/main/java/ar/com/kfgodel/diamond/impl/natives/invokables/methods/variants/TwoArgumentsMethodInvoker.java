@@ -9,23 +9,23 @@ import java.lang.reflect.Method;
  */
 public class TwoArgumentsMethodInvoker extends MethodHandleInvokerSupport {
 
-    @Override
-    protected int getExpectedArgumentCount() {
-        return 2;
-    }
+  @Override
+  protected int getExpectedArgumentCount() {
+    return 2;
+  }
 
-    protected Object realInvocation(Object[] arguments) throws Throwable {
-        return methodHandle.invoke(arguments[0], arguments[1]);
-    }
+  protected Object realInvocation(Object[] arguments) throws Throwable {
+    return methodHandle.invoke(arguments[0], arguments[1]);
+  }
 
-    protected MethodType getExpectedMethodType() {
-        return MethodType.methodType(Object.class, Object.class, Object.class);
-    }
+  protected MethodType getExpectedMethodType() {
+    return MethodType.methodType(Object.class, Object.class, Object.class);
+  }
 
-    public static TwoArgumentsMethodInvoker create(Method nativeMethod) {
-        TwoArgumentsMethodInvoker invoker = new TwoArgumentsMethodInvoker();
-        invoker.setNativeMethod(nativeMethod);
-        return invoker;
-    }
+  public static TwoArgumentsMethodInvoker create(Method nativeMethod) {
+    TwoArgumentsMethodInvoker invoker = new TwoArgumentsMethodInvoker();
+    invoker.setNativeMethod(nativeMethod);
+    return invoker;
+  }
 
 }

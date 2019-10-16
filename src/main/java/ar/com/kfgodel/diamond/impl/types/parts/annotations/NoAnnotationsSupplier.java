@@ -11,10 +11,10 @@ import java.util.function.Supplier;
  */
 public class NoAnnotationsSupplier implements Supplier<Nary<Annotation>> {
 
-    public static final NoAnnotationsSupplier INSTANCE = new NoAnnotationsSupplier();
+  public static final NoAnnotationsSupplier INSTANCE = new NoAnnotationsSupplier();
 
-    @Override
-    public Nary<Annotation> get() {
-        return Nary.empty();
-    }
+  @Override
+  public Nary<Annotation> get() {
+    return Nary.empty();
+  }
 }

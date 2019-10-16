@@ -9,13 +9,13 @@ import java.lang.reflect.Modifier;
  * Created by kfgodel on 18/10/14.
  */
 public class ProtectedModifier extends ModifierSupport {
-    protected ProtectedModifier() {
-        super(Modifier.PROTECTED, "protected");
-    }
+  protected ProtectedModifier() {
+    super(Modifier.PROTECTED, "protected");
+  }
 
-    public static ProtectedModifier create() {
-        ProtectedModifier modifier = new ProtectedModifier();
-        return modifier;
-    }
+  public static ProtectedModifier create() {
+    ProtectedModifier modifier = new ProtectedModifier();
+    return modifier;
+  }
 
 }

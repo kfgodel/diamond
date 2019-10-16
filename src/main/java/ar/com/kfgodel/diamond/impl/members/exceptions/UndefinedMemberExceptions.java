@@ -13,17 +13,17 @@ import java.util.function.Supplier;
  */
 public class UndefinedMemberExceptions implements Supplier<Nary<TypeInstance>> {
 
-    private TypeMember member;
+  private TypeMember member;
 
-    @Override
-    public Nary<TypeInstance> get() {
-        throw new DiamondException("Exceptions are not defined for member["+member+"]");
-    }
+  @Override
+  public Nary<TypeInstance> get() {
+    throw new DiamondException("Exceptions are not defined for member[" + member + "]");
+  }
 
-    public static UndefinedMemberExceptions create(TypeMember member) {
-        UndefinedMemberExceptions exceptions = new UndefinedMemberExceptions();
-        exceptions.member = member;
-        return exceptions;
-    }
+  public static UndefinedMemberExceptions create(TypeMember member) {
+    UndefinedMemberExceptions exceptions = new UndefinedMemberExceptions();
+    exceptions.member = member;
+    return exceptions;
+  }
 
 }

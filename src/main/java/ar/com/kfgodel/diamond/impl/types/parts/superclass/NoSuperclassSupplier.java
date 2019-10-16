@@ -11,10 +11,10 @@ import java.util.function.Supplier;
  */
 public class NoSuperclassSupplier implements Supplier<Nary<TypeInstance>> {
 
-    public static final NoSuperclassSupplier INSTANCE = new NoSuperclassSupplier();
+  public static final NoSuperclassSupplier INSTANCE = new NoSuperclassSupplier();
 
-    @Override
-    public Nary<TypeInstance> get() {
-        return Nary.empty();
-    }
+  @Override
+  public Nary<TypeInstance> get() {
+    return Nary.empty();
+  }
 }

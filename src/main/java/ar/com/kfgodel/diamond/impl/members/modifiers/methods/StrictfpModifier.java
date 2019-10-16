@@ -9,13 +9,13 @@ import java.lang.reflect.Modifier;
  * Created by kfgodel on 19/10/14.
  */
 public class StrictfpModifier extends ModifierSupport {
-    protected StrictfpModifier() {
-        super(Modifier.STRICT, "strictfp");
-    }
+  protected StrictfpModifier() {
+    super(Modifier.STRICT, "strictfp");
+  }
 
-    public static StrictfpModifier create() {
-        StrictfpModifier modifier = new StrictfpModifier();
-        return modifier;
-    }
+  public static StrictfpModifier create() {
+    StrictfpModifier modifier = new StrictfpModifier();
+    return modifier;
+  }
 
 }

@@ -6,5 +6,6 @@ package ar.com.kfgodel.diamond.unit.testobjects.modifiers;
  */
 public class SynchronizedMemberTestObject {
 
-    synchronized void method(){}
+  synchronized void method() {
+  }
 }

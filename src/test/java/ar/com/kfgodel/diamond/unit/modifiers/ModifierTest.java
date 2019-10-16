@@ -19,27 +19,27 @@ public class ModifierTest extends JavaSpec<DiamondTestContext> {
   @Override
   public void define() {
     describe("a modifier", () -> {
-      context().modifier(()-> Modifiers.PUBLIC);
+      context().modifier(() -> Modifiers.PUBLIC);
 
-      it("can be accessed directly as a constant",()->{
-          assertThat(context().modifier()).isNotNull();
+      it("can be accessed directly as a constant", () -> {
+        assertThat(context().modifier()).isNotNull();
       });
-      it("has a declaration",()->{
+      it("has a declaration", () -> {
         assertThat(context().modifier().declaration()).isEqualTo("public");
       });
 
       describe("presence", () -> {
-        it("can be found on an int",()->{
-            assertThat(context().modifier().isPresentIn(Modifier.PUBLIC)).isTrue();
-        });   
+        it("can be found on an int", () -> {
+          assertThat(context().modifier().isPresentIn(Modifier.PUBLIC)).isTrue();
+        });
       });
 
       describe("equality", () -> {
-        it("is true if both declaration are equals",()->{
+        it("is true if both declaration are equals", () -> {
           assertThat(context().modifier()).isEqualTo(Diamond.modifiers().from(Modifier.PUBLIC).get(0));
         });
 
-        it("is false if declarations differ",()->{
+        it("is false if declarations differ", () -> {
           assertThat(context().modifier()).isNotEqualTo(Modifiers.FINAL);
         });
       });

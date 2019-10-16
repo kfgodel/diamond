@@ -11,20 +11,20 @@ import ar.com.kfgodel.diamond.api.types.TypeInstance;
  */
 public interface MetaObject extends DiamondReflection {
 
-    /**
-     * @return The instance that represents the type of this object
-     */
-    TypeInstance type();
+  /**
+   * @return The instance that represents the type of this object
+   */
+  TypeInstance type();
 
-    /**
-     * @return An accessor for the methods bound to this meta-object instance
-     */
-    BoundMethods methods();
+  /**
+   * @return An accessor for the methods bound to this meta-object instance
+   */
+  BoundMethods methods();
 
-    /**
-     * @return An accessor for the fields bound to this meta-object instance
-     */
-    BoundFields fields();
+  /**
+   * @return An accessor for the fields bound to this meta-object instance
+   */
+  BoundFields fields();
 
   /**
    * @return The instance of this object

@@ -14,11 +14,11 @@ import java.util.Spliterators;
  */
 public abstract class TypeLineageSupport implements TypeLineage {
 
-    @Override
-    public Nary<TypeInstance> allRelatedTypes() {
-        return Nary.create(
-                RuntimeAlternativesSpliterator.create(
-                        Spliterators.iterator(AllSuperTypesSpliterator.create(lowestDescendant()))));
-    }
+  @Override
+  public Nary<TypeInstance> allRelatedTypes() {
+    return Nary.create(
+      RuntimeAlternativesSpliterator.create(
+        Spliterators.iterator(AllSuperTypesSpliterator.create(lowestDescendant()))));
+  }
 
 }

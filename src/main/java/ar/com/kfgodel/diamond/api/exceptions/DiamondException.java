@@ -6,12 +6,12 @@ package ar.com.kfgodel.diamond.api.exceptions;
  */
 public class DiamondException extends RuntimeException {
 
-    public DiamondException(String message) {
-        super(message);
-    }
+  public DiamondException(String message) {
+    super(message);
+  }
 
-    public DiamondException(String message, Throwable cause) {
-        super(message, cause);
-    }
+  public DiamondException(String message, Throwable cause) {
+    super(message, cause);
+  }
 
 }

@@ -12,22 +12,22 @@ import ar.com.kfgodel.nary.api.Nary;
  */
 public class BoundFieldsImpl extends BoundMembersSupport implements BoundFields {
 
-    private TypeFields fieldSource;
+  private TypeFields fieldSource;
 
-    public static BoundFieldsImpl create(TypeFields fieldSource, Object instance) {
-        BoundFieldsImpl fields = new BoundFieldsImpl();
-        fields.setBindInstance(instance);
-        fields.fieldSource = fieldSource;
-        return fields;
-    }
+  public static BoundFieldsImpl create(TypeFields fieldSource, Object instance) {
+    BoundFieldsImpl fields = new BoundFieldsImpl();
+    fields.setBindInstance(instance);
+    fields.fieldSource = fieldSource;
+    return fields;
+  }
 
-    @Override
-    public Nary<BoundField> all() {
-        return boundVersionOf(fieldSource.all());
-    }
+  @Override
+  public Nary<BoundField> all() {
+    return boundVersionOf(fieldSource.all());
+  }
 
-    @Override
-    public Nary<BoundField> named(String fieldName) {
-        return boundVersionOf(fieldSource.named(fieldName));
-    }
+  @Override
+  public Nary<BoundField> named(String fieldName) {
+    return boundVersionOf(fieldSource.named(fieldName));
+  }
 }

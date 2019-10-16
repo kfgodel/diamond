@@ -14,16 +14,17 @@ public class ParameterEquality {
 
   /**
    * Compares the given parameter with the object indicating if they are equals.<br>
-   *     They are equals if have same name and type
+   * They are equals if have same name and type
+   *
    * @param one The method to compare
    * @param obj The object to be compared with
    * @return true if represent the same method
    */
-  public boolean areEquals(ExecutableParameter one, Object obj){
-    if(one == obj){
+  public boolean areEquals(ExecutableParameter one, Object obj) {
+    if (one == obj) {
       return true;
     }
-    if(one == null || obj == null || !(obj instanceof ExecutableParameter)){
+    if (one == null || obj == null || !(obj instanceof ExecutableParameter)) {
       return false;
     }
     ExecutableParameter other = (ExecutableParameter) obj;
@@ -32,6 +33,7 @@ public class ParameterEquality {
 
   /**
    * Creates the identity token for the parameter represent its equality
+   *
    * @param parameter The parameter to represent
    * @return The composite token
    */

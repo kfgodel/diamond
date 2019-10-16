@@ -11,25 +11,25 @@ import java.util.function.Supplier;
  */
 public class ParameterizedTypeGenerics extends TypeGenericsSupport {
 
-    private Supplier<Nary<TypeInstance>> typeArguments;
-    private Supplier<Nary<TypeInstance>> typeParameters;
+  private Supplier<Nary<TypeInstance>> typeArguments;
+  private Supplier<Nary<TypeInstance>> typeParameters;
 
-    public static ParameterizedTypeGenerics create(Supplier<Nary<TypeInstance>> typeParametersSupplier, Supplier<Nary<TypeInstance>> typeArgumentsSupplier, Supplier<TypeInstance> runtimeType) {
-        ParameterizedTypeGenerics generics = new ParameterizedTypeGenerics();
-        generics.typeParameters = typeParametersSupplier;
-        generics.typeArguments = typeArgumentsSupplier;
-        generics.setRuntimeType(runtimeType);
-        return generics;
-    }
+  public static ParameterizedTypeGenerics create(Supplier<Nary<TypeInstance>> typeParametersSupplier, Supplier<Nary<TypeInstance>> typeArgumentsSupplier, Supplier<TypeInstance> runtimeType) {
+    ParameterizedTypeGenerics generics = new ParameterizedTypeGenerics();
+    generics.typeParameters = typeParametersSupplier;
+    generics.typeArguments = typeArgumentsSupplier;
+    generics.setRuntimeType(runtimeType);
+    return generics;
+  }
 
-    @Override
-    public Nary<TypeInstance> arguments() {
-        return typeArguments.get();
-    }
+  @Override
+  public Nary<TypeInstance> arguments() {
+    return typeArguments.get();
+  }
 
-    @Override
-    public Nary<TypeInstance> parameters() {
-        return this.typeParameters.get();
-    }
+  @Override
+  public Nary<TypeInstance> parameters() {
+    return this.typeParameters.get();
+  }
 
 }

@@ -6,8 +6,8 @@ package ar.com.kfgodel.diamond.unit.testobjects;
  */
 public class FieldTypeTestObject {
 
-    public int intField;
+  public int intField;
 
-    private String stringField;
+  private String stringField;
 
 }

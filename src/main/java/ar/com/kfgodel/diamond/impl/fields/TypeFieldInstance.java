@@ -22,102 +22,102 @@ import java.util.function.Supplier;
  */
 public class TypeFieldInstance extends TypeMemberSupport implements TypeField {
 
-    private Supplier<TypeInstance> fieldType;
-    private Supplier<BiConsumer<Object, Object>> setter;
-    private Supplier<Function<Object, Object>> getter;
-    private Supplier<Nary<Field>> nativeField;
-    private Function<TypeField,Object> identityToken;
+  private Supplier<TypeInstance> fieldType;
+  private Supplier<BiConsumer<Object, Object>> setter;
+  private Supplier<Function<Object, Object>> getter;
+  private Supplier<Nary<Field>> nativeField;
+  private Function<TypeField, Object> identityToken;
 
 
-    @Override
-    public TypeInstance type() {
-        return fieldType.get();
-    }
+  @Override
+  public TypeInstance type() {
+    return fieldType.get();
+  }
 
-    @Override
-    public <R> R getValueFrom(Object instance) {
-        return (R) getter.get().apply(instance);
-    }
+  @Override
+  public <R> R getValueFrom(Object instance) {
+    return (R) getter.get().apply(instance);
+  }
 
-    @Override
-    public void setValueOn(Object instance, Object value) {
-        setter.get().accept(instance, value);
-    }
+  @Override
+  public void setValueOn(Object instance, Object value) {
+    setter.get().accept(instance, value);
+  }
 
-    @Override
-    public Object get() {
-        return getValueFrom(null);
-    }
+  @Override
+  public Object get() {
+    return getValueFrom(null);
+  }
 
-    @Override
-    public void accept(Object argument) {
-        setValueOn(null, argument);
-    }
+  @Override
+  public void accept(Object argument) {
+    setValueOn(null, argument);
+  }
 
-    @Override
-    public void accept(Object instance, Object value) {
-        setValueOn(instance, value);
-    }
+  @Override
+  public void accept(Object instance, Object value) {
+    setValueOn(instance, value);
+  }
 
-    @Override
-    public Object apply(Object instance) {
-        return getValueFrom(instance);
-    }
+  @Override
+  public Object apply(Object instance) {
+    return getValueFrom(instance);
+  }
 
-    @Override
-    public Object invoke(Object... arguments) {
-        return asFunction().invoke(arguments);
-    }
+  @Override
+  public Object invoke(Object... arguments) {
+    return asFunction().invoke(arguments);
+  }
 
 
-    public static TypeFieldInstance create(FieldDescription description) {
-        TypeFieldInstance field = new TypeFieldInstance();
-        field.initialize(description);
-        field.fieldType = description.getType();
-        field.setter = description.getSetter();
-        field.getter = description.getGetter();
-        field.nativeField = description.getNativeField();
-        field.identityToken = description.getIdentityToken();
-        return field;
-    }
+  public static TypeFieldInstance create(FieldDescription description) {
+    TypeFieldInstance field = new TypeFieldInstance();
+    field.initialize(description);
+    field.fieldType = description.getType();
+    field.setter = description.getSetter();
+    field.getter = description.getGetter();
+    field.nativeField = description.getNativeField();
+    field.identityToken = description.getIdentityToken();
+    return field;
+  }
 
-    @Override
-    public String declaration() {
-        return FieldDeclaration.create(this).asString();
-    }
+  @Override
+  public String declaration() {
+    return FieldDeclaration.create(this).asString();
+  }
 
-    @Override
-    public Nary<TypeInstance> parameterTypes() {
-        return Nary.empty();
-    }
+  @Override
+  public Nary<TypeInstance> parameterTypes() {
+    return Nary.empty();
+  }
 
-    @Override
-    public TypeInstance returnType() {
-        return type();
-    }
+  @Override
+  public TypeInstance returnType() {
+    return type();
+  }
 
-    @Override
-    public BoundField bindTo(Object object) {
-        return BoundFieldInstance.create(this,object);
-    }
+  @Override
+  public BoundField bindTo(Object object) {
+    return BoundFieldInstance.create(this, object);
+  }
 
-    @Override
-    public Nary<Field> nativeType() {
-        return nativeField.get();
-    }
+  @Override
+  public Nary<Field> nativeType() {
+    return nativeField.get();
+  }
 
-    @Override
-    public Object getIdentityToken() {
-        return identityToken.apply(this);
-    }
+  @Override
+  public Object getIdentityToken() {
+    return identityToken.apply(this);
+  }
 
-    @Override
-    public boolean equals(Object obj) {
-        return FieldEquality.INSTANCE.areEquals(this, obj);
-    }
+  @Override
+  public boolean equals(Object obj) {
+    return FieldEquality.INSTANCE.areEquals(this, obj);
+  }
 
-    @Override
-    public String toString() {
-        return DebugPrinter.print(this);
-    }
+  @Override
+  public String toString() {
+    return DebugPrinter.print(this);
+  }
 }

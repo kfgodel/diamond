@@ -15,25 +15,25 @@ import java.lang.reflect.Parameter;
  */
 public class ParameterSourcesImpl implements ParameterSources {
 
-    private DiamondCache cache;
+  private DiamondCache cache;
 
-    public static ParameterSourcesImpl create(DiamondCache cache) {
-        ParameterSourcesImpl source = new ParameterSourcesImpl();
-        source.cache = cache;
-        return source;
-    }
+  public static ParameterSourcesImpl create(DiamondCache cache) {
+    ParameterSourcesImpl source = new ParameterSourcesImpl();
+    source.cache = cache;
+    return source;
+  }
 
-    @Override
-    public ExecutableParameter from(Parameter nativeParameter) {
-        return cache.reuseOrCreateRepresentationFor(nativeParameter, ()-> fromDescription(ParameterDescriptor.INSTANCE.describe(nativeParameter)));
-    }
+  @Override
+  public ExecutableParameter from(Parameter nativeParameter) {
+    return cache.reuseOrCreateRepresentationFor(nativeParameter, () -> fromDescription(ParameterDescriptor.INSTANCE.describe(nativeParameter)));
+  }
 
-    @Override
-    public ExecutableParameter fromDescription(ParameterDescription description) {
-        return createParameterFrom(description);
-    }
+  @Override
+  public ExecutableParameter fromDescription(ParameterDescription description) {
+    return createParameterFrom(description);
+  }
 
-    private ExecutableParameter createParameterFrom(ParameterDescription description) {
-        return ParameterInstance.create(description);
-    }
+  private ExecutableParameter createParameterFrom(ParameterDescription description) {
+    return ParameterInstance.create(description);
+  }
 }

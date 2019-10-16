@@ -12,17 +12,17 @@ import java.util.function.Supplier;
  */
 public class UndefinedDeclaringType implements Supplier<TypeInstance> {
 
-    private TypeMember member;
+  private TypeMember member;
 
-    @Override
-    public TypeInstance get() {
-        throw new DiamondException("A declaring type definition was not provided from a subclass for this member: " + this.member);
-    }
+  @Override
+  public TypeInstance get() {
+    throw new DiamondException("A declaring type definition was not provided from a subclass for this member: " + this.member);
+  }
 
-    public static UndefinedDeclaringType create(TypeMember member) {
-        UndefinedDeclaringType declaringType = new UndefinedDeclaringType();
-        declaringType.member = member;
-        return declaringType;
-    }
+  public static UndefinedDeclaringType create(TypeMember member) {
+    UndefinedDeclaringType declaringType = new UndefinedDeclaringType();
+    declaringType.member = member;
+    return declaringType;
+  }
 
 }

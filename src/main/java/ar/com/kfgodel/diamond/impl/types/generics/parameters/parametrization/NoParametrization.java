@@ -11,10 +11,10 @@ import java.util.List;
  */
 public class NoParametrization implements SupertypeParametrization {
 
-    public static final NoParametrization INSTANCE = new NoParametrization();
+  public static final NoParametrization INSTANCE = new NoParametrization();
 
-    @Override
-    public void parameterizeWith(List<TypeInstance> subtypeArguments, List<TypeInstance> supertypeArgs) {
-        // No change needed
-    }
+  @Override
+  public void parameterizeWith(List<TypeInstance> subtypeArguments, List<TypeInstance> supertypeArgs) {
+    // No change needed
+  }
 }

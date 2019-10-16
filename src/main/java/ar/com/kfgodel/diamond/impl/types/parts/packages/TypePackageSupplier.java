@@ -13,23 +13,23 @@ import java.util.function.Supplier;
  */
 public class TypePackageSupplier implements Supplier<Nary<TypePackage>> {
 
-    private CachedValue<TypePackage> typePackage;
+  private CachedValue<TypePackage> typePackage;
 
-    public static Supplier<Nary<TypePackage>> create(Class<?> rawClass) {
-        TypePackageSupplier supplier = new TypePackageSupplier();
-        supplier.typePackage = CachedValue.lazilyBy(() -> {
-            Package nativePackage = rawClass.getPackage();
-            if(nativePackage == null){
-                return null; // Some classes don't have package
-            }else{
-                return Diamond.packages().from(nativePackage);
-            }
-        });
-        return supplier;
-    }
+  public static Supplier<Nary<TypePackage>> create(Class<?> rawClass) {
+    TypePackageSupplier supplier = new TypePackageSupplier();
+    supplier.typePackage = CachedValue.lazilyBy(() -> {
+      Package nativePackage = rawClass.getPackage();
+      if (nativePackage == null) {
+        return null; // Some classes don't have package
+      } else {
+        return Diamond.packages().from(nativePackage);
+      }
+    });
+    return supplier;
+  }
 
-    @Override
-    public Nary<TypePackage> get() {
-        return Nary.ofNullable(typePackage.get());
-    }
+  @Override
+  public Nary<TypePackage> get() {
+    return Nary.ofNullable(typePackage.get());
+  }
 }

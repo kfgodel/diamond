@@ -12,19 +12,19 @@ import java.util.function.Consumer;
  * Created by kfgodel on 27/09/14.
  */
 public class ActualArgumentReplacer implements Consumer<List<TypeInstance>> {
-    private List<TypeInstance> subtypeArguments;
-    private SupertypeParametrization parametrization;
+  private List<TypeInstance> subtypeArguments;
+  private SupertypeParametrization parametrization;
 
-    @Override
-    public void accept(List<TypeInstance> supertypeArgs) {
-        parametrization.parameterizeWith(subtypeArguments, supertypeArgs);
-    }
+  @Override
+  public void accept(List<TypeInstance> supertypeArgs) {
+    parametrization.parameterizeWith(subtypeArguments, supertypeArgs);
+  }
 
-    public static ActualArgumentReplacer create(List<TypeInstance> subtypeArguments, SupertypeParametrization parametrization) {
-        ActualArgumentReplacer replacer = new ActualArgumentReplacer();
-        replacer.subtypeArguments = subtypeArguments;
-        replacer.parametrization = parametrization;
-        return replacer;
-    }
+  public static ActualArgumentReplacer create(List<TypeInstance> subtypeArguments, SupertypeParametrization parametrization) {
+    ActualArgumentReplacer replacer = new ActualArgumentReplacer();
+    replacer.subtypeArguments = subtypeArguments;
+    replacer.parametrization = parametrization;
+    return replacer;
+  }
 
 }

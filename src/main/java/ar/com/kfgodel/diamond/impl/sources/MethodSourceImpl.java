@@ -17,40 +17,42 @@ import java.lang.reflect.Method;
  */
 public class MethodSourceImpl implements MethodSources {
 
-    private DiamondCache cache;
+  private DiamondCache cache;
 
-    public static MethodSourceImpl create(DiamondCache cache) {
-        MethodSourceImpl source = new MethodSourceImpl();
-        source.cache = cache;
-        return source;
-    }
+  public static MethodSourceImpl create(DiamondCache cache) {
+    MethodSourceImpl source = new MethodSourceImpl();
+    source.cache = cache;
+    return source;
+  }
 
-    @Override
-    public TypeMethods in(Class<?> objectClass) {
-        return Diamond.of(objectClass).methods();
-    }
+  @Override
+  public TypeMethods in(Class<?> objectClass) {
+    return Diamond.of(objectClass).methods();
+  }
 
-    /**
-     * Retrieves the diamond instance of the given native method instance
-     * @param nativeMethod The native method instance
-     * @return The diamond representation
-     */
-    public TypeMethod from(Method nativeMethod){
-        return cache.reuseOrCreateRepresentationFor(nativeMethod, ()-> fromDescription(MethodDescriptor.INSTANCE.describe(nativeMethod)));
-    }
+  /**
+   * Retrieves the diamond instance of the given native method instance
+   *
+   * @param nativeMethod The native method instance
+   * @return The diamond representation
+   */
+  public TypeMethod from(Method nativeMethod) {
+    return cache.reuseOrCreateRepresentationFor(nativeMethod, () -> fromDescription(MethodDescriptor.INSTANCE.describe(nativeMethod)));
+  }
 
-    @Override
-    public TypeMethod fromDescription(MethodDescription methodDescription) {
-        return createMethodFrom(methodDescription);
-    }
+  @Override
+  public TypeMethod fromDescription(MethodDescription methodDescription) {
+    return createMethodFrom(methodDescription);
+  }
 
-    /**
-     * Creates a new class method instance from a its method description
-     * @param methodDescription The description of the method features
-     * @return The instances that represents a method
-     */
-    private TypeMethodInstance createMethodFrom(MethodDescription methodDescription) {
-        return TypeMethodInstance.create(methodDescription);
-    }
+  /**
+   * Creates a new class method instance from a its method description
+   *
+   * @param methodDescription The description of the method features
+   * @return The instances that represents a method
+   */
+  private TypeMethodInstance createMethodFrom(MethodDescription methodDescription) {
+    return TypeMethodInstance.create(methodDescription);
+  }
 
 }

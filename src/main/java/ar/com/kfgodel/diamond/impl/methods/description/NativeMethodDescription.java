@@ -32,71 +32,71 @@ import java.util.function.Supplier;
  */
 public class NativeMethodDescription implements MethodDescription {
 
-    private Method nativeMethod;
+  private Method nativeMethod;
 
-    @Override
-    public Supplier<String> getName() {
-        return CachedValue.lazilyBy(nativeMethod::getName);
-    }
+  @Override
+  public Supplier<String> getName() {
+    return CachedValue.lazilyBy(nativeMethod::getName);
+  }
 
-    @Override
-    public Supplier<TypeInstance> getReturnType() {
-        return CachedValue.lazilyBy(() -> Diamond.types().from(nativeMethod.getAnnotatedReturnType()));
-    }
+  @Override
+  public Supplier<TypeInstance> getReturnType() {
+    return CachedValue.lazilyBy(() -> Diamond.types().from(nativeMethod.getAnnotatedReturnType()));
+  }
 
-    @Override
-    public Supplier<Nary<ExecutableParameter>> getParameters() {
-        return ImmutableMemberParameters.create(nativeMethod);
-    }
+  @Override
+  public Supplier<Nary<ExecutableParameter>> getParameters() {
+    return ImmutableMemberParameters.create(nativeMethod);
+  }
 
-    @Override
-    public Supplier<TypeInstance> getDeclaringType() {
-        return NativeMemberDeclaringTypeSupplier.create(nativeMethod);
-    }
+  @Override
+  public Supplier<TypeInstance> getDeclaringType() {
+    return NativeMemberDeclaringTypeSupplier.create(nativeMethod);
+  }
 
-    @Override
-    public Supplier<Nary<Modifier>> getModifiers() {
-        return ImmutableMemberModifiers.create(nativeMethod);
-    }
+  @Override
+  public Supplier<Nary<Modifier>> getModifiers() {
+    return ImmutableMemberModifiers.create(nativeMethod);
+  }
 
-    @Override
-    public Supplier<PolymorphicInvokable> getInvoker() {
-        return CachedValue.lazilyBy(() -> NativeMethodInvokerGenerator.INSTANCE.generateFor(nativeMethod));
-    }
+  @Override
+  public Supplier<PolymorphicInvokable> getInvoker() {
+    return CachedValue.lazilyBy(() -> NativeMethodInvokerGenerator.INSTANCE.generateFor(nativeMethod));
+  }
 
-    @Override
-    public Supplier<Nary<Annotation>> getAnnotations() {
-        return AnnotatedElementAnnotationsSupplier.create(nativeMethod);
-    }
+  @Override
+  public Supplier<Nary<Annotation>> getAnnotations() {
+    return AnnotatedElementAnnotationsSupplier.create(nativeMethod);
+  }
 
-    @Override
-    public Supplier<Generics> getGenerics() {
-        return CachedValue.lazilyBy(() -> ExecutableGenericsSupplier.create(nativeMethod));
-    }
+  @Override
+  public Supplier<Generics> getGenerics() {
+    return CachedValue.lazilyBy(() -> ExecutableGenericsSupplier.create(nativeMethod));
+  }
 
-    @Override
-    public Supplier<Nary<Object>> getDefaultValue() {
-        return MethodDefaultValueSupplier.create(nativeMethod);
-    }
+  @Override
+  public Supplier<Nary<Object>> getDefaultValue() {
+    return MethodDefaultValueSupplier.create(nativeMethod);
+  }
 
-    @Override
-    public Supplier<Nary<Method>> getNativeMethod() {
-        return () -> Nary.of(nativeMethod);
-    }
+  @Override
+  public Supplier<Nary<Method>> getNativeMethod() {
+    return () -> Nary.of(nativeMethod);
+  }
 
-    @Override
-    public Supplier<Nary<TypeInstance>> getDeclaredExceptions() {
-        return ExecutableExceptionsSupplier.create(nativeMethod);
-    }
+  @Override
+  public Supplier<Nary<TypeInstance>> getDeclaredExceptions() {
+    return ExecutableExceptionsSupplier.create(nativeMethod);
+  }
 
-    public static NativeMethodDescription create(Method nativeMethod) {
-        NativeMethodDescription description = new NativeMethodDescription();
-        description.nativeMethod = nativeMethod;
-        return description;
-    }
+  public static NativeMethodDescription create(Method nativeMethod) {
+    NativeMethodDescription description = new NativeMethodDescription();
+    description.nativeMethod = nativeMethod;
+    return description;
+  }
 
-    @Override
-    public Function<TypeMethod, Object> getIdentityToken() {
-        return CachedTokenCalculator.create(MethodEquality.INSTANCE::calculateTokenFor);
-    }
+  @Override
+  public Function<TypeMethod, Object> getIdentityToken() {
+    return CachedTokenCalculator.create(MethodEquality.INSTANCE::calculateTokenFor);
+  }
 }

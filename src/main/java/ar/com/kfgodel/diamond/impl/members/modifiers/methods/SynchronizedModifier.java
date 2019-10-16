@@ -9,13 +9,13 @@ import java.lang.reflect.Modifier;
  * Created by kfgodel on 19/10/14.
  */
 public class SynchronizedModifier extends ModifierSupport {
-    protected SynchronizedModifier() {
-        super(Modifier.SYNCHRONIZED, "synchronized");
-    }
+  protected SynchronizedModifier() {
+    super(Modifier.SYNCHRONIZED, "synchronized");
+  }
 
-    public static SynchronizedModifier create() {
-        SynchronizedModifier modifier = new SynchronizedModifier();
-        return modifier;
-    }
+  public static SynchronizedModifier create() {
+    SynchronizedModifier modifier = new SynchronizedModifier();
+    return modifier;
+  }
 
 }

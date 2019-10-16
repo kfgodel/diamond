@@ -11,20 +11,21 @@ import java.lang.reflect.Method;
  */
 public class MethodDescriptor {
 
-    public static final MethodDescriptor INSTANCE = MethodDescriptor.create();
+  public static final MethodDescriptor INSTANCE = MethodDescriptor.create();
 
-    /**
-     * Creates a description of the given native method based on its features
-     * @param nativeMethod The method to describe
-     * @return The description for diamond
-     */
-    public MethodDescription describe(Method nativeMethod){
-        return NativeMethodDescription.create(nativeMethod);
-    }
+  /**
+   * Creates a description of the given native method based on its features
+   *
+   * @param nativeMethod The method to describe
+   * @return The description for diamond
+   */
+  public MethodDescription describe(Method nativeMethod) {
+    return NativeMethodDescription.create(nativeMethod);
+  }
 
-    public static MethodDescriptor create() {
-        MethodDescriptor descriptor = new MethodDescriptor();
-        return descriptor;
-    }
+  public static MethodDescriptor create() {
+    MethodDescriptor descriptor = new MethodDescriptor();
+    return descriptor;
+  }
 
 }

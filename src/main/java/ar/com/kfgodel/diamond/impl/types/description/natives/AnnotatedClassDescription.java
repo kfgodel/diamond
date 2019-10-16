@@ -11,22 +11,22 @@ import java.lang.reflect.AnnotatedType;
  */
 public class AnnotatedClassDescription extends AnnotatedTypeDescriptionSupport {
 
-    private AnnotatedType nativeType;
+  private AnnotatedType nativeType;
 
-    @Override
-    protected AnnotatedType getAnnotatedType() {
-        return nativeType;
-    }
+  @Override
+  protected AnnotatedType getAnnotatedType() {
+    return nativeType;
+  }
 
-    @Override
-    protected TypeDescription createUnannotatedDescription() {
-        return ClassDescription.create((Class<?>) nativeType.getType());
-    }
+  @Override
+  protected TypeDescription createUnannotatedDescription() {
+    return ClassDescription.create((Class<?>) nativeType.getType());
+  }
 
-    public static AnnotatedClassDescription create(AnnotatedType nativeType) {
-        AnnotatedClassDescription description = new AnnotatedClassDescription();
-        description.nativeType = nativeType;
-        return description;
-    }
+  public static AnnotatedClassDescription create(AnnotatedType nativeType) {
+    AnnotatedClassDescription description = new AnnotatedClassDescription();
+    description.nativeType = nativeType;
+    return description;
+  }
 
 }

@@ -12,33 +12,33 @@ import ar.com.kfgodel.diamond.impl.strings.DebugPrinter;
  */
 public class BoundMethodInstance extends BoundMemberSupport implements BoundMethod {
 
-    private TypeMethod method;
+  private TypeMethod method;
 
-    @Override
-    public TypeMethod typeMethod() {
-        return method;
-    }
+  @Override
+  public TypeMethod typeMethod() {
+    return method;
+  }
 
-    @Override
-    public TypeMember typeMember() {
-        return typeMethod();
-    }
+  @Override
+  public TypeMember typeMember() {
+    return typeMethod();
+  }
 
-    @Override
-    public Object invoke(Object... arguments) {
-        return method.invokeOn(instance(), arguments);
-    }
+  @Override
+  public Object invoke(Object... arguments) {
+    return method.invokeOn(instance(), arguments);
+  }
 
-    public static BoundMethodInstance create(TypeMethod method, Object instance) {
-        BoundMethodInstance boundMethod = new BoundMethodInstance();
-        boundMethod.setInstance(instance);
-        boundMethod.method = method;
-        return boundMethod;
-    }
+  public static BoundMethodInstance create(TypeMethod method, Object instance) {
+    BoundMethodInstance boundMethod = new BoundMethodInstance();
+    boundMethod.setInstance(instance);
+    boundMethod.method = method;
+    return boundMethod;
+  }
 
-    @Override
-    public String toString() {
-        return DebugPrinter.print(this);
-    }
+  @Override
+  public String toString() {
+    return DebugPrinter.print(this);
+  }
 
 }

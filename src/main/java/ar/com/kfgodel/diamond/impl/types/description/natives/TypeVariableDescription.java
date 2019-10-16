@@ -14,22 +14,22 @@ import java.util.function.Supplier;
  */
 public class TypeVariableDescription extends UnannotatedVariableTypeDescriptionSupport {
 
-    private TypeVariable<?> typeVariable;
+  private TypeVariable<?> typeVariable;
 
-    @Override
-    protected Type getNativeType() {
-        return typeVariable;
-    }
+  @Override
+  protected Type getNativeType() {
+    return typeVariable;
+  }
 
-    @Override
-    public Supplier<TypeBounds> getBounds() {
-        return TypeVariableBoundSupplier.create(typeVariable);
-    }
+  @Override
+  public Supplier<TypeBounds> getBounds() {
+    return TypeVariableBoundSupplier.create(typeVariable);
+  }
 
-    public static TypeVariableDescription create(TypeVariable<?> typeVariable) {
-        TypeVariableDescription description = new TypeVariableDescription();
-        description.typeVariable = typeVariable;
-        return description;
-    }
+  public static TypeVariableDescription create(TypeVariable<?> typeVariable) {
+    TypeVariableDescription description = new TypeVariableDescription();
+    description.typeVariable = typeVariable;
+    return description;
+  }
 
 }

@@ -16,25 +16,25 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @RunWith(JavaSpecRunner.class)
 public class MethodReturnTypeTest extends JavaSpec<DiamondTestContext> {
-    @Override
-    public void define() {
-        describe("a method's return type", () -> {
+  @Override
+  public void define() {
+    describe("a method's return type", () -> {
 
-            context().typeInstance(() -> Diamond.of(MethodReturnTypeTestObject.class));
+      context().typeInstance(() -> Diamond.of(MethodReturnTypeTestObject.class));
 
 
-            it("is the type declared by the method as its return type",()->{
-                TypeMethod method = context().typeInstance().methods().named("stringReturnedMethod").get();
-                assertThat(method.returnType().name())
-                        .isEqualTo("String");
-            });
-            
-            it("is void for void methods",()->{
-                TypeMethod method = context().typeInstance().methods().named("voidReturnedMethod").get();
-                assertThat(method.returnType())
-                        .isEqualTo(Diamond.of(void.class));
-            });   
-        });
+      it("is the type declared by the method as its return type", () -> {
+        TypeMethod method = context().typeInstance().methods().named("stringReturnedMethod").get();
+        assertThat(method.returnType().name())
+          .isEqualTo("String");
+      });
 
-    }
+      it("is void for void methods", () -> {
+        TypeMethod method = context().typeInstance().methods().named("voidReturnedMethod").get();
+        assertThat(method.returnType())
+          .isEqualTo(Diamond.of(void.class));
+      });
+    });
+
+  }
 }

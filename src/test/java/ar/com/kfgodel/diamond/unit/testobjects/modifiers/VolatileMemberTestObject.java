@@ -6,5 +6,5 @@ package ar.com.kfgodel.diamond.unit.testobjects.modifiers;
  */
 public class VolatileMemberTestObject {
 
-    volatile int field;
+  volatile int field;
 }

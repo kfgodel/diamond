@@ -11,10 +11,10 @@ import java.util.function.Supplier;
  */
 public class NoParametersSupplier implements Supplier<Nary<ExecutableParameter>> {
 
-    public static final NoParametersSupplier INSTANCE = new NoParametersSupplier();
+  public static final NoParametersSupplier INSTANCE = new NoParametersSupplier();
 
-    @Override
-    public Nary<ExecutableParameter> get() {
-        return Nary.empty();
-    }
+  @Override
+  public Nary<ExecutableParameter> get() {
+    return Nary.empty();
+  }
 }

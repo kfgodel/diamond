@@ -6,6 +6,6 @@ package ar.com.kfgodel.diamond.unit.testobjects.modifiers;
  */
 public class TransientMemberTestObject {
 
-    transient int field;
+  transient int field;
 
 }

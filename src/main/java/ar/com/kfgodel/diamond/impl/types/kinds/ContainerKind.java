@@ -13,15 +13,15 @@ import java.util.Map;
  * Created by kfgodel on 03/02/15.
  */
 public class ContainerKind implements Kind {
-    @Override
-    public boolean contains(TypeInstance testedType) {
-        TypeInheritance typeInheritance = testedType.inheritance();
-        return typeInheritance.isSubTypeOfNative(Collection.class) || typeInheritance.isSubTypeOfNative(Map.class) || Kinds.ARRAY.contains(testedType);
-    }
+  @Override
+  public boolean contains(TypeInstance testedType) {
+    TypeInheritance typeInheritance = testedType.inheritance();
+    return typeInheritance.isSubTypeOfNative(Collection.class) || typeInheritance.isSubTypeOfNative(Map.class) || Kinds.ARRAY.contains(testedType);
+  }
 
-    public static ContainerKind create() {
-        ContainerKind kind = new ContainerKind();
-        return kind;
-    }
+  public static ContainerKind create() {
+    ContainerKind kind = new ContainerKind();
+    return kind;
+  }
 
 }

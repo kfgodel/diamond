@@ -20,41 +20,41 @@ import static org.assertj.core.api.Assertions.failBecauseExceptionWasNotThrown;
  */
 @RunWith(JavaSpecRunner.class)
 public class TypeInstantiationTest extends JavaSpec<DiamondTestContext> {
-    @Override
-    public void define() {
-        describe("A Type's new instance", () -> {
-            
-            it("uses the niladic constructor",()->{
-                TypeInstance type = Diamond.of(PublicMembersTestObject.class);
+  @Override
+  public void define() {
+    describe("A Type's new instance", () -> {
 
-                Object createdInstance = type.newInstance();
+      it("uses the niladic constructor", () -> {
+        TypeInstance type = Diamond.of(PublicMembersTestObject.class);
 
-                assertThat(createdInstance).isInstanceOf(PublicMembersTestObject.class);
-            });
+        Object createdInstance = type.newInstance();
 
-            it("throws an exception if type is abstract",()->{
-                TypeInstance type = Diamond.of(AbstractMemberTestObject.class);
+        assertThat(createdInstance).isInstanceOf(PublicMembersTestObject.class);
+      });
 
-                try {
-                    type.newInstance();
-                    failBecauseExceptionWasNotThrown(DiamondException.class);
-                } catch (DiamondException e) {
-                    assertThat(e).hasMessage("Abstract type cannot be created: protected ar.com.kfgodel.diamond.unit.testobjects.modifiers.AbstractMemberTestObject()");
-                }
-            });
+      it("throws an exception if type is abstract", () -> {
+        TypeInstance type = Diamond.of(AbstractMemberTestObject.class);
 
-            it("throws an exception if type doesn't have a niladic constructor",()->{
-                TypeInstance type = Diamond.of(NoNiladicTestObject.class);
+        try {
+          type.newInstance();
+          failBecauseExceptionWasNotThrown(DiamondException.class);
+        } catch (DiamondException e) {
+          assertThat(e).hasMessage("Abstract type cannot be created: protected ar.com.kfgodel.diamond.unit.testobjects.modifiers.AbstractMemberTestObject()");
+        }
+      });
 
-                try {
-                    type.newInstance();
-                    failBecauseExceptionWasNotThrown(DiamondException.class);
-                } catch (DiamondException e) {
-                    assertThat(e).hasMessage("Type[NoNiladicTestObject @ ar.com.kfgodel.diamond.unit.testobjects.constructors] doesn't have a no-arg constructor to create the instance from");
-                }
-            });
-            
-        });
+      it("throws an exception if type doesn't have a niladic constructor", () -> {
+        TypeInstance type = Diamond.of(NoNiladicTestObject.class);
 
-    }
+        try {
+          type.newInstance();
+          failBecauseExceptionWasNotThrown(DiamondException.class);
+        } catch (DiamondException e) {
+          assertThat(e).hasMessage("Type[NoNiladicTestObject @ ar.com.kfgodel.diamond.unit.testobjects.constructors] doesn't have a no-arg constructor to create the instance from");
+        }
+      });
+
+    });
+
+  }
 }

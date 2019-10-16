@@ -15,22 +15,22 @@ import java.util.function.Supplier;
  */
 public class GenericArrayTypeDescription extends UnannotatedFixedTypeDescriptionSupport {
 
-    private GenericArrayType nativeType;
+  private GenericArrayType nativeType;
 
-    @Override
-    protected Type getNativeType() {
-        return nativeType;
-    }
+  @Override
+  protected Type getNativeType() {
+    return nativeType;
+  }
 
-    @Override
-    public Supplier<Nary<TypeInstance>> getComponentType() {
-        return ArrayComponentTypeSupplier.create(nativeType);
-    }
+  @Override
+  public Supplier<Nary<TypeInstance>> getComponentType() {
+    return ArrayComponentTypeSupplier.create(nativeType);
+  }
 
-    public static GenericArrayTypeDescription create(GenericArrayType nativeType) {
-        GenericArrayTypeDescription description = new GenericArrayTypeDescription();
-        description.nativeType = nativeType;
-        return description;
-    }
+  public static GenericArrayTypeDescription create(GenericArrayType nativeType) {
+    GenericArrayTypeDescription description = new GenericArrayTypeDescription();
+    description.nativeType = nativeType;
+    return description;
+  }
 
 }

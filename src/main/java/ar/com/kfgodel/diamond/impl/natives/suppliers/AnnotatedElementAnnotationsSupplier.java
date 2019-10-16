@@ -13,17 +13,17 @@ import java.util.function.Supplier;
  */
 public class AnnotatedElementAnnotationsSupplier implements Supplier<Nary<Annotation>> {
 
-    private AnnotatedElement annotatedType;
+  private AnnotatedElement annotatedType;
 
-    @Override
-    public Nary<Annotation> get() {
-        return Nary.create(Arrays.stream(annotatedType.getAnnotations()));
-    }
+  @Override
+  public Nary<Annotation> get() {
+    return Nary.create(Arrays.stream(annotatedType.getAnnotations()));
+  }
 
-    public static AnnotatedElementAnnotationsSupplier create(AnnotatedElement annotatedType) {
-        AnnotatedElementAnnotationsSupplier supplier = new AnnotatedElementAnnotationsSupplier();
-        supplier.annotatedType = annotatedType;
-        return supplier;
-    }
+  public static AnnotatedElementAnnotationsSupplier create(AnnotatedElement annotatedType) {
+    AnnotatedElementAnnotationsSupplier supplier = new AnnotatedElementAnnotationsSupplier();
+    supplier.annotatedType = annotatedType;
+    return supplier;
+  }
 
 }

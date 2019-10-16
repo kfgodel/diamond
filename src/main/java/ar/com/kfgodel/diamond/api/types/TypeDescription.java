@@ -21,104 +21,108 @@ import java.util.function.Supplier;
  */
 public interface TypeDescription {
 
-    /**
-     * @return The names given to the type
-     */
-    Supplier<TypeNames> getNames();
+  /**
+   * @return The names given to the type
+   */
+  Supplier<TypeNames> getNames();
 
-    /**
-     * @return The supplier of annotations of the described type
-     */
-    Supplier<Nary<Annotation>> getAnnotations();
+  /**
+   * @return The supplier of annotations of the described type
+   */
+  Supplier<Nary<Annotation>> getAnnotations();
 
-    /**
-     * @return The description of this type inheritance
-     */
-    InheritanceDescription getInheritanceDescription();
+  /**
+   * @return The description of this type inheritance
+   */
+  InheritanceDescription getInheritanceDescription();
 
-    /**
-     * @return The supplier of type arguments
-     */
-    Supplier<Nary<TypeInstance>> getTypeArguments();
+  /**
+   * @return The supplier of type arguments
+   */
+  Supplier<Nary<TypeInstance>> getTypeArguments();
 
-    /**
-     * @return The supplier of type parameters for the described type
-     */
-    Supplier<Nary<TypeInstance>> getTypeParametersSupplier();
+  /**
+   * @return The supplier of type parameters for the described type
+   */
+  Supplier<Nary<TypeInstance>> getTypeParametersSupplier();
 
-    /**
-     * @return The supplier used to define the type component
-     */
-    Supplier<Nary<TypeInstance>> getComponentType();
+  /**
+   * @return The supplier used to define the type component
+   */
+  Supplier<Nary<TypeInstance>> getComponentType();
 
-    /**
-     * @return The supplier that can reproduce the bounds of the described type
-     */
-    Supplier<TypeBounds> getBounds();
+  /**
+   * @return The supplier that can reproduce the bounds of the described type
+   */
+  Supplier<TypeBounds> getBounds();
 
-    /**
-     * The set of methods that will be part of this type behavior
-     * @return A stream to gather all methods
-     */
-    Supplier<Nary<TypeMethod>> getTypeMethods();
+  /**
+   * The set of methods that will be part of this type behavior
+   *
+   * @return A stream to gather all methods
+   */
+  Supplier<Nary<TypeMethod>> getTypeMethods();
 
-    /**
-     * The set of fields that will be part of this type state
-     * @return A stream to gather all fields
-     */
-    Supplier<Nary<TypeField>> getTypeFields();
+  /**
+   * The set of fields that will be part of this type state
+   *
+   * @return A stream to gather all fields
+   */
+  Supplier<Nary<TypeField>> getTypeFields();
 
-    /**
-     * The set of constructors that will be part of this type creators
-     * @return A stream to gather all constructors
-     */
-    Supplier<Nary<TypeConstructor>> getTypeConstructors();
+  /**
+   * The set of constructors that will be part of this type creators
+   *
+   * @return A stream to gather all constructors
+   */
+  Supplier<Nary<TypeConstructor>> getTypeConstructors();
 
-    /**
-     * Indicates if this description is for a type that cannot be statically determined at compile type in every scope
-     * (wildcards and type variables) and for that reason its class representation may be bounded to other type.
-     * @return true if this type represents a type variable, a wildcard or annotated version of them
-     */
-    boolean isForVariableType();
+  /**
+   * Indicates if this description is for a type that cannot be statically determined at compile type in every scope
+   * (wildcards and type variables) and for that reason its class representation may be bounded to other type.
+   *
+   * @return true if this type represents a type variable, a wildcard or annotated version of them
+   */
+  boolean isForVariableType();
 
-    /**
-     * @return The supplier of the optional package for the type
-     */
-    Supplier<Nary<TypePackage>> getDeclaredPackage();
+  /**
+   * @return The supplier of the optional package for the type
+   */
+  Supplier<Nary<TypePackage>> getDeclaredPackage();
 
-    /**
-     * @return The supplier of the raw classes for the runtime description of the type
-     */
-    Supplier<Nary<Class<?>>> getRawClassesSupplier();
+  /**
+   * @return The supplier of the raw classes for the runtime description of the type
+   */
+  Supplier<Nary<Class<?>>> getRawClassesSupplier();
 
-    /**
-     * @return The supplier of the native raw class
-     */
-    Supplier<Nary<Class<?>>> getRawClassSupplier();
+  /**
+   * @return The supplier of the native raw class
+   */
+  Supplier<Nary<Class<?>>> getRawClassSupplier();
 
-    /**
-     * @return The function to get the compared structure for equality
-     */
-    Function<TypeInstance, Object> getIdentityToken();
+  /**
+   * @return The function to get the compared structure for equality
+   */
+  Function<TypeInstance, Object> getIdentityToken();
 
-    /**
-     * @param type The actual type to get extra info from
-     * @return The function to get the kinds of the described type
-     */
-    Supplier<Nary<Kind>> getKindsFor(TypeInstance type);
+  /**
+   * @param type The actual type to get extra info from
+   * @return The function to get the kinds of the described type
+   */
+  Supplier<Nary<Kind>> getKindsFor(TypeInstance type);
 
-    /**
-     * @return The predicate to test instances against the described type to verify its type
-     */
-    Predicate<Object> getTypeForPredicate();
+  /**
+   * @return The predicate to test instances against the described type to verify its type
+   */
+  Predicate<Object> getTypeForPredicate();
 
-    /**
-     * @return The predicate to use when checking described type assignability
-     */
-    Predicate<TypeInstance> getAssignabilityPredicate();
+  /**
+   * @return The predicate to use when checking described type assignability
+   */
+  Predicate<TypeInstance> getAssignabilityPredicate();
 
-    /**
-     * @return The supplier of the type used in runtime to represent the described type
-     */
-    Supplier<TypeInstance> getRuntimeType();
+  /**
+   * @return The supplier of the type used in runtime to represent the described type
+   */
+  Supplier<TypeInstance> getRuntimeType();
 }

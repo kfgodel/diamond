@@ -5,5 +5,5 @@ package ar.com.kfgodel.diamond.unit.testobjects;
  * Created by kfgodel on 18/09/14.
  */
 public class ClassWithIdField {
-    private Long id;
+  private Long id;
 }

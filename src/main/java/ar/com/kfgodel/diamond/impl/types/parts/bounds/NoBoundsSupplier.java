@@ -11,10 +11,10 @@ import java.util.function.Supplier;
  */
 public class NoBoundsSupplier implements Supplier<TypeBounds> {
 
-    public static final NoBoundsSupplier INSTANCE = new NoBoundsSupplier();
+  public static final NoBoundsSupplier INSTANCE = new NoBoundsSupplier();
 
-    @Override
-    public TypeBounds get() {
-        return NoBounds.INSTANCE;
-    }
+  @Override
+  public TypeBounds get() {
+    return NoBounds.INSTANCE;
+  }
 }

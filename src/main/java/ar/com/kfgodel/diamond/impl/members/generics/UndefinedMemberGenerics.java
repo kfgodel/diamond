@@ -12,17 +12,17 @@ import java.util.function.Supplier;
  */
 public class UndefinedMemberGenerics implements Supplier<Generics> {
 
-    private TypeMember member;
+  private TypeMember member;
 
-    @Override
-    public Generics get() {
-        throw new DiamondException("The generics information for member["+member+"] was not defined");
-    }
+  @Override
+  public Generics get() {
+    throw new DiamondException("The generics information for member[" + member + "] was not defined");
+  }
 
-    public static UndefinedMemberGenerics create(TypeMember member) {
-        UndefinedMemberGenerics generics = new UndefinedMemberGenerics();
-        generics.member = member;
-        return generics;
-    }
+  public static UndefinedMemberGenerics create(TypeMember member) {
+    UndefinedMemberGenerics generics = new UndefinedMemberGenerics();
+    generics.member = member;
+    return generics;
+  }
 
 }

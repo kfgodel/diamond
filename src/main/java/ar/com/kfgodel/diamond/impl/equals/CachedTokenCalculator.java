@@ -8,24 +8,24 @@ import java.util.function.Function;
  */
 public class CachedTokenCalculator<T> implements Function<T, Object> {
 
-    private Function<T, Object> tokenCalculator;
-    private Object calculatedToken;
+  private Function<T, Object> tokenCalculator;
+  private Object calculatedToken;
 
 
-    @Override
-    public Object apply(T typeInstance) {
-        if(tokenCalculator != null){
-            // First time
-            calculatedToken = tokenCalculator.apply(typeInstance);
-            tokenCalculator = null;
-        }
-        return calculatedToken;
+  @Override
+  public Object apply(T typeInstance) {
+    if (tokenCalculator != null) {
+      // First time
+      calculatedToken = tokenCalculator.apply(typeInstance);
+      tokenCalculator = null;
     }
+    return calculatedToken;
+  }
 
-    public static<T> CachedTokenCalculator<T> create(Function<T, ?> tokenCalculator) {
-        CachedTokenCalculator structure = new CachedTokenCalculator();
-        structure.tokenCalculator = tokenCalculator;
-        return structure;
-    }
+  public static <T> CachedTokenCalculator<T> create(Function<T, ?> tokenCalculator) {
+    CachedTokenCalculator structure = new CachedTokenCalculator();
+    structure.tokenCalculator = tokenCalculator;
+    return structure;
+  }
 
 }

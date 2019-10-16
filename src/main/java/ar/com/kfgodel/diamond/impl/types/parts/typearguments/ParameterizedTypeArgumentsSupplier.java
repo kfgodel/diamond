@@ -15,17 +15,17 @@ import java.util.function.Supplier;
  */
 public class ParameterizedTypeArgumentsSupplier {
 
-    public static Supplier<Nary<TypeInstance>>  create(Object nativeType) {
-        return TypeNarySupplierFromNativeTypeArray.apply(() -> getActualTypeArgumentsFrom(nativeType));
-    }
+  public static Supplier<Nary<TypeInstance>> create(Object nativeType) {
+    return TypeNarySupplierFromNativeTypeArray.apply(() -> getActualTypeArgumentsFrom(nativeType));
+  }
 
-    private static Object[] getActualTypeArgumentsFrom(Object nativeType) {
-        if(nativeType instanceof AnnotatedParameterizedType){
-            return ((AnnotatedParameterizedType) nativeType).getAnnotatedActualTypeArguments();
-        }else if(nativeType instanceof ParameterizedType){
-            return ((ParameterizedType) nativeType).getActualTypeArguments();
-        }
-        throw new DiamondException("The type["+nativeType+"] is not a parameterized type representation");
+  private static Object[] getActualTypeArgumentsFrom(Object nativeType) {
+    if (nativeType instanceof AnnotatedParameterizedType) {
+      return ((AnnotatedParameterizedType) nativeType).getAnnotatedActualTypeArguments();
+    } else if (nativeType instanceof ParameterizedType) {
+      return ((ParameterizedType) nativeType).getActualTypeArguments();
     }
+    throw new DiamondException("The type[" + nativeType + "] is not a parameterized type representation");
+  }
 
 }

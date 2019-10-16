@@ -6,5 +6,5 @@ package ar.com.kfgodel.diamond.unit.testobjects.modifiers;
  */
 public class NativeMemberTestObject {
 
-    native void method();
+  native void method();
 }

@@ -10,21 +10,21 @@ import ar.com.kfgodel.nary.api.Nary;
  */
 public class NoBounds implements TypeBounds {
 
-    public static final NoBounds INSTANCE = NoBounds.create();
+  public static final NoBounds INSTANCE = NoBounds.create();
 
-    @Override
-    public Nary<TypeInstance> upper() {
-        return Nary.empty();
-    }
+  @Override
+  public Nary<TypeInstance> upper() {
+    return Nary.empty();
+  }
 
-    @Override
-    public Nary<TypeInstance> lower() {
-        return Nary.empty();
-    }
+  @Override
+  public Nary<TypeInstance> lower() {
+    return Nary.empty();
+  }
 
-    public static NoBounds create() {
-        NoBounds bounds = new NoBounds();
-        return bounds;
-    }
+  public static NoBounds create() {
+    NoBounds bounds = new NoBounds();
+    return bounds;
+  }
 
 }

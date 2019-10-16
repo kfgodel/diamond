@@ -11,13 +11,13 @@ import java.util.function.Supplier;
  */
 public interface PackageDescription {
 
-    /**
-     * @return The supplier for package name
-     */
-    Supplier<String> getNameSupplier();
+  /**
+   * @return The supplier for package name
+   */
+  Supplier<String> getNameSupplier();
 
-    /**
-     * @return The supplier for package annotations
-     */
-    Supplier<Nary<Annotation>> getAnnotationsSupplier();
+  /**
+   * @return The supplier for package annotations
+   */
+  Supplier<Nary<Annotation>> getAnnotationsSupplier();
 }

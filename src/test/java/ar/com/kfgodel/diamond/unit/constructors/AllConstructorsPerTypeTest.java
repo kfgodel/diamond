@@ -25,124 +25,127 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @RunWith(JavaSpecRunner.class)
 public class AllConstructorsPerTypeTest extends JavaSpec<DiamondTestContext> {
-    @Override
-    public void define() {
-        describe("all constructors", () -> {
+  @Override
+  public void define() {
+    describe("all constructors", () -> {
 
-            describe("for classes", () -> {
+      describe("for classes", () -> {
 
-                context().typeInstance(() -> Diamond.of(ChildClass.class));
+        context().typeInstance(() -> Diamond.of(ChildClass.class));
 
-                it("includes public constructors",()->{
-                    assertThat(context().typeInstance().constructors().all()
-                            .anyMatch((constructor) -> constructor.modifiers().anyMatch(Modifiers.PUBLIC)))
-                            .isTrue();
-                });
-
-                it("includes protected constructors",()->{
-                    assertThat(context().typeInstance().constructors().all()
-                            .anyMatch((constructor)->  constructor.modifiers().anyMatch(Modifiers.PROTECTED)))
-                            .isTrue();
-                });
-
-                it("includes private constructors",()->{
-                    assertThat(context().typeInstance().constructors().all()
-                            .anyMatch((constructor)->  constructor.modifiers().anyMatch(Modifiers.PRIVATE)))
-                            .isTrue();
-                });
-
-                it("includes default constructors",()->{
-                    assertThat(context().typeInstance().constructors().all()
-                            .anyMatch((constructor)->  constructor.modifiers().anyMatch(Modifiers.PACKAGE)))
-                            .isTrue();
-                });
-
-                it("doesn't include inherited constructors",()->{
-                    assertThat(context().typeInstance().constructors().all()
-                            .anyMatch((constructor)-> constructor.parameterTypes().collect(Collectors.toList())
-                                    .equals(Arrays.asList(Diamond.of(Number.class)))))
-                            .isFalse();
-                });
-
-            });
-
-            describe("for type variables and wildcards", () -> {
-
-                context().typeInstance(AllConstructorsPerTypeTest::getUnboundedWildcardType);
-
-                it("is empty", () -> {
-                    assertThat(context().typeInstance().constructors().all().count())
-                            .isEqualTo(0);
-                });
-
-            });
-
-
-            describe("for array types", () -> {
-                context().typeInstance(() -> Diamond.of(String[].class));
-
-                it("includes an artificial constructor", () -> {
-                    assertThat(context().typeInstance().constructors().all()
-                            .anyMatch((constructor) -> constructor.parameterTypes().collect(Collectors.toList())
-                                    .equals(Arrays.asList(Diamond.of(int.class)))))
-                            .isTrue();
-                });
-                
-                it("even for generic array types",()->{
-                    context().typeInstance(this::getGenericArrayType);
-                    assertThat(context().typeInstance().constructors().all()
-                            .anyMatch((constructor) -> constructor.parameterTypes().collect(Collectors.toList())
-                                    .equals(Arrays.asList(Diamond.of(int.class)))))
-                            .isTrue();
-                });   
-
-            });
-
-
-            describe("for primitive types", () -> {
-                context().typeInstance(() -> Diamond.of(int.class));
-
-                it("is empty",()->{
-                    assertThat(context().typeInstance().fields().all().count())
-                            .isEqualTo(0);
-                });
-
-            });
-
-            describe("for parameterized types", ()->{
-                context().typeInstance(AllConstructorsPerTypeTest::getParameterizedParentClass);
-
-                it("includes the same constructors as the raw class",()->{
-                    List<TypeConstructor> parameterizedConstructors = context().typeInstance().constructors().all().collect(Collectors.toList());
-                    assertThat(parameterizedConstructors)
-                            .isEqualTo(Diamond.of(ParentClass.class).constructors().all().collect(Collectors.toList()));
-                });
-            });
-
-
+        it("includes public constructors", () -> {
+          assertThat(context().typeInstance().constructors().all()
+            .anyMatch((constructor) -> constructor.modifiers().anyMatch(Modifiers.PUBLIC)))
+            .isTrue();
         });
 
-    }
+        it("includes protected constructors", () -> {
+          assertThat(context().typeInstance().constructors().all()
+            .anyMatch((constructor) -> constructor.modifiers().anyMatch(Modifiers.PROTECTED)))
+            .isTrue();
+        });
 
-    private TypeInstance getGenericArrayType() {
-        return getTypeFrom(new ReferenceOf<List<String>[]>(){});
-    }
+        it("includes private constructors", () -> {
+          assertThat(context().typeInstance().constructors().all()
+            .anyMatch((constructor) -> constructor.modifiers().anyMatch(Modifiers.PRIVATE)))
+            .isTrue();
+        });
+
+        it("includes default constructors", () -> {
+          assertThat(context().typeInstance().constructors().all()
+            .anyMatch((constructor) -> constructor.modifiers().anyMatch(Modifiers.PACKAGE)))
+            .isTrue();
+        });
+
+        it("doesn't include inherited constructors", () -> {
+          assertThat(context().typeInstance().constructors().all()
+            .anyMatch((constructor) -> constructor.parameterTypes().collect(Collectors.toList())
+              .equals(Arrays.asList(Diamond.of(Number.class)))))
+            .isFalse();
+        });
+
+      });
+
+      describe("for type variables and wildcards", () -> {
+
+        context().typeInstance(AllConstructorsPerTypeTest::getUnboundedWildcardType);
+
+        it("is empty", () -> {
+          assertThat(context().typeInstance().constructors().all().count())
+            .isEqualTo(0);
+        });
+
+      });
 
 
-    private static TypeInstance getUnboundedWildcardType(){
-        TypeInstance listType = getTypeFrom(new ReferenceOf<List<?>>() {});
-        TypeInstance unboundedWildcard = listType.generics().arguments().findFirst().get();
-        return unboundedWildcard;
-    }
+      describe("for array types", () -> {
+        context().typeInstance(() -> Diamond.of(String[].class));
 
-    private static TypeInstance getTypeFrom(ReferenceOf<?> reference) {
-        AnnotatedType annotatedType = reference.getReferencedAnnotatedType();
-        TypeInstance typeInstance = Diamond.types().from(annotatedType);
-        return typeInstance;
-    }
+        it("includes an artificial constructor", () -> {
+          assertThat(context().typeInstance().constructors().all()
+            .anyMatch((constructor) -> constructor.parameterTypes().collect(Collectors.toList())
+              .equals(Arrays.asList(Diamond.of(int.class)))))
+            .isTrue();
+        });
 
-    private static TypeInstance getParameterizedParentClass() {
-        return getTypeFrom(new ReferenceOf<ParentClass<String, Integer>>() {});
-    }
+        it("even for generic array types", () -> {
+          context().typeInstance(this::getGenericArrayType);
+          assertThat(context().typeInstance().constructors().all()
+            .anyMatch((constructor) -> constructor.parameterTypes().collect(Collectors.toList())
+              .equals(Arrays.asList(Diamond.of(int.class)))))
+            .isTrue();
+        });
+
+      });
+
+
+      describe("for primitive types", () -> {
+        context().typeInstance(() -> Diamond.of(int.class));
+
+        it("is empty", () -> {
+          assertThat(context().typeInstance().fields().all().count())
+            .isEqualTo(0);
+        });
+
+      });
+
+      describe("for parameterized types", () -> {
+        context().typeInstance(AllConstructorsPerTypeTest::getParameterizedParentClass);
+
+        it("includes the same constructors as the raw class", () -> {
+          List<TypeConstructor> parameterizedConstructors = context().typeInstance().constructors().all().collect(Collectors.toList());
+          assertThat(parameterizedConstructors)
+            .isEqualTo(Diamond.of(ParentClass.class).constructors().all().collect(Collectors.toList()));
+        });
+      });
+
+
+    });
+
+  }
+
+  private TypeInstance getGenericArrayType() {
+    return getTypeFrom(new ReferenceOf<List<String>[]>() {
+    });
+  }
+
+
+  private static TypeInstance getUnboundedWildcardType() {
+    TypeInstance listType = getTypeFrom(new ReferenceOf<List<?>>() {
+    });
+    TypeInstance unboundedWildcard = listType.generics().arguments().findFirst().get();
+    return unboundedWildcard;
+  }
+
+  private static TypeInstance getTypeFrom(ReferenceOf<?> reference) {
+    AnnotatedType annotatedType = reference.getReferencedAnnotatedType();
+    TypeInstance typeInstance = Diamond.types().from(annotatedType);
+    return typeInstance;
+  }
+
+  private static TypeInstance getParameterizedParentClass() {
+    return getTypeFrom(new ReferenceOf<ParentClass<String, Integer>>() {
+    });
+  }
 
 }

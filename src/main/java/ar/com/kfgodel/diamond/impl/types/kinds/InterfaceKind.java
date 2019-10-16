@@ -7,14 +7,14 @@ import java.util.function.Predicate;
  * Created by kfgodel on 03/02/15.
  */
 public class InterfaceKind extends NativeClassKindSupport {
-    @Override
-    protected Predicate<Class<?>> getClassPredicate() {
-        return Class::isInterface;
-    }
+  @Override
+  protected Predicate<Class<?>> getClassPredicate() {
+    return Class::isInterface;
+  }
 
-    public static InterfaceKind create() {
-        InterfaceKind kind = new InterfaceKind();
-        return kind;
-    }
+  public static InterfaceKind create() {
+    InterfaceKind kind = new InterfaceKind();
+    return kind;
+  }
 
 }
