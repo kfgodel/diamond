@@ -4,6 +4,7 @@ import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.unit.DiamondTestContext;
 import ar.com.kfgodel.diamond.unit.testobjects.methods.RedefiningMethodTestObject;
+import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.api.exceptions.MoreThanOneElementException;
 import info.kfgodel.jspek.api.JavaSpec;
 import info.kfgodel.jspek.api.JavaSpecRunner;
@@ -39,7 +40,7 @@ public class MethodByNameTest extends JavaSpec<DiamondTestContext> {
       });
 
       it("can assume only one optional occurrence", () -> {
-        ar.com.kfgodel.nary.api.optionals.Optional<TypeMethod> matchingMethod = context().typeInstance().methods().named("uniqueMethod");
+        Nary<TypeMethod> matchingMethod = context().typeInstance().methods().named("uniqueMethod");
         assertThat(matchingMethod.isPresent()).isTrue();
       });
 

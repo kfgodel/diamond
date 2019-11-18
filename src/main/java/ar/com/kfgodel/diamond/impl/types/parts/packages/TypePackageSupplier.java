@@ -30,6 +30,6 @@ public class TypePackageSupplier implements Supplier<Nary<TypePackage>> {
 
   @Override
   public Nary<TypePackage> get() {
-    return Nary.ofNullable(typePackage.get());
+    return Nary.of(typePackage.get());
   }
 }

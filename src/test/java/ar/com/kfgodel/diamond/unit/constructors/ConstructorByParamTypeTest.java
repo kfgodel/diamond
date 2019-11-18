@@ -4,7 +4,7 @@ import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.unit.DiamondTestContext;
 import ar.com.kfgodel.diamond.unit.testobjects.constructors.ConstructorAccessTestObject;
-import ar.com.kfgodel.nary.api.optionals.Optional;
+import ar.com.kfgodel.nary.api.Nary;
 import info.kfgodel.jspek.api.JavaSpec;
 import info.kfgodel.jspek.api.JavaSpecRunner;
 import org.junit.runner.RunWith;
@@ -28,17 +28,17 @@ public class ConstructorByParamTypeTest extends JavaSpec<DiamondTestContext> {
       context().typeInstance(() -> Diamond.of(ConstructorAccessTestObject.class));
 
       it("can access the niladic constructor", () -> {
-        Optional<TypeConstructor> constructor = context().typeInstance().constructors().niladic();
+        Nary<TypeConstructor> constructor = context().typeInstance().constructors().niladic();
         assertThat(constructor.isPresent()).isTrue();
       });
 
       it("can have no match", () -> {
-        Optional<TypeConstructor> constructor = context().typeInstance().constructors().withParameters(Diamond.of(Serializable.class));
+        Nary<TypeConstructor> constructor = context().typeInstance().constructors().withParameters(Diamond.of(Serializable.class));
         assertThat(constructor.isPresent()).isFalse();
       });
 
       it("can assume only one optional occurrence", () -> {
-        Optional<TypeConstructor> constructor = context().typeInstance().constructors().withParameters(Diamond.of(Integer.class));
+        Nary<TypeConstructor> constructor = context().typeInstance().constructors().withParameters(Diamond.of(Integer.class));
         assertThat(constructor.isPresent()).isTrue();
       });
 

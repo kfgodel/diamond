@@ -4,8 +4,8 @@ import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.unit.DiamondTestContext;
 import ar.com.kfgodel.diamond.unit.testobjects.methods.RedefiningMethodTestObject;
+import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.api.exceptions.MoreThanOneElementException;
-import ar.com.kfgodel.nary.api.optionals.Optional;
 import info.kfgodel.jspek.api.JavaSpec;
 import info.kfgodel.jspek.api.JavaSpecRunner;
 import org.junit.runner.RunWith;
@@ -40,7 +40,7 @@ public class MethodBySignatureTest extends JavaSpec<DiamondTestContext> {
       });
 
       it("can assume only one optional occurrence", () -> {
-        Optional<TypeMethod> matchingMethod = context().typeInstance().methods().withSignature("uniqueMethod");
+        Nary<TypeMethod> matchingMethod = context().typeInstance().methods().withSignature("uniqueMethod");
         assertThat(matchingMethod.isPresent()).isTrue();
       });
 
