@@ -56,7 +56,8 @@ public class TypeSourceImpl implements TypeSources {
     try {
       nativeType = Class.forName(typeName);
     } catch (ExceptionInInitializerError e) {
-      throw new DiamondException("An error in the initializationA of the class[" + typeName + "] prevented us from creating a type", e);
+      throw new DiamondException("An error in the initializationA of the class[" + typeName +
+        "] prevented us from creating a type", e);
     } catch (LinkageError e) {
       throw new DiamondException("A linkage error for class[" + typeName + "] prevented us from creating a type", e);
     } catch (ClassNotFoundException e) {

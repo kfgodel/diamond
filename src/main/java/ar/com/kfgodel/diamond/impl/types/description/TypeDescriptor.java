@@ -12,6 +12,7 @@ import ar.com.kfgodel.diamond.impl.types.description.natives.GenericArrayTypeDes
 import ar.com.kfgodel.diamond.impl.types.description.natives.ParameterizedTypeDescription;
 import ar.com.kfgodel.diamond.impl.types.description.natives.TypeVariableDescription;
 import ar.com.kfgodel.diamond.impl.types.description.natives.WildcardTypeDescription;
+import ar.com.kfgodel.pairs.Pair;
 import com.google.common.base.MoreObjects;
 
 import java.lang.reflect.AnnotatedArrayType;
@@ -24,9 +25,8 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.lang.reflect.WildcardType;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Function;
 
 /**
@@ -37,13 +37,8 @@ public class TypeDescriptor {
 
   public static final TypeDescriptor INSTANCE = TypeDescriptor.create();
 
-  private Map<Class<?>, Function<Object, TypeDescription>> descriptorsPerType;
+  private List<Pair<Class<?>, Function<Object, TypeDescription>>> descriptorsPerType;
   public static final String descriptorsPerType_FIELD = "descriptorsPerType";
-
-
-  public Map<Class<?>, Function<Object, TypeDescription>> getDescriptorsPerType() {
-    return descriptorsPerType;
-  }
 
   /**
    * Declares all the default descriptors per type
@@ -64,14 +59,14 @@ public class TypeDescriptor {
   }
 
   /**
-   * Stores the indicated descriptor function related to a type
+   * Stores the indicated descriptor function related to a type after the last descriptor
    *
    * @param classType          The type for which the descriptor function should be used
    * @param descriptorFunction The function that describes the type instances
    * @param <T>                The type of input
    */
   private <T> void useForInstancesOf(Class<T> classType, Function<T, TypeDescription> descriptorFunction) {
-    this.getDescriptorsPerType().put(classType, (Function<Object, TypeDescription>) descriptorFunction);
+    descriptorsPerType.add(Pair.create(classType, (Function<Object, TypeDescription>) descriptorFunction));
   }
 
   /**
@@ -95,11 +90,10 @@ public class TypeDescriptor {
    * @throws ar.com.kfgodel.diamond.api.exceptions.DiamondException if type cannot be described (or is not a type)
    */
   private Function<Object, TypeDescription> findBestDescriptorFor(Object nativeType) throws DiamondException {
-    Set<Map.Entry<Class<?>, Function<Object, TypeDescription>>> entries = getDescriptorsPerType().entrySet();
-    for (Map.Entry<Class<?>, Function<Object, TypeDescription>> entry : entries) {
-      Class<?> descriptableType = entry.getKey();
+    for (Pair<Class<?>, Function<Object, TypeDescription>> entry : descriptorsPerType) {
+      Class<?> descriptableType = entry.getFirst();
       if (descriptableType.isInstance(nativeType)) {
-        Function<Object, TypeDescription> descriptor = entry.getValue();
+        Function<Object, TypeDescription> descriptor = entry.getSecond();
         return descriptor;
       }
     }
@@ -122,17 +116,20 @@ public class TypeDescriptor {
         return (Function) bestDescriptor;
       }
       if (unannotatedType == null) {
-        throw new DiamondException("The annotated type[" + nativeType + "] has a getType() == null. This is bug on earlier version of the JDK 8.\n" +
-          "Please upgrade your VM of this functionality will not work. Related: https://bugs.openjdk.java.net/browse/JDK-8038994");
+        throw new DiamondException("The annotated type[" + nativeType + "] has a getType() == null. "+
+          "This is bug on earlier version of the JDK 8.\n" +
+          "Please upgrade your VM of this functionality will not work. "+
+          "Related: https://bugs.openjdk.java.net/browse/JDK-8038994");
       }
-      throw new DiamondException("An annotated type for something that's not a class doesn't have a creation method: " + unannotatedType);
+      throw new DiamondException("An annotated type for something that's not a class doesn't have a "+
+        "creation method: " + unannotatedType);
     }
     throw new DiamondException("There's a new type that we cannot represent: " + nativeType);
   }
 
   public static TypeDescriptor create() {
     TypeDescriptor descriptor = new TypeDescriptor();
-    descriptor.descriptorsPerType = new LinkedHashMap<>();
+    descriptor.descriptorsPerType = new ArrayList<>();
     descriptor.defineDefaultTypeDescriptors();
     return descriptor;
   }
