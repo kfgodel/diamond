@@ -51,11 +51,37 @@ public class TypeDescriptor {
     useForInstancesOf(TypeVariable.class, TypeVariableDescription::create);
     useForInstancesOf(WildcardType.class, WildcardTypeDescription::create);
 
-    // Annotated (since AnnotatedType is used for class but also for all, we cannot map it here)
+    // Annotated types
     useForInstancesOf(AnnotatedParameterizedType.class, AnnotatedParameterizedTypeDescription::create);
     useForInstancesOf(AnnotatedArrayType.class, AnnotatedArrayTypeDescription::create);
     useForInstancesOf(AnnotatedTypeVariable.class, AnnotatedTypeVariableDescription::create);
     useForInstancesOf(AnnotatedWildcardType.class, AnnotatedWildcardDescription::create);
+    // Since classes don't have a specific sub-type we need to disambiguate after the rest of sub-types
+    useForInstancesOf(AnnotatedType.class, this::disambiguateAnnotatedClass);
+  }
+
+  /**
+   * Because annotated type is used for annotated classes as well as the supertype for annotated types,
+   * we need to disambiguate which is the case here.<br>
+   *   This method should be used AFTER any specific subtype for {@link AnnotatedType}
+   * @param annotated Annotated instance that may be an annotated class or not
+   * @return The description for an annotated class or
+   * @throws DiamondException If the annotated type is not an annotated class
+   */
+  private TypeDescription disambiguateAnnotatedClass(AnnotatedType annotated) throws DiamondException {
+    //It may be an annotated class
+    Type unannotatedType = annotated.getType();
+    if (unannotatedType == null) {
+      throw new DiamondException("The annotated type[" + annotated + "] has a getType() == null. "+
+        "This is a bug on earlier version of the JDK 8.\n" +
+        "Please upgrade your VM of this functionality will not work. "+
+        "Related: https://bugs.openjdk.java.net/browse/JDK-8038994");
+    }
+    if (!(unannotatedType instanceof Class)) {
+      throw new DiamondException("There's an annotated type that is not a class and we don't have " +
+        "a specific type description for it yet: " + unannotatedType);
+    }
+    return AnnotatedClassDescription.create(annotated);
   }
 
   /**
@@ -96,33 +122,6 @@ public class TypeDescriptor {
         Function<Object, TypeDescription> descriptor = entry.getSecond();
         return descriptor;
       }
-    }
-    return requiresSpecialTreatment(nativeType);
-  }
-
-  /**
-   * Some type cannot be deduced from its object type and thus this method checks for those cases
-   *
-   * @param nativeType the native object type
-   * @return The function that describes the type
-   * @throws ar.com.kfgodel.diamond.api.exceptions.DiamondException if type cannot be described (or is not a type)
-   */
-  private Function<Object, TypeDescription> requiresSpecialTreatment(Object nativeType) throws DiamondException {
-    if (nativeType instanceof AnnotatedType) {
-      //It may be an annotated class
-      Type unannotatedType = ((AnnotatedType) nativeType).getType();
-      if (unannotatedType instanceof Class) {
-        Function<AnnotatedType, TypeDescription> bestDescriptor = AnnotatedClassDescription::create;
-        return (Function) bestDescriptor;
-      }
-      if (unannotatedType == null) {
-        throw new DiamondException("The annotated type[" + nativeType + "] has a getType() == null. "+
-          "This is bug on earlier version of the JDK 8.\n" +
-          "Please upgrade your VM of this functionality will not work. "+
-          "Related: https://bugs.openjdk.java.net/browse/JDK-8038994");
-      }
-      throw new DiamondException("An annotated type for something that's not a class doesn't have a "+
-        "creation method: " + unannotatedType);
     }
     throw new DiamondException("There's a new type that we cannot represent: " + nativeType);
   }
