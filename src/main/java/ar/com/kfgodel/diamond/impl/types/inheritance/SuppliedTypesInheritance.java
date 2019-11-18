@@ -49,7 +49,7 @@ public class SuppliedTypesInheritance implements TypeInheritance {
 
   @Override
   public Nary<TypeInstance> supertypes() {
-    return extendedType().concatStream(implementedTypes());
+    return extendedType().concat(implementedTypes());
   }
 
   @Override

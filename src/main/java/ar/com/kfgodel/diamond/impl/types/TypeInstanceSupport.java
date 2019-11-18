@@ -193,7 +193,9 @@ public abstract class TypeInstanceSupport implements TypeInstance {
   public Nary<TypeMember> members() {
     // Need to cast to an upper type of element
     Nary<TypeMember> fields = (Nary) fields().all();
-    return fields.concatStream(methods().all()).concatStream(constructors().all());
+    return fields
+      .concat(methods().all())
+      .concat(constructors().all());
   }
 
   @Override
