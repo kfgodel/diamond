@@ -33,7 +33,7 @@ public class VariableTypeInheritanceDescription implements InheritanceDescriptio
    */
   private Class<?> getParentClassFromUpperBounds() {
     // We look for the only allowed class as upper bound
-    Nary<Class<?>> optionalClass = Nary.create(
+    Nary<Class<?>> optionalClass = Nary.from(
       upperBoundClasses.stream()
         .filter((upper) -> !upper.isInterface())
     );

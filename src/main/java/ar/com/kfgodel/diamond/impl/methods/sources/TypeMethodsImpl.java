@@ -29,7 +29,7 @@ public class TypeMethodsImpl extends NamedSourceSupport<TypeMethod> implements T
 
   @Override
   public Nary<TypeMethod> withSignature(String methodName, TypeInstance... parameterTypes) {
-    return Nary.create(named(methodName).filter((method) -> StreamEquality.INSTANCE.areEquals(method.parameterTypes(), Arrays.stream(parameterTypes))));
+    return Nary.from(named(methodName).filter((method) -> StreamEquality.INSTANCE.areEquals(method.parameterTypes(), Arrays.stream(parameterTypes))));
   }
 
   @Override

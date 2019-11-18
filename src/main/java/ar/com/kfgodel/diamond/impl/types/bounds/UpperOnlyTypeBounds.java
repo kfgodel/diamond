@@ -16,7 +16,7 @@ public class UpperOnlyTypeBounds implements TypeBounds {
 
   @Override
   public Nary<TypeInstance> upper() {
-    return Nary.create(upperBounds.stream());
+    return Nary.from(upperBounds.stream());
   }
 
   @Override

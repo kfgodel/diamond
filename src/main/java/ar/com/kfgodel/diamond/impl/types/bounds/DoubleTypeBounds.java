@@ -17,12 +17,12 @@ public class DoubleTypeBounds implements TypeBounds {
 
   @Override
   public Nary<TypeInstance> upper() {
-    return Nary.create(upperBounds.stream());
+    return Nary.from(upperBounds.stream());
   }
 
   @Override
   public Nary<TypeInstance> lower() {
-    return Nary.create(lowerBounds.stream());
+    return Nary.from(lowerBounds.stream());
   }
 
   public static DoubleTypeBounds create(List<TypeInstance> upper, List<TypeInstance> lower) {

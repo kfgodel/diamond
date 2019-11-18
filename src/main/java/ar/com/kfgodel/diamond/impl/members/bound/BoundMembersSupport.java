@@ -22,7 +22,7 @@ public abstract class BoundMembersSupport {
    * @return The bound methods
    */
   protected <T> Nary<T> boundVersionOf(Nary<? extends InstanceBindable<T>> bindables) {
-    return Nary.create(bindables.map((bindable) -> bindable.bindTo(bindInstance)));
+    return bindables.map((bindable) -> bindable.bindTo(bindInstance));
   }
 
 }

@@ -75,7 +75,7 @@ public abstract class TypeMemberSupport implements TypeMember {
   @Override
   public Nary<TypeInstance> parameterTypes() {
     Stream<TypeInstance> nativeStream = parameters().map(ExecutableParameter::declaredType);
-    return Nary.create(nativeStream);
+    return Nary.from(nativeStream);
   }
 
   @Override

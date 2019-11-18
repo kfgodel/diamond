@@ -52,6 +52,6 @@ public class ModifierSourcesImpl implements ModifierSources {
 
   @Override
   public Nary<Modifier> all() {
-    return Nary.create(Arrays.stream(Modifiers.values()));
+    return Nary.from(Arrays.stream(Modifiers.values()));
   }
 }

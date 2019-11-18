@@ -31,7 +31,7 @@ public interface Diamond {
    * @param nativeClass The native class instance to base on
    * @return A diamond class instance representation
    */
-  public static TypeInstance of(Type nativeClass) {
+  static TypeInstance of(Type nativeClass) {
     return types().from(nativeClass);
   }
 
@@ -41,7 +41,7 @@ public interface Diamond {
    * @param nativeClasses Native types
    * @return The array of diamond representation
    */
-  public static TypeInstance[] ofNative(Type... nativeClasses) {
+  static TypeInstance[] ofNative(Type... nativeClasses) {
     TypeInstance[] types = new TypeInstance[nativeClasses.length];
     for (int i = 0; i < nativeClasses.length; i++) {
       Type nativeClass = nativeClasses[i];
@@ -66,42 +66,42 @@ public interface Diamond {
    * @param <T>              The type of expected diamond instance
    * @return The diamond representation for the given element
    */
-  public static <T extends DiamondReflection> T from(Object nativeReflection) {
+  static <T extends DiamondReflection> T from(Object nativeReflection) {
     return API.from(nativeReflection);
   }
 
   /**
    * @return An accessor to obtain instances of methods that belong to a class
    */
-  public static MethodSources methods() {
+  static MethodSources methods() {
     return API.methods();
   }
 
   /**
    * @return An accessor to obtain instances of fields that belong to a class
    */
-  public static FieldSources fields() {
+  static FieldSources fields() {
     return API.fields();
   }
 
   /**
    * @return An accessor to obtain instances that represent types
    */
-  public static TypeSources types() {
+  static TypeSources types() {
     return API.types();
   }
 
   /**
    * @return An accessor to obtain instances that represent type member modifiers
    */
-  public static ModifierSources modifiers() {
+  static ModifierSources modifiers() {
     return API.modifiers();
   }
 
   /**
    * @return An accessor to obtain instances that represent packages
    */
-  public static PackageSources packages() {
+  static PackageSources packages() {
     return API.packages();
   }
 
@@ -109,7 +109,7 @@ public interface Diamond {
   /**
    * @return An accessor to obtain instances that represent parameters
    */
-  public static ParameterSources parameters() {
+  static ParameterSources parameters() {
     return API.parameters();
   }
 
@@ -117,28 +117,28 @@ public interface Diamond {
   /**
    * @return An accessor to obtain instances that represent type constructors
    */
-  public static ConstructorSources constructors() {
+  static ConstructorSources constructors() {
     return API.constructors();
   }
 
   /**
    * @return The cache instance used to reference reused instances
    */
-  public static DiamondCache cache() {
+  static DiamondCache cache() {
     return API.getCache();
   }
 
   /**
    * @return An accessor to obtain meta-object instances that represent a meta-level view of an object
    */
-  public static MetaObjectSources metaObjects() {
+  static MetaObjectSources metaObjects() {
     return API.metaObjects();
   }
 
   /**
    * @return An accessor to obtain lambda reification that represent a meta-level view of the lambdas
    */
-  public static LambdaSources lambdas() {
+  static LambdaSources lambdas() {
     return API.lambdas();
   }
 }

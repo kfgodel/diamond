@@ -16,7 +16,7 @@ public abstract class TypeLineageSupport implements TypeLineage {
 
   @Override
   public Nary<TypeInstance> allRelatedTypes() {
-    return Nary.create(
+    return Nary.from(
       RuntimeAlternativesSpliterator.create(
         Spliterators.iterator(AllSuperTypesSpliterator.create(lowestDescendant()))));
   }

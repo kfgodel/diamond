@@ -50,7 +50,7 @@ public class FunctionBasedTypeLineage extends TypeLineageSupport {
 
   @Override
   public Nary<TypeInstance> allMembers() {
-    return Nary.create(classes.stream());
+    return Nary.from(classes.stream());
   }
 
   @Override
@@ -94,7 +94,7 @@ public class FunctionBasedTypeLineage extends TypeLineageSupport {
         Stream.of(interfaz),
         interfaz.inheritance().interfaces()));
     // If an indirect interface is inherited more than once, we want just one occurrence
-    return Nary.create(indirectInterfaces.distinct());
+    return Nary.from(indirectInterfaces.distinct());
   }
 
   @Override

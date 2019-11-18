@@ -16,7 +16,7 @@ public abstract class NamedSourceSupport<N extends Named> implements NamedSource
 
   @Override
   public Nary<N> named(String elementName) {
-    return Nary.create(getAll().filter((element) -> element.name().equals(elementName)));
+    return Nary.from(getAll().filter((element) -> element.name().equals(elementName)));
   }
 
 

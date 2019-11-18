@@ -17,7 +17,7 @@ public class AnnotatedElementAnnotationsSupplier implements Supplier<Nary<Annota
 
   @Override
   public Nary<Annotation> get() {
-    return Nary.create(Arrays.stream(annotatedType.getAnnotations()));
+    return Nary.from(Arrays.stream(annotatedType.getAnnotations()));
   }
 
   public static AnnotatedElementAnnotationsSupplier create(AnnotatedElement annotatedType) {

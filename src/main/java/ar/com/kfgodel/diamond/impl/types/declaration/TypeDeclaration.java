@@ -1,6 +1,7 @@
 package ar.com.kfgodel.diamond.impl.types.declaration;
 
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.nary.api.Nary;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -60,8 +61,8 @@ public class TypeDeclaration {
   }
 
   private void withComponentTypeDeclaration(Consumer<String> componentTypeDeclarationConsumer) {
-    ar.com.kfgodel.nary.api.optionals.Optional<String> componentDeclaration = type.componentType()
-      .mapOptional(TypeInstance::declaration);
+    Nary<String> componentDeclaration = type.componentType()
+      .map(TypeInstance::declaration);
     componentDeclaration.ifPresent(componentTypeDeclarationConsumer);
   }
 
