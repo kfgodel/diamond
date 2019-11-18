@@ -48,7 +48,7 @@ public class CachedValue<T> implements LazyValue<T> {
 
   @Override
   public Optional<Supplier<T>> generator() {
-    return Optional.of(generatorLambda);
+    return Optional.ofNullable(generatorLambda);
   }
 
   @Override
