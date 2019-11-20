@@ -70,6 +70,10 @@ public abstract class UnannotatedTypeDescriptionSupport implements TypeDescripti
     return rawClass;
   }
 
+  /**
+   * The reflection type instance to instrospect while creating the descrption
+   * @return This description generic type
+   */
   protected abstract Type getNativeType();
 
 

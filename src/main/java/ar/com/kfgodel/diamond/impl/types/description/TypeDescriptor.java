@@ -113,7 +113,7 @@ public class TypeDescriptor {
    *
    * @param nativeType The object that represents a type for the native reflection api
    * @return The function that describes the object
-   * @throws ar.com.kfgodel.diamond.api.exceptions.DiamondException if type cannot be described (or is not a type)
+   * @throws DiamondException if type cannot be described (or is not a type)
    */
   private Function<Object, TypeDescription> findBestDescriptorFor(Object nativeType) throws DiamondException {
     for (Pair<Class<?>, Function<Object, TypeDescription>> entry : descriptorsPerType) {
