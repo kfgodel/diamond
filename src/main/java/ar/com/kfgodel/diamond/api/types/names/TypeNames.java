@@ -1,15 +1,21 @@
 package ar.com.kfgodel.diamond.api.types.names;
 
 /**
- * This type represents the sources of class names with the class defined
+ * This type defines accessor methods for the different names of a type
  * Created by kfgodel on 21/09/14.
  */
 public interface TypeNames {
 
   /**
-   * The name of this type without package prefix. This is the shortest version of the name and doesn't have generics information
+   * The shortest name of this type. It doesn't include package prefix, generics information or annotations.<br>
+   * For projects without duplicated classes this is usually the name you want to use in string messages.<br>
+   * <br>
+   * For classes this is the simple name<br>
+   * For arrays this is the short name of the component type + '[]'<br>
+   * For wildcards this is '?'<br>
+   * For type variables this is the name of the variable.<br>
    *
-   * @return The short name version for this type (for classes this is getSimpleName() )
+   * @return The shortest name to identify the type
    */
   String shortName();
 
@@ -23,7 +29,8 @@ public interface TypeNames {
   String classloaderName();
 
   /**
-   * The full name of this type without type symboles and without generics information as you would declare the raw type.<br>
+   * The full name of this type without type symbols and without generics information as you would declare the raw
+   * type. It's the name defined in the Java Language Specification <br>
    * For non classes types this is equal to the typeName.
    *
    * @return The name that identifies this type ( for classes this is getCanonicalName() )
