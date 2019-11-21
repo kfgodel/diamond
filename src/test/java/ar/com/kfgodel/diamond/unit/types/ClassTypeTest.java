@@ -40,7 +40,7 @@ public class ClassTypeTest extends JavaSpec<DiamondTestContext> {
 
         it("has other names", () -> {
           TypeNames classNames = context().typeInstance().names();
-          assertThat(classNames.classloaderName())
+          assertThat(classNames.commonName())
             .isEqualTo("ar.com.kfgodel.diamond.unit.testobjects.lineage.ChildClass");
         });
       });

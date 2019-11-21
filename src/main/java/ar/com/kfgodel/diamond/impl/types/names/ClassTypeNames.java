@@ -9,7 +9,7 @@ import ar.com.kfgodel.diamond.api.types.names.TypeNames;
 public class ClassTypeNames implements TypeNames {
 
   private String shortName;
-  private String classloaderName;
+  private String standardName;
   private String canonicalName;
   private String typeName;
   private String bareName;
@@ -20,8 +20,8 @@ public class ClassTypeNames implements TypeNames {
   }
 
   @Override
-  public String classloaderName() {
-    return classloaderName;
+  public String commonName() {
+    return standardName;
   }
 
   @Override
@@ -42,7 +42,7 @@ public class ClassTypeNames implements TypeNames {
   public static ClassTypeNames create(Class<?> nativeClass, String typeName) {
     ClassTypeNames classTypeNames = new ClassTypeNames();
     classTypeNames.shortName = nativeClass.getSimpleName();
-    classTypeNames.classloaderName = nativeClass.getName();
+    classTypeNames.standardName = nativeClass.getName();
     classTypeNames.canonicalName = nativeClass.getCanonicalName();
     classTypeNames.typeName = typeName;
     if (nativeClass.getComponentType() != null) {

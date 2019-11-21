@@ -17,7 +17,7 @@ public class TypeVariableNames implements TypeNames {
   }
 
   @Override
-  public String classloaderName() {
+  public String commonName() {
     return typeName();
   }
 

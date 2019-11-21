@@ -20,17 +20,19 @@ public interface TypeNames {
   String shortName();
 
   /**
-   * The type name prefixed with the package and type symbols like [, or $. This name identifies the type and can be
-   * used to load the native class instance.<br>
+   * The name of the type that is commonly used to identify it. This name usually doesn't have all the information
+   * but enough for identification.<br>
+   * For classes, this is the {@link Class#getName()} which may be the binary name.<br>
    * For non classes types this is equal to the typeName
    *
-   * @return The VM name of the type ( for classes this is getName() )
+   * @return The name this type on runtime
    */
-  String classloaderName();
+  String commonName();
 
   /**
    * The full name of this type without type symbols and without generics information as you would declare the raw
-   * type. It's the name defined in the Java Language Specification <br>
+   * type.
+   * For classes it's the name defined in the Java Language Specification <br>
    * For non classes types this is equal to the typeName.
    *
    * @return The name that identifies this type ( for classes this is getCanonicalName() )

@@ -38,7 +38,7 @@ public class TypeNamingTest extends JavaSpec<DiamondTestContext> {
             .isEqualTo("List");
         });
         it("classloader name is the runtime class name", () -> {
-          assertThat(test().typeInstance().names().classloaderName())
+          assertThat(test().typeInstance().names().commonName())
             .isEqualTo("java.util.List");
         });
         it("canonical name is the class canonical name", () -> {
@@ -67,7 +67,7 @@ public class TypeNamingTest extends JavaSpec<DiamondTestContext> {
             .isEqualTo("String[]");
         });
         it("classloader name is the runtime class name", () -> {
-          assertThat(test().typeInstance().names().classloaderName())
+          assertThat(test().typeInstance().names().commonName())
             .isEqualTo("[Ljava.lang.String;");
         });
         it("canonical name is the array canonical name", () -> {
@@ -96,7 +96,7 @@ public class TypeNamingTest extends JavaSpec<DiamondTestContext> {
             .isEqualTo("A");
         });
         it("classloader name is typeName", () -> {
-          assertThat(test().typeInstance().names().classloaderName())
+          assertThat(test().typeInstance().names().commonName())
             .isEqualTo(test().typeInstance().names().typeName());
         });
         it("canonical name is the typeName", () -> {
@@ -125,7 +125,7 @@ public class TypeNamingTest extends JavaSpec<DiamondTestContext> {
             .isEqualTo("?");
         });
         it("classloader name is the typeName", () -> {
-          assertThat(test().typeInstance().names().classloaderName())
+          assertThat(test().typeInstance().names().commonName())
             .isEqualTo(test().typeInstance().names().typeName());
         });
         it("canonical name is the typeName", () -> {
