@@ -6,7 +6,7 @@ import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
 import ar.com.kfgodel.diamond.api.types.kinds.Kind;
-import ar.com.kfgodel.diamond.api.types.names.TypeNames;
+import ar.com.kfgodel.diamond.api.types.names.TypeNamesDescription;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.nary.api.Nary;
 
@@ -24,7 +24,7 @@ public interface TypeDescription {
   /**
    * @return The names given to the type
    */
-  Supplier<TypeNames> getNames();
+  TypeNamesDescription getNames();
 
   /**
    * @return The supplier of annotations of the described type

@@ -54,7 +54,7 @@ public class TypeNamingTest extends JavaSpec<DiamondTestContext> {
             .isEqualTo("java.util.List<java.lang.String>");
         });
         it("declaration name is the source declaration equivalent", () -> {
-          assertThat(test().typeInstance().declaration())
+          assertThat(test().typeInstance().names().completeName())
             .isEqualTo("@ar.com.kfgodel.diamond.unit.testobjects.annotations.TestAnnotation1() java.util.List<@ar.com.kfgodel.diamond.unit.testobjects.annotations.TestAnnotation2() java.lang.String>");
         });
       });
@@ -83,7 +83,7 @@ public class TypeNamingTest extends JavaSpec<DiamondTestContext> {
             .isEqualTo("java.lang.String[]");
         });
         it("declaration name is the source declaration equivalent", () -> {
-          assertThat(test().typeInstance().declaration())
+          assertThat(test().typeInstance().names().completeName())
             .isEqualTo("@ar.com.kfgodel.diamond.unit.testobjects.annotations.TestAnnotation2() java.lang.String @ar.com.kfgodel.diamond.unit.testobjects.annotations.TestAnnotation1() []");
         });
       });
@@ -112,7 +112,7 @@ public class TypeNamingTest extends JavaSpec<DiamondTestContext> {
             .isEqualTo("A");
         });
         it("declaration name is the source declaration equivalent", () -> {
-          assertThat(test().typeInstance().declaration())
+          assertThat(test().typeInstance().names().completeName())
             .isEqualTo("@ar.com.kfgodel.diamond.unit.testobjects.annotations.TestAnnotation1() A extends @ar.com.kfgodel.diamond.unit.testobjects.annotations.TestAnnotation2() java.lang.String");
         });
       });
@@ -141,7 +141,7 @@ public class TypeNamingTest extends JavaSpec<DiamondTestContext> {
             .isEqualTo("? extends java.lang.String");
         });
         it("declaration name is the source declaration equivalent", () -> {
-          assertThat(test().typeInstance().declaration())
+          assertThat(test().typeInstance().names().completeName())
             .isEqualTo("@ar.com.kfgodel.diamond.unit.testobjects.annotations.TestAnnotation1() ? extends @ar.com.kfgodel.diamond.unit.testobjects.annotations.TestAnnotation2() java.lang.String");
         });
       });

@@ -1,12 +1,12 @@
-package ar.com.kfgodel.diamond.impl.types.names;
+package ar.com.kfgodel.diamond.impl.types.description.names;
 
-import ar.com.kfgodel.diamond.api.types.names.TypeNames;
+import ar.com.kfgodel.diamond.api.types.names.TypeNamesDescription;
 
 /**
  * This type represents the a type variable names
  * Created by kfgodel on 04/10/14.
  */
-public class TypeVariableNames implements TypeNames {
+public class TypeVariableNamesDescription implements TypeNamesDescription {
 
   private String variableName;
   private String typeName;
@@ -36,8 +36,8 @@ public class TypeVariableNames implements TypeNames {
     return variableName;
   }
 
-  public static TypeVariableNames create(String variableName, String typeName) {
-    TypeVariableNames names = new TypeVariableNames();
+  public static TypeVariableNamesDescription create(String variableName, String typeName) {
+    TypeVariableNamesDescription names = new TypeVariableNamesDescription();
     names.variableName = variableName;
     names.typeName = typeName;
     return names;

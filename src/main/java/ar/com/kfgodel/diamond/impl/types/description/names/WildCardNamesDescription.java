@@ -1,12 +1,12 @@
-package ar.com.kfgodel.diamond.impl.types.names;
+package ar.com.kfgodel.diamond.impl.types.description.names;
 
-import ar.com.kfgodel.diamond.api.types.names.TypeNames;
+import ar.com.kfgodel.diamond.api.types.names.TypeNamesDescription;
 
 /**
  * This type represents the names of a wildcard type
  * Created by kfgodel on 04/10/14.
  */
-public class WildCardNames implements TypeNames {
+public class WildCardNamesDescription implements TypeNamesDescription {
 
   private String typeName;
 
@@ -35,8 +35,8 @@ public class WildCardNames implements TypeNames {
     return shortName();
   }
 
-  public static WildCardNames create(String typeName) {
-    WildCardNames names = new WildCardNames();
+  public static WildCardNamesDescription create(String typeName) {
+    WildCardNamesDescription names = new WildCardNamesDescription();
     names.typeName = typeName;
     return names;
   }

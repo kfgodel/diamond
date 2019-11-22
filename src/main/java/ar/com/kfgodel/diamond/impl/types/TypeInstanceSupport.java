@@ -23,6 +23,7 @@ import ar.com.kfgodel.diamond.impl.strings.DebugPrinter;
 import ar.com.kfgodel.diamond.impl.types.declaration.TypeDeclaration;
 import ar.com.kfgodel.diamond.impl.types.equality.TypeEquality;
 import ar.com.kfgodel.diamond.impl.types.inheritance.SuppliedTypesInheritance;
+import ar.com.kfgodel.diamond.impl.types.names.TypeInstanceNames;
 import ar.com.kfgodel.diamond.impl.types.parts.annotations.NoAnnotationsSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.names.NoNamesSupplier;
 import ar.com.kfgodel.nary.api.Nary;
@@ -236,7 +237,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
   }
 
   protected void initializeSuper(TypeDescription description) {
-    this.setNames(description.getNames());
+    this.setNames(()-> TypeInstanceNames.create(this, description.getNames()));
     this.setAnnotations(description.getAnnotations());
     this.setMethods(description.getTypeMethods());
     this.setFields(description.getTypeFields());

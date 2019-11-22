@@ -1,12 +1,12 @@
-package ar.com.kfgodel.diamond.impl.types.names;
+package ar.com.kfgodel.diamond.impl.types.description.names;
 
-import ar.com.kfgodel.diamond.api.types.names.TypeNames;
+import ar.com.kfgodel.diamond.api.types.names.TypeNamesDescription;
 
 /**
  * This type represents the set of class names for a class
  * Created by kfgodel on 21/09/14.
  */
-public class ClassTypeNames implements TypeNames {
+public class ClassTypeNameDescription implements TypeNamesDescription {
 
   private String shortName;
   private String standardName;
@@ -39,8 +39,8 @@ public class ClassTypeNames implements TypeNames {
     return bareName;
   }
 
-  public static ClassTypeNames create(Class<?> nativeClass, String typeName) {
-    ClassTypeNames classTypeNames = new ClassTypeNames();
+  public static ClassTypeNameDescription create(Class<?> nativeClass, String typeName) {
+    ClassTypeNameDescription classTypeNames = new ClassTypeNameDescription();
     classTypeNames.shortName = nativeClass.getSimpleName();
     classTypeNames.standardName = nativeClass.getName();
     classTypeNames.canonicalName = nativeClass.getCanonicalName();

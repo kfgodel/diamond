@@ -61,6 +61,13 @@ public interface TypeNames {
   String typeName();
 
   /**
+   * This is the most complete name with generics type parameters, bounds, annotations, component type, etc.<br>
+   *
+   * @return The name of this type as closest to the source declaration as possible
+   */
+  String completeName();
+
+  /**
    * The complete name of this type stripped of annotations, type arguments, component type or type bounds.<br>
    * For classes this is the fully qualified name<br>
    * For arrays this is '[]'<br>
