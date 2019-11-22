@@ -1,12 +1,15 @@
 package ar.com.kfgodel.diamond.impl.types.description.support;
 
 import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
+import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
+import ar.com.kfgodel.diamond.api.types.names.TypeNames;
 import ar.com.kfgodel.diamond.api.types.names.TypeNamesDescription;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.diamond.impl.types.description.inheritance.VariableTypeInheritanceDescription;
 import ar.com.kfgodel.diamond.impl.types.description.names.TypeVariableNamesDescription;
 import ar.com.kfgodel.diamond.impl.types.description.names.WildCardNamesDescription;
+import ar.com.kfgodel.diamond.impl.types.names.TypeInstanceNames;
 import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.reflect.AnnotatedType;
@@ -23,7 +26,11 @@ import java.util.function.Supplier;
 public abstract class UnannotatedVariableTypeDescriptionSupport extends UnannotatedTypeDescriptionSupport {
 
   @Override
-  public TypeNamesDescription getNames() {
+  public Supplier<TypeNames> getNamesSupplier(TypeInstance type) {
+    return ()-> TypeInstanceNames.create(type, describeNames());
+  }
+
+  private TypeNamesDescription describeNames() {
     Type unannotatedType = getUnannotatedNativeType();
     if (unannotatedType instanceof TypeVariable) {
       TypeVariable typeVariable = (TypeVariable) unannotatedType;
@@ -33,6 +40,7 @@ public abstract class UnannotatedVariableTypeDescriptionSupport extends Unannota
     }
     throw new DiamondException("Variable type is unknown:" + unannotatedType);
   }
+
 
   private Type getUnannotatedNativeType() {
     final Type nativeType = getNativeType();

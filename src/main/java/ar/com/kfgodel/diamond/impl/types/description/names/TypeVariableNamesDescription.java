@@ -1,9 +1,9 @@
 package ar.com.kfgodel.diamond.impl.types.description.names;
 
 import ar.com.kfgodel.diamond.api.types.names.TypeNamesDescription;
+import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.reflect.TypeVariable;
-import java.util.Optional;
 
 /**
  * This type represents the a type variable names
@@ -14,18 +14,18 @@ public class TypeVariableNamesDescription implements TypeNamesDescription {
   private TypeVariable<?> typeVariable;
 
   @Override
-  public Optional<String> shortName() {
-    return Optional.empty();
+  public Nary<String> shortName() {
+    return Nary.empty();
   }
 
   @Override
-  public Optional<String> commonName() {
-    return Optional.empty();
+  public Nary<String> commonName() {
+    return Nary.empty();
   }
 
   @Override
-  public Optional<String> canonicalName() {
-    return Optional.empty();
+  public Nary<String> canonicalName() {
+    return Nary.empty();
   }
 
   @Override

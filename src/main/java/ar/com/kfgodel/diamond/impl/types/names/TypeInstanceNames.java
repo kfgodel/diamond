@@ -11,46 +11,54 @@ import ar.com.kfgodel.diamond.impl.types.declaration.TypeDeclaration;
  */
 public class TypeInstanceNames implements TypeNames {
 
-  private TypeInstance type;
-  private TypeNamesDescription description;
+  private String shortName;
+  private String commonName;
+  private String canonicalName;
+  private String typeName;
+  private String bareName;
+  private TypeDeclaration typeDeclaration;
 
   @Override
   public String shortName() {
-    return description.shortName()
-      .orElseGet(this::bareName);
+    return shortName;
   }
 
   @Override
   public String commonName() {
-    return description.commonName()
-      .orElseGet(this::typeName);
+    return commonName;
   }
 
   @Override
   public String canonicalName() {
-    return description.canonicalName()
-      .orElseGet(this::typeName);
+    return canonicalName;
   }
 
   @Override
   public String typeName() {
-    return description.typeName();
+    return typeName;
   }
 
   @Override
   public String bareName() {
-    return description.bareName();
+    return bareName;
   }
 
   @Override
   public String completeName() {
-    return TypeDeclaration.create(type).asString();
+    return typeDeclaration.asString();
   }
 
-  public static TypeInstanceNames create(TypeInstance type, TypeNamesDescription nameDescription) {
+  public static TypeInstanceNames create(TypeInstance type, TypeNamesDescription description) {
     TypeInstanceNames names = new TypeInstanceNames();
-    names.type = type;
-    names.description = nameDescription;
+    names.bareName = description.bareName();
+    names.shortName = description.shortName()
+      .orElseGet(description::bareName);
+    names.typeName = description.typeName();
+    names.commonName = description.commonName()
+      .orElseGet(description::typeName);
+    names.canonicalName = description.canonicalName()
+      .orElseGet(description::typeName);
+    names.typeDeclaration = TypeDeclaration.create(type);
     return names;
   }
 
