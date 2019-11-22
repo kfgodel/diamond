@@ -1,5 +1,7 @@
 package ar.com.kfgodel.diamond.api.types.names;
 
+import java.util.Optional;
+
 /**
  * This type represents a description of the names for a {@link ar.com.kfgodel.diamond.api.types.TypeInstance}
  * based on this description a type instance can define its names
@@ -8,9 +10,9 @@ package ar.com.kfgodel.diamond.api.types.names;
  */
 public interface TypeNamesDescription {
 
-  String shortName();
-  String commonName();
-  String canonicalName();
+  Optional<String> shortName();
+  Optional<String> commonName();
+  Optional<String> canonicalName();
   String typeName();
   String bareName();
 

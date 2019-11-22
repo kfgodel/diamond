@@ -16,17 +16,20 @@ public class TypeInstanceNames implements TypeNames {
 
   @Override
   public String shortName() {
-    return description.shortName();
+    return description.shortName()
+      .orElseGet(this::bareName);
   }
 
   @Override
   public String commonName() {
-    return description.commonName();
+    return description.commonName()
+      .orElseGet(this::typeName);
   }
 
   @Override
   public String canonicalName() {
-    return description.canonicalName();
+    return description.canonicalName()
+      .orElseGet(this::typeName);
   }
 
   @Override
@@ -35,13 +38,13 @@ public class TypeInstanceNames implements TypeNames {
   }
 
   @Override
-  public String completeName() {
-    return TypeDeclaration.create(type).asString();
+  public String bareName() {
+    return description.bareName();
   }
 
   @Override
-  public String bareName() {
-    return description.bareName();
+  public String completeName() {
+    return TypeDeclaration.create(type).asString();
   }
 
   public static TypeInstanceNames create(TypeInstance type, TypeNamesDescription nameDescription) {
