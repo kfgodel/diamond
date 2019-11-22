@@ -27,9 +27,9 @@ public abstract class UnannotatedVariableTypeDescriptionSupport extends Unannota
     Type unannotatedType = getUnannotatedNativeType();
     if (unannotatedType instanceof TypeVariable) {
       TypeVariable typeVariable = (TypeVariable) unannotatedType;
-      return TypeVariableNamesDescription.create(typeVariable.getName(), typeVariable.getTypeName());
+      return TypeVariableNamesDescription.create(typeVariable);
     } else if (unannotatedType instanceof WildcardType) {
-      return WildCardNamesDescription.create(unannotatedType.getTypeName());
+      return WildCardNamesDescription.create((WildcardType) unannotatedType);
     }
     throw new DiamondException("Variable type is unknown:" + unannotatedType);
   }

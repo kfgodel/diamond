@@ -2,18 +2,19 @@ package ar.com.kfgodel.diamond.impl.types.description.names;
 
 import ar.com.kfgodel.diamond.api.types.names.TypeNamesDescription;
 
+import java.lang.reflect.TypeVariable;
+
 /**
  * This type represents the a type variable names
  * Created by kfgodel on 04/10/14.
  */
 public class TypeVariableNamesDescription implements TypeNamesDescription {
 
-  private String variableName;
-  private String typeName;
+  private TypeVariable<?> typeVariable;
 
   @Override
   public String shortName() {
-    return variableName;
+    return bareName();
   }
 
   @Override
@@ -28,19 +29,18 @@ public class TypeVariableNamesDescription implements TypeNamesDescription {
 
   @Override
   public String typeName() {
-    return typeName;
+    return typeVariable.getName();
   }
 
   @Override
   public String bareName() {
-    return variableName;
+    return typeVariable.getName();
   }
 
-  public static TypeVariableNamesDescription create(String variableName, String typeName) {
-    TypeVariableNamesDescription names = new TypeVariableNamesDescription();
-    names.variableName = variableName;
-    names.typeName = typeName;
-    return names;
+  public static TypeVariableNamesDescription create(TypeVariable<?> typeVariable) {
+    TypeVariableNamesDescription description = new TypeVariableNamesDescription();
+    description.typeVariable = typeVariable;
+    return description;
   }
 
 }
