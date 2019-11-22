@@ -9,15 +9,15 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * This type represents the source declaration of a type including all its features (as used in a variable or parameter)
+ * This type represents the source declaration of a type's name including all its features (as used in a variable or parameter)
  * Created by kfgodel on 04/10/14.
  */
-public class TypeDeclaration {
+public class TypeNameDeclaration {
 
   private TypeInstance type;
 
-  public static TypeDeclaration create(TypeInstance type) {
-    TypeDeclaration declaration = new TypeDeclaration();
+  public static TypeNameDeclaration create(TypeInstance type) {
+    TypeNameDeclaration declaration = new TypeNameDeclaration();
     declaration.type = type;
     return declaration;
   }
@@ -67,7 +67,12 @@ public class TypeDeclaration {
   }
 
   private void withAnnotationsSeparatedBy(String separator, Consumer<String> separatedAnnotationsConsumer) {
-    transformAndJoin(type.annotations(), (annotation) -> annotation.toString(), separator, separatedAnnotationsConsumer);
+    transformAndJoin(
+      type.annotations(),
+      (annotation) -> annotation.toString(),
+      separator,
+      separatedAnnotationsConsumer
+    );
   }
 
   private void withTypeArgumentDeclarationsSeparatedBy(String separator, Consumer<String> separatedArgumentsConsumer) {
@@ -83,10 +88,13 @@ public class TypeDeclaration {
   }
 
   private void transformTypeAndJoin(Stream<TypeInstance> types, String separator, Consumer<String> joinedConsumer) {
-    transformAndJoin(types, (type) -> type.declaration(), separator, joinedConsumer);
+    transformAndJoin(types, TypeInstance::declaration, separator, joinedConsumer);
   }
 
-  private <T> void transformAndJoin(Stream<? extends T> objects, Function<? super T, String> transformation, String separator, Consumer<String> joinedConsumer) {
+  private <T> void transformAndJoin(Stream<? extends T> objects,
+                                    Function<? super T, String> transformation,
+                                    String separator,
+                                    Consumer<String> joinedConsumer) {
     String joinedString = objects
       .map(transformation)
       .collect(Collectors.joining(separator));

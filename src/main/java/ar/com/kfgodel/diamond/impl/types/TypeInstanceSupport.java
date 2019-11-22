@@ -20,7 +20,6 @@ import ar.com.kfgodel.diamond.impl.fields.sources.TypeFieldsImpl;
 import ar.com.kfgodel.diamond.impl.methods.sources.NoMethods;
 import ar.com.kfgodel.diamond.impl.methods.sources.TypeMethodsImpl;
 import ar.com.kfgodel.diamond.impl.strings.DebugPrinter;
-import ar.com.kfgodel.diamond.impl.types.declaration.TypeDeclaration;
 import ar.com.kfgodel.diamond.impl.types.equality.TypeEquality;
 import ar.com.kfgodel.diamond.impl.types.inheritance.SuppliedTypesInheritance;
 import ar.com.kfgodel.diamond.impl.types.parts.annotations.NoAnnotationsSupplier;
@@ -149,7 +148,8 @@ public abstract class TypeInstanceSupport implements TypeInstance {
 
   @Override
   public String declaration() {
-    return TypeDeclaration.create(this).asString();
+    // As we can't generate the full source, we use the complete name as the closes declaration we have
+    return names().completeName();
   }
 
   @Override

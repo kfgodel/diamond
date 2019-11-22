@@ -3,7 +3,7 @@ package ar.com.kfgodel.diamond.impl.types.names;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.names.TypeNames;
 import ar.com.kfgodel.diamond.api.types.names.TypeNamesDescription;
-import ar.com.kfgodel.diamond.impl.types.declaration.TypeDeclaration;
+import ar.com.kfgodel.diamond.impl.types.declaration.TypeNameDeclaration;
 
 /**
  * This class serves as a generic {@link TypeNames} implementation
@@ -16,7 +16,7 @@ public class TypeInstanceNames implements TypeNames {
   private String canonicalName;
   private String typeName;
   private String bareName;
-  private TypeDeclaration typeDeclaration;
+  private TypeNameDeclaration typeNameDeclaration;
 
   @Override
   public String shortName() {
@@ -45,7 +45,7 @@ public class TypeInstanceNames implements TypeNames {
 
   @Override
   public String completeName() {
-    return typeDeclaration.asString();
+    return typeNameDeclaration.asString();
   }
 
   public static TypeInstanceNames create(TypeInstance type, TypeNamesDescription description) {
@@ -58,7 +58,7 @@ public class TypeInstanceNames implements TypeNames {
       .orElseGet(description::typeName);
     names.canonicalName = description.canonicalName()
       .orElseGet(description::typeName);
-    names.typeDeclaration = TypeDeclaration.create(type);
+    names.typeNameDeclaration = TypeNameDeclaration.create(type);
     return names;
   }
 
