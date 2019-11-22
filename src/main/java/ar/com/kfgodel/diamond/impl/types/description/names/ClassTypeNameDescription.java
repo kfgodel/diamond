@@ -8,25 +8,22 @@ import ar.com.kfgodel.diamond.api.types.names.TypeNamesDescription;
  */
 public class ClassTypeNameDescription implements TypeNamesDescription {
 
-  private String shortName;
-  private String standardName;
-  private String canonicalName;
   private String typeName;
-  private String bareName;
+  private Class<?> nativeClass;
 
   @Override
   public String shortName() {
-    return shortName;
+    return nativeClass.getSimpleName();
   }
 
   @Override
   public String commonName() {
-    return standardName;
+    return nativeClass.getName();
   }
 
   @Override
   public String canonicalName() {
-    return canonicalName;
+    return nativeClass.getCanonicalName();
   }
 
   @Override
@@ -36,22 +33,18 @@ public class ClassTypeNameDescription implements TypeNamesDescription {
 
   @Override
   public String bareName() {
-    return bareName;
+    if (nativeClass.getComponentType() != null) {
+      //It's an array
+      return "[]";
+    }
+    return nativeClass.getCanonicalName();
   }
 
   public static ClassTypeNameDescription create(Class<?> nativeClass, String typeName) {
-    ClassTypeNameDescription classTypeNames = new ClassTypeNameDescription();
-    classTypeNames.shortName = nativeClass.getSimpleName();
-    classTypeNames.standardName = nativeClass.getName();
-    classTypeNames.canonicalName = nativeClass.getCanonicalName();
-    classTypeNames.typeName = typeName;
-    if (nativeClass.getComponentType() != null) {
-      //It's an array
-      classTypeNames.bareName = "[]";
-    } else {
-      classTypeNames.bareName = nativeClass.getCanonicalName();
-    }
-    return classTypeNames;
+    ClassTypeNameDescription description = new ClassTypeNameDescription();
+    description.nativeClass = nativeClass;
+    description.typeName = typeName;
+    return description;
   }
 
 }
