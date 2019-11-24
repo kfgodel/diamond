@@ -1,6 +1,5 @@
 package ar.com.kfgodel.diamond.impl.types.description.support;
 
-import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
@@ -9,40 +8,21 @@ import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
 import ar.com.kfgodel.diamond.api.types.kinds.Kind;
-import ar.com.kfgodel.diamond.api.types.kinds.Kinds;
-import ar.com.kfgodel.diamond.impl.equals.CachedTokenCalculator;
-import ar.com.kfgodel.diamond.impl.natives.RawClassExtractor;
-import ar.com.kfgodel.diamond.impl.types.description.inheritance.NoInheritanceDescription;
-import ar.com.kfgodel.diamond.impl.types.equality.TypeEquality;
-import ar.com.kfgodel.diamond.impl.types.parts.annotations.NoAnnotationsSupplier;
-import ar.com.kfgodel.diamond.impl.types.parts.bounds.NoBoundsSupplier;
-import ar.com.kfgodel.diamond.impl.types.parts.componenttype.NoComponentTypeSupplier;
-import ar.com.kfgodel.diamond.impl.types.parts.constructors.NonInstantiableConstructorSupplier;
-import ar.com.kfgodel.diamond.impl.types.parts.fields.ClassFieldSupplier;
-import ar.com.kfgodel.diamond.impl.types.parts.methods.ClassMethodSupplier;
-import ar.com.kfgodel.diamond.impl.types.parts.typearguments.NoTypeArgumentsSupplier;
-import ar.com.kfgodel.diamond.impl.types.parts.typeparameters.NoTypeParametersSupplier;
-import ar.com.kfgodel.lazyvalue.impl.CachedValue;
+import ar.com.kfgodel.diamond.impl.types.description.descriptors.UnannotatedTypeDescriptor;
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.nary.impl.NaryFromCollectionSupplier;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
-import java.util.Arrays;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 /**
  * This type serves as base class for unannotated types
  * Created by kfgodel on 29/09/14.
  */
 public abstract class UnannotatedTypeDescriptionSupport implements TypeDescription {
-
-  private Class<?> rawClass;
-  private Set<Class<?>> rawClasses;
 
   /**
    * The set of classes that define the behavior of this type.<br>
@@ -54,20 +34,14 @@ public abstract class UnannotatedTypeDescriptionSupport implements TypeDescripti
    * @return The list of raw classes that define this type behavior description
    */
   protected Set<Class<?>> getBehavioralClasses() {
-    if (rawClasses == null) {
-      rawClasses = RawClassExtractor.fromUnspecific(getNativeType());
-    }
-    return rawClasses;
+    return unnanotatedTypeDescriptor().getBehavioralClasses();
   }
 
   /**
    * @return The class that represents this type without any annotations or generics
    */
   protected Class<?> getRawClass() {
-    if (rawClass == null) {
-      rawClass = RawClassExtractor.coalesce(getBehavioralClasses());
-    }
-    return rawClass;
+    return unnanotatedTypeDescriptor().getRawClass();
   }
 
   /**
@@ -76,90 +50,87 @@ public abstract class UnannotatedTypeDescriptionSupport implements TypeDescripti
    */
   protected abstract Type getNativeType();
 
+  private UnannotatedTypeDescriptor unnanotatedTypeDescriptor(){
+    return UnannotatedTypeDescriptor.create(getNativeType());
+  }
 
   @Override
   public Supplier<Nary<Annotation>> getAnnotations() {
-    return NoAnnotationsSupplier.INSTANCE;
+    return unnanotatedTypeDescriptor().getAnnotations();
   }
 
   @Override
   public InheritanceDescription getInheritanceDescription() {
-    return NoInheritanceDescription.INSTANCE;
+    return unnanotatedTypeDescriptor().getInheritanceDescription();
   }
 
   @Override
   public Supplier<Nary<TypeInstance>> getTypeArguments() {
-    return NoTypeArgumentsSupplier.INSTANCE;
+    return unnanotatedTypeDescriptor().getTypeArguments();
   }
 
   @Override
   public Supplier<Nary<TypeInstance>> getTypeParametersSupplier() {
-    return NoTypeParametersSupplier.INSTANCE;
+    return unnanotatedTypeDescriptor().getTypeParametersSupplier();
   }
 
   @Override
   public Supplier<Nary<TypeInstance>> getComponentType() {
-    return NoComponentTypeSupplier.INSTANCE;
+    return unnanotatedTypeDescriptor().getComponentType();
   }
 
   @Override
   public Supplier<TypeBounds> getBounds() {
-    return NoBoundsSupplier.INSTANCE;
+    return unnanotatedTypeDescriptor().getBounds();
   }
 
   @Override
   public Supplier<Nary<TypeMethod>> getTypeMethods() {
-    return ClassMethodSupplier.create(getBehavioralClasses());
+    return unnanotatedTypeDescriptor().getTypeMethods();
   }
 
   @Override
   public Supplier<Nary<TypeField>> getTypeFields() {
-    return ClassFieldSupplier.create(getBehavioralClasses());
+    return unnanotatedTypeDescriptor().getTypeFields();
   }
 
   @Override
   public Supplier<Nary<TypeConstructor>> getTypeConstructors() {
-    return NonInstantiableConstructorSupplier.INSTANCE;
+    return unnanotatedTypeDescriptor().getTypeConstructors();
   }
 
   @Override
   public Supplier<Nary<Class<?>>> getRawClassesSupplier() {
-    return NaryFromCollectionSupplier.from(getBehavioralClasses());
+    return unnanotatedTypeDescriptor().getRawClassesSupplier();
   }
 
   @Override
   public Supplier<Nary<Class<?>>> getRawClassSupplier() {
-    return () -> Nary.of(getRawClass());
+    return unnanotatedTypeDescriptor().getRawClassSupplier();
   }
 
   @Override
   public Function<TypeInstance, Object> getIdentityToken() {
-    return CachedTokenCalculator.create(TypeEquality.INSTANCE::calculateTokenFor);
+    return unnanotatedTypeDescriptor().getIdentityToken();
   }
 
   @Override
   public Supplier<Nary<Kind>> getKindsFor(TypeInstance type) {
-    return NaryFromCollectionSupplier.lazilyBy(() -> Arrays.stream(Kinds.values())
-      .filter((kind) -> kind.contains(type))
-      .collect(Collectors.toList()));
+    return unnanotatedTypeDescriptor().getKindsFor(type);
   }
 
   @Override
   public Predicate<Object> getTypeForPredicate() {
-    return (testedObject) -> getBehavioralClasses().stream()
-      .anyMatch((nativeType) -> nativeType.isInstance(testedObject));
+    return unnanotatedTypeDescriptor().getTypeForPredicate();
   }
 
   @Override
   public Predicate<TypeInstance> getAssignabilityPredicate() {
-    // We check if any of our native types is assignable from any of the other native types
-    return (otherType) -> getBehavioralClasses().stream()
-      .anyMatch((thisNativeType) -> otherType.nativeTypes()
-        .anyMatch(thisNativeType::isAssignableFrom));
+    return unnanotatedTypeDescriptor().getAssignabilityPredicate();
   }
 
   @Override
   public Supplier<TypeInstance> getRuntimeType() {
-    return CachedValue.lazilyBy(() -> Diamond.of(getRawClass()));
+    return unnanotatedTypeDescriptor().getRuntimeType();
   }
 }
