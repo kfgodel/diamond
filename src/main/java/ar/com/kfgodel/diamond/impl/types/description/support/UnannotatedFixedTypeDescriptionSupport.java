@@ -4,15 +4,8 @@ import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
 import ar.com.kfgodel.diamond.api.types.names.TypeNames;
-import ar.com.kfgodel.diamond.api.types.names.TypeNamesDescription;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
-import ar.com.kfgodel.diamond.impl.types.description.inheritance.FixedTypeInheritanceDescription;
-import ar.com.kfgodel.diamond.impl.types.description.names.ClassTypeNameDescription;
-import ar.com.kfgodel.diamond.impl.types.names.TypeInstanceNames;
-import ar.com.kfgodel.diamond.impl.types.parts.constructors.ArraysConstructorSupplier;
-import ar.com.kfgodel.diamond.impl.types.parts.constructors.ClassConstructorsSupplier;
-import ar.com.kfgodel.diamond.impl.types.parts.packages.TypePackageSupplier;
-import ar.com.kfgodel.diamond.impl.types.parts.typeparameters.GenericTypeParametersSupplier;
+import ar.com.kfgodel.diamond.impl.types.description.descriptors.UnannotatedFixedTypeDescriptor;
 import ar.com.kfgodel.nary.api.Nary;
 
 import java.util.function.Supplier;
@@ -23,43 +16,38 @@ import java.util.function.Supplier;
  */
 public abstract class UnannotatedFixedTypeDescriptionSupport extends UnannotatedTypeDescriptionSupport {
 
-  @Override
-  public Supplier<TypeNames> getNamesSupplier(TypeInstance type) {
-    return ()-> TypeInstanceNames.create(type, describeNames());
+  private UnannotatedFixedTypeDescriptor unannotatedFixedTypeDescriptor(){
+    return UnannotatedFixedTypeDescriptor.create(getNativeType(), getRawClass(), getTypeArguments());
   }
 
-  private TypeNamesDescription describeNames() {
-    return ClassTypeNameDescription.create(getRawClass(), getNativeType().getTypeName());
+  @Override
+  public Supplier<TypeNames> getNamesSupplier(TypeInstance type) {
+    return unannotatedFixedTypeDescriptor().getNamesSupplier(type);
   }
 
   @Override
   public InheritanceDescription getInheritanceDescription() {
-    return FixedTypeInheritanceDescription.create(getRawClass(), getTypeArguments());
+    return unannotatedFixedTypeDescriptor().getInheritanceDescription();
   }
 
   @Override
   public Supplier<Nary<TypeInstance>> getTypeParametersSupplier() {
-    return GenericTypeParametersSupplier.create(getRawClass());
+    return unannotatedFixedTypeDescriptor().getTypeParametersSupplier();
   }
 
   @Override
   public Supplier<Nary<TypeConstructor>> getTypeConstructors() {
-    Class<?> rawClass = getRawClass();
-    if (rawClass.isArray()) {
-      // Artificial constructor for arrays: https://github.com/kfgodel/diamond/issues/88
-      return ArraysConstructorSupplier.create(rawClass);
-    }
-    return ClassConstructorsSupplier.create(rawClass);
+    return unannotatedFixedTypeDescriptor().getTypeConstructors();
   }
 
   @Override
   public Supplier<Nary<TypePackage>> getDeclaredPackage() {
-    return TypePackageSupplier.create(getRawClass());
+    return unannotatedFixedTypeDescriptor().getDeclaredPackage();
   }
 
   @Override
   public boolean isForVariableType() {
-    return false;
+    return unannotatedFixedTypeDescriptor().isForVariableType();
   }
 
 
