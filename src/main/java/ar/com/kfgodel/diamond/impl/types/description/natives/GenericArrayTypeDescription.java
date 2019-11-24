@@ -4,9 +4,7 @@ import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
-import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
-import ar.com.kfgodel.diamond.api.types.kinds.Kind;
 import ar.com.kfgodel.diamond.api.types.names.TypeNames;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.diamond.impl.types.description.descriptors.FixedTypeDescriptor;
@@ -17,7 +15,6 @@ import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.Type;
-import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
@@ -35,28 +32,13 @@ public class GenericArrayTypeDescription extends TypeDescriptionSupport {
   }
 
   @Override
-  public Supplier<TypeBounds> getBounds() {
-    return unnanotatedTypeDescriptor().getBounds();
-  }
-
-  @Override
   public Supplier<Nary<TypePackage>> getDeclaredPackage() {
     return unannotatedFixedTypeDescriptor().getDeclaredPackage();
   }
 
   @Override
-  public Function<TypeInstance, Object> getIdentityToken() {
-    return unnanotatedTypeDescriptor().getIdentityToken();
-  }
-
-  @Override
   public InheritanceDescription getInheritanceDescription() {
     return unannotatedFixedTypeDescriptor().getInheritanceDescription();
-  }
-
-  @Override
-  public Supplier<Nary<Kind>> getKindsFor(TypeInstance type) {
-    return unnanotatedTypeDescriptor().getKindsFor(type);
   }
 
   @Override
@@ -93,11 +75,6 @@ public class GenericArrayTypeDescription extends TypeDescriptionSupport {
   @Override
   public Supplier<TypeInstance> getRuntimeType() {
     return unnanotatedTypeDescriptor().getRuntimeType();
-  }
-
-  @Override
-  public Supplier<Nary<TypeInstance>> getTypeArguments() {
-    return unnanotatedTypeDescriptor().getTypeArguments();
   }
 
   @Override

@@ -1,36 +1,20 @@
 package ar.com.kfgodel.diamond.impl.types.description.descriptors;
 
 import ar.com.kfgodel.diamond.api.Diamond;
-import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
-import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
-import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
-import ar.com.kfgodel.diamond.api.types.kinds.Kind;
-import ar.com.kfgodel.diamond.api.types.kinds.Kinds;
-import ar.com.kfgodel.diamond.impl.equals.CachedTokenCalculator;
 import ar.com.kfgodel.diamond.impl.natives.RawClassExtractor;
-import ar.com.kfgodel.diamond.impl.types.description.inheritance.NoInheritanceDescription;
-import ar.com.kfgodel.diamond.impl.types.equality.TypeEquality;
-import ar.com.kfgodel.diamond.impl.types.parts.bounds.NoBoundsSupplier;
-import ar.com.kfgodel.diamond.impl.types.parts.componenttype.NoComponentTypeSupplier;
-import ar.com.kfgodel.diamond.impl.types.parts.constructors.NonInstantiableConstructorSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.fields.ClassFieldSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.methods.ClassMethodSupplier;
-import ar.com.kfgodel.diamond.impl.types.parts.typearguments.NoTypeArgumentsSupplier;
-import ar.com.kfgodel.diamond.impl.types.parts.typeparameters.NoTypeParametersSupplier;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.impl.NaryFromCollectionSupplier;
 
 import java.lang.reflect.Type;
-import java.util.Arrays;
 import java.util.Set;
-import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 /**
  * This type represents the helper object that can be used to describe part of an unannotated type
@@ -74,26 +58,6 @@ public class UnannotatedTypeDescriptor {
     return rawClass;
   }
 
-  public InheritanceDescription getInheritanceDescription() {
-    return NoInheritanceDescription.INSTANCE;
-  }
-
-  public Supplier<Nary<TypeInstance>> getTypeArguments() {
-    return NoTypeArgumentsSupplier.INSTANCE;
-  }
-
-  public Supplier<Nary<TypeInstance>> getTypeParametersSupplier() {
-    return NoTypeParametersSupplier.INSTANCE;
-  }
-
-  public Supplier<Nary<TypeInstance>> getComponentType() {
-    return NoComponentTypeSupplier.INSTANCE;
-  }
-
-  public Supplier<TypeBounds> getBounds() {
-    return NoBoundsSupplier.INSTANCE;
-  }
-
   public Supplier<Nary<TypeMethod>> getTypeMethods() {
     return ClassMethodSupplier.create(getBehavioralClasses());
   }
@@ -102,26 +66,12 @@ public class UnannotatedTypeDescriptor {
     return ClassFieldSupplier.create(getBehavioralClasses());
   }
 
-  public Supplier<Nary<TypeConstructor>> getTypeConstructors() {
-    return NonInstantiableConstructorSupplier.INSTANCE;
-  }
-
   public Supplier<Nary<Class<?>>> getRawClassesSupplier() {
     return NaryFromCollectionSupplier.from(getBehavioralClasses());
   }
 
   public Supplier<Nary<Class<?>>> getRawClassSupplier() {
     return () -> Nary.of(getRawClass());
-  }
-
-  public Function<TypeInstance, Object> getIdentityToken() {
-    return CachedTokenCalculator.create(TypeEquality.INSTANCE::calculateTokenFor);
-  }
-
-  public Supplier<Nary<Kind>> getKindsFor(TypeInstance type) {
-    return NaryFromCollectionSupplier.lazilyBy(() -> Arrays.stream(Kinds.values())
-      .filter((kind) -> kind.contains(type))
-      .collect(Collectors.toList()));
   }
 
   public Predicate<Object> getTypeForPredicate() {
