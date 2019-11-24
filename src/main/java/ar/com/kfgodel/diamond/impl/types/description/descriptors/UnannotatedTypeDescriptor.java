@@ -1,19 +1,15 @@
 package ar.com.kfgodel.diamond.impl.types.description.descriptors;
 
-import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
-import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.natives.RawClassExtractor;
 import ar.com.kfgodel.diamond.impl.types.parts.fields.ClassFieldSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.methods.ClassMethodSupplier;
-import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.impl.NaryFromCollectionSupplier;
 
 import java.lang.reflect.Type;
 import java.util.Set;
-import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 /**
@@ -73,22 +69,5 @@ public class UnannotatedTypeDescriptor {
   public Supplier<Nary<Class<?>>> getRawClassSupplier() {
     return () -> Nary.of(getRawClass());
   }
-
-  public Predicate<Object> getTypeForPredicate() {
-    return (testedObject) -> getBehavioralClasses().stream()
-      .anyMatch((nativeType) -> nativeType.isInstance(testedObject));
-  }
-
-  public Predicate<TypeInstance> getAssignabilityPredicate() {
-    // We check if any of our native types is assignable from any of the other native types
-    return (otherType) -> getBehavioralClasses().stream()
-      .anyMatch((thisNativeType) -> otherType.nativeTypes()
-        .anyMatch(thisNativeType::isAssignableFrom));
-  }
-
-  public Supplier<TypeInstance> getRuntimeType() {
-    return CachedValue.lazilyBy(() -> Diamond.of(getRawClass()));
-  }
-
 
 }

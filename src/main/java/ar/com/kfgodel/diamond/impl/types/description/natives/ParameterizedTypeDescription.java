@@ -15,7 +15,6 @@ import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
-import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 /**
@@ -25,11 +24,6 @@ import java.util.function.Supplier;
 public class ParameterizedTypeDescription extends TypeDescriptionSupport {
 
   private ParameterizedType nativeType;
-
-  @Override
-  public Predicate<TypeInstance> getAssignabilityPredicate() {
-    return unnanotatedTypeDescriptor().getAssignabilityPredicate();
-  }
 
   @Override
   public Supplier<Nary<TypePackage>> getDeclaredPackage() {
@@ -68,11 +62,6 @@ public class ParameterizedTypeDescription extends TypeDescriptionSupport {
   }
 
   @Override
-  public Supplier<TypeInstance> getRuntimeType() {
-    return unnanotatedTypeDescriptor().getRuntimeType();
-  }
-
-  @Override
   public Supplier<Nary<TypeInstance>> getTypeArguments() {
     return ParameterizedTypeArgumentsSupplier.create(nativeType);
   }
@@ -85,11 +74,6 @@ public class ParameterizedTypeDescription extends TypeDescriptionSupport {
   @Override
   public Supplier<Nary<TypeField>> getTypeFields() {
     return unnanotatedTypeDescriptor().getTypeFields();
-  }
-
-  @Override
-  public Predicate<Object> getTypeForPredicate() {
-    return unnanotatedTypeDescriptor().getTypeForPredicate();
   }
 
   @Override

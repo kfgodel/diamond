@@ -15,7 +15,6 @@ import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.Type;
-import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 /**
@@ -25,11 +24,6 @@ import java.util.function.Supplier;
 public class GenericArrayTypeDescription extends TypeDescriptionSupport {
 
   private GenericArrayType nativeType;
-
-  @Override
-  public Predicate<TypeInstance> getAssignabilityPredicate() {
-    return unnanotatedTypeDescriptor().getAssignabilityPredicate();
-  }
 
   @Override
   public Supplier<Nary<TypePackage>> getDeclaredPackage() {
@@ -73,11 +67,6 @@ public class GenericArrayTypeDescription extends TypeDescriptionSupport {
   }
 
   @Override
-  public Supplier<TypeInstance> getRuntimeType() {
-    return unnanotatedTypeDescriptor().getRuntimeType();
-  }
-
-  @Override
   public Supplier<Nary<TypeConstructor>> getTypeConstructors() {
     return unannotatedFixedTypeDescriptor().getTypeConstructors();
   }
@@ -85,11 +74,6 @@ public class GenericArrayTypeDescription extends TypeDescriptionSupport {
   @Override
   public Supplier<Nary<TypeField>> getTypeFields() {
     return unnanotatedTypeDescriptor().getTypeFields();
-  }
-
-  @Override
-  public Predicate<Object> getTypeForPredicate() {
-    return unnanotatedTypeDescriptor().getTypeForPredicate();
   }
 
   @Override
