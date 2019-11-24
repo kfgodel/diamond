@@ -1,21 +1,12 @@
 package ar.com.kfgodel.diamond.impl.types.description.support;
 
-import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
 import ar.com.kfgodel.diamond.api.types.names.TypeNames;
-import ar.com.kfgodel.diamond.api.types.names.TypeNamesDescription;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
-import ar.com.kfgodel.diamond.impl.types.description.inheritance.VariableTypeInheritanceDescription;
-import ar.com.kfgodel.diamond.impl.types.description.names.TypeVariableNamesDescription;
-import ar.com.kfgodel.diamond.impl.types.description.names.WildCardNamesDescription;
-import ar.com.kfgodel.diamond.impl.types.names.TypeInstanceNames;
+import ar.com.kfgodel.diamond.impl.types.description.descriptors.UnannotatedVariableTypeDescriptor;
 import ar.com.kfgodel.nary.api.Nary;
 
-import java.lang.reflect.AnnotatedType;
-import java.lang.reflect.Type;
-import java.lang.reflect.TypeVariable;
-import java.lang.reflect.WildcardType;
 import java.util.function.Supplier;
 
 /**
@@ -25,44 +16,27 @@ import java.util.function.Supplier;
  */
 public abstract class UnannotatedVariableTypeDescriptionSupport extends UnannotatedTypeDescriptionSupport {
 
+  private UnannotatedVariableTypeDescriptor unannotatedVariableTypeDescriptor(){
+    return UnannotatedVariableTypeDescriptor.create(getNativeType(), getBehavioralClasses(), getTypeArguments());
+  }
+
   @Override
   public Supplier<TypeNames> getNamesSupplier(TypeInstance type) {
-    return ()-> TypeInstanceNames.create(type, describeNames());
-  }
-
-  private TypeNamesDescription describeNames() {
-    Type unannotatedType = getUnannotatedNativeType();
-    if (unannotatedType instanceof TypeVariable) {
-      TypeVariable typeVariable = (TypeVariable) unannotatedType;
-      return TypeVariableNamesDescription.create(typeVariable);
-    } else if (unannotatedType instanceof WildcardType) {
-      return WildCardNamesDescription.create((WildcardType) unannotatedType);
-    }
-    throw new DiamondException("Variable type is unknown:" + unannotatedType);
-  }
-
-
-  private Type getUnannotatedNativeType() {
-    final Type nativeType = getNativeType();
-    if (nativeType instanceof AnnotatedType) {
-      // We need to un-annotate it
-      return ((AnnotatedType) nativeType).getType();
-    }
-    return nativeType;
+    return unannotatedVariableTypeDescriptor().getNamesSupplier(type);
   }
 
   @Override
   public boolean isForVariableType() {
-    return true;
+    return unannotatedVariableTypeDescriptor().isForVariableType();
   }
 
   @Override
   public Supplier<Nary<TypePackage>> getDeclaredPackage() {
-    return Nary::empty;
+    return unannotatedVariableTypeDescriptor().getDeclaredPackage();
   }
 
   @Override
   public InheritanceDescription getInheritanceDescription() {
-    return VariableTypeInheritanceDescription.create(getBehavioralClasses(), getTypeArguments());
+    return unannotatedVariableTypeDescriptor().getInheritanceDescription();
   }
 }
