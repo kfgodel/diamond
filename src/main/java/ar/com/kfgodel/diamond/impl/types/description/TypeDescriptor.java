@@ -35,8 +35,6 @@ import java.util.function.Function;
  */
 public class TypeDescriptor {
 
-  public static final TypeDescriptor INSTANCE = TypeDescriptor.create();
-
   private List<Pair<Class<?>, Function<Object, TypeDescription>>> descriptorsPerType;
   public static final String descriptorsPerType_FIELD = "descriptorsPerType";
 

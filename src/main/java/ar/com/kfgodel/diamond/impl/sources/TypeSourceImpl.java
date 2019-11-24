@@ -1,6 +1,5 @@
 package ar.com.kfgodel.diamond.impl.sources;
 
-import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.cache.DiamondCache;
 import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 import ar.com.kfgodel.diamond.api.sources.TypeSources;
@@ -19,25 +18,16 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 /**
- * This type implements the spurces for type instances
+ * This type implements the sources for type instances
  * Created by kfgodel on 20/09/14.
  */
 public class TypeSourceImpl implements TypeSources {
 
   private DiamondCache cache;
+  private TypeDescriptor descriptor;
 
   @Override
   public TypeInstance fromDescription(TypeDescription description) {
-    return createTypeFrom(description);
-  }
-
-  /**
-   * Creates a new type instance from its description
-   *
-   * @param description The description of the type traits
-   * @return The created type instance
-   */
-  private TypeInstance createTypeFrom(TypeDescription description) {
     if (description.isForVariableType()) {
       return VariableTypeInstance.create(description);
     }
@@ -47,7 +37,10 @@ public class TypeSourceImpl implements TypeSources {
 
   @Override
   public TypeInstance from(Object type) throws DiamondException {
-    return cache.reuseOrCreateRepresentationFor(type, () -> fromDescription(TypeDescriptor.INSTANCE.describe(type)));
+    return cache.reuseOrCreateRepresentationFor(type, () -> {
+      final TypeDescription typeDescription = descriptor.describe(type);
+      return fromDescription(typeDescription);
+    });
   }
 
   @Override
@@ -68,17 +61,37 @@ public class TypeSourceImpl implements TypeSources {
   }
 
   @Override
-  public TypeInstance fromParameterizedNativeTypes(Class<?> parameterizableSubtype, List<TypeInstance> subtypeArguments, AnnotatedType annotatedSuperType, Type genericSupertype) {
-    TypeDescription supertypeDescription = TypeDescriptor.INSTANCE.describe(annotatedSuperType);
-    SupertypeParametrization parametrization = SupertypeParametrizationAnalyzer.create(parameterizableSubtype, genericSupertype).get();
+  public TypeInstance fromParameterizedNativeTypes(Class<?> parameterizableSubtype,
+                                                   List<TypeInstance> subtypeArguments,
+                                                   AnnotatedType annotatedSuperType,
+                                                   Type genericSupertype) {
+    ExtendedTypeDescription extendedTypeDescription = describeExtension(
+      parameterizableSubtype,
+      subtypeArguments,
+      annotatedSuperType,
+      genericSupertype
+    );
+    return fromDescription(extendedTypeDescription);
+  }
+
+  private ExtendedTypeDescription describeExtension(Class<?> parameterizableSubtype,
+                                                    List<TypeInstance> subtypeArguments,
+                                                    AnnotatedType annotatedSuperType,
+                                                    Type genericSupertype
+  ) {
+    TypeDescription supertypeDescription = descriptor.describe(annotatedSuperType);
+    SupertypeParametrization parametrization = SupertypeParametrizationAnalyzer
+      .create(parameterizableSubtype, genericSupertype)
+      .get();
     ActualArgumentReplacer typeArgumentsReplacer = ActualArgumentReplacer.create(subtypeArguments, parametrization);
-    ExtendedTypeDescription extendedTypeDescription = ExtendedTypeDescription.create(supertypeDescription, typeArgumentsReplacer);
-    return Diamond.types().fromDescription(extendedTypeDescription);
+    return ExtendedTypeDescription
+      .create(supertypeDescription, typeArgumentsReplacer);
   }
 
   public static TypeSourceImpl create(DiamondCache cache) {
     TypeSourceImpl source = new TypeSourceImpl();
     source.cache = cache;
+    source.descriptor = TypeDescriptor.create(); //Use default
     return source;
   }
 

@@ -109,7 +109,7 @@ public class TypeEqualityTest extends JavaSpec<DiamondTestContext> {
 
         it("is equal if type are equals", () -> {
           //Creation from description is not cached
-          TypeDescription stringDescription = TypeDescriptor.INSTANCE.describe(String.class);
+          TypeDescription stringDescription = TypeDescriptor.create().describe(String.class);
           TypeInstance one = Diamond.types().fromDescription(stringDescription);
           TypeInstance other = Diamond.types().fromDescription(stringDescription);
 
