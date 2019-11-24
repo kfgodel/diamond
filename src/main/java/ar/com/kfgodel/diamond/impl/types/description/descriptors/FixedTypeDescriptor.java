@@ -22,14 +22,14 @@ import java.util.function.Supplier;
  * This type describes unannotated types that are fixed to a single type
  * Date: 24/11/19 - 01:55
  */
-public class UnannotatedFixedTypeDescriptor {
+public class FixedTypeDescriptor {
 
   private Type nativeType;
   private Class<?> rawClass;
   private Supplier<Nary<TypeInstance>> typeArguments;
 
-  public static UnannotatedFixedTypeDescriptor create(Type nativeType, Class<?> rawClass, Supplier<Nary<TypeInstance>> typeArguments) {
-    UnannotatedFixedTypeDescriptor descriptor = new UnannotatedFixedTypeDescriptor();
+  public static FixedTypeDescriptor create(Type nativeType, Class<?> rawClass, Supplier<Nary<TypeInstance>> typeArguments) {
+    FixedTypeDescriptor descriptor = new FixedTypeDescriptor();
     descriptor.nativeType = nativeType;
     descriptor.rawClass = rawClass;
     descriptor.typeArguments = typeArguments;

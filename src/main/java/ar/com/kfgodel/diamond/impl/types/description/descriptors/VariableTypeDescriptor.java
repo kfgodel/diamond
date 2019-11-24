@@ -23,14 +23,14 @@ import java.util.function.Supplier;
  * This type describes unannotated type which can vary
  * Date: 24/11/19 - 02:11
  */
-public class UnannotatedVariableTypeDescriptor {
+public class VariableTypeDescriptor {
 
   private Type nativeType;
   private Set<Class<?>> behavioralClasses;
   private Supplier<Nary<TypeInstance>> typeArguments;
 
-  public static UnannotatedVariableTypeDescriptor create(Type nativeType, Set<Class<?>> behavioralClasses, Supplier<Nary<TypeInstance>> typeArguments) {
-    UnannotatedVariableTypeDescriptor descriptor = new UnannotatedVariableTypeDescriptor();
+  public static VariableTypeDescriptor create(Type nativeType, Set<Class<?>> behavioralClasses, Supplier<Nary<TypeInstance>> typeArguments) {
+    VariableTypeDescriptor descriptor = new VariableTypeDescriptor();
     descriptor.nativeType = nativeType;
     descriptor.behavioralClasses = behavioralClasses;
     descriptor.typeArguments = typeArguments;
