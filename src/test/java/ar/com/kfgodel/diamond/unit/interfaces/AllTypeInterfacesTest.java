@@ -80,7 +80,7 @@ public class AllTypeInterfacesTest extends JavaSpec<DiamondTestContext> {
 
             List<String> interfaceNames = context().typeInstance().inheritance().interfaces().map(Named::name).collect(Collectors.toList());
 
-            assertThat(interfaceNames).isEqualTo(Arrays.asList("Comparable", "ChildInterface2"));
+            assertThat(interfaceNames).containsExactlyInAnyOrder("Comparable", "ChildInterface2");
           });
         });
 

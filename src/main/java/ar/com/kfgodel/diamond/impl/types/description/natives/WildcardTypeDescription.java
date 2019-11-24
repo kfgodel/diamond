@@ -14,6 +14,7 @@ import ar.com.kfgodel.nary.api.Nary;
 import java.lang.reflect.WildcardType;
 import java.util.Set;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 /**
  * This type represents the description of an unannotated native wildcard type
@@ -33,7 +34,7 @@ public class WildcardTypeDescription extends TypeDescriptionSupport {
    * @return The list of raw classes that define this type behavior description
    */
   protected Set<Class<?>> getBehavioralClasses() {
-    return unnanotatedTypeDescriptor().getBehavioralClasses();
+    return getRawClassesSupplier().get().collect(Collectors.toSet());
   }
 
   @Override

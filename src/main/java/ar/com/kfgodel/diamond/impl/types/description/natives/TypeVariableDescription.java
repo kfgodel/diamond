@@ -15,6 +15,7 @@ import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.util.Set;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 /**
  * This type represents a description of an unannotated native type variable
@@ -34,7 +35,7 @@ public class TypeVariableDescription extends TypeDescriptionSupport {
    * @return The list of raw classes that define this type behavior description
    */
   protected Set<Class<?>> getBehavioralClasses() {
-    return unnanotatedTypeDescriptor().getBehavioralClasses();
+    return getRawClassesSupplier().get().collect(Collectors.toSet());
   }
 
   @Override

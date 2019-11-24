@@ -51,7 +51,7 @@ public class GenericArrayTypeDescription extends TypeDescriptionSupport {
    * @return The class that represents this type without any annotations or generics
    */
   protected Class<?> getRawClass() {
-    return unnanotatedTypeDescriptor().getRawClass();
+    return getRawClassSupplier().get().get();
   }
 
   @Override

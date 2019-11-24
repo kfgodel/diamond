@@ -46,7 +46,7 @@ public class ParameterizedTypeDescription extends TypeDescriptionSupport {
    * @return The class that represents this type without any annotations or generics
    */
   protected Class<?> getRawClass() {
-    return unnanotatedTypeDescriptor().getRawClass();
+    return getRawClassSupplier().get().get();
   }
 
   @Override
@@ -80,7 +80,7 @@ public class ParameterizedTypeDescription extends TypeDescriptionSupport {
   }
 
   protected FixedTypeDescriptor unannotatedFixedTypeDescriptor(){
-    return FixedTypeDescriptor.create(getNativeType(), getRawClass(), getTypeArguments());
+    return FixedTypeDescriptor.create(getNativeType(), getRawClassSupplier().get().get(), getTypeArguments());
   }
 
   protected UnannotatedTypeDescriptor unnanotatedTypeDescriptor(){
