@@ -1,7 +1,5 @@
 package ar.com.kfgodel.diamond.impl.types.description.natives;
 
-import ar.com.kfgodel.diamond.api.fields.TypeField;
-import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
@@ -70,16 +68,6 @@ public class WildcardTypeDescription extends TypeDescriptionSupport {
   @Override
   public Supplier<Nary<Class<?>>> getRawClassesSupplier() {
     return unnanotatedTypeDescriptor().getRawClassesSupplier();
-  }
-
-  @Override
-  public Supplier<Nary<TypeField>> getTypeFields() {
-    return unnanotatedTypeDescriptor().getTypeFields();
-  }
-
-  @Override
-  public Supplier<Nary<TypeMethod>> getTypeMethods() {
-    return unnanotatedTypeDescriptor().getTypeMethods();
   }
 
   @Override

@@ -1,10 +1,6 @@
 package ar.com.kfgodel.diamond.impl.types.description.descriptors;
 
-import ar.com.kfgodel.diamond.api.fields.TypeField;
-import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.impl.natives.RawClassExtractor;
-import ar.com.kfgodel.diamond.impl.types.parts.fields.ClassFieldSupplier;
-import ar.com.kfgodel.diamond.impl.types.parts.methods.ClassMethodSupplier;
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.impl.NaryFromCollectionSupplier;
 
@@ -52,14 +48,6 @@ public class UnannotatedTypeDescriptor {
       rawClass = RawClassExtractor.coalesce(getBehavioralClasses());
     }
     return rawClass;
-  }
-
-  public Supplier<Nary<TypeMethod>> getTypeMethods() {
-    return ClassMethodSupplier.create(getBehavioralClasses());
-  }
-
-  public Supplier<Nary<TypeField>> getTypeFields() {
-    return ClassFieldSupplier.create(getBehavioralClasses());
   }
 
   public Supplier<Nary<Class<?>>> getRawClassesSupplier() {

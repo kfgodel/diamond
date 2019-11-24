@@ -19,10 +19,13 @@ import java.util.stream.Stream;
  */
 public class ClassMethodSupplier {
 
-  public static Supplier<Nary<TypeMethod>> create(Set<Class<?>> baseClasses) {
+  public static Supplier<Nary<TypeMethod>> create(Supplier<Nary<Class<?>>> baseClassesSupplier) {
     return NaryFromCollectionSupplier.lazilyBy(() -> {
-      Stream<Method> nativeMethods = NativeMethodsSupplier.create(baseClasses).get();
-      return nativeMethods.map((nativeMethod) -> Diamond.methods().from(nativeMethod))
+      final Set<Class<?>> rawClasses = baseClassesSupplier.get()
+        .collect(Collectors.toSet());
+      Stream<Method> nativeMethods = NativeMethodsSupplier.create(rawClasses).get();
+      return nativeMethods
+        .map((nativeMethod) -> Diamond.methods().from(nativeMethod))
         .collect(Collectors.toList());
     });
   }

@@ -21,8 +21,8 @@ import ar.com.kfgodel.diamond.impl.types.parts.behavior.NoRawClassesSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.bounds.NoBoundsSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.componenttype.NoComponentTypeSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.constructors.NonInstantiableConstructorSupplier;
-import ar.com.kfgodel.diamond.impl.types.parts.fields.NoFieldsSupplier;
-import ar.com.kfgodel.diamond.impl.types.parts.methods.NoMethodsSupplier;
+import ar.com.kfgodel.diamond.impl.types.parts.fields.ClassFieldSupplier;
+import ar.com.kfgodel.diamond.impl.types.parts.methods.ClassMethodSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.names.NoNamesSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.packages.NoPackageSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.typearguments.NoTypeArgumentsSupplier;
@@ -69,11 +69,11 @@ public abstract class TypeDescriptionSupport implements TypeDescription {
   }
 
   public Supplier<Nary<TypeMethod>> getTypeMethods() {
-    return NoMethodsSupplier.INSTANCE;
+    return ClassMethodSupplier.create(getRawClassesSupplier());
   }
 
   public Supplier<Nary<TypeField>> getTypeFields() {
-    return NoFieldsSupplier.INSTANCE;
+    return ClassFieldSupplier.create(getRawClassesSupplier());
   }
 
   public Supplier<Nary<TypeConstructor>> getTypeConstructors() {

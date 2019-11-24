@@ -18,10 +18,12 @@ import java.util.stream.Stream;
  */
 public class ClassFieldSupplier {
 
-  public static Supplier<Nary<TypeField>> create(Set<Class<?>> baseClasses) {
+  public static Supplier<Nary<TypeField>> create(Supplier<Nary<Class<?>>> baseClassesSupplier) {
     return NaryFromCollectionSupplier.lazilyBy(() -> {
-      Stream<Field> nativeFields = NativeFieldsSupplier.create(baseClasses).get();
-      return nativeFields.map((nativeField) -> Diamond.fields().from(nativeField))
+      final Set<Class<?>> rawClasses = baseClassesSupplier.get().collect(Collectors.toSet());
+      Stream<Field> nativeFields = NativeFieldsSupplier.create(rawClasses).get();
+      return nativeFields
+        .map((nativeField) -> Diamond.fields().from(nativeField))
         .collect(Collectors.toList());
     });
   }
