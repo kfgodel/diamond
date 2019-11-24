@@ -23,7 +23,6 @@ import ar.com.kfgodel.diamond.impl.strings.DebugPrinter;
 import ar.com.kfgodel.diamond.impl.types.equality.TypeEquality;
 import ar.com.kfgodel.diamond.impl.types.inheritance.SuppliedTypesInheritance;
 import ar.com.kfgodel.diamond.impl.types.parts.annotations.NoAnnotationsSupplier;
-import ar.com.kfgodel.diamond.impl.types.parts.names.NoNamesSupplier;
 import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.annotation.Annotation;
@@ -44,7 +43,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
   /**
    * Variations on the name for this type
    */
-  private Supplier<TypeNames> names = NoNamesSupplier.create(this);
+  private Supplier<TypeNames> names;
 
   /**
    * This type callable methods

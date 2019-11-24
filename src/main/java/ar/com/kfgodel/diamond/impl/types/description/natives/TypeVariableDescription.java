@@ -3,7 +3,6 @@ package ar.com.kfgodel.diamond.impl.types.description.natives;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
-import ar.com.kfgodel.diamond.api.types.TypeDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
@@ -12,10 +11,10 @@ import ar.com.kfgodel.diamond.api.types.names.TypeNames;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.diamond.impl.types.description.descriptors.UnannotatedTypeDescriptor;
 import ar.com.kfgodel.diamond.impl.types.description.descriptors.VariableTypeDescriptor;
+import ar.com.kfgodel.diamond.impl.types.description.support.TypeDescriptionSupport;
 import ar.com.kfgodel.diamond.impl.types.parts.bounds.TypeVariableBoundSupplier;
 import ar.com.kfgodel.nary.api.Nary;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.util.Set;
@@ -27,14 +26,9 @@ import java.util.function.Supplier;
  * This type represents a description of an unannotated native type variable
  * Created by kfgodel on 28/09/14.
  */
-public class TypeVariableDescription implements TypeDescription {
+public class TypeVariableDescription extends TypeDescriptionSupport {
 
   private TypeVariable<?> typeVariable;
-
-  @Override
-  public Supplier<Nary<Annotation>> getAnnotations() {
-    return unnanotatedTypeDescriptor().getAnnotations();
-  }
 
   @Override
   public Predicate<TypeInstance> getAssignabilityPredicate() {

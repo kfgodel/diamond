@@ -11,7 +11,7 @@ public interface Kind {
   /**
    * Indicates if the given type belong to this kind (shares its properties)
    *
-   * @param testedType The teste type
+   * @param testedType The tested type
    * @return True if the type is of this kind
    */
   boolean contains(TypeInstance testedType);
