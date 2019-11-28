@@ -8,6 +8,7 @@ import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.diamond.impl.types.description.descriptors.FixedTypeDescriptor;
 import ar.com.kfgodel.diamond.impl.types.description.descriptors.UnannotatedTypeDescriptor;
 import ar.com.kfgodel.diamond.impl.types.description.support.TypeDescriptionSupport;
+import ar.com.kfgodel.diamond.impl.types.parts.raws.ParameterizedTypeRawClassesSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.typearguments.ParameterizedTypeArgumentsSupplier;
 import ar.com.kfgodel.nary.api.Nary;
 
@@ -56,7 +57,7 @@ public class ParameterizedTypeDescription extends TypeDescriptionSupport {
 
   @Override
   public Supplier<Nary<Class<?>>> getRawClassesSupplier() {
-    return unnanotatedTypeDescriptor().getRawClassesSupplier();
+    return ParameterizedTypeRawClassesSupplier.create(nativeType);
   }
 
   @Override

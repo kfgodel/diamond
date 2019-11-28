@@ -9,6 +9,7 @@ import ar.com.kfgodel.diamond.impl.types.description.descriptors.UnannotatedType
 import ar.com.kfgodel.diamond.impl.types.description.descriptors.VariableTypeDescriptor;
 import ar.com.kfgodel.diamond.impl.types.description.support.TypeDescriptionSupport;
 import ar.com.kfgodel.diamond.impl.types.parts.bounds.TypeVariableBoundSupplier;
+import ar.com.kfgodel.diamond.impl.types.parts.raws.TypeVariableRawClassesSupplier;
 import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.reflect.Type;
@@ -69,7 +70,7 @@ public class TypeVariableDescription extends TypeDescriptionSupport {
 
   @Override
   public Supplier<Nary<Class<?>>> getRawClassesSupplier() {
-    return unnanotatedTypeDescriptor().getRawClassesSupplier();
+    return TypeVariableRawClassesSupplier.create(typeVariable);
   }
 
   @Override

@@ -9,6 +9,7 @@ import ar.com.kfgodel.diamond.impl.types.description.descriptors.UnannotatedType
 import ar.com.kfgodel.diamond.impl.types.description.descriptors.VariableTypeDescriptor;
 import ar.com.kfgodel.diamond.impl.types.description.support.TypeDescriptionSupport;
 import ar.com.kfgodel.diamond.impl.types.parts.bounds.WildcardBoundsSupplier;
+import ar.com.kfgodel.diamond.impl.types.parts.raws.WildcardRawClassesSupplier;
 import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.reflect.WildcardType;
@@ -68,7 +69,7 @@ public class WildcardTypeDescription extends TypeDescriptionSupport {
 
   @Override
   public Supplier<Nary<Class<?>>> getRawClassesSupplier() {
-    return unnanotatedTypeDescriptor().getRawClassesSupplier();
+    return WildcardRawClassesSupplier.create(nativeType);
   }
 
   @Override

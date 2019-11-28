@@ -9,6 +9,7 @@ import ar.com.kfgodel.diamond.impl.types.description.descriptors.FixedTypeDescri
 import ar.com.kfgodel.diamond.impl.types.description.descriptors.UnannotatedTypeDescriptor;
 import ar.com.kfgodel.diamond.impl.types.description.support.TypeDescriptionSupport;
 import ar.com.kfgodel.diamond.impl.types.parts.componenttype.ArrayComponentTypeSupplier;
+import ar.com.kfgodel.diamond.impl.types.parts.raws.ClassRawClassesSupplier;
 import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.reflect.Type;
@@ -60,7 +61,7 @@ public class ClassDescription extends TypeDescriptionSupport {
 
   @Override
   public Supplier<Nary<Class<?>>> getRawClassesSupplier() {
-    return unnanotatedTypeDescriptor().getRawClassesSupplier();
+    return ClassRawClassesSupplier.create(nativeType);
   }
 
   @Override

@@ -1,6 +1,6 @@
 package ar.com.kfgodel.diamond.impl.types.description.descriptors;
 
-import ar.com.kfgodel.diamond.impl.natives.RawClassExtractor;
+import ar.com.kfgodel.diamond.impl.natives.raws.UnspecifiedRawClassExtractor;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.impl.NaryFromCollectionSupplier;
@@ -25,13 +25,13 @@ public class UnannotatedTypeDescriptor {
   }
 
   public Supplier<Nary<Class<?>>> getRawClassesSupplier() {
-    return NaryFromCollectionSupplier.from(RawClassExtractor.fromUnspecific(nativeType));
+    return NaryFromCollectionSupplier.from(UnspecifiedRawClassExtractor.fromUnspecific(nativeType));
   }
 
   public Supplier<Nary<Class<?>>> getRawClassSupplier() {
     return CachedValue.lazilyBy(() -> {
       final Set<Class<?>> behavioralClasses = getRawClassesSupplier().get().collect(Collectors.toSet());
-      final Class<?> firstRawClass = RawClassExtractor.coalesce(behavioralClasses);
+      final Class<?> firstRawClass = UnspecifiedRawClassExtractor.coalesce(behavioralClasses);
       return Nary.of(firstRawClass);
     });
   }
