@@ -5,12 +5,13 @@ import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
 import ar.com.kfgodel.diamond.api.types.names.TypeNames;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
-import ar.com.kfgodel.diamond.impl.types.description.descriptors.UnannotatedTypeDescriptor;
+import ar.com.kfgodel.diamond.impl.natives.raws.RawClassesCalculator;
 import ar.com.kfgodel.diamond.impl.types.description.descriptors.VariableTypeDescriptor;
 import ar.com.kfgodel.diamond.impl.types.description.support.TypeDescriptionSupport;
 import ar.com.kfgodel.diamond.impl.types.parts.bounds.WildcardBoundsSupplier;
-import ar.com.kfgodel.diamond.impl.types.parts.raws.WildcardRawClassesSupplier;
+import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.impl.NaryFromCollectionSupplier;
 
 import java.lang.reflect.WildcardType;
 import java.util.Set;
@@ -64,12 +65,20 @@ public class WildcardTypeDescription extends TypeDescriptionSupport {
 
   @Override
   public Supplier<Nary<Class<?>>> getRawClassSupplier() {
-    return unnanotatedTypeDescriptor().getRawClassSupplier();
+    return CachedValue.lazilyBy(() -> {
+      final Nary<Class<?>> rawClasses = getRawClassesSupplier().get();
+      final Class<?> firstRawClass = RawClassesCalculator.create().coalesce(rawClasses);
+      return Nary.of(firstRawClass);
+    });
   }
 
   @Override
   public Supplier<Nary<Class<?>>> getRawClassesSupplier() {
-    return WildcardRawClassesSupplier.create(nativeType);
+    return NaryFromCollectionSupplier.lazilyBy(()-> {
+      return RawClassesCalculator.create()
+        .from(nativeType)
+        .collect(Collectors.toSet());
+    });
   }
 
   @Override
@@ -79,10 +88,6 @@ public class WildcardTypeDescription extends TypeDescriptionSupport {
 
   protected VariableTypeDescriptor unannotatedVariableTypeDescriptor(){
     return VariableTypeDescriptor.create(getNativeType(), getBehavioralClasses(), getTypeArguments());
-  }
-
-  protected UnannotatedTypeDescriptor unnanotatedTypeDescriptor(){
-    return UnannotatedTypeDescriptor.create(getNativeType());
   }
 
   public static WildcardTypeDescription create(WildcardType nativeType) {

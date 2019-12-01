@@ -5,11 +5,11 @@ import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
 import ar.com.kfgodel.diamond.api.types.names.TypeNames;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
+import ar.com.kfgodel.diamond.impl.natives.raws.RawClassesCalculator;
 import ar.com.kfgodel.diamond.impl.types.description.descriptors.FixedTypeDescriptor;
-import ar.com.kfgodel.diamond.impl.types.description.descriptors.UnannotatedTypeDescriptor;
 import ar.com.kfgodel.diamond.impl.types.description.support.TypeDescriptionSupport;
 import ar.com.kfgodel.diamond.impl.types.parts.componenttype.ArrayComponentTypeSupplier;
-import ar.com.kfgodel.diamond.impl.types.parts.raws.ClassRawClassesSupplier;
+import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.reflect.Type;
@@ -56,12 +56,13 @@ public class ClassDescription extends TypeDescriptionSupport {
 
   @Override
   public Supplier<Nary<Class<?>>> getRawClassSupplier() {
-    return unnanotatedTypeDescriptor().getRawClassSupplier();
+    return CachedValue.lazilyBy(()-> RawClassesCalculator.create().from(nativeType));
   }
 
   @Override
   public Supplier<Nary<Class<?>>> getRawClassesSupplier() {
-    return ClassRawClassesSupplier.create(nativeType);
+    // Only 1 is available
+    return getRawClassSupplier();
   }
 
   @Override
@@ -81,10 +82,6 @@ public class ClassDescription extends TypeDescriptionSupport {
 
   protected FixedTypeDescriptor unannotatedFixedTypeDescriptor(){
     return FixedTypeDescriptor.create(getNativeType(), getRawClass(), getTypeArguments());
-  }
-
-  protected UnannotatedTypeDescriptor unnanotatedTypeDescriptor(){
-    return UnannotatedTypeDescriptor.create(getNativeType());
   }
 
   public static ClassDescription create(Class<?> nativeType) {
