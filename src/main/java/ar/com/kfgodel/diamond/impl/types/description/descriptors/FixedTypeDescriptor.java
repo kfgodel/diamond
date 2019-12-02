@@ -52,9 +52,5 @@ public class FixedTypeDescriptor {
     return TypePackageSupplier.create(rawClass);
   }
 
-  public boolean isForVariableType() {
-    return false;
-  }
-
 
 }

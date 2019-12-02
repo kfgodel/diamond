@@ -78,7 +78,7 @@ public class ClassDescription extends TypeDescriptionSupport {
 
   @Override
   public boolean isForVariableType() {
-    return unannotatedFixedTypeDescriptor().isForVariableType();
+    return false;
   }
 
   protected FixedTypeDescriptor unannotatedFixedTypeDescriptor(){

@@ -62,10 +62,6 @@ public class VariableTypeDescriptor {
     return nativeType;
   }
 
-  public boolean isForVariableType() {
-    return true;
-  }
-
   public Supplier<Nary<TypePackage>> getDeclaredPackage() {
     return Nary::empty;
   }

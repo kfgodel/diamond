@@ -83,7 +83,7 @@ public class WildcardTypeDescription extends TypeDescriptionSupport {
 
   @Override
   public boolean isForVariableType() {
-    return unannotatedVariableTypeDescriptor().isForVariableType();
+    return true;
   }
 
   protected VariableTypeDescriptor unannotatedVariableTypeDescriptor(){
