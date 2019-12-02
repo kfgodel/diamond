@@ -5,7 +5,7 @@ import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
 import ar.com.kfgodel.diamond.api.types.names.TypeNamesDescription;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.diamond.impl.natives.raws.RawClassesCalculator;
-import ar.com.kfgodel.diamond.impl.types.description.descriptors.VariableTypeDescriptor;
+import ar.com.kfgodel.diamond.impl.types.description.inheritance.VariableTypeInheritanceDescription;
 import ar.com.kfgodel.diamond.impl.types.description.names.TypeVariableNamesDescription;
 import ar.com.kfgodel.diamond.impl.types.description.support.TypeDescriptionSupport;
 import ar.com.kfgodel.diamond.impl.types.parts.bounds.TypeVariableBoundSupplier;
@@ -13,7 +13,6 @@ import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.impl.NaryFromCollectionSupplier;
 
-import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.util.Set;
 import java.util.function.Supplier;
@@ -47,16 +46,12 @@ public class TypeVariableDescription extends TypeDescriptionSupport {
 
   @Override
   public InheritanceDescription getInheritanceDescription() {
-    return unannotatedVariableTypeDescriptor().getInheritanceDescription();
+    return VariableTypeInheritanceDescription.create(getBehavioralClasses(), getTypeArguments());
   }
 
   @Override
   public TypeNamesDescription getNamesDescription() {
     return TypeVariableNamesDescription.create(nativeType);
-  }
-
-  protected Type getNativeType() {
-    return nativeType;
   }
 
   @Override
@@ -85,10 +80,6 @@ public class TypeVariableDescription extends TypeDescriptionSupport {
   @Override
   public boolean isForVariableType() {
     return true;
-  }
-
-  protected VariableTypeDescriptor unannotatedVariableTypeDescriptor(){
-    return VariableTypeDescriptor.create(getNativeType(), getBehavioralClasses(), getTypeArguments());
   }
 
   public static TypeVariableDescription create(TypeVariable<?> typeVariable) {

@@ -5,7 +5,7 @@ import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
 import ar.com.kfgodel.diamond.api.types.names.TypeNamesDescription;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.diamond.impl.natives.raws.RawClassesCalculator;
-import ar.com.kfgodel.diamond.impl.types.description.descriptors.VariableTypeDescriptor;
+import ar.com.kfgodel.diamond.impl.types.description.inheritance.VariableTypeInheritanceDescription;
 import ar.com.kfgodel.diamond.impl.types.description.names.WildCardNamesDescription;
 import ar.com.kfgodel.diamond.impl.types.description.support.TypeDescriptionSupport;
 import ar.com.kfgodel.diamond.impl.types.parts.bounds.WildcardBoundsSupplier;
@@ -46,16 +46,12 @@ public class WildcardTypeDescription extends TypeDescriptionSupport {
 
   @Override
   public InheritanceDescription getInheritanceDescription() {
-    return unannotatedVariableTypeDescriptor().getInheritanceDescription();
+    return VariableTypeInheritanceDescription.create(getBehavioralClasses(), getTypeArguments());
   }
 
   @Override
   public TypeNamesDescription getNamesDescription() {
     return WildCardNamesDescription.create(nativeType);
-  }
-
-  public WildcardType getNativeType() {
-    return nativeType;
   }
 
   @Override
@@ -84,10 +80,6 @@ public class WildcardTypeDescription extends TypeDescriptionSupport {
   @Override
   public boolean isForVariableType() {
     return true;
-  }
-
-  protected VariableTypeDescriptor unannotatedVariableTypeDescriptor(){
-    return VariableTypeDescriptor.create(getNativeType(), getBehavioralClasses(), getTypeArguments());
   }
 
   public static WildcardTypeDescription create(WildcardType nativeType) {
