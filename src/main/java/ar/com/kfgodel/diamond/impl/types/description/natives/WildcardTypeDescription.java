@@ -1,12 +1,12 @@
 package ar.com.kfgodel.diamond.impl.types.description.natives;
 
-import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
-import ar.com.kfgodel.diamond.api.types.names.TypeNames;
+import ar.com.kfgodel.diamond.api.types.names.TypeNamesDescription;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.diamond.impl.natives.raws.RawClassesCalculator;
 import ar.com.kfgodel.diamond.impl.types.description.descriptors.VariableTypeDescriptor;
+import ar.com.kfgodel.diamond.impl.types.description.names.WildCardNamesDescription;
 import ar.com.kfgodel.diamond.impl.types.description.support.TypeDescriptionSupport;
 import ar.com.kfgodel.diamond.impl.types.parts.bounds.WildcardBoundsSupplier;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
@@ -50,8 +50,8 @@ public class WildcardTypeDescription extends TypeDescriptionSupport {
   }
 
   @Override
-  public Supplier<TypeNames> getNamesSupplier(TypeInstance type) {
-    return unannotatedVariableTypeDescriptor().getNamesSupplier(type);
+  public TypeNamesDescription getNamesDescription() {
+    return WildCardNamesDescription.create(nativeType);
   }
 
   public WildcardType getNativeType() {

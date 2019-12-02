@@ -6,7 +6,7 @@ import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
 import ar.com.kfgodel.diamond.api.types.kinds.Kind;
-import ar.com.kfgodel.diamond.api.types.names.TypeNames;
+import ar.com.kfgodel.diamond.api.types.names.TypeNamesDescription;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.nary.api.Nary;
 
@@ -22,13 +22,10 @@ import java.util.function.Supplier;
 public interface TypeDescription {
 
   /**
-   * Creates the name supplier for the created type instance.<br>
-   *   As the complete name may require information from the type itself, the type instance
-   *   is passed but it's not yet initialized (no method should be called on it)
-   * @param type The type whose names are going to be described
-   * @return The supplier of the type names
+   * Creates a decription of the different names the type has.
+   * @return The instance that describes all the names that can be calculated before the type exists
    */
-  Supplier<TypeNames> getNamesSupplier(TypeInstance type);
+  TypeNamesDescription getNamesDescription();
 
   /**
    * @return The supplier of annotations of the described type

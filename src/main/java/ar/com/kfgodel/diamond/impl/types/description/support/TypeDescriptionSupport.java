@@ -10,10 +10,11 @@ import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
 import ar.com.kfgodel.diamond.api.types.kinds.Kind;
 import ar.com.kfgodel.diamond.api.types.kinds.Kinds;
-import ar.com.kfgodel.diamond.api.types.names.TypeNames;
+import ar.com.kfgodel.diamond.api.types.names.TypeNamesDescription;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.diamond.impl.equals.CachedTokenCalculator;
 import ar.com.kfgodel.diamond.impl.types.description.inheritance.NoInheritanceDescription;
+import ar.com.kfgodel.diamond.impl.types.description.names.UnnamedTypeDescription;
 import ar.com.kfgodel.diamond.impl.types.equality.TypeEquality;
 import ar.com.kfgodel.diamond.impl.types.parts.annotations.NoAnnotationsSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.behavior.NoRawClassSupplier;
@@ -23,7 +24,6 @@ import ar.com.kfgodel.diamond.impl.types.parts.componenttype.NoComponentTypeSupp
 import ar.com.kfgodel.diamond.impl.types.parts.constructors.NonInstantiableConstructorSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.fields.ClassFieldSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.methods.ClassMethodSupplier;
-import ar.com.kfgodel.diamond.impl.types.parts.names.NoNamesSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.packages.NoPackageSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.typearguments.NoTypeArgumentsSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.typeparameters.NoTypeParametersSupplier;
@@ -43,6 +43,11 @@ import java.util.stream.Collectors;
  * Date: 24/11/19 - 02:47
  */
 public abstract class TypeDescriptionSupport implements TypeDescription {
+
+  @Override
+  public TypeNamesDescription getNamesDescription() {
+    return UnnamedTypeDescription.create("<unknown>");
+  }
 
   public Supplier<Nary<Annotation>> getAnnotations() {
     return NoAnnotationsSupplier.INSTANCE;
@@ -78,11 +83,6 @@ public abstract class TypeDescriptionSupport implements TypeDescription {
 
   public Supplier<Nary<TypeConstructor>> getTypeConstructors() {
     return NonInstantiableConstructorSupplier.INSTANCE;
-  }
-
-  @Override
-  public Supplier<TypeNames> getNamesSupplier(TypeInstance type) {
-    return NoNamesSupplier.create(type);
   }
 
   @Override
