@@ -51,7 +51,7 @@ public class ClassDescription extends TypeDescriptionSupport {
    * @return The class that represents this type without any annotations or generics
    */
   protected Class<?> getRawClass() {
-    return getRawClassSupplier().get().get();
+    return nativeType;
   }
 
   @Override
