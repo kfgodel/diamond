@@ -17,6 +17,7 @@ public class TypeNarySupplierFromNativeTypeArray {
 
   public static Supplier<Nary<TypeInstance>> apply(Supplier<Object[]> nativeTypesSupplier) {
     return NaryFromCollectionSupplier.lazilyBy(() ->
-      TypeInstanceListFromNativeTypeArrayFragment.apply(nativeTypesSupplier.get()));
+      TypeInstanceListFromNativeTypeArrayFragment.apply(nativeTypesSupplier.get())
+    );
   }
 }

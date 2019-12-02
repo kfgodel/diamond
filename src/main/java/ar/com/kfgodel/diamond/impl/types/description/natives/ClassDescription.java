@@ -7,10 +7,12 @@ import ar.com.kfgodel.diamond.api.types.names.TypeNamesDescription;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.diamond.impl.natives.raws.RawClassesCalculator;
 import ar.com.kfgodel.diamond.impl.types.description.descriptors.FixedTypeDescriptor;
+import ar.com.kfgodel.diamond.impl.types.description.inheritance.FixedTypeInheritanceDescription;
 import ar.com.kfgodel.diamond.impl.types.description.names.ClassTypeNameDescription;
 import ar.com.kfgodel.diamond.impl.types.description.support.TypeDescriptionSupport;
 import ar.com.kfgodel.diamond.impl.types.parts.componenttype.ArrayComponentTypeSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.packages.TypePackageSupplier;
+import ar.com.kfgodel.diamond.impl.types.parts.typeparameters.GenericTypeParametersSupplier;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.nary.api.Nary;
 
@@ -32,7 +34,7 @@ public class ClassDescription extends TypeDescriptionSupport {
 
   @Override
   public InheritanceDescription getInheritanceDescription() {
-    return unannotatedFixedTypeDescriptor().getInheritanceDescription();
+    return FixedTypeInheritanceDescription.create(getRawClass(), getTypeArguments());
   }
 
   @Override
@@ -74,7 +76,7 @@ public class ClassDescription extends TypeDescriptionSupport {
 
   @Override
   public Supplier<Nary<TypeInstance>> getTypeParametersSupplier() {
-    return unannotatedFixedTypeDescriptor().getTypeParametersSupplier();
+    return GenericTypeParametersSupplier.create(getRawClass());
   }
 
   @Override
