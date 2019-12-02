@@ -3,12 +3,8 @@ package ar.com.kfgodel.diamond.impl.types.description.descriptors;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
-import ar.com.kfgodel.diamond.api.types.names.TypeNames;
-import ar.com.kfgodel.diamond.api.types.names.TypeNamesDescription;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.diamond.impl.types.description.inheritance.FixedTypeInheritanceDescription;
-import ar.com.kfgodel.diamond.impl.types.description.names.ClassTypeNameDescription;
-import ar.com.kfgodel.diamond.impl.types.names.TypeInstanceNames;
 import ar.com.kfgodel.diamond.impl.types.parts.constructors.ArraysConstructorSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.constructors.ClassConstructorsSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.packages.TypePackageSupplier;
@@ -34,14 +30,6 @@ public class FixedTypeDescriptor {
     descriptor.rawClass = rawClass;
     descriptor.typeArguments = typeArguments;
     return descriptor;
-  }
-
-  public Supplier<TypeNames> getNamesSupplier(TypeInstance type) {
-    return ()-> TypeInstanceNames.create(type, describeNames());
-  }
-
-  private TypeNamesDescription describeNames() {
-    return ClassTypeNameDescription.create(rawClass, nativeType.getTypeName());
   }
 
   public InheritanceDescription getInheritanceDescription() {
