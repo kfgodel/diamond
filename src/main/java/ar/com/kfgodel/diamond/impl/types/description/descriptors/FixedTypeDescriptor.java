@@ -3,11 +3,9 @@ package ar.com.kfgodel.diamond.impl.types.description.descriptors;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
-import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.diamond.impl.types.description.inheritance.FixedTypeInheritanceDescription;
 import ar.com.kfgodel.diamond.impl.types.parts.constructors.ArraysConstructorSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.constructors.ClassConstructorsSupplier;
-import ar.com.kfgodel.diamond.impl.types.parts.packages.TypePackageSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.typeparameters.GenericTypeParametersSupplier;
 import ar.com.kfgodel.nary.api.Nary;
 
@@ -46,10 +44,6 @@ public class FixedTypeDescriptor {
       return ArraysConstructorSupplier.create(rawClass);
     }
     return ClassConstructorsSupplier.create(rawClass);
-  }
-
-  public Supplier<Nary<TypePackage>> getDeclaredPackage() {
-    return TypePackageSupplier.create(rawClass);
   }
 
 

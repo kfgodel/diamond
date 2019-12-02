@@ -42,7 +42,7 @@ public class TypeVariableDescription extends TypeDescriptionSupport {
 
   @Override
   public Supplier<Nary<TypePackage>> getDeclaredPackage() {
-    return unannotatedVariableTypeDescriptor().getDeclaredPackage();
+    return Nary::empty;
   }
 
   @Override
