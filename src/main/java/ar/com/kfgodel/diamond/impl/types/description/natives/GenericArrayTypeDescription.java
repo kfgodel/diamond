@@ -29,7 +29,7 @@ public class GenericArrayTypeDescription extends TypeDescriptionSupport {
 
   @Override
   public Supplier<Nary<TypePackage>> getDeclaredPackage() {
-    return TypePackageSupplier.create(getRawClass());
+    return CachedValue.lazilyBy(()-> TypePackageSupplier.from(getRawClass()));
   }
 
   @Override
