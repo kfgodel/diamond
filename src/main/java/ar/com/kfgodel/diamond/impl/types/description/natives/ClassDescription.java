@@ -6,17 +6,16 @@ import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
 import ar.com.kfgodel.diamond.api.types.names.TypeNamesDescription;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.diamond.impl.natives.raws.RawClassesCalculator;
-import ar.com.kfgodel.diamond.impl.types.description.descriptors.FixedTypeDescriptor;
 import ar.com.kfgodel.diamond.impl.types.description.inheritance.FixedTypeInheritanceDescription;
 import ar.com.kfgodel.diamond.impl.types.description.names.ClassTypeNameDescription;
 import ar.com.kfgodel.diamond.impl.types.description.support.TypeDescriptionSupport;
 import ar.com.kfgodel.diamond.impl.types.parts.componenttype.ArrayComponentTypeSupplier;
+import ar.com.kfgodel.diamond.impl.types.parts.constructors.ClassConstructorsSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.packages.TypePackageSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.typeparameters.GenericTypeParametersSupplier;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.nary.api.Nary;
 
-import java.lang.reflect.Type;
 import java.util.function.Supplier;
 
 /**
@@ -40,10 +39,6 @@ public class ClassDescription extends TypeDescriptionSupport {
   @Override
   public TypeNamesDescription getNamesDescription() {
     return ClassTypeNameDescription.create(getRawClass(), nativeType.getTypeName());
-  }
-
-  protected Type getNativeType() {
-    return nativeType;
   }
 
   @Override
@@ -71,7 +66,7 @@ public class ClassDescription extends TypeDescriptionSupport {
 
   @Override
   public Supplier<Nary<TypeConstructor>> getTypeConstructors() {
-    return unannotatedFixedTypeDescriptor().getTypeConstructors();
+    return ClassConstructorsSupplier.selectFor(getRawClass());
   }
 
   @Override
@@ -82,10 +77,6 @@ public class ClassDescription extends TypeDescriptionSupport {
   @Override
   public boolean isForVariableType() {
     return false;
-  }
-
-  protected FixedTypeDescriptor unannotatedFixedTypeDescriptor(){
-    return FixedTypeDescriptor.create(getNativeType(), getRawClass(), getTypeArguments());
   }
 
   public static ClassDescription create(Class<?> nativeType) {

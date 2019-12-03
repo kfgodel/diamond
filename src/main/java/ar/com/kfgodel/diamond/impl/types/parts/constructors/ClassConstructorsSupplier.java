@@ -25,4 +25,11 @@ public class ClassConstructorsSupplier {
     });
   }
 
+  public static Supplier<Nary<TypeConstructor>> selectFor(Class<?> rawClass) {
+    if (rawClass.isArray()) {
+      // Artificial constructor for arrays: https://github.com/kfgodel/diamond/issues/88
+      return ArraysConstructorSupplier.create(rawClass);
+    }
+    return ClassConstructorsSupplier.create(rawClass);
+  }
 }
