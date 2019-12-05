@@ -14,6 +14,7 @@ import org.junit.runner.RunWith;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedType;
+import java.lang.reflect.ParameterizedType;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -102,13 +103,23 @@ public class ParameterizedTypeTest extends JavaSpec<DiamondTestContext> {
         assertThat(parameterizedMap.inheritance().isSubTypeOf(Diamond.of(Map.class))).isTrue();
       });
 
+      it("can be accessed from its type instance", () -> {
+        final Object reflectionType = context().typeInstance().reflectionType().get();
+        assertThat(reflectionType).isInstanceOf(AnnotatedType.class);
+        assertThat(((AnnotatedType)reflectionType).getType()).isInstanceOf(ParameterizedType.class);
+
+      });
     });
   }
 
   private static TypeInstance createParameterizedType() {
-    AnnotatedType annotatedType = new ReferenceOf<@TestAnnotation1 ParentClass<@TestAnnotation2 String, @TestAnnotation3 Integer>>() {
-    }.getReferencedAnnotatedType();
+    AnnotatedType annotatedType = getAnnotatedType();
     TypeInstance typeInstance = Diamond.types().from(annotatedType);
     return typeInstance;
+  }
+
+  private static AnnotatedType getAnnotatedType() {
+    return new ReferenceOf<@TestAnnotation1 ParentClass<@TestAnnotation2 String, @TestAnnotation3 Integer>>() {
+      }.getReferencedAnnotatedType();
   }
 }

@@ -88,4 +88,9 @@ public class TypeVariableDescription extends TypeDescriptionSupport {
     return description;
   }
 
+  @Override
+  public Supplier<Nary<Object>> getReflectionTypeSupplier() {
+    return CachedValue.lazilyBy(()-> Nary.of(this.nativeType));
+  }
+
 }

@@ -12,6 +12,7 @@ import org.junit.runner.RunWith;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedType;
+import java.lang.reflect.GenericArrayType;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -66,13 +67,24 @@ public class GenericArrayTypeTest extends JavaSpec<DiamondTestContext> {
         assertThat(annotationTypes)
           .isEqualTo(Arrays.asList(TestAnnotation2.class));
       });
+
+      it("can be accessed from its type instance", () -> {
+        final Object reflectionType = context().typeInstance().reflectionType().get();
+        assertThat(reflectionType).isInstanceOf(AnnotatedType.class);
+        assertThat(((AnnotatedType)reflectionType).getType()).isInstanceOf(GenericArrayType.class);
+      });
+
     });
   }
 
   private static TypeInstance createGenericArrayType() {
-    AnnotatedType annotatedType = new ReferenceOf<@TestAnnotation2 List<Integer> @TestAnnotation1 []>() {
-    }.getReferencedAnnotatedType();
+    AnnotatedType annotatedType = getAnnotatedType();
     TypeInstance typeInstance = Diamond.types().from(annotatedType);
     return typeInstance;
+  }
+
+  private static AnnotatedType getAnnotatedType() {
+    return new ReferenceOf<@TestAnnotation2 List<Integer> @TestAnnotation1 []>() {
+      }.getReferencedAnnotatedType();
   }
 }

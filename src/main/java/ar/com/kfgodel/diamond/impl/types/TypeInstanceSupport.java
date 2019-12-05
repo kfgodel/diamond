@@ -76,6 +76,8 @@ public abstract class TypeInstanceSupport implements TypeInstance {
 
   private TypeGenerics generics;
 
+  private Supplier<Nary<Object>> reflectionTypeSupplier;
+
   /**
    * Use this to override default creation with no annotations
    *
@@ -241,6 +243,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     this.setAnnotations(description.getAnnotations());
     this.setMethods(description.getTypeMethods());
     this.setFields(description.getTypeFields());
+    this.reflectionTypeSupplier = description.getReflectionTypeSupplier();
     this.rawClasses = description.getRawClassesSupplier();
     this.typePackage = description.getDeclaredPackage();
     this.inheritance = SuppliedTypesInheritance.create(this, description.getInheritanceDescription());
@@ -252,4 +255,9 @@ public abstract class TypeInstanceSupport implements TypeInstance {
   }
 
   protected abstract TypeGenerics createGenericsInfoFrom(TypeDescription description);
+
+  @Override
+  public Nary<Object> reflectionType() {
+    return reflectionTypeSupplier.get();
+  }
 }

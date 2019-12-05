@@ -15,6 +15,7 @@ import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedParameterizedType;
 import java.lang.reflect.AnnotatedType;
+import java.lang.reflect.WildcardType;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -81,6 +82,12 @@ public class WildcardTypeTest extends JavaSpec<DiamondTestContext> {
           .collect(Collectors.toList());
         assertThat(upperBoundAnnotations)
           .isEqualTo(Arrays.asList(TestAnnotation3.class));
+      });
+
+      it("can be accessed from its type instance", () -> {
+        final Object reflectionType = context().typeInstance().reflectionType().get();
+        assertThat(reflectionType).isInstanceOf(AnnotatedType.class);
+        assertThat(((AnnotatedType)reflectionType).getType()).isInstanceOf(WildcardType.class);
       });
     });
   }

@@ -37,6 +37,10 @@ public interface TypeDescription {
    */
   InheritanceDescription getInheritanceDescription();
 
+  /**
+   * @return The lambda to get the reflection type for this description if it has one
+   */
+  Supplier<Nary<Object>> getReflectionTypeSupplier();
 
   /**
    * @return The supplier of type arguments

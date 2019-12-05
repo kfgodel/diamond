@@ -17,6 +17,7 @@ import ar.com.kfgodel.diamond.api.types.names.TypeNames;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.nary.api.Nary;
 
+import java.lang.reflect.Type;
 import java.util.function.Supplier;
 
 /**
@@ -151,5 +152,17 @@ public interface TypeInstance extends Named, Annotated, Supplier<Object>, Declar
    * More than one can be present if this is an upper bounded type
    */
   Nary<Class<?>> nativeTypes();
+
+  /**
+   * This method returns the reflection object used to represent this type natively.<br>
+   * Reflection uses {@link Type} or {@link java.lang.reflect.AnnotatedType} to represent types,
+   * but they have no relationship. For that reason, {@link Object} is used on this method and must
+   * be casted down to get the actual sub-type. Most of the times they are sub-types of {@link Type}.<br>
+   * <br>
+   * If this type has no native reflection representation then empty is returned
+   *
+   * @return The type instance used by reflection to represent this type natively
+   */
+  Nary<Object> reflectionType();
 
 }

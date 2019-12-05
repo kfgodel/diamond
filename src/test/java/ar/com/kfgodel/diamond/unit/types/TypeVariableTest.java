@@ -13,6 +13,7 @@ import org.junit.runner.RunWith;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedType;
+import java.lang.reflect.TypeVariable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -76,6 +77,11 @@ public class TypeVariableTest extends JavaSpec<DiamondTestContext> {
           .isEqualTo(Arrays.asList(TestAnnotation2.class));
       });
 
+      it("can be accessed from its type instance", () -> {
+        final Object reflectionType = context().typeInstance().reflectionType().get();
+        assertThat(reflectionType).isInstanceOf(AnnotatedType.class);
+        assertThat(((AnnotatedType)reflectionType).getType()).isInstanceOf(TypeVariable.class);
+      });
     });
   }
 
@@ -86,10 +92,14 @@ public class TypeVariableTest extends JavaSpec<DiamondTestContext> {
    * If this method were non-static the annotation TestAnnotation1 is not preserved for reflection
    */
   public static <T extends @TestAnnotation2 Number & Comparable> TypeInstance createTypeVariable() {
-    AnnotatedType referencedTypeVariable = new ReferenceOf<@TestAnnotation1 T>() {
-    }.getReferencedAnnotatedType();
+    AnnotatedType referencedTypeVariable = getAnnotatedType();
     TypeInstance typeInstance = Diamond.types().from(referencedTypeVariable);
     return typeInstance;
+  }
+
+  private static <T extends @TestAnnotation2 Number & Comparable> AnnotatedType getAnnotatedType() {
+    return new ReferenceOf<@TestAnnotation1 T>() {
+      }.getReferencedAnnotatedType();
   }
 
 }

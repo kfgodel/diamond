@@ -49,6 +49,11 @@ public abstract class TypeDescriptionSupport implements TypeDescription {
   }
 
   @Override
+  public Supplier<Nary<Object>> getReflectionTypeSupplier() {
+    return Nary::empty; //By default there's no reflected object for this type
+  }
+
+  @Override
   public Predicate<TypeInstance> getAssignabilityPredicate() {
     // We check if any of our native types is assignable from any of the other native types
     // Note: this seems flawed as there could be a type in the other that is not assignable to to this
