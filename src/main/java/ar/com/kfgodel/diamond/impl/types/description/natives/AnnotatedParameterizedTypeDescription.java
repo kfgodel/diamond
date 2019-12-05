@@ -20,13 +20,13 @@ public class AnnotatedParameterizedTypeDescription extends AnnotatedTypeDescript
   private AnnotatedParameterizedType nativeType;
 
   @Override
-  protected AnnotatedType getAnnotatedType() {
-    return nativeType;
+  protected TypeDescription createUnannotatedDescription() {
+    return ParameterizedTypeDescription.create((ParameterizedType) nativeType.getType());
   }
 
   @Override
-  protected TypeDescription createUnannotatedDescription() {
-    return ParameterizedTypeDescription.create((ParameterizedType) nativeType.getType());
+  protected AnnotatedType getAnnotatedType() {
+    return nativeType;
   }
 
   @Override

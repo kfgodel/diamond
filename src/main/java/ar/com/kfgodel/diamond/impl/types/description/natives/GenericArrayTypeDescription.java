@@ -28,6 +28,11 @@ public class GenericArrayTypeDescription extends TypeDescriptionSupport {
   private GenericArrayType nativeType;
 
   @Override
+  public Supplier<Nary<TypeInstance>> getComponentType() {
+    return ArrayComponentTypeSupplier.create(nativeType);
+  }
+
+  @Override
   public Supplier<Nary<TypePackage>> getDeclaredPackage() {
     return CachedValue.lazilyBy(()-> TypePackageSupplier.from(getRawClass()));
   }
@@ -40,11 +45,6 @@ public class GenericArrayTypeDescription extends TypeDescriptionSupport {
   @Override
   public TypeNamesDescription getNamesDescription() {
     return ClassTypeNameDescription.create(getRawClass(), nativeType.getTypeName());
-  }
-
-  @Override
-  public Supplier<Nary<TypeInstance>> getComponentType() {
-    return ArrayComponentTypeSupplier.create(nativeType);
   }
 
   /**

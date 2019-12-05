@@ -21,11 +21,6 @@ public class AnnotatedArrayTypeDescription extends AnnotatedTypeDescriptionSuppo
   private AnnotatedArrayType nativeType;
 
   @Override
-  protected AnnotatedType getAnnotatedType() {
-    return nativeType;
-  }
-
-  @Override
   protected TypeDescription createUnannotatedDescription() {
     Type type = nativeType.getType();
     if (type instanceof Class) {
@@ -34,6 +29,11 @@ public class AnnotatedArrayTypeDescription extends AnnotatedTypeDescriptionSuppo
     }
     // Generic array
     return GenericArrayTypeDescription.create((GenericArrayType) type);
+  }
+
+  @Override
+  protected AnnotatedType getAnnotatedType() {
+    return nativeType;
   }
 
   @Override

@@ -40,6 +40,11 @@ public class WildcardTypeDescription extends TypeDescriptionSupport {
   }
 
   @Override
+  public Supplier<TypeBounds> getBounds() {
+    return WildcardBoundsSupplier.create(nativeType);
+  }
+
+  @Override
   public Supplier<Nary<TypePackage>> getDeclaredPackage() {
     return Nary::empty;
   }
@@ -52,11 +57,6 @@ public class WildcardTypeDescription extends TypeDescriptionSupport {
   @Override
   public TypeNamesDescription getNamesDescription() {
     return WildCardNamesDescription.create(nativeType);
-  }
-
-  @Override
-  public Supplier<TypeBounds> getBounds() {
-    return WildcardBoundsSupplier.create(nativeType);
   }
 
   @Override

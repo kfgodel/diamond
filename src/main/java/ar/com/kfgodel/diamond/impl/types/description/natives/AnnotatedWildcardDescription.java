@@ -19,13 +19,13 @@ public class AnnotatedWildcardDescription extends AnnotatedTypeDescriptionSuppor
   private AnnotatedWildcardType nativeType;
 
   @Override
-  protected AnnotatedType getAnnotatedType() {
-    return nativeType;
+  protected TypeDescription createUnannotatedDescription() {
+    return WildcardTypeDescription.create((WildcardType) nativeType.getType());
   }
 
   @Override
-  protected TypeDescription createUnannotatedDescription() {
-    return WildcardTypeDescription.create((WildcardType) nativeType.getType());
+  protected AnnotatedType getAnnotatedType() {
+    return nativeType;
   }
 
   @Override

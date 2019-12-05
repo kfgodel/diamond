@@ -40,6 +40,11 @@ public class TypeVariableDescription extends TypeDescriptionSupport {
   }
 
   @Override
+  public Supplier<TypeBounds> getBounds() {
+    return TypeVariableBoundSupplier.create(nativeType);
+  }
+
+  @Override
   public Supplier<Nary<TypePackage>> getDeclaredPackage() {
     return Nary::empty;
   }
@@ -52,11 +57,6 @@ public class TypeVariableDescription extends TypeDescriptionSupport {
   @Override
   public TypeNamesDescription getNamesDescription() {
     return TypeVariableNamesDescription.create(nativeType);
-  }
-
-  @Override
-  public Supplier<TypeBounds> getBounds() {
-    return TypeVariableBoundSupplier.create(nativeType);
   }
 
   @Override

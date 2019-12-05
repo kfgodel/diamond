@@ -14,13 +14,13 @@ public class AnnotatedClassDescription extends AnnotatedTypeDescriptionSupport {
   private AnnotatedType nativeType;
 
   @Override
-  protected AnnotatedType getAnnotatedType() {
-    return nativeType;
+  protected TypeDescription createUnannotatedDescription() {
+    return ClassDescription.create((Class<?>) nativeType.getType());
   }
 
   @Override
-  protected TypeDescription createUnannotatedDescription() {
-    return ClassDescription.create((Class<?>) nativeType.getType());
+  protected AnnotatedType getAnnotatedType() {
+    return nativeType;
   }
 
   public static AnnotatedClassDescription create(AnnotatedType nativeType) {

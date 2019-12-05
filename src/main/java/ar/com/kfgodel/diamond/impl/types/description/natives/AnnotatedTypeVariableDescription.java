@@ -19,13 +19,13 @@ public class AnnotatedTypeVariableDescription extends AnnotatedTypeDescriptionSu
   private AnnotatedTypeVariable nativeType;
 
   @Override
-  protected AnnotatedType getAnnotatedType() {
-    return nativeType;
+  protected TypeDescription createUnannotatedDescription() {
+    return TypeVariableDescription.create((TypeVariable) nativeType.getType());
   }
 
   @Override
-  protected TypeDescription createUnannotatedDescription() {
-    return TypeVariableDescription.create((TypeVariable) nativeType.getType());
+  protected AnnotatedType getAnnotatedType() {
+    return nativeType;
   }
 
   @Override

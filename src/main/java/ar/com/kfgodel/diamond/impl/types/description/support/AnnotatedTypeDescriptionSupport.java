@@ -16,6 +16,15 @@ public abstract class AnnotatedTypeDescriptionSupport extends DelegatedDescripti
 
   private TypeDescription unannotatedDescription;
 
+  protected abstract TypeDescription createUnannotatedDescription();
+
+  protected abstract AnnotatedType getAnnotatedType();
+
+  @Override
+  public Supplier<Nary<Annotation>> getAnnotations() {
+    return AnnotatedElementAnnotationsSupplier.create(getAnnotatedType());
+  }
+
   @Override
   protected TypeDescription getDelegateDescription() {
     if (unannotatedDescription == null) {
@@ -23,14 +32,5 @@ public abstract class AnnotatedTypeDescriptionSupport extends DelegatedDescripti
     }
     return unannotatedDescription;
   }
-
-  @Override
-  public Supplier<Nary<Annotation>> getAnnotations() {
-    return AnnotatedElementAnnotationsSupplier.create(getAnnotatedType());
-  }
-
-  protected abstract AnnotatedType getAnnotatedType();
-
-  protected abstract TypeDescription createUnannotatedDescription();
 
 }

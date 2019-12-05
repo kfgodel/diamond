@@ -24,33 +24,13 @@ import java.util.function.Supplier;
 public abstract class DelegatedDescriptionSupport implements TypeDescription {
 
   @Override
-  public TypeNamesDescription getNamesDescription() {
-    return getDelegateDescription().getNamesDescription();
-  }
-
-  @Override
   public Supplier<Nary<Annotation>> getAnnotations() {
     return getDelegateDescription().getAnnotations();
   }
 
   @Override
-  public InheritanceDescription getInheritanceDescription() {
-    return getDelegateDescription().getInheritanceDescription();
-  }
-
-  @Override
-  public Supplier<Nary<TypeInstance>> getTypeArguments() {
-    return getDelegateDescription().getTypeArguments();
-  }
-
-  @Override
-  public Supplier<Nary<TypeInstance>> getTypeParametersSupplier() {
-    return getDelegateDescription().getTypeParametersSupplier();
-  }
-
-  @Override
-  public Supplier<Nary<TypeInstance>> getComponentType() {
-    return getDelegateDescription().getComponentType();
+  public Predicate<TypeInstance> getAssignabilityPredicate() {
+    return getDelegateDescription().getAssignabilityPredicate();
   }
 
   @Override
@@ -59,23 +39,8 @@ public abstract class DelegatedDescriptionSupport implements TypeDescription {
   }
 
   @Override
-  public boolean isForVariableType() {
-    return getDelegateDescription().isForVariableType();
-  }
-
-  @Override
-  public Supplier<Nary<TypeMethod>> getTypeMethods() {
-    return getDelegateDescription().getTypeMethods();
-  }
-
-  @Override
-  public Supplier<Nary<TypeField>> getTypeFields() {
-    return getDelegateDescription().getTypeFields();
-  }
-
-  @Override
-  public Supplier<Nary<TypeConstructor>> getTypeConstructors() {
-    return getDelegateDescription().getTypeConstructors();
+  public Supplier<Nary<TypeInstance>> getComponentType() {
+    return getDelegateDescription().getComponentType();
   }
 
   @Override
@@ -86,13 +51,13 @@ public abstract class DelegatedDescriptionSupport implements TypeDescription {
   protected abstract TypeDescription getDelegateDescription();
 
   @Override
-  public Supplier<Nary<Class<?>>> getRawClassesSupplier() {
-    return getDelegateDescription().getRawClassesSupplier();
+  public Function<TypeInstance, Object> getIdentityToken() {
+    return getDelegateDescription().getIdentityToken();
   }
 
   @Override
-  public Function<TypeInstance, Object> getIdentityToken() {
-    return getDelegateDescription().getIdentityToken();
+  public InheritanceDescription getInheritanceDescription() {
+    return getDelegateDescription().getInheritanceDescription();
   }
 
   @Override
@@ -101,13 +66,18 @@ public abstract class DelegatedDescriptionSupport implements TypeDescription {
   }
 
   @Override
-  public Predicate<Object> getTypeForPredicate() {
-    return getDelegateDescription().getTypeForPredicate();
+  public TypeNamesDescription getNamesDescription() {
+    return getDelegateDescription().getNamesDescription();
   }
 
   @Override
-  public Predicate<TypeInstance> getAssignabilityPredicate() {
-    return getDelegateDescription().getAssignabilityPredicate();
+  public Supplier<Nary<Class<?>>> getRawClassSupplier() {
+    return getDelegateDescription().getRawClassSupplier();
+  }
+
+  @Override
+  public Supplier<Nary<Class<?>>> getRawClassesSupplier() {
+    return getDelegateDescription().getRawClassesSupplier();
   }
 
   @Override
@@ -116,7 +86,37 @@ public abstract class DelegatedDescriptionSupport implements TypeDescription {
   }
 
   @Override
-  public Supplier<Nary<Class<?>>> getRawClassSupplier() {
-    return getDelegateDescription().getRawClassSupplier();
+  public Supplier<Nary<TypeInstance>> getTypeArguments() {
+    return getDelegateDescription().getTypeArguments();
+  }
+
+  @Override
+  public Supplier<Nary<TypeConstructor>> getTypeConstructors() {
+    return getDelegateDescription().getTypeConstructors();
+  }
+
+  @Override
+  public Supplier<Nary<TypeField>> getTypeFields() {
+    return getDelegateDescription().getTypeFields();
+  }
+
+  @Override
+  public Predicate<Object> getTypeForPredicate() {
+    return getDelegateDescription().getTypeForPredicate();
+  }
+
+  @Override
+  public Supplier<Nary<TypeMethod>> getTypeMethods() {
+    return getDelegateDescription().getTypeMethods();
+  }
+
+  @Override
+  public Supplier<Nary<TypeInstance>> getTypeParametersSupplier() {
+    return getDelegateDescription().getTypeParametersSupplier();
+  }
+
+  @Override
+  public boolean isForVariableType() {
+    return getDelegateDescription().isForVariableType();
   }
 }

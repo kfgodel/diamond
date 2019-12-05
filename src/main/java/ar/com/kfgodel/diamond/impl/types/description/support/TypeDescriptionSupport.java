@@ -44,85 +44,8 @@ import java.util.stream.Collectors;
  */
 public abstract class TypeDescriptionSupport implements TypeDescription {
 
-  @Override
-  public TypeNamesDescription getNamesDescription() {
-    return UnnamedTypeDescription.create("<unknown>");
-  }
-
   public Supplier<Nary<Annotation>> getAnnotations() {
     return NoAnnotationsSupplier.INSTANCE;
-  }
-
-  public InheritanceDescription getInheritanceDescription() {
-    return NoInheritanceDescription.INSTANCE;
-  }
-
-  public Supplier<Nary<TypeInstance>> getTypeArguments() {
-    return NoTypeArgumentsSupplier.INSTANCE;
-  }
-
-  public Supplier<Nary<TypeInstance>> getTypeParametersSupplier() {
-    return NoTypeParametersSupplier.INSTANCE;
-  }
-
-  public Supplier<Nary<TypeInstance>> getComponentType() {
-    return NoComponentTypeSupplier.INSTANCE;
-  }
-
-  public Supplier<TypeBounds> getBounds() {
-    return NoBoundsSupplier.INSTANCE;
-  }
-
-  public Supplier<Nary<TypeMethod>> getTypeMethods() {
-    return ClassMethodSupplier.create(getRawClassesSupplier());
-  }
-
-  public Supplier<Nary<TypeField>> getTypeFields() {
-    return ClassFieldSupplier.create(getRawClassesSupplier());
-  }
-
-  public Supplier<Nary<TypeConstructor>> getTypeConstructors() {
-    return NonInstantiableConstructorSupplier.INSTANCE;
-  }
-
-  @Override
-  public boolean isForVariableType() {
-    return true;
-  }
-
-  @Override
-  public Supplier<Nary<TypePackage>> getDeclaredPackage() {
-    return NoPackageSupplier.INSTANCE;
-  }
-
-  @Override
-  public Supplier<Nary<Class<?>>> getRawClassesSupplier() {
-    return NoRawClassesSupplier.INSTANCE;
-  }
-
-  @Override
-  public Supplier<Nary<Class<?>>> getRawClassSupplier() {
-    return NoRawClassSupplier.INSTANCE;
-  }
-
-  @Override
-  public Function<TypeInstance, Object> getIdentityToken() {
-    return CachedTokenCalculator.create(TypeEquality.INSTANCE::calculateTokenFor);
-  }
-
-  @Override
-  public Supplier<Nary<Kind>> getKindsFor(TypeInstance type) {
-    return NaryFromCollectionSupplier.lazilyBy(() -> Arrays.stream(Kinds.values())
-      .filter((kind) -> kind.contains(type))
-      .collect(Collectors.toList()));
-  }
-
-  @Override
-  public Predicate<Object> getTypeForPredicate() {
-    return  (testedInstance) -> {
-      return getRawClassesSupplier().get()
-        .anyMatch((rawType) -> rawType.isInstance(testedInstance));
-    };
   }
 
   @Override
@@ -138,6 +61,50 @@ public abstract class TypeDescriptionSupport implements TypeDescription {
     };
   }
 
+  public Supplier<TypeBounds> getBounds() {
+    return NoBoundsSupplier.INSTANCE;
+  }
+
+  public Supplier<Nary<TypeInstance>> getComponentType() {
+    return NoComponentTypeSupplier.INSTANCE;
+  }
+
+  @Override
+  public Supplier<Nary<TypePackage>> getDeclaredPackage() {
+    return NoPackageSupplier.INSTANCE;
+  }
+
+  @Override
+  public Function<TypeInstance, Object> getIdentityToken() {
+    return CachedTokenCalculator.create(TypeEquality.INSTANCE::calculateTokenFor);
+  }
+
+  public InheritanceDescription getInheritanceDescription() {
+    return NoInheritanceDescription.INSTANCE;
+  }
+
+  @Override
+  public Supplier<Nary<Kind>> getKindsFor(TypeInstance type) {
+    return NaryFromCollectionSupplier.lazilyBy(() -> Arrays.stream(Kinds.values())
+      .filter((kind) -> kind.contains(type))
+      .collect(Collectors.toList()));
+  }
+
+  @Override
+  public TypeNamesDescription getNamesDescription() {
+    return UnnamedTypeDescription.create("<unknown>");
+  }
+
+  @Override
+  public Supplier<Nary<Class<?>>> getRawClassSupplier() {
+    return NoRawClassSupplier.INSTANCE;
+  }
+
+  @Override
+  public Supplier<Nary<Class<?>>> getRawClassesSupplier() {
+    return NoRawClassesSupplier.INSTANCE;
+  }
+
   @Override
   public Supplier<TypeInstance> getRuntimeType() {
     // We assume that, at least, Object is the minimum type used on runtime to represent
@@ -148,6 +115,39 @@ public abstract class TypeDescriptionSupport implements TypeDescription {
         .orElse(Object.class);
       return Diamond.of(runtimeClass);
     });
+  }
+
+  public Supplier<Nary<TypeInstance>> getTypeArguments() {
+    return NoTypeArgumentsSupplier.INSTANCE;
+  }
+
+  public Supplier<Nary<TypeConstructor>> getTypeConstructors() {
+    return NonInstantiableConstructorSupplier.INSTANCE;
+  }
+
+  public Supplier<Nary<TypeField>> getTypeFields() {
+    return ClassFieldSupplier.create(getRawClassesSupplier());
+  }
+
+  @Override
+  public Predicate<Object> getTypeForPredicate() {
+    return  (testedInstance) -> {
+      return getRawClassesSupplier().get()
+        .anyMatch((rawType) -> rawType.isInstance(testedInstance));
+    };
+  }
+
+  public Supplier<Nary<TypeMethod>> getTypeMethods() {
+    return ClassMethodSupplier.create(getRawClassesSupplier());
+  }
+
+  public Supplier<Nary<TypeInstance>> getTypeParametersSupplier() {
+    return NoTypeParametersSupplier.INSTANCE;
+  }
+
+  @Override
+  public boolean isForVariableType() {
+    return true;
   }
 
 }
