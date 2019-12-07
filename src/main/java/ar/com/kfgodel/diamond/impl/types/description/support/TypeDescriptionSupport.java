@@ -30,6 +30,7 @@ import ar.com.kfgodel.nary.impl.NaryFromCollectionSupplier;
 
 import java.lang.annotation.Annotation;
 import java.util.Arrays;
+import java.util.function.BiPredicate;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -51,15 +52,13 @@ public abstract class TypeDescriptionSupport implements TypeDescription {
   }
 
   @Override
-  public Predicate<TypeInstance> getAssignabilityPredicate() {
-    // We check if any of our native types is assignable from any of the other native types
+  public BiPredicate<TypeInstance, TypeInstance> getAssignabilityPredicate() {
+    // We check if any of our runtime classes is assignable from any of the other runtime classes
     // Note: this seems flawed as there could be a type in the other that is not assignable to to this
-    return (otherTypeInstance) -> {
-      return getRawClassesSupplier().get()
-        .anyMatch((thisRawType) -> {
-          return otherTypeInstance.runtimeClasses()
-            .anyMatch(thisRawType::isAssignableFrom);
-        });
+    return (thisInstance, otherInstance) ->{
+      return thisInstance.runtimeClasses().anyMatch(thisRuntimeClass->{
+        return otherInstance.runtimeClasses().anyMatch(thisRuntimeClass::isAssignableFrom);
+      });
     };
   }
 

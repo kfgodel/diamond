@@ -28,6 +28,7 @@ import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.annotation.Annotation;
+import java.util.function.BiPredicate;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -72,7 +73,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
 
   private Predicate<Object> typeForPredicate;
 
-  private Predicate<TypeInstance> assignabilityPredicate;
+  private BiPredicate<TypeInstance, TypeInstance> assignabilityPredicate;
 
   private TypeGenerics generics;
 
@@ -174,7 +175,8 @@ public abstract class TypeInstanceSupport implements TypeInstance {
   public Object newInstance() {
     return constructors().niladic()
       .map((constructor) -> constructor.invoke())
-      .orElseThrow(() -> new DiamondException("Type[" + this + "] doesn't have a no-arg constructor to create the instance from"));
+      .orElseThrow(() -> new DiamondException("Type[" + this + "] doesn't have a no-arg constructor " +
+        "to create the instance from"));
   }
 
   @Override
@@ -230,7 +232,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
 
   @Override
   public boolean isAssignableFrom(TypeInstance possibleSubtype) {
-    return assignabilityPredicate.test(possibleSubtype);
+    return assignabilityPredicate.test(this, possibleSubtype);
   }
 
   @Override

@@ -11,6 +11,7 @@ import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.annotation.Annotation;
+import java.util.function.BiPredicate;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -99,6 +100,7 @@ public interface TypeDescription {
   /**
    * @return The supplier of the raw classes for the runtime description of the type
    */
+  @Deprecated
   Supplier<Nary<Class<?>>> getRawClassesSupplier();
 
   /**
@@ -120,7 +122,7 @@ public interface TypeDescription {
   /**
    * @return The predicate to use when checking described type assignability
    */
-  Predicate<TypeInstance> getAssignabilityPredicate();
+  BiPredicate<TypeInstance, TypeInstance> getAssignabilityPredicate();
 
   /**
    * @return The supplier of the type used in runtime to represent the described type

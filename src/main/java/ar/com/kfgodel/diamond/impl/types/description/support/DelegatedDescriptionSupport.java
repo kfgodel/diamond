@@ -13,6 +13,7 @@ import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.annotation.Annotation;
+import java.util.function.BiPredicate;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -29,7 +30,7 @@ public abstract class DelegatedDescriptionSupport implements TypeDescription {
   }
 
   @Override
-  public Predicate<TypeInstance> getAssignabilityPredicate() {
+  public BiPredicate<TypeInstance, TypeInstance> getAssignabilityPredicate() {
     return getDelegateDescription().getAssignabilityPredicate();
   }
 
