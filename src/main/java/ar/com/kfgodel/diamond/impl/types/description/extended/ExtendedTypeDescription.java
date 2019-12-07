@@ -21,6 +21,7 @@ public class ExtendedTypeDescription extends DelegatedDescriptionSupport {
 
   private TypeDescription baseDescription;
   private Consumer<List<TypeInstance>> extendedTypeArgumentsReplacer;
+  private Class<?> extendedRawClass;
 
   @Override
   protected TypeDescription getDelegateDescription() {
@@ -35,15 +36,14 @@ public class ExtendedTypeDescription extends DelegatedDescriptionSupport {
 
   @Override
   public InheritanceDescription getInheritanceDescription() {
-    Nary<Class<?>> rawClasses = baseDescription.getRawClassSupplier().get();
-    Class<?> singleRawClass = rawClasses.get(); // Aca asumimos que solo hay una
-    return FixedTypeInheritanceDescription.create(singleRawClass, getTypeArguments());
+    return FixedTypeInheritanceDescription.create(extendedRawClass, getTypeArguments());
   }
 
-  public static ExtendedTypeDescription create(TypeDescription otherTypeDescription, Consumer<List<TypeInstance>> extendedTypeArgumentsReplacer) {
+  public static ExtendedTypeDescription create(TypeDescription otherTypeDescription, Consumer<List<TypeInstance>> extendedTypeArgumentsReplacer, Class<?> extendedRawClass) {
     ExtendedTypeDescription description = new ExtendedTypeDescription();
     description.baseDescription = otherTypeDescription;
     description.extendedTypeArgumentsReplacer = extendedTypeArgumentsReplacer;
+    description.extendedRawClass = extendedRawClass;
     return description;
   }
 

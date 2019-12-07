@@ -5,6 +5,7 @@ import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 import ar.com.kfgodel.diamond.api.sources.TypeSources;
 import ar.com.kfgodel.diamond.api.types.TypeDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.diamond.impl.natives.raws.RawClassesCalculator;
 import ar.com.kfgodel.diamond.impl.types.FixedTypeInstance;
 import ar.com.kfgodel.diamond.impl.types.VariableTypeInstance;
 import ar.com.kfgodel.diamond.impl.types.description.TypeDescriptor;
@@ -12,6 +13,7 @@ import ar.com.kfgodel.diamond.impl.types.description.extended.ExtendedTypeDescri
 import ar.com.kfgodel.diamond.impl.types.generics.parameters.ActualArgumentReplacer;
 import ar.com.kfgodel.diamond.impl.types.generics.parameters.SupertypeParametrizationAnalyzer;
 import ar.com.kfgodel.diamond.impl.types.generics.parameters.parametrization.SupertypeParametrization;
+import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.reflect.AnnotatedType;
 import java.lang.reflect.Type;
@@ -84,8 +86,9 @@ public class TypeSourceImpl implements TypeSources {
       .create(parameterizableSubtype, genericSupertype)
       .get();
     ActualArgumentReplacer typeArgumentsReplacer = ActualArgumentReplacer.create(subtypeArguments, parametrization);
+    final Nary<Class<?>> rawClass = RawClassesCalculator.create().fromUnknown(genericSupertype);
     return ExtendedTypeDescription
-      .create(supertypeDescription, typeArgumentsReplacer);
+      .create(supertypeDescription, typeArgumentsReplacer, rawClass.get());
   }
 
   public static TypeSourceImpl create(DiamondCache cache) {

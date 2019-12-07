@@ -104,6 +104,7 @@ public interface TypeDescription {
   /**
    * @return The supplier of the native raw class
    */
+  @Deprecated
   Supplier<Nary<Class<?>>> getRawClassSupplier();
 
   /**
