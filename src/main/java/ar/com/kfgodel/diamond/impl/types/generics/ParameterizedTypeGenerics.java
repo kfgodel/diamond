@@ -14,7 +14,10 @@ public class ParameterizedTypeGenerics extends TypeGenericsSupport {
   private Supplier<Nary<TypeInstance>> typeArguments;
   private Supplier<Nary<TypeInstance>> typeParameters;
 
-  public static ParameterizedTypeGenerics create(Supplier<Nary<TypeInstance>> typeParametersSupplier, Supplier<Nary<TypeInstance>> typeArgumentsSupplier, Supplier<TypeInstance> runtimeType) {
+  public static ParameterizedTypeGenerics create(
+    Supplier<Nary<TypeInstance>> typeParametersSupplier,
+    Supplier<Nary<TypeInstance>> typeArgumentsSupplier,
+    Supplier<Nary<TypeInstance>> runtimeType) {
     ParameterizedTypeGenerics generics = new ParameterizedTypeGenerics();
     generics.typeParameters = typeParametersSupplier;
     generics.typeArguments = typeArgumentsSupplier;

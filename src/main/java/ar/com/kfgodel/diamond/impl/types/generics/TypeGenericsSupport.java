@@ -1,5 +1,6 @@
 package ar.com.kfgodel.diamond.impl.types.generics;
 
+import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.generics.TypeGenerics;
@@ -14,7 +15,7 @@ import java.util.function.Supplier;
  */
 public abstract class TypeGenericsSupport implements TypeGenerics {
 
-  private Supplier<TypeInstance> runtimeType;
+  private Supplier<Nary<TypeInstance>> runtimeType;
 
   @Override
   public TypeBounds bounds() {
@@ -33,10 +34,11 @@ public abstract class TypeGenericsSupport implements TypeGenerics {
 
   @Override
   public TypeInstance runtimeType() {
-    return runtimeType.get();
+    return runtimeType.get()
+      .orElseThrow(()-> new DiamondException("Runtime type is not available")); //Better error?
   }
 
-  protected void setRuntimeType(Supplier<TypeInstance> runtimeType) {
+  protected void setRuntimeType(Supplier<Nary<TypeInstance>> runtimeType) {
     this.runtimeType = runtimeType;
   }
 }

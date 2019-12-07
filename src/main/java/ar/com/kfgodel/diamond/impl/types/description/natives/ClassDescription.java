@@ -1,5 +1,6 @@
 package ar.com.kfgodel.diamond.impl.types.description.natives;
 
+import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
@@ -62,6 +63,11 @@ public class ClassDescription extends TypeDescriptionSupport {
   public Supplier<Nary<Class<?>>> getRawClassesSupplier() {
     // Only 1 is available
     return getRawClassSupplier();
+  }
+
+  @Override
+  public Supplier<Nary<TypeInstance>> getRuntimeType() {
+    return CachedValue.lazilyBy(()-> Nary.of(Diamond.of(nativeType)));
   }
 
   @Override

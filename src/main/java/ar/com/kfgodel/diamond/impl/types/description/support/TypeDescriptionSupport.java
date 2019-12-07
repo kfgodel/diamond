@@ -1,6 +1,5 @@
 package ar.com.kfgodel.diamond.impl.types.description.support;
 
-import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
@@ -27,7 +26,6 @@ import ar.com.kfgodel.diamond.impl.types.parts.methods.ClassMethodSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.packages.NoPackageSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.typearguments.NoTypeArgumentsSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.typeparameters.NoTypeParametersSupplier;
-import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.impl.NaryFromCollectionSupplier;
 
@@ -110,20 +108,14 @@ public abstract class TypeDescriptionSupport implements TypeDescription {
     return NoRawClassesSupplier.INSTANCE;
   }
 
-  @Override
-  public Supplier<TypeInstance> getRuntimeType() {
-    // We assume that, at least, Object is the minimum type used on runtime to represent
-    // instances of this type (true for type variables or wildcards)
-    return CachedValue.lazilyBy(() -> {
-      final Class<?> runtimeClass = getRawClassSupplier()
-        .get()
-        .orElse(Object.class);
-      return Diamond.of(runtimeClass);
-    });
-  }
-
   public Supplier<Nary<TypeInstance>> getTypeArguments() {
     return NoTypeArgumentsSupplier.INSTANCE;
+  }
+
+
+  @Override
+  public Supplier<Nary<TypeInstance>> getRuntimeType() {
+    return Nary::empty; // No type is available by default
   }
 
   public Supplier<Nary<TypeConstructor>> getTypeConstructors() {

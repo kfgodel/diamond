@@ -1,5 +1,7 @@
 package ar.com.kfgodel.diamond.impl.types.description.natives;
 
+import ar.com.kfgodel.diamond.api.Diamond;
+import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
 import ar.com.kfgodel.diamond.api.types.names.TypeNamesDescription;
@@ -74,6 +76,18 @@ public class TypeVariableDescription extends TypeDescriptionSupport {
       return RawClassesCalculator.create()
         .from(nativeType)
         .collect(Collectors.toSet());
+    });
+  }
+
+  @Override
+  public Supplier<Nary<TypeInstance>> getRuntimeType() {
+    // We assume that, at least, Object is the minimum type used on runtime to represent
+    // instances of this type (true for type variables or wildcards)
+    return CachedValue.lazilyBy(() -> {
+      final Class<?> runtimeClass = getRawClassSupplier()
+        .get()
+        .orElse(Object.class);
+      return Nary.of(Diamond.of(runtimeClass));
     });
   }
 

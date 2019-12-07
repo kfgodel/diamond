@@ -131,5 +131,5 @@ public interface TypeDescription {
   /**
    * @return The supplier of the type used in runtime to represent the described type
    */
-  Supplier<TypeInstance> getRuntimeType();
+  Supplier<Nary<TypeInstance>> getRuntimeType();
 }

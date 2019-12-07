@@ -1,6 +1,8 @@
 package ar.com.kfgodel.diamond.impl.types.description.natives;
 
+import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
+import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
 import ar.com.kfgodel.diamond.api.types.names.TypeNamesDescription;
@@ -46,18 +48,25 @@ public class ParameterizedTypeDescription extends TypeDescriptionSupport {
    * @return The class that represents this type without any annotations or generics
    */
   protected Class<?> getRawClass() {
-    return getRawClassSupplier().get().get();
+    return RawClassesCalculator.create().from(nativeType)
+      .orElseThrow(()-> new DiamondException("Parameterized type["+nativeType+
+        "] doesn't have a raw class in runtime?"));
   }
 
   @Override
   public Supplier<Nary<Class<?>>> getRawClassSupplier() {
-    return CachedValue.lazilyBy(()-> RawClassesCalculator.create().from(nativeType));
+    return CachedValue.lazilyBy(()-> Nary.of(getRawClass()));
   }
 
   @Override
   public Supplier<Nary<Class<?>>> getRawClassesSupplier() {
     // Only 1 is available
     return getRawClassSupplier();
+  }
+
+  @Override
+  public Supplier<Nary<TypeInstance>> getRuntimeType() {
+    return CachedValue.lazilyBy(()-> Nary.of(Diamond.of(getRawClass())));
   }
 
   @Override
