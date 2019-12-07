@@ -62,15 +62,6 @@ public class TypeVariableDescription extends TypeDescriptionSupport {
   }
 
   @Override
-  public Supplier<Nary<Class<?>>> getRawClassSupplier() {
-    return CachedValue.lazilyBy(() -> {
-      final Nary<Class<?>> rawClasses = getRawClassesSupplier().get();
-      final Class<?> firstRawClass = RawClassesCalculator.create().coalesce(rawClasses);
-      return Nary.of(firstRawClass);
-    });
-  }
-
-  @Override
   public Supplier<Nary<Class<?>>> getRawClassesSupplier() {
     return NaryFromCollectionSupplier.lazilyBy(()-> {
       return RawClassesCalculator.create()
@@ -81,12 +72,9 @@ public class TypeVariableDescription extends TypeDescriptionSupport {
 
   @Override
   public Supplier<Nary<TypeInstance>> getRuntimeType() {
-    // We assume that, at least, Object is the minimum type used on runtime to represent
-    // instances of this type (true for type variables or wildcards)
     return CachedValue.lazilyBy(() -> {
-      final Class<?> runtimeClass = getRawClassSupplier()
-        .get()
-        .orElse(Object.class);
+      final Nary<Class<?>> rawClasses = getRawClassesSupplier().get();
+      final Class<?> runtimeClass = RawClassesCalculator.create().coalesce(rawClasses);
       return Nary.of(Diamond.of(runtimeClass));
     });
   }

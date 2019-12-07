@@ -47,21 +47,15 @@ public class ParameterizedTypeDescription extends TypeDescriptionSupport {
   /**
    * @return The class that represents this type without any annotations or generics
    */
-  protected Class<?> getRawClass() {
+  private Class<?> getRawClass() {
     return RawClassesCalculator.create().from(nativeType)
       .orElseThrow(()-> new DiamondException("Parameterized type["+nativeType+
         "] doesn't have a raw class in runtime?"));
   }
 
   @Override
-  public Supplier<Nary<Class<?>>> getRawClassSupplier() {
-    return CachedValue.lazilyBy(()-> Nary.of(getRawClass()));
-  }
-
-  @Override
   public Supplier<Nary<Class<?>>> getRawClassesSupplier() {
-    // Only 1 is available
-    return getRawClassSupplier();
+    return CachedValue.lazilyBy(()-> Nary.of(getRawClass()));
   }
 
   @Override

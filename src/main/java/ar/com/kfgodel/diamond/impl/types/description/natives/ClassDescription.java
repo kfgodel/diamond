@@ -55,14 +55,8 @@ public class ClassDescription extends TypeDescriptionSupport {
   }
 
   @Override
-  public Supplier<Nary<Class<?>>> getRawClassSupplier() {
-    return CachedValue.lazilyBy(()-> RawClassesCalculator.create().from(nativeType));
-  }
-
-  @Override
   public Supplier<Nary<Class<?>>> getRawClassesSupplier() {
-    // Only 1 is available
-    return getRawClassSupplier();
+    return CachedValue.lazilyBy(()-> RawClassesCalculator.create().from(nativeType));
   }
 
   @Override

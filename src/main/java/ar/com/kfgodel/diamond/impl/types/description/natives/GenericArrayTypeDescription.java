@@ -59,14 +59,8 @@ public class GenericArrayTypeDescription extends TypeDescriptionSupport {
   }
 
   @Override
-  public Supplier<Nary<Class<?>>> getRawClassSupplier() {
-    return CachedValue.lazilyBy(()-> Nary.of(getRawClass()));
-  }
-
-  @Override
   public Supplier<Nary<Class<?>>> getRawClassesSupplier() {
-    // Only 1 is available
-    return getRawClassSupplier();
+    return CachedValue.lazilyBy(()-> Nary.of(getRawClass()));
   }
 
   @Override

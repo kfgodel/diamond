@@ -102,12 +102,6 @@ public interface TypeDescription {
   Supplier<Nary<Class<?>>> getRawClassesSupplier();
 
   /**
-   * @return The supplier of the native raw class
-   */
-  @Deprecated
-  Supplier<Nary<Class<?>>> getRawClassSupplier();
-
-  /**
    * @return The function to get the compared structure for equality
    */
   Function<TypeInstance, Object> getIdentityToken();
