@@ -57,7 +57,7 @@ public abstract class TypeDescriptionSupport implements TypeDescription {
     return (otherTypeInstance) -> {
       return getRawClassesSupplier().get()
         .anyMatch((thisRawType) -> {
-          return otherTypeInstance.nativeTypes()
+          return otherTypeInstance.runtimeClasses()
             .anyMatch(thisRawType::isAssignableFrom);
         });
     };

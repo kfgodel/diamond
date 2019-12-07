@@ -202,7 +202,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
   }
 
   @Override
-  public Nary<Class<?>> nativeTypes() {
+  public Nary<Class<?>> runtimeClasses() {
     return rawClasses.get();
   }
 

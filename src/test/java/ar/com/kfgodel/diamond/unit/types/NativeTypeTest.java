@@ -31,7 +31,7 @@ public class NativeTypeTest extends JavaSpec<DiamondTestContext> {
       it("can be obtained from classes", () -> {
         TypeInstance typeInstance = Diamond.of(PublicMembersTestObject.class);
 
-        Class<?> rawClass = typeInstance.nativeTypes().get();
+        Class<?> rawClass = typeInstance.runtimeClasses().get();
 
         assertThat(rawClass).isEqualTo(PublicMembersTestObject.class);
       });
