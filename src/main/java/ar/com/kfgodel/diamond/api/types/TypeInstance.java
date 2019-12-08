@@ -22,18 +22,25 @@ import java.util.function.Supplier;
 
 /**
  * This type represents a java type.<br>
- * Instances of this interface represent one of the possible types in Java language including type variables and wildcards.<br>
+ * Instances of this interface represent one of the possible types in Java language including type variables
+ * and wildcards.<br>
  * <p>
  * Created by kfgodel on 20/09/14.
  */
-public interface TypeInstance extends Named, Annotated, Supplier<Object>, Declarable, Generified, DiamondReflection, TokenIdentifiable {
+public interface TypeInstance extends
+  Named, Annotated, Supplier<Object>, Declarable, Generified, DiamondReflection, TokenIdentifiable {
 
   /**
-   * Returns the accessor object for this type names (in all their varieties)
-   *
-   * @return The source of type names for this instance
+   * @return The component type of this container type.<br>
+   * Component type is only present on arrays that reify their component types
    */
-  TypeNames names();
+  Nary<TypeInstance> componentType();
+
+  /**
+   * @return The information about this type constructors<br>
+   * TypeConstructors holds the relationship between this type and constructors to create instances of this type
+   */
+  TypeConstructors constructors();
 
   /**
    * The name that identifies this type with its annotations and generics information.<br> This name could be used to declare
@@ -44,28 +51,9 @@ public interface TypeInstance extends Named, Annotated, Supplier<Object>, Declar
   String declaration();
 
   /**
-   * @return The information about this type generification.<br>
-   * TypeGenerics holds the relationships between this type and its parameters, arguments and bounds
+   * @return The package declared for this type, or empty if this type has none
    */
-  TypeGenerics generics();
-
-  /**
-   * @return The component type of this container type.<br>
-   * Component type is only present on arrays that reify their component types
-   */
-  Nary<TypeInstance> componentType();
-
-  /**
-   * @return The information about this type inheritance.<br>
-   * TypeInheritance holds the relationships between this type and its parent types
-   */
-  TypeInheritance inheritance();
-
-  /**
-   * @return The information about this type methods.<br>
-   * TypeMethods holds the relationship between this type and the methods that instances of this type understand
-   */
-  TypeMethods methods();
+  Nary<TypePackage> declaredPackage();
 
   /**
    * @return The information about this type fields.<br>
@@ -74,29 +62,22 @@ public interface TypeInstance extends Named, Annotated, Supplier<Object>, Declar
   TypeFields fields();
 
   /**
-   * @return The information about this type constructors<br>
-   * TypeConstructors holds the relationship between this type and constructors to create instances of this type
+   * @return The information about this type generification.<br>
+   * TypeGenerics holds the relationships between this type and its parameters, arguments and bounds
    */
-  TypeConstructors constructors();
+  TypeGenerics generics();
 
   /**
-   * Creates a new instance of this type using the niladic constructor.<br>
-   * If this type cannot be instantiated, or doesn't have a niladic constructor, and exception is thrown
-   *
-   * @return The newly created instance
+   * @return Sames as calling newInstance()
    */
-  Object newInstance();
+  @Override
+  Object get();
 
   /**
-   * Indicates if the given object is assignable to this type.<br>
-   * Or this type is part if the object's type hierarchy. This method follows the same semantics as Class.isInstance().<br>
-   * <br>
-   * For upper bounded types with more than one bound this is true if any of the upper bounds is true.
-   *
-   * @param anObject The object to test
-   * @return true if the given object can be casted to this type without an exception, false if object is null or otherwise
+   * @return The information about this type inheritance.<br>
+   * TypeInheritance holds the relationships between this type and its parent types
    */
-  boolean isTypeFor(Object anObject);
+  TypeInheritance inheritance();
 
   /**
    * Answers if this type belongs to the given kind. Kinds are groups of types
@@ -106,14 +87,6 @@ public interface TypeInstance extends Named, Annotated, Supplier<Object>, Declar
    * @return true if this type can be considered of the given kind
    */
   boolean is(Kind testedKind);
-
-  /**
-   * The set of kinds this type belongs to.<br> This set is usually defined on the language
-   * specification
-   *
-   * @return The kinds for this type
-   */
-  Nary<Kind> kinds();
 
   /**
    * Answers if this type is a cast-safe supertype of the given type
@@ -132,20 +105,63 @@ public interface TypeInstance extends Named, Annotated, Supplier<Object>, Declar
   boolean isAssignableTo(TypeInstance possibleSuperType);
 
   /**
-   * @return Sames as calling newInstance()
+   * Indicates if the given object is assignable to this type.<br>
+   * Or this type is part if the object's type hierarchy. This method follows the same
+   * semantics as Class.isInstance().<br>
+   * <br>
+   * For upper bounded types with more than one bound this is true if any of the upper bounds is true.
+   *
+   * @param anObject The object to test
+   * @return true if the given object can be casted to this type without an exception,
+   * false if object is null or otherwise
    */
-  @Override
-  Object get();
+  boolean isTypeFor(Object anObject);
 
   /**
-   * @return The package declared for this type, or empty if this type has none
+   * The set of kinds this type belongs to.<br> This set is usually defined on the language
+   * specification
+   *
+   * @return The kinds for this type
    */
-  Nary<TypePackage> declaredPackage();
+  Nary<Kind> kinds();
 
   /**
    * @return The nary of all the members (methods, fields and constructors)
    */
   Nary<TypeMember> members();
+
+  /**
+   * @return The information about this type methods.<br>
+   * TypeMethods holds the relationship between this type and the methods that instances of this type understand
+   */
+  TypeMethods methods();
+
+  /**
+   * Returns the accessor object for this type names (in all their varieties)
+   *
+   * @return The source of type names for this instance
+   */
+  TypeNames names();
+
+  /**
+   * Creates a new instance of this type using the niladic constructor.<br>
+   * If this type cannot be instantiated, or doesn't have a niladic constructor, and exception is thrown
+   *
+   * @return The newly created instance
+   */
+  Object newInstance();
+
+  /**
+   * This method returns the reflection object used to represent this type natively.<br>
+   * Reflection uses {@link Type} or {@link java.lang.reflect.AnnotatedType} to represent types,
+   * but they have no relationship. For that reason, {@link Object} is used on this method and must
+   * be casted down to get the actual sub-type. Most of the times they are sub-types of {@link Type}.<br>
+   * <br>
+   * If this type has no native reflection representation then empty is returned
+   *
+   * @return The type instance used by reflection to represent this type natively
+   */
+  Nary<Object> reflectionType();
 
   /**
    * Returns the classes that represent this type in runtime.<br>
@@ -159,17 +175,5 @@ public interface TypeInstance extends Named, Annotated, Supplier<Object>, Declar
    * @return The nary containing the class or classes for this type
    */
   Nary<Class<?>> runtimeClasses();
-
-  /**
-   * This method returns the reflection object used to represent this type natively.<br>
-   * Reflection uses {@link Type} or {@link java.lang.reflect.AnnotatedType} to represent types,
-   * but they have no relationship. For that reason, {@link Object} is used on this method and must
-   * be casted down to get the actual sub-type. Most of the times they are sub-types of {@link Type}.<br>
-   * <br>
-   * If this type has no native reflection representation then empty is returned
-   *
-   * @return The type instance used by reflection to represent this type natively
-   */
-  Nary<Object> reflectionType();
 
 }
