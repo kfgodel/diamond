@@ -28,7 +28,7 @@ public class RuntimeAlternativesSpliterator implements Spliterator<TypeInstance>
       lastRuntimeAlternative = Optional.empty();
     } else {
       nextType = supplierIterator.next();
-      TypeInstance runtimeVersion = nextType.generics().runtimeType();
+      TypeInstance runtimeVersion = nextType.runtime().type();
       if (runtimeVersion.equals(nextType)) {
         //No need to iterate it
         lastRuntimeAlternative = Optional.empty();

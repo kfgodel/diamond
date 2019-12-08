@@ -1,5 +1,6 @@
 package ar.com.kfgodel.diamond.api.types.runtime;
 
+import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.nary.api.Nary;
 
 /**
@@ -21,4 +22,10 @@ public interface TypeRuntime {
    * @return The nary containing the class or classes for this type
    */
   Nary<Class<?>> classes();
+
+  /**
+   * @return The type used in runtime to represent this type. Usually it's the raw class version of this type.
+   * For type variables it can be Object or its upper bound. For arrays it's the raw array class type
+   */
+  TypeInstance type();
 }

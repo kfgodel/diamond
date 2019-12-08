@@ -26,34 +26,34 @@ public class RuntimeTypeTest extends JavaSpec<DiamondTestContext> {
   public void define() {
     describe("the runtime type of", () -> {
       it("a non generic class is itself", () -> {
-        TypeInstance runtimeType = Diamond.of(String.class).generics().runtimeType();
+        TypeInstance runtimeType = Diamond.of(String.class).runtime().type();
 
         assertThat(runtimeType).isEqualTo(Diamond.of(String.class));
       });
       it("a parameterized type is its raw class", () -> {
-        TypeInstance runtimeType = getParameterizedParentClass().generics().runtimeType();
+        TypeInstance runtimeType = getParameterizedParentClass().runtime().type();
 
         assertThat(runtimeType).isEqualTo(Diamond.of(ParentClass.class));
       });
 
       it("an unbounded type variable is Object", () -> {
-        TypeInstance runtimeType = getUnboundedWildcardType().generics().runtimeType();
+        TypeInstance runtimeType = getUnboundedWildcardType().runtime().type();
 
         assertThat(runtimeType).isEqualTo(Diamond.of(Object.class));
       });
       it("an upper bounded type variable is its upper bound type", () -> {
-        TypeInstance runtimeType = getChildClassSubTypeWildcardType().generics().runtimeType();
+        TypeInstance runtimeType = getChildClassSubTypeWildcardType().runtime().type();
 
         assertThat(runtimeType).isEqualTo(Diamond.of(ChildClass.class));
       });
       it("a multi upper bounded type variable is Object", () -> {
-        TypeInstance runtimeType = getChildClassAndNumberSubtypeVariableType().generics().runtimeType();
+        TypeInstance runtimeType = getChildClassAndNumberSubtypeVariableType().runtime().type();
 
         assertThat(runtimeType).isEqualTo(Diamond.of(Object.class));
       });
 
       it("an array type is the raw array type", () -> {
-        TypeInstance runtimeType = getArrayOfParameterizedListsType().generics().runtimeType();
+        TypeInstance runtimeType = getArrayOfParameterizedListsType().runtime().type();
 
         assertThat(runtimeType).isEqualTo(Diamond.of(List[].class));
       });

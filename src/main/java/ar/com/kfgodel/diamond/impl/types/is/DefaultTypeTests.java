@@ -39,7 +39,7 @@ public class DefaultTypeTests implements TypeTests {
 
   @Override
   public boolean subTypeOf(TypeInstance objectType) {
-    return type.generics().runtimeType().is().assignableTo(objectType.generics().runtimeType());
+    return type.runtime().type().is().assignableTo(objectType.runtime().type());
   }
 
   @Override

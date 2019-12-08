@@ -1,8 +1,6 @@
 package ar.com.kfgodel.diamond.impl.types.generics;
 
-import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
-import ar.com.kfgodel.nary.api.Nary;
 
 import java.util.function.Supplier;
 
@@ -19,10 +17,9 @@ public class BoundedTypeGenerics extends TypeGenericsSupport {
     return typeBounds.get();
   }
 
-  public static BoundedTypeGenerics create(Supplier<TypeBounds> bounds, Supplier<Nary<TypeInstance>> runtimeType) {
+  public static BoundedTypeGenerics create(Supplier<TypeBounds> bounds) {
     BoundedTypeGenerics generics = new BoundedTypeGenerics();
     generics.typeBounds = bounds;
-    generics.setRuntimeType(runtimeType);
     return generics;
   }
 

@@ -55,8 +55,7 @@ public class FixedTypeInstance extends TypeInstanceSupport {
   protected TypeGenerics createGenericsInfoFrom(TypeDescription description) {
     return ParameterizedTypeGenerics.create(
       description.getTypeParametersSupplier(),
-      description.getTypeArguments(),
-      description.getRuntimeType()
+      description.getTypeArguments()
     );
   }
 
