@@ -12,7 +12,8 @@ public class NumericKind implements Kind {
   @Override
   public boolean contains(TypeInstance testedType) {
     // Either is a boxed number, or is a primitive (excluding boolean)
-    return testedType.inheritance().isSubTypeOfNative(Number.class) || (Kinds.PRIMITIVE.contains(testedType) && !Kinds.BOOLEAN.contains(testedType));
+    return testedType.inheritance().isSubTypeOfNative(Number.class)
+      || (Kinds.PRIMITIVE.contains(testedType) && !Kinds.BOOLEAN.contains(testedType));
   }
 
   public static NumericKind create() {
