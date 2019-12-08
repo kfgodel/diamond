@@ -59,36 +59,4 @@ public interface TypeInheritance {
    */
   Nary<TypeInstance> supertypes();
 
-  /**
-   * Indicates if this inheritance extends from the given type
-   *
-   * @param objectType The type that can be found on this inheritance
-   * @return true if this corresponds to a subtype of the given type
-   */
-  boolean isSubTypeOf(TypeInstance objectType);
-
-  /**
-   * Indicates if the type given by the native representation is a sub type in this inheritance
-   *
-   * @param nativeType The native type
-   * @return True if this corresponds to a subtype if the given type
-   */
-  boolean isSubTypeOfNative(Class<?> nativeType);
-
-  /**
-   * Indicates if this inheritance is a partial of the given type
-   *
-   * @param objectType The type that extends this inheritance
-   * @return true if this corresponds to a supertype of the given type
-   */
-  boolean isSuperTypeOf(TypeInstance objectType);
-
-  /**
-   * Indicates if the type given by the native representation is a super type in this inheritance
-   *
-   * @param nativeType The type that extends this inheritance
-   * @return true if this corresponds to a supertype of the given type
-   */
-  boolean isSuperTypeOfNative(Class<?> nativeType);
-
 }

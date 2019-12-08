@@ -48,5 +48,21 @@ public interface TypeTests {
    */
   boolean typeFor(Object anObject);
 
+  /**
+   * Indicates if this inheritance extends from the given type
+   *
+   * @param objectType The type that can be found on this inheritance
+   * @return true if this corresponds to a subtype of the given type
+   */
+  boolean subTypeOf(TypeInstance objectType);
+
+  /**
+   * Indicates if this inheritance is a partial of the given type
+   *
+   * @param objectType The type that extends this inheritance
+   * @return true if this corresponds to a supertype of the given type
+   */
+  boolean superTypeOf(TypeInstance objectType);
+
 
 }

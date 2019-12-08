@@ -1,5 +1,6 @@
 package ar.com.kfgodel.diamond.impl.types.kinds;
 
+import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.kinds.Kind;
 import ar.com.kfgodel.diamond.api.types.kinds.Kinds;
@@ -12,7 +13,7 @@ public class NumericKind implements Kind {
   @Override
   public boolean contains(TypeInstance testedType) {
     // Either is a boxed number, or is a primitive (excluding boolean)
-    return testedType.inheritance().isSubTypeOfNative(Number.class)
+    return testedType.is().subTypeOf(Diamond.of(Number.class))
       || (Kinds.PRIMITIVE.contains(testedType) && !Kinds.BOOLEAN.contains(testedType));
   }
 

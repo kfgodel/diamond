@@ -22,33 +22,18 @@ public class InheritanceTest extends JavaSpec<DiamondTestContext> {
         TypeInstance objectType = Diamond.of(Object.class);
         TypeInstance stringType = Diamond.of(String.class);
 
-        assertThat(objectType.inheritance().isSubTypeOf(stringType)).isFalse();
-        assertThat(stringType.inheritance().isSubTypeOf(objectType)).isTrue();
-      });
-
-      it("can answer if a native type is a subtype", () -> {
-        TypeInstance objectType = Diamond.of(Object.class);
-        TypeInstance stringType = Diamond.of(String.class);
-
-        assertThat(objectType.inheritance().isSubTypeOfNative(String.class)).isFalse();
-        assertThat(stringType.inheritance().isSubTypeOfNative(Object.class)).isTrue();
+        assertThat(objectType.is().subTypeOf(stringType)).isFalse();
+        assertThat(stringType.is().subTypeOf(objectType)).isTrue();
       });
 
       it("can answer if other type is a supertype", () -> {
         TypeInstance objectType = Diamond.of(Object.class);
         TypeInstance stringType = Diamond.of(String.class);
 
-        assertThat(objectType.inheritance().isSuperTypeOf(stringType)).isTrue();
-        assertThat(stringType.inheritance().isSuperTypeOf(objectType)).isFalse();
+        assertThat(objectType.is().superTypeOf(stringType)).isTrue();
+        assertThat(stringType.is().superTypeOf(objectType)).isFalse();
       });
 
-      it("can answer if a native type is a supertype", () -> {
-        TypeInstance objectType = Diamond.of(Object.class);
-        TypeInstance stringType = Diamond.of(String.class);
-
-        assertThat(objectType.inheritance().isSuperTypeOfNative(String.class)).isTrue();
-        assertThat(stringType.inheritance().isSuperTypeOfNative(Object.class)).isFalse();
-      });
     });
 
   }

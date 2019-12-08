@@ -100,7 +100,7 @@ public class ParameterizedTypeTest extends JavaSpec<DiamondTestContext> {
         TypeInstance parameterizedMap = Diamond.types().from(new ReferenceOf<Map<String, Integer>>() {
         }.getReferencedAnnotatedType());
 
-        assertThat(parameterizedMap.inheritance().isSubTypeOf(Diamond.of(Map.class))).isTrue();
+        assertThat(parameterizedMap.is().subTypeOf(Diamond.of(Map.class))).isTrue();
       });
 
       it("can be accessed from its type instance", () -> {

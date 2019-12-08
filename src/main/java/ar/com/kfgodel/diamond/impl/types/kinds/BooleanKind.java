@@ -1,7 +1,7 @@
 package ar.com.kfgodel.diamond.impl.types.kinds;
 
+import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
-import ar.com.kfgodel.diamond.api.types.inheritance.TypeInheritance;
 import ar.com.kfgodel.diamond.api.types.kinds.Kind;
 
 /**
@@ -11,8 +11,8 @@ import ar.com.kfgodel.diamond.api.types.kinds.Kind;
 public class BooleanKind implements Kind {
   @Override
   public boolean contains(TypeInstance testedType) {
-    TypeInheritance typeInheritance = testedType.inheritance();
-    return typeInheritance.isSubTypeOfNative(boolean.class) || typeInheritance.isSubTypeOfNative(Boolean.class);
+    return testedType.is().subTypeOf(Diamond.of(boolean.class))
+      || testedType.is().subTypeOf(Diamond.of(Boolean.class));
   }
 
   public static BooleanKind create() {

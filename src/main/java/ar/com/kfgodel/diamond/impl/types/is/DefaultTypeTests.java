@@ -37,6 +37,17 @@ public class DefaultTypeTests implements TypeTests {
     return typeForPredicate.test(anObject);
   }
 
+  @Override
+  public boolean subTypeOf(TypeInstance objectType) {
+    return type.generics().runtimeType().is().assignableTo(objectType.generics().runtimeType());
+  }
+
+  @Override
+  public boolean superTypeOf(TypeInstance objectType) {
+    return objectType.is().subTypeOf(type);
+  }
+
+
   public static DefaultTypeTests create(TypeInstance type,
                                         BiPredicate<TypeInstance, TypeInstance> assignabilityPredicate,
                                         Predicate<Object> typeForPredicate) {

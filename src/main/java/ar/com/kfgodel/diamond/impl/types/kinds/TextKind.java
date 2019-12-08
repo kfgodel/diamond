@@ -1,5 +1,6 @@
 package ar.com.kfgodel.diamond.impl.types.kinds;
 
+import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.kinds.Kind;
 
@@ -10,7 +11,7 @@ import ar.com.kfgodel.diamond.api.types.kinds.Kind;
 public class TextKind implements Kind {
   @Override
   public boolean contains(TypeInstance testedType) {
-    return testedType.inheritance().isSubTypeOfNative(CharSequence.class);
+    return testedType.is().subTypeOf(Diamond.of(CharSequence.class));
   }
 
   public static TextKind create() {

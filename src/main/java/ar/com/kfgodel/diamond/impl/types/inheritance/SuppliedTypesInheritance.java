@@ -1,6 +1,5 @@
 package ar.com.kfgodel.diamond.impl.types.inheritance;
 
-import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
 import ar.com.kfgodel.diamond.api.types.inheritance.TypeInheritance;
@@ -50,26 +49,6 @@ public class SuppliedTypesInheritance implements TypeInheritance {
   @Override
   public Nary<TypeInstance> supertypes() {
     return extendedType().concat(implementedTypes());
-  }
-
-  @Override
-  public boolean isSubTypeOf(TypeInstance objectType) {
-    return type.generics().runtimeType().is().assignableTo(objectType.generics().runtimeType());
-  }
-
-  @Override
-  public boolean isSubTypeOfNative(Class<?> nativeType) {
-    return isSubTypeOf(Diamond.of(nativeType));
-  }
-
-  @Override
-  public boolean isSuperTypeOf(TypeInstance objectType) {
-    return objectType.inheritance().isSubTypeOf(type);
-  }
-
-  @Override
-  public boolean isSuperTypeOfNative(Class<?> nativeType) {
-    return isSuperTypeOf(Diamond.of(nativeType));
   }
 
   public static SuppliedTypesInheritance create(TypeInstance type, InheritanceDescription description) {
