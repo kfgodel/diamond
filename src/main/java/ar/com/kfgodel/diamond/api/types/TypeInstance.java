@@ -12,6 +12,7 @@ import ar.com.kfgodel.diamond.api.methods.TypeMethods;
 import ar.com.kfgodel.diamond.api.naming.Named;
 import ar.com.kfgodel.diamond.api.types.generics.TypeGenerics;
 import ar.com.kfgodel.diamond.api.types.inheritance.TypeInheritance;
+import ar.com.kfgodel.diamond.api.types.is.TypeTests;
 import ar.com.kfgodel.diamond.api.types.kinds.Kind;
 import ar.com.kfgodel.diamond.api.types.names.TypeNames;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
@@ -80,13 +81,10 @@ public interface TypeInstance extends
   TypeInheritance inheritance();
 
   /**
-   * Answers if this type belongs to the given kind. Kinds are groups of types
-   * usually defined by the language designers
-   *
-   * @param testedKind The kind to test this type on
-   * @return true if this type can be considered of the given kind
+   * Starts a verification test with this type
+   * @return The api to verify assertions on this type
    */
-  boolean is(Kind testedKind);
+  TypeTests is();
 
   /**
    * Answers if this type is a cast-safe supertype of the given type

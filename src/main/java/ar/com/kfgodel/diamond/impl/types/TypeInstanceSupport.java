@@ -11,6 +11,7 @@ import ar.com.kfgodel.diamond.api.types.TypeDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.generics.TypeGenerics;
 import ar.com.kfgodel.diamond.api.types.inheritance.TypeInheritance;
+import ar.com.kfgodel.diamond.api.types.is.TypeTests;
 import ar.com.kfgodel.diamond.api.types.kinds.Kind;
 import ar.com.kfgodel.diamond.api.types.names.TypeNames;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
@@ -22,6 +23,7 @@ import ar.com.kfgodel.diamond.impl.methods.sources.TypeMethodsImpl;
 import ar.com.kfgodel.diamond.impl.strings.DebugPrinter;
 import ar.com.kfgodel.diamond.impl.types.equality.TypeEquality;
 import ar.com.kfgodel.diamond.impl.types.inheritance.SuppliedTypesInheritance;
+import ar.com.kfgodel.diamond.impl.types.is.DefaultTypeTests;
 import ar.com.kfgodel.diamond.impl.types.names.TypeInstanceNames;
 import ar.com.kfgodel.diamond.impl.types.parts.annotations.NoAnnotationsSupplier;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
@@ -213,17 +215,15 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     return identityToken.apply(this);
   }
 
+  @Override
+  public TypeTests is() {
+    return DefaultTypeTests.create(this);
+  }
 
   @Override
   public Nary<Kind> kinds() {
     return kinds.get();
   }
-
-  @Override
-  public boolean is(Kind testedKind) {
-    return this.kinds().anyMatch(testedKind::equals);
-  }
-
 
   @Override
   public boolean isTypeFor(Object anObject) {
@@ -255,6 +255,8 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     this.assignabilityPredicate = description.getAssignabilityPredicate();
     this.generics = createGenericsInfoFrom(description);
   }
+
+
 
   protected abstract TypeGenerics createGenericsInfoFrom(TypeDescription description);
 
