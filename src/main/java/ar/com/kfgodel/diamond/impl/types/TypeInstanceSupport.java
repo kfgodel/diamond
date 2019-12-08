@@ -15,6 +15,7 @@ import ar.com.kfgodel.diamond.api.types.is.TypeTests;
 import ar.com.kfgodel.diamond.api.types.kinds.Kind;
 import ar.com.kfgodel.diamond.api.types.names.TypeNames;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
+import ar.com.kfgodel.diamond.api.types.runtime.TypeRuntime;
 import ar.com.kfgodel.diamond.impl.constructors.sources.NoConstructors;
 import ar.com.kfgodel.diamond.impl.fields.sources.NoFields;
 import ar.com.kfgodel.diamond.impl.fields.sources.TypeFieldsImpl;
@@ -26,6 +27,7 @@ import ar.com.kfgodel.diamond.impl.types.inheritance.SuppliedTypesInheritance;
 import ar.com.kfgodel.diamond.impl.types.is.DefaultTypeTests;
 import ar.com.kfgodel.diamond.impl.types.names.TypeInstanceNames;
 import ar.com.kfgodel.diamond.impl.types.parts.annotations.NoAnnotationsSupplier;
+import ar.com.kfgodel.diamond.impl.types.runtime.DefaultTypeRuntime;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.nary.api.Nary;
 
@@ -70,8 +72,6 @@ public abstract class TypeInstanceSupport implements TypeInstance {
 
   private Supplier<Nary<TypePackage>> typePackage;
 
-  private Supplier<Nary<Class<?>>> runtimeClasses;
-
   private Function<TypeInstance, Object> identityToken;
 
   private Supplier<Nary<Kind>> kinds;
@@ -79,6 +79,8 @@ public abstract class TypeInstanceSupport implements TypeInstance {
   private TypeGenerics generics;
 
   private Supplier<Nary<Object>> reflectionTypeSupplier;
+
+  private TypeRuntime runtime;
 
   /**
    * Use this to override default creation with no annotations
@@ -125,6 +127,11 @@ public abstract class TypeInstanceSupport implements TypeInstance {
 
   protected void setMethods(Supplier<Nary<TypeMethod>> typeMethods) {
     this.methods = TypeMethodsImpl.create(typeMethods);
+  }
+
+  @Override
+  public TypeRuntime runtime() {
+    return runtime;
   }
 
   @Override
@@ -205,11 +212,6 @@ public abstract class TypeInstanceSupport implements TypeInstance {
   }
 
   @Override
-  public Nary<Class<?>> runtimeClasses() {
-    return runtimeClasses.get();
-  }
-
-  @Override
   public Object getIdentityToken() {
     return identityToken.apply(this);
   }
@@ -230,7 +232,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     this.setMethods(description.getTypeMethods());
     this.setFields(description.getTypeFields());
     this.reflectionTypeSupplier = description.getReflectionTypeSupplier();
-    this.runtimeClasses = description.getRuntimeClasses();
+    this.runtime = DefaultTypeRuntime.create(this, description.getRuntimeClasses());
     this.typePackage = description.getDeclaredPackage();
     this.inheritance = SuppliedTypesInheritance.create(this, description.getInheritanceDescription());
     this.identityToken = description.getIdentityToken();

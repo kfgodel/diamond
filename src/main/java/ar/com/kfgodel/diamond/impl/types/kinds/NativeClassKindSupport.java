@@ -13,7 +13,7 @@ public abstract class NativeClassKindSupport implements Kind {
   @Override
   public boolean contains(TypeInstance testedType) {
     Predicate<Class<?>> classPredicate = getClassPredicate();
-    return testedType.runtimeClasses()
+    return testedType.runtime().classes()
       .anyMatch(classPredicate);
   }
 

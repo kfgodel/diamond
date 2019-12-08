@@ -16,6 +16,7 @@ import ar.com.kfgodel.diamond.api.types.is.TypeTests;
 import ar.com.kfgodel.diamond.api.types.kinds.Kind;
 import ar.com.kfgodel.diamond.api.types.names.TypeNames;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
+import ar.com.kfgodel.diamond.api.types.runtime.TypeRuntime;
 import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.reflect.Type;
@@ -42,6 +43,15 @@ public interface TypeInstance extends
    * TypeConstructors holds the relationship between this type and constructors to create instances of this type
    */
   TypeConstructors constructors();
+
+  /**
+   * Allows access to this type runtime information.<br>
+   * Because erasure is applied on compilation, a runtime representation of a type may be different than that of
+   * the compile time.<br>
+   *
+   * @return THe information of this type representation in runtime
+   */
+  TypeRuntime runtime();
 
   /**
    * The name that identifies this type with its annotations and generics information.<br> This name could be used to declare
@@ -131,18 +141,5 @@ public interface TypeInstance extends
    * @return The type instance used by reflection to represent this type natively
    */
   Nary<Object> reflectionType();
-
-  /**
-   * Returns the classes that represent this type in runtime.<br>
-   * Objects that are instances of this type are created as instances of the given classes.<br>
-   * <br>
-   * Because wildcards and variables can have more than one upper bound the returned {@link Nary}
-   * may contain more than one class.<br>
-   * Types based on classes, parameterized types or arrays have only 1 runtime class.<br>
-   * There could be types with no runtime classes at all<br>
-   * <br>
-   * @return The nary containing the class or classes for this type
-   */
-  Nary<Class<?>> runtimeClasses();
 
 }

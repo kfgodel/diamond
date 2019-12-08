@@ -53,8 +53,8 @@ public abstract class TypeDescriptionSupport implements TypeDescription {
     // We check if any of our runtime classes is assignable from any of the other runtime classes
     // Note: this seems flawed as there could be a type in the other that is not assignable to to this
     return (thisInstance, otherInstance) ->{
-      return thisInstance.runtimeClasses().anyMatch(thisRuntimeClass->{
-        return otherInstance.runtimeClasses().anyMatch(thisRuntimeClass::isAssignableFrom);
+      return thisInstance.runtime().classes().anyMatch(thisRuntimeClass->{
+        return otherInstance.runtime().classes().anyMatch(thisRuntimeClass::isAssignableFrom);
       });
     };
   }
