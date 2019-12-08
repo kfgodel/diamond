@@ -54,7 +54,7 @@ public class SuppliedTypesInheritance implements TypeInheritance {
 
   @Override
   public boolean isSubTypeOf(TypeInstance objectType) {
-    return type.generics().runtimeType().isAssignableTo(objectType.generics().runtimeType());
+    return type.generics().runtimeType().is().assignableTo(objectType.generics().runtimeType());
   }
 
   @Override

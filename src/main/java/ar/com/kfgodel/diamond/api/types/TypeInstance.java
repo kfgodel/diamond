@@ -87,22 +87,6 @@ public interface TypeInstance extends
   TypeTests is();
 
   /**
-   * Answers if this type is a cast-safe supertype of the given type
-   *
-   * @param possibleSubtype other type to test the relation
-   * @return true if an object of the other type can be assigned to a variable of this type
-   */
-  boolean isAssignableFrom(TypeInstance possibleSubtype);
-
-  /**
-   * Answers if this type can be assigned to the other type
-   *
-   * @param possibleSuperType other type to test the relation
-   * @return true if an object of this type can be assigned to a variable of the other type
-   */
-  boolean isAssignableTo(TypeInstance possibleSuperType);
-
-  /**
    * Indicates if the given object is assignable to this type.<br>
    * Or this type is part if the object's type hierarchy. This method follows the same
    * semantics as Class.isInstance().<br>

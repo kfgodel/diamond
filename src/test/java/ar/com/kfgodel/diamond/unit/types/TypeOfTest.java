@@ -49,7 +49,7 @@ public class TypeOfTest extends JavaSpec<DiamondTestContext> {
         TypeInstance subtype = Diamond.of(ArrayList.class);
         TypeInstance superType = Diamond.of(List.class);
 
-        boolean answer = subtype.isAssignableTo(superType);
+        boolean answer = subtype.is().assignableTo(superType);
 
         assertThat(answer).isTrue();
       });
@@ -58,7 +58,7 @@ public class TypeOfTest extends JavaSpec<DiamondTestContext> {
         TypeInstance subtype = Diamond.of(ArrayList.class);
         TypeInstance superType = Diamond.of(List.class);
 
-        boolean answer = superType.isAssignableFrom(subtype);
+        boolean answer = superType.is().assignableFrom(subtype);
 
         assertThat(answer).isTrue();
       });

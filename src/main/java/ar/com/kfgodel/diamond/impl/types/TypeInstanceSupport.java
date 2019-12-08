@@ -30,7 +30,6 @@ import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.annotation.Annotation;
-import java.util.function.BiPredicate;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -61,6 +60,11 @@ public abstract class TypeInstanceSupport implements TypeInstance {
   private TypeFields fields = NoFields.INSTANCE;
 
   /**
+   * Verifications against this type
+   */
+  private TypeTests tests;
+
+  /**
    * Inheritance information
    */
   private TypeInheritance inheritance;
@@ -74,8 +78,6 @@ public abstract class TypeInstanceSupport implements TypeInstance {
   private Supplier<Nary<Kind>> kinds;
 
   private Predicate<Object> typeForPredicate;
-
-  private BiPredicate<TypeInstance, TypeInstance> assignabilityPredicate;
 
   private TypeGenerics generics;
 
@@ -217,7 +219,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
 
   @Override
   public TypeTests is() {
-    return DefaultTypeTests.create(this);
+    return this.tests;
   }
 
   @Override
@@ -228,16 +230,6 @@ public abstract class TypeInstanceSupport implements TypeInstance {
   @Override
   public boolean isTypeFor(Object anObject) {
     return typeForPredicate.test(anObject);
-  }
-
-  @Override
-  public boolean isAssignableFrom(TypeInstance possibleSubtype) {
-    return assignabilityPredicate.test(this, possibleSubtype);
-  }
-
-  @Override
-  public boolean isAssignableTo(TypeInstance possibleSuperType) {
-    return possibleSuperType.isAssignableFrom(this);
   }
 
   protected void initializeSuper(TypeDescription description) {
@@ -252,11 +244,9 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     this.identityToken = description.getIdentityToken();
     this.kinds = description.getKindsFor(this);
     this.typeForPredicate = description.getTypeForPredicate();
-    this.assignabilityPredicate = description.getAssignabilityPredicate();
+    this.tests = DefaultTypeTests.create(this, description.getAssignabilityPredicate());
     this.generics = createGenericsInfoFrom(description);
   }
-
-
 
   protected abstract TypeGenerics createGenericsInfoFrom(TypeDescription description);
 
