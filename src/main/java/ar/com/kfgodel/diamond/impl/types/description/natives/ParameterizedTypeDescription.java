@@ -1,6 +1,5 @@
 package ar.com.kfgodel.diamond.impl.types.description.natives;
 
-import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
@@ -59,8 +58,13 @@ public class ParameterizedTypeDescription extends TypeDescriptionSupport {
   }
 
   @Override
-  public Supplier<Nary<TypeInstance>> getRuntimeType() {
-    return CachedValue.lazilyBy(()-> Nary.of(Diamond.of(getRawClass())));
+  public Supplier<Nary<Object>> getReflectionTypeSupplier() {
+    return CachedValue.lazilyBy(()-> Nary.of(this.nativeType));
+  }
+
+  @Override
+  public Supplier<Nary<Class<?>>> getRuntimeClasses() {
+    return CachedValue.lazilyBy(()-> Nary.of(getRawClass()));
   }
 
   @Override
@@ -87,10 +91,5 @@ public class ParameterizedTypeDescription extends TypeDescriptionSupport {
     ParameterizedTypeDescription description = new ParameterizedTypeDescription();
     description.nativeType = nativeType;
     return description;
-  }
-
-  @Override
-  public Supplier<Nary<Object>> getReflectionTypeSupplier() {
-    return CachedValue.lazilyBy(()-> Nary.of(this.nativeType));
   }
 }

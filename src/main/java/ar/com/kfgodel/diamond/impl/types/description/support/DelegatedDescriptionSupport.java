@@ -35,11 +35,6 @@ public abstract class DelegatedDescriptionSupport implements TypeDescription {
   }
 
   @Override
-  public Supplier<Nary<Object>> getReflectionTypeSupplier() {
-    return getDelegateDescription().getReflectionTypeSupplier();
-  }
-
-  @Override
   public Supplier<TypeBounds> getBounds() {
     return getDelegateDescription().getBounds();
   }
@@ -79,6 +74,16 @@ public abstract class DelegatedDescriptionSupport implements TypeDescription {
   @Override
   public Supplier<Nary<Class<?>>> getRawClassesSupplier() {
     return getDelegateDescription().getRawClassesSupplier();
+  }
+
+  @Override
+  public Supplier<Nary<Object>> getReflectionTypeSupplier() {
+    return getDelegateDescription().getReflectionTypeSupplier();
+  }
+
+  @Override
+  public Supplier<Nary<Class<?>>> getRuntimeClasses() {
+    return getDelegateDescription().getRuntimeClasses();
   }
 
   @Override

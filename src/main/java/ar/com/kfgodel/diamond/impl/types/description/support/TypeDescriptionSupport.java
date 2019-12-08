@@ -1,5 +1,6 @@
 package ar.com.kfgodel.diamond.impl.types.description.support;
 
+import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
@@ -12,6 +13,7 @@ import ar.com.kfgodel.diamond.api.types.kinds.Kinds;
 import ar.com.kfgodel.diamond.api.types.names.TypeNamesDescription;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.diamond.impl.equals.CachedTokenCalculator;
+import ar.com.kfgodel.diamond.impl.natives.raws.RawClassesCalculator;
 import ar.com.kfgodel.diamond.impl.types.description.inheritance.NoInheritanceDescription;
 import ar.com.kfgodel.diamond.impl.types.description.names.UnnamedTypeDescription;
 import ar.com.kfgodel.diamond.impl.types.equality.TypeEquality;
@@ -44,11 +46,6 @@ public abstract class TypeDescriptionSupport implements TypeDescription {
 
   public Supplier<Nary<Annotation>> getAnnotations() {
     return NoAnnotationsSupplier.INSTANCE;
-  }
-
-  @Override
-  public Supplier<Nary<Object>> getReflectionTypeSupplier() {
-    return Nary::empty; //By default there's no reflected object for this type
   }
 
   @Override
@@ -101,14 +98,27 @@ public abstract class TypeDescriptionSupport implements TypeDescription {
     return NoRawClassesSupplier.INSTANCE;
   }
 
-  public Supplier<Nary<TypeInstance>> getTypeArguments() {
-    return NoTypeArgumentsSupplier.INSTANCE;
+  @Override
+  public Supplier<Nary<Object>> getReflectionTypeSupplier() {
+    return Nary::empty; //By default there's no reflected object for this type
   }
 
+  @Override
+  public Supplier<Nary<Class<?>>> getRuntimeClasses() {
+    return Nary::empty;
+  }
 
   @Override
   public Supplier<Nary<TypeInstance>> getRuntimeType() {
-    return Nary::empty; // No type is available by default
+    return () -> {
+      final Nary<Class<?>> runtimeClasses = getRuntimeClasses().get();
+      final Class<?> runtimeClass = RawClassesCalculator.create().coalesce(runtimeClasses);
+      return Nary.of(Diamond.of(runtimeClass));
+    };
+  }
+
+  public Supplier<Nary<TypeInstance>> getTypeArguments() {
+    return NoTypeArgumentsSupplier.INSTANCE;
   }
 
   public Supplier<Nary<TypeConstructor>> getTypeConstructors() {

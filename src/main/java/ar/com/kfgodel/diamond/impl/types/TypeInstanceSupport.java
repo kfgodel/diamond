@@ -65,7 +65,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
 
   private Supplier<Nary<TypePackage>> typePackage;
 
-  private Supplier<Nary<Class<?>>> rawClasses;
+  private Supplier<Nary<Class<?>>> runtimeClasses;
 
   private Function<TypeInstance, Object> identityToken;
 
@@ -205,7 +205,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
 
   @Override
   public Nary<Class<?>> runtimeClasses() {
-    return rawClasses.get();
+    return runtimeClasses.get();
   }
 
   @Override
@@ -246,7 +246,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     this.setMethods(description.getTypeMethods());
     this.setFields(description.getTypeFields());
     this.reflectionTypeSupplier = description.getReflectionTypeSupplier();
-    this.rawClasses = description.getRawClassesSupplier();
+    this.runtimeClasses = description.getRuntimeClasses();
     this.typePackage = description.getDeclaredPackage();
     this.inheritance = SuppliedTypesInheritance.create(this, description.getInheritanceDescription());
     this.identityToken = description.getIdentityToken();

@@ -23,40 +23,14 @@ import java.util.function.Supplier;
 public interface TypeDescription {
 
   /**
-   * Creates a decription of the different names the type has.
-   * @return The instance that describes all the names that can be calculated before the type exists
-   */
-  TypeNamesDescription getNamesDescription();
-
-  /**
    * @return The supplier of annotations of the described type
    */
   Supplier<Nary<Annotation>> getAnnotations();
 
   /**
-   * @return The description of this type inheritance
+   * @return The predicate to use when checking described type assignability
    */
-  InheritanceDescription getInheritanceDescription();
-
-  /**
-   * @return The lambda to get the reflection type for this description if it has one
-   */
-  Supplier<Nary<Object>> getReflectionTypeSupplier();
-
-  /**
-   * @return The supplier of type arguments
-   */
-  Supplier<Nary<TypeInstance>> getTypeArguments();
-
-  /**
-   * @return The supplier of type parameters for the described type
-   */
-  Supplier<Nary<TypeInstance>> getTypeParametersSupplier();
-
-  /**
-   * @return The supplier used to define the type component
-   */
-  Supplier<Nary<TypeInstance>> getComponentType();
+  BiPredicate<TypeInstance, TypeInstance> getAssignabilityPredicate();
 
   /**
    * @return The supplier that can reproduce the bounds of the described type
@@ -64,18 +38,68 @@ public interface TypeDescription {
   Supplier<TypeBounds> getBounds();
 
   /**
-   * The set of methods that will be part of this type behavior
-   *
-   * @return A stream to gather all methods
+   * @return The supplier used to define the type component
    */
-  Supplier<Nary<TypeMethod>> getTypeMethods();
+  Supplier<Nary<TypeInstance>> getComponentType();
 
   /**
-   * The set of fields that will be part of this type state
-   *
-   * @return A stream to gather all fields
+   * @return The supplier of the optional package for the type
    */
-  Supplier<Nary<TypeField>> getTypeFields();
+  Supplier<Nary<TypePackage>> getDeclaredPackage();
+
+  /**
+   * @return The function to get the compared structure for equality
+   */
+  Function<TypeInstance, Object> getIdentityToken();
+
+  /**
+   * @return The description of this type inheritance
+   */
+  InheritanceDescription getInheritanceDescription();
+
+  /**
+   * @param type The actual type to get extra info from
+   * @return The function to get the kinds of the described type
+   */
+  Supplier<Nary<Kind>> getKindsFor(TypeInstance type);
+
+  /**
+   * Creates a decription of the different names the type has.
+   * @return The instance that describes all the names that can be calculated before the type exists
+   */
+  TypeNamesDescription getNamesDescription();
+
+  /**
+   * @return The supplier of the raw classes for the runtime description of the type
+   */
+  @Deprecated
+  Supplier<Nary<Class<?>>> getRawClassesSupplier();
+
+  /**
+   * @return The lambda to get the reflection type for this description if it has one
+   */
+  Supplier<Nary<Object>> getReflectionTypeSupplier();
+
+  /**
+   * @return The supplier to get the classes used by the VM in runtime to
+   * represent the types of objects of this type.<br>
+   * It may be more than one due to upper bounds
+   */
+  Supplier<Nary<Class<?>>> getRuntimeClasses();
+
+  /**
+   * Because some types only exist at compile time and get replaced by actual classes at runtime,
+   * this method describes which type is used in runtime for the type described.<br>
+   * Normally you wil get the same type, except for type variables, wildcards, etc.
+   * @return The supplier to get the {@link TypeInstance} that better represents an object
+   * of this type in runtime.<br>
+   */
+  Supplier<Nary<TypeInstance>> getRuntimeType();
+
+  /**
+   * @return The supplier of type arguments
+   */
+  Supplier<Nary<TypeInstance>> getTypeArguments();
 
   /**
    * The set of constructors that will be part of this type creators
@@ -85,34 +109,11 @@ public interface TypeDescription {
   Supplier<Nary<TypeConstructor>> getTypeConstructors();
 
   /**
-   * Indicates if this description is for a type that cannot be statically determined at compile type in every scope
-   * (wildcards and type variables) and for that reason its class representation may be bounded to other type.
+   * The set of fields that will be part of this type state
    *
-   * @return true if this type represents a type variable, a wildcard or annotated version of them
+   * @return A stream to gather all fields
    */
-  boolean isForVariableType();
-
-  /**
-   * @return The supplier of the optional package for the type
-   */
-  Supplier<Nary<TypePackage>> getDeclaredPackage();
-
-  /**
-   * @return The supplier of the raw classes for the runtime description of the type
-   */
-  @Deprecated
-  Supplier<Nary<Class<?>>> getRawClassesSupplier();
-
-  /**
-   * @return The function to get the compared structure for equality
-   */
-  Function<TypeInstance, Object> getIdentityToken();
-
-  /**
-   * @param type The actual type to get extra info from
-   * @return The function to get the kinds of the described type
-   */
-  Supplier<Nary<Kind>> getKindsFor(TypeInstance type);
+  Supplier<Nary<TypeField>> getTypeFields();
 
   /**
    * @return The predicate to test instances against the described type to verify its type
@@ -120,12 +121,22 @@ public interface TypeDescription {
   Predicate<Object> getTypeForPredicate();
 
   /**
-   * @return The predicate to use when checking described type assignability
+   * The set of methods that will be part of this type behavior
+   *
+   * @return A stream to gather all methods
    */
-  BiPredicate<TypeInstance, TypeInstance> getAssignabilityPredicate();
+  Supplier<Nary<TypeMethod>> getTypeMethods();
 
   /**
-   * @return The supplier of the type used in runtime to represent the described type
+   * @return The supplier of type parameters for the described type
    */
-  Supplier<Nary<TypeInstance>> getRuntimeType();
+  Supplier<Nary<TypeInstance>> getTypeParametersSupplier();
+
+  /**
+   * Indicates if this description is for a type that cannot be statically determined at compile type in every scope
+   * (wildcards and type variables) and for that reason its class representation may be bounded to other type.
+   *
+   * @return true if this type represents a type variable, a wildcard or annotated version of them
+   */
+  boolean isForVariableType();
 }
