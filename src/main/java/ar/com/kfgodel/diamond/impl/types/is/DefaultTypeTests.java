@@ -5,6 +5,7 @@ import ar.com.kfgodel.diamond.api.types.is.TypeTests;
 import ar.com.kfgodel.diamond.api.types.kinds.Kind;
 
 import java.util.function.BiPredicate;
+import java.util.function.Predicate;
 
 /**
  * This class is the default implementation for a type tests api
@@ -14,6 +15,7 @@ public class DefaultTypeTests implements TypeTests {
 
   private TypeInstance type;
   private BiPredicate<TypeInstance, TypeInstance> assignabilityPredicate;
+  private Predicate<Object> typeForPredicate;
 
   @Override
   public boolean ofKind(Kind testedKind) {
@@ -30,11 +32,18 @@ public class DefaultTypeTests implements TypeTests {
     return possibleSuperType.is().assignableFrom(type);
   }
 
+  @Override
+  public boolean typeFor(Object anObject) {
+    return typeForPredicate.test(anObject);
+  }
 
-  public static DefaultTypeTests create(TypeInstance type, BiPredicate<TypeInstance, TypeInstance> assignabilityPredicate) {
+  public static DefaultTypeTests create(TypeInstance type,
+                                        BiPredicate<TypeInstance, TypeInstance> assignabilityPredicate,
+                                        Predicate<Object> typeForPredicate) {
     DefaultTypeTests tests = new DefaultTypeTests();
     tests.type = type;
     tests.assignabilityPredicate = assignabilityPredicate;
+    tests.typeForPredicate = typeForPredicate;
     return tests;
   }
 

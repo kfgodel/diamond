@@ -27,7 +27,7 @@ public class TypeOfTest extends JavaSpec<DiamondTestContext> {
         Object anObject = new Object();
 
         TypeInstance objectType = Diamond.of(Object.class);
-        boolean answer = objectType.isTypeFor(anObject);
+        boolean answer = objectType.is().typeFor(anObject);
 
         assertThat(answer).isTrue();
       });
@@ -36,7 +36,7 @@ public class TypeOfTest extends JavaSpec<DiamondTestContext> {
         Object anObject = new int[]{1, 2, 4};
 
         TypeInstance objectType = Diamond.of(int[].class);
-        boolean answer = objectType.isTypeFor(anObject);
+        boolean answer = objectType.is().typeFor(anObject);
 
         assertThat(answer).isTrue();
       });

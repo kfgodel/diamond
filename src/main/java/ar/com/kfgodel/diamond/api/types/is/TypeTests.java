@@ -35,5 +35,18 @@ public interface TypeTests {
    */
   boolean assignableTo(TypeInstance possibleSuperType);
 
+  /**
+   * Indicates if the given object is assignable to this type.<br>
+   * Or this type is part if the object's type hierarchy. This method follows the same
+   * semantics as Class.isInstance().<br>
+   * <br>
+   * For upper bounded types with more than one bound this is true if any of the upper bounds is true.
+   *
+   * @param anObject The object to test
+   * @return true if the given object can be casted to this type without an exception,
+   * false if object is null or otherwise
+   */
+  boolean typeFor(Object anObject);
+
 
 }

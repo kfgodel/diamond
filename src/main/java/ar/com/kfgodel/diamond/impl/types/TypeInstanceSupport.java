@@ -31,7 +31,6 @@ import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.annotation.Annotation;
 import java.util.function.Function;
-import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 /**
@@ -76,8 +75,6 @@ public abstract class TypeInstanceSupport implements TypeInstance {
   private Function<TypeInstance, Object> identityToken;
 
   private Supplier<Nary<Kind>> kinds;
-
-  private Predicate<Object> typeForPredicate;
 
   private TypeGenerics generics;
 
@@ -227,11 +224,6 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     return kinds.get();
   }
 
-  @Override
-  public boolean isTypeFor(Object anObject) {
-    return typeForPredicate.test(anObject);
-  }
-
   protected void initializeSuper(TypeDescription description) {
     this.setNames(CachedValue.lazilyBy(()-> TypeInstanceNames.create(this, description.getNamesDescription())));
     this.setAnnotations(description.getAnnotations());
@@ -243,8 +235,10 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     this.inheritance = SuppliedTypesInheritance.create(this, description.getInheritanceDescription());
     this.identityToken = description.getIdentityToken();
     this.kinds = description.getKindsFor(this);
-    this.typeForPredicate = description.getTypeForPredicate();
-    this.tests = DefaultTypeTests.create(this, description.getAssignabilityPredicate());
+    this.tests = DefaultTypeTests.create(this,
+      description.getAssignabilityPredicate(),
+      description.getTypeForPredicate()
+    );
     this.generics = createGenericsInfoFrom(description);
   }
 
