@@ -22,13 +22,13 @@ import ar.com.kfgodel.diamond.impl.types.parts.behavior.NoRawClassesSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.bounds.NoBoundsSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.componenttype.NoComponentTypeSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.constructors.NonInstantiableConstructorSupplier;
-import ar.com.kfgodel.diamond.impl.types.parts.fields.ClassFieldSupplier;
-import ar.com.kfgodel.diamond.impl.types.parts.methods.ClassMethodSupplier;
+import ar.com.kfgodel.diamond.impl.types.parts.fields.NoFieldsSupplier;
+import ar.com.kfgodel.diamond.impl.types.parts.methods.NoMethodsSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.packages.NoPackageSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.typearguments.NoTypeArgumentsSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.typeparameters.NoTypeParametersSupplier;
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.nary.impl.NaryFromCollectionSupplier;
+import ar.com.kfgodel.nary.impl.NarySupplierFromCollection;
 
 import java.lang.annotation.Annotation;
 import java.util.function.BiPredicate;
@@ -82,7 +82,7 @@ public abstract class TypeDescriptionSupport implements TypeDescription {
   @Override
   public Function<TypeInstance, Supplier<Nary<TypeCategory>>> getCategoriesCalculator() {
     return (givenType) -> {
-      return NaryFromCollectionSupplier.lazilyBy(() ->
+      return NarySupplierFromCollection.lazilyBy(() ->
         Categories.values()
           .filter((category) -> category.contains(givenType))
           .collect(Collectors.toList())
@@ -128,11 +128,11 @@ public abstract class TypeDescriptionSupport implements TypeDescription {
   }
 
   public Supplier<Nary<TypeField>> getTypeFields() {
-    return ClassFieldSupplier.create(getRawClassesSupplier());
+    return NoFieldsSupplier.INSTANCE;
   }
 
   public Supplier<Nary<TypeMethod>> getTypeMethods() {
-    return ClassMethodSupplier.create(getRawClassesSupplier());
+    return NoMethodsSupplier.INSTANCE;
   }
 
   public Supplier<Nary<TypeInstance>> getTypeParametersSupplier() {

@@ -11,7 +11,7 @@ import java.util.function.Supplier;
  * Each time this supplier is called, a stream is generated from the collection
  * Created by kfgodel on 22/10/14.
  */
-public class NaryFromCollectionSupplier<T> implements Supplier<Nary<T>> {
+public class NarySupplierFromCollection<T> implements Supplier<Nary<T>> {
 
   private Supplier<? extends Collection<T>> collection;
 
@@ -27,7 +27,7 @@ public class NaryFromCollectionSupplier<T> implements Supplier<Nary<T>> {
    * @param <T>        The type of expected stream elements
    * @return The created supplier
    */
-  public static <T> NaryFromCollectionSupplier<T> from(Collection<T> collection) {
+  public static <T> NarySupplierFromCollection<T> from(Collection<T> collection) {
     return using(CachedValue.eagerlyFrom(collection));
   }
 
@@ -39,8 +39,8 @@ public class NaryFromCollectionSupplier<T> implements Supplier<Nary<T>> {
    * @param <T>        The type of expected stream elements
    * @return The created stream supplier
    */
-  public static <T> NaryFromCollectionSupplier<T> using(Supplier<? extends Collection<T>> collection) {
-    NaryFromCollectionSupplier<T> supplier = new NaryFromCollectionSupplier<>();
+  public static <T> NarySupplierFromCollection<T> using(Supplier<? extends Collection<T>> collection) {
+    NarySupplierFromCollection<T> supplier = new NarySupplierFromCollection<>();
     supplier.collection = collection;
     return supplier;
   }
@@ -53,7 +53,7 @@ public class NaryFromCollectionSupplier<T> implements Supplier<Nary<T>> {
    * @param <T>      The type of expected stream elements
    * @return The created stream supplier
    */
-  public static <T> NaryFromCollectionSupplier<T> lazilyBy(Supplier<? extends Collection<T>> supplier) {
+  public static <T> NarySupplierFromCollection<T> lazilyBy(Supplier<? extends Collection<T>> supplier) {
     Supplier<? extends Collection<T>> cachedValue = CachedValue.lazilyBy(supplier);
     return using(cachedValue);
   }

@@ -2,11 +2,12 @@ package ar.com.kfgodel.diamond.impl.types.parts.methods;
 
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
-import ar.com.kfgodel.diamond.impl.natives.suppliers.NativeMethodsSupplier;
+import ar.com.kfgodel.diamond.impl.natives.suppliers.InheritedMemberSupplier;
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.nary.impl.NaryFromCollectionSupplier;
+import ar.com.kfgodel.nary.impl.NarySupplierFromCollection;
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -20,14 +21,22 @@ import java.util.stream.Stream;
 public class ClassMethodSupplier {
 
   public static Supplier<Nary<TypeMethod>> create(Supplier<Nary<Class<?>>> baseClassesSupplier) {
-    return NaryFromCollectionSupplier.lazilyBy(() -> {
-      final Set<Class<?>> rawClasses = baseClassesSupplier.get()
-        .collect(Collectors.toSet());
-      Stream<Method> nativeMethods = NativeMethodsSupplier.create(rawClasses).get();
+    return NarySupplierFromCollection.lazilyBy(() -> {
+      Stream<Method> nativeMethods = calculateMethodsFor(baseClassesSupplier);
       return nativeMethods
         .map((nativeMethod) -> Diamond.methods().from(nativeMethod))
         .collect(Collectors.toList());
     });
+  }
+
+  private static Stream<Method> calculateMethodsFor(Supplier<Nary<Class<?>>> baseClassesSupplier) {
+    final Set<Class<?>> rawClasses = baseClassesSupplier.get()
+      .collect(Collectors.toSet());
+    final Supplier<Stream<Method>> methodSupplier = InheritedMemberSupplier.create(
+      rawClasses,
+      (superClass) -> Arrays.stream(superClass.getDeclaredMethods())
+    );
+    return methodSupplier.get();
   }
 
 }

@@ -3,7 +3,7 @@ package ar.com.kfgodel.diamond.impl.types.parts.extendedtype;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.nary.impl.NaryFromCollectionSupplier;
+import ar.com.kfgodel.nary.impl.NarySupplierFromCollection;
 
 import java.lang.reflect.AnnotatedType;
 import java.lang.reflect.Type;
@@ -20,7 +20,7 @@ import java.util.stream.Stream;
  * Created by kfgodel on 12/02/15.
  */
 public class ImplementedTypesSupplier implements Supplier<Nary<TypeInstance>> {
-  private NaryFromCollectionSupplier<TypeInstance> implementedTypes;
+  private NarySupplierFromCollection<TypeInstance> implementedTypes;
 
   @Override
   public Nary<TypeInstance> get() {
@@ -30,7 +30,7 @@ public class ImplementedTypesSupplier implements Supplier<Nary<TypeInstance>> {
 
   public static Supplier<Nary<TypeInstance>> create(Class<?> nativeClass, Stream<TypeInstance> typeArguments) {
     ImplementedTypesSupplier supplier = new ImplementedTypesSupplier();
-    supplier.implementedTypes = NaryFromCollectionSupplier.lazilyBy(() -> describeImplementedTypes(nativeClass, typeArguments));
+    supplier.implementedTypes = NarySupplierFromCollection.lazilyBy(() -> describeImplementedTypes(nativeClass, typeArguments));
     return supplier;
   }
 

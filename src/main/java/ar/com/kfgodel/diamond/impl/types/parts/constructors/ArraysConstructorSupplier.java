@@ -6,7 +6,7 @@ import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.impl.constructors.description.ArrayConstructorDescription;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.nary.impl.NaryFromElementSupplier;
+import ar.com.kfgodel.nary.impl.NarySupplierFromElement;
 
 import java.util.function.Supplier;
 
@@ -19,7 +19,7 @@ import java.util.function.Supplier;
 public class ArraysConstructorSupplier {
 
   public static Supplier<Nary<TypeConstructor>> create(Class<?> nativeArrayClass) {
-    return NaryFromElementSupplier.using(CachedValue.lazilyBy(() -> {
+    return NarySupplierFromElement.using(CachedValue.lazilyBy(() -> {
       ConstructorDescription arrayConstructorDescription = ArrayConstructorDescription.create(nativeArrayClass);
       TypeConstructor constructor = Diamond.constructors().fromDescription(arrayConstructorDescription);
       return constructor;

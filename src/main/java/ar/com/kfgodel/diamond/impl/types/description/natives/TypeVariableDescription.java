@@ -1,5 +1,7 @@
 package ar.com.kfgodel.diamond.impl.types.description.natives;
 
+import ar.com.kfgodel.diamond.api.fields.TypeField;
+import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
 import ar.com.kfgodel.diamond.api.types.names.TypeNamesDescription;
@@ -9,9 +11,11 @@ import ar.com.kfgodel.diamond.impl.types.description.inheritance.VariableTypeInh
 import ar.com.kfgodel.diamond.impl.types.description.names.TypeVariableNamesDescription;
 import ar.com.kfgodel.diamond.impl.types.description.support.TypeDescriptionSupport;
 import ar.com.kfgodel.diamond.impl.types.parts.bounds.TypeVariableBoundSupplier;
+import ar.com.kfgodel.diamond.impl.types.parts.fields.ClassFieldSupplier;
+import ar.com.kfgodel.diamond.impl.types.parts.methods.ClassMethodSupplier;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.nary.impl.NaryFromCollectionSupplier;
+import ar.com.kfgodel.nary.impl.NarySupplierFromCollection;
 
 import java.lang.reflect.TypeVariable;
 import java.util.function.Supplier;
@@ -47,7 +51,7 @@ public class TypeVariableDescription extends TypeDescriptionSupport {
 
   @Override
   public Supplier<Nary<Class<?>>> getRawClassesSupplier() {
-    return NaryFromCollectionSupplier.lazilyBy(()-> {
+    return NarySupplierFromCollection.lazilyBy(()-> {
       return RawClassesCalculator.create()
         .from(nativeType)
         .collect(Collectors.toSet());
@@ -61,11 +65,19 @@ public class TypeVariableDescription extends TypeDescriptionSupport {
 
   @Override
   public Supplier<Nary<Class<?>>> getRuntimeClasses() {
-    return NaryFromCollectionSupplier.lazilyBy(()-> {
+    return NarySupplierFromCollection.lazilyBy(()-> {
       return RawClassesCalculator.create()
         .from(nativeType)
         .collect(Collectors.toSet());
     });
+  }
+
+  public Supplier<Nary<TypeField>> getTypeFields() {
+    return ClassFieldSupplier.create(getRawClassesSupplier());
+  }
+
+  public Supplier<Nary<TypeMethod>> getTypeMethods() {
+    return ClassMethodSupplier.create(getRawClassesSupplier());
   }
 
   @Override

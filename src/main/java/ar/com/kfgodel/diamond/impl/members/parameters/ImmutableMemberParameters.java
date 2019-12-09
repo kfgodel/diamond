@@ -3,7 +3,7 @@ package ar.com.kfgodel.diamond.impl.members.parameters;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.nary.impl.NaryFromCollectionSupplier;
+import ar.com.kfgodel.nary.impl.NarySupplierFromCollection;
 
 import java.lang.reflect.Executable;
 import java.util.Arrays;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public class ImmutableMemberParameters {
 
   public static Supplier<Nary<ExecutableParameter>> create(Executable nativeExecutable) {
-    return NaryFromCollectionSupplier.lazilyBy(() -> Arrays.stream(nativeExecutable.getParameters())
+    return NarySupplierFromCollection.lazilyBy(() -> Arrays.stream(nativeExecutable.getParameters())
       .map((nativeParameter) -> Diamond.parameters().from(nativeParameter))
       .collect(Collectors.toList()));
   }

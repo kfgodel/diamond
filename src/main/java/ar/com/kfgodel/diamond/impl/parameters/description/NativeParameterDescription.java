@@ -10,7 +10,7 @@ import ar.com.kfgodel.diamond.impl.natives.suppliers.AnnotatedElementAnnotations
 import ar.com.kfgodel.diamond.impl.parameters.ParameterEquality;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.nary.impl.NaryFromCollectionSupplier;
+import ar.com.kfgodel.nary.impl.NarySupplierFromCollection;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Parameter;
@@ -37,7 +37,7 @@ public class NativeParameterDescription implements ParameterDescription {
 
   @Override
   public Supplier<Nary<Modifier>> getModifiers() {
-    return NaryFromCollectionSupplier.lazilyBy(() -> Diamond.modifiers().fromParameter(nativeParameter.getModifiers()));
+    return NarySupplierFromCollection.lazilyBy(() -> Diamond.modifiers().fromParameter(nativeParameter.getModifiers()));
   }
 
   @Override

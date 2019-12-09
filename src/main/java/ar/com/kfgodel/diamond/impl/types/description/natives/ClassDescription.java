@@ -1,6 +1,8 @@
 package ar.com.kfgodel.diamond.impl.types.description.natives;
 
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
+import ar.com.kfgodel.diamond.api.fields.TypeField;
+import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
 import ar.com.kfgodel.diamond.api.types.names.TypeNamesDescription;
@@ -11,6 +13,8 @@ import ar.com.kfgodel.diamond.impl.types.description.names.ClassTypeNameDescript
 import ar.com.kfgodel.diamond.impl.types.description.support.TypeDescriptionSupport;
 import ar.com.kfgodel.diamond.impl.types.parts.componenttype.ArrayComponentTypeSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.constructors.ClassConstructorsSupplier;
+import ar.com.kfgodel.diamond.impl.types.parts.fields.ClassFieldSupplier;
+import ar.com.kfgodel.diamond.impl.types.parts.methods.ClassMethodSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.packages.TypePackageSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.typeparameters.GenericTypeParametersSupplier;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
@@ -78,6 +82,14 @@ public class ClassDescription extends TypeDescriptionSupport {
   public BiPredicate<TypeInstance, Object> getInstancePredicate() {
     // We ignore the type parameter as we already have the runtime class
     return (type, instance) -> getRawClass().isInstance(instance);
+  }
+
+  public Supplier<Nary<TypeField>> getTypeFields() {
+    return ClassFieldSupplier.create(getRawClassesSupplier());
+  }
+
+  public Supplier<Nary<TypeMethod>> getTypeMethods() {
+    return ClassMethodSupplier.create(getRawClassesSupplier());
   }
 
   @Override

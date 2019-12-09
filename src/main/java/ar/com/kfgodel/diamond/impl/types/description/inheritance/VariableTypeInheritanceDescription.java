@@ -8,7 +8,7 @@ import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.nary.impl.NaryFromCollectionSupplier;
+import ar.com.kfgodel.nary.impl.NarySupplierFromCollection;
 
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -42,7 +42,7 @@ public class VariableTypeInheritanceDescription implements InheritanceDescriptio
 
   @Override
   public Supplier<Nary<TypeInstance>> getInterfacesSupplier() {
-    return NaryFromCollectionSupplier.lazilyBy(() -> {
+    return NarySupplierFromCollection.lazilyBy(() -> {
         return getUpperBoundThatAre(Categories.INTERFACE)
           .collect(Collectors.toList());
       }
