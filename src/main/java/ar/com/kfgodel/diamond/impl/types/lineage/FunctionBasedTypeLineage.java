@@ -88,11 +88,11 @@ public class FunctionBasedTypeLineage extends TypeLineageSupport {
   @Override
   public Nary<TypeInstance> inheritedInterfaces() {
     Stream<TypeInstance> memberDirectInterfaces = allMembers()
-      .flatMap((member) -> member.inheritance().interfaces());
+      .flatMap((member) -> member.runtime().hierarchy().interfaces());
     Stream<TypeInstance> indirectInterfaces = memberDirectInterfaces
       .flatMap((interfaz) -> Stream.concat(
         Stream.of(interfaz),
-        interfaz.inheritance().interfaces()));
+        interfaz.runtime().hierarchy().interfaces()));
     // If an indirect interface is inherited more than once, we want just one occurrence
     return Nary.from(indirectInterfaces.distinct());
   }

@@ -17,4 +17,13 @@ public interface RuntimeTypeHierarchy {
    * this type
    */
   Nary<TypeInstance> superclass();
+
+  /**
+   * @return The set of interfaces implemented by this type. This can be empty if this instance
+   * represents a type that cannot implement interfaces or doesn't implement any.<br>
+   * The instances returned are un-parameterized (raw version) types and corresponds to the
+   * runtime representation of the implemented types
+   */
+  Nary<TypeInstance> interfaces();
+
 }

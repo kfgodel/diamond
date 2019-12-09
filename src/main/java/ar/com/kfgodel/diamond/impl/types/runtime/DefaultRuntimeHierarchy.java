@@ -14,15 +14,22 @@ import java.util.function.Supplier;
 public class DefaultRuntimeHierarchy implements RuntimeTypeHierarchy {
 
   private Supplier<Nary<TypeInstance>> superclass;
+  private Supplier<Nary<TypeInstance>> interfaces;
 
   @Override
   public Nary<TypeInstance> superclass() {
     return superclass.get();
   }
 
+  @Override
+  public Nary<TypeInstance> interfaces() {
+    return interfaces.get();
+  }
+
   public static DefaultRuntimeHierarchy create(InheritanceDescription description) {
     DefaultRuntimeHierarchy hierarchy = new DefaultRuntimeHierarchy();
     hierarchy.superclass = description.getSuperclassSupplier();
+    hierarchy.interfaces = description.getInterfacesSupplier();
     return hierarchy;
   }
 

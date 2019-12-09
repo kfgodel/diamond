@@ -36,7 +36,7 @@ public class AllTypeInterfacesTest extends JavaSpec<DiamondTestContext> {
         it("can be empty if no interface implemented", () -> {
           context().typeInstance(() -> Diamond.of(GrandParentClass.class));
 
-          Stream<TypeInstance> interfaces = context().typeInstance().inheritance().interfaces();
+          Stream<TypeInstance> interfaces = context().typeInstance().runtime().hierarchy().interfaces();
 
           assertThat(interfaces.count()).isEqualTo(0);
         });
@@ -44,7 +44,7 @@ public class AllTypeInterfacesTest extends JavaSpec<DiamondTestContext> {
         it("contains all the implemented interfaces", () -> {
           context().typeInstance(() -> Diamond.of(ChildClass.class));
 
-          List<String> interfaceNames = context().typeInstance().inheritance().interfaces().map(Named::name).collect(Collectors.toList());
+          List<String> interfaceNames = context().typeInstance().runtime().hierarchy().interfaces().map(Named::name).collect(Collectors.toList());
 
           assertThat(interfaceNames).isEqualTo(Arrays.asList("ChildInterface1", "ChildInterface2"));
         });
@@ -52,7 +52,7 @@ public class AllTypeInterfacesTest extends JavaSpec<DiamondTestContext> {
         it("contains the extended interfaces of an interface", () -> {
           context().typeInstance(() -> Diamond.of(ChildInterface1.class));
 
-          List<String> interfaceNames = context().typeInstance().inheritance().interfaces().map(Named::name).collect(Collectors.toList());
+          List<String> interfaceNames = context().typeInstance().runtime().hierarchy().interfaces().map(Named::name).collect(Collectors.toList());
 
           assertThat(interfaceNames).isEqualTo(Arrays.asList("ParentInterface1"));
         });
@@ -66,7 +66,7 @@ public class AllTypeInterfacesTest extends JavaSpec<DiamondTestContext> {
           context().typeInstance(AllTypeInterfacesTest::getUnboundedWildcardType);
 
           it("is empty", () -> {
-            Stream<TypeInstance> interfaces = context().typeInstance().inheritance().interfaces();
+            Stream<TypeInstance> interfaces = context().typeInstance().runtime().hierarchy().interfaces();
 
             assertThat(interfaces.count()).isEqualTo(0);
           });
@@ -78,7 +78,7 @@ public class AllTypeInterfacesTest extends JavaSpec<DiamondTestContext> {
 
           it("includes only the interfaces declared as upper bounds", () -> {
 
-            List<String> interfaceNames = context().typeInstance().inheritance().interfaces().map(Named::name).collect(Collectors.toList());
+            List<String> interfaceNames = context().typeInstance().runtime().hierarchy().interfaces().map(Named::name).collect(Collectors.toList());
 
             assertThat(interfaceNames).containsExactlyInAnyOrder("Comparable", "ChildInterface2");
           });
@@ -91,7 +91,7 @@ public class AllTypeInterfacesTest extends JavaSpec<DiamondTestContext> {
         context().typeInstance(() -> Diamond.of(String[].class));
 
         it("includes cloneable and serializable", () -> {
-          Stream<TypeInstance> interfaces = context().typeInstance().inheritance().interfaces();
+          Stream<TypeInstance> interfaces = context().typeInstance().runtime().hierarchy().interfaces();
 
           List<String> interfaceNames = interfaces.map(Named::name).collect(Collectors.toList());
 
@@ -105,7 +105,7 @@ public class AllTypeInterfacesTest extends JavaSpec<DiamondTestContext> {
         context().typeInstance(() -> Diamond.of(int.class));
 
         it("is empty", () -> {
-          Stream<TypeInstance> interfaces = context().typeInstance().inheritance().interfaces();
+          Stream<TypeInstance> interfaces = context().typeInstance().runtime().hierarchy().interfaces();
 
           assertThat(interfaces.count()).isEqualTo(0);
         });

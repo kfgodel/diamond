@@ -25,14 +25,6 @@ public interface TypeInheritance {
   Nary<TypeInstance> implementedTypes();
 
   /**
-   * @return The set of interfaces implemented by this type. This can be empty if this instance
-   * represents a type that cannot implement interfaces or doesn't implement any.<br>
-   * The instances returned are un-parameterized (raw version) types and corresponds to the
-   * runtime representation of the implemented types
-   */
-  Nary<TypeInstance> interfaces();
-
-  /**
    * Returns this type lineage (starting from this type, the set of extended types up until Object).<br>
    * This lineage does not follow class relationships but parameterized types relationships.<br>
    * In this lineage you will find compile time related types

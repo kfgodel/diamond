@@ -73,7 +73,7 @@ public class ClassTypeTest extends JavaSpec<DiamondTestContext> {
          * This is the runtime interface types
          */
         it("has several interfaces", () -> {
-          List<String> interfaces = context().typeInstance().inheritance().interfaces().map(Named::name).collect(Collectors.toList());
+          List<String> interfaces = context().typeInstance().runtime().hierarchy().interfaces().map(Named::name).collect(Collectors.toList());
           assertThat(interfaces).isEqualTo(Arrays.asList("ChildInterface1", "ChildInterface2"));
         });
 
