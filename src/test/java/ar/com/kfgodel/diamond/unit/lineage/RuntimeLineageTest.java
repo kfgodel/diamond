@@ -3,8 +3,8 @@ package ar.com.kfgodel.diamond.unit.lineage;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.naming.Named;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
-import ar.com.kfgodel.diamond.api.types.compile.CompileTimeHierarchy;
 import ar.com.kfgodel.diamond.api.types.reference.ReferenceOf;
+import ar.com.kfgodel.diamond.api.types.runtime.RuntimeTypeHierarchy;
 import ar.com.kfgodel.diamond.unit.DiamondTestContext;
 import ar.com.kfgodel.diamond.unit.testobjects.interfaces.GrandParentInterface1;
 import ar.com.kfgodel.diamond.unit.testobjects.lineage.ChildClass;
@@ -14,6 +14,7 @@ import info.kfgodel.jspek.api.JavaSpecRunner;
 import org.junit.runner.RunWith;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -25,13 +26,13 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Created by kfgodel on 19/09/14.
  */
 @RunWith(JavaSpecRunner.class)
-public class TypeLineageTest extends JavaSpec<DiamondTestContext> {
+public class RuntimeLineageTest extends JavaSpec<DiamondTestContext> {
   @Override
   public void define() {
 
-    describe("type lineage", () -> {
+    describe("a type's runtime lineage", () -> {
 
-      context().lineage(() -> Diamond.of(ChildClass.class).hierarchy().lineage());
+      context().lineage(() -> Diamond.of(ChildClass.class).runtime().hierarchy().lineage());
 
       it("starts from its creator class as the lowest descendant", () -> {
         assertThat(context().lineage().lowestDescendant().name())
@@ -79,29 +80,31 @@ public class TypeLineageTest extends JavaSpec<DiamondTestContext> {
       });
 
       describe("generic arguments", () -> {
-        it("start from the lowest descendant", () -> {
+        it("is empty for the lowest descendant", () -> {
           List<String> argumentNames = context().lineage().lowestDescendant().generics().arguments().map(Named::name).collect(Collectors.toList());
-          assertThat(argumentNames).isEqualTo(Arrays.asList());
+          assertThat(argumentNames).isEqualTo(Collections.emptyList());
         });
-        it("bubble up to its parent", () -> {
+        it("is empty for parent", () -> {
           TypeInstance childType = context().lineage().lowestDescendant();
           List<String> argumentNames = context().lineage().ancestorOf(childType).get()
             .generics().arguments().map((arg) -> arg.name()).collect(Collectors.toList());
-          assertThat(argumentNames).isEqualTo(Arrays.asList("C", "Integer"));
+          assertThat(argumentNames).isEqualTo(Collections.emptyList());
         });
-        it("grand parents, and so on", () -> {
+        it("is empty for grand parents, and so on", () -> {
           TypeInstance childType = context().lineage().lowestDescendant();
           TypeInstance parentType = context().lineage().ancestorOf(childType).get();
           List<String> argumentNames = context().lineage().ancestorOf(parentType).get()
             .generics().arguments().map((arg) -> arg.name()).collect(Collectors.toList());
-          assertThat(argumentNames).isEqualTo(Arrays.asList("Integer"));
+          assertThat(argumentNames).isEqualTo(Collections.emptyList());
         });
       });
 
       describe("all related types", () -> {
 
         it("includes all the types related to the lineage (hiearchy tree)", () -> {
-          List<String> allTypeNames = context().lineage().allRelatedTypes().map(TypeInstance::declaration).collect(Collectors.toList());
+          List<String> allTypeNames = context().lineage().allRelatedTypes()
+            .map(TypeInstance::declaration)
+            .collect(Collectors.toList());
           assertThat(allTypeNames)
             .isEqualTo(Arrays.asList(
               "ar.com.kfgodel.diamond.unit.testobjects.lineage.ChildClass",
@@ -124,14 +127,20 @@ public class TypeLineageTest extends JavaSpec<DiamondTestContext> {
         });
 
         it("includes parameterized and raw types", () -> {
-          CompileTimeHierarchy inheritance = Diamond.types().from(new ReferenceOf<List<String>>() {
-          }.getReferencedAnnotatedType()).hierarchy();
+          RuntimeTypeHierarchy hierarchy = Diamond.types()
+            .from(new ReferenceOf<List<String>>() {}.getReferencedAnnotatedType())
+            .runtime().hierarchy();
 
-          List<String> allTypeNames = inheritance.lineage().allRelatedTypes().map(TypeInstance::declaration).collect(Collectors.toList());
+          List<String> allTypeNames = hierarchy.lineage().allRelatedTypes()
+            .map(TypeInstance::declaration)
+            .collect(Collectors.toList());
           assertThat(allTypeNames)
-            .isEqualTo(Arrays.asList("java.util.List<java.lang.String>", "java.util.List",
-              "java.util.Collection<java.lang.String>", "java.util.Collection",
-              "java.lang.Iterable<java.lang.String>", "java.lang.Iterable"));
+            .isEqualTo(Arrays.asList("java.util.List<java.lang.String>",
+              "java.util.List",
+              "java.util.Collection<java.lang.String>",
+              "java.util.Collection",
+              "java.lang.Iterable<java.lang.String>",
+              "java.lang.Iterable"));
         });
 
       });

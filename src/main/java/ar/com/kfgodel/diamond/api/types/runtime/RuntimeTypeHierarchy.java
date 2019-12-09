@@ -1,6 +1,7 @@
 package ar.com.kfgodel.diamond.api.types.runtime;
 
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.diamond.api.types.inheritance.TypeLineage;
 import ar.com.kfgodel.nary.api.Nary;
 
 /**
@@ -26,4 +27,13 @@ public interface RuntimeTypeHierarchy {
    */
   Nary<TypeInstance> interfaces();
 
+  /**
+   * Returns this type lineage (starting from this type, the set of super types up until Object, or ancestors).<br>
+   * This lineage follow class relationships with superclasses and interfaces. It does not replace type
+   * variables as it moves forward.<br>
+   * In this lineage you will find runtime type relationships
+   *
+   * @return The type lineage of this type
+   */
+  TypeLineage lineage();
 }

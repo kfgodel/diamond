@@ -233,6 +233,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     this.setFields(description.getTypeFields());
     this.reflectionTypeSupplier = description.getReflectionTypeSupplier();
     this.runtime = DefaultTypeRuntime.create(
+      this,
       description.getRuntimeClasses(),
       description.getRuntimeType(),
       description.getInheritanceDescription()

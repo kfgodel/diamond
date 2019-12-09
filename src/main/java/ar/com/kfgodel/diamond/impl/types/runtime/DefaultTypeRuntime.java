@@ -35,13 +35,14 @@ public class DefaultTypeRuntime implements TypeRuntime {
     return hierarchy;
   }
 
-  public static DefaultTypeRuntime create(Supplier<Nary<Class<?>>> classes,
+  public static DefaultTypeRuntime create(TypeInstance type,
+                                          Supplier<Nary<Class<?>>> classes,
                                           Supplier<Nary<TypeInstance>> runtimeType,
                                           InheritanceDescription inheritance) {
     DefaultTypeRuntime runtime = new DefaultTypeRuntime();
     runtime.classes = classes;
     runtime.runtimeType = runtimeType;
-    runtime.hierarchy = DefaultRuntimeHierarchy.create(inheritance);
+    runtime.hierarchy = DefaultRuntimeHierarchy.create(type, inheritance);
     return runtime;
   }
 
