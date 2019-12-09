@@ -1,11 +1,15 @@
 package ar.com.kfgodel.diamond.impl.types.lineage;
 
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.diamond.api.types.inheritance.TypeLineage;
+import ar.com.kfgodel.diamond.impl.types.iteration.AllSuperTypesSpliterator;
+import ar.com.kfgodel.diamond.impl.types.iteration.RuntimeAlternativesSpliterator;
 import ar.com.kfgodel.diamond.impl.types.iteration.TypeInstanceSpliterator;
 import ar.com.kfgodel.nary.api.Nary;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Spliterators;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -15,7 +19,7 @@ import java.util.stream.StreamSupport;
  * This type represents a class lineage calculated from native class instance
  * Created by kfgodel on 19/09/14.
  */
-public class FunctionBasedTypeLineage extends TypeLineageSupport {
+public class FunctionBasedTypeLineage implements TypeLineage {
 
   /**
    * List return value to indicate not found
@@ -23,6 +27,16 @@ public class FunctionBasedTypeLineage extends TypeLineageSupport {
   public static final int NOT_FOUND = -1;
 
   private List<TypeInstance> classes;
+  private Function<TypeInstance, Nary<TypeInstance>> supertypesExtractor;
+
+  @Override
+  public Nary<TypeInstance> allRelatedTypes() {
+    return Nary.from(
+      RuntimeAlternativesSpliterator.create(
+        Spliterators.iterator(AllSuperTypesSpliterator.create(lowestDescendant(), supertypesExtractor))
+      )
+    );
+  }
 
   @Override
   public TypeInstance lowestDescendant() {
@@ -109,9 +123,14 @@ public class FunctionBasedTypeLineage extends TypeLineageSupport {
       .orElse(Nary.empty());
   }
 
-  public static FunctionBasedTypeLineage create(TypeInstance lowest, Function<TypeInstance, Nary<? extends TypeInstance>> advanceOperation) {
+  public static FunctionBasedTypeLineage create(TypeInstance lowest,
+                                                Function<TypeInstance,
+                                                Nary<? extends TypeInstance>> advanceOperation,
+                                                Function<TypeInstance, Nary<TypeInstance>> supertypesExtractor) {
     FunctionBasedTypeLineage lineage = new FunctionBasedTypeLineage();
-    lineage.classes = StreamSupport.stream(TypeInstanceSpliterator.create(lowest, advanceOperation), false).collect(Collectors.toList());
+    lineage.classes = StreamSupport.stream(TypeInstanceSpliterator.create(lowest, advanceOperation), false)
+      .collect(Collectors.toList());
+    lineage.supertypesExtractor = supertypesExtractor;
     return lineage;
   }
 

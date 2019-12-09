@@ -57,7 +57,10 @@ public class ClassTypeTest extends JavaSpec<DiamondTestContext> {
          * This is the runtime parent type
          */
         it("has a super class", () -> {
-          String superClassName = context().typeInstance().runtime().hierarchy().superclass().map(TypeInstance::name).get();
+          String superClassName = context().typeInstance()
+            .runtime().hierarchy().superclass()
+            .map(TypeInstance::name)
+            .get();
           assertThat(superClassName).isEqualTo("ParentClass");
         });
 
@@ -111,7 +114,9 @@ public class ClassTypeTest extends JavaSpec<DiamondTestContext> {
          * The superclass is its un-parameterized supertype (the one that's used on runtime)
          */
         it("has correct type arguments for its superclass", () -> {
-          List<String> parameterNames = context().typeInstance().runtime().hierarchy().superclass().get().generics().arguments()
+          List<String> parameterNames = context().typeInstance().runtime().hierarchy()
+            .superclass().get()
+            .generics().arguments()
             .map((typeParameter) -> typeParameter.name())
             .collect(Collectors.toList());
           assertThat(parameterNames).isEqualTo(Arrays.asList());

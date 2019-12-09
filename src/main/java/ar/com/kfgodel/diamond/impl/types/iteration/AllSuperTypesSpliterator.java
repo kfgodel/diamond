@@ -1,6 +1,7 @@
 package ar.com.kfgodel.diamond.impl.types.iteration;
 
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.nary.api.Nary;
 
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -8,6 +9,7 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.Spliterator;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 /**
  * This type represents the spliterator that traverses all the supertypes of a given type, avoiding duplicates
@@ -18,6 +20,7 @@ public class AllSuperTypesSpliterator implements Spliterator<TypeInstance> {
   private Set<TypeInstance> visitedTypes;
   private Queue<TypeInstance> pendingTypes;
   private TypeInstance lastVisitedType;
+  private Function<TypeInstance, Nary<TypeInstance>> supertypesExtractor;
 
   @Override
   public boolean tryAdvance(Consumer<? super TypeInstance> action) {
@@ -39,7 +42,8 @@ public class AllSuperTypesSpliterator implements Spliterator<TypeInstance> {
   }
 
   private void addNonVisitedSuperTypesAsPending(TypeInstance currentType) {
-    currentType.hierarchy().supertypes()
+    final Nary<TypeInstance> supertypes = supertypesExtractor.apply(currentType);
+    supertypes
       .filter((superType) -> !visitedTypes.contains(superType))
       .filter((nonVisited) -> !pendingTypes.contains(nonVisited))
       .forEach((notAlreadyPending) -> pendingTypes.add(notAlreadyPending));
@@ -61,11 +65,13 @@ public class AllSuperTypesSpliterator implements Spliterator<TypeInstance> {
   }
 
 
-  public static AllSuperTypesSpliterator create(TypeInstance startingType) {
+  public static AllSuperTypesSpliterator create(TypeInstance startingType,
+                                                Function<TypeInstance, Nary<TypeInstance>> supertypesExtractor) {
     AllSuperTypesSpliterator spliterator = new AllSuperTypesSpliterator();
     spliterator.pendingTypes = new LinkedList<>();
     spliterator.visitedTypes = new HashSet<>();
     spliterator.pendingTypes.add(startingType);
+    spliterator.supertypesExtractor = supertypesExtractor;
     return spliterator;
   }
 

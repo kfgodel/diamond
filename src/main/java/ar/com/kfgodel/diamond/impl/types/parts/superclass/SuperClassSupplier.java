@@ -2,7 +2,6 @@ package ar.com.kfgodel.diamond.impl.types.parts.superclass;
 
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
-import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.nary.api.Nary;
 
 import java.util.function.Supplier;
@@ -13,26 +12,20 @@ import java.util.function.Supplier;
  */
 public class SuperClassSupplier implements Supplier<Nary<TypeInstance>> {
 
-  private CachedValue<TypeInstance> superclass;
+  private Supplier<Nary<TypeInstance>> superclass;
 
   @Override
   public Nary<TypeInstance> get() {
-    TypeInstance superType = superclass.get();
-    if (superType == null) {
-      return Nary.empty();
-    }
-    return Nary.of(superType);
+    return superclass.get();
   }
 
   public static Supplier<Nary<TypeInstance>> create(Class<?> nativeClass) {
     SuperClassSupplier supplier = new SuperClassSupplier();
-    supplier.superclass = CachedValue.lazilyBy(() -> {
+    supplier.superclass = () -> {
       Class<?> superclass = nativeClass.getSuperclass();
-      if (superclass == null) {
-        return null;
-      }
-      return Diamond.of(superclass);
-    });
+      return Nary.of(superclass)
+        .map(Diamond::of);
+    };
     return supplier;
   }
 

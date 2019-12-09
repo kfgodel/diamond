@@ -31,7 +31,11 @@ public class DefaultCompileHierarchy implements CompileTimeHierarchy {
 
   @Override
   public TypeLineage lineage() {
-    return FunctionBasedTypeLineage.create(type, (type) -> type.hierarchy().extendedType());
+    return FunctionBasedTypeLineage.create(
+      type,
+      (type) -> type.hierarchy().extendedType(),
+      (type) -> type.hierarchy().supertypes()
+    );
   }
 
   @Override

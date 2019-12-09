@@ -101,32 +101,25 @@ public class RuntimeLineageTest extends JavaSpec<DiamondTestContext> {
 
       describe("all related types", () -> {
 
-        it("includes all the types related to the lineage (hiearchy tree)", () -> {
+        it("includes only raw types related to the lineage (hierarchy tree)", () -> {
           List<String> allTypeNames = context().lineage().allRelatedTypes()
             .map(TypeInstance::declaration)
             .collect(Collectors.toList());
           assertThat(allTypeNames)
             .isEqualTo(Arrays.asList(
               "ar.com.kfgodel.diamond.unit.testobjects.lineage.ChildClass",
-              "ar.com.kfgodel.diamond.unit.testobjects.lineage.ParentClass<C extends java.lang.Object, java.lang.Integer>",
               "ar.com.kfgodel.diamond.unit.testobjects.lineage.ParentClass",
-              "ar.com.kfgodel.diamond.unit.testobjects.interfaces.ChildInterface1<java.lang.Integer>",
               "ar.com.kfgodel.diamond.unit.testobjects.interfaces.ChildInterface1",
-              "ar.com.kfgodel.diamond.unit.testobjects.interfaces.ChildInterface2<java.lang.String>",
               "ar.com.kfgodel.diamond.unit.testobjects.interfaces.ChildInterface2",
-              "ar.com.kfgodel.diamond.unit.testobjects.lineage.GrandParentClass<java.lang.Integer>",
               "ar.com.kfgodel.diamond.unit.testobjects.lineage.GrandParentClass",
-              "ar.com.kfgodel.diamond.unit.testobjects.interfaces.ParentInterface2<java.lang.Integer, java.lang.Integer>",
               "ar.com.kfgodel.diamond.unit.testobjects.interfaces.ParentInterface2",
-              "ar.com.kfgodel.diamond.unit.testobjects.interfaces.ParentInterface1<java.lang.Integer, java.lang.Integer>",
               "ar.com.kfgodel.diamond.unit.testobjects.interfaces.ParentInterface1",
               "java.io.Serializable",
               "java.lang.Object",
-              "ar.com.kfgodel.diamond.unit.testobjects.interfaces.GrandParentInterface1<java.lang.Integer>",
               "ar.com.kfgodel.diamond.unit.testobjects.interfaces.GrandParentInterface1"));
         });
 
-        it("includes parameterized and raw types", () -> {
+        it("doesn't include parameterized types", () -> {
           RuntimeTypeHierarchy hierarchy = Diamond.types()
             .from(new ReferenceOf<List<String>>() {}.getReferencedAnnotatedType())
             .runtime().hierarchy();
@@ -135,22 +128,21 @@ public class RuntimeLineageTest extends JavaSpec<DiamondTestContext> {
             .map(TypeInstance::declaration)
             .collect(Collectors.toList());
           assertThat(allTypeNames)
-            .isEqualTo(Arrays.asList("java.util.List<java.lang.String>",
+            .isEqualTo(Arrays.asList(
               "java.util.List",
-              "java.util.Collection<java.lang.String>",
               "java.util.Collection",
-              "java.lang.Iterable<java.lang.String>",
-              "java.lang.Iterable"));
+              "java.lang.Iterable"
+            ));
         });
 
       });
 
-      it("can answer the type arguments of any related type", () -> {
+      it("can not answer the type arguments of any related type", () -> {
         List<String> argumentNames = context().lineage()
           .genericArgumentsOf(Diamond.of(GrandParentInterface1.class))
           .map((arg) -> arg.name()).collect(Collectors.toList());
         ;
-        assertThat(argumentNames).isEqualTo(Arrays.asList("Integer"));
+        assertThat(argumentNames).isEqualTo(Collections.emptyList());
       });
 
     });

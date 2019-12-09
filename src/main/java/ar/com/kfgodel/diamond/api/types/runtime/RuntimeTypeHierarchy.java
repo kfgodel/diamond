@@ -36,4 +36,12 @@ public interface RuntimeTypeHierarchy {
    * @return The type lineage of this type
    */
   TypeLineage lineage();
+
+  /**
+   * Returns the set of supertypes composed by the super class and any directly implemented interface.<br>
+   * This method allows navigating the supertype tree of a type.<br>
+   *
+   * @return A nary composed of the superclass and the interfaces
+   */
+  Nary<TypeInstance> supertypes();
 }

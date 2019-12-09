@@ -31,7 +31,16 @@ public class DefaultRuntimeHierarchy implements RuntimeTypeHierarchy {
 
   @Override
   public TypeLineage lineage() {
-    return FunctionBasedTypeLineage.create(type, (type) -> type.runtime().hierarchy().superclass());
+    return FunctionBasedTypeLineage.create(
+      type.runtime().type(),
+      (type) -> type.runtime().hierarchy().superclass(),
+      (type) -> type.runtime().hierarchy().supertypes()
+    );
+  }
+
+  @Override
+  public Nary<TypeInstance> supertypes() {
+    return superclass().concat(interfaces());
   }
 
   public static DefaultRuntimeHierarchy create(TypeInstance type, InheritanceDescription description) {
