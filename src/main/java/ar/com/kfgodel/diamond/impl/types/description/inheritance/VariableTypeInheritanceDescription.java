@@ -2,8 +2,10 @@ package ar.com.kfgodel.diamond.impl.types.description.inheritance;
 
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.diamond.api.types.categories.Categories;
+import ar.com.kfgodel.diamond.api.types.categories.TypeCategory;
+import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
-import ar.com.kfgodel.diamond.impl.natives.raws.RawClassesCalculator;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.impl.NaryFromCollectionSupplier;
@@ -17,27 +19,7 @@ import java.util.stream.Collectors;
  */
 public class VariableTypeInheritanceDescription implements InheritanceDescription {
 
-
-  private Supplier<Nary<Class<?>>> runtimeClasses;
-  private Supplier<Nary<TypeInstance>> typeArguments;
-
-  @Override
-  public Supplier<Nary<TypeInstance>> getSuperclassSupplier() {
-    return CachedValue.lazilyBy(() -> Nary.of(Diamond.of(getParentClassFromUpperBounds())));
-  }
-
-  /**
-   * Tries to get the only class used as upper bound (if any), if none is found, then
-   * object is used as parent type
-   *
-   * @return The type to use as parent of this type variable
-   */
-  private Class<?> getParentClassFromUpperBounds() {
-    // We look for the only allowed class as upper bound
-    final Nary<Class<?>> upperBoundClasses = this.runtimeClasses.get()
-      .filter((upper) -> !upper.isInterface());
-    return RawClassesCalculator.create().coalesce(upperBoundClasses);
-  }
+  private Supplier<TypeBounds> bounds;
 
   @Override
   public Supplier<Nary<TypeInstance>> getExtendedTypeSupplier() {
@@ -45,11 +27,25 @@ public class VariableTypeInheritanceDescription implements InheritanceDescriptio
   }
 
   @Override
+  public Supplier<Nary<TypeInstance>> getSuperclassSupplier() {
+    return CachedValue.lazilyBy(() -> {
+      return getUpperBoundThatAre(Categories.CLASS)
+        .orElseUse(()-> Diamond.of(Object.class)); //Object is the implicit upper bound of everything
+    });
+  }
+
+  private Nary<TypeInstance> getUpperBoundThatAre(TypeCategory expectedCategory) {
+    return bounds.get().upper()
+      .filter(upperBound -> upperBound.is().partOf(expectedCategory));
+  }
+
+
+  @Override
   public Supplier<Nary<TypeInstance>> getInterfacesSupplier() {
-    return NaryFromCollectionSupplier.lazilyBy(() -> runtimeClasses.get()
-      .filter(Class::isInterface)
-      .map(Diamond::of)
-      .collect(Collectors.toList())
+    return NaryFromCollectionSupplier.lazilyBy(() -> {
+        return getUpperBoundThatAre(Categories.INTERFACE)
+          .collect(Collectors.toList());
+      }
     );
   }
 
@@ -58,11 +54,9 @@ public class VariableTypeInheritanceDescription implements InheritanceDescriptio
     return getInterfacesSupplier();
   }
 
-  public static VariableTypeInheritanceDescription create(Supplier<Nary<Class<?>>> runtimeClasses,
-                                                          Supplier<Nary<TypeInstance>> typeArguments) {
+  public static VariableTypeInheritanceDescription create(Supplier<TypeBounds> bounds) {
     VariableTypeInheritanceDescription description = new VariableTypeInheritanceDescription();
-    description.runtimeClasses = runtimeClasses;
-    description.typeArguments = typeArguments;
+    description.bounds = bounds;
     return description;
   }
 

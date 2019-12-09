@@ -37,7 +37,7 @@ public class TypeVariableDescription extends TypeDescriptionSupport {
 
   @Override
   public InheritanceDescription getInheritanceDescription() {
-    return VariableTypeInheritanceDescription.create(getRawClassesSupplier(), getTypeArguments());
+    return VariableTypeInheritanceDescription.create(getBounds());
   }
 
   @Override
