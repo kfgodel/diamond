@@ -1,7 +1,7 @@
 package ar.com.kfgodel.diamond.api.types.is;
 
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
-import ar.com.kfgodel.diamond.api.types.kinds.Kind;
+import ar.com.kfgodel.diamond.api.types.categories.TypeCategory;
 
 /**
  * This interface defines the different verifications that can be done on a type
@@ -11,13 +11,13 @@ import ar.com.kfgodel.diamond.api.types.kinds.Kind;
 public interface TypeTests {
 
   /**
-   * Answers if this type belongs to the given kind. Kinds are groups of types
+   * Answers if this type belongs to the given category. Categories are groups of types
    * usually defined by the language designers
    *
-   * @param testedKind The kind to test this type on
-   * @return true if this type can be considered of the given kind
+   * @param testedTypeCategory The category to test this type on
+   * @return true if this type can be considered an element of the given category
    */
-  boolean ofKind(Kind testedKind);
+  boolean partOf(TypeCategory testedTypeCategory);
 
   /**
    * Answers if this type is a cast-safe supertype of the given type

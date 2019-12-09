@@ -6,10 +6,10 @@ import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.types.TypeDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.diamond.api.types.categories.Categories;
+import ar.com.kfgodel.diamond.api.types.categories.TypeCategory;
 import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
-import ar.com.kfgodel.diamond.api.types.kinds.Kind;
-import ar.com.kfgodel.diamond.api.types.kinds.Kinds;
 import ar.com.kfgodel.diamond.api.types.names.TypeNamesDescription;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.diamond.impl.equals.CachedTokenCalculator;
@@ -31,7 +31,6 @@ import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.impl.NaryFromCollectionSupplier;
 
 import java.lang.annotation.Annotation;
-import java.util.Arrays;
 import java.util.function.BiPredicate;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -82,10 +81,12 @@ public abstract class TypeDescriptionSupport implements TypeDescription {
   }
 
   @Override
-  public Supplier<Nary<Kind>> getKindsFor(TypeInstance type) {
-    return NaryFromCollectionSupplier.lazilyBy(() -> Arrays.stream(Kinds.values())
-      .filter((kind) -> kind.contains(type))
-      .collect(Collectors.toList()));
+  public Supplier<Nary<TypeCategory>> getCategoriesFor(TypeInstance type) {
+    return NaryFromCollectionSupplier.lazilyBy(() ->
+      Categories.values()
+      .filter((category) -> category.contains(type))
+      .collect(Collectors.toList())
+    );
   }
 
   @Override

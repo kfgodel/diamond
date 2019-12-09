@@ -10,10 +10,10 @@ import ar.com.kfgodel.diamond.api.generics.Generified;
 import ar.com.kfgodel.diamond.api.members.TypeMember;
 import ar.com.kfgodel.diamond.api.methods.TypeMethods;
 import ar.com.kfgodel.diamond.api.naming.Named;
+import ar.com.kfgodel.diamond.api.types.categories.TypeCategory;
 import ar.com.kfgodel.diamond.api.types.compile.CompileTimeHierarchy;
 import ar.com.kfgodel.diamond.api.types.generics.TypeGenerics;
 import ar.com.kfgodel.diamond.api.types.is.TypeTests;
-import ar.com.kfgodel.diamond.api.types.kinds.Kind;
 import ar.com.kfgodel.diamond.api.types.names.TypeNames;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.diamond.api.types.runtime.TypeRuntime;
@@ -99,12 +99,12 @@ public interface TypeInstance extends
   TypeTests is();
 
   /**
-   * The set of kinds this type belongs to.<br> This set is usually defined on the language
+   * The set of known categories this type belongs to.<br> This set is usually defined by the language
    * specification
    *
-   * @return The kinds for this type
+   * @return The built-in categories for this type
    */
-  Nary<Kind> kinds();
+  Nary<TypeCategory> categories();
 
   /**
    * @return The nary of all the members (methods, fields and constructors)

@@ -11,11 +11,11 @@ This doc shows an overview of the Diamond API structure
   - completeName
   - bareName
 
+- categories
 - declaredPackage
 - componentType
 - reflectedAs
 
-- kinds
 - members
 - constructors
   - all
@@ -73,7 +73,7 @@ This doc shows an overview of the Diamond API structure
 
 - declaration
 - is
-  - kindOf
+  - partOf
   - subTypeOf
   - superTypeOf
   - assignableFrom

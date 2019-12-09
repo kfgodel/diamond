@@ -1,8 +1,8 @@
 package ar.com.kfgodel.diamond.impl.types.is;
 
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.diamond.api.types.categories.TypeCategory;
 import ar.com.kfgodel.diamond.api.types.is.TypeTests;
-import ar.com.kfgodel.diamond.api.types.kinds.Kind;
 
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
@@ -18,8 +18,8 @@ public class DefaultTypeTests implements TypeTests {
   private Predicate<Object> typeForPredicate;
 
   @Override
-  public boolean ofKind(Kind testedKind) {
-    return type.kinds().anyMatch(testedKind::equals);
+  public boolean partOf(TypeCategory testedTypeCategory) {
+    return type.categories().anyMatch(testedTypeCategory::equals);
   }
 
   @Override

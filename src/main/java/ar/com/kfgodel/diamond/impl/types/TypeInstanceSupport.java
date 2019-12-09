@@ -9,10 +9,10 @@ import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.methods.TypeMethods;
 import ar.com.kfgodel.diamond.api.types.TypeDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.diamond.api.types.categories.TypeCategory;
 import ar.com.kfgodel.diamond.api.types.compile.CompileTimeHierarchy;
 import ar.com.kfgodel.diamond.api.types.generics.TypeGenerics;
 import ar.com.kfgodel.diamond.api.types.is.TypeTests;
-import ar.com.kfgodel.diamond.api.types.kinds.Kind;
 import ar.com.kfgodel.diamond.api.types.names.TypeNames;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.diamond.api.types.runtime.TypeRuntime;
@@ -74,7 +74,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
 
   private Function<TypeInstance, Object> identityToken;
 
-  private Supplier<Nary<Kind>> kinds;
+  private Supplier<Nary<TypeCategory>> categories;
 
   private TypeGenerics generics;
 
@@ -222,8 +222,8 @@ public abstract class TypeInstanceSupport implements TypeInstance {
   }
 
   @Override
-  public Nary<Kind> kinds() {
-    return kinds.get();
+  public Nary<TypeCategory> categories() {
+    return categories.get();
   }
 
   protected void initializeSuper(TypeDescription description) {
@@ -241,7 +241,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     this.typePackage = description.getDeclaredPackage();
     this.inheritance = DefaultCompileHierarchy.create(this, description.getInheritanceDescription());
     this.identityToken = description.getIdentityToken();
-    this.kinds = description.getKindsFor(this);
+    this.categories = description.getCategoriesFor(this);
     this.tests = DefaultTypeTests.create(this,
       description.getAssignabilityPredicate(),
       description.getTypeForPredicate()
