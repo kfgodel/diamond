@@ -16,7 +16,7 @@ import java.util.stream.Stream;
  */
 public class ExtendedTypeSupplier implements Supplier<Nary<TypeInstance>> {
 
-  private CachedValue<TypeInstance> extendedType;
+  private Supplier<TypeInstance> extendedType;
 
   @Override
   public Nary<TypeInstance> get() {
@@ -30,7 +30,7 @@ public class ExtendedTypeSupplier implements Supplier<Nary<TypeInstance>> {
 
   public static Supplier<Nary<TypeInstance>> create(Class<?> nativeClass, Stream<TypeInstance> typeArguments) {
     ExtendedTypeSupplier supplier = new ExtendedTypeSupplier();
-    supplier.extendedType = CachedValue.lazilyBy(() -> describeExtendedType(nativeClass, typeArguments));
+    supplier.extendedType = CachedValue.from(() -> describeExtendedType(nativeClass, typeArguments));
     return supplier;
   }
 

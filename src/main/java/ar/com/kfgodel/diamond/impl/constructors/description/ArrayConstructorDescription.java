@@ -16,6 +16,7 @@ import ar.com.kfgodel.diamond.impl.members.generics.UnGenerifiedMemberGenerics;
 import ar.com.kfgodel.diamond.impl.natives.invokables.constructors.NativeArrayConstructor;
 import ar.com.kfgodel.diamond.impl.types.parts.annotations.NoAnnotationsSupplier;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
+import ar.com.kfgodel.lazyvalue.impl.SelfSupplier;
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.impl.NarySupplierFromElement;
 
@@ -38,7 +39,7 @@ public class ArrayConstructorDescription implements ConstructorDescription {
 
   @Override
   public Supplier<TypeInstance> getDeclaringType() {
-    return CachedValue.eagerlyFrom(Diamond.of(nativeArrayClass));
+    return SelfSupplier.of(Diamond.of(nativeArrayClass));
   }
 
   @Override
@@ -49,12 +50,12 @@ public class ArrayConstructorDescription implements ConstructorDescription {
 
   @Override
   public Supplier<PolymorphicInvokable> getInvoker() {
-    return CachedValue.lazilyBy(() -> NativeArrayConstructor.create(nativeArrayClass));
+    return CachedValue.from(() -> NativeArrayConstructor.create(nativeArrayClass));
   }
 
   @Override
   public Supplier<String> getName() {
-    return CachedValue.lazilyBy(nativeArrayClass::getSimpleName);
+    return CachedValue.from(nativeArrayClass::getSimpleName);
   }
 
   @Override

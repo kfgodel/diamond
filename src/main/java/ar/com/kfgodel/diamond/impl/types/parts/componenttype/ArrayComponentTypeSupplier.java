@@ -16,11 +16,11 @@ import java.util.function.Supplier;
  */
 public class ArrayComponentTypeSupplier implements Supplier<Nary<TypeInstance>> {
 
-  private CachedValue<TypeInstance> componentType;
+  private Supplier<TypeInstance> componentType;
 
   public static Supplier<Nary<TypeInstance>> create(Object nativeType) {
     ArrayComponentTypeSupplier supplier = new ArrayComponentTypeSupplier();
-    supplier.componentType = CachedValue.lazilyBy(() -> {
+    supplier.componentType = CachedValue.from(() -> {
       Object componentType = getComponentTypeFrom(nativeType);
       if (componentType == null) {
         return null;

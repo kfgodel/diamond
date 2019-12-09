@@ -14,7 +14,7 @@ import java.util.function.Supplier;
 public class NativeMemberDeclaringTypeSupplier {
 
   public static Supplier<TypeInstance> create(Member nativeMember) {
-    return CachedValue.lazilyBy(() -> Diamond.of(nativeMember.getDeclaringClass()));
+    return CachedValue.from(() -> Diamond.of(nativeMember.getDeclaringClass()));
   }
 
 }

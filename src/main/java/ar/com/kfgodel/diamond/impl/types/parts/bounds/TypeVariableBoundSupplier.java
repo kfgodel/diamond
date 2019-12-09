@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class TypeVariableBoundSupplier {
 
   public static Supplier<TypeBounds> create(Object nativeType) {
-    return CachedValue.lazilyBy(() -> {
+    return CachedValue.from(() -> {
       AnnotatedType[] upperBounds = getUpperBoundsFrom(nativeType);
       return UpperOnlyTypeBounds.create(typeListFrom(upperBounds));
     });

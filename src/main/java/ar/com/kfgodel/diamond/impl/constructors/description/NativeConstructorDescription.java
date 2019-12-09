@@ -49,12 +49,12 @@ public class NativeConstructorDescription implements ConstructorDescription {
 
   @Override
   public Supplier<PolymorphicInvokable> getInvoker() {
-    return CachedValue.lazilyBy(() -> NativeConstructorInvoker.create(nativeConstructor));
+    return CachedValue.from(() -> NativeConstructorInvoker.create(nativeConstructor));
   }
 
   @Override
   public Supplier<String> getName() {
-    return CachedValue.lazilyBy(nativeConstructor::getName);
+    return CachedValue.from(nativeConstructor::getName);
   }
 
   @Override
@@ -64,7 +64,7 @@ public class NativeConstructorDescription implements ConstructorDescription {
 
   @Override
   public Supplier<Generics> getGenerics() {
-    return CachedValue.lazilyBy(() -> ExecutableGenericsSupplier.create(nativeConstructor));
+    return CachedValue.from(() -> ExecutableGenericsSupplier.create(nativeConstructor));
   }
 
   @Override

@@ -1,6 +1,7 @@
 package ar.com.kfgodel.nary.impl;
 
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
+import ar.com.kfgodel.lazyvalue.impl.SelfSupplier;
 import ar.com.kfgodel.nary.api.Nary;
 
 import java.util.Collection;
@@ -28,7 +29,7 @@ public class NarySupplierFromCollection<T> implements Supplier<Nary<T>> {
    * @return The created supplier
    */
   public static <T> NarySupplierFromCollection<T> from(Collection<T> collection) {
-    return using(CachedValue.eagerlyFrom(collection));
+    return using(SelfSupplier.of(collection));
   }
 
   /**
@@ -54,7 +55,7 @@ public class NarySupplierFromCollection<T> implements Supplier<Nary<T>> {
    * @return The created stream supplier
    */
   public static <T> NarySupplierFromCollection<T> lazilyBy(Supplier<? extends Collection<T>> supplier) {
-    Supplier<? extends Collection<T>> cachedValue = CachedValue.lazilyBy(supplier);
+    Supplier<? extends Collection<T>> cachedValue = CachedValue.from(supplier);
     return using(cachedValue);
   }
 }

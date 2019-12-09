@@ -227,7 +227,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
   }
 
   protected void initializeSuper(TypeDescription description) {
-    this.setNames(CachedValue.lazilyBy(()-> TypeInstanceNames.create(this, description.getNamesDescription())));
+    this.setNames(CachedValue.from(()-> TypeInstanceNames.create(this, description.getNamesDescription())));
     this.setAnnotations(description.getAnnotations());
     this.setMethods(description.getTypeMethods());
     this.setFields(description.getTypeFields());

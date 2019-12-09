@@ -7,6 +7,7 @@ import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
+import ar.com.kfgodel.lazyvalue.impl.SelfSupplier;
 import ar.com.kfgodel.nary.api.Nary;
 
 import java.util.function.Supplier;
@@ -22,7 +23,7 @@ public class FunctionalLambdaDescription implements LambdaDescription {
 
   @Override
   public Supplier<PolymorphicInvokable> getPolymorphicFunction() {
-    return CachedValue.eagerlyFrom(invokable);
+    return SelfSupplier.of(invokable);
   }
 
   @Override
@@ -43,7 +44,7 @@ public class FunctionalLambdaDescription implements LambdaDescription {
   public static FunctionalLambdaDescription create(PolymorphicInvokable invokableAdapter, Object functionalInstance, String functionalMethodName) {
     FunctionalLambdaDescription description = new FunctionalLambdaDescription();
     description.invokable = invokableAdapter;
-    description.functionalMethod = CachedValue.lazilyBy(() -> Diamond.of(functionalInstance.getClass()).methods().named(functionalMethodName).get());
+    description.functionalMethod = CachedValue.from(() -> Diamond.of(functionalInstance.getClass()).methods().named(functionalMethodName).get());
     return description;
   }
 

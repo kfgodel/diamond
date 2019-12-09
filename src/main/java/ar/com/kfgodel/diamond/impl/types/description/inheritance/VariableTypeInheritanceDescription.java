@@ -28,7 +28,7 @@ public class VariableTypeInheritanceDescription implements InheritanceDescriptio
 
   @Override
   public Supplier<Nary<TypeInstance>> getSuperclassSupplier() {
-    return CachedValue.lazilyBy(() -> {
+    return CachedValue.from(() -> {
       return getUpperBoundThatAre(Categories.CLASS)
         .orElseUse(()-> Diamond.of(Object.class)); //Object is the implicit upper bound of everything
     });

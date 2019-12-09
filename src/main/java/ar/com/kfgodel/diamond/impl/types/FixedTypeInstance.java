@@ -15,8 +15,9 @@ import java.util.function.Supplier;
  * variable types such as type variables or wildcards.<br>
  * <br>
  * Implementation notes:
- * - Due to class being an access point for many different use cases and data, most of their attributes are implemented lazy
- * so their don't prematurely explode the entire possible tree. LazyValue variables allow ignoring aspects of a class until needed
+ * - Due to class being an access point for many different use cases and data, most of their attributes are implemented
+ * lazily so their don't prematurely explode the entire possible tree.
+ * {@link ar.com.kfgodel.lazyvalue.impl.CachedValue} variables allow ignoring aspects of a class until needed
  * <p>
  * Created by kfgodel on 18/09/14.
  */

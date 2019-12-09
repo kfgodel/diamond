@@ -36,6 +36,6 @@ public abstract class AnnotatedTypeDescriptionSupport extends DelegatedDescripti
 
   @Override
   public Supplier<Nary<Object>> getReflectionTypeSupplier() {
-    return CachedValue.lazilyBy(()-> Nary.of(getAnnotatedType()));
+    return CachedValue.from(()-> Nary.of(getAnnotatedType()));
   }
 }

@@ -33,7 +33,7 @@ public class ClassDescription extends TypeDescriptionSupport {
 
   @Override
   public Supplier<Nary<TypePackage>> getDeclaredPackage() {
-    return CachedValue.lazilyBy(()-> TypePackageSupplier.from(getRawClass()));
+    return CachedValue.from(()-> TypePackageSupplier.from(getRawClass()));
   }
 
   @Override
@@ -55,12 +55,12 @@ public class ClassDescription extends TypeDescriptionSupport {
 
   @Override
   public Supplier<Nary<Object>> getReflectionTypeSupplier() {
-    return CachedValue.lazilyBy(()-> Nary.of(this.nativeType));
+    return CachedValue.from(()-> Nary.of(this.nativeType));
   }
 
   @Override
   public Supplier<Nary<Class<?>>> getRuntimeClasses() {
-    return CachedValue.lazilyBy(()-> Nary.of(getRawClass()));
+    return CachedValue.from(()-> Nary.of(getRawClass()));
   }
 
   @Override

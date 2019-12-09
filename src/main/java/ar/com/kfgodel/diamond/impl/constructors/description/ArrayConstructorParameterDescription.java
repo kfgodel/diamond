@@ -25,7 +25,7 @@ public class ArrayConstructorParameterDescription implements ParameterDescriptio
 
   @Override
   public Supplier<TypeInstance> getDeclaredType() {
-    return CachedValue.lazilyBy(() -> Diamond.of(int.class));
+    return CachedValue.from(() -> Diamond.of(int.class));
   }
 
   @Override

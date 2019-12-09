@@ -36,12 +36,12 @@ public class NativeMethodDescription implements MethodDescription {
 
   @Override
   public Supplier<String> getName() {
-    return CachedValue.lazilyBy(nativeMethod::getName);
+    return CachedValue.from(nativeMethod::getName);
   }
 
   @Override
   public Supplier<TypeInstance> getReturnType() {
-    return CachedValue.lazilyBy(() -> Diamond.types().from(nativeMethod.getAnnotatedReturnType()));
+    return CachedValue.from(() -> Diamond.types().from(nativeMethod.getAnnotatedReturnType()));
   }
 
   @Override
@@ -61,7 +61,7 @@ public class NativeMethodDescription implements MethodDescription {
 
   @Override
   public Supplier<PolymorphicInvokable> getInvoker() {
-    return CachedValue.lazilyBy(() -> NativeMethodInvokerGenerator.INSTANCE.generateFor(nativeMethod));
+    return CachedValue.from(() -> NativeMethodInvokerGenerator.INSTANCE.generateFor(nativeMethod));
   }
 
   @Override
@@ -71,7 +71,7 @@ public class NativeMethodDescription implements MethodDescription {
 
   @Override
   public Supplier<Generics> getGenerics() {
-    return CachedValue.lazilyBy(() -> ExecutableGenericsSupplier.create(nativeMethod));
+    return CachedValue.from(() -> ExecutableGenericsSupplier.create(nativeMethod));
   }
 
   @Override

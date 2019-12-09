@@ -27,7 +27,7 @@ public class NativeParameterDescription implements ParameterDescription {
 
   @Override
   public Supplier<TypeInstance> getDeclaredType() {
-    return CachedValue.lazilyBy(() -> Diamond.types().from(nativeParameter.getAnnotatedType()));
+    return CachedValue.from(() -> Diamond.types().from(nativeParameter.getAnnotatedType()));
   }
 
   @Override

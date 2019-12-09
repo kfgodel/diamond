@@ -16,7 +16,7 @@ import java.util.function.Supplier;
 public class WildcardBoundsSupplier {
 
   public static Supplier<TypeBounds> create(Object nativeType) {
-    return CachedValue.lazilyBy(() -> {
+    return CachedValue.from(() -> {
       Object[] upperBounds;
       Object[] lowerBounds;
       if (nativeType instanceof AnnotatedWildcardType) {

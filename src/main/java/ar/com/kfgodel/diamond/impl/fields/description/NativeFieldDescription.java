@@ -45,12 +45,12 @@ public class NativeFieldDescription implements FieldDescription {
 
   @Override
   public Supplier<String> getName() {
-    return CachedValue.lazilyBy(nativeField::getName);
+    return CachedValue.from(nativeField::getName);
   }
 
   @Override
   public Supplier<TypeInstance> getType() {
-    return CachedValue.lazilyBy(() -> Diamond.types().from(nativeField.getAnnotatedType()));
+    return CachedValue.from(() -> Diamond.types().from(nativeField.getAnnotatedType()));
   }
 
   @Override
@@ -71,7 +71,7 @@ public class NativeFieldDescription implements FieldDescription {
 
   @Override
   public Supplier<PolymorphicInvokable> getInvoker() {
-    return CachedValue.lazilyBy(() -> java.lang.reflect.Modifier.isStatic(nativeField.getModifiers()) ?
+    return CachedValue.from(() -> java.lang.reflect.Modifier.isStatic(nativeField.getModifiers()) ?
       NativeStaticFieldInvoker.create(nativeField) :
       NativeInstanceFieldInvoker.create(nativeField)
     );
@@ -84,12 +84,12 @@ public class NativeFieldDescription implements FieldDescription {
 
   @Override
   public Supplier<BiConsumer<Object, Object>> getSetter() {
-    return CachedValue.lazilyBy(() -> NativeFieldSetter.create(nativeField));
+    return CachedValue.from(() -> NativeFieldSetter.create(nativeField));
   }
 
   @Override
   public Supplier<Function<Object, Object>> getGetter() {
-    return CachedValue.lazilyBy(() -> NativeFieldGetter.create(nativeField));
+    return CachedValue.from(() -> NativeFieldGetter.create(nativeField));
   }
 
   @Override
