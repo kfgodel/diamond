@@ -10,8 +10,8 @@ import ar.com.kfgodel.diamond.api.generics.Generified;
 import ar.com.kfgodel.diamond.api.members.TypeMember;
 import ar.com.kfgodel.diamond.api.methods.TypeMethods;
 import ar.com.kfgodel.diamond.api.naming.Named;
+import ar.com.kfgodel.diamond.api.types.compile.CompileTimeHierarchy;
 import ar.com.kfgodel.diamond.api.types.generics.TypeGenerics;
-import ar.com.kfgodel.diamond.api.types.inheritance.TypeInheritance;
 import ar.com.kfgodel.diamond.api.types.is.TypeTests;
 import ar.com.kfgodel.diamond.api.types.kinds.Kind;
 import ar.com.kfgodel.diamond.api.types.names.TypeNames;
@@ -85,10 +85,12 @@ public interface TypeInstance extends
   Object get();
 
   /**
-   * @return The information about this type inheritance.<br>
-   * TypeInheritance holds the relationships between this type and its parent types
+   * Allows access to this type hierarchy as defined in compile time (without erasure).<br>
+   * Unlike standard reflection, this is theway you will probably think of the type's hierarchy
+   * @return The information about this type hierarchy.<br>
+   * CompileTimeHierarchy holds the relationships between this type and its parent types
    */
-  TypeInheritance inheritance();
+  CompileTimeHierarchy hierarchy();
 
   /**
    * Starts a verification test with this type

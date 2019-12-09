@@ -48,7 +48,7 @@ public class ClassTypeTest extends JavaSpec<DiamondTestContext> {
       describe("inheritance", () -> {
 
         it("has a lineage with its type ancestors", () -> {
-          TypeLineage typeLineage = context().typeInstance().inheritance().typeLineage();
+          TypeLineage typeLineage = context().typeInstance().hierarchy().lineage();
           assertThat(typeLineage.highestAncestor().name())
             .isEqualTo("Object");
         });
@@ -65,7 +65,7 @@ public class ClassTypeTest extends JavaSpec<DiamondTestContext> {
          * This is the compile time parent type
          */
         it("has an extended type", () -> {
-          String extendedTypeName = context().typeInstance().inheritance().extendedType().map(Named::name).get();
+          String extendedTypeName = context().typeInstance().hierarchy().extendedType().map(Named::name).get();
           assertThat(extendedTypeName).isEqualTo("ParentClass");
         });
 
@@ -81,12 +81,12 @@ public class ClassTypeTest extends JavaSpec<DiamondTestContext> {
          * This is the compile time interfaces type
          */
         it("has several implemented types", () -> {
-          List<String> interfaces = context().typeInstance().inheritance().implementedTypes().map(Named::name).collect(Collectors.toList());
+          List<String> interfaces = context().typeInstance().hierarchy().implementedTypes().map(Named::name).collect(Collectors.toList());
           assertThat(interfaces).isEqualTo(Arrays.asList("ChildInterface1", "ChildInterface2"));
         });
 
         it("has supertypes ( superclass and interfaces)", () -> {
-          List<String> supertypeNames = context().typeInstance().inheritance().supertypes().map(Named::name).collect(Collectors.toList());
+          List<String> supertypeNames = context().typeInstance().hierarchy().supertypes().map(Named::name).collect(Collectors.toList());
           assertThat(supertypeNames).isEqualTo(Arrays.asList("ParentClass", "ChildInterface1", "ChildInterface2"));
         });
       });
@@ -121,7 +121,7 @@ public class ClassTypeTest extends JavaSpec<DiamondTestContext> {
          * The extended type is its parameterized supertype (the one that's is used on compile time)
          */
         it("has correct type arguments for its extended type", () -> {
-          List<String> parameterNames = context().typeInstance().inheritance().extendedType().get().generics().arguments()
+          List<String> parameterNames = context().typeInstance().hierarchy().extendedType().get().generics().arguments()
             .map((typeParameter) -> typeParameter.name())
             .collect(Collectors.toList());
           assertThat(parameterNames).isEqualTo(Arrays.asList("C", "Integer"));

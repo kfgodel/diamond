@@ -3,7 +3,7 @@ package ar.com.kfgodel.diamond.unit.lineage;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.naming.Named;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
-import ar.com.kfgodel.diamond.api.types.inheritance.TypeInheritance;
+import ar.com.kfgodel.diamond.api.types.compile.CompileTimeHierarchy;
 import ar.com.kfgodel.diamond.api.types.reference.ReferenceOf;
 import ar.com.kfgodel.diamond.unit.DiamondTestContext;
 import ar.com.kfgodel.diamond.unit.testobjects.interfaces.GrandParentInterface1;
@@ -31,7 +31,7 @@ public class TypeLineageTest extends JavaSpec<DiamondTestContext> {
 
     describe("type lineage", () -> {
 
-      context().lineage(() -> Diamond.of(ChildClass.class).inheritance().typeLineage());
+      context().lineage(() -> Diamond.of(ChildClass.class).hierarchy().lineage());
 
       it("starts from its creator class as the lowest descendant", () -> {
         assertThat(context().lineage().lowestDescendant().name())
@@ -66,7 +66,7 @@ public class TypeLineageTest extends JavaSpec<DiamondTestContext> {
       });
 
       it("does not include Object for primitive types", () -> {
-        Stream<TypeInstance> lineageMembers = Diamond.of(int.class).inheritance().typeLineage().allMembers();
+        Stream<TypeInstance> lineageMembers = Diamond.of(int.class).hierarchy().lineage().allMembers();
         List<String> memberNames = lineageMembers.map((member) -> member.name()).collect(Collectors.toList());
         assertThat(memberNames)
           .isEqualTo(Arrays.asList("int"));
@@ -124,10 +124,10 @@ public class TypeLineageTest extends JavaSpec<DiamondTestContext> {
         });
 
         it("includes parameterized and raw types", () -> {
-          TypeInheritance inheritance = Diamond.types().from(new ReferenceOf<List<String>>() {
-          }.getReferencedAnnotatedType()).inheritance();
+          CompileTimeHierarchy inheritance = Diamond.types().from(new ReferenceOf<List<String>>() {
+          }.getReferencedAnnotatedType()).hierarchy();
 
-          List<String> allTypeNames = inheritance.typeLineage().allRelatedTypes().map(TypeInstance::declaration).collect(Collectors.toList());
+          List<String> allTypeNames = inheritance.lineage().allRelatedTypes().map(TypeInstance::declaration).collect(Collectors.toList());
           assertThat(allTypeNames)
             .isEqualTo(Arrays.asList("java.util.List<java.lang.String>", "java.util.List",
               "java.util.Collection<java.lang.String>", "java.util.Collection",

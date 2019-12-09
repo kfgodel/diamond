@@ -9,8 +9,8 @@ import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.methods.TypeMethods;
 import ar.com.kfgodel.diamond.api.types.TypeDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.diamond.api.types.compile.CompileTimeHierarchy;
 import ar.com.kfgodel.diamond.api.types.generics.TypeGenerics;
-import ar.com.kfgodel.diamond.api.types.inheritance.TypeInheritance;
 import ar.com.kfgodel.diamond.api.types.is.TypeTests;
 import ar.com.kfgodel.diamond.api.types.kinds.Kind;
 import ar.com.kfgodel.diamond.api.types.names.TypeNames;
@@ -22,8 +22,8 @@ import ar.com.kfgodel.diamond.impl.fields.sources.TypeFieldsImpl;
 import ar.com.kfgodel.diamond.impl.methods.sources.NoMethods;
 import ar.com.kfgodel.diamond.impl.methods.sources.TypeMethodsImpl;
 import ar.com.kfgodel.diamond.impl.strings.DebugPrinter;
+import ar.com.kfgodel.diamond.impl.types.compile.DefaultCompileHierarchy;
 import ar.com.kfgodel.diamond.impl.types.equality.TypeEquality;
-import ar.com.kfgodel.diamond.impl.types.inheritance.SuppliedTypesInheritance;
 import ar.com.kfgodel.diamond.impl.types.is.DefaultTypeTests;
 import ar.com.kfgodel.diamond.impl.types.names.TypeInstanceNames;
 import ar.com.kfgodel.diamond.impl.types.parts.annotations.NoAnnotationsSupplier;
@@ -68,7 +68,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
   /**
    * Inheritance information
    */
-  private TypeInheritance inheritance;
+  private CompileTimeHierarchy inheritance;
 
   private Supplier<Nary<TypePackage>> typePackage;
 
@@ -193,7 +193,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
   }
 
   @Override
-  public TypeInheritance inheritance() {
+  public CompileTimeHierarchy hierarchy() {
     return inheritance;
   }
 
@@ -238,7 +238,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
       description.getInheritanceDescription()
     );
     this.typePackage = description.getDeclaredPackage();
-    this.inheritance = SuppliedTypesInheritance.create(this, description.getInheritanceDescription());
+    this.inheritance = DefaultCompileHierarchy.create(this, description.getInheritanceDescription());
     this.identityToken = description.getIdentityToken();
     this.kinds = description.getKindsFor(this);
     this.tests = DefaultTypeTests.create(this,

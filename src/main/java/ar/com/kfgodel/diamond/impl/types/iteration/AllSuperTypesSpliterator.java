@@ -39,7 +39,7 @@ public class AllSuperTypesSpliterator implements Spliterator<TypeInstance> {
   }
 
   private void addNonVisitedSuperTypesAsPending(TypeInstance currentType) {
-    currentType.inheritance().supertypes()
+    currentType.hierarchy().supertypes()
       .filter((superType) -> !visitedTypes.contains(superType))
       .filter((nonVisited) -> !pendingTypes.contains(nonVisited))
       .forEach((notAlreadyPending) -> pendingTypes.add(notAlreadyPending));
