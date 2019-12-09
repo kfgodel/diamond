@@ -104,9 +104,8 @@ public class ParameterizedTypeTest extends JavaSpec<DiamondTestContext> {
       });
 
       it("can be accessed from its type instance", () -> {
-        final Object reflectionType = context().typeInstance().reflectionType().get();
-        assertThat(reflectionType).isInstanceOf(AnnotatedType.class);
-        assertThat(((AnnotatedType)reflectionType).getType()).isInstanceOf(ParameterizedType.class);
+        final AnnotatedType reflectionType = context().typeInstance().reflectedAs(AnnotatedType.class).get();
+        assertThat(reflectionType.getType()).isInstanceOf(ParameterizedType.class);
 
       });
     });

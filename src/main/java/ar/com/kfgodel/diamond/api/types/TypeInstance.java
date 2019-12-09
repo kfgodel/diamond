@@ -135,13 +135,16 @@ public interface TypeInstance extends
   /**
    * This method returns the reflection object used to represent this type natively.<br>
    * Reflection uses {@link Type} or {@link java.lang.reflect.AnnotatedType} to represent types,
-   * but they have no relationship. For that reason, {@link Object} is used on this method and must
-   * be casted down to get the actual sub-type. Most of the times they are sub-types of {@link Type}.<br>
+   * but they have no hierarchy relationship between them.<br>
+   * For that reason, and to facilitate its usage, a class is used as parameter to indicate the expected
+   * output type. If you don't know which type is best for this instance, then {@link Object} is the only
+   * option. From there you can cast down as needed to get the actual sub-type.<br>
+   * Usually you will encounter they are sub-types of {@link Type}.<br>
    * <br>
-   * If this type has no native reflection representation then empty is returned
+   * If this type has no native reflection representation then empty is returned (custom non-reflection types)
    *
-   * @return The type instance used by reflection to represent this type natively
+   * @return The object used by reflection to represent this type natively in the language
    */
-  Nary<Object> reflectionType();
+  <T> Nary<T> reflectedAs(Class<T> reflectionClass);
 
 }

@@ -252,7 +252,8 @@ public abstract class TypeInstanceSupport implements TypeInstance {
   protected abstract TypeGenerics createGenericsInfoFrom(TypeDescription description);
 
   @Override
-  public Nary<Object> reflectionType() {
-    return reflectionTypeSupplier.get();
+  public <T> Nary<T> reflectedAs(Class<T> expectedType) {
+    return reflectionTypeSupplier.get()
+      .map(expectedType::cast); // If this fails, a poor error message is thrown. Can be improve it?
   }
 }

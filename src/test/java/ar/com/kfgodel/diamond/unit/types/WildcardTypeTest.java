@@ -85,9 +85,8 @@ public class WildcardTypeTest extends JavaSpec<DiamondTestContext> {
       });
 
       it("can be accessed from its type instance", () -> {
-        final Object reflectionType = context().typeInstance().reflectionType().get();
-        assertThat(reflectionType).isInstanceOf(AnnotatedType.class);
-        assertThat(((AnnotatedType)reflectionType).getType()).isInstanceOf(WildcardType.class);
+        final AnnotatedType reflectionType = context().typeInstance().reflectedAs(AnnotatedType.class).get();
+        assertThat(reflectionType.getType()).isInstanceOf(WildcardType.class);
       });
     });
   }

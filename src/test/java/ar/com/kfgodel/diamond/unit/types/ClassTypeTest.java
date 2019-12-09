@@ -142,7 +142,7 @@ public class ClassTypeTest extends JavaSpec<DiamondTestContext> {
       });
 
       it("can be accessed from its type instance", () -> {
-        final Object reflectionType = context().typeInstance().reflectionType().get();
+        final Class<ChildClass> reflectionType = context().typeInstance().reflectedAs(Class.class).get();
         assertThat(reflectionType).isEqualTo(ChildClass.class);
       });
 

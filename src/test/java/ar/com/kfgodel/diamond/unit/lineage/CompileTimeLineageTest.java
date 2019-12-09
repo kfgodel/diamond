@@ -95,7 +95,9 @@ public class CompileTimeLineageTest extends JavaSpec<DiamondTestContext> {
       describe("all related types", () -> {
 
         it("includes all the types related to the lineage (hiearchy tree)", () -> {
-          List<String> allTypeNames = context().lineage().allRelatedTypes().map(TypeInstance::declaration).collect(Collectors.toList());
+          List<String> allTypeNames = context().lineage().allRelatedTypes()
+            .map(TypeInstance::declaration)
+            .collect(Collectors.toList());
           assertThat(allTypeNames)
             .isEqualTo(Arrays.asList(
               "ar.com.kfgodel.diamond.unit.testobjects.lineage.ChildClass",
