@@ -13,48 +13,52 @@ import ar.com.kfgodel.nary.api.Nary;
 public interface TypeLineage {
 
   /**
-   * @return The lowest member of this lineage
+   * Calculates the extension line from the lowest descendant to its highest ancestor returning the
+   * succession line (starting at the bottom).<br>
+   * This is the equivalent of navigating the superclasses of a class (ignoring the interfaces),
+   * but it includes type variables replacement if available
+   * @return The ordered stream of all classes that are "extended" in this lineage
+   * starting from the lowestDescendant to its highest supertype
    */
-  TypeInstance lowestDescendant();
+  Nary<TypeInstance> allExtendedTypes();
 
   /**
-   * @return The highest member of this lineage
+   * @return The complete set of interfaces that the lowest member inherits
+   * directly or indirectly by its supertype members
    */
-  TypeInstance highestAncestor();
+  Nary<TypeInstance> allImplementedTypes();
 
   /**
-   * @return The ordered stream of all classes that belong to this lineage starting from the lowestDescendant to its highest supertype
+   * Calculates the tree of extended an implemented types in this lineage and returns them in an orderded
+   * fashion from the bottom up, going Breadth first.<br>
+   * <br>
+   * Some guarantees:<br>
+   * - There are no duplicates<br>
+   * - The parameterized version is presented first (if any), and then the runtime counterpart
+   * - The super class are presented before super interfaces
+   * - lowest types (closer to the lowest descendant) are presented before higher
+   * ancestors (the tree is explored from the lowest descendant to its
+   * parent types per hierarchy level)
+   *
+   * @return All the types that are related to this lineage. The Nary includes all
+   * the types that are inherited by the lowest descendant (and itself) and
+   * their runtime representation.<br>
    */
-  Nary<TypeInstance> allMembers();
+  Nary<TypeInstance> allRelatedTypes();
 
   /**
    * @param descendant The class member of this lineage
-   * @return The direct ancestor of the given class or empty if descendant is already the highest ancestor, or not from this lineage
+   * @return The direct ancestor of the given class or empty if descendant
+   * is already the highest ancestor, or not from this lineage
    */
   Nary<TypeInstance> ancestorOf(TypeInstance descendant);
 
   /**
    * @param ancestor The class member of this lineage
-   * @return The direct descendant of the given class or empty if ancestor is the lowest descendant, or not from this lineage
+   * @return The direct descendant of the given class or empty if ancestor
+   * is the lowest descendant, or not from this lineage
    */
   Nary<TypeInstance> descendantOf(TypeInstance ancestor);
-
-  /**
-   * @return The complete set of interfaces that the lowest member inherits directly or indirectly by its supertype members
-   */
-  Nary<TypeInstance> inheritedInterfaces();
-
-  /**
-   * @return All the types that are related to this lineage. The Nary includes all the types that are inherited by the lowest descendant (and itself) and
-   * their runtime representation.<br>
-   * Some guarantees:<br>
-   * - There are no duplicates<br>
-   * - The parameterized version is presented first (if any), and then the runtime counterpart
-   * - The super class are presented before super interfaces
-   * - lowest types (closer to the lowest descendant) are presented before higher ancestors (the tree is explored from the lowest descendant to its
-   * parent types per hierarchy level)
-   */
-  Nary<TypeInstance> allRelatedTypes();
 
   /**
    * Searches the relatedTypes of this lineage for the given reference type, and tries to get the generic arguments
@@ -65,4 +69,14 @@ public interface TypeLineage {
    * @return The set of type arguments used to parameterize the reference type
    */
   Nary<TypeInstance> genericArgumentsOf(TypeInstance referenceType);
+
+  /**
+   * @return The highest member of this lineage
+   */
+  TypeInstance highestAncestor();
+
+  /**
+   * @return The lowest member of this lineage
+   */
+  TypeInstance lowestDescendant();
 }

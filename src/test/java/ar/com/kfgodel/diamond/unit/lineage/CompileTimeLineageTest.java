@@ -44,7 +44,7 @@ public class CompileTimeLineageTest extends JavaSpec<DiamondTestContext> {
       });
 
       it("contains all the types in between", () -> {
-        Stream<TypeInstance> lineageMembers = context().lineage().allMembers();
+        Stream<TypeInstance> lineageMembers = context().lineage().allExtendedTypes();
         List<String> memberNames = lineageMembers.map((member) -> member.name()).collect(Collectors.toList());
         assertThat(memberNames)
           .isEqualTo(Arrays.asList("ChildClass", "ParentClass", "GrandParentClass", "Object"));
@@ -66,16 +66,10 @@ public class CompileTimeLineageTest extends JavaSpec<DiamondTestContext> {
       });
 
       it("does not include Object for primitive types", () -> {
-        Stream<TypeInstance> lineageMembers = Diamond.of(int.class).hierarchy().lineage().allMembers();
+        Stream<TypeInstance> lineageMembers = Diamond.of(int.class).hierarchy().lineage().allExtendedTypes();
         List<String> memberNames = lineageMembers.map((member) -> member.name()).collect(Collectors.toList());
         assertThat(memberNames)
           .isEqualTo(Arrays.asList("int"));
-      });
-
-      it("can answer all the inherited interfaces of the lowest member", () -> {
-        List<String> interfaceNames = context().lineage().inheritedInterfaces().map(Named::name).collect(Collectors.toList());
-
-        assertThat(interfaceNames).isEqualTo(Arrays.asList("ChildInterface1", "ParentInterface1", "ChildInterface2", "Serializable", "ParentInterface2", "GrandParentInterface1"));
       });
 
       describe("generic arguments", () -> {
@@ -127,11 +121,81 @@ public class CompileTimeLineageTest extends JavaSpec<DiamondTestContext> {
           CompileTimeHierarchy inheritance = Diamond.types().from(new ReferenceOf<List<String>>() {
           }.getReferencedAnnotatedType()).hierarchy();
 
-          List<String> allTypeNames = inheritance.lineage().allRelatedTypes().map(TypeInstance::declaration).collect(Collectors.toList());
+          List<String> allTypeNames = inheritance.lineage().allRelatedTypes()
+            .map(TypeInstance::declaration)
+            .collect(Collectors.toList());
           assertThat(allTypeNames)
-            .isEqualTo(Arrays.asList("java.util.List<java.lang.String>", "java.util.List",
-              "java.util.Collection<java.lang.String>", "java.util.Collection",
-              "java.lang.Iterable<java.lang.String>", "java.lang.Iterable"));
+            .isEqualTo(Arrays.asList(
+              "java.util.List<java.lang.String>",
+              "java.util.List",
+              "java.util.Collection<java.lang.String>",
+              "java.util.Collection",
+              "java.lang.Iterable<java.lang.String>",
+              "java.lang.Iterable"
+            ));
+        });
+
+      });
+
+      describe("all extended types", () -> {
+
+        it("includes only types in the extension line from the lowest descendant", () -> {
+          List<String> allTypeNames = context().lineage().allExtendedTypes()
+            .map(TypeInstance::declaration)
+            .collect(Collectors.toList());
+          assertThat(allTypeNames)
+            .isEqualTo(Arrays.asList(
+              "ar.com.kfgodel.diamond.unit.testobjects.lineage.ChildClass",
+              "ar.com.kfgodel.diamond.unit.testobjects.lineage.ParentClass<C extends java.lang.Object, java.lang.Integer>",
+              "ar.com.kfgodel.diamond.unit.testobjects.lineage.GrandParentClass<java.lang.Integer>",
+              "java.lang.Object"
+            ));
+        });
+
+        it("doesn't include implemented types", () -> {
+          CompileTimeHierarchy inheritance = Diamond.types().from(new ReferenceOf<List<String>>() {
+          }.getReferencedAnnotatedType()).hierarchy();
+
+          List<String> allTypeNames = inheritance.lineage().allExtendedTypes()
+            .map(TypeInstance::declaration)
+            .collect(Collectors.toList());
+          assertThat(allTypeNames)
+            .isEqualTo(Arrays.asList(
+              "java.util.List<java.lang.String>"
+            ));
+        });
+
+      });
+
+      describe("all implemented types", () -> {
+
+        it("includes only interface types that are implemented in the lineage", () -> {
+          List<String> allTypeNames = context().lineage().allImplementedTypes()
+            .map(TypeInstance::declaration)
+            .collect(Collectors.toList());
+          assertThat(allTypeNames)
+            .isEqualTo(Arrays.asList(
+              "ar.com.kfgodel.diamond.unit.testobjects.interfaces.ChildInterface1",
+              "ar.com.kfgodel.diamond.unit.testobjects.interfaces.ParentInterface1",
+              "ar.com.kfgodel.diamond.unit.testobjects.interfaces.ChildInterface2",
+              "java.io.Serializable",
+              "ar.com.kfgodel.diamond.unit.testobjects.interfaces.ParentInterface2",
+              "ar.com.kfgodel.diamond.unit.testobjects.interfaces.GrandParentInterface1"
+            ));
+        });
+
+        it("doesn't include extended types", () -> {
+          CompileTimeHierarchy inheritance = Diamond.types().from(new ReferenceOf<List<String>>() {
+          }.getReferencedAnnotatedType()).hierarchy();
+
+          List<String> allTypeNames = inheritance.lineage().allImplementedTypes()
+            .map(TypeInstance::declaration)
+            .collect(Collectors.toList());
+          assertThat(allTypeNames)
+            .isEqualTo(Arrays.asList(
+              "java.util.Collection",
+              "java.lang.Iterable"
+            ));
         });
 
       });

@@ -3,6 +3,7 @@ package ar.com.kfgodel.diamond.unit.lineage;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.naming.Named;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.diamond.api.types.compile.CompileTimeHierarchy;
 import ar.com.kfgodel.diamond.api.types.reference.ReferenceOf;
 import ar.com.kfgodel.diamond.api.types.runtime.RuntimeTypeHierarchy;
 import ar.com.kfgodel.diamond.unit.DiamondTestContext;
@@ -45,10 +46,15 @@ public class RuntimeLineageTest extends JavaSpec<DiamondTestContext> {
       });
 
       it("contains all the types in between", () -> {
-        Stream<TypeInstance> lineageMembers = context().lineage().allMembers();
-        List<String> memberNames = lineageMembers.map((member) -> member.name()).collect(Collectors.toList());
+        Stream<TypeInstance> lineageMembers = context().lineage().allExtendedTypes();
+        List<String> memberNames = lineageMembers.map(Named::name).collect(Collectors.toList());
         assertThat(memberNames)
-          .isEqualTo(Arrays.asList("ChildClass", "ParentClass", "GrandParentClass", "Object"));
+          .isEqualTo(Arrays.asList(
+            "ChildClass",
+            "ParentClass",
+            "GrandParentClass",
+            "Object"
+          ));
       });
 
       it("can answer the ancestor of a member", () -> {
@@ -67,21 +73,33 @@ public class RuntimeLineageTest extends JavaSpec<DiamondTestContext> {
       });
 
       it("does not include Object for primitive types", () -> {
-        Stream<TypeInstance> lineageMembers = Diamond.of(int.class).hierarchy().lineage().allMembers();
+        Stream<TypeInstance> lineageMembers = Diamond.of(int.class).hierarchy().lineage().allExtendedTypes();
         List<String> memberNames = lineageMembers.map((member) -> member.name()).collect(Collectors.toList());
         assertThat(memberNames)
           .isEqualTo(Arrays.asList("int"));
       });
 
       it("can answer all the inherited interfaces of the lowest member", () -> {
-        List<String> interfaceNames = context().lineage().inheritedInterfaces().map(Named::name).collect(Collectors.toList());
+        List<String> interfaceNames = context().lineage().allImplementedTypes()
+          .map(Named::name)
+          .collect(Collectors.toList());
 
-        assertThat(interfaceNames).isEqualTo(Arrays.asList("ChildInterface1", "ParentInterface1", "ChildInterface2", "Serializable", "ParentInterface2", "GrandParentInterface1"));
+        assertThat(interfaceNames).isEqualTo(Arrays.asList(
+          "ChildInterface1",
+          "ParentInterface1",
+          "ChildInterface2",
+          "Serializable",
+          "ParentInterface2",
+          "GrandParentInterface1"
+        ));
       });
 
       describe("generic arguments", () -> {
         it("is empty for the lowest descendant", () -> {
-          List<String> argumentNames = context().lineage().lowestDescendant().generics().arguments().map(Named::name).collect(Collectors.toList());
+          List<String> argumentNames = context().lineage().lowestDescendant()
+            .generics().arguments()
+            .map(Named::name)
+            .collect(Collectors.toList());
           assertThat(argumentNames).isEqualTo(Collections.emptyList());
         });
         it("is empty for parent", () -> {
@@ -98,6 +116,7 @@ public class RuntimeLineageTest extends JavaSpec<DiamondTestContext> {
           assertThat(argumentNames).isEqualTo(Collections.emptyList());
         });
       });
+
 
       describe("all related types", () -> {
 
@@ -137,11 +156,74 @@ public class RuntimeLineageTest extends JavaSpec<DiamondTestContext> {
 
       });
 
+      describe("all extended types", () -> {
+
+        it("includes only the raw classes in the extension line from the lowest descendant", () -> {
+          List<String> allTypeNames = context().lineage().allExtendedTypes()
+            .map(TypeInstance::declaration)
+            .collect(Collectors.toList());
+          assertThat(allTypeNames)
+            .isEqualTo(Arrays.asList(
+              "ar.com.kfgodel.diamond.unit.testobjects.lineage.ChildClass",
+              "ar.com.kfgodel.diamond.unit.testobjects.lineage.ParentClass",
+              "ar.com.kfgodel.diamond.unit.testobjects.lineage.GrandParentClass",
+              "java.lang.Object"
+            ));
+        });
+
+        it("doesn't include implemented interfaces", () -> {
+          RuntimeTypeHierarchy hierarchy = Diamond.types()
+            .from(new ReferenceOf<List<String>>() {}.getReferencedAnnotatedType())
+            .runtime().hierarchy();
+
+          List<String> allTypeNames = hierarchy.lineage().allExtendedTypes()
+            .map(TypeInstance::declaration)
+            .collect(Collectors.toList());
+          assertThat(allTypeNames)
+            .isEqualTo(Arrays.asList(
+              "java.util.List"
+            ));
+        });
+      });
+
+      describe("all implemented types", () -> {
+
+        it("includes only raw interface classes that are implemented in the lineage", () -> {
+          List<String> allTypeNames = context().lineage().allImplementedTypes()
+            .map(TypeInstance::declaration)
+            .collect(Collectors.toList());
+          assertThat(allTypeNames)
+            .isEqualTo(Arrays.asList(
+              "ar.com.kfgodel.diamond.unit.testobjects.interfaces.ChildInterface1",
+              "ar.com.kfgodel.diamond.unit.testobjects.interfaces.ParentInterface1",
+              "ar.com.kfgodel.diamond.unit.testobjects.interfaces.ChildInterface2",
+              "java.io.Serializable",
+              "ar.com.kfgodel.diamond.unit.testobjects.interfaces.ParentInterface2",
+              "ar.com.kfgodel.diamond.unit.testobjects.interfaces.GrandParentInterface1"
+            ));
+        });
+
+        it("doesn't include extended types", () -> {
+          CompileTimeHierarchy inheritance = Diamond.types().from(new ReferenceOf<List<String>>() {
+          }.getReferencedAnnotatedType()).hierarchy();
+
+          List<String> allTypeNames = inheritance.lineage().allImplementedTypes()
+            .map(TypeInstance::declaration)
+            .collect(Collectors.toList());
+          assertThat(allTypeNames)
+            .isEqualTo(Arrays.asList(
+              "java.util.Collection",
+              "java.lang.Iterable"
+            ));
+        });
+
+      });
+
       it("can not answer the type arguments of any related type", () -> {
         List<String> argumentNames = context().lineage()
           .genericArgumentsOf(Diamond.of(GrandParentInterface1.class))
-          .map((arg) -> arg.name()).collect(Collectors.toList());
-        ;
+          .map(Named::name)
+          .collect(Collectors.toList());
         assertThat(argumentNames).isEqualTo(Collections.emptyList());
       });
 

@@ -4,7 +4,7 @@ import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.compile.CompileTimeHierarchy;
 import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
 import ar.com.kfgodel.diamond.api.types.inheritance.TypeLineage;
-import ar.com.kfgodel.diamond.impl.types.lineage.FunctionBasedTypeLineage;
+import ar.com.kfgodel.diamond.impl.types.lineage.DefaultTypeLineage;
 import ar.com.kfgodel.nary.api.Nary;
 
 import java.util.function.Supplier;
@@ -31,7 +31,7 @@ public class DefaultCompileHierarchy implements CompileTimeHierarchy {
 
   @Override
   public TypeLineage lineage() {
-    return FunctionBasedTypeLineage.create(
+    return DefaultTypeLineage.create(
       type,
       (type) -> type.hierarchy().extendedType(),
       (type) -> type.hierarchy().supertypes()
