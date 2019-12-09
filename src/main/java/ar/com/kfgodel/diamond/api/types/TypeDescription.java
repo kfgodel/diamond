@@ -13,7 +13,6 @@ import ar.com.kfgodel.nary.api.Nary;
 import java.lang.annotation.Annotation;
 import java.util.function.BiPredicate;
 import java.util.function.Function;
-import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 /**
@@ -119,7 +118,7 @@ public interface TypeDescription {
   /**
    * @return The predicate to test if an object is an instance of this type
    */
-  Predicate<Object> getInstancePredicate();
+  BiPredicate<TypeInstance, Object> getInstancePredicate();
 
   /**
    * The set of methods that will be part of this type behavior

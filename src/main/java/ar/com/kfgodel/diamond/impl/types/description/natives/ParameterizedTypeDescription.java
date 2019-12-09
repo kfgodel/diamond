@@ -18,7 +18,7 @@ import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.reflect.ParameterizedType;
-import java.util.function.Predicate;
+import java.util.function.BiPredicate;
 import java.util.function.Supplier;
 
 /**
@@ -79,8 +79,9 @@ public class ParameterizedTypeDescription extends TypeDescriptionSupport {
   }
 
   @Override
-  public Predicate<Object> getInstancePredicate() {
-    return getRawClass()::isInstance;
+  public BiPredicate<TypeInstance, Object> getInstancePredicate() {
+    // We ignore the type parameter as we already have the runtime class
+    return (type, instance) -> getRawClass().isInstance(instance);
   }
 
   @Override

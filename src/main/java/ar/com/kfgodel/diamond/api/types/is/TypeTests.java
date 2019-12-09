@@ -36,7 +36,7 @@ public interface TypeTests {
   boolean assignableTo(TypeInstance possibleSuperType);
 
   /**
-   * Indicates if the given object is assignable to this type.<br>
+   * Indicates if the given object is an instance of this type.<br>
    * Or this type is part if the object's type hierarchy. This method follows the same
    * semantics as Class.isInstance().<br>
    * <br>
@@ -46,7 +46,7 @@ public interface TypeTests {
    * @return true if the given object can be casted to this type without an exception,
    * false if object is null or otherwise
    */
-  boolean typeFor(Object anObject);
+  boolean instance(Object anObject);
 
   /**
    * Indicates if this inheritance extends from the given type

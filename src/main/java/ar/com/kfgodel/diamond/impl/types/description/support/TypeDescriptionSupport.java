@@ -33,7 +33,6 @@ import ar.com.kfgodel.nary.impl.NaryFromCollectionSupplier;
 import java.lang.annotation.Annotation;
 import java.util.function.BiPredicate;
 import java.util.function.Function;
-import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -141,9 +140,9 @@ public abstract class TypeDescriptionSupport implements TypeDescription {
   }
 
   @Override
-  public Predicate<Object> getInstancePredicate() {
-    return  (testedInstance) -> {
-      return getRuntimeClasses().get()
+  public BiPredicate<TypeInstance, Object> getInstancePredicate() {
+    return  (testedType, testedInstance) -> {
+      return testedType.runtime().classes()
         .anyMatch((rawType) -> rawType.isInstance(testedInstance));
     };
   }
