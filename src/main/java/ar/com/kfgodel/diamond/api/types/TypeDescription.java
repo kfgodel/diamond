@@ -70,12 +70,6 @@ public interface TypeDescription {
   TypeNamesDescription getNamesDescription();
 
   /**
-   * @return The supplier of the raw classes for the runtime description of the type
-   */
-  @Deprecated
-  Supplier<Nary<Class<?>>> getRawClassesSupplier();
-
-  /**
    * @return The lambda to get the reflection type for this description if it has one
    */
   Supplier<Nary<Object>> getReflectionTypeSupplier();

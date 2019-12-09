@@ -5,7 +5,6 @@ import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
 import ar.com.kfgodel.diamond.api.types.names.TypeNamesDescription;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
-import ar.com.kfgodel.diamond.impl.natives.raws.RawClassesCalculator;
 import ar.com.kfgodel.diamond.impl.types.description.inheritance.FixedTypeInheritanceDescription;
 import ar.com.kfgodel.diamond.impl.types.description.names.ClassTypeNameDescription;
 import ar.com.kfgodel.diamond.impl.types.description.support.TypeDescriptionSupport;
@@ -52,11 +51,6 @@ public class ClassDescription extends TypeDescriptionSupport {
    */
   private Class<?> getRawClass() {
     return nativeType;
-  }
-
-  @Override
-  public Supplier<Nary<Class<?>>> getRawClassesSupplier() {
-    return CachedValue.lazilyBy(()-> RawClassesCalculator.create().from(nativeType));
   }
 
   @Override

@@ -46,15 +46,6 @@ public class WildcardTypeDescription extends TypeDescriptionSupport {
   }
 
   @Override
-  public Supplier<Nary<Class<?>>> getRawClassesSupplier() {
-    return NarySupplierFromCollection.lazilyBy(()-> {
-      return RawClassesCalculator.create()
-        .from(nativeType)
-        .collect(Collectors.toSet());
-    });
-  }
-
-  @Override
   public Supplier<Nary<Object>> getReflectionTypeSupplier() {
     return CachedValue.lazilyBy(()-> Nary.of(this.nativeType));
   }

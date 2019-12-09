@@ -18,7 +18,6 @@ import ar.com.kfgodel.diamond.impl.types.description.inheritance.NoInheritanceDe
 import ar.com.kfgodel.diamond.impl.types.description.names.UnnamedTypeDescription;
 import ar.com.kfgodel.diamond.impl.types.equality.TypeEquality;
 import ar.com.kfgodel.diamond.impl.types.parts.annotations.NoAnnotationsSupplier;
-import ar.com.kfgodel.diamond.impl.types.parts.behavior.NoRawClassesSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.bounds.NoBoundsSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.componenttype.NoComponentTypeSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.constructors.NonInstantiableConstructorSupplier;
@@ -101,11 +100,6 @@ public abstract class TypeDescriptionSupport implements TypeDescription {
   @Override
   public TypeNamesDescription getNamesDescription() {
     return UnnamedTypeDescription.create("<unknown>");
-  }
-
-  @Override
-  public Supplier<Nary<Class<?>>> getRawClassesSupplier() {
-    return NoRawClassesSupplier.INSTANCE;
   }
 
   @Override
