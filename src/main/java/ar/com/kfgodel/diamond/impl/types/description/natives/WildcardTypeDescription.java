@@ -1,7 +1,5 @@
 package ar.com.kfgodel.diamond.impl.types.description.natives;
 
-import ar.com.kfgodel.diamond.api.fields.TypeField;
-import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
 import ar.com.kfgodel.diamond.api.types.names.TypeNamesDescription;
@@ -11,8 +9,6 @@ import ar.com.kfgodel.diamond.impl.types.description.inheritance.VariableTypeInh
 import ar.com.kfgodel.diamond.impl.types.description.names.WildCardNamesDescription;
 import ar.com.kfgodel.diamond.impl.types.description.support.TypeDescriptionSupport;
 import ar.com.kfgodel.diamond.impl.types.parts.bounds.WildcardBoundsSupplier;
-import ar.com.kfgodel.diamond.impl.types.parts.fields.ClassFieldSupplier;
-import ar.com.kfgodel.diamond.impl.types.parts.methods.ClassMethodSupplier;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.impl.NarySupplierFromCollection;
@@ -70,14 +66,6 @@ public class WildcardTypeDescription extends TypeDescriptionSupport {
         .from(nativeType)
         .collect(Collectors.toSet());
     });
-  }
-
-  public Supplier<Nary<TypeField>> getTypeFields() {
-    return ClassFieldSupplier.create(getRawClassesSupplier());
-  }
-
-  public Supplier<Nary<TypeMethod>> getTypeMethods() {
-    return ClassMethodSupplier.create(getRawClassesSupplier());
   }
 
   @Override

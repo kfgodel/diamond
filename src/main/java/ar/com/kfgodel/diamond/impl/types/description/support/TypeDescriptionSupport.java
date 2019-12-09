@@ -22,8 +22,8 @@ import ar.com.kfgodel.diamond.impl.types.parts.behavior.NoRawClassesSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.bounds.NoBoundsSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.componenttype.NoComponentTypeSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.constructors.NonInstantiableConstructorSupplier;
-import ar.com.kfgodel.diamond.impl.types.parts.fields.NoFieldsSupplier;
-import ar.com.kfgodel.diamond.impl.types.parts.methods.NoMethodsSupplier;
+import ar.com.kfgodel.diamond.impl.types.parts.fields.ClassFieldCalculator;
+import ar.com.kfgodel.diamond.impl.types.parts.methods.ClassMethodCalculator;
 import ar.com.kfgodel.diamond.impl.types.parts.packages.NoPackageSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.typearguments.NoTypeArgumentsSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.typeparameters.NoTypeParametersSupplier;
@@ -61,6 +61,17 @@ public abstract class TypeDescriptionSupport implements TypeDescription {
     return NoBoundsSupplier.INSTANCE;
   }
 
+  @Override
+  public Function<TypeInstance, Supplier<Nary<TypeCategory>>> getCategoriesCalculator() {
+    return (givenType) -> {
+      return NarySupplierFromCollection.lazilyBy(() ->
+        Categories.values()
+          .filter((category) -> category.contains(givenType))
+          .collect(Collectors.toList())
+      );
+    };
+  }
+
   public Supplier<Nary<TypeInstance>> getComponentType() {
     return NoComponentTypeSupplier.INSTANCE;
   }
@@ -80,13 +91,10 @@ public abstract class TypeDescriptionSupport implements TypeDescription {
   }
 
   @Override
-  public Function<TypeInstance, Supplier<Nary<TypeCategory>>> getCategoriesCalculator() {
-    return (givenType) -> {
-      return NarySupplierFromCollection.lazilyBy(() ->
-        Categories.values()
-          .filter((category) -> category.contains(givenType))
-          .collect(Collectors.toList())
-      );
+  public BiPredicate<TypeInstance, Object> getInstancePredicate() {
+    return  (testedType, testedInstance) -> {
+      return testedType.runtime().classes()
+        .anyMatch((rawType) -> rawType.isInstance(testedInstance));
     };
   }
 
@@ -128,23 +136,15 @@ public abstract class TypeDescriptionSupport implements TypeDescription {
   }
 
   public Supplier<Nary<TypeField>> getTypeFields() {
-    return NoFieldsSupplier.INSTANCE;
+    return NarySupplierFromCollection.lazilyBy(ClassFieldCalculator.create(getRuntimeClasses()));
   }
 
   public Supplier<Nary<TypeMethod>> getTypeMethods() {
-    return NoMethodsSupplier.INSTANCE;
+    return NarySupplierFromCollection.lazilyBy(ClassMethodCalculator.create(getRuntimeClasses()));
   }
 
   public Supplier<Nary<TypeInstance>> getTypeParametersSupplier() {
     return NoTypeParametersSupplier.INSTANCE;
-  }
-
-  @Override
-  public BiPredicate<TypeInstance, Object> getInstancePredicate() {
-    return  (testedType, testedInstance) -> {
-      return testedType.runtime().classes()
-        .anyMatch((rawType) -> rawType.isInstance(testedInstance));
-    };
   }
 
   @Override

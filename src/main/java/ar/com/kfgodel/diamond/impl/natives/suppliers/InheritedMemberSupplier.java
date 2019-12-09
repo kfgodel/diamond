@@ -1,12 +1,12 @@
 package ar.com.kfgodel.diamond.impl.natives.suppliers;
 
-import ar.com.kfgodel.diamond.impl.natives.NativeSuperclassSpliterator;
+import ar.com.kfgodel.iteration.GeneratorSpliterator;
+import ar.com.kfgodel.nary.api.Nary;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.Arrays;
+import java.util.Spliterator;
 import java.util.function.Function;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -17,21 +17,35 @@ import java.util.stream.Stream;
  */
 public class InheritedMemberSupplier<M> implements Supplier<Stream<M>> {
 
-  private Set<Class<?>> baseClasses;
-  private Function<? super Class<?>, Stream<? extends M>> extractionOperation;
+  private Supplier<Nary<Class<?>>> startingClasses;
+  private Function<? super Class<?>, M[]> extractionOperation;
 
   @Override
   public Stream<M> get() {
-    LinkedHashSet<M> nonDuplicateMethods = baseClasses.stream()
-      .flatMap((baseClass) -> NativeSuperclassSpliterator.create(baseClass).toStream())
-      .flatMap(extractionOperation)
-      .collect(Collectors.toCollection(LinkedHashSet::new));
-    return nonDuplicateMethods.stream();
+    return startingClasses.get()
+      .flatMap(this::calculateSuperclasses)
+      .flatMap(this::extractMembers)
+      .distinct();
   }
 
-  public static <M> InheritedMemberSupplier<M> create(Set<Class<?>> baseClasses, Function<? super Class<?>, Stream<? extends M>> extractionOperation) {
+  private Stream<M> extractMembers(Class<?> superclass) {
+    return Arrays.stream(extractionOperation.apply(superclass));
+  }
+
+  private Stream<Class<?>> calculateSuperclasses(Class<?> startingClass) {
+    final GeneratorSpliterator<Class<?>> spliterator = GeneratorSpliterator.create(Nary.of(startingClass),
+      (clazz) -> Nary.of(clazz.getSuperclass()),
+      Spliterator.DISTINCT & Spliterator.IMMUTABLE & Spliterator.NONNULL & Spliterator.ORDERED
+    );
+    return spliterator.toStream();
+  }
+
+  public static <M> InheritedMemberSupplier<M> create(
+    Supplier<Nary<Class<?>>> baseClasses,
+    Function<? super Class<?>, M[]> extractionOperation
+  ) {
     InheritedMemberSupplier<M> supplier = new InheritedMemberSupplier<>();
-    supplier.baseClasses = baseClasses;
+    supplier.startingClasses = baseClasses;
     supplier.extractionOperation = extractionOperation;
     return supplier;
   }

@@ -4,11 +4,9 @@ import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.impl.natives.suppliers.InheritedMemberSupplier;
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.nary.impl.NarySupplierFromCollection;
 
 import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.Set;
+import java.util.List;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -18,23 +16,29 @@ import java.util.stream.Stream;
  * It supplies instances of classMethods from a given class and its hierarchy
  * Created by kfgodel on 05/10/14.
  */
-public class ClassMethodSupplier {
+public class ClassMethodCalculator implements Supplier<List<TypeMethod>> {
 
-  public static Supplier<Nary<TypeMethod>> create(Supplier<Nary<Class<?>>> baseClassesSupplier) {
-    return NarySupplierFromCollection.lazilyBy(() -> {
-      Stream<Method> nativeMethods = calculateMethodsFor(baseClassesSupplier);
-      return nativeMethods
-        .map((nativeMethod) -> Diamond.methods().from(nativeMethod))
-        .collect(Collectors.toList());
-    });
+  private Supplier<Nary<Class<?>>> runtimeClasses;
+
+  @Override
+  public List<TypeMethod> get() {
+    Stream<Method> nativeMethods = calculateMethodsFor(runtimeClasses);
+    return nativeMethods
+      .map((nativeMethod) -> Diamond.methods().from(nativeMethod))
+      .collect(Collectors.toList());
   }
 
+  public static ClassMethodCalculator create(Supplier<Nary<Class<?>>> runtimeClasses) {
+    ClassMethodCalculator calculator = new ClassMethodCalculator();
+    calculator.runtimeClasses = runtimeClasses;
+    return calculator;
+  }
+
+
   private static Stream<Method> calculateMethodsFor(Supplier<Nary<Class<?>>> baseClassesSupplier) {
-    final Set<Class<?>> rawClasses = baseClassesSupplier.get()
-      .collect(Collectors.toSet());
     final Supplier<Stream<Method>> methodSupplier = InheritedMemberSupplier.create(
-      rawClasses,
-      (superClass) -> Arrays.stream(superClass.getDeclaredMethods())
+      baseClassesSupplier,
+      Class::getDeclaredMethods
     );
     return methodSupplier.get();
   }
