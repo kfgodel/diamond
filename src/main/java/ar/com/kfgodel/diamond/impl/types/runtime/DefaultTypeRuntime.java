@@ -2,6 +2,8 @@ package ar.com.kfgodel.diamond.impl.types.runtime;
 
 import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
+import ar.com.kfgodel.diamond.api.types.runtime.RuntimeTypeHierarchy;
 import ar.com.kfgodel.diamond.api.types.runtime.TypeRuntime;
 import ar.com.kfgodel.nary.api.Nary;
 
@@ -13,9 +15,9 @@ import java.util.function.Supplier;
  */
 public class DefaultTypeRuntime implements TypeRuntime {
 
-  private TypeInstance type;
   private Supplier<Nary<Class<?>>> classes;
   private Supplier<Nary<TypeInstance>> runtimeType;
+  private RuntimeTypeHierarchy hierarchy;
 
   @Override
   public Nary<Class<?>> classes() {
@@ -28,13 +30,18 @@ public class DefaultTypeRuntime implements TypeRuntime {
       .orElseThrow(()-> new DiamondException("Runtime type is not available")); //Better error?
   }
 
-  public static DefaultTypeRuntime create(TypeInstance type,
-                                          Supplier<Nary<Class<?>>> classes,
-                                          Supplier<Nary<TypeInstance>> runtimeType) {
+  @Override
+  public RuntimeTypeHierarchy hierarchy() {
+    return hierarchy;
+  }
+
+  public static DefaultTypeRuntime create(Supplier<Nary<Class<?>>> classes,
+                                          Supplier<Nary<TypeInstance>> runtimeType,
+                                          InheritanceDescription inheritance) {
     DefaultTypeRuntime runtime = new DefaultTypeRuntime();
-    runtime.type = type;
     runtime.classes = classes;
     runtime.runtimeType = runtimeType;
+    runtime.hierarchy = DefaultRuntimeHierarchy.create(inheritance);
     return runtime;
   }
 

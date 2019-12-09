@@ -232,7 +232,11 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     this.setMethods(description.getTypeMethods());
     this.setFields(description.getTypeFields());
     this.reflectionTypeSupplier = description.getReflectionTypeSupplier();
-    this.runtime = DefaultTypeRuntime.create(this, description.getRuntimeClasses(), description.getRuntimeType());
+    this.runtime = DefaultTypeRuntime.create(
+      description.getRuntimeClasses(),
+      description.getRuntimeType(),
+      description.getInheritanceDescription()
+    );
     this.typePackage = description.getDeclaredPackage();
     this.inheritance = SuppliedTypesInheritance.create(this, description.getInheritanceDescription());
     this.identityToken = description.getIdentityToken();

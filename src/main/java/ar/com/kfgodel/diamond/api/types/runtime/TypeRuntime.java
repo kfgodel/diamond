@@ -28,4 +28,12 @@ public interface TypeRuntime {
    * For type variables it can be Object or its upper bound. For arrays it's the raw array class type
    */
   TypeInstance type();
+
+  /**
+   * Allows access to the runtime hierarchy of this type.<br>
+   *   Due to erasure in place, runtime hierarchy is comprised of raw classes (what you will usually get using standard
+   *   reflection)
+   * @return The type's runtime hierarchy information
+   */
+  RuntimeTypeHierarchy hierarchy();
 }

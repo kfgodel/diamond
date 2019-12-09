@@ -16,15 +16,9 @@ import java.util.function.Supplier;
 public class SuppliedTypesInheritance implements TypeInheritance {
 
   private TypeInstance type;
-  private Supplier<Nary<TypeInstance>> superclass;
   private Supplier<Nary<TypeInstance>> extendedType;
   private Supplier<Nary<TypeInstance>> interfaces;
   private Supplier<Nary<TypeInstance>> implementedTypes;
-
-  @Override
-  public Nary<TypeInstance> superclass() {
-    return superclass.get();
-  }
 
   @Override
   public Nary<TypeInstance> implementedTypes() {
@@ -54,7 +48,6 @@ public class SuppliedTypesInheritance implements TypeInheritance {
   public static SuppliedTypesInheritance create(TypeInstance type, InheritanceDescription description) {
     SuppliedTypesInheritance inheritance = new SuppliedTypesInheritance();
     inheritance.type = type;
-    inheritance.superclass = description.getSuperclassSupplier();
     inheritance.extendedType = description.getExtendedTypeSupplier();
     inheritance.interfaces = description.getInterfacesSupplier();
     inheritance.implementedTypes = description.getImplementedTypesSupplier();
