@@ -62,10 +62,9 @@ public abstract class DelegatedDescriptionSupport implements TypeDescription {
   }
 
   @Override
-  public Supplier<Nary<TypeCategory>> getCategoriesFor(TypeInstance type) {
-    return getDelegateDescription().getCategoriesFor(type);
+  public Function<TypeInstance, Supplier<Nary<TypeCategory>>> getCategoriesCalculator() {
+    return getDelegateDescription().getCategoriesCalculator();
   }
-
   @Override
   public TypeNamesDescription getNamesDescription() {
     return getDelegateDescription().getNamesDescription();

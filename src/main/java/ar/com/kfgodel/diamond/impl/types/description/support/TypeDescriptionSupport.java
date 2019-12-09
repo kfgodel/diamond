@@ -81,12 +81,14 @@ public abstract class TypeDescriptionSupport implements TypeDescription {
   }
 
   @Override
-  public Supplier<Nary<TypeCategory>> getCategoriesFor(TypeInstance type) {
-    return NaryFromCollectionSupplier.lazilyBy(() ->
-      Categories.values()
-      .filter((category) -> category.contains(type))
-      .collect(Collectors.toList())
-    );
+  public Function<TypeInstance, Supplier<Nary<TypeCategory>>> getCategoriesCalculator() {
+    return (givenType) -> {
+      return NaryFromCollectionSupplier.lazilyBy(() ->
+        Categories.values()
+          .filter((category) -> category.contains(givenType))
+          .collect(Collectors.toList())
+      );
+    };
   }
 
   @Override

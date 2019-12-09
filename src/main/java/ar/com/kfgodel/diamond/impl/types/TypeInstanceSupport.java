@@ -241,7 +241,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     this.typePackage = description.getDeclaredPackage();
     this.inheritance = DefaultCompileHierarchy.create(this, description.getInheritanceDescription());
     this.identityToken = description.getIdentityToken();
-    this.categories = description.getCategoriesFor(this);
+    this.categories = description.getCategoriesCalculator().apply(this);
     this.tests = DefaultTypeTests.create(this,
       description.getAssignabilityPredicate(),
       description.getTypeForPredicate()

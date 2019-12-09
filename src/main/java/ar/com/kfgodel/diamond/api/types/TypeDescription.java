@@ -58,10 +58,11 @@ public interface TypeDescription {
   InheritanceDescription getInheritanceDescription();
 
   /**
-   * @param type The actual type to get extra info from
-   * @return The function to get the categories of the described type
+   * Describes the calculator that is needed, once the type is created, to get the categories
+   * for the type
+   * @return The function to get the supplier of categories for a given type
    */
-  Supplier<Nary<TypeCategory>> getCategoriesFor(TypeInstance type);
+  Function<TypeInstance,Supplier<Nary<TypeCategory>>> getCategoriesCalculator();
 
   /**
    * Creates a decription of the different names the type has.
