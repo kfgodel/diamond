@@ -106,8 +106,8 @@ public abstract class DelegatedDescriptionSupport implements TypeDescription {
   }
 
   @Override
-  public Predicate<Object> getTypeForPredicate() {
-    return getDelegateDescription().getTypeForPredicate();
+  public Predicate<Object> getInstancePredicate() {
+    return getDelegateDescription().getInstancePredicate();
   }
 
   @Override

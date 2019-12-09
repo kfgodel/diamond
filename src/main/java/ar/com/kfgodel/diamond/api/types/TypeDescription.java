@@ -117,9 +117,9 @@ public interface TypeDescription {
   Supplier<Nary<TypeField>> getTypeFields();
 
   /**
-   * @return The predicate to test instances against the described type to verify its type
+   * @return The predicate to test if an object is an instance of this type
    */
-  Predicate<Object> getTypeForPredicate();
+  Predicate<Object> getInstancePredicate();
 
   /**
    * The set of methods that will be part of this type behavior

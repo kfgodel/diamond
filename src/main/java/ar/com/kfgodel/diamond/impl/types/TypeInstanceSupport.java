@@ -244,7 +244,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     this.categories = description.getCategoriesCalculator().apply(this);
     this.tests = DefaultTypeTests.create(this,
       description.getAssignabilityPredicate(),
-      description.getTypeForPredicate()
+      description.getInstancePredicate()
     );
     this.generics = createGenericsInfoFrom(description);
   }

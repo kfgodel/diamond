@@ -15,7 +15,7 @@ public class DefaultTypeTests implements TypeTests {
 
   private TypeInstance type;
   private BiPredicate<TypeInstance, TypeInstance> assignabilityPredicate;
-  private Predicate<Object> typeForPredicate;
+  private Predicate<Object> instancePredicate;
 
   @Override
   public boolean partOf(TypeCategory testedTypeCategory) {
@@ -34,7 +34,7 @@ public class DefaultTypeTests implements TypeTests {
 
   @Override
   public boolean typeFor(Object anObject) {
-    return typeForPredicate.test(anObject);
+    return instancePredicate.test(anObject);
   }
 
   @Override
@@ -50,11 +50,11 @@ public class DefaultTypeTests implements TypeTests {
 
   public static DefaultTypeTests create(TypeInstance type,
                                         BiPredicate<TypeInstance, TypeInstance> assignabilityPredicate,
-                                        Predicate<Object> typeForPredicate) {
+                                        Predicate<Object> instancePredicate) {
     DefaultTypeTests tests = new DefaultTypeTests();
     tests.type = type;
     tests.assignabilityPredicate = assignabilityPredicate;
-    tests.typeForPredicate = typeForPredicate;
+    tests.instancePredicate = instancePredicate;
     return tests;
   }
 

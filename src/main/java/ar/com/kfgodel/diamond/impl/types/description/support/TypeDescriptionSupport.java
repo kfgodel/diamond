@@ -132,20 +132,20 @@ public abstract class TypeDescriptionSupport implements TypeDescription {
     return ClassFieldSupplier.create(getRawClassesSupplier());
   }
 
-  @Override
-  public Predicate<Object> getTypeForPredicate() {
-    return  (testedInstance) -> {
-      return getRawClassesSupplier().get()
-        .anyMatch((rawType) -> rawType.isInstance(testedInstance));
-    };
-  }
-
   public Supplier<Nary<TypeMethod>> getTypeMethods() {
     return ClassMethodSupplier.create(getRawClassesSupplier());
   }
 
   public Supplier<Nary<TypeInstance>> getTypeParametersSupplier() {
     return NoTypeParametersSupplier.INSTANCE;
+  }
+
+  @Override
+  public Predicate<Object> getInstancePredicate() {
+    return  (testedInstance) -> {
+      return getRuntimeClasses().get()
+        .anyMatch((rawType) -> rawType.isInstance(testedInstance));
+    };
   }
 
   @Override

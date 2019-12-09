@@ -18,6 +18,7 @@ import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.reflect.ParameterizedType;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 /**
@@ -75,6 +76,11 @@ public class ParameterizedTypeDescription extends TypeDescriptionSupport {
   @Override
   public Supplier<Nary<TypeConstructor>> getTypeConstructors() {
     return ClassConstructorsSupplier.selectFor(getRawClass());
+  }
+
+  @Override
+  public Predicate<Object> getInstancePredicate() {
+    return getRawClass()::isInstance;
   }
 
   @Override
