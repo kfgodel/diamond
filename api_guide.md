@@ -13,7 +13,9 @@ This doc shows an overview of the Diamond API structure
 
 - declaredPackage
 - componentType
+- reflectedAs
 
+- kinds
 - members
 - constructors
   - all
@@ -29,42 +31,51 @@ This doc shows an overview of the Diamond API structure
   - withNativeSignature
   - withParameters
 
+- runtime
+ - type
+ - classes
+ - hierarchy
+   - superclass
+   - interfaces
+   - lineage
+     - lowestDescendant
+     - highestAncestor
+     - ancestorOf
+     - descendantOf
+     - allExtendedTypes
+     - allImplementedTypes
+     - allRelatedTypes
+     - genericArgumentsOf
+   - supertypes
+
 - generics
   - bounds
     - upper
     - lower
   - arguments
   - parameters
-  - runtimeType
-- inheritance
+- hierarchy
   - extendedType
-  - superclass
   - implementedTypes
-  - interfaces
-  - typeLineage
+  - lineage
     - lowestDescendant
     - highestAncestor
-    - allMembers
     - ancestorOf
     - descendantOf
-    - inheritedInterfaces
+    - allExtendedTypes
+    - allImplementedTypes
     - allRelatedTypes
     - genericArgumentsOf
   - supertypes
-  - isSubTypeOf
-  - isSubTypeOfNative
-  - isSuperTypeOf
-  - isSuperTypeOfNative
 
 - newInstance
 - get
 
 - declaration
 - is
-- isAssignableFrom
-- isAssignableTo
-- isTypeFor
-- kinds
-
-- reflectionType
-- runtimeClasses 
+  - kindOf
+  - subTypeOf
+  - superTypeOf
+  - assignableFrom
+  - assignableTo
+  - typeFor
