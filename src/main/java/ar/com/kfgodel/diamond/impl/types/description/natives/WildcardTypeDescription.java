@@ -14,7 +14,6 @@ import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.impl.NaryFromCollectionSupplier;
 
 import java.lang.reflect.WildcardType;
-import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -25,19 +24,6 @@ import java.util.stream.Collectors;
 public class WildcardTypeDescription extends TypeDescriptionSupport {
 
   private WildcardType nativeType;
-
-  /**
-   * The set of classes that define the behavior of this type.<br>
-   * It can be more than one if this is a multiple upper bounded type description.<br>
-   * The behavior of this type is then defined as the join of the upper bounds (it's a type that subclasses
-   * all this behavioral classes).<br>
-   * It can be just one class if this description represents a fixed type
-   *
-   * @return The list of raw classes that define this type behavior description
-   */
-  protected Set<Class<?>> getBehavioralClasses() {
-    return getRawClassesSupplier().get().collect(Collectors.toSet());
-  }
 
   @Override
   public Supplier<TypeBounds> getBounds() {
@@ -51,7 +37,7 @@ public class WildcardTypeDescription extends TypeDescriptionSupport {
 
   @Override
   public InheritanceDescription getInheritanceDescription() {
-    return VariableTypeInheritanceDescription.create(getBehavioralClasses(), getTypeArguments());
+    return VariableTypeInheritanceDescription.create(getRawClassesSupplier(), getTypeArguments());
   }
 
   @Override

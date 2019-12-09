@@ -128,8 +128,7 @@ public class RawClassesCalculator {
   }
 
   /**
-   * Gets the raw class that can be assigned in runtime from an instance that is a subtype
-   * of the given classes.<br>
+   * Gets the lowest superclass that is supertype of the given classes.<br>
    * @param rawClasses The classes for which a runtime supertype is needed
    * @return The class that can be assigned from instances of the given types
    */
