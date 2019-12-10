@@ -17,11 +17,14 @@ public class NativeFieldSetterFragment {
     } catch (IllegalAccessException e) {
       throw new DiamondException("The field is inaccessible or final: " + nativeField, e);
     } catch (IllegalArgumentException e) {
-      throw new DiamondException("Set rejected for field[" + nativeField + "] with value[" + value + "] on instance[" + instance + "]", e);
+      throw new DiamondException("Set rejected for field[" + nativeField +
+        "] with value[" + value + "] on instance[" + instance + "]", e);
     } catch (NullPointerException e) {
-      throw new DiamondException("Set for instance field[" + nativeField + "] cannot be done on null instance", e);
+      throw new DiamondException("Set for instance field[" + nativeField +
+        "] cannot be done on null instance", e);
     } catch (ExceptionInInitializerError e) {
-      throw new DiamondException("Set aborted for field[" + nativeField + "] due to a failed initialization", e);
+      throw new DiamondException("Set aborted for field[" + nativeField +
+        "] due to a failed initialization", e);
     }
   }
 }

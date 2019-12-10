@@ -26,11 +26,13 @@ public class NativeConstructorInvoker implements PolymorphicInvokable {
     } catch (IllegalAccessException e) {
       throw new DiamondException("Constructor is inaccessible: " + nativeConstructor, e);
     } catch (IllegalArgumentException e) {
-      throw new DiamondException("Invocation rejected for constructor[" + nativeConstructor + "] due to wrong arguments" + Arrays.toString(arguments), e);
+      throw new DiamondException("Invocation rejected for constructor[" + nativeConstructor
+        + "] due to wrong arguments" + Arrays.toString(arguments), e);
     } catch (InvocationTargetException e) {
       throw new HaltedConstructorInvocationException(nativeConstructor, arguments, e);
     } catch (ExceptionInInitializerError e) {
-      throw new DiamondException("Creation aborted for constructor[" + nativeConstructor + "] due to a failed initialization", e);
+      throw new DiamondException("Creation aborted for constructor[" + nativeConstructor
+        + "] due to a failed initialization", e);
     }
   }
 

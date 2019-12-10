@@ -36,7 +36,7 @@ public class NativeMethodDescription implements MethodDescription {
 
   @Override
   public Supplier<String> getName() {
-    return CachedValue.from(nativeMethod::getName);
+    return nativeMethod::getName;
   }
 
   @Override

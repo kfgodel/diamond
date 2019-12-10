@@ -7,7 +7,7 @@ import ar.com.kfgodel.diamond.api.parameters.description.ParameterDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.equals.CachedTokenCalculator;
 import ar.com.kfgodel.diamond.impl.parameters.ParameterEquality;
-import ar.com.kfgodel.lazyvalue.impl.CachedValue;
+import ar.com.kfgodel.lazyvalue.impl.SelfSupplier;
 import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.annotation.Annotation;
@@ -25,7 +25,7 @@ public class ArrayConstructorParameterDescription implements ParameterDescriptio
 
   @Override
   public Supplier<TypeInstance> getDeclaredType() {
-    return CachedValue.from(() -> Diamond.of(int.class));
+    return SelfSupplier.of(Diamond.of(int.class));
   }
 
   @Override

@@ -50,7 +50,10 @@ public class NativeMethodInvokerGenerator {
       case 8:
         return OctaArgumentMethodInvoker.create(nativeMethod);
       default:
-        throw new DiamondException("Method[" + nativeMethod + "] cannot be represented due to too many arguments. Consider using a Parameter Object pattern");
+        throw new DiamondException("Method[" + nativeMethod +
+          "] cannot be represented a "+ PolymorphicInvokable.class.getSimpleName()
+          +" due to too many arguments (more than  8). Consider using a Parameter Object pattern " +
+          "instead of so many arguments");
     }
   }
 

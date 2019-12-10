@@ -45,7 +45,7 @@ public class NativeFieldDescription implements FieldDescription {
 
   @Override
   public Supplier<String> getName() {
-    return CachedValue.from(nativeField::getName);
+    return nativeField::getName;
   }
 
   @Override
@@ -71,10 +71,14 @@ public class NativeFieldDescription implements FieldDescription {
 
   @Override
   public Supplier<PolymorphicInvokable> getInvoker() {
-    return CachedValue.from(() -> java.lang.reflect.Modifier.isStatic(nativeField.getModifiers()) ?
-      NativeStaticFieldInvoker.create(nativeField) :
-      NativeInstanceFieldInvoker.create(nativeField)
-    );
+    return CachedValue.from(() -> calculateFieldInvoker());
+  }
+
+  private PolymorphicInvokable calculateFieldInvoker() {
+    if (java.lang.reflect.Modifier.isStatic(nativeField.getModifiers())) {
+      return NativeStaticFieldInvoker.create(nativeField);
+    }
+    return NativeInstanceFieldInvoker.create(nativeField);
   }
 
   @Override
