@@ -1,5 +1,6 @@
 package ar.com.kfgodel.diamond.impl.types.description.natives;
 
+import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
@@ -12,14 +13,15 @@ import ar.com.kfgodel.diamond.impl.types.description.names.ClassTypeNameDescript
 import ar.com.kfgodel.diamond.impl.types.description.support.TypeDescriptionSupport;
 import ar.com.kfgodel.diamond.impl.types.parts.constructors.ClassConstructorsSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.packages.TypePackageSupplier;
-import ar.com.kfgodel.diamond.impl.types.parts.typearguments.ParameterizedTypeArgumentsSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.typeparameters.GenericTypeParametersSupplier;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.impl.NarySupplierFromCollection;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.function.BiPredicate;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 /**
  * This type represents the description of an unannotated parameterized native type
@@ -31,7 +33,7 @@ public class ParameterizedTypeDescription extends TypeDescriptionSupport {
 
   @Override
   public Supplier<Nary<TypePackage>> getDeclaredPackage() {
-    return CachedValue.from(()-> TypePackageSupplier.from(getRawClass()));
+    return CachedValue.from(() -> TypePackageSupplier.from(getRawClass()));
   }
 
   @Override
@@ -49,23 +51,26 @@ public class ParameterizedTypeDescription extends TypeDescriptionSupport {
    */
   private Class<?> getRawClass() {
     return RawClassesCalculator.create().from(nativeType)
-      .orElseThrow(()-> new DiamondException("Parameterized type["+nativeType+
+      .orElseThrow(() -> new DiamondException("Parameterized type[" + nativeType +
         "] doesn't have a raw class in runtime?"));
   }
 
   @Override
   public Supplier<Nary<Object>> getReflectionTypeSupplier() {
-    return CachedValue.from(()-> Nary.of(this.nativeType));
+    return CachedValue.from(() -> Nary.of(this.nativeType));
   }
 
   @Override
   public Supplier<Nary<Class<?>>> getRuntimeClasses() {
-    return CachedValue.from(()-> Nary.of(getRawClass()));
+    return CachedValue.from(() -> Nary.of(getRawClass()));
   }
 
   @Override
   public Supplier<Nary<TypeInstance>> getTypeArguments() {
-    return ParameterizedTypeArgumentsSupplier.create(nativeType);
+    return NarySupplierFromCollection.lazilyBy(() -> {
+      return Diamond.types().from(nativeType.getActualTypeArguments())
+        .collect(Collectors.toList());
+    });
   }
 
   @Override

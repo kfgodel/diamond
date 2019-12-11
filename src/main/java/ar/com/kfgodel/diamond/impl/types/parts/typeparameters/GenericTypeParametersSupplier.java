@@ -1,11 +1,13 @@
 package ar.com.kfgodel.diamond.impl.types.parts.typeparameters;
 
+import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
-import ar.com.kfgodel.diamond.impl.streams.TypeNarySupplierFromNativeTypeArray;
 import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.impl.NarySupplierFromCollection;
 
 import java.lang.reflect.GenericDeclaration;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 /**
  * This type represents a fragment of code that allows you to get the type parameters of a class
@@ -14,7 +16,10 @@ import java.util.function.Supplier;
 public class GenericTypeParametersSupplier {
 
   public static Supplier<Nary<TypeInstance>> create(GenericDeclaration genericDeclaration) {
-    return TypeNarySupplierFromNativeTypeArray.apply(genericDeclaration::getTypeParameters);
+    return NarySupplierFromCollection.lazilyBy(() -> {
+      return Diamond.types().from(genericDeclaration.getTypeParameters())
+        .collect(Collectors.toList());
+    });
   }
 
 }
