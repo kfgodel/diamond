@@ -6,7 +6,7 @@ import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.types.categories.TypeCategory;
 import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
-import ar.com.kfgodel.diamond.api.types.names.TypeNamesDescription;
+import ar.com.kfgodel.diamond.api.types.names.TypeNames;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.nary.api.Nary;
 
@@ -64,10 +64,12 @@ public interface TypeDescription {
   Function<TypeInstance,Supplier<Nary<TypeCategory>>> getCategoriesCalculator();
 
   /**
-   * Creates a decription of the different names the type has.
-   * @return The instance that describes all the names that can be calculated before the type exists
+   * Returns the function that applied to the created type will generate the type names based on this description.<br>
+   *   Because names may need extra information that is on the type itself, a function is needed to create the supplier
+   *
+   * @return The function to create the supplier
    */
-  TypeNamesDescription getNamesDescription();
+  Function<TypeInstance, Supplier<TypeNames>> getNamesCalculator();
 
   /**
    * @return The lambda to get the reflection type for this description if it has one

@@ -10,6 +10,7 @@ import ar.com.kfgodel.diamond.api.types.categories.Categories;
 import ar.com.kfgodel.diamond.api.types.categories.TypeCategory;
 import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
+import ar.com.kfgodel.diamond.api.types.names.TypeNames;
 import ar.com.kfgodel.diamond.api.types.names.TypeNamesDescription;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.diamond.impl.equals.CachedTokenCalculator;
@@ -17,6 +18,7 @@ import ar.com.kfgodel.diamond.impl.natives.raws.RawClassesCalculator;
 import ar.com.kfgodel.diamond.impl.types.description.inheritance.NoInheritanceDescription;
 import ar.com.kfgodel.diamond.impl.types.description.names.UnnamedTypeDescription;
 import ar.com.kfgodel.diamond.impl.types.equality.TypeEquality;
+import ar.com.kfgodel.diamond.impl.types.names.TypeInstanceNames;
 import ar.com.kfgodel.diamond.impl.types.parts.annotations.NoAnnotationsSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.bounds.NoBoundsSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.componenttype.NoComponentTypeSupplier;
@@ -26,6 +28,7 @@ import ar.com.kfgodel.diamond.impl.types.parts.methods.ClassMethodCalculator;
 import ar.com.kfgodel.diamond.impl.types.parts.packages.NoPackageSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.typearguments.NoTypeArgumentsSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.typeparameters.NoTypeParametersSupplier;
+import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.impl.NarySupplierFromCollection;
 
@@ -97,8 +100,15 @@ public abstract class TypeDescriptionSupport implements TypeDescription {
     };
   }
 
+
   @Override
-  public TypeNamesDescription getNamesDescription() {
+  public Function<TypeInstance, Supplier<TypeNames>> getNamesCalculator() {
+    return (type) -> {
+      return CachedValue.from(() -> TypeInstanceNames.create(type, this.getNamesDescription()));
+    };
+  }
+
+  protected TypeNamesDescription getNamesDescription() {
     return UnnamedTypeDescription.create("<unknown>");
   }
 
