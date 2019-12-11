@@ -2,10 +2,11 @@ package ar.com.kfgodel.diamond.impl.types.description.inheritance;
 
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
-import ar.com.kfgodel.diamond.impl.types.parts.extendedtype.ExtendedTypeSupplier;
+import ar.com.kfgodel.diamond.impl.types.parts.extendedtype.ExtendedTypeCalculator;
 import ar.com.kfgodel.diamond.impl.types.parts.extendedtype.ImplementedTypesSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.interfaces.ImmutableInterfacesSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.superclass.SuperClassSupplier;
+import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.nary.api.Nary;
 
 import java.util.function.Supplier;
@@ -26,7 +27,7 @@ public class FixedTypeInheritanceDescription implements InheritanceDescription {
 
   @Override
   public Supplier<Nary<TypeInstance>> getExtendedTypeSupplier() {
-    return ExtendedTypeSupplier.create(rawClass, typeArguments.get());
+    return CachedValue.from(ExtendedTypeCalculator.create(rawClass, typeArguments));
   }
 
   @Override
