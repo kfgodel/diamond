@@ -1,14 +1,16 @@
 package ar.com.kfgodel.diamond.impl.types.description.natives;
 
+import ar.com.kfgodel.diamond.api.Diamond;
+import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
 import ar.com.kfgodel.diamond.api.types.names.TypeNamesDescription;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.diamond.impl.natives.raws.RawClassesCalculator;
+import ar.com.kfgodel.diamond.impl.types.bounds.DoubleBounds;
 import ar.com.kfgodel.diamond.impl.types.description.inheritance.VariableTypeInheritanceDescription;
 import ar.com.kfgodel.diamond.impl.types.description.names.WildCardNamesDescription;
 import ar.com.kfgodel.diamond.impl.types.description.support.TypeDescriptionSupport;
-import ar.com.kfgodel.diamond.impl.types.parts.bounds.WildcardBoundsSupplier;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.impl.NarySupplierFromCollection;
@@ -27,7 +29,12 @@ public class WildcardTypeDescription extends TypeDescriptionSupport {
 
   @Override
   public Supplier<TypeBounds> getBounds() {
-    return WildcardBoundsSupplier.create(nativeType);
+    return CachedValue.from(() -> {
+      // Note that Wildcard doesn't have annotated bounds, in contrast to TypeVariable
+      final Nary<TypeInstance> upperBounds = Diamond.types().from(nativeType.getUpperBounds());
+      final Nary<TypeInstance> lowerBounds = Diamond.types().from(nativeType.getLowerBounds());
+      return DoubleBounds.create(upperBounds, lowerBounds);
+    });
   }
 
   @Override

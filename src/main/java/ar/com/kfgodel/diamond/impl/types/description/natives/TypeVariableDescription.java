@@ -1,14 +1,16 @@
 package ar.com.kfgodel.diamond.impl.types.description.natives;
 
+import ar.com.kfgodel.diamond.api.Diamond;
+import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
 import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
 import ar.com.kfgodel.diamond.api.types.names.TypeNamesDescription;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.diamond.impl.natives.raws.RawClassesCalculator;
+import ar.com.kfgodel.diamond.impl.types.bounds.SingleBound;
 import ar.com.kfgodel.diamond.impl.types.description.inheritance.VariableTypeInheritanceDescription;
 import ar.com.kfgodel.diamond.impl.types.description.names.TypeVariableNamesDescription;
 import ar.com.kfgodel.diamond.impl.types.description.support.TypeDescriptionSupport;
-import ar.com.kfgodel.diamond.impl.types.parts.bounds.TypeVariableBoundSupplier;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.impl.NarySupplierFromCollection;
@@ -27,7 +29,10 @@ public class TypeVariableDescription extends TypeDescriptionSupport {
 
   @Override
   public Supplier<TypeBounds> getBounds() {
-    return TypeVariableBoundSupplier.create(nativeType);
+    return CachedValue.from(() -> {
+      final Nary<TypeInstance> upperBounds = Diamond.types().from(nativeType.getAnnotatedBounds());
+      return SingleBound.create(upperBounds);
+    });
   }
 
   @Override

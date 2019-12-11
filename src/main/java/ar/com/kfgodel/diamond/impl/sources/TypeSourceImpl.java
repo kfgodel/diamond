@@ -36,13 +36,18 @@ public class TypeSourceImpl implements TypeSources {
     return FixedTypeInstance.create(description);
   }
 
-
   @Override
   public TypeInstance from(Object type) throws DiamondException {
     return cache.reuseOrCreateRepresentationFor(type, () -> {
       final TypeDescription typeDescription = descriptor.describe(type);
       return fromDescription(typeDescription);
     });
+  }
+
+  @Override
+  public Nary<TypeInstance> from(Object[] nativeTypes) throws DiamondException {
+    return Nary.from(nativeTypes)
+      .map(this::from);
   }
 
   @Override

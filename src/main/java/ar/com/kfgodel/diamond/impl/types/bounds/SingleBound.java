@@ -3,30 +3,31 @@ package ar.com.kfgodel.diamond.impl.types.bounds;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.generics.TypeBounds;
 import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.impl.NarySupplierFromCollection;
 
-import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * This type represents a type boundary with only upper bounds (common for type variables)
  * Created by kfgodel on 20/09/14.
  */
-public class UpperOnlyTypeBounds implements TypeBounds {
+public class SingleBound implements TypeBounds {
 
-  private List<TypeInstance> upperBounds;
+  private Supplier<Nary<TypeInstance>> upperBounds;
 
   @Override
   public Nary<TypeInstance> upper() {
-    return Nary.from(upperBounds.stream());
+    return upperBounds.get();
   }
 
   @Override
   public Nary<TypeInstance> lower() {
-    return Nary.empty();
+    return NoBounds.INSTANCE.lower();
   }
 
-  public static UpperOnlyTypeBounds create(List<TypeInstance> upper) {
-    UpperOnlyTypeBounds bounds = new UpperOnlyTypeBounds();
-    bounds.upperBounds = upper;
+  public static SingleBound create(Nary<TypeInstance> upper) {
+    SingleBound bounds = new SingleBound();
+    bounds.upperBounds = NarySupplierFromCollection.lazilyFrom(upper);
     return bounds;
   }
 

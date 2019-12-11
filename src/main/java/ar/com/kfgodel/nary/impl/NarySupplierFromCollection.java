@@ -6,6 +6,8 @@ import ar.com.kfgodel.nary.api.Nary;
 
 import java.util.Collection;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * This type represents a supplier for streams taken from a collection.<br>
@@ -30,6 +32,18 @@ public class NarySupplierFromCollection<T> implements Supplier<Nary<T>> {
    */
   public static <T> NarySupplierFromCollection<T> from(Collection<T> collection) {
     return using(SelfSupplier.of(collection));
+  }
+
+  /**
+   * Creates a supplier from the given nary of elements that will be converted to
+   * a collection and then cached to produce a new nary every time is asked
+   *
+   * @param elements The nary of the elements to comprise this supplier
+   * @param <T>        The type of expected stream elements
+   * @return The created supplier
+   */
+  public static <T> NarySupplierFromCollection<T> lazilyFrom(Stream<T> elements) {
+    return lazilyBy(()-> elements.collect(Collectors.toList()));
   }
 
   /**
