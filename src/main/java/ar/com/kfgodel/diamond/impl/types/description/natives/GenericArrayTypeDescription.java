@@ -10,7 +10,7 @@ import ar.com.kfgodel.diamond.impl.natives.raws.RawClassesCalculator;
 import ar.com.kfgodel.diamond.impl.types.description.inheritance.FixedTypeInheritanceDescription;
 import ar.com.kfgodel.diamond.impl.types.description.names.ClassTypeNameDescription;
 import ar.com.kfgodel.diamond.impl.types.description.support.TypeDescriptionSupport;
-import ar.com.kfgodel.diamond.impl.types.parts.componenttype.ArrayComponentTypeSupplier;
+import ar.com.kfgodel.diamond.impl.types.parts.componenttype.NativeTypeToDiamondAdapterSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.constructors.ClassConstructorExtractor;
 import ar.com.kfgodel.diamond.impl.types.parts.packages.TypePackageSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.typeparameters.GenericTypeParametersSupplier;
@@ -32,7 +32,9 @@ public class GenericArrayTypeDescription extends TypeDescriptionSupport {
 
   @Override
   public Supplier<Nary<TypeInstance>> getComponentType() {
-    return ArrayComponentTypeSupplier.create(nativeType);
+    return CachedValue.from(
+      NativeTypeToDiamondAdapterSupplier.create(nativeType::getGenericComponentType)
+    );
   }
 
   @Override
