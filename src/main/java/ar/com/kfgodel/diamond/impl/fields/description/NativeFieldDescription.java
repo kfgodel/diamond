@@ -10,7 +10,6 @@ import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.equals.CachedTokenCalculator;
 import ar.com.kfgodel.diamond.impl.fields.equality.FieldEquality;
-import ar.com.kfgodel.diamond.impl.members.NativeMemberDeclaringTypeSupplier;
 import ar.com.kfgodel.diamond.impl.members.exceptions.NoExceptionsSupplier;
 import ar.com.kfgodel.diamond.impl.members.generics.UnGenerifiedMemberGenerics;
 import ar.com.kfgodel.diamond.impl.members.modifiers.suppliers.ImmutableMemberModifiers;
@@ -55,7 +54,9 @@ public class NativeFieldDescription implements FieldDescription {
 
   @Override
   public Supplier<TypeInstance> getDeclaringType() {
-    return NativeMemberDeclaringTypeSupplier.create(nativeField);
+    return CachedValue.from(() -> {
+      return Diamond.of(nativeField.getDeclaringClass());
+    });
   }
 
   @Override

@@ -1,5 +1,6 @@
 package ar.com.kfgodel.diamond.impl.constructors.description;
 
+import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.constructors.ConstructorDescription;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.api.generics.Generics;
@@ -9,7 +10,6 @@ import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.constructors.equality.ConstructorEquality;
 import ar.com.kfgodel.diamond.impl.equals.CachedTokenCalculator;
-import ar.com.kfgodel.diamond.impl.members.NativeMemberDeclaringTypeSupplier;
 import ar.com.kfgodel.diamond.impl.members.exceptions.ExecutableExceptionsSupplier;
 import ar.com.kfgodel.diamond.impl.members.generics.ExecutableGenericsSupplier;
 import ar.com.kfgodel.diamond.impl.members.modifiers.suppliers.ImmutableMemberModifiers;
@@ -39,7 +39,9 @@ public class NativeConstructorDescription implements ConstructorDescription {
 
   @Override
   public Supplier<TypeInstance> getDeclaringType() {
-    return NativeMemberDeclaringTypeSupplier.create(nativeConstructor);
+    return CachedValue.from(() -> {
+      return Diamond.of(nativeConstructor.getDeclaringClass());
+    });
   }
 
   @Override
