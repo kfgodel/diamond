@@ -12,7 +12,6 @@ import ar.com.kfgodel.diamond.impl.equals.CachedTokenCalculator;
 import ar.com.kfgodel.diamond.impl.fields.equality.FieldEquality;
 import ar.com.kfgodel.diamond.impl.members.exceptions.NoExceptionsSupplier;
 import ar.com.kfgodel.diamond.impl.members.generics.UnGenerifiedMemberGenerics;
-import ar.com.kfgodel.diamond.impl.members.modifiers.suppliers.ImmutableMemberModifiers;
 import ar.com.kfgodel.diamond.impl.members.parameters.NoParametersSupplier;
 import ar.com.kfgodel.diamond.impl.natives.invokables.fields.NativeFieldGetter;
 import ar.com.kfgodel.diamond.impl.natives.invokables.fields.NativeFieldSetter;
@@ -20,6 +19,7 @@ import ar.com.kfgodel.diamond.impl.natives.invokables.fields.NativeInstanceField
 import ar.com.kfgodel.diamond.impl.natives.invokables.fields.NativeStaticFieldInvoker;
 import ar.com.kfgodel.diamond.impl.natives.suppliers.AnnotatedElementAnnotationsSupplier;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
+import ar.com.kfgodel.lazyvalue.impl.CachedValues;
 import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.annotation.Annotation;
@@ -66,7 +66,9 @@ public class NativeFieldDescription implements FieldDescription {
 
   @Override
   public Supplier<Nary<Modifier>> getModifiers() {
-    return ImmutableMemberModifiers.create(nativeField);
+    return CachedValues.adapting(() -> {
+      return Diamond.modifiers().from(nativeField);
+    });
   }
 
 

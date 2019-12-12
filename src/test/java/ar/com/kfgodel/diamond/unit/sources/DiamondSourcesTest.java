@@ -13,6 +13,7 @@ import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.diamond.unit.DiamondTestContext;
 import ar.com.kfgodel.diamond.unit.testobjects.ClassWithIdField;
 import ar.com.kfgodel.diamond.unit.testobjects.modifiers.PublicMembersTestObject;
+import ar.com.kfgodel.nary.api.Nary;
 import info.kfgodel.jspek.api.JavaSpec;
 import info.kfgodel.jspek.api.JavaSpecRunner;
 import org.assertj.core.util.Lists;
@@ -22,7 +23,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
-import java.util.List;
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -227,12 +228,12 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
             throw new RuntimeException("This is why reflection api turns difficult to use", e);
           }
 
-          List<Modifier> methodModifiers = Diamond.modifiers().from(method);
-          assertThat(methodModifiers).isEqualTo(Lists.newArrayList(Modifiers.PUBLIC));
+          Nary<Modifier> methodModifiers = Diamond.modifiers().from(method);
+          assertThat((Stream)methodModifiers).isEqualTo(Lists.newArrayList(Modifiers.PUBLIC));
         });
         it("can be obtained from an int bitmap", () -> {
-          List<Modifier> methodModifiers = Diamond.modifiers().from(java.lang.reflect.Modifier.PUBLIC | java.lang.reflect.Modifier.ABSTRACT);
-          assertThat(methodModifiers).isEqualTo(Lists.newArrayList(Modifiers.PUBLIC, Modifiers.ABSTRACT));
+          Nary<Modifier> methodModifiers = Diamond.modifiers().fromMember(java.lang.reflect.Modifier.PUBLIC | java.lang.reflect.Modifier.ABSTRACT);
+          assertThat((Stream)methodModifiers).isEqualTo(Lists.newArrayList(Modifiers.PUBLIC, Modifiers.ABSTRACT));
         });
       });
 

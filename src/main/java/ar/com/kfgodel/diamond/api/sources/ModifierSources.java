@@ -4,7 +4,6 @@ import ar.com.kfgodel.diamond.api.members.modifiers.Modifier;
 import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.reflect.Member;
-import java.util.List;
 
 /**
  * This type represents the possible sources for member modifiers
@@ -12,34 +11,38 @@ import java.util.List;
  */
 public interface ModifierSources {
   /**
-   * Obtains the modifier representations for the native member instance
+   * @return Gets the set of all available native modifiers (field, methods, constructors, etc)
+   */
+  Nary<Modifier> all();
+
+  /**
+   * Obtains the modifiers that the given native member has.<br>
+   * Modifiers are natively represented as a bitmap, this method allows getting object representation for each
+   * of the available modifiers on the member
    *
    * @param nativeMember The native type member
-   * @return The list of modifiers found on the native member
+   * @return The modifiers found on the native member
    */
-  List<Modifier> from(Member nativeMember);
+  Nary<Modifier> from(Member nativeMember);
 
   /**
-   * Obtains the modifier list from the int bitmap that the VM uses on native reflection types.<br>
-   * If no visibility bit present, then "default" visibility is assumed (for type members).<br>
-   * This method is not fit for parameter modifiers that follow a different logic. Use fromParameter(int) instead
+   * Obtains the modifiers from the class member int bitmap that the VM uses on native reflection objects
+   * (methods, fields, constructors).<br>
+   * If no visibility bit present, then "default" visibility is assumed.<br>
+   * This method is not fit for parameter modifier bitmaps that follow a different logic.
+   * Use {@link #fromParameter(int)} instead
    *
-   * @param modifierBitmap The native modifier bitmap
+   * @param modifierBitmap The native member modifier bitmap
    * @return The list of modifier member representation
    */
-  List<Modifier> from(int modifierBitmap);
+  Nary<Modifier> fromMember(int modifierBitmap);
 
   /**
-   * Obtains the modifier list from the parameter int bitmap (only final is currently in use)
+   * Obtains the modifiers from the parameter int bitmap (only final is currently in use).<br>
+   *   This methods is for parameter modifiers only, not class member bitmaps
    *
    * @param modifierBitmap The parameter modifier bitmap
    * @return The list of parameter modifiers
    */
-  List<Modifier> fromParameter(int modifierBitmap);
-
-
-  /**
-   * @return Gets the set of all available modifiers (field, methods, constructors, etc)
-   */
-  Nary<Modifier> all();
+  Nary<Modifier> fromParameter(int modifierBitmap);
 }

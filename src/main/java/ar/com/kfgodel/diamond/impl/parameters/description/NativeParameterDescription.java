@@ -37,7 +37,7 @@ public class NativeParameterDescription implements ParameterDescription {
 
   @Override
   public Supplier<Nary<Modifier>> getModifiers() {
-    return CachedValues.from(() -> {
+    return CachedValues.adapting(() -> {
       return Diamond.modifiers().fromParameter(nativeParameter.getModifiers());
     });
   }

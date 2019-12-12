@@ -50,7 +50,7 @@ public class MethodByNameTest extends JavaSpec<DiamondTestContext> {
           failBecauseExceptionWasNotThrown(MoreThanOneElementException.class);
         } catch (MoreThanOneElementException e) {
           // We check in this way because we can depend on a specific order
-          assertThat(e.getMessage()).startsWith("Expecting 1 element in the stream to create an optional but found at least 2: [")
+          assertThat(e.getMessage()).startsWith("Expecting only 1 element in the stream to treat it as an optional but found at least 2: [")
             .containsOnlyOnce("redefinedAndOverloadedMethod(int) @ RedefiningMethodTestObject")
             .containsOnlyOnce(",")
             .containsOnlyOnce("redefinedAndOverloadedMethod() @ RedefiningMethodTestObject")

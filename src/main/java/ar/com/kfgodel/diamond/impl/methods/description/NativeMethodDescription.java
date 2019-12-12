@@ -12,12 +12,12 @@ import ar.com.kfgodel.diamond.impl.equals.CachedTokenCalculator;
 import ar.com.kfgodel.diamond.impl.members.defaults.MethodDefaultValueSupplier;
 import ar.com.kfgodel.diamond.impl.members.exceptions.ExecutableExceptionsSupplier;
 import ar.com.kfgodel.diamond.impl.members.generics.ExecutableGenericsSupplier;
-import ar.com.kfgodel.diamond.impl.members.modifiers.suppliers.ImmutableMemberModifiers;
 import ar.com.kfgodel.diamond.impl.members.parameters.ImmutableMemberParameters;
 import ar.com.kfgodel.diamond.impl.methods.equality.MethodEquality;
 import ar.com.kfgodel.diamond.impl.natives.invokables.methods.NativeMethodInvokerGenerator;
 import ar.com.kfgodel.diamond.impl.natives.suppliers.AnnotatedElementAnnotationsSupplier;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
+import ar.com.kfgodel.lazyvalue.impl.CachedValues;
 import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.annotation.Annotation;
@@ -57,7 +57,9 @@ public class NativeMethodDescription implements MethodDescription {
 
   @Override
   public Supplier<Nary<Modifier>> getModifiers() {
-    return ImmutableMemberModifiers.create(nativeMethod);
+    return CachedValues.adapting(() -> {
+      return Diamond.modifiers().from(nativeMethod);
+    });
   }
 
   @Override

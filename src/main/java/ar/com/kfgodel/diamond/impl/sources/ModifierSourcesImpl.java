@@ -19,21 +19,21 @@ public class ModifierSourcesImpl implements ModifierSources {
 
   private DiamondCache cache;
 
-  public static ModifierSourcesImpl create(DiamondCache cache) {
-    ModifierSourcesImpl sources = new ModifierSourcesImpl();
-    sources.cache = cache;
-    return sources;
-  }
-
   @Override
-  public List<Modifier> from(Member nativeMember) {
+  public Nary<Modifier> from(Member nativeMember) {
     int modifiersBitmap = nativeMember.getModifiers();
-    return from(modifiersBitmap);
+    return fromMember(modifiersBitmap);
   }
 
   @Override
-  public List<Modifier> from(int modifierBitmap) {
-    return cache.reuseOrCreateRepresentationFor(modifierBitmap, () -> createMemberModifierListFor(modifierBitmap));
+  public Nary<Modifier> fromMember(int modifierBitmap) {
+    return Nary.from(calculateModifierList(modifierBitmap));
+  }
+
+  private List<Modifier> calculateModifierList(int modifierBitmap) {
+    return cache.reuseOrCreateRepresentationFor(modifierBitmap, () -> {
+      return createMemberModifierListFor(modifierBitmap);
+    });
   }
 
   private List<Modifier> createMemberModifierListFor(int modifierBitmap) {
@@ -43,15 +43,20 @@ public class ModifierSourcesImpl implements ModifierSources {
   }
 
   @Override
-  public List<Modifier> fromParameter(int modifierBitmap) {
-    // We exclude package that is present by default (lack of other visibility)
-    return from(modifierBitmap).stream()
-      .filter((modifier) -> !Modifiers.PACKAGE.equals(modifier))
-      .collect(Collectors.toList());
+  public Nary<Modifier> all() {
+    return Nary.from(Arrays.stream(Modifiers.values()));
   }
 
   @Override
-  public Nary<Modifier> all() {
-    return Nary.from(Arrays.stream(Modifiers.values()));
+  public Nary<Modifier> fromParameter(int modifierBitmap) {
+    // We exclude package that is present by default (lack of other visibility)
+    return fromMember(modifierBitmap)
+      .filter((modifier) -> !Modifiers.PACKAGE.equals(modifier));
+  }
+
+  public static ModifierSourcesImpl create(DiamondCache cache) {
+    ModifierSourcesImpl sources = new ModifierSourcesImpl();
+    sources.cache = cache;
+    return sources;
   }
 }
