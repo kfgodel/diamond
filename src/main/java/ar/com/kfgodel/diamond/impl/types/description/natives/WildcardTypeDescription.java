@@ -12,12 +12,11 @@ import ar.com.kfgodel.diamond.impl.types.description.inheritance.VariableTypeInh
 import ar.com.kfgodel.diamond.impl.types.description.names.WildCardNamesDescription;
 import ar.com.kfgodel.diamond.impl.types.description.support.TypeDescriptionSupport;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
+import ar.com.kfgodel.lazyvalue.impl.CachedValues;
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.nary.impl.NarySupplierFromCollection;
 
 import java.lang.reflect.WildcardType;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 /**
  * This type represents the description of an unannotated native wildcard type
@@ -59,10 +58,8 @@ public class WildcardTypeDescription extends TypeDescriptionSupport {
 
   @Override
   public Supplier<Nary<Class<?>>> getRuntimeClasses() {
-    return NarySupplierFromCollection.lazilyBy(()-> {
-      return RawClassesCalculator.create()
-        .from(nativeType)
-        .collect(Collectors.toSet());
+    return CachedValues.adapting(()-> {
+      return RawClassesCalculator.create().from(nativeType);
     });
   }
 

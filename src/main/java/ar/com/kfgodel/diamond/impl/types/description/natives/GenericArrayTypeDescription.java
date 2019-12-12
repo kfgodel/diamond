@@ -15,8 +15,8 @@ import ar.com.kfgodel.diamond.impl.types.parts.constructors.ClassConstructorExtr
 import ar.com.kfgodel.diamond.impl.types.parts.packages.TypePackageSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.typeparameters.GenericTypeParametersSupplier;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
+import ar.com.kfgodel.lazyvalue.impl.CachedValues;
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.nary.impl.NarySupplierFromCollection;
 
 import java.lang.reflect.GenericArrayType;
 import java.util.function.BiPredicate;
@@ -73,11 +73,7 @@ public class GenericArrayTypeDescription extends TypeDescriptionSupport {
 
   @Override
   public Supplier<Nary<TypeConstructor>> getTypeConstructors() {
-    return NarySupplierFromCollection.lazilyBy(()-> {
-      return ClassConstructorExtractor.create(getRawClass())
-        .get()
-        .collectToList();
-    });
+    return CachedValues.adapting(ClassConstructorExtractor.create(getRawClass()));
   }
 
   @Override

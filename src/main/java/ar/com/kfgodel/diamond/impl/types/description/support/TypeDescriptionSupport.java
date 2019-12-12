@@ -29,14 +29,13 @@ import ar.com.kfgodel.diamond.impl.types.parts.packages.NoPackageSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.typearguments.NoTypeArgumentsSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.typeparameters.NoTypeParametersSupplier;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
+import ar.com.kfgodel.lazyvalue.impl.CachedValues;
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.nary.impl.NarySupplierFromCollection;
 
 import java.lang.annotation.Annotation;
 import java.util.function.BiPredicate;
 import java.util.function.Function;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 /**
  * This class serves as a base template for a type description with sensible defaults for most methods
@@ -66,10 +65,9 @@ public abstract class TypeDescriptionSupport implements TypeDescription {
   @Override
   public Function<TypeInstance, Supplier<Nary<TypeCategory>>> getCategoriesCalculator() {
     return (givenType) -> {
-      return NarySupplierFromCollection.lazilyBy(() ->
+      return CachedValues.adapting(() ->
         Categories.values()
           .filter((category) -> category.contains(givenType))
-          .collect(Collectors.toList())
       );
     };
   }
@@ -140,11 +138,11 @@ public abstract class TypeDescriptionSupport implements TypeDescription {
   }
 
   public Supplier<Nary<TypeField>> getTypeFields() {
-    return NarySupplierFromCollection.lazilyBy(ClassFieldCalculator.create(getRuntimeClasses()));
+    return CachedValues.adapting(ClassFieldCalculator.create(getRuntimeClasses()));
   }
 
   public Supplier<Nary<TypeMethod>> getTypeMethods() {
-    return NarySupplierFromCollection.lazilyBy(ClassMethodCalculator.create(getRuntimeClasses()));
+    return CachedValues.adapting(ClassMethodCalculator.create(getRuntimeClasses()));
   }
 
   public Supplier<Nary<TypeInstance>> getTypeParametersSupplier() {

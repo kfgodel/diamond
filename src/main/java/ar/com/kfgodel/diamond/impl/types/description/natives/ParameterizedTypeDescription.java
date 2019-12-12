@@ -15,13 +15,12 @@ import ar.com.kfgodel.diamond.impl.types.parts.constructors.ClassConstructorExtr
 import ar.com.kfgodel.diamond.impl.types.parts.packages.TypePackageSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.typeparameters.GenericTypeParametersSupplier;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
+import ar.com.kfgodel.lazyvalue.impl.CachedValues;
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.nary.impl.NarySupplierFromCollection;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.function.BiPredicate;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 /**
  * This type represents the description of an unannotated parameterized native type
@@ -67,19 +66,14 @@ public class ParameterizedTypeDescription extends TypeDescriptionSupport {
 
   @Override
   public Supplier<Nary<TypeInstance>> getTypeArguments() {
-    return NarySupplierFromCollection.lazilyBy(() -> {
-      return Diamond.types().from(nativeType.getActualTypeArguments())
-        .collect(Collectors.toList());
+    return CachedValues.adapting(() -> {
+      return Diamond.types().from(nativeType.getActualTypeArguments());
     });
   }
 
   @Override
   public Supplier<Nary<TypeConstructor>> getTypeConstructors() {
-    return NarySupplierFromCollection.lazilyBy(()-> {
-      return ClassConstructorExtractor.create(getRawClass())
-        .get()
-        .collectToList();
-    });
+    return CachedValues.adapting(ClassConstructorExtractor.create(getRawClass()));
   }
 
   @Override

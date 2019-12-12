@@ -2,8 +2,8 @@ package ar.com.kfgodel.diamond.impl.types.parts.extendedtype;
 
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.lazyvalue.impl.CachedValues;
 import ar.com.kfgodel.nary.api.Nary;
-import ar.com.kfgodel.nary.impl.NarySupplierFromCollection;
 
 import java.lang.reflect.AnnotatedType;
 import java.lang.reflect.Type;
@@ -20,7 +20,7 @@ import java.util.stream.Stream;
  * Created by kfgodel on 12/02/15.
  */
 public class ImplementedTypesSupplier implements Supplier<Nary<TypeInstance>> {
-  private NarySupplierFromCollection<TypeInstance> implementedTypes;
+  private CachedValues<TypeInstance> implementedTypes;
 
   @Override
   public Nary<TypeInstance> get() {
@@ -30,11 +30,14 @@ public class ImplementedTypesSupplier implements Supplier<Nary<TypeInstance>> {
 
   public static Supplier<Nary<TypeInstance>> create(Class<?> nativeClass, Stream<TypeInstance> typeArguments) {
     ImplementedTypesSupplier supplier = new ImplementedTypesSupplier();
-    supplier.implementedTypes = NarySupplierFromCollection.lazilyBy(() -> describeImplementedTypes(nativeClass, typeArguments));
+    supplier.implementedTypes = CachedValues.from(() -> {
+      return describeImplementedTypes(nativeClass, typeArguments);
+    });
     return supplier;
   }
 
-  private static Collection<TypeInstance> describeImplementedTypes(Class<?> nativeClass, Stream<TypeInstance> typeArguments) {
+  private static Collection<TypeInstance> describeImplementedTypes(Class<?> nativeClass,
+                                                                   Stream<TypeInstance> typeArguments) {
     AnnotatedType[] annotatedInterfaces = nativeClass.getAnnotatedInterfaces();
     if (annotatedInterfaces.length == 0) {
       //Optimization if there are no interfaces
@@ -42,13 +45,13 @@ public class ImplementedTypesSupplier implements Supplier<Nary<TypeInstance>> {
     }
     List<TypeInstance> actualArguments = typeArguments.collect(Collectors.toList());
 
-
     List<TypeInstance> describedTypes = new ArrayList<>(annotatedInterfaces.length);
     Type[] genericInterfaces = nativeClass.getGenericInterfaces();
     for (int i = 0; i < annotatedInterfaces.length; i++) {
       AnnotatedType annotatedInterface = annotatedInterfaces[i];
       Type genericInterface = genericInterfaces[i];
-      TypeInstance describedType = Diamond.types().fromParameterizedNativeTypes(nativeClass, actualArguments, annotatedInterface, genericInterface);
+      TypeInstance describedType = Diamond.types()
+        .fromParameterizedNativeTypes(nativeClass, actualArguments, annotatedInterface, genericInterface);
       describedTypes.add(describedType);
     }
     return describedTypes;

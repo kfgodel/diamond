@@ -15,13 +15,13 @@ import java.util.stream.Stream;
  * By using an instance of this class a supplier can provide native method, fields, constructors, etc
  * Created by kfgodel on 12/10/14.
  */
-public class InheritedMemberSupplier<M> implements Supplier<Stream<M>> {
+public class InheritedMemberSupplier<M> implements Supplier<Nary<M>> {
 
   private Supplier<Nary<Class<?>>> startingClasses;
   private Function<? super Class<?>, M[]> extractionOperation;
 
   @Override
-  public Stream<M> get() {
+  public Nary<M> get() {
     return startingClasses.get()
       .flatMap(this::calculateSuperclasses)
       .flatMap(this::extractMembers)

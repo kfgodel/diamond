@@ -6,28 +6,24 @@ import ar.com.kfgodel.diamond.impl.natives.suppliers.InheritedMemberSupplier;
 import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.reflect.Field;
-import java.util.List;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * This type represents the diamond supplier of type fields from native class instances
  * Created by kfgodel on 12/10/14.
  */
-public class ClassFieldCalculator implements Supplier<List<TypeField>> {
+public class ClassFieldCalculator implements Supplier<Nary<TypeField>> {
 
   private Supplier<Nary<Class<?>>> runtimeClasses;
 
   @Override
-  public List<TypeField> get() {
-    Stream<Field> nativeFields = calculateFields(runtimeClasses);
+  public Nary<TypeField> get() {
+    Nary<Field> nativeFields = calculateFields(runtimeClasses);
     return nativeFields
-      .map((nativeField) -> Diamond.fields().from(nativeField))
-      .collect(Collectors.toList());
+      .map((nativeField) -> Diamond.fields().from(nativeField));
   }
 
-  private static Stream<Field> calculateFields(Supplier<Nary<Class<?>>> runtimeClasses) {
+  private static Nary<Field> calculateFields(Supplier<Nary<Class<?>>> runtimeClasses) {
     return InheritedMemberSupplier.create(runtimeClasses, Class::getDeclaredFields)
       .get();
   }
