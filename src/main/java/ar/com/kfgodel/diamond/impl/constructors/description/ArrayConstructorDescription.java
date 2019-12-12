@@ -30,11 +30,14 @@ import java.util.function.Supplier;
  * Created by kfgodel on 16/10/14.
  */
 public class ArrayConstructorDescription implements ConstructorDescription {
+
   private Class<?> nativeArrayClass;
 
   @Override
   public Supplier<Nary<ExecutableParameter>> getParameters() {
-    return NarySupplierFromElement.lazilyBy(() -> Diamond.parameters().fromDescription(ArrayConstructorParameterDescription.INSTANCE));
+    return NarySupplierFromElement.lazilyBy(() -> {
+      return Diamond.parameters().fromDescription(ArrayConstructorParameterDescription.INSTANCE);
+    });
   }
 
   @Override

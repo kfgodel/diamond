@@ -9,11 +9,12 @@ import ar.com.kfgodel.diamond.impl.types.description.inheritance.FixedTypeInheri
 import ar.com.kfgodel.diamond.impl.types.description.names.ClassTypeNameDescription;
 import ar.com.kfgodel.diamond.impl.types.description.support.TypeDescriptionSupport;
 import ar.com.kfgodel.diamond.impl.types.parts.componenttype.ArrayComponentTypeSupplier;
-import ar.com.kfgodel.diamond.impl.types.parts.constructors.ClassConstructorsSupplier;
+import ar.com.kfgodel.diamond.impl.types.parts.constructors.ClassConstructorExtractor;
 import ar.com.kfgodel.diamond.impl.types.parts.packages.TypePackageSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.typeparameters.GenericTypeParametersSupplier;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.impl.NarySupplierFromCollection;
 
 import java.util.function.BiPredicate;
 import java.util.function.Supplier;
@@ -65,7 +66,11 @@ public class ClassDescription extends TypeDescriptionSupport {
 
   @Override
   public Supplier<Nary<TypeConstructor>> getTypeConstructors() {
-    return ClassConstructorsSupplier.selectFor(getRawClass());
+    return NarySupplierFromCollection.lazilyBy(()-> {
+      return ClassConstructorExtractor.create(getRawClass())
+        .get()
+        .collectToList();
+    });
   }
 
   @Override
