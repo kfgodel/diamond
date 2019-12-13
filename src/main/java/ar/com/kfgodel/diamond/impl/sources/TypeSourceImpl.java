@@ -91,9 +91,11 @@ public class TypeSourceImpl implements TypeSources {
       .create(parameterizableSubtype, genericSupertype)
       .get();
     ActualArgumentReplacer typeArgumentsReplacer = ActualArgumentReplacer.create(subtypeArguments, parametrization);
-    final Nary<Class<?>> rawClass = RawClassesCalculator.create().fromUnknown(genericSupertype);
+    final Class<?> extendedRawClass = RawClassesCalculator.create()
+      .fromUnknown(genericSupertype)
+      .get(); // This should be safe if an interface type is used
     return ExtendedTypeDescription
-      .create(supertypeDescription, typeArgumentsReplacer, rawClass.get());
+      .create(supertypeDescription, typeArgumentsReplacer, extendedRawClass);
   }
 
   public static TypeSourceImpl create(DiamondCache cache) {

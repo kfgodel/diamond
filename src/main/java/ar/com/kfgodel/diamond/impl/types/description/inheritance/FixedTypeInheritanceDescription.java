@@ -4,7 +4,7 @@ import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
 import ar.com.kfgodel.diamond.impl.types.parts.extendedtype.ExtendedTypeCalculator;
-import ar.com.kfgodel.diamond.impl.types.parts.extendedtype.ImplementedTypesSupplier;
+import ar.com.kfgodel.diamond.impl.types.parts.extendedtype.ImplementedTypesCalculator;
 import ar.com.kfgodel.diamond.impl.types.parts.superclass.SuperClassSupplier;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.lazyvalue.impl.CachedValues;
@@ -40,7 +40,9 @@ public class FixedTypeInheritanceDescription implements InheritanceDescription {
 
   @Override
   public Supplier<Nary<TypeInstance>> getImplementedTypesSupplier() {
-    return ImplementedTypesSupplier.create(rawClass, typeArguments.get());
+    return CachedValues.adapting(
+      ImplementedTypesCalculator.create(rawClass, typeArguments)
+    );
   }
 
   public static FixedTypeInheritanceDescription create(Class<?> rawClass, Supplier<Nary<TypeInstance>> typeArguments) {
