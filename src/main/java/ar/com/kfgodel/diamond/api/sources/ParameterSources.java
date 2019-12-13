@@ -2,6 +2,7 @@ package ar.com.kfgodel.diamond.api.sources;
 
 import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.diamond.api.parameters.description.ParameterDescription;
+import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.reflect.Parameter;
 
@@ -17,6 +18,13 @@ public interface ParameterSources {
    * @return The diamond representation
    */
   ExecutableParameter from(Parameter nativeParameter);
+
+  /**
+   * Retrieves the diamond representation for each of the given native parameters
+   * @param nativeParameters An array of parameters
+   * @return The nary of diamond parameters
+   */
+  Nary<ExecutableParameter> from(Parameter[] nativeParameters);
 
   /**
    * Retrieves the parameter described by the given description
