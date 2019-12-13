@@ -1,8 +1,9 @@
 package ar.com.kfgodel.diamond.impl.members.generics;
 
+import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.generics.Generics;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
-import ar.com.kfgodel.diamond.impl.types.parts.typeparameters.GenericTypeParametersSupplier;
+import ar.com.kfgodel.lazyvalue.impl.CachedValues;
 import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.reflect.Executable;
@@ -15,7 +16,9 @@ import java.util.function.Supplier;
 public class ExecutableGenericsSupplier {
 
   public static Generics create(Executable nativeExecutable) {
-    Supplier<Nary<TypeInstance>> genericParametersSupplier = GenericTypeParametersSupplier.create(nativeExecutable);
+    Supplier<Nary<TypeInstance>> genericParametersSupplier = CachedValues.adapting(() -> {
+      return Diamond.types().from(nativeExecutable.getTypeParameters());
+    });
     return ParameterizedMemberGenerics.create(genericParametersSupplier);
   }
 

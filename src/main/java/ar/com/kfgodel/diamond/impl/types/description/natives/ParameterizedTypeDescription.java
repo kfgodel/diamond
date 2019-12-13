@@ -13,7 +13,6 @@ import ar.com.kfgodel.diamond.impl.types.description.names.ClassTypeNameDescript
 import ar.com.kfgodel.diamond.impl.types.description.support.TypeDescriptionSupport;
 import ar.com.kfgodel.diamond.impl.types.parts.constructors.ClassConstructorExtractor;
 import ar.com.kfgodel.diamond.impl.types.parts.packages.TypePackageSupplier;
-import ar.com.kfgodel.diamond.impl.types.parts.typeparameters.GenericTypeParametersSupplier;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.lazyvalue.impl.CachedValues;
 import ar.com.kfgodel.nary.api.Nary;
@@ -84,7 +83,9 @@ public class ParameterizedTypeDescription extends TypeDescriptionSupport {
 
   @Override
   public Supplier<Nary<TypeInstance>> getTypeParametersSupplier() {
-    return GenericTypeParametersSupplier.create(getRawClass());
+    return CachedValues.adapting(() -> {
+      return Diamond.types().from(getRawClass().getTypeParameters());
+    });
   }
 
   @Override

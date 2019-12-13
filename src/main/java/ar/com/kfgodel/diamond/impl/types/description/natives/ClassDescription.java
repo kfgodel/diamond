@@ -1,5 +1,6 @@
 package ar.com.kfgodel.diamond.impl.types.description.natives;
 
+import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
@@ -11,7 +12,6 @@ import ar.com.kfgodel.diamond.impl.types.description.support.TypeDescriptionSupp
 import ar.com.kfgodel.diamond.impl.types.parts.componenttype.NativeTypeToDiamondAdapterSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.constructors.ClassConstructorExtractor;
 import ar.com.kfgodel.diamond.impl.types.parts.packages.TypePackageSupplier;
-import ar.com.kfgodel.diamond.impl.types.parts.typeparameters.GenericTypeParametersSupplier;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.lazyvalue.impl.CachedValues;
 import ar.com.kfgodel.nary.api.Nary;
@@ -79,7 +79,9 @@ public class ClassDescription extends TypeDescriptionSupport {
 
   @Override
   public Supplier<Nary<TypeInstance>> getTypeParametersSupplier() {
-    return GenericTypeParametersSupplier.create(getRawClass());
+    return CachedValues.adapting(() -> {
+      return Diamond.types().from(getRawClass().getTypeParameters());
+    });
   }
 
   @Override
