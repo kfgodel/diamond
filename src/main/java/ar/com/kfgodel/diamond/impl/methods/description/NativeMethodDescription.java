@@ -10,7 +10,6 @@ import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.equals.CachedTokenCalculator;
 import ar.com.kfgodel.diamond.impl.members.defaults.MethodDefaultValueSupplier;
-import ar.com.kfgodel.diamond.impl.members.exceptions.ExecutableExceptionsSupplier;
 import ar.com.kfgodel.diamond.impl.members.generics.ExecutableGenericsSupplier;
 import ar.com.kfgodel.diamond.impl.methods.equality.MethodEquality;
 import ar.com.kfgodel.diamond.impl.natives.invokables.methods.NativeMethodInvokerGenerator;
@@ -90,7 +89,9 @@ public class NativeMethodDescription implements MethodDescription {
 
   @Override
   public Supplier<Nary<TypeInstance>> getDeclaredExceptions() {
-    return ExecutableExceptionsSupplier.create(nativeMethod);
+    return CachedValues.adapting(() -> {
+      return Diamond.types().from(nativeMethod.getAnnotatedExceptionTypes());
+    });
   }
 
   public static NativeMethodDescription create(Method nativeMethod) {
