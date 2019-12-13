@@ -11,7 +11,7 @@ import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.equals.CachedTokenCalculator;
 import ar.com.kfgodel.diamond.impl.fields.equality.FieldEquality;
 import ar.com.kfgodel.diamond.impl.members.exceptions.NoExceptionsSupplier;
-import ar.com.kfgodel.diamond.impl.members.generics.UnGenerifiedMemberGenerics;
+import ar.com.kfgodel.diamond.impl.members.generics.UnparameterizedMemberGenerics;
 import ar.com.kfgodel.diamond.impl.members.parameters.NoParametersSupplier;
 import ar.com.kfgodel.diamond.impl.natives.invokables.fields.NativeFieldGetter;
 import ar.com.kfgodel.diamond.impl.natives.invokables.fields.NativeFieldSetter;
@@ -106,7 +106,7 @@ public class NativeFieldDescription implements FieldDescription {
 
   @Override
   public Supplier<Generics> getGenerics() {
-    return UnGenerifiedMemberGenerics::instance;
+    return UnparameterizedMemberGenerics::instance;
   }
 
   @Override

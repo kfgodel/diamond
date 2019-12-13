@@ -27,7 +27,7 @@ public class SingleBound implements TypeBounds {
 
   public static SingleBound create(Nary<TypeInstance> upper) {
     SingleBound bounds = new SingleBound();
-    bounds.upperBounds = CachedValues.from(upper);
+    bounds.upperBounds = CachedValues.from(upper); // Consume and cache when accessed
     return bounds;
   }
 

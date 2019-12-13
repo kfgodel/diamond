@@ -10,7 +10,7 @@ import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.constructors.equality.ConstructorEquality;
 import ar.com.kfgodel.diamond.impl.equals.CachedTokenCalculator;
-import ar.com.kfgodel.diamond.impl.members.generics.ExecutableGenericsSupplier;
+import ar.com.kfgodel.diamond.impl.members.generics.ExecutableGenericsCalculator;
 import ar.com.kfgodel.diamond.impl.natives.invokables.constructors.NativeConstructorInvoker;
 import ar.com.kfgodel.diamond.impl.natives.suppliers.AnnotatedElementAnnotationsSupplier;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
@@ -68,7 +68,7 @@ public class NativeConstructorDescription implements ConstructorDescription {
 
   @Override
   public Supplier<Generics> getGenerics() {
-    return CachedValue.from(() -> ExecutableGenericsSupplier.create(nativeConstructor));
+    return CachedValue.from(ExecutableGenericsCalculator.create(nativeConstructor));
   }
 
   @Override

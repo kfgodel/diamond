@@ -28,7 +28,7 @@ public class DoubleBounds implements TypeBounds {
 
   public static DoubleBounds create(Nary<TypeInstance> upper, Nary<TypeInstance> lower) {
     DoubleBounds bounds = new DoubleBounds();
-    bounds.upperBounds = CachedValues.from(upper);
+    bounds.upperBounds = CachedValues.from(upper); // Consume and cache when accessed
     bounds.lowerBounds = CachedValues.from(lower);
     return bounds;
   }

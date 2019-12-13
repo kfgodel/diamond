@@ -12,7 +12,7 @@ import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.constructors.equality.ConstructorEquality;
 import ar.com.kfgodel.diamond.impl.equals.CachedTokenCalculator;
 import ar.com.kfgodel.diamond.impl.members.exceptions.NoExceptionsSupplier;
-import ar.com.kfgodel.diamond.impl.members.generics.UnGenerifiedMemberGenerics;
+import ar.com.kfgodel.diamond.impl.members.generics.UnparameterizedMemberGenerics;
 import ar.com.kfgodel.diamond.impl.natives.invokables.constructors.NativeArrayConstructor;
 import ar.com.kfgodel.diamond.impl.types.parts.annotations.NoAnnotationsSupplier;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
@@ -68,7 +68,7 @@ public class ArrayConstructorDescription implements ConstructorDescription {
 
   @Override
   public Supplier<Generics> getGenerics() {
-    return UnGenerifiedMemberGenerics::instance;
+    return UnparameterizedMemberGenerics::instance;
   }
 
   @Override

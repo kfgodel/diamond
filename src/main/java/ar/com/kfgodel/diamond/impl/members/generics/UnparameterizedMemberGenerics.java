@@ -8,12 +8,12 @@ import ar.com.kfgodel.nary.api.Nary;
  * This type represents generics information for a non generified member
  * Created by kfgodel on 01/11/14.
  */
-public class UnGenerifiedMemberGenerics implements Generics {
+public class UnparameterizedMemberGenerics implements Generics {
 
 
-  private static final UnGenerifiedMemberGenerics INSTANCE = new UnGenerifiedMemberGenerics();
+  private static final UnparameterizedMemberGenerics INSTANCE = new UnparameterizedMemberGenerics();
 
-  public static UnGenerifiedMemberGenerics instance() {
+  public static UnparameterizedMemberGenerics instance() {
     return INSTANCE;
   }
 
