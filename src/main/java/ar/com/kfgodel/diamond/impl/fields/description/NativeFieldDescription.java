@@ -10,9 +10,7 @@ import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.equals.CachedTokenCalculator;
 import ar.com.kfgodel.diamond.impl.fields.equality.FieldEquality;
-import ar.com.kfgodel.diamond.impl.members.exceptions.NoExceptionsSupplier;
 import ar.com.kfgodel.diamond.impl.members.generics.UnparameterizedMemberGenerics;
-import ar.com.kfgodel.diamond.impl.members.parameters.NoParametersSupplier;
 import ar.com.kfgodel.diamond.impl.natives.invokables.fields.NativeFieldGetter;
 import ar.com.kfgodel.diamond.impl.natives.invokables.fields.NativeFieldSetter;
 import ar.com.kfgodel.diamond.impl.natives.invokables.fields.NativeInstanceFieldInvoker;
@@ -62,7 +60,7 @@ public class NativeFieldDescription implements FieldDescription {
 
   @Override
   public Supplier<Nary<ExecutableParameter>> getParameters() {
-    return NoParametersSupplier.INSTANCE;
+    return Nary::empty;
   }
 
   @Override
@@ -112,7 +110,7 @@ public class NativeFieldDescription implements FieldDescription {
 
   @Override
   public Supplier<Nary<TypeInstance>> getDeclaredExceptions() {
-    return NoExceptionsSupplier::create;
+    return Nary::empty;
   }
 
   @Override

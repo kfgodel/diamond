@@ -15,19 +15,13 @@ import ar.com.kfgodel.diamond.api.types.names.TypeNamesDescription;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.diamond.impl.equals.CachedTokenCalculator;
 import ar.com.kfgodel.diamond.impl.natives.raws.RawClassesCalculator;
+import ar.com.kfgodel.diamond.impl.types.bounds.NoBounds;
 import ar.com.kfgodel.diamond.impl.types.description.inheritance.NoInheritanceDescription;
 import ar.com.kfgodel.diamond.impl.types.description.names.UnnamedTypeDescription;
 import ar.com.kfgodel.diamond.impl.types.equality.TypeEquality;
 import ar.com.kfgodel.diamond.impl.types.names.TypeInstanceNames;
-import ar.com.kfgodel.diamond.impl.types.parts.annotations.NoAnnotationsSupplier;
-import ar.com.kfgodel.diamond.impl.types.parts.bounds.NoBoundsSupplier;
-import ar.com.kfgodel.diamond.impl.types.parts.componenttype.NoComponentTypeSupplier;
-import ar.com.kfgodel.diamond.impl.types.parts.constructors.NonInstantiableConstructorSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.fields.ClassFieldCalculator;
 import ar.com.kfgodel.diamond.impl.types.parts.methods.ClassMethodCalculator;
-import ar.com.kfgodel.diamond.impl.types.parts.packages.NoPackageSupplier;
-import ar.com.kfgodel.diamond.impl.types.parts.typearguments.NoTypeArgumentsSupplier;
-import ar.com.kfgodel.diamond.impl.types.parts.typeparameters.NoTypeParametersSupplier;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.lazyvalue.impl.CachedValues;
 import ar.com.kfgodel.nary.api.Nary;
@@ -45,7 +39,7 @@ import java.util.function.Supplier;
 public abstract class TypeDescriptionSupport implements TypeDescription {
 
   public Supplier<Nary<Annotation>> getAnnotations() {
-    return NoAnnotationsSupplier.INSTANCE;
+    return Nary::empty;
   }
 
   @Override
@@ -60,7 +54,7 @@ public abstract class TypeDescriptionSupport implements TypeDescription {
   }
 
   public Supplier<TypeBounds> getBounds() {
-    return NoBoundsSupplier.INSTANCE;
+    return ()-> NoBounds.INSTANCE;
   }
 
   @Override
@@ -74,12 +68,12 @@ public abstract class TypeDescriptionSupport implements TypeDescription {
   }
 
   public Supplier<Unary<TypeInstance>> getComponentType() {
-    return NoComponentTypeSupplier.INSTANCE;
+    return Nary::empty;
   }
 
   @Override
   public Supplier<Unary<TypePackage>> getDeclaredPackage() {
-    return NoPackageSupplier.INSTANCE;
+    return Nary::empty;
   }
 
   @Override
@@ -131,11 +125,11 @@ public abstract class TypeDescriptionSupport implements TypeDescription {
   }
 
   public Supplier<Nary<TypeInstance>> getTypeArguments() {
-    return NoTypeArgumentsSupplier.INSTANCE;
+    return Nary::empty;
   }
 
   public Supplier<Nary<TypeConstructor>> getTypeConstructors() {
-    return NonInstantiableConstructorSupplier.INSTANCE;
+    return Nary::empty;
   }
 
   public Supplier<Nary<TypeField>> getTypeFields() {
@@ -147,7 +141,7 @@ public abstract class TypeDescriptionSupport implements TypeDescription {
   }
 
   public Supplier<Nary<TypeInstance>> getTypeParametersSupplier() {
-    return NoTypeParametersSupplier.INSTANCE;
+    return Nary::empty;
   }
 
   @Override

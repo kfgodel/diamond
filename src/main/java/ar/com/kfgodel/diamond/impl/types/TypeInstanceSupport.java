@@ -25,7 +25,6 @@ import ar.com.kfgodel.diamond.impl.strings.DebugPrinter;
 import ar.com.kfgodel.diamond.impl.types.compile.DefaultCompileHierarchy;
 import ar.com.kfgodel.diamond.impl.types.equality.TypeEquality;
 import ar.com.kfgodel.diamond.impl.types.is.DefaultTypeTests;
-import ar.com.kfgodel.diamond.impl.types.parts.annotations.NoAnnotationsSupplier;
 import ar.com.kfgodel.diamond.impl.types.runtime.DefaultTypeRuntime;
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.api.Unary;
@@ -43,7 +42,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
   /**
    * Attached type annotations
    */
-  private Supplier<Nary<Annotation>> annotations = NoAnnotationsSupplier.INSTANCE;
+  private Supplier<Nary<Annotation>> annotations = Nary::empty;
   /**
    * Variations on the name for this type
    */
