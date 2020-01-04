@@ -93,7 +93,7 @@ public class TypeSourceImpl implements TypeSources {
     ActualArgumentReplacer typeArgumentsReplacer = ActualArgumentReplacer.create(subtypeArguments, parametrization);
     final Class<?> extendedRawClass = RawClassesCalculator.create()
       .fromUnknown(genericSupertype)
-      .asUni().get(); // This should be safe if an interface type is used
+      .unique().get(); // This should be safe if an interface type is used
     return ExtendedTypeDescription
       .create(supertypeDescription, typeArgumentsReplacer, extendedRawClass);
   }

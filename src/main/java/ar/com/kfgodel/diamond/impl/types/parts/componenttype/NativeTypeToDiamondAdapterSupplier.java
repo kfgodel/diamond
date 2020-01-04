@@ -27,7 +27,7 @@ public class NativeTypeToDiamondAdapterSupplier implements Supplier<Unary<TypeIn
   public Unary<TypeInstance> get() {
     return Nary.of(nativeTypeSupplier.get())
       .map(componentType -> Diamond.types().from(componentType))
-      .asUni();
+      .unique();
   }
 
 }

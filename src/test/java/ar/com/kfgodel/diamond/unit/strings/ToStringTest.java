@@ -74,14 +74,14 @@ public class ToStringTest extends JavaSpec<DiamondTestContext> {
 
 
       describe("for fields", () -> {
-        context().object(() -> Diamond.of(BoundFieldTestObject.class).fields().named("field").asUni().get());
+        context().object(() -> Diamond.of(BoundFieldTestObject.class).fields().named("field").unique().get());
 
         it("is name @ class", () -> {
           assertThat(context().toStringResult()).isEqualTo("field @ BoundFieldTestObject");
         });
 
         describe("when bound", () -> {
-          context().object(() -> Diamond.of(BoundFieldTestObject.class).fields().named("field").asUni().get()
+          context().object(() -> Diamond.of(BoundFieldTestObject.class).fields().named("field").unique().get()
             .bindTo(new BoundFieldTestObject()));
 
           it("is name @ instance", () -> {
@@ -92,14 +92,14 @@ public class ToStringTest extends JavaSpec<DiamondTestContext> {
       });
 
       describe("for methods", () -> {
-        context().object(() -> Diamond.of(BoundMethodTestObject.class).methods().named("biconsumer").asUni().get());
+        context().object(() -> Diamond.of(BoundMethodTestObject.class).methods().named("biconsumer").unique().get());
 
         it("is name (arg types) @ class", () -> {
           assertThat(context().toStringResult()).isEqualTo("biconsumer(int, int) @ BoundMethodTestObject");
         });
 
         describe("when bound", () -> {
-          context().object(() -> Diamond.of(BoundMethodTestObject.class).methods().named("biconsumer").asUni().get()
+          context().object(() -> Diamond.of(BoundMethodTestObject.class).methods().named("biconsumer").unique().get()
             .bindTo(new BoundMethodTestObject()));
 
           it("is name (arg types) @ instance", () -> {
@@ -110,7 +110,7 @@ public class ToStringTest extends JavaSpec<DiamondTestContext> {
       });
 
       describe("for constructors", () -> {
-        context().object(() -> Diamond.of(ConstructorAccessTestObject.class).constructors().withParameters(Diamond.of(Integer.class)).asUni().get());
+        context().object(() -> Diamond.of(ConstructorAccessTestObject.class).constructors().withParameters(Diamond.of(Integer.class)).unique().get());
 
         it("is name (arg types) @ package", () -> {
           assertThat(context().toStringResult()).isEqualTo("ConstructorAccessTestObject(Integer) @ ar.com.kfgodel.diamond.unit.testobjects.constructors");
@@ -118,7 +118,7 @@ public class ToStringTest extends JavaSpec<DiamondTestContext> {
       });
 
       describe("for method parameters", () -> {
-        context().object(() -> Diamond.of(Object.class).methods().named("equals").asUni().get().parameters().asUni().get());
+        context().object(() -> Diamond.of(Object.class).methods().named("equals").unique().get().parameters().unique().get());
 
         it("is the type and name", () -> {
           // Depending on the JDK version and the compilation config the name varies

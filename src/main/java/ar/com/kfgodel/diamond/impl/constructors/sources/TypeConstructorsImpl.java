@@ -27,7 +27,7 @@ public class TypeConstructorsImpl implements TypeConstructors {
   @Override
   public Unary<TypeConstructor> niladic() {
     return withParameters()
-      .asUni();
+      .unique();
   }
 
   @Override

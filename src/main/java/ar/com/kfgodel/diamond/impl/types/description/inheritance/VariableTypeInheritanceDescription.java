@@ -29,7 +29,7 @@ public class VariableTypeInheritanceDescription implements InheritanceDescriptio
   @Override
   public Supplier<Unary<TypeInstance>> getSuperclassSupplier() {
     return CachedValue.from(() -> {
-      return getUpperBoundsThatAre(Categories.CLASS).asUni()
+      return getUpperBoundsThatAre(Categories.CLASS).unique()
         .orElseUse(()-> Diamond.of(Object.class)); //Object is the implicit upper bound of everything
     });
   }

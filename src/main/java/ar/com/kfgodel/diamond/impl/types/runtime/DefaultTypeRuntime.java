@@ -27,7 +27,7 @@ public class DefaultTypeRuntime implements TypeRuntime {
   @Override
   public TypeInstance type() {
     return runtimeType.get()
-      .asUni().orElseThrow(()-> new DiamondException("Runtime type is not available")); //Better error?
+      .unique().orElseThrow(()-> new DiamondException("Runtime type is not available")); //Better error?
   }
 
   @Override

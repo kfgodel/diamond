@@ -63,7 +63,7 @@ public class TypeNameDeclaration {
   private void withComponentTypeDeclaration(Consumer<String> componentTypeDeclarationConsumer) {
     Nary<String> componentDeclaration = type.componentType()
       .map(TypeInstance::declaration);
-    componentDeclaration.asUni().ifPresent(componentTypeDeclarationConsumer);
+    componentDeclaration.unique().ifPresent(componentTypeDeclarationConsumer);
   }
 
   private void withAnnotationsSeparatedBy(String separator, Consumer<String> separatedAnnotationsConsumer) {

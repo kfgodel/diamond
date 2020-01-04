@@ -67,7 +67,7 @@ public class LambdaDescriptor {
       return Diamond.of(instance.getClass())
         .methods()
         .named(methodName)
-        .asUni().get();
+        .unique().get();
     });
   }
 

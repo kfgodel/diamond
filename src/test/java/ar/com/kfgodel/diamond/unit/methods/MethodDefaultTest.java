@@ -23,7 +23,7 @@ public class MethodDefaultTest extends JavaSpec<DiamondTestContext> {
     describe("method default value", () -> {
 
       it("is defined for annotation members with default value", () -> {
-        TypeMethod methodWithDefault = Diamond.of(DefaultValueAnnotation.class).methods().named("memberWithDefault").asUni().get();
+        TypeMethod methodWithDefault = Diamond.of(DefaultValueAnnotation.class).methods().named("memberWithDefault").unique().get();
 
         Unary<Object> defaultValue = methodWithDefault.defaultValue();
 
@@ -31,7 +31,7 @@ public class MethodDefaultTest extends JavaSpec<DiamondTestContext> {
       });
 
       it("is not present for annotations members without a default", () -> {
-        TypeMethod methodWithDefault = Diamond.of(DefaultValueAnnotation.class).methods().named("memberWithoutDefault").asUni().get();
+        TypeMethod methodWithDefault = Diamond.of(DefaultValueAnnotation.class).methods().named("memberWithoutDefault").unique().get();
 
         Unary<Object> defaultValue = methodWithDefault.defaultValue();
 
@@ -39,7 +39,7 @@ public class MethodDefaultTest extends JavaSpec<DiamondTestContext> {
       });
 
       it("is not present for non annotation methods", () -> {
-        TypeMethod normalMethod = Diamond.of(PublicMembersTestObject.class).methods().named("method").asUni().get();
+        TypeMethod normalMethod = Diamond.of(PublicMembersTestObject.class).methods().named("method").unique().get();
 
         Unary<Object> defaultValue = normalMethod.defaultValue();
 

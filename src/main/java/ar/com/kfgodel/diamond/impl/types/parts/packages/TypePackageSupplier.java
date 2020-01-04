@@ -20,6 +20,6 @@ public class TypePackageSupplier  {
   public static Unary<TypePackage> from(Class<?> nativeClass){
     return Nary.of(nativeClass.getPackage())
       .map(nativePackage -> Diamond.packages().from(nativePackage))
-      .asUni();
+      .unique();
   }
 }

@@ -45,9 +45,9 @@ public class CompositeFunctionTest extends JavaSpec<DiamondTestContext> {
       });
 
       it("can be used to get a nested field from an instance", () -> {
-        TypeField firstField = context().typeInstance().fields().named("a").asUni().get();
-        TypeField secondField = context().typeInstance().fields().named("b").asUni().get();
-        TypeField thirdField = context().typeInstance().fields().named("c").asUni().get();
+        TypeField firstField = context().typeInstance().fields().named("a").unique().get();
+        TypeField secondField = context().typeInstance().fields().named("b").unique().get();
+        TypeField thirdField = context().typeInstance().fields().named("c").unique().get();
         CompositeFunctionTestObject instance = new CompositeFunctionTestObject();
 
         CompositeFunction composite = CompositeFunction.create(Arrays.asList(firstField, secondField, thirdField));
@@ -57,9 +57,9 @@ public class CompositeFunctionTest extends JavaSpec<DiamondTestContext> {
       });
 
       it("can be used to invoke a chain of getters", () -> {
-        TypeMethod firstMethod = context().typeInstance().methods().named("getA").asUni().get();
-        TypeMethod secondMethod = context().typeInstance().methods().named("getB").asUni().get();
-        TypeMethod thirdMethod = context().typeInstance().methods().named("getC").asUni().get();
+        TypeMethod firstMethod = context().typeInstance().methods().named("getA").unique().get();
+        TypeMethod secondMethod = context().typeInstance().methods().named("getB").unique().get();
+        TypeMethod thirdMethod = context().typeInstance().methods().named("getC").unique().get();
         CompositeFunctionTestObject instance = new CompositeFunctionTestObject();
 
         CompositeFunction composite = CompositeFunction.create(Arrays.asList(firstMethod, secondMethod, thirdMethod));

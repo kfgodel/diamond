@@ -57,7 +57,7 @@ public class GenericArrayTypeDescription extends TypeDescriptionSupport {
    * @return The class that represents this type without any annotations or generics
    */
   protected Class<?> getRawClass() {
-    return RawClassesCalculator.create().from(nativeType).asUni()
+    return RawClassesCalculator.create().from(nativeType).unique()
       .orElseThrow(()-> new DiamondException("Generic array["+nativeType+"] does not have" +
       "a class in runtime?"));
   }

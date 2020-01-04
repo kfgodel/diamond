@@ -53,7 +53,7 @@ public class TypeVariableTest extends JavaSpec<DiamondTestContext> {
       });
 
       it("can have superclass from upper bounds", () -> {
-        assertThat(context().typeInstance().runtime().hierarchy().superclass().map(Named::name).asUni().get())
+        assertThat(context().typeInstance().runtime().hierarchy().superclass().map(Named::name).unique().get())
           .isEqualTo("Number");
       });
 
@@ -81,7 +81,7 @@ public class TypeVariableTest extends JavaSpec<DiamondTestContext> {
       });
 
       it("can be accessed from its type instance", () -> {
-        final AnnotatedType reflectionType = context().typeInstance().reflectedAs(AnnotatedType.class).asUni().get();
+        final AnnotatedType reflectionType = context().typeInstance().reflectedAs(AnnotatedType.class).unique().get();
         assertThat(reflectionType.getType()).isInstanceOf(TypeVariable.class);
       });
     });

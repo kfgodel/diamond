@@ -23,7 +23,7 @@ public class MethodInvocationTest extends JavaSpec<DiamondTestContext> {
 
       context().object(MethodInvocationTestObject::new);
       context().typeInstance(() -> Diamond.of(context().object().getClass()));
-      context().method(() -> context().typeInstance().methods().named(context().name()).asUni().get());
+      context().method(() -> context().typeInstance().methods().named(context().name()).unique().get());
 
 
       describe("accessibility", () -> {
