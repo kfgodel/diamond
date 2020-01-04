@@ -3,6 +3,7 @@ package ar.com.kfgodel.diamond.api.constructors;
 import ar.com.kfgodel.diamond.api.parameters.ParameterizedSource;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.api.Unary;
 
 /**
  * This type represents the source of constructors for a given type
@@ -20,7 +21,7 @@ public interface TypeConstructors extends ParameterizedSource<TypeConstructor> {
    *
    * @return An optional with the niladic constructor or empty if this type doesn't have one
    */
-  Nary<TypeConstructor> niladic();
+  Unary<TypeConstructor> niladic();
 
   /**
    * Returns the constructor that matches the given param types.<br>

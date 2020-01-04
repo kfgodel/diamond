@@ -15,6 +15,7 @@ import ar.com.kfgodel.diamond.impl.types.parts.packages.TypePackageSupplier;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.lazyvalue.impl.CachedValues;
 import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.api.Unary;
 
 import java.util.function.BiPredicate;
 import java.util.function.Supplier;
@@ -28,14 +29,14 @@ public class ClassDescription extends TypeDescriptionSupport {
   private Class<?> nativeType;
 
   @Override
-  public Supplier<Nary<TypeInstance>> getComponentType() {
+  public Supplier<Unary<TypeInstance>> getComponentType() {
     return CachedValue.from(
       NativeTypeToDiamondAdapterSupplier.create(nativeType::getComponentType)
     );
   }
 
   @Override
-  public Supplier<Nary<TypePackage>> getDeclaredPackage() {
+  public Supplier<Unary<TypePackage>> getDeclaredPackage() {
     return CachedValue.from(()-> TypePackageSupplier.from(getRawClass()));
   }
 

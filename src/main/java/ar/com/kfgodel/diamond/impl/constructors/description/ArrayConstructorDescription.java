@@ -18,6 +18,7 @@ import ar.com.kfgodel.diamond.impl.types.parts.annotations.NoAnnotationsSupplier
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.lazyvalue.impl.SelfSupplier;
 import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.api.Unary;
 import ar.com.kfgodel.nary.impl.NaryWrappingSupplier;
 
 import java.lang.annotation.Annotation;
@@ -72,7 +73,7 @@ public class ArrayConstructorDescription implements ConstructorDescription {
   }
 
   @Override
-  public Supplier<Nary<Constructor>> getNativeConstructor() {
+  public Supplier<Unary<Constructor>> getNativeConstructor() {
     return Nary::empty;
   }
 

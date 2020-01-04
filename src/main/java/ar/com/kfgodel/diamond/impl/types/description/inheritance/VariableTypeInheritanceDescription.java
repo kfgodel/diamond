@@ -9,6 +9,7 @@ import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.lazyvalue.impl.CachedValues;
 import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.api.Unary;
 
 import java.util.function.Supplier;
 
@@ -21,19 +22,19 @@ public class VariableTypeInheritanceDescription implements InheritanceDescriptio
   private Supplier<TypeBounds> bounds;
 
   @Override
-  public Supplier<Nary<TypeInstance>> getExtendedTypeSupplier() {
+  public Supplier<Unary<TypeInstance>> getExtendedTypeSupplier() {
     return getSuperclassSupplier();
   }
 
   @Override
-  public Supplier<Nary<TypeInstance>> getSuperclassSupplier() {
+  public Supplier<Unary<TypeInstance>> getSuperclassSupplier() {
     return CachedValue.from(() -> {
-      return getUpperBoundThatAre(Categories.CLASS)
+      return getUpperBoundsThatAre(Categories.CLASS).asUni()
         .orElseUse(()-> Diamond.of(Object.class)); //Object is the implicit upper bound of everything
     });
   }
 
-  private Nary<TypeInstance> getUpperBoundThatAre(TypeCategory expectedCategory) {
+  private Nary<TypeInstance> getUpperBoundsThatAre(TypeCategory expectedCategory) {
     return bounds.get().upper()
       .filter(upperBound -> upperBound.is().partOf(expectedCategory));
   }
@@ -42,7 +43,7 @@ public class VariableTypeInheritanceDescription implements InheritanceDescriptio
   @Override
   public Supplier<Nary<TypeInstance>> getInterfacesSupplier() {
     return CachedValues.adapting(() -> {
-        return getUpperBoundThatAre(Categories.INTERFACE);
+        return getUpperBoundsThatAre(Categories.INTERFACE);
       }
     );
   }

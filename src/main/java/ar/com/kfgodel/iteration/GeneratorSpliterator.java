@@ -1,6 +1,7 @@
 package ar.com.kfgodel.iteration;
 
 import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.api.Unary;
 
 import java.util.Spliterator;
 import java.util.function.Consumer;
@@ -20,8 +21,8 @@ public class GeneratorSpliterator<T> implements Spliterator<T> {
    */
   private int spliteratorCharacteristics;
 
-  private Nary<? extends T> nextValue;
-  private Function<? super T, Nary<? extends T>> generatorFunction;
+  private Unary<? extends T> nextValue;
+  private Function<? super T, Unary<? extends T>> generatorFunction;
 
   @Override
   public boolean tryAdvance(Consumer<? super T> action) {
@@ -69,7 +70,7 @@ public class GeneratorSpliterator<T> implements Spliterator<T> {
    * @param <T>             Type of expected iterated elements
    * @return The created spliterator
    */
-  public static <T> GeneratorSpliterator<T> create(Nary<? extends T> firstValue, Function<? super T, Nary<? extends T>> generator, int characteristics) {
+  public static <T> GeneratorSpliterator<T> create(Unary<? extends T> firstValue, Function<? super T, Unary<? extends T>> generator, int characteristics) {
     GeneratorSpliterator<T> spliterator = new GeneratorSpliterator<>();
     spliterator.spliteratorCharacteristics = characteristics;
     spliterator.nextValue = firstValue;
@@ -85,7 +86,7 @@ public class GeneratorSpliterator<T> implements Spliterator<T> {
    * @param <T>        Type of expected iterated elements
    * @return The created spliterator
    */
-  public static <T> GeneratorSpliterator<T> create(Nary<? extends T> firstValue, Function<? super T, Nary<? extends T>> generator) {
+  public static <T> GeneratorSpliterator<T> create(Unary<? extends T> firstValue, Function<? super T, Unary<? extends T>> generator) {
     return create(firstValue, generator, 0);
   }
 
@@ -96,7 +97,7 @@ public class GeneratorSpliterator<T> implements Spliterator<T> {
    * @param <T>        Type of expected iterated elements
    * @return The created spliterator
    */
-  public static <T> GeneratorSpliterator<T> create(Nary<? extends T> firstValue) {
+  public static <T> GeneratorSpliterator<T> create(Unary<? extends T> firstValue) {
     return create(firstValue, (value) -> Nary.empty());
   }
 

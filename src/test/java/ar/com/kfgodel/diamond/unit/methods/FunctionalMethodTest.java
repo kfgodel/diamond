@@ -36,7 +36,7 @@ public class FunctionalMethodTest extends JavaSpec<DiamondTestContext> {
           //Pre-condition
           FunctionalStaticMethodTestObject.lastResult = 0;
 
-          Runnable runnable = context().typeInstance().methods().named("runnable").get();
+          Runnable runnable = context().typeInstance().methods().named("runnable").asUni().get();
           runnable.run();
 
           // After calling the method, lastResult gets updated
@@ -47,7 +47,7 @@ public class FunctionalMethodTest extends JavaSpec<DiamondTestContext> {
           //Pre-condition
           FunctionalStaticMethodTestObject.lastResult = 0;
 
-          Consumer<Object> consumer = context().typeInstance().methods().named("consumer").get();
+          Consumer<Object> consumer = context().typeInstance().methods().named("consumer").asUni().get();
           consumer.accept(4);
 
           assertThat(FunctionalStaticMethodTestObject.lastResult).isEqualTo(4);
@@ -57,14 +57,14 @@ public class FunctionalMethodTest extends JavaSpec<DiamondTestContext> {
           //Pre-condition
           FunctionalStaticMethodTestObject.lastResult = 0;
 
-          BiConsumer<Object, Object> biConsumer = context().typeInstance().methods().named("biConsumer").get();
+          BiConsumer<Object, Object> biConsumer = context().typeInstance().methods().named("biConsumer").asUni().get();
           biConsumer.accept(4, 1);
 
           assertThat(FunctionalStaticMethodTestObject.lastResult).isEqualTo(5);
         });
 
         it("is a supplier to call a no-arg non-void method", () -> {
-          Supplier<Object> supplier = context().typeInstance().methods().named("supplier").get();
+          Supplier<Object> supplier = context().typeInstance().methods().named("supplier").asUni().get();
           Object value = supplier.get();
 
           assertThat(value).isEqualTo(1);
@@ -72,14 +72,14 @@ public class FunctionalMethodTest extends JavaSpec<DiamondTestContext> {
         });
 
         it("is a function to call a one arg non-void method", () -> {
-          Function<Object, Object> function = context().typeInstance().methods().named("function").get();
+          Function<Object, Object> function = context().typeInstance().methods().named("function").asUni().get();
           Object value = function.apply(85);
 
           assertThat(value).isEqualTo(85);
         });
 
         it("throws an exception if functionally called with wrong argument count", () -> {
-          Consumer<Object> consumer = context().typeInstance().methods().named("biConsumer").get();
+          Consumer<Object> consumer = context().typeInstance().methods().named("biConsumer").asUni().get();
 
           try {
             consumer.accept(1);
@@ -92,7 +92,7 @@ public class FunctionalMethodTest extends JavaSpec<DiamondTestContext> {
         });
 
         it("throws an exception if functionally called with wrong argument types", () -> {
-          Consumer<Object> consumer = context().typeInstance().methods().named("consumer").get();
+          Consumer<Object> consumer = context().typeInstance().methods().named("consumer").asUni().get();
 
           try {
             consumer.accept("a");
@@ -113,7 +113,7 @@ public class FunctionalMethodTest extends JavaSpec<DiamondTestContext> {
         it("is a consumer to call a no-arg void method", () -> {
           FunctionalInstanceMethodTestObject object = context().object();
 
-          Consumer<Object> consumer = context().typeInstance().methods().named("consumer").get();
+          Consumer<Object> consumer = context().typeInstance().methods().named("consumer").asUni().get();
           consumer.accept(object);
 
           assertThat(object.getLastResult()).isEqualTo(7);
@@ -122,7 +122,7 @@ public class FunctionalMethodTest extends JavaSpec<DiamondTestContext> {
         it("is a biConsumer to call a one arg void method", () -> {
           FunctionalInstanceMethodTestObject object = context().object();
 
-          BiConsumer<Object, Object> biConsumer = context().typeInstance().methods().named("biConsumer").get();
+          BiConsumer<Object, Object> biConsumer = context().typeInstance().methods().named("biConsumer").asUni().get();
           biConsumer.accept(object, 13);
 
           assertThat(object.getLastResult()).isEqualTo(13);
@@ -131,14 +131,14 @@ public class FunctionalMethodTest extends JavaSpec<DiamondTestContext> {
         it("is a function to call a no-arg non-void method", () -> {
           FunctionalInstanceMethodTestObject object = context().object();
 
-          Function<Object, Object> function = context().typeInstance().methods().named("function").get();
+          Function<Object, Object> function = context().typeInstance().methods().named("function").asUni().get();
           Object value = function.apply(object);
 
           assertThat(value).isEqualTo(21);
         });
 
         it("throws an exception if functionally called as a static method", () -> {
-          Supplier<Object> supplier = context().typeInstance().methods().named("function").get();
+          Supplier<Object> supplier = context().typeInstance().methods().named("function").asUni().get();
 
           try {
             supplier.get();

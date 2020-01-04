@@ -28,6 +28,7 @@ import ar.com.kfgodel.diamond.impl.types.is.DefaultTypeTests;
 import ar.com.kfgodel.diamond.impl.types.parts.annotations.NoAnnotationsSupplier;
 import ar.com.kfgodel.diamond.impl.types.runtime.DefaultTypeRuntime;
 import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.api.Unary;
 
 import java.lang.annotation.Annotation;
 import java.util.function.Function;
@@ -68,7 +69,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
    */
   private CompileTimeHierarchy inheritance;
 
-  private Supplier<Nary<TypePackage>> typePackage;
+  private Supplier<Unary<TypePackage>> typePackage;
 
   private Function<TypeInstance, Object> identityToken;
 
@@ -152,7 +153,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
    * @return An empty optional
    */
   @Override
-  public Nary<TypeInstance> componentType() {
+  public Unary<TypeInstance> componentType() {
     return Nary.empty();
   }
 
@@ -181,7 +182,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
   public Object newInstance() {
     return constructors().niladic()
       .map((constructor) -> constructor.invoke())
-      .orElseThrow(() -> new DiamondException("Type[" + this + "] doesn't have a no-arg constructor " +
+      .asUni().orElseThrow(() -> new DiamondException("Type[" + this + "] doesn't have a no-arg constructor " +
         "to create the instance from"));
   }
 
@@ -196,7 +197,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
   }
 
   @Override
-  public Nary<TypePackage> declaredPackage() {
+  public Unary<TypePackage> declaredPackage() {
     return typePackage.get();
   }
 

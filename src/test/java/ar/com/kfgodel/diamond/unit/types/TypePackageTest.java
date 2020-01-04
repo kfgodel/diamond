@@ -7,7 +7,7 @@ import ar.com.kfgodel.diamond.api.types.reference.ReferenceOf;
 import ar.com.kfgodel.diamond.impl.types.packages.PackageDescriptor;
 import ar.com.kfgodel.diamond.unit.DiamondTestContext;
 import ar.com.kfgodel.diamond.unit.testobjects.lineage.ChildClass;
-import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.api.Unary;
 import info.kfgodel.jspek.api.JavaSpec;
 import info.kfgodel.jspek.api.JavaSpecRunner;
 import org.junit.runner.RunWith;
@@ -52,7 +52,7 @@ public class TypePackageTest extends JavaSpec<DiamondTestContext> {
       describe("for classes", () -> {
 
         it("is always present", () -> {
-          Nary<TypePackage> typePackage = Diamond.of(ChildClass.class).declaredPackage();
+          Unary<TypePackage> typePackage = Diamond.of(ChildClass.class).declaredPackage();
 
           assertThat(typePackage.isPresent()).isTrue();
         });
@@ -61,7 +61,7 @@ public class TypePackageTest extends JavaSpec<DiamondTestContext> {
       describe("for type variables or wildcards", () -> {
 
         it("is always absent", () -> {
-          Nary<TypePackage> typePackage = getChildClassSubTypeWildcardType().declaredPackage();
+          Unary<TypePackage> typePackage = getChildClassSubTypeWildcardType().declaredPackage();
 
           assertThat(typePackage.isPresent()).isFalse();
         });
@@ -69,7 +69,7 @@ public class TypePackageTest extends JavaSpec<DiamondTestContext> {
 
       describe("for array types", () -> {
         it("is always absent", () -> {
-          Nary<TypePackage> typePackage = Diamond.of(String[].class).declaredPackage();
+          Unary<TypePackage> typePackage = Diamond.of(String[].class).declaredPackage();
 
           assertThat(typePackage.isPresent()).isFalse();
         });

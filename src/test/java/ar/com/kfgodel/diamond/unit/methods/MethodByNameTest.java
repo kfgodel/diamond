@@ -41,12 +41,12 @@ public class MethodByNameTest extends JavaSpec<DiamondTestContext> {
 
       it("can assume only one optional occurrence", () -> {
         Nary<TypeMethod> matchingMethod = context().typeInstance().methods().named("uniqueMethod");
-        assertThat(matchingMethod.isPresent()).isTrue();
+        assertThat(matchingMethod.asUni().isPresent()).isTrue();
       });
 
       it("throws exception if more than one match when unique assumed", () -> {
         try {
-          context().typeInstance().methods().named("redefinedAndOverloadedMethod").isPresent();
+          context().typeInstance().methods().named("redefinedAndOverloadedMethod").asUni().isPresent();
           failBecauseExceptionWasNotThrown(MoreThanOneElementException.class);
         } catch (MoreThanOneElementException e) {
           // We check in this way because we can depend on a specific order
@@ -60,13 +60,13 @@ public class MethodByNameTest extends JavaSpec<DiamondTestContext> {
 
 
       it("can assume a non optional occurrence", () -> {
-        TypeMethod matchingMethod = context().typeInstance().methods().named("uniqueMethod").get();
+        TypeMethod matchingMethod = context().typeInstance().methods().named("uniqueMethod").asUni().get();
         assertThat(matchingMethod).isNotNull();
       });
 
       it("throws exception if no match for non optional unique", () -> {
         try {
-          context().typeInstance().methods().named("nonExistingMethod").get();
+          context().typeInstance().methods().named("nonExistingMethod").asUni().get();
           failBecauseExceptionWasNotThrown(NoSuchElementException.class);
         } catch (NoSuchElementException e) {
           assertThat(e).hasMessage("Can't call get() on an empty nary: No value present");

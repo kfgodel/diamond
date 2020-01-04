@@ -36,7 +36,7 @@ public class ModifierTest extends JavaSpec<DiamondTestContext> {
 
       describe("equality", () -> {
         it("is true if both declaration are equals", () -> {
-          assertThat(context().modifier()).isEqualTo(Diamond.modifiers().fromMember(Modifier.PUBLIC).get());
+          assertThat(context().modifier()).isEqualTo(Diamond.modifiers().fromMember(Modifier.PUBLIC).asUni().get());
         });
 
         it("is false if declarations differ", () -> {

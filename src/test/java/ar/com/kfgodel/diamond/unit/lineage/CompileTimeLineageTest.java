@@ -52,17 +52,17 @@ public class CompileTimeLineageTest extends JavaSpec<DiamondTestContext> {
 
       it("can answer the ancestor of a member", () -> {
         TypeInstance childType = context().lineage().lowestDescendant();
-        TypeInstance parentType = context().lineage().ancestorOf(childType).get();
+        TypeInstance parentType = context().lineage().ancestorOf(childType).asUni().get();
         Nary<TypeInstance> ancestor = context().lineage().ancestorOf(parentType);
-        assertThat(ancestor.get().name()).isEqualTo("GrandParentClass");
+        assertThat(ancestor.asUni().get().name()).isEqualTo("GrandParentClass");
       });
 
 
       it("can answer the descendant of a member", () -> {
         TypeInstance childType = context().lineage().lowestDescendant();
-        TypeInstance parentType = context().lineage().ancestorOf(childType).get();
+        TypeInstance parentType = context().lineage().ancestorOf(childType).asUni().get();
         Nary<TypeInstance> descendant = context().lineage().descendantOf(parentType);
-        assertThat(descendant.get().name()).isEqualTo("ChildClass");
+        assertThat(descendant.asUni().get().name()).isEqualTo("ChildClass");
       });
 
       it("does not include Object for primitive types", () -> {
@@ -79,14 +79,14 @@ public class CompileTimeLineageTest extends JavaSpec<DiamondTestContext> {
         });
         it("bubble up to its parent", () -> {
           TypeInstance childType = context().lineage().lowestDescendant();
-          List<String> argumentNames = context().lineage().ancestorOf(childType).get()
+          List<String> argumentNames = context().lineage().ancestorOf(childType).asUni().get()
             .generics().arguments().map((arg) -> arg.name()).collect(Collectors.toList());
           assertThat(argumentNames).isEqualTo(Arrays.asList("C", "Integer"));
         });
         it("grand parents, and so on", () -> {
           TypeInstance childType = context().lineage().lowestDescendant();
-          TypeInstance parentType = context().lineage().ancestorOf(childType).get();
-          List<String> argumentNames = context().lineage().ancestorOf(parentType).get()
+          TypeInstance parentType = context().lineage().ancestorOf(childType).asUni().get();
+          List<String> argumentNames = context().lineage().ancestorOf(parentType).asUni().get()
             .generics().arguments().map((arg) -> arg.name()).collect(Collectors.toList());
           assertThat(argumentNames).isEqualTo(Arrays.asList("Integer"));
         });

@@ -43,13 +43,13 @@ public class GenericArrayTypeTest extends JavaSpec<DiamondTestContext> {
       });
 
       it("has component type", () -> {
-        assertThat(context().typeInstance().componentType().get().name())
+        assertThat(context().typeInstance().componentType().asUni().get().name())
           .isEqualTo("List");
 
       });
 
       it("component declaration name is preserved", () -> {
-        assertThat(context().typeInstance().componentType().get().names().typeName())
+        assertThat(context().typeInstance().componentType().asUni().get().names().typeName())
           .isEqualTo("java.util.List<java.lang.Integer>");
       });
 
@@ -61,7 +61,7 @@ public class GenericArrayTypeTest extends JavaSpec<DiamondTestContext> {
           .isEqualTo(Arrays.asList(TestAnnotation1.class));
       });
       it("component type can have attached annotations too", () -> {
-        List<Class<? extends Annotation>> annotationTypes = context().typeInstance().componentType().get().annotations()
+        List<Class<? extends Annotation>> annotationTypes = context().typeInstance().componentType().asUni().get().annotations()
           .map((annotation) -> annotation.annotationType())
           .collect(Collectors.toList());
         assertThat(annotationTypes)
@@ -69,7 +69,7 @@ public class GenericArrayTypeTest extends JavaSpec<DiamondTestContext> {
       });
 
       it("can be accessed from its type instance", () -> {
-        final AnnotatedType reflectionType = context().typeInstance().reflectedAs(AnnotatedType.class).get();
+        final AnnotatedType reflectionType = context().typeInstance().reflectedAs(AnnotatedType.class).asUni().get();
         assertThat(reflectionType.getType()).isInstanceOf(GenericArrayType.class);
       });
 

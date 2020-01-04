@@ -4,6 +4,7 @@ import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
 import ar.com.kfgodel.diamond.api.members.MemberDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.api.Unary;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -54,7 +55,7 @@ public interface FieldDescription extends MemberDescription {
   /**
    * @return The supplier of the fields native representation
    */
-  Supplier<Nary<Field>> getNativeField();
+  Supplier<Unary<Field>> getNativeField();
 
   /**
    * @return The token that represents this field

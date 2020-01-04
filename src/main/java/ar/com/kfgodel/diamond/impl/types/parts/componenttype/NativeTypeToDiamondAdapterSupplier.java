@@ -3,6 +3,7 @@ package ar.com.kfgodel.diamond.impl.types.parts.componenttype;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.api.Unary;
 
 import java.util.function.Supplier;
 
@@ -12,20 +13,21 @@ import java.util.function.Supplier;
  *
  * Created by kfgodel on 29/09/14.
  */
-public class NativeTypeToDiamondAdapterSupplier implements Supplier<Nary<TypeInstance>> {
+public class NativeTypeToDiamondAdapterSupplier implements Supplier<Unary<TypeInstance>> {
 
   private Supplier<Object> nativeTypeSupplier;
 
-  public static Supplier<Nary<TypeInstance>> create(Supplier<Object> typeSupplier) {
+  public static Supplier<Unary<TypeInstance>> create(Supplier<Object> typeSupplier) {
     NativeTypeToDiamondAdapterSupplier supplier = new NativeTypeToDiamondAdapterSupplier();
     supplier.nativeTypeSupplier = typeSupplier;
     return supplier;
   }
 
   @Override
-  public Nary<TypeInstance> get() {
+  public Unary<TypeInstance> get() {
     return Nary.of(nativeTypeSupplier.get())
-      .map(componentType -> Diamond.types().from(componentType));
+      .map(componentType -> Diamond.types().from(componentType))
+      .asUni();
   }
 
 }

@@ -30,7 +30,10 @@ public class GeneratorIterationTest extends JavaSpec<DiamondTestContext> {
       });
 
       it("uses a function to get the next item", () -> {
-        GeneratorSpliterator<Integer> infiniteSpliterator = GeneratorSpliterator.create(Nary.of(1), (integer) -> Nary.of(integer + 1));
+        GeneratorSpliterator<Integer> infiniteSpliterator = GeneratorSpliterator.create(
+          Nary.of(1),
+          (integer) -> Nary.of(integer + 1)
+        );
         assertThat(infiniteSpliterator.toStream().filter((integer) -> integer % 2 == 0).findFirst().get())
           .isEqualTo(2);
       });
@@ -42,7 +45,11 @@ public class GeneratorIterationTest extends JavaSpec<DiamondTestContext> {
       });
 
       it("has characteristics supplied to describe it", () -> {
-        GeneratorSpliterator<Integer> spliterator = GeneratorSpliterator.create(Nary.of(1), (integer) -> Nary.of(integer + 1), Spliterator.NONNULL | Spliterator.DISTINCT | Spliterator.CONCURRENT);
+        GeneratorSpliterator<Integer> spliterator = GeneratorSpliterator.create(
+          Nary.of(1),
+          (integer) -> Nary.of(integer + 1),
+          Spliterator.NONNULL | Spliterator.DISTINCT | Spliterator.CONCURRENT
+        );
         assertThat(spliterator.characteristics())
           .isEqualTo(Spliterator.NONNULL | Spliterator.DISTINCT | Spliterator.CONCURRENT);
       });

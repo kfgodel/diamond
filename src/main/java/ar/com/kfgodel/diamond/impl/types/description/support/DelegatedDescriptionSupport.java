@@ -11,6 +11,7 @@ import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
 import ar.com.kfgodel.diamond.api.types.names.TypeNames;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.api.Unary;
 
 import java.lang.annotation.Annotation;
 import java.util.function.BiPredicate;
@@ -39,12 +40,12 @@ public abstract class DelegatedDescriptionSupport implements TypeDescription {
   }
 
   @Override
-  public Supplier<Nary<TypeInstance>> getComponentType() {
+  public Supplier<Unary<TypeInstance>> getComponentType() {
     return getDelegateDescription().getComponentType();
   }
 
   @Override
-  public Supplier<Nary<TypePackage>> getDeclaredPackage() {
+  public Supplier<Unary<TypePackage>> getDeclaredPackage() {
     return getDelegateDescription().getDeclaredPackage();
   }
 

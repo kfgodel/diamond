@@ -1,6 +1,6 @@
 package ar.com.kfgodel.diamond.api.types.names;
 
-import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.api.Unary;
 
 /**
  * This type represents a description of the names for a {@link ar.com.kfgodel.diamond.api.types.TypeInstance}
@@ -10,9 +10,9 @@ import ar.com.kfgodel.nary.api.Nary;
  */
 public interface TypeNamesDescription {
 
-  Nary<String> shortName();
-  Nary<String> commonName();
-  Nary<String> canonicalName();
+  Unary<String> shortName();
+  Unary<String> commonName();
+  Unary<String> canonicalName();
   String typeName();
   String bareName();
 

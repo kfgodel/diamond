@@ -2,6 +2,7 @@ package ar.com.kfgodel.diamond.impl.types.description.names;
 
 import ar.com.kfgodel.diamond.api.types.names.TypeNamesDescription;
 import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.api.Unary;
 
 import java.lang.reflect.WildcardType;
 
@@ -14,17 +15,17 @@ public class WildCardNamesDescription implements TypeNamesDescription {
   private WildcardType wildcardType;
 
   @Override
-  public Nary<String> shortName() {
+  public Unary<String> shortName() {
     return Nary.empty();
   }
 
   @Override
-  public Nary<String> commonName() {
+  public Unary<String> commonName() {
     return Nary.empty();
   }
 
   @Override
-  public Nary<String> canonicalName() {
+  public Unary<String> canonicalName() {
     return Nary.empty();
   }
 

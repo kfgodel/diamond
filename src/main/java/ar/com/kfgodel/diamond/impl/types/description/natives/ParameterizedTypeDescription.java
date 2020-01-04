@@ -16,6 +16,7 @@ import ar.com.kfgodel.diamond.impl.types.parts.packages.TypePackageSupplier;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.lazyvalue.impl.CachedValues;
 import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.api.Unary;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.function.BiPredicate;
@@ -30,7 +31,7 @@ public class ParameterizedTypeDescription extends TypeDescriptionSupport {
   private ParameterizedType nativeType;
 
   @Override
-  public Supplier<Nary<TypePackage>> getDeclaredPackage() {
+  public Supplier<Unary<TypePackage>> getDeclaredPackage() {
     return CachedValue.from(() -> TypePackageSupplier.from(getRawClass()));
   }
 
@@ -48,7 +49,7 @@ public class ParameterizedTypeDescription extends TypeDescriptionSupport {
    * @return The class that represents this type without any annotations or generics
    */
   private Class<?> getRawClass() {
-    return RawClassesCalculator.create().from(nativeType)
+    return RawClassesCalculator.create().from(nativeType).asUni()
       .orElseThrow(() -> new DiamondException("Parameterized type[" + nativeType +
         "] doesn't have a raw class in runtime?"));
   }

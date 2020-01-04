@@ -6,6 +6,7 @@ import ar.com.kfgodel.diamond.impl.types.iteration.AllSuperTypesSpliterator;
 import ar.com.kfgodel.diamond.impl.types.iteration.RuntimeAlternativesSpliterator;
 import ar.com.kfgodel.diamond.impl.types.iteration.TypeInstanceSpliterator;
 import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.api.Unary;
 
 import java.util.List;
 import java.util.Optional;
@@ -128,7 +129,7 @@ public class DefaultTypeLineage implements TypeLineage {
 
   public static DefaultTypeLineage create(TypeInstance lowest,
                                           Function<TypeInstance,
-                                                Nary<? extends TypeInstance>> advanceOperation,
+                                            Unary<? extends TypeInstance>> advanceOperation,
                                           Function<TypeInstance, Nary<TypeInstance>> supertypesExtractor) {
     DefaultTypeLineage lineage = new DefaultTypeLineage();
     lineage.classes = StreamSupport.stream(TypeInstanceSpliterator.create(lowest, advanceOperation), false)

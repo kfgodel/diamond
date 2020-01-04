@@ -2,6 +2,7 @@ package ar.com.kfgodel.diamond.impl.types.description.names;
 
 import ar.com.kfgodel.diamond.api.types.names.TypeNamesDescription;
 import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.api.Unary;
 
 /**
  * This type describes a type that has no name
@@ -12,17 +13,17 @@ public class UnnamedTypeDescription implements TypeNamesDescription {
   private String replacementForName;
 
   @Override
-  public Nary<String> shortName() {
+  public Unary<String> shortName() {
     return Nary.empty();
   }
 
   @Override
-  public Nary<String> commonName() {
+  public Unary<String> commonName() {
     return Nary.empty();
   }
 
   @Override
-  public Nary<String> canonicalName() {
+  public Unary<String> canonicalName() {
     return Nary.empty();
   }
 

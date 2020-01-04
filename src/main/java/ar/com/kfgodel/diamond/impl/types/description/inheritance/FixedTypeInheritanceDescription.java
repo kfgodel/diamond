@@ -9,6 +9,7 @@ import ar.com.kfgodel.diamond.impl.types.parts.superclass.SuperClassSupplier;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.lazyvalue.impl.CachedValues;
 import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.api.Unary;
 
 import java.util.function.Supplier;
 
@@ -22,12 +23,12 @@ public class FixedTypeInheritanceDescription implements InheritanceDescription {
   private Supplier<Nary<TypeInstance>> typeArguments;
 
   @Override
-  public Supplier<Nary<TypeInstance>> getSuperclassSupplier() {
+  public Supplier<Unary<TypeInstance>> getSuperclassSupplier() {
     return SuperClassSupplier.create(rawClass);
   }
 
   @Override
-  public Supplier<Nary<TypeInstance>> getExtendedTypeSupplier() {
+  public Supplier<Unary<TypeInstance>> getExtendedTypeSupplier() {
     return CachedValue.from(ExtendedTypeCalculator.create(rawClass, typeArguments));
   }
 

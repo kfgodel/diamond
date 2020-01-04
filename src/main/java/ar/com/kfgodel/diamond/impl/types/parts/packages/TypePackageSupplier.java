@@ -3,6 +3,7 @@ package ar.com.kfgodel.diamond.impl.types.parts.packages;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.api.Unary;
 
 /**
  * This type represents the supplier of packages for types that have a native class
@@ -16,8 +17,9 @@ public class TypePackageSupplier  {
    * @param nativeClass The class to take the package from
    * @return Empty or the package of the class
    */
-  public static Nary<TypePackage> from(Class<?> nativeClass){
+  public static Unary<TypePackage> from(Class<?> nativeClass){
     return Nary.of(nativeClass.getPackage())
-      .map(nativePackage -> Diamond.packages().from(nativePackage));
+      .map(nativePackage -> Diamond.packages().from(nativePackage))
+      .asUni();
   }
 }

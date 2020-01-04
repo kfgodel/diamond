@@ -65,7 +65,7 @@ public class ReadmeExampleTest extends JavaSpec<ReadmeExampleTestContext> {
       it("offers a simplified way of calling constructors and methods", () -> {
         final String createdString = (String) Diamond.of(String.class)
           .constructors().withNativeParameters(byte[].class)
-          .get()
+          .asUni().get()
           .invoke(new byte[0]);
         assertThat(createdString).isEmpty();
       });

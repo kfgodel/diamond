@@ -10,6 +10,7 @@ import ar.com.kfgodel.diamond.impl.fields.equality.FieldEquality;
 import ar.com.kfgodel.diamond.impl.members.TypeMemberSupport;
 import ar.com.kfgodel.diamond.impl.strings.DebugPrinter;
 import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.api.Unary;
 
 import java.lang.reflect.Field;
 import java.util.function.BiConsumer;
@@ -25,7 +26,7 @@ public class TypeFieldInstance extends TypeMemberSupport implements TypeField {
   private Supplier<TypeInstance> fieldType;
   private Supplier<BiConsumer<Object, Object>> setter;
   private Supplier<Function<Object, Object>> getter;
-  private Supplier<Nary<Field>> nativeField;
+  private Supplier<Unary<Field>> nativeField;
   private Function<TypeField, Object> identityToken;
 
 
@@ -102,7 +103,7 @@ public class TypeFieldInstance extends TypeMemberSupport implements TypeField {
   }
 
   @Override
-  public Nary<Field> nativeType() {
+  public Unary<Field> nativeType() {
     return nativeField.get();
   }
 

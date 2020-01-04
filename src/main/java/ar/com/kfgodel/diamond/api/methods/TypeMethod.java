@@ -8,6 +8,7 @@ import ar.com.kfgodel.diamond.api.members.TypeMember;
 import ar.com.kfgodel.diamond.api.members.call.BehaviorCall;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.api.Unary;
 
 import java.lang.reflect.Method;
 
@@ -112,7 +113,7 @@ public interface TypeMethod extends TypeMember, TypeBehavior, PolymorphicInvokab
    * @return The value that this method has as default if defined as an annotation method with default value.
    * An empty nary otherwise.
    */
-  Nary<Object> defaultValue();
+  Unary<Object> defaultValue();
 
   /**
    * Binds this method to the given object, making it implicit in every method call as 'this'
@@ -133,5 +134,5 @@ public interface TypeMethod extends TypeMember, TypeBehavior, PolymorphicInvokab
   /**
    * @return The native representation of this method (if any)
    */
-  Nary<Method> nativeType();
+  Unary<Method> nativeType();
 }

@@ -29,7 +29,7 @@ public class BoundFieldTest extends JavaSpec<DiamondTestContext> {
     describe("a bound field", () -> {
 
       context().typeInstance(() -> Diamond.of(BoundFieldTestObject.class));
-      context().field(() -> context().typeInstance().fields().named(context().name()).get());
+      context().field(() -> context().typeInstance().fields().named(context().name()).asUni().get());
       context().name(() -> "field");
       context().object(BoundFieldTestObject::new);
 
@@ -129,7 +129,7 @@ public class BoundFieldTest extends JavaSpec<DiamondTestContext> {
 
         it("is false if the represented field is different", () -> {
           BoundField boundToTestField = context().field().bindTo(context().object());
-          BoundField boundToOtherField = context().typeInstance().fields().named("otherField").get().bindTo(context().object());
+          BoundField boundToOtherField = context().typeInstance().fields().named("otherField").asUni().get().bindTo(context().object());
 
           assertThat(boundToTestField).isNotEqualTo(boundToOtherField);
         });

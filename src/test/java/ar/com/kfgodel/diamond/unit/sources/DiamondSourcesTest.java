@@ -69,27 +69,27 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
         });
 
         it("can be obtained from a Class instance and a method name", () -> {
-          TypeMethod diamondMethod = Diamond.methods().in(Object.class).named("equals").get();
+          TypeMethod diamondMethod = Diamond.methods().in(Object.class).named("equals").asUni().get();
           assertThat(diamondMethod.name()).isEqualTo("equals");
         });
 
         it("can be obtained from a Class instance, a method name and its diamond parameters", () -> {
-          TypeMethod diamondMethod = Diamond.methods().in(Object.class).withSignature("equals", Diamond.ofNative(Object.class)).get();
+          TypeMethod diamondMethod = Diamond.methods().in(Object.class).withSignature("equals", Diamond.ofNative(Object.class)).asUni().get();
           assertThat(diamondMethod.name()).isEqualTo("equals");
         });
 
         it("can be obtained from a Class instance, a method name and its native parameters", () -> {
-          TypeMethod diamondMethod = Diamond.methods().in(Object.class).withNativeSignature("equals", Object.class).get();
+          TypeMethod diamondMethod = Diamond.methods().in(Object.class).withNativeSignature("equals", Object.class).asUni().get();
           assertThat(diamondMethod.name()).isEqualTo("equals");
         });
 
         it("can be obtained from a Class and its diamond parameter types", () -> {
-          TypeMethod diamondMethod = Diamond.methods().in(Object.class).withParameters(Diamond.ofNative(Object.class)).get();
+          TypeMethod diamondMethod = Diamond.methods().in(Object.class).withParameters(Diamond.ofNative(Object.class)).asUni().get();
           assertThat(diamondMethod.name()).isEqualTo("equals");
         });
 
         it("can be obtained from a Class and its native parameter types", () -> {
-          TypeMethod diamondMethod = Diamond.methods().in(Object.class).withNativeParameters(Object.class).get();
+          TypeMethod diamondMethod = Diamond.methods().in(Object.class).withNativeParameters(Object.class).asUni().get();
           assertThat(diamondMethod.name()).isEqualTo("equals");
         });
         it("can be obtained from a generic method", () -> {
@@ -115,7 +115,7 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
           assertThat(diamondField.name()).isEqualTo("id");
         });
         it("can be obtained from a Class instance and a field name", () -> {
-          TypeField diamondField = Diamond.fields().in(ClassWithIdField.class).named("id").get();
+          TypeField diamondField = Diamond.fields().in(ClassWithIdField.class).named("id").asUni().get();
           assertThat(diamondField.name()).isEqualTo("id");
         });
         it("can be obtained from a generic method", () -> {
@@ -143,13 +143,13 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
         });
         it("can be obtained from a Class instance and diamond parameter types", () -> {
           TypeConstructor diamondConstructor = Diamond.constructors()
-            .in(PublicMembersTestObject.class).withParameters(Diamond.ofNative(Integer.class)).get();
+            .in(PublicMembersTestObject.class).withParameters(Diamond.ofNative(Integer.class)).asUni().get();
           assertThat(diamondConstructor.name()).endsWith("PublicMembersTestObject");
         });
 
         it("can be obtained from a Class instance and native parameter types", () -> {
           TypeConstructor diamondConstructor = Diamond.constructors()
-            .in(PublicMembersTestObject.class).withNativeParameters(Integer.class).get();
+            .in(PublicMembersTestObject.class).withNativeParameters(Integer.class).asUni().get();
           assertThat(diamondConstructor.name()).endsWith("PublicMembersTestObject");
         });
         it("can be obtained from a generic method", () -> {

@@ -7,6 +7,7 @@ import ar.com.kfgodel.diamond.api.members.TypeMember;
 import ar.com.kfgodel.diamond.api.members.call.BehaviorCall;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.api.Unary;
 
 import java.lang.reflect.Constructor;
 import java.util.function.Function;
@@ -77,5 +78,5 @@ public interface TypeConstructor extends TypeMember, TypeBehavior, Supplier<Obje
   /**
    * @return The native representation of this constructor if any
    */
-  Nary<Constructor> nativeType();
+  Unary<Constructor> nativeType();
 }

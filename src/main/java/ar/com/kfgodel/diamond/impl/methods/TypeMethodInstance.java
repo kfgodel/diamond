@@ -12,7 +12,7 @@ import ar.com.kfgodel.diamond.impl.methods.declaration.MethodDeclaration;
 import ar.com.kfgodel.diamond.impl.methods.equality.MethodEquality;
 import ar.com.kfgodel.diamond.impl.natives.invokables.InstanceArguments;
 import ar.com.kfgodel.diamond.impl.strings.DebugPrinter;
-import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.api.Unary;
 
 import java.lang.reflect.Method;
 import java.util.function.Function;
@@ -25,8 +25,8 @@ import java.util.function.Supplier;
 public class TypeMethodInstance extends TypeMemberSupport implements TypeMethod {
 
   private Supplier<TypeInstance> returnType;
-  private Supplier<Nary<Object>> defaultValue;
-  private Supplier<Nary<Method>> nativeMethod;
+  private Supplier<Unary<Object>> defaultValue;
+  private Supplier<Unary<Method>> nativeMethod;
   private Function<TypeMethod, Object> identityToken;
 
 
@@ -102,7 +102,7 @@ public class TypeMethodInstance extends TypeMemberSupport implements TypeMethod 
   }
 
   @Override
-  public Nary<Object> defaultValue() {
+  public Unary<Object> defaultValue() {
     return defaultValue.get();
   }
 
@@ -117,7 +117,7 @@ public class TypeMethodInstance extends TypeMemberSupport implements TypeMethod 
   }
 
   @Override
-  public Nary<Method> nativeType() {
+  public Unary<Method> nativeType() {
     return nativeMethod.get();
   }
 

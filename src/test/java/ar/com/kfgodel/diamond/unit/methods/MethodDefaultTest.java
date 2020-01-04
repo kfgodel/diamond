@@ -5,7 +5,7 @@ import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.unit.DiamondTestContext;
 import ar.com.kfgodel.diamond.unit.testobjects.annotations.DefaultValueAnnotation;
 import ar.com.kfgodel.diamond.unit.testobjects.modifiers.PublicMembersTestObject;
-import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.api.Unary;
 import info.kfgodel.jspek.api.JavaSpec;
 import info.kfgodel.jspek.api.JavaSpecRunner;
 import org.junit.runner.RunWith;
@@ -23,25 +23,25 @@ public class MethodDefaultTest extends JavaSpec<DiamondTestContext> {
     describe("method default value", () -> {
 
       it("is defined for annotation members with default value", () -> {
-        TypeMethod methodWithDefault = Diamond.of(DefaultValueAnnotation.class).methods().named("memberWithDefault").get();
+        TypeMethod methodWithDefault = Diamond.of(DefaultValueAnnotation.class).methods().named("memberWithDefault").asUni().get();
 
-        Nary<Object> defaultValue = methodWithDefault.defaultValue();
+        Unary<Object> defaultValue = methodWithDefault.defaultValue();
 
         assertThat(defaultValue.get()).isEqualTo(23);
       });
 
       it("is not present for annotations members without a default", () -> {
-        TypeMethod methodWithDefault = Diamond.of(DefaultValueAnnotation.class).methods().named("memberWithoutDefault").get();
+        TypeMethod methodWithDefault = Diamond.of(DefaultValueAnnotation.class).methods().named("memberWithoutDefault").asUni().get();
 
-        Nary<Object> defaultValue = methodWithDefault.defaultValue();
+        Unary<Object> defaultValue = methodWithDefault.defaultValue();
 
         assertThat(defaultValue.isPresent()).isFalse();
       });
 
       it("is not present for non annotation methods", () -> {
-        TypeMethod normalMethod = Diamond.of(PublicMembersTestObject.class).methods().named("method").get();
+        TypeMethod normalMethod = Diamond.of(PublicMembersTestObject.class).methods().named("method").asUni().get();
 
-        Nary<Object> defaultValue = normalMethod.defaultValue();
+        Unary<Object> defaultValue = normalMethod.defaultValue();
 
         assertThat(defaultValue.isPresent()).isFalse();
       });

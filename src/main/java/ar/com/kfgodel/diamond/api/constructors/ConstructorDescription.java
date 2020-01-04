@@ -5,6 +5,7 @@ import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
 import ar.com.kfgodel.diamond.api.members.MemberDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.api.Unary;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
@@ -45,7 +46,7 @@ public interface ConstructorDescription extends MemberDescription {
   /**
    * @return tHte supplier of the constructor native representation
    */
-  Supplier<Nary<Constructor>> getNativeConstructor();
+  Supplier<Unary<Constructor>> getNativeConstructor();
 
   Function<TypeConstructor, Object> getIdentityToken();
 }

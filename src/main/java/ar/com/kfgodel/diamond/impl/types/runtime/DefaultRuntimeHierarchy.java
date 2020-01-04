@@ -6,6 +6,7 @@ import ar.com.kfgodel.diamond.api.types.inheritance.TypeLineage;
 import ar.com.kfgodel.diamond.api.types.runtime.RuntimeTypeHierarchy;
 import ar.com.kfgodel.diamond.impl.types.lineage.DefaultTypeLineage;
 import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.api.Unary;
 
 import java.util.function.Supplier;
 
@@ -15,12 +16,12 @@ import java.util.function.Supplier;
  */
 public class DefaultRuntimeHierarchy implements RuntimeTypeHierarchy {
 
-  private Supplier<Nary<TypeInstance>> superclass;
+  private Supplier<Unary<TypeInstance>> superclass;
   private Supplier<Nary<TypeInstance>> interfaces;
   private TypeInstance type;
 
   @Override
-  public Nary<TypeInstance> superclass() {
+  public Unary<TypeInstance> superclass() {
     return superclass.get();
   }
 

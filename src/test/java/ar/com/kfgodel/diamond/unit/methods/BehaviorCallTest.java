@@ -27,7 +27,7 @@ public class BehaviorCallTest extends JavaSpec<DiamondTestContext> {
   public void define() {
     describe("a behavior call", () -> {
       it("is a method or constructor with arguments defined", () -> {
-        TypeMethod method = Diamond.of(MethodCallTestObject.class).methods().named("createdWith").get();
+        TypeMethod method = Diamond.of(MethodCallTestObject.class).methods().named("createdWith").asUni().get();
 
         BehaviorCall call = method.withArguments(1);
 
@@ -35,7 +35,7 @@ public class BehaviorCallTest extends JavaSpec<DiamondTestContext> {
       });
 
       it("can be used to invoke same method and arguments on different instances", () -> {
-        TypeMethod method = Diamond.of(MethodCallTestObject.class).methods().named("createdWith").get();
+        TypeMethod method = Diamond.of(MethodCallTestObject.class).methods().named("createdWith").asUni().get();
         BehaviorCall call = method.withArguments("a");
 
 
@@ -47,7 +47,7 @@ public class BehaviorCallTest extends JavaSpec<DiamondTestContext> {
       });
 
       it("can be used to invoke same constructor (or static method) with implicit arguments several times", () -> {
-        TypeConstructor constructor = Diamond.of(MethodCallTestObject.class).constructors().withNativeParameters(Object.class, Object.class, Object.class).get();
+        TypeConstructor constructor = Diamond.of(MethodCallTestObject.class).constructors().withNativeParameters(Object.class, Object.class, Object.class).asUni().get();
         BehaviorCall call = constructor.withArguments(1, 2, 3);
 
         MethodCallTestObject firstCreated = call.invoke();
@@ -60,7 +60,7 @@ public class BehaviorCallTest extends JavaSpec<DiamondTestContext> {
       });
 
       it("has an argument bindable behavior)", () -> {
-        TypeMethod method = Diamond.of(MethodCallTestObject.class).methods().named("createdWith").get();
+        TypeMethod method = Diamond.of(MethodCallTestObject.class).methods().named("createdWith").asUni().get();
         BehaviorCall call = method.withArguments(1);
 
         TypeBehavior behavior = call.boundBehavior();
@@ -70,7 +70,7 @@ public class BehaviorCallTest extends JavaSpec<DiamondTestContext> {
       });
 
       it("has defined implicit arguments", () -> {
-        TypeMethod method = Diamond.of(MethodCallTestObject.class).methods().named("createdWith").get();
+        TypeMethod method = Diamond.of(MethodCallTestObject.class).methods().named("createdWith").asUni().get();
         BehaviorCall call = method.withArguments(1);
 
         Object[] arguments = call.arguments();
@@ -81,7 +81,7 @@ public class BehaviorCallTest extends JavaSpec<DiamondTestContext> {
       describe("as function", () -> {
 
         context().typeInstance(() -> Diamond.of(MethodCallTestObject.class));
-        context().method(() -> context().typeInstance().methods().named(context().name()).get());
+        context().method(() -> context().typeInstance().methods().named(context().name()).asUni().get());
 
         beforeEach(() -> {
           MethodCallTestObject.staticInvoked = "none";

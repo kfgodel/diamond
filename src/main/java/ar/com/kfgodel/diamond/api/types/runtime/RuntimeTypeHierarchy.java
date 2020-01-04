@@ -3,6 +3,7 @@ package ar.com.kfgodel.diamond.api.types.runtime;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.inheritance.TypeLineage;
 import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.api.Unary;
 
 /**
  * This type represents the information about the types hierarchy in runtime
@@ -17,7 +18,7 @@ public interface RuntimeTypeHierarchy {
    * The super class is the un-parameterized (raw) class instance that is the runtime super type of
    * this type
    */
-  Nary<TypeInstance> superclass();
+  Unary<TypeInstance> superclass();
 
   /**
    * @return The set of interfaces implemented by this type. This can be empty if this instance

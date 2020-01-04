@@ -6,6 +6,7 @@ import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
 import ar.com.kfgodel.diamond.api.types.inheritance.TypeLineage;
 import ar.com.kfgodel.diamond.impl.types.lineage.DefaultTypeLineage;
 import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.api.Unary;
 
 import java.util.function.Supplier;
 
@@ -16,7 +17,7 @@ import java.util.function.Supplier;
 public class DefaultCompileHierarchy implements CompileTimeHierarchy {
 
   private TypeInstance type;
-  private Supplier<Nary<TypeInstance>> extendedType;
+  private Supplier<Unary<TypeInstance>> extendedType;
   private Supplier<Nary<TypeInstance>> implementedTypes;
 
   @Override
@@ -25,7 +26,7 @@ public class DefaultCompileHierarchy implements CompileTimeHierarchy {
   }
 
   @Override
-  public Nary<TypeInstance> extendedType() {
+  public Unary<TypeInstance> extendedType() {
     return this.extendedType.get();
   }
 

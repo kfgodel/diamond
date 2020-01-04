@@ -5,6 +5,7 @@ import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
 import ar.com.kfgodel.diamond.api.members.MemberDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.api.Unary;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -50,12 +51,12 @@ public interface MethodDescription extends MemberDescription {
   /**
    * @return The supplier of the method's default value
    */
-  Supplier<Nary<Object>> getDefaultValue();
+  Supplier<Unary<Object>> getDefaultValue();
 
   /**
    * @return The supplier of the native representation
    */
-  Supplier<Nary<Method>> getNativeMethod();
+  Supplier<Unary<Method>> getNativeMethod();
 
   /**
    * @return The function to get the token that represents the instance identity

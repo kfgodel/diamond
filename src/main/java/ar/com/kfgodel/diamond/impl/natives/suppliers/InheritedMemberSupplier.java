@@ -33,7 +33,8 @@ public class InheritedMemberSupplier<M> implements Supplier<Nary<M>> {
   }
 
   private Stream<Class<?>> calculateSuperclasses(Class<?> startingClass) {
-    final GeneratorSpliterator<Class<?>> spliterator = GeneratorSpliterator.create(Nary.of(startingClass),
+    final GeneratorSpliterator<Class<?>> spliterator = GeneratorSpliterator.create(
+      Nary.of(startingClass),
       (clazz) -> Nary.of(clazz.getSuperclass()),
       Spliterator.DISTINCT & Spliterator.IMMUTABLE & Spliterator.NONNULL & Spliterator.ORDERED
     );

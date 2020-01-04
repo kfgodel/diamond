@@ -26,7 +26,7 @@ public class InvokableTypesTest extends JavaSpec<DiamondTestContext> {
 
       describe("a method", () -> {
 
-        context().invokable(() -> context().typeInstance().methods().named(context().name()).get());
+        context().invokable(() -> context().typeInstance().methods().named(context().name()).asUni().get());
 
         describe("if static", () -> {
 
@@ -78,7 +78,7 @@ public class InvokableTypesTest extends JavaSpec<DiamondTestContext> {
 
       describe("a constructor", () -> {
 
-        context().invokable(() -> context().typeInstance().constructors().withParameters(Diamond.of(int.class), Diamond.of(int.class)).get());
+        context().invokable(() -> context().typeInstance().constructors().withParameters(Diamond.of(int.class), Diamond.of(int.class)).asUni().get());
 
         it("takes all the arguments as constructor arguments", () -> {
           Object result = context().invokable().invoke(1, 2);
@@ -90,7 +90,7 @@ public class InvokableTypesTest extends JavaSpec<DiamondTestContext> {
 
       describe("a field", () -> {
 
-        context().invokable(() -> context().typeInstance().fields().named(context().name()).get());
+        context().invokable(() -> context().typeInstance().fields().named(context().name()).asUni().get());
 
         describe("if static", () -> {
 

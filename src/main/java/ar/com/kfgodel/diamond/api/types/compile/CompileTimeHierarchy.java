@@ -3,6 +3,7 @@ package ar.com.kfgodel.diamond.api.types.compile;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.inheritance.TypeLineage;
 import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.api.Unary;
 
 /**
  * This type represents the information about a type inheritance an its relations with other super types
@@ -17,7 +18,7 @@ public interface CompileTimeHierarchy {
    * The extended type is the parent class with correct type arguments assigned from this type,
    * thus is the compile time parent type of this type.
    */
-  Nary<TypeInstance> extendedType();
+  Unary<TypeInstance> extendedType();
 
   /**
    * @return The set of interfaces implemented by this type under the compile type definition (with type arguments).<br>

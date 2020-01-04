@@ -6,6 +6,7 @@ import ar.com.kfgodel.diamond.api.constructors.TypeConstructors;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.impl.members.executables.FilterByParameterType;
 import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.api.Unary;
 
 import java.lang.reflect.Type;
 import java.util.function.Supplier;
@@ -24,8 +25,9 @@ public class TypeConstructorsImpl implements TypeConstructors {
   }
 
   @Override
-  public Nary<TypeConstructor> niladic() {
-    return withParameters();
+  public Unary<TypeConstructor> niladic() {
+    return withParameters()
+      .asUni();
   }
 
   @Override

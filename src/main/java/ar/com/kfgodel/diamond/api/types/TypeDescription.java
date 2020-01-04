@@ -9,6 +9,7 @@ import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
 import ar.com.kfgodel.diamond.api.types.names.TypeNames;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.api.Unary;
 
 import java.lang.annotation.Annotation;
 import java.util.function.BiPredicate;
@@ -39,12 +40,12 @@ public interface TypeDescription {
   /**
    * @return The supplier used to define the type component
    */
-  Supplier<Nary<TypeInstance>> getComponentType();
+  Supplier<Unary<TypeInstance>> getComponentType();
 
   /**
    * @return The supplier of the optional package for the type
    */
-  Supplier<Nary<TypePackage>> getDeclaredPackage();
+  Supplier<Unary<TypePackage>> getDeclaredPackage();
 
   /**
    * @return The function to get the compared structure for equality

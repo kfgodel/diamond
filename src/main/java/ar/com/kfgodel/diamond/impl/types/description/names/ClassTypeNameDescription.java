@@ -2,6 +2,7 @@ package ar.com.kfgodel.diamond.impl.types.description.names;
 
 import ar.com.kfgodel.diamond.api.types.names.TypeNamesDescription;
 import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.api.Unary;
 
 /**
  * This type represents the set of class names for a class
@@ -13,17 +14,17 @@ public class ClassTypeNameDescription implements TypeNamesDescription {
   private Class<?> nativeClass;
 
   @Override
-  public Nary<String> shortName() {
+  public Unary<String> shortName() {
     return Nary.of(nativeClass.getSimpleName());
   }
 
   @Override
-  public Nary<String> commonName() {
+  public Unary<String> commonName() {
     return Nary.of(nativeClass.getName());
   }
 
   @Override
-  public Nary<String> canonicalName() {
+  public Unary<String> canonicalName() {
     return Nary.of(nativeClass.getCanonicalName());
   }
 

@@ -3,6 +3,7 @@ package ar.com.kfgodel.diamond.impl.types.parts.extendedtype;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.api.Unary;
 
 import java.lang.reflect.AnnotatedType;
 import java.util.function.Supplier;
@@ -14,15 +15,16 @@ import java.util.stream.Collectors;
  *
  * Created by kfgodel on 27/09/14.
  */
-public class ExtendedTypeCalculator implements Supplier<Nary<TypeInstance>> {
+public class ExtendedTypeCalculator implements Supplier<Unary<TypeInstance>> {
 
   private Class<?> nativeClass;
   private Supplier<Nary<TypeInstance>> typeArguments;
 
   @Override
-  public Nary<TypeInstance> get() {
+  public Unary<TypeInstance> get() {
     return Nary.of(nativeClass.getAnnotatedSuperclass()) // It may be null
-      .map(annotatedType -> describeAsTypeInstance(nativeClass, annotatedType));
+      .map(annotatedType -> describeAsTypeInstance(nativeClass, annotatedType))
+      .asUni();
   }
 
   private TypeInstance describeAsTypeInstance(Class<?> nativeClass, AnnotatedType annotatedSuperclass) {

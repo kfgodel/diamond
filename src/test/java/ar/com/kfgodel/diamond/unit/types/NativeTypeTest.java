@@ -7,7 +7,7 @@ import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.unit.DiamondTestContext;
 import ar.com.kfgodel.diamond.unit.testobjects.modifiers.PublicMembersTestObject;
-import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.api.Unary;
 import info.kfgodel.jspek.api.JavaSpec;
 import info.kfgodel.jspek.api.JavaSpecRunner;
 import org.junit.runner.RunWith;
@@ -31,33 +31,33 @@ public class NativeTypeTest extends JavaSpec<DiamondTestContext> {
       it("can be obtained from classes", () -> {
         TypeInstance typeInstance = Diamond.of(PublicMembersTestObject.class);
 
-        Class<?> rawClass = typeInstance.runtime().classes().get();
+        Class<?> rawClass = typeInstance.runtime().classes().asUni().get();
 
         assertThat(rawClass).isEqualTo(PublicMembersTestObject.class);
       });
 
       it("can be obtained from methods", () -> {
-        TypeMethod method = Diamond.of(PublicMembersTestObject.class).methods().named("method").get();
+        TypeMethod method = Diamond.of(PublicMembersTestObject.class).methods().named("method").asUni().get();
 
-        Nary<Method> nativeMethod = method.nativeType();
+        Unary<Method> nativeMethod = method.nativeType();
 
         assertThat(nativeMethod.isPresent()).isTrue();
-        assertThat(nativeMethod.get().getName()).isEqualTo("method");
+        assertThat(nativeMethod.asUni().get().getName()).isEqualTo("method");
       });
 
       it("can be obtained from fields", () -> {
-        TypeField field = Diamond.of(PublicMembersTestObject.class).fields().named("field").get();
+        TypeField field = Diamond.of(PublicMembersTestObject.class).fields().named("field").asUni().get();
 
-        Nary<Field> nativeField = field.nativeType();
+        Unary<Field> nativeField = field.nativeType();
 
         assertThat(nativeField.isPresent()).isTrue();
-        assertThat(nativeField.get().getName()).isEqualTo("field");
+        assertThat(nativeField.asUni().get().getName()).isEqualTo("field");
       });
 
       it("can be obtained from constructors", () -> {
         TypeConstructor constructor = Diamond.of(PublicMembersTestObject.class).constructors().niladic().get();
 
-        Nary<Constructor> nativeConstructor = constructor.nativeType();
+        Unary<Constructor> nativeConstructor = constructor.nativeType();
 
         assertThat(nativeConstructor.isPresent()).isTrue();
       });

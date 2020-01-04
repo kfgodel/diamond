@@ -18,6 +18,7 @@ import ar.com.kfgodel.diamond.api.types.names.TypeNames;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.diamond.api.types.runtime.TypeRuntime;
 import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.api.Unary;
 
 import java.lang.reflect.Type;
 import java.util.function.Supplier;
@@ -36,7 +37,7 @@ public interface TypeInstance extends
    * @return The component type of this container type.<br>
    * Component type is only present on arrays that reify their component types
    */
-  Nary<TypeInstance> componentType();
+  Unary<TypeInstance> componentType();
 
   /**
    * @return The information about this type constructors<br>
@@ -64,7 +65,7 @@ public interface TypeInstance extends
   /**
    * @return The package declared for this type, or empty if this type has none
    */
-  Nary<TypePackage> declaredPackage();
+  Unary<TypePackage> declaredPackage();
 
   /**
    * @return The information about this type fields.<br>

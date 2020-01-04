@@ -14,6 +14,7 @@ import ar.com.kfgodel.diamond.impl.types.description.support.TypeDescriptionSupp
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.lazyvalue.impl.CachedValues;
 import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.api.Unary;
 
 import java.lang.reflect.TypeVariable;
 import java.util.function.Supplier;
@@ -35,7 +36,7 @@ public class TypeVariableDescription extends TypeDescriptionSupport {
   }
 
   @Override
-  public Supplier<Nary<TypePackage>> getDeclaredPackage() {
+  public Supplier<Unary<TypePackage>> getDeclaredPackage() {
     return Nary::empty;
   }
 

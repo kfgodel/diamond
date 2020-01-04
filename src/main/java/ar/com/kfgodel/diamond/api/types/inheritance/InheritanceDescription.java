@@ -2,6 +2,7 @@ package ar.com.kfgodel.diamond.api.types.inheritance;
 
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.api.Unary;
 
 import java.util.function.Supplier;
 
@@ -14,12 +15,12 @@ public interface InheritanceDescription {
   /**
    * @return The supplier of superclass for this type
    */
-  Supplier<Nary<TypeInstance>> getSuperclassSupplier();
+  Supplier<Unary<TypeInstance>> getSuperclassSupplier();
 
   /**
    * @return The supplier of extended types
    */
-  Supplier<Nary<TypeInstance>> getExtendedTypeSupplier();
+  Supplier<Unary<TypeInstance>> getExtendedTypeSupplier();
 
   /**
    * @return The supplier of the type implemented interfaces

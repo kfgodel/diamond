@@ -58,7 +58,7 @@ Here are some examples on accessing fields, methods, and invoking them for a cla
   it("offers a simplified way of calling constructors and methods",()->{
     final String createdString = (String) Diamond.of(String.class)
       .constructors().withNativeParameters(byte[].class)
-      .get()
+      .asUni().get()
       .invoke(new byte[0]);
     assertThat(createdString).isEmpty();
   });

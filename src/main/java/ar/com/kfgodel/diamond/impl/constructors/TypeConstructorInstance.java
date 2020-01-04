@@ -9,7 +9,7 @@ import ar.com.kfgodel.diamond.impl.constructors.equality.ConstructorEquality;
 import ar.com.kfgodel.diamond.impl.members.TypeMemberSupport;
 import ar.com.kfgodel.diamond.impl.members.call.BehaviorCallInstance;
 import ar.com.kfgodel.diamond.impl.strings.DebugPrinter;
-import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.api.Unary;
 
 import java.lang.reflect.Constructor;
 import java.util.function.Function;
@@ -21,7 +21,7 @@ import java.util.function.Supplier;
  */
 public class TypeConstructorInstance extends TypeMemberSupport implements TypeConstructor {
 
-  private Supplier<Nary<Constructor>> nativeConstructor;
+  private Supplier<Unary<Constructor>> nativeConstructor;
   private Function<TypeConstructor, Object> identityToken;
 
   @Override
@@ -74,7 +74,7 @@ public class TypeConstructorInstance extends TypeMemberSupport implements TypeCo
   }
 
   @Override
-  public Nary<Constructor> nativeType() {
+  public Unary<Constructor> nativeType() {
     return nativeConstructor.get();
   }
 

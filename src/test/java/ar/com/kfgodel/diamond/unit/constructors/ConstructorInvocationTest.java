@@ -81,7 +81,7 @@ public class ConstructorInvocationTest extends JavaSpec<DiamondTestContext> {
         context().constructor(() -> {
           return context().typeInstance()
             .constructors().withParameters(Diamond.of(int.class))
-            .get();
+            .asUni().get();
         });
 
         it("can instantiate with given size", () -> {
