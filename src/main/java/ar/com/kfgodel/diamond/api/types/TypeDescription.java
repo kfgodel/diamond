@@ -25,7 +25,7 @@ public interface TypeDescription {
   /**
    * @return The supplier of annotations of the described type
    */
-  Supplier<Nary<Annotation>> getAnnotations();
+  Supplier<? extends Nary<Annotation>> getAnnotations();
 
   /**
    * @return The predicate to use when checking described type assignability
@@ -62,7 +62,7 @@ public interface TypeDescription {
    * for the type
    * @return The function to get the supplier of categories for a given type
    */
-  Function<TypeInstance,Supplier<Nary<TypeCategory>>> getCategoriesCalculator();
+  Function<TypeInstance,Supplier<? extends Nary<TypeCategory>>> getCategoriesCalculator();
 
   /**
    * Returns the function that applied to the created type will generate the type names based on this description.<br>
@@ -82,7 +82,7 @@ public interface TypeDescription {
    * represent the types of objects of this type.<br>
    * It may be more than one due to upper bounds
    */
-  Supplier<Nary<Class<?>>> getRuntimeClasses();
+  Supplier<? extends Nary<Class<?>>> getRuntimeClasses();
 
   /**
    * Because some types only exist at compile time and get replaced by actual classes at runtime,
@@ -96,21 +96,21 @@ public interface TypeDescription {
   /**
    * @return The supplier of type arguments
    */
-  Supplier<Nary<TypeInstance>> getTypeArguments();
+  Supplier<? extends Nary<TypeInstance>> getTypeArguments();
 
   /**
    * The set of constructors that will be part of this type creators
    *
    * @return A stream to gather all constructors
    */
-  Supplier<Nary<TypeConstructor>> getTypeConstructors();
+  Supplier<? extends Nary<TypeConstructor>> getTypeConstructors();
 
   /**
    * The set of fields that will be part of this type state
    *
    * @return A stream to gather all fields
    */
-  Supplier<Nary<TypeField>> getTypeFields();
+  Supplier<? extends Nary<TypeField>> getTypeFields();
 
   /**
    * @return The predicate to test if an object is an instance of this type
@@ -122,12 +122,12 @@ public interface TypeDescription {
    *
    * @return A stream to gather all methods
    */
-  Supplier<Nary<TypeMethod>> getTypeMethods();
+  Supplier<? extends Nary<TypeMethod>> getTypeMethods();
 
   /**
    * @return The supplier of type parameters for the described type
    */
-  Supplier<Nary<TypeInstance>> getTypeParametersSupplier();
+  Supplier<? extends Nary<TypeInstance>> getTypeParametersSupplier();
 
   /**
    * Indicates if this description is for a type that cannot be statically determined at compile type in every scope

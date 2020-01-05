@@ -7,7 +7,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
- * This type represents a behavior element (method or constructor) with implicit arguments defined.<br>
+ * This type represents a behavior element (method or constructor) with arguments already bound.<br>
  * <p>
  * Created by kfgodel on 17/11/14.
  */

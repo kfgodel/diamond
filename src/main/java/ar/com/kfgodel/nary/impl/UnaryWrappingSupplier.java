@@ -1,6 +1,7 @@
 package ar.com.kfgodel.nary.impl;
 
 import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.api.Unary;
 
 import java.util.function.Supplier;
 
@@ -9,13 +10,13 @@ import java.util.function.Supplier;
  * It caches the reference to the element but produces a different stream each time it's called
  * Created by kfgodel on 22/10/14.
  */
-public class NaryWrappingSupplier<T> implements Supplier<Nary<T>> {
+public class UnaryWrappingSupplier<T> implements Supplier<Unary<T>> {
 
-  private Supplier<T> element;
+  private Supplier<T> supplier;
 
   @Override
-  public Nary<T> get() {
-    return Nary.of(element.get());
+  public Unary<T> get() {
+    return Nary.of(supplier.get());
   }
 
   /**
@@ -26,9 +27,9 @@ public class NaryWrappingSupplier<T> implements Supplier<Nary<T>> {
    * @param <T>       The expected stream element type
    * @return The created supplier
    */
-  public static <T> NaryWrappingSupplier<T> of(Supplier<T> generator) {
-    NaryWrappingSupplier<T> supplier = new NaryWrappingSupplier<>();
-    supplier.element = generator;
+  public static <T> UnaryWrappingSupplier<T> of(Supplier<T> generator) {
+    UnaryWrappingSupplier<T> supplier = new UnaryWrappingSupplier<>();
+    supplier.supplier = generator;
     return supplier;
   }
 

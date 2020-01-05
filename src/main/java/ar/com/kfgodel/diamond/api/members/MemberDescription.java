@@ -17,14 +17,14 @@ import java.util.function.Supplier;
 public interface MemberDescription {
 
   /**
-   * @return The supplier of the type that declared the member
+   * @return The supplier of the type that declares this member
    */
   Supplier<TypeInstance> getDeclaringType();
 
   /**
    * @return The supplier of modifiers applied to the member
    */
-  Supplier<Nary<Modifier>> getModifiers();
+  Supplier<? extends Nary<Modifier>> getModifiers();
 
   /**
    * @return The supplier of the member invoker function
@@ -37,9 +37,9 @@ public interface MemberDescription {
   Supplier<String> getName();
 
   /**
-   * @return The supplier for member's annotations
+   * @return The supplier for this member's annotations
    */
-  Supplier<Nary<Annotation>> getAnnotations();
+  Supplier<? extends Nary<Annotation>> getAnnotations();
 
   /**
    * @return The supplier of member's generics information
@@ -49,13 +49,13 @@ public interface MemberDescription {
   /**
    * @return the supplier of declared exceptions for this member
    */
-  Supplier<Nary<TypeInstance>> getDeclaredExceptions();
+  Supplier<? extends Nary<TypeInstance>> getDeclaredExceptions();
 
   /**
    * The supplier of parameters of the described member
    *
    * @return The parameters supplier
    */
-  Supplier<Nary<ExecutableParameter>> getParameters();
+  Supplier<? extends Nary<ExecutableParameter>> getParameters();
 
 }

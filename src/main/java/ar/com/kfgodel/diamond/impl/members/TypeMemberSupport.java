@@ -27,14 +27,14 @@ import java.util.stream.Stream;
  */
 public abstract class TypeMemberSupport implements TypeMember {
 
-  private Supplier<Nary<Annotation>> annotations = Nary::empty;
+  private Supplier<? extends Nary<Annotation>> annotations = Nary::empty;
   private Supplier<String> name = UndefinedName.create(this);
   private Supplier<TypeInstance> declaringType = UndefinedDeclaringType.create(this);
-  private Supplier<Nary<Modifier>> modifiers = UndefinedMemberModifiers.create(this);
+  private Supplier<? extends Nary<Modifier>> modifiers = UndefinedMemberModifiers.create(this);
   private Supplier<PolymorphicInvokable> invoker = UndefinedInvoker.create(this);
   private Supplier<Generics> generics = UndefinedMemberGenerics.create(this);
-  private Supplier<Nary<TypeInstance>> exceptions = UndefinedMemberExceptions.create(this);
-  private Supplier<Nary<ExecutableParameter>> parameters = UndefinedMemberParameters.create(this);
+  private Supplier<? extends Nary<TypeInstance>> exceptions = UndefinedMemberExceptions.create(this);
+  private Supplier<? extends Nary<ExecutableParameter>> parameters = UndefinedMemberParameters.create(this);
 
   @Override
   public TypeInstance declaringType() {

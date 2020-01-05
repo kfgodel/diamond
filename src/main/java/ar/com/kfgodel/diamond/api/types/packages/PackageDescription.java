@@ -19,5 +19,5 @@ public interface PackageDescription {
   /**
    * @return The supplier for package annotations
    */
-  Supplier<Nary<Annotation>> getAnnotationsSupplier();
+  Supplier<? extends Nary<Annotation>> getAnnotationsSupplier();
 }

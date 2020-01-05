@@ -20,7 +20,7 @@ import java.util.stream.Stream;
  */
 public class TypeMethodsImpl extends NamedSourceSupport<TypeMethod> implements TypeMethods {
 
-  private Supplier<Nary<TypeMethod>> typeMethods;
+  private Supplier<? extends Nary<TypeMethod>> typeMethods;
 
   @Override
   public Nary<TypeMethod> all() {
@@ -53,7 +53,7 @@ public class TypeMethodsImpl extends NamedSourceSupport<TypeMethod> implements T
     return all();
   }
 
-  public static TypeMethodsImpl create(Supplier<Nary<TypeMethod>> classMethods) {
+  public static TypeMethodsImpl create(Supplier<? extends Nary<TypeMethod>> classMethods) {
     TypeMethodsImpl methodSource = new TypeMethodsImpl();
     methodSource.typeMethods = classMethods;
     return methodSource;

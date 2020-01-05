@@ -25,7 +25,7 @@ import java.util.function.Supplier;
 public abstract class DelegatedDescriptionSupport implements TypeDescription {
 
   @Override
-  public Supplier<Nary<Annotation>> getAnnotations() {
+  public Supplier<? extends Nary<Annotation>> getAnnotations() {
     return getDelegateDescription().getAnnotations();
   }
 
@@ -62,7 +62,7 @@ public abstract class DelegatedDescriptionSupport implements TypeDescription {
   }
 
   @Override
-  public Function<TypeInstance, Supplier<Nary<TypeCategory>>> getCategoriesCalculator() {
+  public Function<TypeInstance, Supplier<? extends Nary<TypeCategory>>> getCategoriesCalculator() {
     return getDelegateDescription().getCategoriesCalculator();
   }
 
@@ -77,7 +77,7 @@ public abstract class DelegatedDescriptionSupport implements TypeDescription {
   }
 
   @Override
-  public Supplier<Nary<Class<?>>> getRuntimeClasses() {
+  public Supplier<? extends Nary<Class<?>>> getRuntimeClasses() {
     return getDelegateDescription().getRuntimeClasses();
   }
 
@@ -87,17 +87,17 @@ public abstract class DelegatedDescriptionSupport implements TypeDescription {
   }
 
   @Override
-  public Supplier<Nary<TypeInstance>> getTypeArguments() {
+  public Supplier<? extends Nary<TypeInstance>> getTypeArguments() {
     return getDelegateDescription().getTypeArguments();
   }
 
   @Override
-  public Supplier<Nary<TypeConstructor>> getTypeConstructors() {
+  public Supplier<? extends Nary<TypeConstructor>> getTypeConstructors() {
     return getDelegateDescription().getTypeConstructors();
   }
 
   @Override
-  public Supplier<Nary<TypeField>> getTypeFields() {
+  public Supplier<? extends Nary<TypeField>> getTypeFields() {
     return getDelegateDescription().getTypeFields();
   }
 
@@ -107,12 +107,12 @@ public abstract class DelegatedDescriptionSupport implements TypeDescription {
   }
 
   @Override
-  public Supplier<Nary<TypeMethod>> getTypeMethods() {
+  public Supplier<? extends Nary<TypeMethod>> getTypeMethods() {
     return getDelegateDescription().getTypeMethods();
   }
 
   @Override
-  public Supplier<Nary<TypeInstance>> getTypeParametersSupplier() {
+  public Supplier<? extends Nary<TypeInstance>> getTypeParametersSupplier() {
     return getDelegateDescription().getTypeParametersSupplier();
   }
 

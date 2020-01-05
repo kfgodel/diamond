@@ -30,7 +30,7 @@ public class ExtendedTypeDescription extends DelegatedDescriptionSupport {
 
   @Override
   public Supplier<Nary<TypeInstance>> getTypeArguments() {
-    Supplier<Nary<TypeInstance>> typeArguments = baseDescription.getTypeArguments();
+    Supplier<? extends Nary<TypeInstance>> typeArguments = baseDescription.getTypeArguments();
     return ExtendedTypeArgumentsSupplier.create(typeArguments, extendedTypeArgumentsReplacer);
   }
 

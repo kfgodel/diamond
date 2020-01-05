@@ -19,8 +19,8 @@ public class ParameterInstance implements ExecutableParameter {
 
   private Supplier<TypeInstance> declaredType;
   private Supplier<String> name;
-  private Supplier<Nary<Modifier>> modifiers;
-  private Supplier<Nary<Annotation>> annotations;
+  private Supplier<? extends Nary<Modifier>> modifiers;
+  private Supplier<? extends Nary<Annotation>> annotations;
   private Function<ExecutableParameter, Object> identityToken;
 
   @Override

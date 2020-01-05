@@ -22,7 +22,7 @@ public interface LambdaDescription {
   /**
    * @return The set of parameters needed for this lambda invocation
    */
-  Supplier<Nary<ExecutableParameter>> getParameters();
+  Supplier<? extends Nary<ExecutableParameter>> getParameters();
 
   /**
    * @return The expected return type declared in this lambda
@@ -32,6 +32,6 @@ public interface LambdaDescription {
   /**
    * @return The set of declared exception (usually none, as lambda syntax doesn't include exceptions)
    */
-  Supplier<Nary<TypeInstance>> getDeclaredExceptions();
+  Supplier<? extends Nary<TypeInstance>> getDeclaredExceptions();
 
 }

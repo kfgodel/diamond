@@ -42,7 +42,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
   /**
    * Attached type annotations
    */
-  private Supplier<Nary<Annotation>> annotations = Nary::empty;
+  private Supplier<? extends Nary<Annotation>> annotations = Nary::empty;
   /**
    * Variations on the name for this type
    */
@@ -72,7 +72,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
 
   private Function<TypeInstance, Object> identityToken;
 
-  private Supplier<Nary<TypeCategory>> categories;
+  private Supplier<? extends Nary<TypeCategory>> categories;
 
   private TypeGenerics generics;
 
@@ -85,7 +85,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
    *
    * @param annotationSupplier The new annotations
    */
-  protected void setAnnotations(Supplier<Nary<Annotation>> annotationSupplier) {
+  protected void setAnnotations(Supplier<? extends Nary<Annotation>> annotationSupplier) {
     this.annotations = annotationSupplier;
   }
 
@@ -123,7 +123,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     return methods;
   }
 
-  protected void setMethods(Supplier<Nary<TypeMethod>> typeMethods) {
+  protected void setMethods(Supplier<? extends Nary<TypeMethod>> typeMethods) {
     this.methods = TypeMethodsImpl.create(typeMethods);
   }
 
@@ -137,7 +137,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
     return fields;
   }
 
-  protected void setFields(Supplier<Nary<TypeField>> typeFields) {
+  protected void setFields(Supplier<? extends Nary<TypeField>> typeFields) {
     this.fields = TypeFieldsImpl.create(typeFields);
   }
 

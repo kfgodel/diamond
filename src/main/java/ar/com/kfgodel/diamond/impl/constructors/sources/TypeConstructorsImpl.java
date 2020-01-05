@@ -17,7 +17,7 @@ import java.util.function.Supplier;
  */
 public class TypeConstructorsImpl implements TypeConstructors {
 
-  private Supplier<Nary<TypeConstructor>> typeConstructors;
+  private Supplier<? extends Nary<TypeConstructor>> typeConstructors;
 
   @Override
   public Nary<TypeConstructor> all() {
@@ -40,7 +40,7 @@ public class TypeConstructorsImpl implements TypeConstructors {
     return withParameters(Diamond.ofNative(parameterTypes));
   }
 
-  public static TypeConstructorsImpl create(Supplier<Nary<TypeConstructor>> constructorSupplier) {
+  public static TypeConstructorsImpl create(Supplier<? extends Nary<TypeConstructor>> constructorSupplier) {
     TypeConstructorsImpl methodSource = new TypeConstructorsImpl();
     methodSource.typeConstructors = constructorSupplier;
     return methodSource;

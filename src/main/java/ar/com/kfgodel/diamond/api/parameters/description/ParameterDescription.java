@@ -28,12 +28,12 @@ public interface ParameterDescription {
   /**
    * @return The supplier of the parameter modifiers
    */
-  Supplier<Nary<Modifier>> getModifiers();
+  Supplier<? extends Nary<Modifier>> getModifiers();
 
   /**
    * @return The supplier of parameter annotations
    */
-  Supplier<Nary<Annotation>> getAnnotations();
+  Supplier<? extends Nary<Annotation>> getAnnotations();
 
   /**
    * @return The function to get the token that represents the instance identity

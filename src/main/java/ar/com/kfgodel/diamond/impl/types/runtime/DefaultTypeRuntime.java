@@ -16,7 +16,7 @@ import java.util.function.Supplier;
  */
 public class DefaultTypeRuntime implements TypeRuntime {
 
-  private Supplier<Nary<Class<?>>> classes;
+  private Supplier<? extends Nary<Class<?>>> classes;
   private Supplier<Unary<TypeInstance>> runtimeType;
   private RuntimeTypeHierarchy hierarchy;
 
@@ -37,7 +37,7 @@ public class DefaultTypeRuntime implements TypeRuntime {
   }
 
   public static DefaultTypeRuntime create(TypeInstance type,
-                                          Supplier<Nary<Class<?>>> classes,
+                                          Supplier<? extends Nary<Class<?>>> classes,
                                           Supplier<Unary<TypeInstance>> runtimeType,
                                           InheritanceDescription inheritance) {
     DefaultTypeRuntime runtime = new DefaultTypeRuntime();

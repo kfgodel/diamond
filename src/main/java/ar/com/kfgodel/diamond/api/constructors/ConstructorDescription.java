@@ -1,13 +1,8 @@
 package ar.com.kfgodel.diamond.api.constructors;
 
-import ar.com.kfgodel.diamond.api.generics.Generics;
-import ar.com.kfgodel.diamond.api.invokable.PolymorphicInvokable;
 import ar.com.kfgodel.diamond.api.members.MemberDescription;
-import ar.com.kfgodel.diamond.api.types.TypeInstance;
-import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.api.Unary;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -19,34 +14,12 @@ import java.util.function.Supplier;
 public interface ConstructorDescription extends MemberDescription {
 
   /**
-   * @return The supplier of the type that declared the constructor
-   */
-  Supplier<TypeInstance> getDeclaringType();
-
-  /**
-   * @return The supplier of the constructor invoker function
-   */
-  Supplier<PolymorphicInvokable> getInvoker();
-
-  /**
-   * @return The supplier to get the constructor name
-   */
-  Supplier<String> getName();
-
-  /**
-   * @return The supplier for constructor's annotations
-   */
-  Supplier<Nary<Annotation>> getAnnotations();
-
-  /**
-   * @return The supplier of constructor's generics information
-   */
-  Supplier<Generics> getGenerics();
-
-  /**
    * @return tHte supplier of the constructor native representation
    */
   Supplier<Unary<Constructor>> getNativeConstructor();
 
+  /**
+   * @return A token that represents this constructor and can be compared with other constructor tokens
+   */
   Function<TypeConstructor, Object> getIdentityToken();
 }

@@ -15,7 +15,7 @@ import java.util.function.Supplier;
 public class TypePackageImpl implements TypePackage {
 
   private Supplier<String> name;
-  private Supplier<Nary<Annotation>> annotations;
+  private Supplier<? extends Nary<Annotation>> annotations;
 
   @Override
   public Nary<Annotation> annotations() {

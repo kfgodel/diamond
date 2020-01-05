@@ -58,7 +58,7 @@ public abstract class TypeDescriptionSupport implements TypeDescription {
   }
 
   @Override
-  public Function<TypeInstance, Supplier<Nary<TypeCategory>>> getCategoriesCalculator() {
+  public Function<TypeInstance, Supplier<? extends Nary<TypeCategory>>> getCategoriesCalculator() {
     return (givenType) -> {
       return CachedValues.adapting(() ->
         Categories.values()

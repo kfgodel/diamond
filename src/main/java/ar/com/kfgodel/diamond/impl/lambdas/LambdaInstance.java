@@ -18,9 +18,9 @@ import java.util.stream.Stream;
 public class LambdaInstance implements Lambda {
 
   private Supplier<PolymorphicInvokable> function;
-  private Supplier<Nary<ExecutableParameter>> parameters;
+  private Supplier<? extends Nary<ExecutableParameter>> parameters;
   private Supplier<TypeInstance> returnType;
-  private Supplier<Nary<TypeInstance>> declaredExceptions;
+  private Supplier<? extends Nary<TypeInstance>> declaredExceptions;
 
   @Override
   public PolymorphicInvokable asFunction() {

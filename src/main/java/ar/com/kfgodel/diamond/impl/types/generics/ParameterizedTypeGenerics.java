@@ -11,11 +11,11 @@ import java.util.function.Supplier;
  */
 public class ParameterizedTypeGenerics extends TypeGenericsSupport {
 
-  private Supplier<Nary<TypeInstance>> typeArguments;
-  private Supplier<Nary<TypeInstance>> typeParameters;
+  private Supplier<? extends Nary<TypeInstance>> typeArguments;
+  private Supplier<? extends Nary<TypeInstance>> typeParameters;
 
-  public static ParameterizedTypeGenerics create(Supplier<Nary<TypeInstance>> typeParametersSupplier,
-                                                 Supplier<Nary<TypeInstance>> typeArgumentsSupplier) {
+  public static ParameterizedTypeGenerics create(Supplier<? extends Nary<TypeInstance>> typeParametersSupplier,
+                                                 Supplier<? extends Nary<TypeInstance>> typeArgumentsSupplier) {
     ParameterizedTypeGenerics generics = new ParameterizedTypeGenerics();
     generics.typeParameters = typeParametersSupplier;
     generics.typeArguments = typeArgumentsSupplier;
