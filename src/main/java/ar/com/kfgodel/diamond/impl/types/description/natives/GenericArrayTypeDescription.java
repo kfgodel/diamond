@@ -31,6 +31,7 @@ import java.util.function.Supplier;
 public class GenericArrayTypeDescription extends TypeDescriptionSupport {
 
   private GenericArrayType nativeType;
+  private Supplier<Class<?>> rawClassSupplier;
 
   @Override
   public Supplier<Unary<TypeInstance>> getComponentType() {
@@ -42,54 +43,47 @@ public class GenericArrayTypeDescription extends TypeDescriptionSupport {
   @Override
   public Supplier<Unary<TypePackage>> getDeclaredPackage() {
     return UnaryWrapper.supply(CachedValue.from(()->
-      TypePackageSupplier.create(getRawClass()).get()
+      TypePackageSupplier.create(rawClassSupplier.get()).get()
     ));
   }
 
   @Override
   public InheritanceDescription getInheritanceDescription() {
-    return FixedTypeInheritanceDescription.create(getRawClass(), getTypeArguments());
+    return FixedTypeInheritanceDescription.create(rawClassSupplier.get(), getTypeArguments());
   }
 
   @Override
   public TypeNamesDescription getNamesDescription() {
-    return ClassTypeNameDescription.create(getRawClass(), nativeType.getTypeName());
-  }
-
-  /**
-   * @return The class that represents this type without any annotations or generics
-   */
-  protected Class<?> getRawClass() {
-    return RawClassesCalculator.create().from(nativeType).unique()
-      .orElseThrow(()-> new DiamondException("Generic array["+nativeType+"] does not have" +
-      "a class in runtime?"));
+    return ClassTypeNameDescription.create(rawClassSupplier.get(), nativeType.getTypeName());
   }
 
   @Override
   public Supplier<Unary<Object>> getReflectionTypeSupplier() {
-    return CachedValue.from(()-> Nary.of(this.nativeType));
+    return UnaryWrapper.supply(()-> this.nativeType);
   }
 
   @Override
-  public Supplier<Nary<Class<?>>> getRuntimeClasses() {
-    return CachedValue.from(()-> Nary.of(getRawClass()));
+  public Supplier<Unary<Class<?>>> getRuntimeClasses() {
+    return UnaryWrapper.supply(rawClassSupplier);
   }
 
   @Override
   public Supplier<Nary<TypeConstructor>> getTypeConstructors() {
-    return CachedValues.adapting(ClassConstructorExtractor.create(getRawClass()));
+    return CachedValues.adapting(
+      ClassConstructorExtractor.create(rawClassSupplier.get())
+    );
   }
 
   @Override
   public BiPredicate<TypeInstance, Object> getInstancePredicate() {
     // We ignore the type parameter as we already have the runtime class
-    return (type, instance) -> getRawClass().isInstance(instance);
+    return (type, instance) -> rawClassSupplier.get().isInstance(instance);
   }
 
   @Override
   public Supplier<Nary<TypeInstance>> getTypeParametersSupplier() {
     return CachedValues.adapting(() -> {
-      return Diamond.types().from(getRawClass().getTypeParameters());
+      return Diamond.types().from(rawClassSupplier.get().getTypeParameters());
     });
   }
 
@@ -101,7 +95,17 @@ public class GenericArrayTypeDescription extends TypeDescriptionSupport {
   public static GenericArrayTypeDescription create(GenericArrayType nativeType) {
     GenericArrayTypeDescription description = new GenericArrayTypeDescription();
     description.nativeType = nativeType;
+    description.rawClassSupplier = CachedValue.from(()-> calculateRawClass(nativeType));
     return description;
+  }
+
+  /**
+   * @return The class that represents this type without any annotations or generics
+   */
+  private static Class<?> calculateRawClass(GenericArrayType nativeType) {
+    return RawClassesCalculator.create().from(nativeType).unique()
+      .orElseThrow(()-> new DiamondException("Generic array["+nativeType+"] does not have" +
+        "a class in runtime?"));
   }
 
 }
