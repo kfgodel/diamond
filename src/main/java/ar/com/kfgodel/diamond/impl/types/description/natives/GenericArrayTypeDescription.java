@@ -18,6 +18,7 @@ import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.lazyvalue.impl.CachedValues;
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.api.Unary;
+import ar.com.kfgodel.nary.impl.UnaryWrappingSupplier;
 
 import java.lang.reflect.GenericArrayType;
 import java.util.function.BiPredicate;
@@ -33,14 +34,16 @@ public class GenericArrayTypeDescription extends TypeDescriptionSupport {
 
   @Override
   public Supplier<Unary<TypeInstance>> getComponentType() {
-    return CachedValue.from(
+    return UnaryWrappingSupplier.of(CachedValue.from(
       NativeTypeToDiamondAdapterSupplier.create(nativeType::getGenericComponentType)
-    );
+    ));
   }
 
   @Override
   public Supplier<Unary<TypePackage>> getDeclaredPackage() {
-    return CachedValue.from(()-> TypePackageSupplier.from(getRawClass()));
+    return UnaryWrappingSupplier.of(CachedValue.from(()->
+      TypePackageSupplier.create(getRawClass()).get()
+    ));
   }
 
   @Override

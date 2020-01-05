@@ -6,8 +6,10 @@ import ar.com.kfgodel.nary.api.Unary;
 import java.util.function.Supplier;
 
 /**
- * This type represents a supplier for streams of one element.<br>
- * It caches the reference to the element but produces a different stream each time it's called
+ * This type represents a supplier of a value wrapped in a {@link Unary} that is created each time
+ * it is invoked.<br>
+ * If the value is null it will be assumed to represent the expected empty {@link Nary}.
+ *
  * Created by kfgodel on 22/10/14.
  */
 public class UnaryWrappingSupplier<T> implements Supplier<Unary<T>> {
@@ -16,7 +18,8 @@ public class UnaryWrappingSupplier<T> implements Supplier<Unary<T>> {
 
   @Override
   public Unary<T> get() {
-    return Nary.of(supplier.get());
+    final T nullableElement = supplier.get();
+    return Nary.of(nullableElement);
   }
 
   /**

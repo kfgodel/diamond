@@ -37,7 +37,10 @@ public class TypeSourceImpl implements TypeSources {
   }
 
   @Override
-  public TypeInstance from(Object type) throws DiamondException {
+  public TypeInstance from(Object type) throws DiamondException, IllegalArgumentException {
+    if(type == null){
+      throw new IllegalArgumentException("There's no Diamond type instance for null");
+    }
     return cache.reuseOrCreateRepresentationFor(type, () -> {
       final TypeDescription typeDescription = descriptor.describe(type);
       return fromDescription(typeDescription);
@@ -45,7 +48,10 @@ public class TypeSourceImpl implements TypeSources {
   }
 
   @Override
-  public Nary<TypeInstance> from(Object[] nativeTypes) throws DiamondException {
+  public Nary<TypeInstance> from(Object[] nativeTypes) throws DiamondException, IllegalArgumentException {
+    if(nativeTypes == null){
+      throw new IllegalArgumentException("The native type array can't be null");
+    }
     return Nary.from(nativeTypes)
       .map(this::from);
   }

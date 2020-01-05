@@ -38,7 +38,7 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
 
     describe("diamond has its own reflection types", () -> {
 
-      describe("classes", () -> {
+      describe("types", () -> {
         it("can be obtained from Class instances", () -> {
           TypeInstance diamondClass = Diamond.types().from(Object.class);
           assertThat(diamondClass.name()).isEqualTo("Object");
@@ -54,6 +54,16 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
         it("can be obtained from a generic method", () -> {
           TypeInstance diamondRepresentation = Diamond.from(Object.class);
           assertThat(diamondRepresentation.name()).isEqualTo("Object");
+        });
+        itThrows(IllegalArgumentException.class, "if null is used as a native type", ()->{
+          Diamond.types().from((Object)null);
+        }, e->{
+          assertThat(e).hasMessage("There's no Diamond type instance for null");
+        });
+        itThrows(IllegalArgumentException.class, "if null is used as an array of native types", ()->{
+          Diamond.types().from((Object[])null);
+        }, e->{
+          assertThat(e).hasMessage("The native type array can't be null");
         });
       });
       describe("methods", () -> {

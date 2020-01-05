@@ -24,8 +24,9 @@ public interface TypeSources {
    * @param nativeType The native reflection object that represents a type (AnnotatedType or Type)
    * @return The type instance that represents the object
    * @throws ar.com.kfgodel.diamond.api.exceptions.DiamondException if the object doesn't represent a type
+   * @throws IllegalArgumentException if null is passed
    */
-  TypeInstance from(Object nativeType) throws DiamondException;
+  TypeInstance from(Object nativeType) throws DiamondException, IllegalArgumentException;
 
   /**
    * Retrieves the type instances for an array of objects that are part of the native reflection API<br>
@@ -38,8 +39,9 @@ public interface TypeSources {
    * @param nativeTypes The array of native reflection objects that represents a type (AnnotatedType or Type)
    * @return The nary matching on {@link TypeInstance} per element in the array
    * @throws ar.com.kfgodel.diamond.api.exceptions.DiamondException if the object doesn't represent a type
+   * @throws IllegalArgumentException if null is passed
    */
-  Nary<TypeInstance> from(Object[] nativeTypes) throws DiamondException;
+  Nary<TypeInstance> from(Object[] nativeTypes) throws DiamondException, IllegalArgumentException;
 
   /**
    * Retrieves a type instance from its description.<br>
