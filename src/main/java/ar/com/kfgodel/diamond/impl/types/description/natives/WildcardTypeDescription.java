@@ -15,6 +15,7 @@ import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.lazyvalue.impl.CachedValues;
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.api.Unary;
+import ar.com.kfgodel.nary.impl.UnaryWrapper;
 
 import java.lang.reflect.WildcardType;
 import java.util.function.Supplier;
@@ -54,7 +55,7 @@ public class WildcardTypeDescription extends TypeDescriptionSupport {
 
   @Override
   public Supplier<Unary<Object>> getReflectionTypeSupplier() {
-    return CachedValue.from(()-> Nary.of(this.nativeType));
+    return UnaryWrapper.supply(()-> this.nativeType);
   }
 
   @Override
