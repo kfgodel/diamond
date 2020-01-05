@@ -67,7 +67,7 @@ public class LambdaDescriptor {
       return Diamond.of(instance.getClass())
         .methods()
         .named(methodName)
-        .unique().get();
+        .unique().get(); // If more than one method has the same name this will throw an error
     });
   }
 

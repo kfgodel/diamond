@@ -76,7 +76,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
 
   private TypeGenerics generics;
 
-  private Supplier<Nary<Object>> reflectionTypeSupplier;
+  private Supplier<Unary<Object>> reflectionTypeSupplier;
 
   private TypeRuntime runtime;
 
@@ -181,7 +181,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
   public Object newInstance() {
     return constructors().niladic()
       .map((constructor) -> constructor.invoke())
-      .unique().orElseThrow(() -> new DiamondException("Type[" + this + "] doesn't have a no-arg constructor " +
+      .orElseThrow(() -> new DiamondException("Type[" + this + "] doesn't have a no-arg constructor " +
         "to create the instance from"));
   }
 
@@ -250,7 +250,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
   protected abstract TypeGenerics createGenericsInfoFrom(TypeDescription description);
 
   @Override
-  public <T> Nary<T> reflectedAs(Class<T> expectedType) {
+  public <T> Unary<T> reflectedAs(Class<T> expectedType) {
     return reflectionTypeSupplier.get()
       .map(expectedType::cast); // If this fails, a poor error message is thrown. Can be improve it?
   }

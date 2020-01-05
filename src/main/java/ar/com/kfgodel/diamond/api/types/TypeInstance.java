@@ -146,6 +146,6 @@ public interface TypeInstance extends
    *
    * @return The object used by reflection to represent this type natively in the language
    */
-  <T> Nary<T> reflectedAs(Class<T> reflectionClass);
+  <T> Unary<T> reflectedAs(Class<T> reflectionClass);
 
 }

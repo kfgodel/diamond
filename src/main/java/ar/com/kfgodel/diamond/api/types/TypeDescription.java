@@ -75,7 +75,7 @@ public interface TypeDescription {
   /**
    * @return The lambda to get the reflection type for this description if it has one
    */
-  Supplier<Nary<Object>> getReflectionTypeSupplier();
+  Supplier<Unary<Object>> getReflectionTypeSupplier();
 
   /**
    * @return The supplier to get the classes used by the VM in runtime to
@@ -91,7 +91,7 @@ public interface TypeDescription {
    * @return The supplier to get the {@link TypeInstance} that better represents an object
    * of this type in runtime.<br>
    */
-  Supplier<Nary<TypeInstance>> getRuntimeType();
+  Supplier<Unary<TypeInstance>> getRuntimeType();
 
   /**
    * @return The supplier of type arguments

@@ -23,8 +23,7 @@ public class ExtendedTypeCalculator implements Supplier<Unary<TypeInstance>> {
   @Override
   public Unary<TypeInstance> get() {
     return Nary.of(nativeClass.getAnnotatedSuperclass()) // It may be null
-      .map(annotatedType -> describeAsTypeInstance(nativeClass, annotatedType))
-      .unique();
+      .map(annotatedType -> describeAsTypeInstance(nativeClass, annotatedType));
   }
 
   private TypeInstance describeAsTypeInstance(Class<?> nativeClass, AnnotatedType annotatedSuperclass) {

@@ -72,7 +72,7 @@ public abstract class DelegatedDescriptionSupport implements TypeDescription {
   }
 
   @Override
-  public Supplier<Nary<Object>> getReflectionTypeSupplier() {
+  public Supplier<Unary<Object>> getReflectionTypeSupplier() {
     return getDelegateDescription().getReflectionTypeSupplier();
   }
 
@@ -82,7 +82,7 @@ public abstract class DelegatedDescriptionSupport implements TypeDescription {
   }
 
   @Override
-  public Supplier<Nary<TypeInstance>> getRuntimeType() {
+  public Supplier<Unary<TypeInstance>> getRuntimeType() {
     return getDelegateDescription().getRuntimeType();
   }
 

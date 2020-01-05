@@ -44,12 +44,16 @@ public class MemberDiscriminationTest extends JavaSpec<DiamondTestContext> {
 
     describe("a method", () -> {
       it("is a class member if static", () -> {
-        TypeMethod method = Diamond.of(StaticMembersTestObject.class).methods().named("method").unique().get();
+        TypeMethod method = Diamond.of(StaticMembersTestObject.class)
+          .methods().named("method")
+          .unique().get();
         assertThat(method.isInstanceMember()).isFalse();
       });
 
       it("is an instance member if non static", () -> {
-        TypeMethod method = Diamond.of(PublicMembersTestObject.class).methods().named("method").unique().get();
+        TypeMethod method = Diamond.of(PublicMembersTestObject.class)
+          .methods().named("method")
+          .unique().get();
         assertThat(method.isInstanceMember()).isTrue();
       });
       it("can be filtered by annotation", () -> {
@@ -60,12 +64,16 @@ public class MemberDiscriminationTest extends JavaSpec<DiamondTestContext> {
 
     describe("a field", () -> {
       it("is a class member if static", () -> {
-        TypeField method = Diamond.of(StaticMembersTestObject.class).fields().named("field").unique().get();
+        TypeField method = Diamond.of(StaticMembersTestObject.class)
+          .fields().named("field")
+          .unique().get();
         assertThat(method.isInstanceMember()).isFalse();
       });
 
       it("is an instance member if non static", () -> {
-        TypeField method = Diamond.of(PublicMembersTestObject.class).fields().named("field").unique().get();
+        TypeField method = Diamond.of(PublicMembersTestObject.class)
+          .fields().named("field")
+          .unique().get();
         assertThat(method.isInstanceMember()).isTrue();
       });
       it("can be filtered by annotation", () -> {

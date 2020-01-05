@@ -4,7 +4,7 @@ import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.unit.DiamondTestContext;
 import ar.com.kfgodel.diamond.unit.testobjects.methods.RedefiningMethodTestObject;
-import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.api.Unary;
 import ar.com.kfgodel.nary.api.exceptions.MoreThanOneElementException;
 import info.kfgodel.jspek.api.JavaSpec;
 import info.kfgodel.jspek.api.JavaSpecRunner;
@@ -40,13 +40,17 @@ public class MethodByNameTest extends JavaSpec<DiamondTestContext> {
       });
 
       it("can assume only one optional occurrence", () -> {
-        Nary<TypeMethod> matchingMethod = context().typeInstance().methods().named("uniqueMethod");
-        assertThat(matchingMethod.unique().isPresent()).isTrue();
+        Unary<TypeMethod> matchingMethod = context().typeInstance()
+          .methods().named("uniqueMethod")
+          .unique();
+        assertThat(matchingMethod.isPresent()).isTrue();
       });
 
       it("throws exception if more than one match when unique assumed", () -> {
         try {
-          context().typeInstance().methods().named("redefinedAndOverloadedMethod").unique().isPresent();
+          context().typeInstance()
+            .methods().named("redefinedAndOverloadedMethod")
+            .unique().isPresent();
           failBecauseExceptionWasNotThrown(MoreThanOneElementException.class);
         } catch (MoreThanOneElementException e) {
           // We check in this way because we can depend on a specific order
@@ -60,13 +64,17 @@ public class MethodByNameTest extends JavaSpec<DiamondTestContext> {
 
 
       it("can assume a non optional occurrence", () -> {
-        TypeMethod matchingMethod = context().typeInstance().methods().named("uniqueMethod").unique().get();
+        TypeMethod matchingMethod = context().typeInstance()
+          .methods().named("uniqueMethod")
+          .unique().get();
         assertThat(matchingMethod).isNotNull();
       });
 
       it("throws exception if no match for non optional unique", () -> {
         try {
-          context().typeInstance().methods().named("nonExistingMethod").unique().get();
+          context().typeInstance()
+            .methods().named("nonExistingMethod")
+            .unique().get();
           failBecauseExceptionWasNotThrown(NoSuchElementException.class);
         } catch (NoSuchElementException e) {
           assertThat(e).hasMessage("Can't call get() on an empty nary: No value present");

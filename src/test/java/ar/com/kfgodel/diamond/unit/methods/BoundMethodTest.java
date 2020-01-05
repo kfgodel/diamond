@@ -29,7 +29,11 @@ public class BoundMethodTest extends JavaSpec<DiamondTestContext> {
     describe("a bound method", () -> {
 
       context().typeInstance(() -> Diamond.of(BoundMethodTestObject.class));
-      context().method(() -> context().typeInstance().methods().named(context().name()).unique().get());
+      context().method(() ->
+        context().typeInstance()
+          .methods().named(context().name())
+          .unique().get()
+      );
       context().name(() -> "sum");
       context().object(BoundMethodTestObject::new);
 
@@ -156,7 +160,10 @@ public class BoundMethodTest extends JavaSpec<DiamondTestContext> {
 
         it("is false if the represented method is different", () -> {
           BoundMethod boundToTestMethod = context().method().bindTo(context().object());
-          BoundMethod boundToOtherMethod = context().typeInstance().methods().named("runnable").unique().get().bindTo(context().object());
+          BoundMethod boundToOtherMethod = context().typeInstance()
+            .methods().named("runnable")
+            .unique().get()
+            .bindTo(context().object());
 
           assertThat(boundToTestMethod).isNotEqualTo(boundToOtherMethod);
         });

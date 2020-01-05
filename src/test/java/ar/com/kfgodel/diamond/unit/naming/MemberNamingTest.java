@@ -20,7 +20,9 @@ public class MemberNamingTest extends JavaSpec<DiamondTestContext> {
     describe("name", () -> {
       describe("for fields", () -> {
 
-        context().field(() -> Diamond.of(MemberNamingTestObject.class).fields().named("stringList").unique().get());
+        context().field(() -> Diamond.of(MemberNamingTestObject.class)
+          .fields().named("stringList")
+          .unique().get());
 
         it("is just the plain name without type", () -> {
           assertThat(context().field().name()).isEqualTo("stringList");
@@ -37,7 +39,10 @@ public class MemberNamingTest extends JavaSpec<DiamondTestContext> {
 
       describe("for methods", () -> {
 
-        context().method(() -> Diamond.of(MemberNamingTestObject.class).methods().named("methodWithArgs").unique().get());
+        context().method(() -> Diamond.of(MemberNamingTestObject.class)
+          .methods().named("methodWithArgs")
+          .unique().get()
+        );
 
         it("is just the name without arguments or return type", () -> {
           assertThat(context().method().name()).isEqualTo("methodWithArgs");
@@ -53,7 +58,11 @@ public class MemberNamingTest extends JavaSpec<DiamondTestContext> {
 
       describe("for constructors", () -> {
 
-        context().constructor(() -> Diamond.of(MemberNamingTestObject.class).constructors().withParameters(Diamond.of(Integer.class)).unique().get());
+        context().constructor(() ->
+          Diamond.of(MemberNamingTestObject.class)
+            .constructors().withParameters(Diamond.of(Integer.class))
+            .unique().get()
+        );
 
         it("is the complete declaring type name", () -> {
           assertThat(context().constructor().name()).isEqualTo("ar.com.kfgodel.diamond.unit.testobjects.MemberNamingTestObject");

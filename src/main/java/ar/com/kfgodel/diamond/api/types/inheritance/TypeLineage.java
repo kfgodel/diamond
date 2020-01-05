@@ -2,6 +2,7 @@ package ar.com.kfgodel.diamond.api.types.inheritance;
 
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.api.Unary;
 
 /**
  * This type represents linear set of types that compose the lineage of a type behavior. For classes this is the set
@@ -51,14 +52,14 @@ public interface TypeLineage {
    * @return The direct ancestor of the given class or empty if descendant
    * is already the highest ancestor, or not from this lineage
    */
-  Nary<TypeInstance> ancestorOf(TypeInstance descendant);
+  Unary<TypeInstance> ancestorOf(TypeInstance descendant);
 
   /**
    * @param ancestor The class member of this lineage
    * @return The direct descendant of the given class or empty if ancestor
    * is the lowest descendant, or not from this lineage
    */
-  Nary<TypeInstance> descendantOf(TypeInstance ancestor);
+  Unary<TypeInstance> descendantOf(TypeInstance ancestor);
 
   /**
    * Searches the relatedTypes of this lineage for the given reference type, and tries to get the generic arguments

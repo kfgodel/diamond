@@ -19,7 +19,9 @@ public class FieldTypeTest extends JavaSpec<DiamondTestContext> {
   public void define() {
     describe("a field's type", () -> {
 
-      context().field(() -> Diamond.of(FieldTypeTestObject.class).fields().named("intField").unique().get());
+      context().field(() -> Diamond.of(FieldTypeTestObject.class)
+        .fields().named("intField")
+        .unique().get());
 
       it("is the type declared for a field", () -> {
         assertThat(context().field().type().name())

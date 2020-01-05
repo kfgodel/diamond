@@ -34,23 +34,32 @@ public class ConstructorByParamTypeTest extends JavaSpec<DiamondTestContext> {
       });
 
       it("can have no match", () -> {
-        Nary<TypeConstructor> constructor = context().typeInstance().constructors().withParameters(Diamond.of(Serializable.class));
+        Nary<TypeConstructor> constructor = context().typeInstance()
+          .constructors()
+          .withParameters(Diamond.of(Serializable.class));
         assertThat(constructor.unique().isPresent()).isFalse();
       });
 
       it("can assume only one optional occurrence", () -> {
-        Nary<TypeConstructor> constructor = context().typeInstance().constructors().withParameters(Diamond.of(Integer.class));
+        Nary<TypeConstructor> constructor = context().typeInstance()
+          .constructors()
+          .withParameters(Diamond.of(Integer.class));
         assertThat(constructor.unique().isPresent()).isTrue();
       });
 
       it("can assume a non optional occurrence", () -> {
-        TypeConstructor constructor = context().typeInstance().constructors().withParameters(Diamond.of(Integer.class)).unique().get();
+        TypeConstructor constructor = context().typeInstance()
+          .constructors()
+          .withParameters(Diamond.of(Integer.class))
+          .unique().get();
         assertThat(constructor).isNotNull();
       });
 
       it("throws exception if no match for non optional unique", () -> {
         try {
-          context().typeInstance().constructors().withParameters(Diamond.of(Serializable.class)).unique().get();
+          context().typeInstance()
+            .constructors().withParameters(Diamond.of(Serializable.class))
+            .unique().get();
           failBecauseExceptionWasNotThrown(NoSuchElementException.class);
         } catch (NoSuchElementException e) {
           assertThat(e).hasMessage("Can't call get() on an empty nary: No value present");

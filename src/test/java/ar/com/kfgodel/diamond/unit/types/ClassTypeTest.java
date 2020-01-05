@@ -68,7 +68,10 @@ public class ClassTypeTest extends JavaSpec<DiamondTestContext> {
          * This is the compile time parent type
          */
         it("has an extended type", () -> {
-          String extendedTypeName = context().typeInstance().hierarchy().extendedType().map(Named::name).unique().get();
+          String extendedTypeName = context().typeInstance()
+            .hierarchy().extendedType()
+            .map(Named::name)
+            .get();
           assertThat(extendedTypeName).isEqualTo("ParentClass");
         });
 
@@ -126,7 +129,10 @@ public class ClassTypeTest extends JavaSpec<DiamondTestContext> {
          * The extended type is its parameterized supertype (the one that's is used on compile time)
          */
         it("has correct type arguments for its extended type", () -> {
-          List<String> parameterNames = context().typeInstance().hierarchy().extendedType().unique().get().generics().arguments()
+          List<String> parameterNames = context().typeInstance()
+            .hierarchy().extendedType()
+            .get()
+            .generics().arguments()
             .map((typeParameter) -> typeParameter.name())
             .collect(Collectors.toList());
           assertThat(parameterNames).isEqualTo(Arrays.asList("C", "Integer"));
@@ -137,12 +143,12 @@ public class ClassTypeTest extends JavaSpec<DiamondTestContext> {
       describe("for arrays", () -> {
         it("has a component type", () -> {
           context().typeInstance(() -> getStringArrayType());
-          assertThat(context().typeInstance().componentType().unique().get().name()).isEqualTo("String");
+          assertThat(context().typeInstance().componentType().get().name()).isEqualTo("String");
         });
       });
 
       it("can be accessed from its type instance", () -> {
-        final Class<ChildClass> reflectionType = context().typeInstance().reflectedAs(Class.class).unique().get();
+        final Class<ChildClass> reflectionType = context().typeInstance().reflectedAs(Class.class).get();
         assertThat(reflectionType).isEqualTo(ChildClass.class);
       });
 

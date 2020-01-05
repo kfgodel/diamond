@@ -1,7 +1,7 @@
 package ar.com.kfgodel.diamond.impl.types.declaration;
 
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
-import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.api.Unary;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -61,9 +61,9 @@ public class TypeNameDeclaration {
   }
 
   private void withComponentTypeDeclaration(Consumer<String> componentTypeDeclarationConsumer) {
-    Nary<String> componentDeclaration = type.componentType()
+    Unary<String> componentDeclaration = type.componentType()
       .map(TypeInstance::declaration);
-    componentDeclaration.unique().ifPresent(componentTypeDeclarationConsumer);
+    componentDeclaration.ifPresent(componentTypeDeclarationConsumer);
   }
 
   private void withAnnotationsSeparatedBy(String separator, Consumer<String> separatedAnnotationsConsumer) {

@@ -63,7 +63,7 @@ public class GenericArrayTypeDescription extends TypeDescriptionSupport {
   }
 
   @Override
-  public Supplier<Nary<Object>> getReflectionTypeSupplier() {
+  public Supplier<Unary<Object>> getReflectionTypeSupplier() {
     return CachedValue.from(()-> Nary.of(this.nativeType));
   }
 

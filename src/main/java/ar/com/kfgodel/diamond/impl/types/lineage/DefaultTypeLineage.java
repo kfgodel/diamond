@@ -59,12 +59,12 @@ public class DefaultTypeLineage implements TypeLineage {
   }
 
   @Override
-  public Nary<TypeInstance> ancestorOf(TypeInstance descendant) {
+  public Unary<TypeInstance> ancestorOf(TypeInstance descendant) {
     return memberRelativeTo(descendant, +1);
   }
 
   @Override
-  public Nary<TypeInstance> descendantOf(TypeInstance ancestor) {
+  public Unary<TypeInstance> descendantOf(TypeInstance ancestor) {
     return memberRelativeTo(ancestor, -1);
   }
 
@@ -112,7 +112,7 @@ public class DefaultTypeLineage implements TypeLineage {
    * @return The relative member or empty if there's no member on that position or
    * referent doesn't belong to this lineage
    */
-  private Nary<TypeInstance> memberRelativeTo(TypeInstance referentClass, int offset) {
+  private Unary<TypeInstance> memberRelativeTo(TypeInstance referentClass, int offset) {
     int referentIndex = classes.indexOf(referentClass);
     if (referentIndex == NOT_FOUND) {
       // Class is not part of this lineage

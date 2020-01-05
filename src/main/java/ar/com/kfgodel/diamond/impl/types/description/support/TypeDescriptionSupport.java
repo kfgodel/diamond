@@ -106,7 +106,7 @@ public abstract class TypeDescriptionSupport implements TypeDescription {
   }
 
   @Override
-  public Supplier<Nary<Object>> getReflectionTypeSupplier() {
+  public Supplier<Unary<Object>> getReflectionTypeSupplier() {
     return Nary::empty; //By default there's no reflected object for this type
   }
 
@@ -116,7 +116,7 @@ public abstract class TypeDescriptionSupport implements TypeDescription {
   }
 
   @Override
-  public Supplier<Nary<TypeInstance>> getRuntimeType() {
+  public Supplier<Unary<TypeInstance>> getRuntimeType() {
     return () -> {
       final Nary<Class<?>> runtimeClasses = getRuntimeClasses().get();
       final Class<?> runtimeClass = RawClassesCalculator.create().coalesce(runtimeClasses);

@@ -2,6 +2,7 @@ package ar.com.kfgodel.diamond.impl.natives.raws;
 
 import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.api.Unary;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.GenericArrayType;
@@ -53,7 +54,7 @@ public class RawClassesCalculator {
    * @param nativeType The native class type
    * @return The given class
    */
-  public Nary<Class<?>> from(Class<?> nativeType){
+  public Unary<Class<?>> from(Class<?> nativeType){
     return Nary.of(nativeType);
   }
 
@@ -113,12 +114,12 @@ public class RawClassesCalculator {
    * @param nativeType The generic array
    * @return The only class used in runtime
    */
-  public Nary<Class<?>> from(GenericArrayType nativeType){
+  public Unary<Class<?>> from(GenericArrayType nativeType){
     Class<?> rawComponentClass = calculateRawComponentClass(nativeType);
     // We need to create an array to get the actual runtime class
     final Object sampleArray = Array.newInstance(rawComponentClass, 0);
     final Class<?> rawClass = sampleArray.getClass();
-    return Nary.of(rawClass);
+    return from(rawClass);
   }
 
   private Class<?> calculateRawComponentClass(GenericArrayType genericArrayType) {

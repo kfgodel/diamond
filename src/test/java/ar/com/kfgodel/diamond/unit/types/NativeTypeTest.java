@@ -31,27 +31,32 @@ public class NativeTypeTest extends JavaSpec<DiamondTestContext> {
       it("can be obtained from classes", () -> {
         TypeInstance typeInstance = Diamond.of(PublicMembersTestObject.class);
 
-        Class<?> rawClass = typeInstance.runtime().classes().unique().get();
+        Class<?> rawClass = typeInstance.runtime().classes()
+          .unique().get();
 
         assertThat(rawClass).isEqualTo(PublicMembersTestObject.class);
       });
 
       it("can be obtained from methods", () -> {
-        TypeMethod method = Diamond.of(PublicMembersTestObject.class).methods().named("method").unique().get();
+        TypeMethod method = Diamond.of(PublicMembersTestObject.class)
+          .methods().named("method")
+          .unique().get();
 
         Unary<Method> nativeMethod = method.nativeType();
 
         assertThat(nativeMethod.isPresent()).isTrue();
-        assertThat(nativeMethod.unique().get().getName()).isEqualTo("method");
+        assertThat(nativeMethod.get().getName()).isEqualTo("method");
       });
 
       it("can be obtained from fields", () -> {
-        TypeField field = Diamond.of(PublicMembersTestObject.class).fields().named("field").unique().get();
+        TypeField field = Diamond.of(PublicMembersTestObject.class)
+          .fields().named("field")
+          .unique().get();
 
         Unary<Field> nativeField = field.nativeType();
 
         assertThat(nativeField.isPresent()).isTrue();
-        assertThat(nativeField.unique().get().getName()).isEqualTo("field");
+        assertThat(nativeField.get().getName()).isEqualTo("field");
       });
 
       it("can be obtained from constructors", () -> {

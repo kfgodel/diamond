@@ -36,7 +36,10 @@ public class FunctionalConstructorTest extends JavaSpec<DiamondTestContext> {
       });
 
       it("is a function if one argument", () -> {
-        Function<Object, Object> function = context().typeInstance().constructors().withParameters(Diamond.of(Integer.class)).unique().get();
+        Function<Object, Object> function = context().typeInstance()
+          .constructors()
+          .withParameters(Diamond.of(Integer.class))
+          .unique().get();
 
         Object createdInstance = function.apply(1);
 
@@ -57,7 +60,9 @@ public class FunctionalConstructorTest extends JavaSpec<DiamondTestContext> {
       });
 
       it("throws an exception if functionally called with wrong argument types", () -> {
-        Function<Object, Object> function = context().typeInstance().constructors().withParameters(Diamond.of(Integer.class)).unique().get();
+        Function<Object, Object> function = context().typeInstance()
+          .constructors().withParameters(Diamond.of(Integer.class))
+          .unique().get();
 
         try {
           function.apply("a");

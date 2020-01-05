@@ -25,8 +25,7 @@ public class SuperClassSupplier implements Supplier<Unary<TypeInstance>> {
     supplier.superclass = () -> {
       Class<?> superclass = nativeClass.getSuperclass();
       return Nary.of(superclass)
-        .map(Diamond::of)
-        .unique();
+        .map(Diamond::of);
     };
     return supplier;
   }

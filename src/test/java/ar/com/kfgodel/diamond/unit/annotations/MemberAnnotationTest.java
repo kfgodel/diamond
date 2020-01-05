@@ -35,7 +35,11 @@ public class MemberAnnotationTest extends JavaSpec<DiamondTestContext> {
 
       describe("on a field", () -> {
 
-        context().field(() -> context().typeInstance().fields().named(context().name()).unique().get());
+        context().field(() ->
+          context().typeInstance()
+            .fields().named(context().name())
+            .unique().get()
+        );
 
         it("can be empty", () -> {
           context().name(() -> "unannotatedField");
@@ -57,7 +61,11 @@ public class MemberAnnotationTest extends JavaSpec<DiamondTestContext> {
 
       describe("on a method", () -> {
 
-        context().method(() -> context().typeInstance().methods().named(context().name()).unique().get());
+        context().method(() ->
+          context().typeInstance()
+            .methods().named(context().name())
+            .unique().get()
+        );
 
         it("can be empty", () -> {
           context().name(() -> "unannotatedMethod");
@@ -81,7 +89,11 @@ public class MemberAnnotationTest extends JavaSpec<DiamondTestContext> {
 
       describe("on a constructor", () -> {
         it("can be empty", () -> {
-          context().constructor(() -> context().typeInstance().constructors().withParameters().unique().get());
+          context().constructor(() ->
+            context().typeInstance()
+              .constructors().withParameters()
+              .unique().get()
+          );
 
           Stream<Annotation> annotations = context().constructor().annotations();
 
@@ -89,7 +101,11 @@ public class MemberAnnotationTest extends JavaSpec<DiamondTestContext> {
         });
 
         it("contains all the annotations", () -> {
-          context().constructor(() -> context().typeInstance().constructors().withParameters(Diamond.of(Integer.class)).unique().get());
+          context().constructor(() ->
+            context().typeInstance()
+              .constructors().withParameters(Diamond.of(Integer.class))
+              .unique().get()
+          );
 
           Stream<Annotation> annotations = context().constructor().annotations();
 

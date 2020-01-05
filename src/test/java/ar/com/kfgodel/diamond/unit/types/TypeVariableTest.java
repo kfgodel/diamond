@@ -7,6 +7,7 @@ import ar.com.kfgodel.diamond.api.types.reference.ReferenceOf;
 import ar.com.kfgodel.diamond.unit.DiamondTestContext;
 import ar.com.kfgodel.diamond.unit.testobjects.annotations.TestAnnotation1;
 import ar.com.kfgodel.diamond.unit.testobjects.annotations.TestAnnotation2;
+import ar.com.kfgodel.nary.api.Unary;
 import info.kfgodel.jspek.api.JavaSpec;
 import info.kfgodel.jspek.api.JavaSpecRunner;
 import org.junit.runner.RunWith;
@@ -53,7 +54,10 @@ public class TypeVariableTest extends JavaSpec<DiamondTestContext> {
       });
 
       it("can have superclass from upper bounds", () -> {
-        assertThat(context().typeInstance().runtime().hierarchy().superclass().map(Named::name).unique().get())
+        final Unary<TypeInstance> superclass = context().typeInstance()
+          .runtime().hierarchy()
+          .superclass();
+        assertThat(superclass.map(Named::name).get())
           .isEqualTo("Number");
       });
 
@@ -81,7 +85,7 @@ public class TypeVariableTest extends JavaSpec<DiamondTestContext> {
       });
 
       it("can be accessed from its type instance", () -> {
-        final AnnotatedType reflectionType = context().typeInstance().reflectedAs(AnnotatedType.class).unique().get();
+        final AnnotatedType reflectionType = context().typeInstance().reflectedAs(AnnotatedType.class).get();
         assertThat(reflectionType.getType()).isInstanceOf(TypeVariable.class);
       });
     });

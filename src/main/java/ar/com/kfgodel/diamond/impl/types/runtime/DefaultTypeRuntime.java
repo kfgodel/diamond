@@ -6,6 +6,7 @@ import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
 import ar.com.kfgodel.diamond.api.types.runtime.RuntimeTypeHierarchy;
 import ar.com.kfgodel.diamond.api.types.runtime.TypeRuntime;
 import ar.com.kfgodel.nary.api.Nary;
+import ar.com.kfgodel.nary.api.Unary;
 
 import java.util.function.Supplier;
 
@@ -16,7 +17,7 @@ import java.util.function.Supplier;
 public class DefaultTypeRuntime implements TypeRuntime {
 
   private Supplier<Nary<Class<?>>> classes;
-  private Supplier<Nary<TypeInstance>> runtimeType;
+  private Supplier<Unary<TypeInstance>> runtimeType;
   private RuntimeTypeHierarchy hierarchy;
 
   @Override
@@ -27,7 +28,7 @@ public class DefaultTypeRuntime implements TypeRuntime {
   @Override
   public TypeInstance type() {
     return runtimeType.get()
-      .unique().orElseThrow(()-> new DiamondException("Runtime type is not available")); //Better error?
+      .orElseThrow(()-> new DiamondException("Runtime type is not available")); //Better error?
   }
 
   @Override
@@ -37,7 +38,7 @@ public class DefaultTypeRuntime implements TypeRuntime {
 
   public static DefaultTypeRuntime create(TypeInstance type,
                                           Supplier<Nary<Class<?>>> classes,
-                                          Supplier<Nary<TypeInstance>> runtimeType,
+                                          Supplier<Unary<TypeInstance>> runtimeType,
                                           InheritanceDescription inheritance) {
     DefaultTypeRuntime runtime = new DefaultTypeRuntime();
     runtime.classes = classes;
