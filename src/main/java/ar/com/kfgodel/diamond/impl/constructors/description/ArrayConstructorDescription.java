@@ -14,7 +14,6 @@ import ar.com.kfgodel.diamond.impl.equals.CachedTokenCalculator;
 import ar.com.kfgodel.diamond.impl.members.generics.UnparameterizedMemberGenerics;
 import ar.com.kfgodel.diamond.impl.natives.invokables.constructors.NativeArrayConstructor;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
-import ar.com.kfgodel.lazyvalue.impl.SelfSupplier;
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.api.Unary;
 import ar.com.kfgodel.nary.impl.UnaryWrapper;
@@ -41,7 +40,7 @@ public class ArrayConstructorDescription implements ConstructorDescription {
 
   @Override
   public Supplier<TypeInstance> getDeclaringType() {
-    return SelfSupplier.of(Diamond.of(nativeArrayClass));
+    return CachedValue.from(()-> Diamond.of(nativeArrayClass));
   }
 
   @Override

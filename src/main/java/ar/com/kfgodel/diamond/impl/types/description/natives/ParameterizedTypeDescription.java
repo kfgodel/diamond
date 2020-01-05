@@ -51,7 +51,7 @@ public class ParameterizedTypeDescription extends TypeDescriptionSupport {
 
   @Override
   public Supplier<Unary<Object>> getReflectionTypeSupplier() {
-    return UnaryWrapper.supply(CachedValue.from(() -> this.nativeType));
+    return ()-> Nary.of(this.nativeType);
   }
 
   @Override

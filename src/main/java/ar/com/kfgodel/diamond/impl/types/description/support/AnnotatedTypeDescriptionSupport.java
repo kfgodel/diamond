@@ -2,9 +2,9 @@ package ar.com.kfgodel.diamond.impl.types.description.support;
 
 import ar.com.kfgodel.diamond.api.types.TypeDescription;
 import ar.com.kfgodel.diamond.impl.natives.suppliers.AnnotatedElementAnnotationsSupplier;
-import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.api.Unary;
+import ar.com.kfgodel.nary.impl.UnaryWrapper;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedType;
@@ -37,6 +37,6 @@ public abstract class AnnotatedTypeDescriptionSupport extends DelegatedDescripti
 
   @Override
   public Supplier<Unary<Object>> getReflectionTypeSupplier() {
-    return CachedValue.from(()-> Nary.of(getAnnotatedType()));
+    return UnaryWrapper.supply(this::getAnnotatedType);
   }
 }
