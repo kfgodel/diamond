@@ -10,7 +10,9 @@ import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.lazyvalue.impl.CachedValues;
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.api.Unary;
+import ar.com.kfgodel.nary.impl.UnaryWrapper;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 /**
@@ -28,11 +30,17 @@ public class VariableTypeInheritanceDescription implements InheritanceDescriptio
 
   @Override
   public Supplier<Unary<TypeInstance>> getSuperclassSupplier() {
-    return CachedValue.from(() -> {
-      return getUpperBoundsThatAre(Categories.CLASS)
-        .unique()
-        .orElseUse(()-> Diamond.of(Object.class)); //Object is the implicit upper bound of everything
-    });
+    return UnaryWrapper.supply(CachedValue.from(this::calculateSuperClass));
+  }
+
+  private TypeInstance calculateSuperClass() {
+    final List<TypeInstance> superClasses = getUpperBoundsThatAre(Categories.CLASS).collectToList();
+    if(superClasses.size() == 1){
+      // A single class is used as super type. We use that as super class
+      return superClasses.get(0);
+    }
+    // Having multiple superclasses we could try to infer the lowest common supertype, instead of Object
+    return Diamond.of(Object.class); //Object is the implicit upper bound of everything
   }
 
   private Nary<TypeInstance> getUpperBoundsThatAre(TypeCategory expectedCategory) {
