@@ -12,7 +12,7 @@ import java.util.function.Supplier;
  *
  * Created by kfgodel on 22/10/14.
  */
-public class UnaryWrappingSupplier<T> implements Supplier<Unary<T>> {
+public class UnaryWrapper<T> implements Supplier<Unary<T>> {
 
   private Supplier<T> supplier;
 
@@ -30,8 +30,8 @@ public class UnaryWrappingSupplier<T> implements Supplier<Unary<T>> {
    * @param <T>       The expected stream element type
    * @return The created supplier
    */
-  public static <T> UnaryWrappingSupplier<T> of(Supplier<T> generator) {
-    UnaryWrappingSupplier<T> supplier = new UnaryWrappingSupplier<>();
+  public static <T> UnaryWrapper<T> supply(Supplier<T> generator) {
+    UnaryWrapper<T> supplier = new UnaryWrapper<>();
     supplier.supplier = generator;
     return supplier;
   }

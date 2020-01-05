@@ -16,7 +16,7 @@ import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.lazyvalue.impl.CachedValues;
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.api.Unary;
-import ar.com.kfgodel.nary.impl.UnaryWrappingSupplier;
+import ar.com.kfgodel.nary.impl.UnaryWrapper;
 
 import java.util.function.BiPredicate;
 import java.util.function.Supplier;
@@ -31,14 +31,14 @@ public class ClassDescription extends TypeDescriptionSupport {
 
   @Override
   public Supplier<Unary<TypeInstance>> getComponentType() {
-    return UnaryWrappingSupplier.of(CachedValue.from(
+    return UnaryWrapper.supply(CachedValue.from(
       NativeTypeToDiamondAdapterSupplier.create(nativeType::getComponentType)
     ));
   }
 
   @Override
   public Supplier<Unary<TypePackage>> getDeclaredPackage() {
-    return UnaryWrappingSupplier.of(CachedValue.from(
+    return UnaryWrapper.supply(CachedValue.from(
       TypePackageSupplier.create(getRawClass())
     ));
   }
@@ -62,12 +62,12 @@ public class ClassDescription extends TypeDescriptionSupport {
 
   @Override
   public Supplier<Unary<Object>> getReflectionTypeSupplier() {
-    return CachedValue.from(()-> Nary.of(this.nativeType));
+    return UnaryWrapper.supply(this::getRawClass);
   }
 
   @Override
-  public Supplier<Nary<Class<?>>> getRuntimeClasses() {
-    return CachedValue.from(()-> Nary.of(getRawClass()));
+  public Supplier<Unary<Class<?>>> getRuntimeClasses() {
+    return UnaryWrapper.supply(this::getRawClass);
   }
 
   @Override

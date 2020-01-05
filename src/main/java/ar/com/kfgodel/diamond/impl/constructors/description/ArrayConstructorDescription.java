@@ -17,7 +17,7 @@ import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.lazyvalue.impl.SelfSupplier;
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.api.Unary;
-import ar.com.kfgodel.nary.impl.UnaryWrappingSupplier;
+import ar.com.kfgodel.nary.impl.UnaryWrapper;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
@@ -34,7 +34,7 @@ public class ArrayConstructorDescription implements ConstructorDescription {
 
   @Override
   public Supplier<Unary<ExecutableParameter>> getParameters() {
-    return UnaryWrappingSupplier.of(CachedValue.from(()->{
+    return UnaryWrapper.supply(CachedValue.from(()->{
       return Diamond.parameters().fromDescription(ArrayConstructorParameterDescription.INSTANCE);
     }));
   }
@@ -47,7 +47,7 @@ public class ArrayConstructorDescription implements ConstructorDescription {
   @Override
   public Supplier<Unary<Modifier>> getModifiers() {
     // Array creation is similar to public visibility
-    return UnaryWrappingSupplier.of(()-> Modifiers.PUBLIC);
+    return UnaryWrapper.supply(()-> Modifiers.PUBLIC);
   }
 
   @Override

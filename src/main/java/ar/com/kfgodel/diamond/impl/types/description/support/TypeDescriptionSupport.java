@@ -111,7 +111,7 @@ public abstract class TypeDescriptionSupport implements TypeDescription {
   }
 
   @Override
-  public Supplier<Nary<Class<?>>> getRuntimeClasses() {
+  public Supplier<? extends Nary<Class<?>>> getRuntimeClasses() {
     return Nary::empty;
   }
 

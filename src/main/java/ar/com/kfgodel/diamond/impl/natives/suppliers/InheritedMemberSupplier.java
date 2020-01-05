@@ -17,7 +17,7 @@ import java.util.stream.Stream;
  */
 public class InheritedMemberSupplier<M> implements Supplier<Nary<M>> {
 
-  private Supplier<Nary<Class<?>>> startingClasses;
+  private Supplier<? extends Nary<Class<?>>> startingClasses;
   private Function<? super Class<?>, M[]> extractionOperation;
 
   @Override
@@ -42,7 +42,7 @@ public class InheritedMemberSupplier<M> implements Supplier<Nary<M>> {
   }
 
   public static <M> InheritedMemberSupplier<M> create(
-    Supplier<Nary<Class<?>>> baseClasses,
+    Supplier<? extends Nary<Class<?>>> baseClasses,
     Function<? super Class<?>, M[]> extractionOperation
   ) {
     InheritedMemberSupplier<M> supplier = new InheritedMemberSupplier<>();

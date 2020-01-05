@@ -15,7 +15,7 @@ import java.util.function.Supplier;
  */
 public class ClassMethodCalculator implements Supplier<Nary<TypeMethod>> {
 
-  private Supplier<Nary<Class<?>>> runtimeClasses;
+  private Supplier<? extends Nary<Class<?>>> runtimeClasses;
 
   @Override
   public Nary<TypeMethod> get() {
@@ -24,14 +24,14 @@ public class ClassMethodCalculator implements Supplier<Nary<TypeMethod>> {
       .map((nativeMethod) -> Diamond.methods().from(nativeMethod));
   }
 
-  public static ClassMethodCalculator create(Supplier<Nary<Class<?>>> runtimeClasses) {
+  public static ClassMethodCalculator create(Supplier<? extends Nary<Class<?>>> runtimeClasses) {
     ClassMethodCalculator calculator = new ClassMethodCalculator();
     calculator.runtimeClasses = runtimeClasses;
     return calculator;
   }
 
 
-  private static Nary<Method> calculateMethodsFor(Supplier<Nary<Class<?>>> baseClassesSupplier) {
+  private static Nary<Method> calculateMethodsFor(Supplier<? extends Nary<Class<?>>> baseClassesSupplier) {
     final Supplier<Nary<Method>> methodSupplier = InheritedMemberSupplier.create(
       baseClassesSupplier,
       Class::getDeclaredMethods

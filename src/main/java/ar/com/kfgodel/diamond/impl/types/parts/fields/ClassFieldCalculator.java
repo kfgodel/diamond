@@ -14,7 +14,7 @@ import java.util.function.Supplier;
  */
 public class ClassFieldCalculator implements Supplier<Nary<TypeField>> {
 
-  private Supplier<Nary<Class<?>>> runtimeClasses;
+  private Supplier<? extends Nary<Class<?>>> runtimeClasses;
 
   @Override
   public Nary<TypeField> get() {
@@ -23,12 +23,12 @@ public class ClassFieldCalculator implements Supplier<Nary<TypeField>> {
       .map((nativeField) -> Diamond.fields().from(nativeField));
   }
 
-  private static Nary<Field> calculateFields(Supplier<Nary<Class<?>>> runtimeClasses) {
+  private static Nary<Field> calculateFields(Supplier<? extends Nary<Class<?>>> runtimeClasses) {
     return InheritedMemberSupplier.create(runtimeClasses, Class::getDeclaredFields)
       .get();
   }
 
-  public static ClassFieldCalculator create(Supplier<Nary<Class<?>>> runtimeClasses) {
+  public static ClassFieldCalculator create(Supplier<? extends Nary<Class<?>>> runtimeClasses) {
     ClassFieldCalculator calculator = new ClassFieldCalculator();
     calculator.runtimeClasses = runtimeClasses;
     return calculator;
