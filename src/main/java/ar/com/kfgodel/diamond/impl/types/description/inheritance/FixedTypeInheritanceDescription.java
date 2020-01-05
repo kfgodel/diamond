@@ -3,13 +3,14 @@ package ar.com.kfgodel.diamond.impl.types.description.inheritance;
 import ar.com.kfgodel.diamond.api.Diamond;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.inheritance.InheritanceDescription;
+import ar.com.kfgodel.diamond.impl.types.parts.componenttype.NativeTypeToDiamondAdapterSupplier;
 import ar.com.kfgodel.diamond.impl.types.parts.extendedtype.ExtendedTypeCalculator;
 import ar.com.kfgodel.diamond.impl.types.parts.extendedtype.ImplementedTypesCalculator;
-import ar.com.kfgodel.diamond.impl.types.parts.superclass.SuperClassSupplier;
 import ar.com.kfgodel.lazyvalue.impl.CachedValue;
 import ar.com.kfgodel.lazyvalue.impl.CachedValues;
 import ar.com.kfgodel.nary.api.Nary;
 import ar.com.kfgodel.nary.api.Unary;
+import ar.com.kfgodel.nary.impl.UnaryWrapper;
 
 import java.util.function.Supplier;
 
@@ -24,12 +25,16 @@ public class FixedTypeInheritanceDescription implements InheritanceDescription {
 
   @Override
   public Supplier<Unary<TypeInstance>> getSuperclassSupplier() {
-    return SuperClassSupplier.create(rawClass);
+    return UnaryWrapper.supply(CachedValue.from(
+      NativeTypeToDiamondAdapterSupplier.create(rawClass::getSuperclass)
+    ));
   }
 
   @Override
   public Supplier<Unary<TypeInstance>> getExtendedTypeSupplier() {
-    return CachedValue.from(ExtendedTypeCalculator.create(rawClass, typeArguments));
+    return UnaryWrapper.supply(CachedValue.from(
+      ExtendedTypeCalculator.create(rawClass, typeArguments)
+    ));
   }
 
   @Override
