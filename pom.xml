@@ -11,7 +11,7 @@
 
   <groupId>info.kfgodel</groupId>
   <artifactId>diamond</artifactId>
-  <version>2.0.0-SNAPSHOT</version>
+  <version>2.0.0</version>
 
   <name>Diamond</name>
   <description>A Java project that extends reflection making it really easy to use. "Where your reflection shines best!" </description>
