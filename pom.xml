@@ -56,7 +56,7 @@
     <dependency>
       <groupId>info.kfgodel</groupId>
       <artifactId>nary</artifactId>
-      <version>3.0.0-SNAPSHOT</version>
+      <version>3.0.0</version>
     </dependency>
 
     <!-- Rspec like testing -->
