@@ -53,7 +53,7 @@ public class TypeNamingTest extends JavaSpec<DiamondTestContext> {
           assertThat(test().typeInstance().names().typeName())
             .isEqualTo("java.util.List<java.lang.String>");
         });
-        it("declaration name is the source declaration equivalent", () -> {
+        it("complete name is the source declaration equivalent", () -> {
           assertThat(test().typeInstance().names().completeName())
             .isEqualTo("@ar.com.kfgodel.diamond.unit.testobjects.annotations.TestAnnotation1() java.util.List<@ar.com.kfgodel.diamond.unit.testobjects.annotations.TestAnnotation2() java.lang.String>");
         });
@@ -82,7 +82,7 @@ public class TypeNamingTest extends JavaSpec<DiamondTestContext> {
           assertThat(test().typeInstance().names().typeName())
             .isEqualTo("java.lang.String[]");
         });
-        it("declaration name is the source declaration equivalent", () -> {
+        it("complete name is the source declaration equivalent", () -> {
           assertThat(test().typeInstance().names().completeName())
             .isEqualTo("@ar.com.kfgodel.diamond.unit.testobjects.annotations.TestAnnotation2() java.lang.String @ar.com.kfgodel.diamond.unit.testobjects.annotations.TestAnnotation1() []");
         });
@@ -111,7 +111,7 @@ public class TypeNamingTest extends JavaSpec<DiamondTestContext> {
           assertThat(test().typeInstance().names().typeName())
             .isEqualTo("A");
         });
-        it("declaration name is the source declaration equivalent", () -> {
+        it("complete name is the source declaration equivalent", () -> {
           assertThat(test().typeInstance().names().completeName())
             .isEqualTo("@ar.com.kfgodel.diamond.unit.testobjects.annotations.TestAnnotation1() A extends @ar.com.kfgodel.diamond.unit.testobjects.annotations.TestAnnotation2() java.lang.String");
         });
@@ -140,7 +140,7 @@ public class TypeNamingTest extends JavaSpec<DiamondTestContext> {
           assertThat(test().typeInstance().names().typeName())
             .isEqualTo("? extends java.lang.String");
         });
-        it("declaration name is the source declaration equivalent", () -> {
+        it("complete name is the source declaration equivalent", () -> {
           assertThat(test().typeInstance().names().completeName())
             .isEqualTo("@ar.com.kfgodel.diamond.unit.testobjects.annotations.TestAnnotation1() ? extends @ar.com.kfgodel.diamond.unit.testobjects.annotations.TestAnnotation2() java.lang.String");
         });

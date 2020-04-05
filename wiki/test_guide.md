@@ -7,7 +7,7 @@ Note that not all tests are included, only the ones that help on learning diamon
 
 ## Tests
 - Naming 
-  - [Types](src/test/java/ar/com/kfgodel/diamond/unit/naming/TypeNamingTest.java): 
+  - [Types](../src/test/java/ar/com/kfgodel/diamond/unit/naming/TypeNamingTest.java): 
   What are the different names a type has 
-  - [Members](src/test/java/ar/com/kfgodel/diamond/unit/naming/TypeNamingTest.java): 
+  - [Members](../src/test/java/ar/com/kfgodel/diamond/unit/naming/TypeNamingTest.java): 
   How are names defined for type members (fields, methods, etc)
