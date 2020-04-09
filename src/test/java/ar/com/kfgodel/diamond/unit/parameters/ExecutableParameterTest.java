@@ -55,7 +55,9 @@ public class ExecutableParameterTest extends JavaSpec<DiamondTestContext> {
        * This test fails sometimes. It seems the compiler omits the modifier in the generated .class?
        */
       xit("has modifiers", () -> {
-        List<String> parameterModifiers = context().parameter().modifiers().map(Modifier::declaration).collect(Collectors.toList());
+        List<String> parameterModifiers = context().parameter().modifiers()
+          .map(Modifier::declaration)
+          .collect(Collectors.toList());
 
         assertThat(parameterModifiers).isEqualTo(Arrays.asList("final"));
       });

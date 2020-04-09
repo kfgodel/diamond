@@ -10,12 +10,8 @@ This doc shows an overview of the Diamond API structure
   - [completeName](names_api_guide.md#how-to-get-the-annotated-name-of-a-type-typenamescompletename)
   - [bareName](names_api_guide.md#how-to-get-the-minimum-name-of-a-type-typenamesbarename)
 
-- categories
-- declaredPackage
-- componentType
-- reflectedAs
-
-- members
+- [members](members_api_guide.md)
+  - [all](members_api_guide.md#how-to-access-all-the-members-of-a-type-typeinstancemembers)
 - constructors
   - all
   - niladic
@@ -29,6 +25,11 @@ This doc shows an overview of the Diamond API structure
   - withSignature
   - withNativeSignature
   - withParameters
+
+- categories
+- declaredPackage
+- componentType
+- reflectedAs
 
 - runtime
  - type

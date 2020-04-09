@@ -35,31 +35,31 @@ public class AllMethodsPerTypeTest extends JavaSpec<DiamondTestContext> {
 
         it("includes public methods", () -> {
           assertThat(context().typeInstance().methods().all()
-            .anyMatch((method) -> method.modifiers().anyMatch(Modifiers.PUBLIC)))
+            .anyMatch((method) -> method.is(Modifiers.PUBLIC)))
             .isTrue();
         });
 
         it("includes protected methods", () -> {
           assertThat(context().typeInstance().methods().all()
-            .anyMatch((method) -> method.modifiers().anyMatch(Modifiers.PROTECTED)))
+            .anyMatch((method) -> method.is(Modifiers.PROTECTED)))
             .isTrue();
         });
 
         it("includes private methods", () -> {
           assertThat(context().typeInstance().methods().all()
-            .anyMatch((method) -> method.modifiers().anyMatch(Modifiers.PRIVATE)))
+            .anyMatch((method) -> method.is(Modifiers.PRIVATE)))
             .isTrue();
         });
 
         it("includes default methods", () -> {
           assertThat(context().typeInstance().methods().all()
-            .anyMatch((method) -> method.modifiers().anyMatch(Modifiers.PACKAGE)))
+            .anyMatch((method) -> method.is(Modifiers.PACKAGE)))
             .isTrue();
         });
 
         it("includes static methods", () -> {
           assertThat(context().typeInstance().methods().all()
-            .anyMatch((method) -> method.modifiers().anyMatch(Modifiers.STATIC)))
+            .anyMatch((method) -> method.is(Modifiers.STATIC)))
             .isTrue();
         });
 
@@ -171,8 +171,8 @@ public class AllMethodsPerTypeTest extends JavaSpec<DiamondTestContext> {
   }
 
   private static TypeInstance getChildClassSubTypeWildcardType() {
-    return getTypeFrom(new ReferenceOf<List<? extends ChildClass>>() {
-    }).generics().arguments().findFirst().get();
+    return getTypeFrom(new ReferenceOf<List<? extends ChildClass>>() {})
+      .generics().arguments().findFirst().get();
   }
 
   private static <A extends Comparable & Collection> TypeInstance getComparableAndNumberSubtypeVariableType() {

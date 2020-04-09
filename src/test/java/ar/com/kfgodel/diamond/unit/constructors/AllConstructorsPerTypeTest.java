@@ -35,25 +35,25 @@ public class AllConstructorsPerTypeTest extends JavaSpec<DiamondTestContext> {
 
         it("includes public constructors", () -> {
           assertThat(context().typeInstance().constructors().all()
-            .anyMatch((constructor) -> constructor.modifiers().anyMatch(Modifiers.PUBLIC)))
+            .anyMatch((constructor) -> constructor.is(Modifiers.PUBLIC)))
             .isTrue();
         });
 
         it("includes protected constructors", () -> {
           assertThat(context().typeInstance().constructors().all()
-            .anyMatch((constructor) -> constructor.modifiers().anyMatch(Modifiers.PROTECTED)))
+            .anyMatch((constructor) -> constructor.is(Modifiers.PROTECTED)))
             .isTrue();
         });
 
         it("includes private constructors", () -> {
           assertThat(context().typeInstance().constructors().all()
-            .anyMatch((constructor) -> constructor.modifiers().anyMatch(Modifiers.PRIVATE)))
+            .anyMatch((constructor) -> constructor.is(Modifiers.PRIVATE)))
             .isTrue();
         });
 
         it("includes default constructors", () -> {
           assertThat(context().typeInstance().constructors().all()
-            .anyMatch((constructor) -> constructor.modifiers().anyMatch(Modifiers.PACKAGE)))
+            .anyMatch((constructor) -> constructor.is(Modifiers.PACKAGE)))
             .isTrue();
         });
 

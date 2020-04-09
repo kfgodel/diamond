@@ -108,10 +108,12 @@ typeMember.name()
 ### How to get the name of a method: `TypeMethod#name()` 
 This is the equivalent of calling `java.lang.reflect.Method#getName()`
 ```java
-Diamond.of(Object.class)
+TypeMethod typeMethod = Diamond.of(Object.class)
   .methods().all()
   .filter(method -> method.name().startsWith("to"))
-  .findFirst().get().name()
+  .findFirst().get();
+
+typeMethod.name()
 ``
 Outputs the name of `toString()` method
 ```java
@@ -121,10 +123,12 @@ Outputs the name of `toString()` method
 ### How to get the name of a field: `TypeField#name()`
 Equivalent of calling `java.lang.reflect.Field#getName()`
 ```java
-Diamond.of(String.class)
+TypeField typeField = Diamond.of(String.class)
   .fields().all()
   .filter(field -> field.name().startsWith("val"))
-  .findFirst().get().name()
+  .findFirst().get();
+
+typeField.name()
 ```
 Outputs the `value` array field holding the string chars
 ```java
@@ -134,9 +138,11 @@ Outputs the `value` array field holding the string chars
 ### How to get the name of a constructor: `TypeConstructor#name()`
 Equivalent of calling `java.lang.reflect.Constructor#getName()`
 ```java
-Diamond.of(String.class)
+TypeConstructor typeConstructor = Diamond.of(String.class)
   .constructors().all()
-  .findFirst().get().name()
+  .findFirst().get();
+
+typeConstructor.name()
 ```
 Outputs the name of its declaring class
 ```java

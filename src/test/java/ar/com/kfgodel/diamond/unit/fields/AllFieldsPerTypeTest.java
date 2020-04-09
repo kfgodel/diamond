@@ -35,31 +35,31 @@ public class AllFieldsPerTypeTest extends JavaSpec<DiamondTestContext> {
 
         it("includes public fields", () -> {
           assertThat(context().typeInstance().fields().all()
-            .anyMatch((field) -> field.modifiers().anyMatch(Modifiers.PUBLIC)))
+            .anyMatch((field) -> field.is(Modifiers.PUBLIC)))
             .isTrue();
         });
 
         it("includes protected fields", () -> {
           assertThat(context().typeInstance().fields().all()
-            .anyMatch((field) -> field.modifiers().anyMatch(Modifiers.PROTECTED)))
+            .anyMatch((field) -> field.is(Modifiers.PROTECTED)))
             .isTrue();
         });
 
         it("includes private fields", () -> {
           assertThat(context().typeInstance().fields().all()
-            .anyMatch((field) -> field.modifiers().anyMatch(Modifiers.PRIVATE)))
+            .anyMatch((field) -> field.is(Modifiers.PRIVATE)))
             .isTrue();
         });
 
         it("includes default fields", () -> {
           assertThat(context().typeInstance().fields().all()
-            .anyMatch((field) -> field.modifiers().anyMatch(Modifiers.PACKAGE)))
+            .anyMatch((field) -> field.is(Modifiers.PACKAGE)))
             .isTrue();
         });
 
         it("includes static fields", () -> {
           assertThat(context().typeInstance().fields().all()
-            .anyMatch((field) -> field.modifiers().anyMatch(Modifiers.STATIC)))
+            .anyMatch((field) -> field.is(Modifiers.STATIC)))
             .isTrue();
         });
 
