@@ -10,21 +10,20 @@ This doc shows an overview of the Diamond API structure
   - [completeName](names_api_guide.md#how-to-get-the-annotated-name-of-a-type-typenamescompletename)
   - [bareName](names_api_guide.md#how-to-get-the-minimum-name-of-a-type-typenamesbarename)
 
-- [members](members_api_guide.md)
-  - [all](members_api_guide.md#how-to-access-all-the-members-of-a-type-typeinstancemembers)
-- constructors
-  - all
-  - niladic
-  - withParameters
-- fields
-  - all
-  - named
-- methods
-  - all
-  - named
-  - withSignature
-  - withNativeSignature
-  - withParameters
+- [members](accessing-members_api_guide.md)
+  - [all](accessing-members_api_guide.md#how-to-get-all-the-members-of-a-type-typeinstancemembers)
+- [fields](accessing-members_api_guide.md#accessing-fields)
+  - [all](accessing-members_api_guide.md#how-to-get-all-the-fields-of-a-type-typeinstancefields)
+  - [named](accessing-members_api_guide.md#how-to-get-a-field-by-name-typeinstancenamed)
+- [methods](accessing-members_api_guide.md#accessing-methods)
+  - [all](accessing-members_api_guide.md#how-to-get-all-the-methods-of-a-type-typeinstancemethods)
+  - [named](accessing-members_api_guide.md#how-to-get-a-method-by-name-typemethodsnamed)
+  - [withSignature](accessing-members_api_guide.md#how-to-get-a-method-by-its-signature-typemethodswithsignature)
+  - [withParameterTypes](accessing-members_api_guide.md#how-to-get-a-method-by-its-parameter-types-typemethodswithparametertypes)
+- [constructors](accessing-members_api_guide.md#accessing-constructors)
+  - [all](accessing-members_api_guide.md#how-to-get-all-the-constructors-of-a-type-typeinstanceconstructors)
+  - [niladic](accessing-members_api_guide.md#how-to-get-the-no-arg-constructor-of-a-type-typeconstructorsniladic)
+  - [withParameters](accessing-members_api_guide.md#how-to-get-a-constructor-by-its-parameter-types-typeconstructorswithparametertypes)
 
 - categories
 - declaredPackage

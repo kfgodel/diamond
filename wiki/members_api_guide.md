@@ -1,23 +1,9 @@
 # Diamond API for type members
-This doc shows common use cases as examples of the API to access type members (methods, fields and constructors)
+This doc shows common use cases as examples of the API available to all type members (fields, methods and constructors) 
 
 ## Common behavior
 Every member of a type (field, method or constructor) is an instance of `TypeMember`
 which ensures certain common behavior that is inherited to all members:
-
-#### How to access all the members of a type: `TypeInstance#members()`
-The returned members includes methods, fields and constructors of the type
-```java
-TypeInstance typeInstance = Diamond.of(PublicMembersTestObject.class);
-
-typeInstance.members().collectToList();
-```
-Outputs the list of members of the type (including inherited)
-```java
-[field @ PublicMembersTestObject, method() @ PublicMembersTestObject, methodWithDiffParamType(String) @ PublicMembersTestObject, methodWithDiffParamName(Integer) @ PublicMembersTestObject, methodWithEqualParam(Integer) @ PublicMembersTestObject, finalize() @ Object, wait(long, int) @ Object, wait(long) @ Object, wait() @ Object, equals(Object) @ Object, toString() @ Object, hashCode() @ Object, getClass() @ Object, clone() @ Object, registerNatives() @ Object, notify() @ Object, notifyAll() @ Object, PublicMembersTestObject(Integer) @ ar.com.kfgodel.diamond.unit.testobjects.modifiers, PublicMembersTestObject() @ ar.com.kfgodel.diamond.unit.testobjects.modifiers]
-```
-Notice that `@` is used in the `toString()` of every member to indicate 
-the scope where the member was declared
 
 ### Named
 Every member has a name (even constructors)
@@ -37,6 +23,7 @@ Outputs the `value` array field holding the string chars
 "value"
 ```
 
+
 ### Annotated
 All the members of a type can be annotated, and thus its annotations be accessed
 introspectively
@@ -55,6 +42,7 @@ Outputs the list of annotations applied to the member
 ```java
 [@ar.com.kfgodel.diamond.unit.testobjects.annotations.TestAnnotation1(), @ar.com.kfgodel.diamond.unit.testobjects.annotations.TestAnnotation2()]
 ```
+
 
 ### Modifiable
 All the type members, including constructors, can have modifiers (i.g: private, final, static, etc)
@@ -93,6 +81,7 @@ Outputs the boolean indicating the match
 true
 ```
 
+
 ### Generified
 Every member can have type parameters used to generify its declaration.
 
@@ -109,6 +98,7 @@ Outputs the list of type instances that represent the actual type arguments used
 ```java
 [R extends Object]
 ```
+
 
 ### Declarable
 Every member has a description including all the information that can be used
@@ -127,6 +117,7 @@ Outputs the string that is closest to include all the runtime available informat
 "@ar.com.kfgodel.diamond.unit.testobjects.annotations.MethodTestAnnotation() @ar.com.kfgodel.diamond.unit.testobjects.annotations.TestAnnotation3() public <S extends java.lang.Object> @ar.com.kfgodel.diamond.unit.testobjects.annotations.TestAnnotation3() int methodWithArgs(java.lang.String, S extends java.lang.Object) /* MemberNamingTestObject */"
  ```
 Even the declaring type is included as a comment at the end to discriminate overriding methods
+
 
 ### Executable
 Every type member, in Diamond, is treated as an executable member. Even fields
