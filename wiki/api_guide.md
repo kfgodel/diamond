@@ -94,6 +94,12 @@ This doc shows an overview of the Diamond API structure
   
 ### Specific for TypeField
 - [name](field-api-guide.md#how-to-get-the-name-of-a-field-typefieldname)
+- [type](field-api-guide.md#how-to-know-the-type-of-a-field-typefieldtype)
+- [getValueFrom](field-api-guide.md#how-to-get-the-value-of-a-field-from-an-object-typefieldgetvaluefrom)
+- [setValueOn](field-api-guide.md#how-to-set-the-value-of-a-field-on-an-object-typefieldsetvalueon)
+- [as a lambda](field-api-guide.md#field-used-as-lambda)
+- [bindTo](field-api-guide.md#how-to-bind-an-instance-to-a-type-field-typefieldbindto)
+- [nativeType](field-api-guide.md#how-to-get-the-native-reflection-instance-for-a-field-typefieldnativetype)
 
 ### Specific for TypeMethod
 - [name](method-api-guide.md#how-to-get-the-name-of-a-method-typemethodname)
