@@ -91,7 +91,7 @@ public class MemberAnnotationTest extends JavaSpec<DiamondTestContext> {
         it("can be empty", () -> {
           context().constructor(() ->
             context().typeInstance()
-              .constructors().withParameters()
+              .constructors().withParameterTypes()
               .unique().get()
           );
 
@@ -103,7 +103,7 @@ public class MemberAnnotationTest extends JavaSpec<DiamondTestContext> {
         it("contains all the annotations", () -> {
           context().constructor(() ->
             context().typeInstance()
-              .constructors().withParameters(Diamond.of(Integer.class))
+              .constructors().withParameterTypes(Diamond.of(Integer.class))
               .unique().get()
           );
 

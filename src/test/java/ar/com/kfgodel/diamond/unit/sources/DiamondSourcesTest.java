@@ -105,7 +105,7 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
         it("can be obtained from a Class and its diamond parameter types", () -> {
           TypeMethod diamondMethod = Diamond.methods()
             .in(Object.class)
-            .withParameters(Diamond.ofNative(Object.class))
+            .withParameterTypes(Diamond.of(Object.class))
             .unique().get();
           assertThat(diamondMethod.name()).isEqualTo("equals");
         });
@@ -113,7 +113,7 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
         it("can be obtained from a Class and its native parameter types", () -> {
           TypeMethod diamondMethod = Diamond.methods()
             .in(Object.class)
-            .withNativeParameters(Object.class)
+            .withNativeParameterTypes(Object.class)
             .unique().get();
           assertThat(diamondMethod.name()).isEqualTo("equals");
         });
@@ -172,7 +172,7 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
         it("can be obtained from a Class instance and diamond parameter types", () -> {
           TypeConstructor diamondConstructor = Diamond.constructors()
             .in(PublicMembersTestObject.class)
-            .withParameters(Diamond.ofNative(Integer.class))
+            .withParameterTypes(Diamond.ofNative(Integer.class))
             .unique().get();
           assertThat(diamondConstructor.name()).endsWith("PublicMembersTestObject");
         });
@@ -180,7 +180,7 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
         it("can be obtained from a Class instance and native parameter types", () -> {
           TypeConstructor diamondConstructor = Diamond.constructors()
             .in(PublicMembersTestObject.class)
-            .withNativeParameters(Integer.class)
+            .withNativeParameterTypes(Integer.class)
             .unique().get();
           assertThat(diamondConstructor.name()).endsWith("PublicMembersTestObject");
         });

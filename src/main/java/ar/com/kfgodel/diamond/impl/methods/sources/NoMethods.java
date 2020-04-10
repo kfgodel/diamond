@@ -36,12 +36,12 @@ public class NoMethods implements TypeMethods {
   }
 
   @Override
-  public Nary<TypeMethod> withParameters(TypeInstance... paramTypes) {
+  public Nary<TypeMethod> withParameterTypes(TypeInstance... paramTypes) {
     return Nary.empty();
   }
 
   @Override
-  public Nary<TypeMethod> withNativeParameters(Type... parameterTypes) {
+  public Nary<TypeMethod> withNativeParameterTypes(Type... parameterTypes) {
     return null;
   }
 

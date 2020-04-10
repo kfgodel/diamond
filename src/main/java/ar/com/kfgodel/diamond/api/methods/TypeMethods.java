@@ -47,13 +47,13 @@ public interface TypeMethods extends NamedBehaviorSource<TypeMethod> {
   Nary<TypeMethod> withNativeSignature(String methodName, Type... nativeParameterTypes);
 
   /**
-   * Retrieves the methods of the type that matches the given parameter types.<br>
+   * Retrieves the methods that matches the given parameter types.<br>
    * The result may be 0, 1, or N elements
    *
    * @param paramTypes The type of method parameters declared
    * @return The found methods
    */
   @Override
-  Nary<TypeMethod> withParameters(TypeInstance... paramTypes);
+  Nary<TypeMethod> withParameterTypes(TypeInstance... paramTypes);
 
 }

@@ -60,7 +60,7 @@ public class MemberNamingTest extends JavaSpec<DiamondTestContext> {
 
         context().constructor(() ->
           Diamond.of(MemberNamingTestObject.class)
-            .constructors().withParameters(Diamond.of(Integer.class))
+            .constructors().withParameterTypes(Diamond.of(Integer.class))
             .unique().get()
         );
 

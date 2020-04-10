@@ -39,13 +39,13 @@ public class TypeMethodsImpl extends NamedSourceSupport<TypeMethod> implements T
   }
 
   @Override
-  public Nary<TypeMethod> withParameters(TypeInstance... paramTypes) {
+  public Nary<TypeMethod> withParameterTypes(TypeInstance... paramTypes) {
     return FilterByParameterType.create(all(), paramTypes);
   }
 
   @Override
-  public Nary<TypeMethod> withNativeParameters(Type... parameterTypes) {
-    return withParameters(Diamond.ofNative(parameterTypes));
+  public Nary<TypeMethod> withNativeParameterTypes(Type... parameterTypes) {
+    return withParameterTypes(Diamond.ofNative(parameterTypes));
   }
 
   @Override

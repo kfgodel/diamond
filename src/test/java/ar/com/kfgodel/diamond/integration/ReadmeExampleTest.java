@@ -34,11 +34,17 @@ public class ReadmeExampleTest extends JavaSpec<ReadmeExampleTestContext> {
       });
 
       it("offers a simplified no-checked-exception way to access class fields", () -> {
-        final List<String> namesOfObjectFields = Diamond.of(Object.class)
+        final List<String> namesOfStringFields = Diamond.of(String.class)
           .fields().all()
           .map(TypeField::name)
           .collect(Collectors.toList());
-        assertThat(namesOfObjectFields).isEmpty();
+        assertThat(namesOfStringFields).containsExactlyInAnyOrder(
+          "value",
+          "hash",
+          "serialVersionUID",
+          "serialPersistentFields",
+          "CASE_INSENSITIVE_ORDER"
+        );
       });
 
       it("offers a simplified no-checked-exception way to access class methods", () -> {
@@ -64,7 +70,7 @@ public class ReadmeExampleTest extends JavaSpec<ReadmeExampleTestContext> {
 
       it("offers a simplified way of calling constructors and methods", () -> {
         final String createdString = (String) Diamond.of(String.class)
-          .constructors().withNativeParameters(byte[].class)
+          .constructors().withNativeParameterTypes(byte[].class)
           .unique().get()
           .invoke(new byte[0]);
         assertThat(createdString).isEmpty();

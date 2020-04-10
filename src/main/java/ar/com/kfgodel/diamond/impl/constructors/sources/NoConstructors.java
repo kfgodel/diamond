@@ -27,12 +27,12 @@ public class NoConstructors implements TypeConstructors {
   }
 
   @Override
-  public Nary<TypeConstructor> withParameters(TypeInstance... paramTypes) {
+  public Nary<TypeConstructor> withParameterTypes(TypeInstance... paramTypes) {
     return Nary.empty();
   }
 
   @Override
-  public Nary<TypeConstructor> withNativeParameters(Type... parameterTypes) {
+  public Nary<TypeConstructor> withNativeParameterTypes(Type... parameterTypes) {
     return Nary.empty();
   }
 

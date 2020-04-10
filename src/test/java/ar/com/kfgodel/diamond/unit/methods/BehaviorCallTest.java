@@ -52,7 +52,7 @@ public class BehaviorCallTest extends JavaSpec<DiamondTestContext> {
 
       it("can be used to invoke same constructor (or static method) with implicit arguments several times", () -> {
         TypeConstructor constructor = Diamond.of(MethodCallTestObject.class)
-          .constructors().withNativeParameters(Object.class, Object.class, Object.class)
+          .constructors().withNativeParameterTypes(Object.class, Object.class, Object.class)
           .unique().get();
         BehaviorCall call = constructor.withArguments(1, 2, 3);
 

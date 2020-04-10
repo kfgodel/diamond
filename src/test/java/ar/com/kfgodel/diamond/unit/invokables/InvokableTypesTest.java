@@ -83,7 +83,7 @@ public class InvokableTypesTest extends JavaSpec<DiamondTestContext> {
       describe("a constructor", () -> {
 
         context().invokable(() -> context().typeInstance()
-          .constructors().withParameters(Diamond.of(int.class), Diamond.of(int.class))
+          .constructors().withParameterTypes(Diamond.of(int.class), Diamond.of(int.class))
           .unique().get());
 
         it("takes all the arguments as constructor arguments", () -> {

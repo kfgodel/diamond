@@ -26,18 +26,18 @@ public class TypeConstructorsImpl implements TypeConstructors {
 
   @Override
   public Unary<TypeConstructor> niladic() {
-    return withParameters(/* no parameters*/)
+    return withParameterTypes(/* no parameters*/)
       .unique();
   }
 
   @Override
-  public Nary<TypeConstructor> withParameters(TypeInstance... paramTypes) {
+  public Nary<TypeConstructor> withParameterTypes(TypeInstance... paramTypes) {
     return FilterByParameterType.create(all(), paramTypes);
   }
 
   @Override
-  public Nary<TypeConstructor> withNativeParameters(Type... parameterTypes) {
-    return withParameters(Diamond.ofNative(parameterTypes));
+  public Nary<TypeConstructor> withNativeParameterTypes(Type... parameterTypes) {
+    return withParameterTypes(Diamond.ofNative(parameterTypes));
   }
 
   public static TypeConstructorsImpl create(Supplier<? extends Nary<TypeConstructor>> constructorSupplier) {

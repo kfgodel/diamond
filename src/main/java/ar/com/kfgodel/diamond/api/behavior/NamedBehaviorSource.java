@@ -57,6 +57,6 @@ public interface NamedBehaviorSource<T extends Named> extends NamedSource<T>, Pa
    * @return The found elements
    */
   @Override
-  Nary<T> withParameters(TypeInstance... paramTypes);
+  Nary<T> withParameterTypes(TypeInstance... paramTypes);
 
 }

@@ -59,7 +59,7 @@ public class GenericMembersTest extends JavaSpec<DiamondTestContext> {
 
       describe("for a constructor", () -> {
         context().constructor(() -> context().typeInstance()
-          .constructors().withParameters(getTypeVariableS())
+          .constructors().withParameterTypes(getTypeVariableS())
           .unique().get());
 
         it("contains only constructor declared type variables", () -> {

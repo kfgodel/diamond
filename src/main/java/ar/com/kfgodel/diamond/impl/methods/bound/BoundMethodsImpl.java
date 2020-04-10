@@ -45,13 +45,13 @@ public class BoundMethodsImpl extends BoundMembersSupport implements BoundMethod
   }
 
   @Override
-  public Nary<BoundMethod> withParameters(TypeInstance... paramTypes) {
-    return boundVersionOf(methodSource.withParameters(paramTypes));
+  public Nary<BoundMethod> withParameterTypes(TypeInstance... paramTypes) {
+    return boundVersionOf(methodSource.withParameterTypes(paramTypes));
   }
 
   @Override
-  public Nary<BoundMethod> withNativeParameters(Type... parameterTypes) {
-    return boundVersionOf(methodSource.withNativeParameters(parameterTypes));
+  public Nary<BoundMethod> withNativeParameterTypes(Type... parameterTypes) {
+    return boundVersionOf(methodSource.withNativeParameterTypes(parameterTypes));
   }
 
 }

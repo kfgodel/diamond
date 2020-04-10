@@ -36,21 +36,21 @@ public class ConstructorByParamTypeTest extends JavaSpec<DiamondTestContext> {
       it("can have no match", () -> {
         Nary<TypeConstructor> constructor = context().typeInstance()
           .constructors()
-          .withParameters(Diamond.of(Serializable.class));
+          .withParameterTypes(Diamond.of(Serializable.class));
         assertThat(constructor.unique().isPresent()).isFalse();
       });
 
       it("can assume only one optional occurrence", () -> {
         Nary<TypeConstructor> constructor = context().typeInstance()
           .constructors()
-          .withParameters(Diamond.of(Integer.class));
+          .withParameterTypes(Diamond.of(Integer.class));
         assertThat(constructor.unique().isPresent()).isTrue();
       });
 
       it("can assume a non optional occurrence", () -> {
         TypeConstructor constructor = context().typeInstance()
           .constructors()
-          .withParameters(Diamond.of(Integer.class))
+          .withParameterTypes(Diamond.of(Integer.class))
           .unique().get();
         assertThat(constructor).isNotNull();
       });
@@ -58,7 +58,7 @@ public class ConstructorByParamTypeTest extends JavaSpec<DiamondTestContext> {
       it("throws exception if no match for non optional unique", () -> {
         try {
           context().typeInstance()
-            .constructors().withParameters(Diamond.of(Serializable.class))
+            .constructors().withParameterTypes(Diamond.of(Serializable.class))
             .unique().get();
           failBecauseExceptionWasNotThrown(NoSuchElementException.class);
         } catch (NoSuchElementException e) {

@@ -27,11 +27,17 @@ Here are some examples on accessing fields, methods, and invoking them for a cla
   });
 
   it("offers a simplified no-checked-exception way to access class fields", () -> {
-    final List<String> namesOfObjectFields = Diamond.of(Object.class)
+    final List<String> namesOfStringFields = Diamond.of(String.class)
       .fields().all()
       .map(TypeField::name)
       .collect(Collectors.toList());
-    assertThat(namesOfObjectFields).isEmpty();
+    assertThat(namesOfStringFields).containsExactlyInAnyOrder(
+      "value",
+      "hash",
+      "serialVersionUID",
+      "serialPersistentFields",
+      "CASE_INSENSITIVE_ORDER"
+    );
   });
 
   it("offers a simplified no-checked-exception way to access class methods", () -> {

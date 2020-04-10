@@ -127,7 +127,7 @@ public class ToStringTest extends JavaSpec<DiamondTestContext> {
       describe("for constructors", () -> {
         context().object(() ->
           Diamond.of(ConstructorAccessTestObject.class)
-            .constructors().withParameters(Diamond.of(Integer.class))
+            .constructors().withParameterTypes(Diamond.of(Integer.class))
             .unique().get()
         );
 

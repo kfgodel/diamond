@@ -54,6 +54,6 @@ public interface BoundMethods extends NamedBehaviorSource<BoundMethod> {
    * @return The found methods
    */
   @Override
-  Nary<BoundMethod> withParameters(TypeInstance... paramTypes);
+  Nary<BoundMethod> withParameterTypes(TypeInstance... paramTypes);
 
 }

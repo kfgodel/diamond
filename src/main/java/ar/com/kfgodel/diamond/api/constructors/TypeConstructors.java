@@ -30,6 +30,6 @@ public interface TypeConstructors extends ParameterizedSource<TypeConstructor> {
    * @param paramTypes The type of constructor arguments declared for the constructor
    * @return The constructor that matches the given types or empty optional
    */
-  Nary<TypeConstructor> withParameters(TypeInstance... paramTypes);
+  Nary<TypeConstructor> withParameterTypes(TypeInstance... paramTypes);
 
 }

@@ -43,6 +43,7 @@ public class FieldByNameTest extends JavaSpec<DiamondTestContext> {
         Unary<TypeField> matchingFields = context().typeInstance()
           .fields().named("uniqueField")
           .unique();
+
         assertThat(matchingFields.isPresent()).isTrue();
       });
 

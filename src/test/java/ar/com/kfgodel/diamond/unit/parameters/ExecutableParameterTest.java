@@ -29,7 +29,7 @@ public class ExecutableParameterTest extends JavaSpec<DiamondTestContext> {
 
       context().parameter(() ->
         context().typeInstance()
-          .constructors().withParameters(Diamond.of(Integer.class))
+          .constructors().withParameterTypes(Diamond.of(Integer.class))
           .unique().get()
           .parameters()
           .unique().get()
