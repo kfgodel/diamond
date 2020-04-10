@@ -129,10 +129,10 @@ Outputs the string that is closest to include all the runtime available informat
 Even the declaring type is included as a comment at the end to discriminate overriding methods
 
 ### Executable
-Every type member, in Diamond, is treated as an executable member. Even fields,
+Every type member, in Diamond, is treated as an executable member. Even fields
 can be used as lambdas to be executed and produce side effects.
-Depending on the type of member, the lambda invocation will have different
-semantics. 
+Depending on the specific type of member, the lambda invocation will have 
+different semantics. 
 
 #### How to get a polymorphic lambda from a member: `Executable#asFunction()`
 The returned 'lambda' like object implements almost all the lambda interfaces,
@@ -148,7 +148,7 @@ typeMember.asFunction().accept(3)
 It sets the a value of `3` on the static field named `staticField` in `FunctionalFieldTestObject`.
 Which is equivalent of calling `FunctionalFieldTestObject.staticField = 3` as setter   
 
-#### How to use a member as a getter lambda
+##### How to use any member as a getter lambda
  ```java
 // Set a value on the instance field for the test
 object.instanceField = 20;
@@ -163,7 +163,7 @@ Outputs the value we set earlier in the field, taken from the object
 ```java
 20
   ```
-#### How to use a member as a setter lambda
+##### How to use any member as a setter lambda
  ```java
 TypeMember typeMember = Diamond.of(FunctionalFieldTestObject.class)
   .fields().named("instanceField")
@@ -174,7 +174,7 @@ typeMember.asFunction().accept(object, 30)
 It sets the a value of `30` on the instance field named `instanceField` for the passed `object`.
 Which is equivalent of calling `object.instanceField = 30` as setter   
 
-#### How to know the return type of a member used as function: `Executable#returnType()` 
+#### How to know the return type of any member used as function: `Executable#returnType()` 
  ```java
 TypeMember typeMember = Diamond.of(MethodReturnTypeTestObject.class)
   .methods().named("voidReturnedMethod")
@@ -189,7 +189,8 @@ void
 
 #### How to know the expected parameters of a member used as a function: `Executable#parameters()`
 Although not every member declares an explicit set of parameters like methods do,
-you can ask the member what parameters it expects to receive (useful for methods and constructors) 
+you can ask the member what parameters it expects to receive (useful for methods and constructors).
+Each parameter includes the name and its type 
 
  ```java
 TypeMember typeMember = Diamond.of(Integer.class)
@@ -205,8 +206,33 @@ the byte code (or the lack of it).
 [int arg0]
  ```
 
-## Fields
+#### How to know the expected parameter types of a member used as function: `ParameterizedBehavior#parameterTypes()`
+This gives you only the parameter types. Equivalent to `java.lang.reflect.[Method|Constructor]#getParameterTypes()`
+ ```java
+TypeMember typeMember = Diamond.of(MethodParameterTypesTestObject.class)
+  .methods().named("oneStringOneNumberParameters")
+  .unique().get();
 
-## Methods
+typeMember.parameterTypes()
+  .collectToList()
+```
+Outputs the list of type instances representing the parameter types in order 
+ ```java
+[String @ java.lang, Number @ java.lang]
+ ```
 
-## Constructors
+#### How to know the declared exception of the member: `Exceptionable#declaredExceptions`
+Because not all members declare exceptions this may return empty depending on the member type.
+
+ ```java
+TypeMember typeMember = Diamond.of(MemberExceptionsTestObject.class)
+  .methods().named("method")
+  .unique().get();
+
+typeMember.declaredExceptions()
+  .collectToList()
+```
+Outputs the list of type instances representing the declared exception types 
+ ```java
+[RuntimeException @ java.lang, Exception @ java.lang, Throwable @ java.lang]
+ ```
