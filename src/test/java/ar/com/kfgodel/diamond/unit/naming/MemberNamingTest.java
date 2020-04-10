@@ -39,12 +39,6 @@ public class MemberNamingTest extends JavaSpec<DiamondTestContext> {
 
       describe("for methods", () -> {
 
-        System.out.println(
-          Diamond.of(String.class)
-            .constructors().all()
-            .findFirst().get().name()
-        );
-
         context().method(() -> Diamond.of(MemberNamingTestObject.class)
           .methods().named("methodWithArgs")
           .unique().get()

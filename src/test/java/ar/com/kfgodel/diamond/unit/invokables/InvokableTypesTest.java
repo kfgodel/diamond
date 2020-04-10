@@ -129,9 +129,7 @@ public class InvokableTypesTest extends JavaSpec<DiamondTestContext> {
             InvokableTestObject object = new InvokableTestObject();
 
             Invokable invokable = context().invokable();
-            System.out.println(invokable);
             invokable.invoke(object, 22);
-
 
             assertThat(object.instanceField).isEqualTo(22);
           });
