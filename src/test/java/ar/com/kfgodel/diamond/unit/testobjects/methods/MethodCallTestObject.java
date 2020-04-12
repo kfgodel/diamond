@@ -1,5 +1,7 @@
 package ar.com.kfgodel.diamond.unit.testobjects.methods;
 
+import com.google.common.base.MoreObjects;
+
 /**
  * This type serves as a test object for method call tests
  * Created by kfgodel on 17/11/14.
@@ -36,5 +38,14 @@ public class MethodCallTestObject {
 
   public boolean createdWith(Object a) {
     return firstParam.equals(a);
+  }
+
+  @Override
+  public String toString() {
+    return MoreObjects.toStringHelper(this)
+      .add("staticInvoked", staticInvoked)
+      .add("instanceInvoked", instanceInvoked)
+      .add("firstParam", firstParam)
+      .toString();
   }
 }
