@@ -147,7 +147,7 @@ TypeMethod typeMethod = Diamond.of(MethodCallTestObject.class)
 
 typeMethod.withArguments(1)
 ``
-Outputs the prepared method call created with binding the arguments
+Outputs the prepared method call created by binding the arguments
 ```java
 (1) bound to createdWith(Object) @ MethodCallTestObject
 ```

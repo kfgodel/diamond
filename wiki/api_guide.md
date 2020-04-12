@@ -127,4 +127,7 @@ usually, access some members of a type (fields, methods or constructors)
 - [nativeType](method-api-guide.md#how-to-get-the-native-reflection-instance-for-a-method-typemethodnativetype)
 
 ### Specific for TypeConstructor
-- [name](constructor-api-guide.md#how-to-get-the-name-of-a-constructor-typeconstructorname)
+- [invoke](constructor-api-guide.md#how-to-invoke-a-constructor-typeconstructorinvoke)
+- [as lambda](constructor-api-guide.md#constructor-used-as-lambda)
+- [withArguments](constructor-api-guide.md#how-to-bind-arguments-to-the-parameters-of-a-constructor-typeconstructorwitharguments)
+- [nativeType](constructor-api-guide.md#how-to-get-the-native-reflection-instance-for-a-constructor-typeconstructornativetype)
