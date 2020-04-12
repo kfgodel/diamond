@@ -1,6 +1,7 @@
 package ar.com.kfgodel.diamond.integration;
 
 import ar.com.kfgodel.diamond.api.Diamond;
+import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
@@ -69,9 +70,10 @@ public class ReadmeExampleTest extends JavaSpec<ReadmeExampleTestContext> {
       });
 
       it("offers a simplified way of calling constructors and methods", () -> {
-        final String createdString = (String) Diamond.of(String.class)
+        final TypeConstructor constructor = Diamond.of(String.class)
           .constructors().withNativeParameterTypes(byte[].class)
-          .unique().get()
+          .unique().get();
+        final String createdString = (String) constructor
           .invoke(new byte[0]);
         assertThat(createdString).isEmpty();
       });

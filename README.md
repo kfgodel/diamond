@@ -1,12 +1,12 @@
 Diamond
 ==============
-
 Where your reflection shines better  
 
-A Java project that redefines the way to do reflection on java classes to reduce
-the amount of verbosity needed and attempt to offer a simple dsl for common operations
+A Java project that defines an alternative API to do reflection on java classes 
+in order to reduce the verbosity needed, and offer a simple dsl for common cases.   
+It also adds some operations not available on native reflection
 
-Status: Experimental
+Status: `Experimental`
 
 ### Code Example
 Every diamond abstraction over reflection is created with `Diamond.of()` which
@@ -26,7 +26,7 @@ Here are some examples on accessing fields, methods, and invoking them for a cla
     assertThat(createdObject).isNotNull();
   });
 
-  it("offers a simplified no-checked-exception way to access class fields", () -> {
+  it("offers a simplified no-try-catch way to access class fields", () -> {
     final List<String> namesOfStringFields = Diamond.of(String.class)
       .fields().all()
       .map(TypeField::name)
@@ -40,7 +40,7 @@ Here are some examples on accessing fields, methods, and invoking them for a cla
     );
   });
 
-  it("offers a simplified no-checked-exception way to access class methods", () -> {
+  it("offers a simplified no-try-catch way to access class methods", () -> {
     final List<String> namesOfObjectMethods = Diamond.of(Object.class)
       .methods().all()
       .map(TypeMethod::name)
@@ -62,36 +62,44 @@ Here are some examples on accessing fields, methods, and invoking them for a cla
   });
 
   it("offers a simplified way of calling constructors and methods",()->{
-    final String createdString = (String) Diamond.of(String.class)
-      .constructors().withNativeParameters(byte[].class)
-      .asUni().get()
+    final TypeConstructor constructor = Diamond.of(String.class)
+      .constructors().withNativeParameterTypes(byte[].class)
+      .unique().get();
+    final String createdString = (String) constructor
       .invoke(new byte[0]);
     assertThat(createdString).isEmpty();
   });
 ```
 
-### Design principles
-Working on this project I have tried to follow some rules in order to offer an
-intuitive API and be consistent:
+**[Full API guide here](wiki/api_guide.md)**
 
-- Don't use checked exceptions, convert them to an specific runtime one:  
+### Design principles
+Working on this project I have tried to follow these design decisions in order 
+to offer an intuitive and consistent API:
+
+- Don't use checked exceptions. Convert them to an specific runtime one:  
   Most of the time, when working with reflection, you don't want to be bothered 
-  with security access, unlinked classes, missing methods, etc. And if it fails 
-  it's probably going to be a run time failure, which is not possible to handle at 
-  compile time design
+  with security access, unlinked classes, missing methods, etc. And, if it fails, 
+  it's probably going to be a runtime problem. That allows you to avoid try-catching
+  every time reflection is needed 
   
-- [Nary](https://github.com/kfgodel/nary) is used to provide flexible api:  
-  Because we don't know the classes you will be working on, the number of methods
-  may be predictable to you at compile time but not for me.  So in order to provide 
-  you with an API that allows you to have a single method in a class and multiple
-  in others, I use Nary all over, instead of Optional or Streams.  
+- Use [Nary](https://github.com/kfgodel/nary) for returned elements:  
+  To reduce the number of available methods, but at the same time provide a
+  flexible API I have used Nary when a method returns elements.
+  This allows me to offer a single return type but you can treat it as 
+  an Optional or Stream at compile time.
+  Because I don't know the classes you will be working on, the number of methods
+  or fields may be predictable to you at compile time but not for me.
   
-- Generics: Compile vs Runtime  
+- Reify the 2 hierarchies of a Java type: Compile & Runtime  
   Java has 2 Type systems living in it. One that you see at compile time and probably
   think of it when coding, and the one that is available at runtime.  
-  For instance, List<String> is not a type that exists at runtime, and regardless of
-  what the compiler complains when you assign it to List<Integer>, at run time that's
-  perfectly a legal move.  
-  To cope with this contradiction I prioritized the compile time type system but I 
-  tried to offer some possibilities (like `runtimeType()`) to allow accessing the 
-  underlying runtime type system.  
+  For example, there are no instances of List<String> at runtime, just List.
+  Regardless of what the compiler complains about when you assign it to a 
+  List<Integer> variable, at run time that's perfectly a legal operation.  
+  To deal with this 2 type systems I reified the compile time type hierarchy 
+  and the runtime hierarchy offering you access to both.  
+  However I prioritized the compile time type system over the runtime whenever
+  I had to.  
+  
+  
