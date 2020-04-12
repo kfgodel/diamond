@@ -3,21 +3,6 @@ This doc shows common use cases as examples of the API for type fields.
 Common member behavior is covered [here](members_api_guide.md) so this only
 include API specific for fields
 
-#### How to get the name of a field: `TypeField#name()`
-Equivalent of calling `java.lang.reflect.Field#getName()`
-```java
-TypeField typeField = Diamond.of(String.class)
-  .fields().all()
-  .filter(field -> field.name().startsWith("val"))
-  .findFirst().get();
-
-typeField.name()
-```
-Outputs the `value` array field holding the string chars
-```java
-"value"
-```
-
 #### How to know the type of a field: `TypeField#type()`
 Equivalent of calling `java.lang.reflect.Field#getType()`
 ```java
@@ -62,7 +47,7 @@ typeField.setValueOn(object, 3)
 Which is equivalent of doing `object.publicField = 3`
 
 #### How to get the native reflection instance for a field: `TypeField#nativeType()`
-This is only available for native java types, and allows you to inte-operate
+This is only available for native java types, and allows you to inter-operate
 with other non-Diamond code.
 
 ```java
@@ -169,12 +154,12 @@ This also allows the bound field to be used as a getter Supplier.
 ```java
 BoundFieldTestObject object = ...;
 
-BoundField typeField = Diamond.of(BoundFieldTestObject.class)
+BoundField boundField = Diamond.of(BoundFieldTestObject.class)
   .fields().named("field")
   .unique().get()
   .bindTo(object);
 
-typeField.get()
+boundField.get()
 ```
 Outputs the bound field which has the implicit object
 ```java
@@ -188,12 +173,12 @@ useful as a setter consumer with `accept()`.
 ```java
 BoundFieldTestObject object = ...;
 
-BoundField typeField = Diamond.of(BoundFieldTestObject.class)
+BoundField boundField = Diamond.of(BoundFieldTestObject.class)
   .fields().named("field")
   .unique().get()
   .bindTo(object);
 
-typeField.set(42)
+boundField.set(42)
 ```   
 Which sets the value of the field to `42` in that instance
 

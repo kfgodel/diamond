@@ -1,7 +1,22 @@
 # Structure of Diamond API
 This doc shows an overview of the Diamond API structure
 
+### Introduction
+There are 4 main concepts on Diamond:
+- **TypeInstance:**   
+  Represents a single type and unifies all the variations that native reflection
+  has for Java types (Class, ParameterizedType, AnnotatedType, TypeVariable, etc)
+- **TypeField:**   
+  Represents a class field and allows its manipulation. Equivalent to `java.lang.Field`
+- **TypeMethod:**  
+  Represents a class or interface method and allows its manipulation. Equivalent to `java.lang.Method`
+- **TypeConstructor:**  
+  Represents a class constructor and allows instantiations. Equivalent to `java.lang.Constructor`
+
 ## TypeInstance
+This is probably the starting object to access the rest of the API.  
+Usually created from a class: `Diamond.of(String.class)`
+
 - [names](names_api_guide.md)
   - [shortName](names_api_guide.md#how-to-get-the-simple-name-of-a-class-typenamesshortname)
   - [commonName](names_api_guide.md#how-to-get-the-name-of-a-class-typenamescommonname)
@@ -80,6 +95,9 @@ This doc shows an overview of the Diamond API structure
   - typeFor
 
 ## Type Members
+If you want to manipulate objects or execute code using reflection you will, 
+usually, access some members of a type (fields, methods or constructors)
+
 ### Common to any member
 - [name](members_api_guide.md#how-to-access-the-name-of-a-member-namedname)
 - [annotations](members_api_guide.md#how-to-access-the-annotations-declared-on-a-member-annotatedannotations)
@@ -93,7 +111,6 @@ This doc shows an overview of the Diamond API structure
   - [declaredExceptions](members_api_guide.md#how-to-know-the-declared-exception-of-the-member-exceptionabledeclaredexceptions)
   
 ### Specific for TypeField
-- [name](field-api-guide.md#how-to-get-the-name-of-a-field-typefieldname)
 - [type](field-api-guide.md#how-to-know-the-type-of-a-field-typefieldtype)
 - [getValueFrom](field-api-guide.md#how-to-get-the-value-of-a-field-from-an-object-typefieldgetvaluefrom)
 - [setValueOn](field-api-guide.md#how-to-set-the-value-of-a-field-on-an-object-typefieldsetvalueon)
@@ -102,7 +119,12 @@ This doc shows an overview of the Diamond API structure
 - [nativeType](field-api-guide.md#how-to-get-the-native-reflection-instance-for-a-field-typefieldnativetype)
 
 ### Specific for TypeMethod
-- [name](method-api-guide.md#how-to-get-the-name-of-a-method-typemethodname)
+- [defaultValue](method-api-guide.md#how-to-get-the-default-value-of-a-method-typemethoddefaultvalue)
+- [invokeOn](method-api-guide.md#how-to-invoke-a-method-in-an-instance-typemethodinvokeon)
+- [as a lambda](method-api-guide.md#method-used-as-lambda)
+- [bindTo](method-api-guide.md#how-to-bind-an-instance-to-a-type-method-typemethodbindto)
+- [withArguments](method-api-guide.md#how-to-bind-arguments-to-the-parameters-of-a-method-typemethodwitharguments)
+- [nativeType](method-api-guide.md#how-to-get-the-native-reflection-instance-for-a-method-typemethodnativetype)
 
 ### Specific for TypeConstructor
 - [name](constructor-api-guide.md#how-to-get-the-name-of-a-constructor-typeconstructorname)
