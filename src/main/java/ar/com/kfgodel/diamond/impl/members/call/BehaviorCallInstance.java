@@ -2,6 +2,7 @@ package ar.com.kfgodel.diamond.impl.members.call;
 
 import ar.com.kfgodel.diamond.api.members.TypeBehavior;
 import ar.com.kfgodel.diamond.api.members.call.BehaviorCall;
+import ar.com.kfgodel.diamond.impl.strings.DebugPrinter;
 
 /**
  * This type represents a behavior call
@@ -58,4 +59,10 @@ public class BehaviorCallInstance implements BehaviorCall {
   public Object get() {
     return invoke();
   }
+
+  @Override
+  public String toString() {
+    return DebugPrinter.print(this);
+  }
+
 }

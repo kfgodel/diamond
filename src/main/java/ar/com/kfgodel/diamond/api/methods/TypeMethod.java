@@ -93,7 +93,8 @@ public interface TypeMethod extends TypeMember, TypeBehavior, PolymorphicInvokab
   void accept(Object argumentOrInstance, Object extraArgument);
 
   /**
-   * Invokes this method as a boolean function with different semantics depending on whether it's instance or static method:
+   * Invokes this method as a boolean function with different semantics depending on whether it's instance
+   * or static method:
    * - Static: Invokes the method with the given argument
    * - Instance: Invokes as no arg method over the given instance
    *

@@ -4,6 +4,7 @@ import ar.com.kfgodel.diamond.api.constructors.TypeConstructor;
 import ar.com.kfgodel.diamond.api.fields.BoundField;
 import ar.com.kfgodel.diamond.api.fields.TypeField;
 import ar.com.kfgodel.diamond.api.lambdas.Lambda;
+import ar.com.kfgodel.diamond.api.members.call.BehaviorCall;
 import ar.com.kfgodel.diamond.api.members.modifiers.Modifier;
 import ar.com.kfgodel.diamond.api.methods.BoundMethod;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
@@ -13,6 +14,7 @@ import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import ar.com.kfgodel.nary.api.Nary;
 
+import java.util.Arrays;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -159,6 +161,22 @@ public class DebugPrinter {
     return modifier.declaration();
   }
 
+  /**
+   * Generats a String representation of the given behavior call
+   */
+  public static String print(BehaviorCall call) {
+
+    String arguments = Arrays.stream(call.arguments())
+      .map(String::valueOf)
+      .collect(Collectors.joining(COMA));
+
+    return builtString((builder) -> {
+      builder.append("(");
+      builder.append(arguments);
+      builder.append(") bound to ");
+      builder.append(call.boundBehavior());
+    });
+  }
 
   /**
    * Generates a string representation of the given lambda
