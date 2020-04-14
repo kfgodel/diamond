@@ -76,7 +76,6 @@ public class GenericMembersTest extends JavaSpec<DiamondTestContext> {
   }
 
   private static <S> TypeInstance getTypeVariableS() {
-    return Diamond.types().from(new ReferenceOf<S>() {
-    }.getReferencedTypeVariable());
+    return Diamond.types().from(new ReferenceOf<S>() {});
   }
 }

@@ -156,8 +156,7 @@ public class ClassTypeTest extends JavaSpec<DiamondTestContext> {
   }
 
   private TypeInstance getStringArrayType() {
-    return Diamond.types().from(new ReferenceOf<String[]>() {
-    }.getReferencedAnnotatedType());
+    return Diamond.types().from(new ReferenceOf<String[]>() {});
   }
 
 

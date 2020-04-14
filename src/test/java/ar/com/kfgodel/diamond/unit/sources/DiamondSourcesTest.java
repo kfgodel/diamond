@@ -10,6 +10,7 @@ import ar.com.kfgodel.diamond.api.methods.TypeMethod;
 import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
+import ar.com.kfgodel.diamond.api.types.reference.ReferenceOf;
 import ar.com.kfgodel.diamond.unit.DiamondTestContext;
 import ar.com.kfgodel.diamond.unit.testobjects.ClassWithIdField;
 import ar.com.kfgodel.diamond.unit.testobjects.modifiers.PublicMembersTestObject;
@@ -23,6 +24,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.util.List;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -42,6 +44,10 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
         it("can be obtained from Class instances", () -> {
           TypeInstance diamondClass = Diamond.types().from(Object.class);
           assertThat(diamondClass.name()).isEqualTo("Object");
+        });
+        it("can be obtained from type references", () -> {
+          TypeInstance diamondClass = Diamond.types().from(new ReferenceOf<List<String>>() {});
+          assertThat(diamondClass.name()).isEqualTo("List");
         });
         it("can be obtained from complete class names", () -> {
           TypeInstance diamondClass = Diamond.types().named("java.lang.Object");

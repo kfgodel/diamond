@@ -150,13 +150,12 @@ public class AllFieldsPerTypeTest extends JavaSpec<DiamondTestContext> {
   }
 
   private static TypeInstance getChildClassSubTypeWildcardType() {
-    return getTypeFrom(new ReferenceOf<List<? extends ChildClass>>() {
-    }).generics().arguments().findFirst().get();
+    return getTypeFrom(new ReferenceOf<List<? extends ChildClass>>() {})
+      .generics().arguments().findFirst().get();
   }
 
   private static <A extends ChildClass & Collection> TypeInstance getChildClassAndNumberSubtypeVariableType() {
-    return getTypeFrom(new ReferenceOf<A>() {
-    });
+    return getTypeFrom(new ReferenceOf<A>() {});
   }
 
   private static TypeInstance getTypeFrom(ReferenceOf<?> reference) {
@@ -166,8 +165,7 @@ public class AllFieldsPerTypeTest extends JavaSpec<DiamondTestContext> {
   }
 
   private static TypeInstance getParameterizedParentClass() {
-    return getTypeFrom(new ReferenceOf<ParentClass<String, Integer>>() {
-    });
+    return getTypeFrom(new ReferenceOf<ParentClass<String, Integer>>() {});
   }
 
 }

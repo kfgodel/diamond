@@ -62,20 +62,18 @@ public class RuntimeTypeTest extends JavaSpec<DiamondTestContext> {
   }
 
   private static TypeInstance getUnboundedWildcardType() {
-    TypeInstance listType = getTypeFrom(new ReferenceOf<List<?>>() {
-    });
+    TypeInstance listType = getTypeFrom(new ReferenceOf<List<?>>() {});
     TypeInstance unboundedWildcard = listType.generics().arguments().findFirst().get();
     return unboundedWildcard;
   }
 
   private static TypeInstance getChildClassSubTypeWildcardType() {
-    return getTypeFrom(new ReferenceOf<List<? extends ChildClass>>() {
-    }).generics().arguments().findFirst().get();
+    return getTypeFrom(new ReferenceOf<List<? extends ChildClass>>() {})
+      .generics().arguments().findFirst().get();
   }
 
   private static <A extends ChildClass & Collection> TypeInstance getChildClassAndNumberSubtypeVariableType() {
-    return getTypeFrom(new ReferenceOf<A>() {
-    });
+    return getTypeFrom(new ReferenceOf<A>() {});
   }
 
   private static TypeInstance getTypeFrom(ReferenceOf<?> reference) {
@@ -85,14 +83,12 @@ public class RuntimeTypeTest extends JavaSpec<DiamondTestContext> {
   }
 
   private static TypeInstance getParameterizedParentClass() {
-    return getTypeFrom(new ReferenceOf<ParentClass<String, Integer>>() {
-    });
+    return getTypeFrom(new ReferenceOf<ParentClass<String, Integer>>() {});
   }
 
   private static TypeInstance getArrayOfParameterizedListsType() {
-    AnnotatedType annotatedType = new ReferenceOf<List<Integer>[]>() {
-    }.getReferencedAnnotatedType();
-    TypeInstance typeInstance = Diamond.types().from(annotatedType);
+    final ReferenceOf<List<Integer>[]> reference = new ReferenceOf<List<Integer>[]>() {};
+    TypeInstance typeInstance = Diamond.types().from(reference);
     return typeInstance;
   }
 

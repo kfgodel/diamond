@@ -3,6 +3,7 @@ package ar.com.kfgodel.diamond.api.sources;
 import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 import ar.com.kfgodel.diamond.api.types.TypeDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.diamond.api.types.reference.ReferenceOf;
 import ar.com.kfgodel.nary.api.Nary;
 
 import java.lang.reflect.AnnotatedType;
@@ -27,6 +28,16 @@ public interface TypeSources {
    * @throws IllegalArgumentException if null is passed
    */
   TypeInstance from(Object nativeType) throws DiamondException, IllegalArgumentException;
+
+  /**
+   * Retrieves a type instance for a complex type that can be defined only by a reference instance<br>
+   * Using this method you can get the {@link TypeInstance} version of parameterized types,
+   * type variables, wildcard types, generified arrays, etc.<br>
+   * @param typeReference A reference to a complex type
+   * @return The type instance representing the type defined by the reference
+   * @throws IllegalArgumentException if null is passed
+   */
+  TypeInstance from(ReferenceOf<?> typeReference) throws IllegalArgumentException;
 
   /**
    * Retrieves the type instances for an array of objects that are part of the native reflection API<br>

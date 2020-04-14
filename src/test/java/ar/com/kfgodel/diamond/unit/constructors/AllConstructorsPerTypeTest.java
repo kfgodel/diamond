@@ -12,7 +12,6 @@ import info.kfgodel.jspek.api.JavaSpec;
 import info.kfgodel.jspek.api.JavaSpecRunner;
 import org.junit.runner.RunWith;
 
-import java.lang.reflect.AnnotatedType;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -125,27 +124,23 @@ public class AllConstructorsPerTypeTest extends JavaSpec<DiamondTestContext> {
   }
 
   private TypeInstance getGenericArrayType() {
-    return getTypeFrom(new ReferenceOf<List<String>[]>() {
-    });
+    return getTypeFrom(new ReferenceOf<List<String>[]>() {});
   }
 
 
   private static TypeInstance getUnboundedWildcardType() {
-    TypeInstance listType = getTypeFrom(new ReferenceOf<List<?>>() {
-    });
+    TypeInstance listType = getTypeFrom(new ReferenceOf<List<?>>() {});
     TypeInstance unboundedWildcard = listType.generics().arguments().findFirst().get();
     return unboundedWildcard;
   }
 
   private static TypeInstance getTypeFrom(ReferenceOf<?> reference) {
-    AnnotatedType annotatedType = reference.getReferencedAnnotatedType();
-    TypeInstance typeInstance = Diamond.types().from(annotatedType);
+    TypeInstance typeInstance = Diamond.types().from(reference);
     return typeInstance;
   }
 
   private static TypeInstance getParameterizedParentClass() {
-    return getTypeFrom(new ReferenceOf<ParentClass<String, Integer>>() {
-    });
+    return getTypeFrom(new ReferenceOf<ParentClass<String, Integer>>() {});
   }
 
 }

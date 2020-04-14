@@ -5,6 +5,7 @@ import ar.com.kfgodel.diamond.api.exceptions.DiamondException;
 import ar.com.kfgodel.diamond.api.sources.TypeSources;
 import ar.com.kfgodel.diamond.api.types.TypeDescription;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
+import ar.com.kfgodel.diamond.api.types.reference.ReferenceOf;
 import ar.com.kfgodel.diamond.impl.natives.raws.RawClassesCalculator;
 import ar.com.kfgodel.diamond.impl.types.FixedTypeInstance;
 import ar.com.kfgodel.diamond.impl.types.VariableTypeInstance;
@@ -45,6 +46,11 @@ public class TypeSourceImpl implements TypeSources {
       final TypeDescription typeDescription = descriptor.describe(type);
       return fromDescription(typeDescription);
     });
+  }
+
+  @Override
+  public TypeInstance from(ReferenceOf<?> typeReference) throws IllegalArgumentException {
+    return from(typeReference.getReferencedAnnotatedType());
   }
 
   @Override

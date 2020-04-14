@@ -123,13 +123,11 @@ public class TypeEqualityTest extends JavaSpec<DiamondTestContext> {
   }
 
   public static <A> TypeInstance getTypeVariableA() {
-    return getTypeFrom(new ReferenceOf<A>() {
-    });
+    return getTypeFrom(new ReferenceOf<A>() {});
   }
 
   public static <B> TypeInstance getTypeVariableB() {
-    return getTypeFrom(new ReferenceOf<B>() {
-    });
+    return getTypeFrom(new ReferenceOf<B>() {});
   }
 
   private static TypeInstance getTypeFrom(ReferenceOf<?> reference) {
@@ -147,53 +145,47 @@ public class TypeEqualityTest extends JavaSpec<DiamondTestContext> {
   }
 
   public static <A extends String> TypeInstance getTypeVariableASubTypeOfString() {
-    return getTypeFrom(new ReferenceOf<A>() {
-    });
+    return getTypeFrom(new ReferenceOf<A>() {});
   }
 
   public static <A extends Number> TypeInstance getTypeVariableASubTypeOfNumber() {
-    return getTypeFrom(new ReferenceOf<A>() {
-    });
+    return getTypeFrom(new ReferenceOf<A>() {});
   }
 
   private TypeInstance getWildcardSubTypeOfString() {
-    return getTypeFrom(new ReferenceOf<List<? extends String>>() {
-    }).generics().arguments().findFirst().get();
+    return getTypeFrom(new ReferenceOf<List<? extends String>>() {})
+      .generics().arguments().findFirst().get();
   }
 
   private TypeInstance getWildcardSubTypeOfNumber() {
-    return getTypeFrom(new ReferenceOf<List<? extends Number>>() {
-    }).generics().arguments().findFirst().get();
+    return getTypeFrom(new ReferenceOf<List<? extends Number>>() {})
+      .generics().arguments().findFirst().get();
   }
 
   private TypeInstance getWildcardSupertypeOfString() {
-    return getTypeFrom(new ReferenceOf<List<? super String>>() {
-    }).generics().arguments().findFirst().get();
+    return getTypeFrom(new ReferenceOf<List<? super String>>() {})
+      .generics().arguments().findFirst().get();
   }
 
   private TypeInstance getWildcardSupertypeOfNumber() {
-    return getTypeFrom(new ReferenceOf<List<? super Number>>() {
-    }).generics().arguments().findFirst().get();
+    return getTypeFrom(new ReferenceOf<List<? super Number>>() {})
+      .generics().arguments().findFirst().get();
   }
 
   private TypeInstance getStringListType() {
-    return getTypeFrom(new ReferenceOf<List<String>>() {
-    });
+    return getTypeFrom(new ReferenceOf<List<String>>() {});
   }
 
   private TypeInstance getNumberListType() {
-    return getTypeFrom(new ReferenceOf<List<Number>>() {
-    });
+    return getTypeFrom(new ReferenceOf<List<Number>>() {});
   }
 
   private TypeInstance getStringArrayType() {
-    return getTypeFrom(new ReferenceOf<String[]>() {
-    });
+    return getTypeFrom(new ReferenceOf<String[]>() {});
   }
 
   private TypeInstance getNumberArrayType() {
-    return getTypeFrom(new ReferenceOf<Number[]>() {
-    });
+    return getTypeFrom(new ReferenceOf<Number[]>() {});
   }
 
 }

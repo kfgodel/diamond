@@ -96,8 +96,8 @@ public class TypePackageTest extends JavaSpec<DiamondTestContext> {
   }
 
   private static TypeInstance getChildClassSubTypeWildcardType() {
-    return getTypeFrom(new ReferenceOf<List<? extends ChildClass>>() {
-    }).generics().arguments().findFirst().get();
+    return getTypeFrom(new ReferenceOf<List<? extends ChildClass>>() {})
+      .generics().arguments().findFirst().get();
   }
 
   private static TypeInstance getTypeFrom(ReferenceOf<?> reference) {

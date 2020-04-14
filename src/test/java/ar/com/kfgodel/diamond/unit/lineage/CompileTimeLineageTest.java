@@ -120,8 +120,8 @@ public class CompileTimeLineageTest extends JavaSpec<DiamondTestContext> {
         });
 
         it("includes parameterized and raw types", () -> {
-          CompileTimeHierarchy inheritance = Diamond.types().from(new ReferenceOf<List<String>>() {
-          }.getReferencedAnnotatedType()).hierarchy();
+          CompileTimeHierarchy inheritance = Diamond.types().from(new ReferenceOf<List<String>>() {})
+            .hierarchy();
 
           List<String> allTypeNames = inheritance.lineage().allRelatedTypes()
             .map(TypeInstance::declaration)
@@ -155,8 +155,8 @@ public class CompileTimeLineageTest extends JavaSpec<DiamondTestContext> {
         });
 
         it("doesn't include implemented types", () -> {
-          CompileTimeHierarchy inheritance = Diamond.types().from(new ReferenceOf<List<String>>() {
-          }.getReferencedAnnotatedType()).hierarchy();
+          CompileTimeHierarchy inheritance = Diamond.types().from(new ReferenceOf<List<String>>() {})
+            .hierarchy();
 
           List<String> allTypeNames = inheritance.lineage().allExtendedTypes()
             .map(TypeInstance::declaration)
@@ -187,8 +187,8 @@ public class CompileTimeLineageTest extends JavaSpec<DiamondTestContext> {
         });
 
         it("doesn't include extended types", () -> {
-          CompileTimeHierarchy inheritance = Diamond.types().from(new ReferenceOf<List<String>>() {
-          }.getReferencedAnnotatedType()).hierarchy();
+          CompileTimeHierarchy inheritance = Diamond.types().from(new ReferenceOf<List<String>>() {})
+            .hierarchy();
 
           List<String> allTypeNames = inheritance.lineage().allImplementedTypes()
             .map(TypeInstance::declaration)

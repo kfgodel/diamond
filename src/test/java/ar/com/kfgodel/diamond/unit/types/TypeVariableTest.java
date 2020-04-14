@@ -104,8 +104,7 @@ public class TypeVariableTest extends JavaSpec<DiamondTestContext> {
   }
 
   private static <T extends @TestAnnotation2 Number & Comparable> AnnotatedType getAnnotatedType() {
-    return new ReferenceOf<@TestAnnotation1 T>() {
-      }.getReferencedAnnotatedType();
+    return new ReferenceOf<@TestAnnotation1 T>() {}.getReferencedAnnotatedType();
   }
 
 }

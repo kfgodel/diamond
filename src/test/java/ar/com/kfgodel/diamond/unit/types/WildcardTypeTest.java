@@ -105,8 +105,8 @@ public class WildcardTypeTest extends JavaSpec<DiamondTestContext> {
     AnnotatedParameterizedType annotatedMapType = (AnnotatedParameterizedType) new ReferenceOf<Map<
       @TestAnnotation1 ? extends @TestAnnotation3 Number,
       @TestAnnotation2 ? super @TestAnnotation3 Serializable
-      >>() {
-    }.getReferencedAnnotatedType();
+      >>() {}
+      .getReferencedAnnotatedType();
     AnnotatedType annotatedKeyType = selector.apply(annotatedMapType.getAnnotatedActualTypeArguments());
     return Diamond.types().from(annotatedKeyType);
   }

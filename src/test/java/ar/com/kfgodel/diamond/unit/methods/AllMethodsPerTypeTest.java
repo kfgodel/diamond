@@ -164,8 +164,7 @@ public class AllMethodsPerTypeTest extends JavaSpec<DiamondTestContext> {
 
 
   private static TypeInstance getUnboundedWildcardType() {
-    TypeInstance listType = getTypeFrom(new ReferenceOf<List<?>>() {
-    });
+    TypeInstance listType = getTypeFrom(new ReferenceOf<List<?>>() {});
     TypeInstance unboundedWildcard = listType.generics().arguments().findFirst().get();
     return unboundedWildcard;
   }
@@ -176,8 +175,7 @@ public class AllMethodsPerTypeTest extends JavaSpec<DiamondTestContext> {
   }
 
   private static <A extends Comparable & Collection> TypeInstance getComparableAndNumberSubtypeVariableType() {
-    return getTypeFrom(new ReferenceOf<A>() {
-    });
+    return getTypeFrom(new ReferenceOf<A>() {});
   }
 
   private static TypeInstance getTypeFrom(ReferenceOf<?> reference) {
@@ -187,8 +185,7 @@ public class AllMethodsPerTypeTest extends JavaSpec<DiamondTestContext> {
   }
 
   private static TypeInstance getParameterizedParentClass() {
-    return getTypeFrom(new ReferenceOf<ParentClass<String, Integer>>() {
-    });
+    return getTypeFrom(new ReferenceOf<ParentClass<String, Integer>>() {});
   }
 
 }

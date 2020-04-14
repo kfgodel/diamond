@@ -52,8 +52,7 @@ public class ToStringTest extends JavaSpec<DiamondTestContext> {
       });
 
       describe("for generic types", () -> {
-        context().object(() -> Diamond.types().from(new ReferenceOf<Map<String, Integer>>() {
-        }.getReferencedAnnotatedType()));
+        context().object(() -> Diamond.types().from(new ReferenceOf<Map<String, Integer>>() {}));
 
         it("is name <arguments> @ package", () -> {
           assertThat(context().toStringResult()).isEqualTo("Map<String, Integer> @ java.util");
@@ -62,8 +61,7 @@ public class ToStringTest extends JavaSpec<DiamondTestContext> {
 
       describe("for variable types", () -> {
         context().object(() ->
-          Diamond.types().from(new ReferenceOf<List<? extends String>>() {
-          }.getReferencedAnnotatedType())
+          Diamond.types().from(new ReferenceOf<List<? extends String>>() {})
             .generics().arguments().findFirst().get()
         );
 

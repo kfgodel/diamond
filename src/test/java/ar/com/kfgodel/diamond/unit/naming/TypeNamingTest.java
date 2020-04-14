@@ -150,23 +150,20 @@ public class TypeNamingTest extends JavaSpec<DiamondTestContext> {
   }
 
   private static TypeInstance getStringListType() {
-    return getTypeFrom(new ReferenceOf<@TestAnnotation1 List<@TestAnnotation2 String>>() {
-    });
+    return getTypeFrom(new ReferenceOf<@TestAnnotation1 List<@TestAnnotation2 String>>() {});
   }
 
   private static TypeInstance getStringArrayType() {
-    return getTypeFrom(new ReferenceOf<@TestAnnotation2 String @TestAnnotation1 []>() {
-    });
+    return getTypeFrom(new ReferenceOf<@TestAnnotation2 String @TestAnnotation1 []>() {});
   }
 
   private static <A extends @TestAnnotation2 String> TypeInstance getTypeVariableA() {
-    return getTypeFrom(new ReferenceOf<@TestAnnotation1 A>() {
-    });
+    return getTypeFrom(new ReferenceOf<@TestAnnotation1 A>() {});
   }
 
   private static TypeInstance getWildcardType() {
-    return getTypeFrom(new ReferenceOf<List<@TestAnnotation1 ? extends @TestAnnotation2 String>>() {
-    }).generics().arguments().findFirst().get();
+    return getTypeFrom(new ReferenceOf<List<@TestAnnotation1 ? extends @TestAnnotation2 String>>() {})
+      .generics().arguments().findFirst().get();
   }
 
 

@@ -117,15 +117,13 @@ public class AllTypeInterfacesTest extends JavaSpec<DiamondTestContext> {
   }
 
   private static TypeInstance getUnboundedWildcardType() {
-    TypeInstance listType = getTypeFrom(new ReferenceOf<List<?>>() {
-    });
+    TypeInstance listType = getTypeFrom(new ReferenceOf<List<?>>() {});
     TypeInstance unboundedWildcard = listType.generics().arguments().findFirst().get();
     return unboundedWildcard;
   }
 
   private static <A extends Comparable & ChildInterface2> TypeInstance getComparableAndChildInterface2SubtypeVariableType() {
-    return getTypeFrom(new ReferenceOf<A>() {
-    });
+    return getTypeFrom(new ReferenceOf<A>() {});
   }
 
   private static TypeInstance getTypeFrom(ReferenceOf<?> reference) {

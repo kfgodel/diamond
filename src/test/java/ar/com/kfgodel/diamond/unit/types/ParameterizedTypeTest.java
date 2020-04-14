@@ -118,8 +118,7 @@ public class ParameterizedTypeTest extends JavaSpec<DiamondTestContext> {
       });
 
       it("is a subtype of its raw type", () -> {
-        TypeInstance parameterizedMap = Diamond.types().from(new ReferenceOf<Map<String, Integer>>() {
-        }.getReferencedAnnotatedType());
+        TypeInstance parameterizedMap = Diamond.types().from(new ReferenceOf<Map<String, Integer>>() {});
 
         assertThat(parameterizedMap.is().subTypeOf(Diamond.of(Map.class))).isTrue();
       });
@@ -139,7 +138,7 @@ public class ParameterizedTypeTest extends JavaSpec<DiamondTestContext> {
   }
 
   private static AnnotatedType getAnnotatedType() {
-    return new ReferenceOf<@TestAnnotation1 ParentClass<@TestAnnotation2 String, @TestAnnotation3 Integer>>() {
-      }.getReferencedAnnotatedType();
+    return new ReferenceOf<@TestAnnotation1 ParentClass<@TestAnnotation2 String, @TestAnnotation3 Integer>>() {}
+    .getReferencedAnnotatedType();
   }
 }

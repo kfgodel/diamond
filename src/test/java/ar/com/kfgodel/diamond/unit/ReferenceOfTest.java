@@ -26,14 +26,12 @@ public class ReferenceOfTest extends JavaSpec<DiamondTestContext> {
     describe("TypeReferences", () -> {
 
       it("can reference a non parameterized type", () -> {
-        Class<Object> referencedType = new ReferenceOf<Object>() {
-        }.getReferencedClass();
+        Class<Object> referencedType = new ReferenceOf<Object>() {}.getReferencedClass();
         assertThat(referencedType).isEqualTo(Object.class);
       });
 
       it("can reference a parameterized type", () -> {
-        ParameterizedType referencedType = new ReferenceOf<List<String>>() {
-        }.getReferencedParameterizedType();
+        ParameterizedType referencedType = new ReferenceOf<List<String>>() {}.getReferencedParameterizedType();
         assertThat(referencedType.getRawType()).isEqualTo(List.class);
         assertThat(referencedType.getActualTypeArguments()[0]).isEqualTo(String.class);
       });
@@ -45,15 +43,13 @@ public class ReferenceOfTest extends JavaSpec<DiamondTestContext> {
       });
 
       it("can reference a generic array type", () -> {
-        GenericArrayType referencedType = new ReferenceOf<List<String>[]>() {
-        }.getGenericArrayType();
+        GenericArrayType referencedType = new ReferenceOf<List<String>[]>() {}.getGenericArrayType();
         assertThat(referencedType.getGenericComponentType().getTypeName())
           .isEqualTo("java.util.List<java.lang.String>");
       });
 
       it("can answer if reference type corresponds to a specific type", () -> {
-        ReferenceOf<Object> reference = new ReferenceOf<Object>() {
-        };
+        ReferenceOf<Object> reference = new ReferenceOf<Object>() {};
         assertThat(reference.referencesAClass()).isEqualTo(true);
         assertThat(reference.referencesAParameterizedType()).isEqualTo(false);
         assertThat(reference.referencesATypeVariable()).isEqualTo(false);
@@ -73,8 +69,7 @@ public class ReferenceOfTest extends JavaSpec<DiamondTestContext> {
 
       it("must be parameterized", () -> {
         try {
-          new ReferenceOf() {
-          };
+          new ReferenceOf() {};
           failBecauseExceptionWasNotThrown(DiamondException.class);
         } catch (DiamondException e) {
           assertThat(e).hasMessage("ReferenceOf must be parameterized with a generic type to be used");
@@ -84,8 +79,7 @@ public class ReferenceOfTest extends JavaSpec<DiamondTestContext> {
   }
 
   private <T, R extends T> TypeVariable referenceATypeVariable(R optional) {
-    return new ReferenceOf<R>() {
-    }.getReferencedTypeVariable();
+    return new ReferenceOf<R>() {}.getReferencedTypeVariable();
   }
 
 
