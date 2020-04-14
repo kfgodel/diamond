@@ -97,11 +97,10 @@ public class ParameterizedTypeTest extends JavaSpec<DiamondTestContext> {
           .flatMap(Annotated::annotations)
           .map(Annotation::annotationType)
           .collect(Collectors.toList());
-        assertThat(annotationTypes)
-          .isEqualTo(Arrays.asList(
-            TestAnnotation2.class,
-            TestAnnotation3.class
-          ));
+        assertThat(annotationTypes).containsExactlyInAnyOrder(
+          TestAnnotation2.class,
+          TestAnnotation3.class
+        );
       });
 
       /**
