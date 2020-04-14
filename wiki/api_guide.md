@@ -43,17 +43,17 @@ Usually created from a class: `Diamond.of(String.class)`
 - [newInstance](instantiation_api_guide.md#how-to-quickly-create-an-instance-of-a-type-using-the-niladic-constructor-typeinstancenewinstance) 
 - [get](instantiation_api_guide.md#how-to-use-a-type-as-a-supplier-typeinstanceget)
 
-- declaration
-- is
-  - partOf
-  - subTypeOf
-  - superTypeOf
-  - assignableFrom
-  - assignableTo
-  - typeFor
+- [is](type-tests_api_guide.md#is-questions)
+  - [instance](type-tests_api_guide.md#how-to-test-if-an-instance-belongs-to-a-type-typetestsinstance)
+  - [partOf](type-tests_api_guide.md#how-to-test-if-a-type-represents-an-interface-typetestspartof)
+  - [subTypeOf](type-tests_api_guide.md#how-to-test-if-a-type-is-a-compile-time-subtype-typetestssubtypeof)
+  - [superTypeOf](type-tests_api_guide.md#how-to-test-if-a-type-is-a-compile-time-supertype-typetestssupertypeof)
+  - [assignableFrom](type-tests_api_guide.md#how-to-test-if-a-type-includes-other-type-typetestsassignablefrom)
+  - [assignableTo](type-tests_api_guide.md#how-to-test-if-a-type-can-be-assigned-into-other-type-typetestsassignableto)
 
-- categories
 - declaredPackage
+- declaration
+- categories
 - componentType
 - reflectedAs
 
