@@ -40,11 +40,44 @@ Usually created from a class: `Diamond.of(String.class)`
   - [niladic](accessing-members_api_guide.md#how-to-get-the-no-arg-constructor-of-a-type-typeconstructorsniladic)
   - [withParameters](accessing-members_api_guide.md#how-to-get-a-constructor-by-its-parameter-types-typeconstructorswithparametertypes)
 
+- [newInstance](instantiation_api_guide.md#how-to-quickly-create-an-instance-of-a-type-using-the-niladic-constructor-typeinstancenewinstance) 
+- [get](instantiation_api_guide.md#how-to-use-a-type-as-a-supplier-typeinstanceget)
+
+- declaration
+- is
+  - partOf
+  - subTypeOf
+  - superTypeOf
+  - assignableFrom
+  - assignableTo
+  - typeFor
+
 - categories
 - declaredPackage
 - componentType
 - reflectedAs
 
+- generics
+  - bounds
+    - upper
+    - lower
+  - arguments
+  - parameters
+  
+- hierarchy (compile time)
+  - extendedType
+  - implementedTypes
+  - lineage
+    - lowestDescendant
+    - highestAncestor
+    - ancestorOf
+    - descendantOf
+    - allExtendedTypes
+    - allImplementedTypes
+    - allRelatedTypes
+    - genericArgumentsOf
+  - supertypes
+  
 - runtime
  - type
  - classes
@@ -61,38 +94,6 @@ Usually created from a class: `Diamond.of(String.class)`
      - allRelatedTypes
      - genericArgumentsOf
    - supertypes
-
-- generics
-  - bounds
-    - upper
-    - lower
-  - arguments
-  - parameters
-- hierarchy
-  - extendedType
-  - implementedTypes
-  - lineage
-    - lowestDescendant
-    - highestAncestor
-    - ancestorOf
-    - descendantOf
-    - allExtendedTypes
-    - allImplementedTypes
-    - allRelatedTypes
-    - genericArgumentsOf
-  - supertypes
-
-- newInstance
-- get
-
-- declaration
-- is
-  - partOf
-  - subTypeOf
-  - superTypeOf
-  - assignableFrom
-  - assignableTo
-  - typeFor
 
 ## Type Members
 If you want to manipulate objects or execute code using reflection you will, 
