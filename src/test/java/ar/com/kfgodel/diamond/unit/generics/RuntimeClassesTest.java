@@ -56,8 +56,6 @@ public class RuntimeClassesTest extends JavaSpec<DiamondTestContext> {
       it("a multi upper bounded type variable are its bounds", () -> {
         test().typeInstance(()-> getChildClassAndNumberSubtypeVariableType());
 
-        System.out.println(test().runtimeClasses());
-
         assertThat(test().runtimeClasses()).containsExactlyInAnyOrder(ChildClass.class, Collection.class);
       });
 
