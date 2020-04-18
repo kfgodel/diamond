@@ -1,6 +1,6 @@
 # Diamond API for type members
-This doc shows common use cases as examples of the API to get information
-about a type characteristics
+This doc shows examples of API usage showcasing some common use cases to 
+get information about a type characteristics
 
 #### How to know the package where a type is declared: `TypeInstance#declaredPackage()`
 Equivalent to `java.lang.Class#getPackage()` 

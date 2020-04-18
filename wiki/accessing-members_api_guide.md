@@ -1,5 +1,6 @@
 # Diamond API for type members
-This doc shows common use cases as examples of the API to access type members (methods, fields and constructors)
+This doc shows examples of API usage showcasing some common use cases to 
+access type members (methods, fields and constructors)
 
 ## Accessing members
 

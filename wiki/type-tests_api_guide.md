@@ -1,6 +1,6 @@
 # Diamond API for type members
-This doc shows common use cases as examples of the API to test
-or check a type against other types
+This doc shows examples of API usage showcasing some common use cases to 
+test or check a type against other types
 
 ### Is... questions
 All the questions that have the form is... and return a boolean as response

@@ -57,12 +57,12 @@ Usually created from a class: `Diamond.of(String.class)`
 - [componentType](type-info_api_guide.md#how-to-know-the-component-type-of-an-array-type-typeinstancecomponenttype)
 - [reflectedAs](type-info_api_guide.md#how-to-get-the-native-reflection-instance-from-a-type-typeinstancereflectedas)
 
-- generics
-  - bounds
-    - upper
-    - lower
-  - arguments
-  - parameters
+- [generics](generics_api_guide.md#type-generics)
+  - [bounds](generics_api_guide.md#the-bounds-of-a-type-can-be-accessed-with-typegenericsbounds)
+    - [upper](generics_api_guide.md#how-to-get-the-upper-bounds-of-a-type-typeboundsupper)
+    - [lower](generics_api_guide.md#how-to-get-the-lower-bounds-of-a-type-typeboundsupper)
+  - [arguments](generics_api_guide.md#how-to-get-the-type-arguments-of-a-parameterized-type-typegenericsarguments)
+  - [parameters](generics_api_guide.md#how-to-get-the-type-parameters-of-a-parameterizable-type-typegenericsparameters)
   
 - hierarchy (compile time)
   - extendedType

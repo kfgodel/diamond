@@ -1,6 +1,6 @@
 # Diamond API for type members
-This doc shows common use cases as examples of the API to create new
-instances from a instantiable type
+This doc shows examples of API usage showcasing some common use cases to 
+create new instances from a instantiable type
 
 #### How to quickly create an instance of a type using the niladic constructor: `TypeInstance#newInstance()`
 This only works for types that have a no-arg constructor. 

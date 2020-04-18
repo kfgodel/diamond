@@ -1,5 +1,6 @@
 # Diamond API for names
-This doc shows common use cases as examples of the API to access names
+This doc shows examples of API usage showcasing some common use cases to 
+access names
 
 
 ## Type names
