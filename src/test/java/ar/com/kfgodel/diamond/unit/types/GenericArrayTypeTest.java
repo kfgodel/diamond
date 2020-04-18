@@ -79,12 +79,12 @@ public class GenericArrayTypeTest extends JavaSpec<DiamondTestContext> {
   }
 
   private static TypeInstance createGenericArrayType() {
-    AnnotatedType annotatedType = getAnnotatedType();
+    ReferenceOf<?> annotatedType = getAnnotatedType();
     TypeInstance typeInstance = Diamond.types().from(annotatedType);
     return typeInstance;
   }
 
-  private static AnnotatedType getAnnotatedType() {
-    return new ReferenceOf<@TestAnnotation2 List<Integer> @TestAnnotation1 []>() {}.getReferencedAnnotatedType();
+  private static ReferenceOf<@TestAnnotation2 List<Integer>[]> getAnnotatedType() {
+    return new ReferenceOf<@TestAnnotation2 List<Integer> @TestAnnotation1 []>() {};
   }
 }

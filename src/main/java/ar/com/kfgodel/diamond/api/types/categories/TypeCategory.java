@@ -18,4 +18,5 @@ public interface TypeCategory {
    * @return True if the type belongs to this category
    */
   boolean contains(TypeInstance testedType);
+
 }

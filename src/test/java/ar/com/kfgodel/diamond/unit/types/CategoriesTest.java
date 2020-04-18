@@ -14,7 +14,6 @@ import java.lang.annotation.Documented;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -39,7 +38,7 @@ public class CategoriesTest extends JavaSpec<DiamondTestContext> {
       it("a type can have more than one category", () -> {
         TypeInstance listType = Diamond.of(List.class);
 
-        List<TypeCategory> typeCategoryList = listType.categories().collect(Collectors.toList());
+        List<TypeCategory> typeCategoryList = listType.categories().collectToList();
 
         assertThat(typeCategoryList).contains(Categories.REFERENCE);
         assertThat(typeCategoryList).contains(Categories.CONTAINER);

@@ -75,7 +75,8 @@ public class Categories {
    */
   public static ContainerCategory CONTAINER = ContainerCategory.create();
 
-  private static final TypeCategory[] values = new TypeCategory[]{REFERENCE,
+  private static final TypeCategory[] values = new TypeCategory[]{
+    REFERENCE,
     PRIMITIVE,
     ARRAY,
     VALUE,
@@ -87,7 +88,8 @@ public class Categories {
     CLASS,
     ANNOTATION,
     ANONYMOUS,
-    CONTAINER};
+    CONTAINER
+  };
 
   public static Nary<TypeCategory> values() {
     return Nary.from(values);
