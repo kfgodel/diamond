@@ -91,6 +91,16 @@ public class ClassTypeTest extends JavaSpec<DiamondTestContext> {
           assertThat(interfaces).isEqualTo(Arrays.asList("ChildInterface1", "ChildInterface2"));
         });
 
+        /**
+         * This is the runtime super types
+         */
+        it("has supertypes ( superclass and interfaces)", () -> {
+          List<String> supertypeNames = context().typeInstance().runtime().hierarchy().supertypes().map(Named::name).collect(Collectors.toList());
+          assertThat(supertypeNames).isEqualTo(Arrays.asList("ParentClass", "ChildInterface1", "ChildInterface2"));
+        });
+        /**
+         * This is the compile time super types
+         */
         it("has supertypes ( superclass and interfaces)", () -> {
           List<String> supertypeNames = context().typeInstance().hierarchy().supertypes().map(Named::name).collect(Collectors.toList());
           assertThat(supertypeNames).isEqualTo(Arrays.asList("ParentClass", "ChildInterface1", "ChildInterface2"));
