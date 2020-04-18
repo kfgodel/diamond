@@ -3,9 +3,8 @@ This doc shows examples of API usage showcasing some common use cases to
 explore the compile time hierarchy of a type
 
 ## Compile time hierarchy
-Since Java has 2 type systems, one at compilation, and one after erasure
-has been applied removing some of the generics info, Diamond
-represents both for a type.
+Since Java has 2 type systems, one at compilation and one after erasure
+has been applied removing some generics info, Diamond represents both for a type.
 
 To access the information about a type hierarchy at compile time
 use `TypeInstance#hierarchy()`
@@ -61,8 +60,8 @@ Notice that the returned supertype follows the closest to type order
 ### Type Lineage
 When you want to explore the hierarchy of a type or move through 
 levels of it while retaining all the compile type information available
-you need to use the `CompileTimeHierarchy#lineage()`, which
-is composed of hierarchy of a type with the actual generic type arguments.
+you need to use the `CompileTimeHierarchy#lineage()`. 
+It deduces the actual values for the generic type parameters on the hierarchy.
 
 #### How to get all the types extended from a type: `TypeLineage#allExtendedTypes()`
 This is equivalent of recursively calling `extendedType()` on each 
@@ -88,7 +87,7 @@ type first. It's only the extension line, it doesn't include implemented types.
 And, in contrast to runtime hierarchy, it includes actual type arguments
 
 #### How to get all the implemented types from a type: `TypeLineage#allImplementedTypes()`
-This is equivalent of recursively calling `allImplementedTypes()` on each 
+This is equivalent of recursively calling `implementedTypes()` on each 
 returned type and removing duplicates.
 
  ```java
@@ -225,7 +224,7 @@ TypeLineage compileLineage = Diamond.of(ChildClass.class))
  
 compileLineage.highestAncestor()
 ```
-Outputs the highest super type (which is Object usually except for certain types)   
+Outputs the highest super type (which is Object usually, except for certain types)   
 ```java
 Object @ java.lang
 ```

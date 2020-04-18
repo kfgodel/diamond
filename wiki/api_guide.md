@@ -78,22 +78,21 @@ Usually created from a class: `Diamond.of(String.class)`
     - [lowestDescendant](compile-time-hierarchy_api_guide.md#how-to-get-the-lowest-descendant-in-a-hierarchy-lineage-typelineagelowestdescendant)
     - [highestAncestor](compile-time-hierarchy_api_guide.md#how-to-get-the-highest-ancestor-in-a-hierarchy-lineage-typelineagehighestancestor)
   
-- runtime
- - type
- - classes
- - hierarchy
-   - superclass
-   - interfaces
-   - supertypes
-   - lineage
-     - allExtendedTypes
-     - allImplementedTypes
-     - allRelatedTypes
-     - genericArgumentsOf
-     - ancestorOf
-     - descendantOf
-     - lowestDescendant
-     - highestAncestor
+- [runtime](runtime-hierarchy_api_guide.md#runtime-information)
+ - [type](runtime-hierarchy_api_guide.md#how-to-get-the-actual-runtime-type-of-a-type-typeruntimetype)
+ - [classes](runtime-hierarchy_api_guide.md#how-to-get-the-actual-classes-that-can-be-used-at-runtime-to-hold-a-variable-of-a-type-typeruntimeclasses)
+ - [hierarchy](runtime-hierarchy_api_guide.md#runtime-hierarchy)
+   - [superclass](runtime-hierarchy_api_guide.md#how-to-know-the-superclass-a-type-directly-extends-from-runtimetypehierarchysuperclass)
+   - [interfaces](runtime-hierarchy_api_guide.md#how-to-know-the-interfaces-a-type-directly-implements-runtimetypehierarchyinterfaces)
+   - [supertypes](runtime-hierarchy_api_guide.md#how-to-know-all-the-direct-super-types-of-a-type-runtimetypehierarchysupertypes)
+   - [lineage](runtime-hierarchy_api_guide.md#runtime-type-lineage)
+     - [allExtendedTypes](runtime-hierarchy_api_guide.md#how-to-get-all-the-types-extended-from-a-type-typelineageallextendedtypes)
+     - [allImplementedTypes](runtime-hierarchy_api_guide.md#how-to-get-all-the-implemented-types-from-a-type-typelineageallimplementedtypes)
+     - [allRelatedTypes](runtime-hierarchy_api_guide.md#how-to-get-all-types-involved-in-a-type-hierarchy-typelineageallrelatedtypes)
+     - [ancestorOf](runtime-hierarchy_api_guide.md#how-to-get-the-direct-ancestor-of-a-type-in-a-lineage-typelineageancestorof)
+     - [descendantOf](runtime-hierarchy_api_guide.md#how-to-get-the-direct-descendant-of-a-type-in-a-lineage-typelineagedescendantof)
+     - [lowestDescendant](runtime-hierarchy_api_guide.md#how-to-get-the-lowest-descendant-in-a-hierarchy-lineage-typelineagelowestdescendant)
+     - [highestAncestor](runtime-hierarchy_api_guide.md#how-to-get-the-highest-ancestor-in-a-hierarchy-lineage-typelineagehighestancestor)
 
 ## Type Members
 If you want to manipulate objects or execute code using reflection you will, 
