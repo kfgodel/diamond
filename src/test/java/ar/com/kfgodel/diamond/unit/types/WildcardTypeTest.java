@@ -13,7 +13,6 @@ import org.junit.runner.RunWith;
 
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
-import java.lang.reflect.AnnotatedParameterizedType;
 import java.lang.reflect.AnnotatedType;
 import java.lang.reflect.WildcardType;
 import java.util.Arrays;
@@ -95,25 +94,28 @@ public class WildcardTypeTest extends JavaSpec<DiamondTestContext> {
 
   private TypeInstance createKeyWildcardTye() {
     Function<AnnotatedType[], AnnotatedType> selector = (array) -> array[0];
-    return createMapBasedWildcardType(selector);
+    return createMapBasedWildcardType(0);
   }
 
   /**
    * Static keyword is necessary for erasure preservation in runtime of wildcard annotations
    */
-  private static TypeInstance createMapBasedWildcardType(Function<AnnotatedType[], AnnotatedType> selector) {
-    AnnotatedParameterizedType annotatedMapType = (AnnotatedParameterizedType) new ReferenceOf<Map<
+  private static TypeInstance createMapBasedWildcardType(int expectedArgType) {
+    final TypeInstance mapType = Diamond.types().from(new ReferenceOf<Map<
       @TestAnnotation1 ? extends @TestAnnotation3 Number,
       @TestAnnotation2 ? super @TestAnnotation3 Serializable
-      >>() {}
-      .getReferencedAnnotatedType();
-    AnnotatedType annotatedKeyType = selector.apply(annotatedMapType.getAnnotatedActualTypeArguments());
-    return Diamond.types().from(annotatedKeyType);
+      >>() {
+    });
+
+    return mapType.generics().arguments()
+      .skip(expectedArgType)
+      .findFirst()
+      .get();
   }
 
   private TypeInstance createValueWildcardType() {
     Function<AnnotatedType[], AnnotatedType> selector = (array) -> array[1];
-    return createMapBasedWildcardType(selector);
+    return createMapBasedWildcardType(1);
   }
 
 }
