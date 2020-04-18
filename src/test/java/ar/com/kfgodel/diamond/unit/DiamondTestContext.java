@@ -14,6 +14,7 @@ import ar.com.kfgodel.diamond.api.types.inheritance.TypeLineage;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
 import info.kfgodel.jspek.api.contexts.TestContext;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 /**
@@ -75,6 +76,9 @@ public interface DiamondTestContext extends TestContext {
 
   Supplier<Integer> supplier();
   void supplier(Supplier<Supplier<Integer>> definition);
+
+  List<Class<?>> runtimeClasses();
+  void runtimeClasses(Supplier<List<Class<?>>> definition);
 
 
 }
