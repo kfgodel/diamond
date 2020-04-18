@@ -5,9 +5,9 @@ import ar.com.kfgodel.diamond.api.naming.Named;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.inheritance.TypeLineage;
 import ar.com.kfgodel.diamond.api.types.names.TypeNames;
-import ar.com.kfgodel.diamond.api.types.reference.ReferenceOf;
 import ar.com.kfgodel.diamond.unit.DiamondTestContext;
 import ar.com.kfgodel.diamond.unit.testobjects.lineage.ChildClass;
+import ar.com.kfgodel.nary.api.Unary;
 import info.kfgodel.jspek.api.JavaSpec;
 import info.kfgodel.jspek.api.JavaSpecRunner;
 import org.junit.runner.RunWith;
@@ -142,8 +142,10 @@ public class ClassTypeTest extends JavaSpec<DiamondTestContext> {
 
       describe("for arrays", () -> {
         it("has a component type", () -> {
-          context().typeInstance(() -> getStringArrayType());
-          assertThat(context().typeInstance().componentType().get().name()).isEqualTo("String");
+          context().typeInstance(this::getStringArrayType);
+
+          final Unary<TypeInstance> componentType = context().typeInstance().componentType();
+          assertThat(componentType.get().name()).isEqualTo("String");
         });
       });
 
@@ -156,7 +158,7 @@ public class ClassTypeTest extends JavaSpec<DiamondTestContext> {
   }
 
   private TypeInstance getStringArrayType() {
-    return Diamond.types().from(new ReferenceOf<String[]>() {});
+    return Diamond.of(String[].class);
   }
 
 
