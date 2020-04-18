@@ -51,11 +51,11 @@ Usually created from a class: `Diamond.of(String.class)`
   - [assignableFrom](type-tests_api_guide.md#how-to-test-if-a-type-includes-other-type-typetestsassignablefrom)
   - [assignableTo](type-tests_api_guide.md#how-to-test-if-a-type-can-be-assigned-into-other-type-typetestsassignableto)
 
-- declaredPackage
-- declaration
-- categories
-- componentType
-- reflectedAs
+- [declaredPackage](type-info_api_guide.md#how-to-know-the-package-where-a-type-is-declared-typeinstancedeclaredpackage)
+- [declaration](type-info_api_guide.md#how-to-get-a-string-representation-of-the-type-typeinstancedeclaration)
+- [categories](type-info_api_guide.md#how-to-know-the-categories-a-type-belongs-to-typeinstancecategories)
+- [componentType](type-info_api_guide.md#how-to-know-the-component-type-of-an-array-type-typeinstancecomponenttype)
+- [reflectedAs](type-info_api_guide.md#how-to-get-the-native-reflection-instance-from-a-type-typeinstancereflectedas)
 
 - generics
   - bounds
