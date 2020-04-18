@@ -25,4 +25,10 @@ public abstract class ClassBasedCategorySupport implements TypeCategory {
    * @return The predicate to use to decide inclusion
    */
   protected abstract Predicate<Class<?>> getClassPredicate();
+
+  @Override
+  public String toString() {
+    return name();
+  }
+
 }

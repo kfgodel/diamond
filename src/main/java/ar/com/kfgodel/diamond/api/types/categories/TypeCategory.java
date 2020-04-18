@@ -19,4 +19,9 @@ public interface TypeCategory {
    */
   boolean contains(TypeInstance testedType);
 
+  /**
+   * It's recommended that this name is used as toString()
+   * @return A name that identifies this category from others
+   */
+  String name();
 }

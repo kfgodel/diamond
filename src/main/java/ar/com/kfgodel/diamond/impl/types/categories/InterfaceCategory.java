@@ -18,4 +18,9 @@ public class InterfaceCategory extends ClassBasedCategorySupport {
     return category;
   }
 
+  @Override
+  public String name() {
+    return "INTERFACE";
+  }
+
 }

@@ -23,4 +23,15 @@ public class ClassCategory implements TypeCategory {
     return category;
   }
 
+  @Override
+  public String name() {
+    return "CLASS";
+  }
+
+  @Override
+  public String toString() {
+    return name();
+  }
+
+
 }

@@ -19,4 +19,14 @@ public class TextCategory implements TypeCategory {
     return category;
   }
 
+  @Override
+  public String name() {
+    return "TEXT";
+  }
+
+  @Override
+  public String toString() {
+    return name();
+  }
+
 }

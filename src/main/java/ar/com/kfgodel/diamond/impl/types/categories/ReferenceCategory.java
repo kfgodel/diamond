@@ -21,4 +21,14 @@ public class ReferenceCategory implements TypeCategory {
     return category;
   }
 
+  @Override
+  public String name() {
+    return "REFERENCE";
+  }
+
+  @Override
+  public String toString() {
+    return name();
+  }
+
 }

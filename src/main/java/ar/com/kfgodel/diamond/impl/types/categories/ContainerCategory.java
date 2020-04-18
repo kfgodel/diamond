@@ -51,4 +51,14 @@ public class ContainerCategory implements TypeCategory {
     return category;
   }
 
+  @Override
+  public String name() {
+    return "CONTAINER";
+  }
+
+  @Override
+  public String toString() {
+    return name();
+  }
+
 }

@@ -20,4 +20,13 @@ public class BooleanCategory implements TypeCategory {
     return category;
   }
 
+  @Override
+  public String name() {
+    return "BOOLEAN";
+  }
+
+  @Override
+  public String toString() {
+    return name();
+  }
 }

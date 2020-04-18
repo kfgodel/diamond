@@ -27,6 +27,12 @@ public class CategoriesTest extends JavaSpec<DiamondTestContext> {
   public void define() {
     describe("a type category", () -> {
 
+      it("has a name used to identify it",()->{
+          assertThat(Categories.REFERENCE.name()).isEqualTo("REFERENCE");
+          assertThat(Categories.ARRAY.name()).isEqualTo("ARRAY");
+          assertThat(Categories.NUMERIC.name()).isEqualTo("NUMERIC");
+      });
+
       it("is a categorization used to group similar types without a type hierarchy", () -> {
         TypeInstance objectType = Diamond.of(Object.class);
 

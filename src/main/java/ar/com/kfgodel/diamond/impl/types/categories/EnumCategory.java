@@ -19,4 +19,8 @@ public class EnumCategory extends ClassBasedCategorySupport {
     return category;
   }
 
+  @Override
+  public String name() {
+    return "ENUM";
+  }
 }

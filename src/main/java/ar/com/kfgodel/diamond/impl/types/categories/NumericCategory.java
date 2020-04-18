@@ -22,4 +22,14 @@ public class NumericCategory implements TypeCategory {
     return category;
   }
 
+  @Override
+  public String name() {
+    return "NUMERIC";
+  }
+
+  @Override
+  public String toString() {
+    return name();
+  }
+
 }

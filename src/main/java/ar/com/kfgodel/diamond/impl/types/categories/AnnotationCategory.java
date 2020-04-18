@@ -18,4 +18,9 @@ public class AnnotationCategory extends ClassBasedCategorySupport {
     return category;
   }
 
+  @Override
+  public String name() {
+    return "ANNOTATION";
+  }
+
 }

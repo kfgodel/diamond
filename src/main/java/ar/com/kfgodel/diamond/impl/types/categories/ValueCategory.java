@@ -23,4 +23,14 @@ public class ValueCategory implements TypeCategory {
     return category;
   }
 
+  @Override
+  public String name() {
+    return "VALUE";
+  }
+
+  @Override
+  public String toString() {
+    return name();
+  }
+
 }

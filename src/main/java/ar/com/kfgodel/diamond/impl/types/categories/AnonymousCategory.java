@@ -18,4 +18,9 @@ public class AnonymousCategory extends ClassBasedCategorySupport {
     return category;
   }
 
+  @Override
+  public String name() {
+    return "ANONYMOUS";
+  }
+
 }
