@@ -64,19 +64,19 @@ Usually created from a class: `Diamond.of(String.class)`
   - [arguments](generics_api_guide.md#how-to-get-the-type-arguments-of-a-parameterized-type-typegenericsarguments)
   - [parameters](generics_api_guide.md#how-to-get-the-type-parameters-of-a-parameterizable-type-typegenericsparameters)
   
-- hierarchy (compile time)
-  - extendedType
-  - implementedTypes
-  - lineage
-    - lowestDescendant
-    - highestAncestor
-    - ancestorOf
-    - descendantOf
-    - allExtendedTypes
-    - allImplementedTypes
-    - allRelatedTypes
-    - genericArgumentsOf
-  - supertypes
+- [hierarchy (compile time)](compile-time-hierarchy_api_guide.md#compile-time-hierarchy)
+  - [extendedType](compile-time-hierarchy_api_guide.md#how-to-know-the-type-a-type-extends-from-compiletimehierarchyextendedtype)
+  - [implementedTypes](compile-time-hierarchy_api_guide.md#how-to-know-the-different-types-a-type-directly-implements-compiletimehierarchyimplementedtypes)
+  - [supertypes](compile-time-hierarchy_api_guide.md#how-to-know-all-the-direct-super-types-of-a-type-compiletimehierarchysupertypes)
+  - [lineage](compile-time-hierarchy_api_guide.md#type-lineage)
+    - [allExtendedTypes](compile-time-hierarchy_api_guide.md#how-to-get-all-the-types-extended-from-a-type-typelineageallextendedtypes)
+    - [allImplementedTypes](compile-time-hierarchy_api_guide.md#how-to-get-all-the-implemented-types-from-a-type-typelineageallimplementedtypes)
+    - [allRelatedTypes](compile-time-hierarchy_api_guide.md#how-to-get-all-types-involved-in-a-type-hierarchy-typelineageallrelatedtypes)
+    - [genericArgumentsOf](compile-time-hierarchy_api_guide.md#how-to-get-the-actual-type-arguments-of-a-super-type-in-the-hierarchy-typelineagegenericargumentsof)
+    - [ancestorOf](compile-time-hierarchy_api_guide.md#how-to-get-the-direct-ancestor-of-a-type-in-a-lineage-typelineageancestorof)
+    - [descendantOf](compile-time-hierarchy_api_guide.md#how-to-get-the-direct-descendant-of-a-type-in-a-lineage-typelineagedescendantof)
+    - [lowestDescendant](compile-time-hierarchy_api_guide.md#how-to-get-the-lowest-descendant-in-a-hierarchy-lineage-typelineagelowestdescendant)
+    - [highestAncestor](compile-time-hierarchy_api_guide.md#how-to-get-the-highest-ancestor-in-a-hierarchy-lineage-typelineagehighestancestor)
   
 - runtime
  - type
@@ -84,16 +84,16 @@ Usually created from a class: `Diamond.of(String.class)`
  - hierarchy
    - superclass
    - interfaces
+   - supertypes
    - lineage
-     - lowestDescendant
-     - highestAncestor
-     - ancestorOf
-     - descendantOf
      - allExtendedTypes
      - allImplementedTypes
      - allRelatedTypes
      - genericArgumentsOf
-   - supertypes
+     - ancestorOf
+     - descendantOf
+     - lowestDescendant
+     - highestAncestor
 
 ## Type Members
 If you want to manipulate objects or execute code using reflection you will, 
