@@ -28,13 +28,13 @@ public class ReadmeExampleTest extends JavaSpec<ReadmeExampleTestContext> {
         assertThat(objectType.names().canonicalName()).isEqualTo("java.lang.Object");
       });
 
-      it("allows creating new instances easily", () -> {
+      it("allows creating new instances without hassle", () -> {
         final Object createdObject = Diamond.of(Object.class)
           .newInstance();
         assertThat(createdObject).isNotNull();
       });
 
-      it("offers a simplified no-checked-exception way to access class fields", () -> {
+      it("offers a simplified no try-catch way to access class fields", () -> {
         final List<String> namesOfStringFields = Diamond.of(String.class)
           .fields().all()
           .map(TypeField::name)
@@ -48,7 +48,7 @@ public class ReadmeExampleTest extends JavaSpec<ReadmeExampleTestContext> {
         );
       });
 
-      it("offers a simplified no-checked-exception way to access class methods", () -> {
+      it("offers a simplified no try-catch way to access class methods", () -> {
         final List<String> namesOfObjectMethods = Diamond.of(Object.class)
           .methods().all()
           .map(TypeMethod::name)

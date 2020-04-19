@@ -2,9 +2,9 @@ Diamond
 ==============
 Where your reflection shines better  
 
-A Java project that defines an alternative API to do reflection on java classes 
-in order to reduce the verbosity needed, and offer a simple dsl for common cases.   
-It also adds some operations not available on native reflection
+A Java project with an alternative API to do reflection on java types 
+in order to reduce verbosity, and offer a simple dsl for common cases.   
+It also adds some operations not possible with native reflection
 
 Status: `Experimental`
 
@@ -20,13 +20,13 @@ Here are some examples on accessing fields, methods, and invoking them for a cla
     assertThat(objectType.names().canonicalName()).isEqualTo("java.lang.Object");
   });
 
-  it("allows creating new instances easily", () -> {
+  it("allows creating new instances without hassle", () -> {
     final Object createdObject = Diamond.of(Object.class)
       .newInstance();
     assertThat(createdObject).isNotNull();
   });
 
-  it("offers a simplified no-try-catch way to access class fields", () -> {
+  it("offers a simplified no try-catch way to access class fields", () -> {
     final List<String> namesOfStringFields = Diamond.of(String.class)
       .fields().all()
       .map(TypeField::name)
@@ -40,7 +40,7 @@ Here are some examples on accessing fields, methods, and invoking them for a cla
     );
   });
 
-  it("offers a simplified no-try-catch way to access class methods", () -> {
+  it("offers a simplified no try-catch way to access class methods", () -> {
     final List<String> namesOfObjectMethods = Diamond.of(Object.class)
       .methods().all()
       .map(TypeMethod::name)
