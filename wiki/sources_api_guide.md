@@ -39,15 +39,15 @@ use, types are easily accessible through `Diamond.of()`.
     Allows access to the constructors present in a native reflection `Class`
   - [from](sources/constructor-sources_api_guide.md#how-to-get-the-diamond-representation-of-a-native-constructor-constructorsourcesfrom)
     Gets the Diamond version of a native reflection `Constructor`
-- modifiers
+- [modifiers](sources/modifier-sources_api_guide.md#modifiers-accessor)
   Allows access to different sources to get Diamond abstractions over member modifiers
-  - all
+  - [all](sources/modifier-sources_api_guide.md#how-to-get-all-the-diamond-reified-modifiers-modifiersourcesall)
     Gets all the Diamond reified modifiers
-  - from
+  - [from](sources/modifier-sources_api_guide.md#how-to-get-the-modifiers-of-a-native-reflection-member-modifiersourcesfrom)
     Gets the modifiers present in a member
-  - fromMember
+  - [fromMember](sources/modifier-sources_api_guide.md#how-to-get-the-modifiers-from-a-member-modifier-bitmap-modifiersourcesfrommember)
     Gets the modifiers analyzing a member bitmap (fields, methods, or constructors)
-  - fromParameter
+  - [fromParameter](sources/modifier-sources_api_guide.md#how-to-get-the-modifiers-from-a-parameter-modifier-bitmap-modifiersourcesfromparameter)
     Gets the modifiers analyzing a parameter bitmap
 - parameters
   Allows access to different sources to get Diamond abstractions over executable parameters

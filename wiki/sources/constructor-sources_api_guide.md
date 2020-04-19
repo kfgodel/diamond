@@ -1,4 +1,4 @@
-# Diamond API for type sources
+# Diamond API for constructor sources
 This doc shows examples of API usage to get constructor instances 
 from different sources
 

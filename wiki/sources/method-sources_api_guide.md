@@ -1,4 +1,4 @@
-# Diamond API for type sources
+# Diamond API for method sources
 This doc shows examples of API usage to get method instances from different sources
 
 ### Methods accessor

@@ -1,4 +1,4 @@
-# Diamond API for type sources
+# Diamond API for field sources
 This doc shows examples of API usage to get field instances from different sources
 
 ### Fields accessor
