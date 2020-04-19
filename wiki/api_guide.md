@@ -14,7 +14,7 @@ There are 4 main concepts on Diamond:
   Represents a class constructor and allows instantiations. Equivalent to `java.lang.Constructor`
 
 See [how to get Diamond objects](sources_api_guide.md)
-for a detailed explanation on how to get the Diamond abstraction you need
+for a detailed explanation on how to obtain each type of Diamond abstraction
 
 ## TypeInstance
 This is probably the starting object to access the rest of the API.  
