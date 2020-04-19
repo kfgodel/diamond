@@ -5,7 +5,7 @@ that is supported
 ## Entry point
 All the abstractions Diamond offers are accessible through the class `Diamond`.
 There's a static method for each type of abstraction and, due to frequency of
-use, types are easily accessible through `Diamond.of()`.
+use, types have shortcuts like `Diamond.of()`.
 
 - [of](sources/type-sources_api_guide.md#how-to-get-the-diamond-representation-of-a-type-diamondof)
   Gets the `TypeInstance` equivalent of the given `Type` instance
@@ -71,21 +71,7 @@ use, types are easily accessible through `Diamond.of()`.
       Allows access to the methods of the instance already bound to it
     - [fields](sources/metaobject-sources_api_guide.md#how-to-get-the-fields-bound-to-an-instance-metaobjectfields)
       Allows access to the fields of the instance already bound to it
-- lambdas
+- [lambdas](sources/lambda-sources_api_guide.md#lambdas-accessor)
   Allows you to get a single Diamond representation from different types of native lambdas 
-  - fromRunnable
-    Gets a polymorphic lambda version of a `Runnable` 
-  - fromConsumer
-    Gets a polymorphic lambda version of a `Consumer`
-  - fromBiConsumer
-    Gets a polymorphic lambda version of a `BiConsumer`
-  - fromSupplier
-    Gets a polymorphic lambda version of a `Supplier`
-  - fromFunction
-    Gets a polymorphic lambda version of a `Function`
-  - fromBiFunction
-    Gets a polymorphic lambda version of a `BiFunction`
-  - fromPredicate
-    Gets a polymorphic lambda version of a `Predicate`
-  - fromInvokable
-    Gets a polymorphic lambda version of a `Invokable`
+  - [fromXXX](sources/lambda-sources_api_guide.md#how-to-get-the-diamond-representation-of-a-native-lambda-lambdasourcesfromxxxx)
+    Gets a polymorphic lambda version of a native lambda type 
