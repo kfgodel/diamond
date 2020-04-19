@@ -17,7 +17,7 @@ public class DefaultTypeTests implements TypeTests {
   private BiPredicate<TypeInstance, Object> instancePredicate;
 
   @Override
-  public boolean partOf(TypeCategory testedTypeCategory) {
+  public boolean a(TypeCategory testedTypeCategory) {
     return type.categories().anyMatch(testedTypeCategory::equals);
   }
 

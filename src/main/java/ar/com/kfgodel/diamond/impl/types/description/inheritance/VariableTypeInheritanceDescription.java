@@ -45,7 +45,7 @@ public class VariableTypeInheritanceDescription implements InheritanceDescriptio
 
   private Nary<TypeInstance> getUpperBoundsThatAre(TypeCategory expectedCategory) {
     return bounds.get().upper()
-      .filter(upperBound -> upperBound.is().partOf(expectedCategory));
+      .filter(upperBound -> upperBound.is().a(expectedCategory));
   }
 
 

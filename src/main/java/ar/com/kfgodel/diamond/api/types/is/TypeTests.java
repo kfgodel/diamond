@@ -17,7 +17,7 @@ public interface TypeTests {
    * @param testedTypeCategory The category to test this type on
    * @return true if this type can be considered an element of the given category
    */
-  boolean partOf(TypeCategory testedTypeCategory);
+  boolean a(TypeCategory testedTypeCategory);
 
   /**
    * Answers if this type is a cast-safe supertype of the given type

@@ -36,7 +36,7 @@ public class CategoriesTest extends JavaSpec<DiamondTestContext> {
       it("is a categorization used to group similar types without a type hierarchy", () -> {
         TypeInstance objectType = Diamond.of(Object.class);
 
-        boolean answer = objectType.is().partOf(Categories.REFERENCE);
+        boolean answer = objectType.is().a(Categories.REFERENCE);
 
         assertThat(answer).isTrue();
       });
@@ -55,7 +55,7 @@ public class CategoriesTest extends JavaSpec<DiamondTestContext> {
         it("primitive types", () -> {
           TypeInstance objectType = Diamond.of(int.class);
 
-          boolean answer = objectType.is().partOf(Categories.PRIMITIVE);
+          boolean answer = objectType.is().a(Categories.PRIMITIVE);
 
           assertThat(answer).isTrue();
         });
@@ -63,7 +63,7 @@ public class CategoriesTest extends JavaSpec<DiamondTestContext> {
         it("reference types (a.k.a non-primitives)", () -> {
           TypeInstance objectType = Diamond.of(Object.class);
 
-          boolean answer = objectType.is().partOf(Categories.REFERENCE);
+          boolean answer = objectType.is().a(Categories.REFERENCE);
 
           assertThat(answer).isTrue();
         });
@@ -71,7 +71,7 @@ public class CategoriesTest extends JavaSpec<DiamondTestContext> {
         it("reference types (a.k.a non-primitives)", () -> {
           TypeInstance objectType = Diamond.of(Object.class);
 
-          boolean answer = objectType.is().partOf(Categories.REFERENCE);
+          boolean answer = objectType.is().a(Categories.REFERENCE);
 
           assertThat(answer).isTrue();
         });
@@ -79,7 +79,7 @@ public class CategoriesTest extends JavaSpec<DiamondTestContext> {
         it("array types", () -> {
           TypeInstance objectType = Diamond.of(int[].class);
 
-          boolean answer = objectType.is().partOf(Categories.ARRAY);
+          boolean answer = objectType.is().a(Categories.ARRAY);
 
           assertThat(answer).isTrue();
         });
@@ -87,7 +87,7 @@ public class CategoriesTest extends JavaSpec<DiamondTestContext> {
         it("value types (numbers and text)", () -> {
           TypeInstance objectType = Diamond.of(String.class);
 
-          boolean answer = objectType.is().partOf(Categories.VALUE);
+          boolean answer = objectType.is().a(Categories.VALUE);
 
           assertThat(answer).isTrue();
         });
@@ -95,7 +95,7 @@ public class CategoriesTest extends JavaSpec<DiamondTestContext> {
         it("boolean types (boxed and unboxed)", () -> {
           TypeInstance objectType = Diamond.of(boolean.class);
 
-          boolean answer = objectType.is().partOf(Categories.BOOLEAN);
+          boolean answer = objectType.is().a(Categories.BOOLEAN);
 
           assertThat(answer).isTrue();
         });
@@ -103,7 +103,7 @@ public class CategoriesTest extends JavaSpec<DiamondTestContext> {
         it("numeric types (boxed and unboxed)", () -> {
           TypeInstance objectType = Diamond.of(long.class);
 
-          boolean answer = objectType.is().partOf(Categories.NUMERIC);
+          boolean answer = objectType.is().a(Categories.NUMERIC);
 
           assertThat(answer).isTrue();
         });
@@ -111,7 +111,7 @@ public class CategoriesTest extends JavaSpec<DiamondTestContext> {
         it("text types", () -> {
           TypeInstance objectType = Diamond.of(StringBuffer.class);
 
-          boolean answer = objectType.is().partOf(Categories.TEXT);
+          boolean answer = objectType.is().a(Categories.TEXT);
 
           assertThat(answer).isTrue();
         });
@@ -119,7 +119,7 @@ public class CategoriesTest extends JavaSpec<DiamondTestContext> {
         it("enum types", () -> {
           TypeInstance objectType = Diamond.of(TestEnum.class);
 
-          boolean answer = objectType.is().partOf(Categories.ENUM);
+          boolean answer = objectType.is().a(Categories.ENUM);
 
           assertThat(answer).isTrue();
         });
@@ -127,28 +127,28 @@ public class CategoriesTest extends JavaSpec<DiamondTestContext> {
         it("container types", () -> {
           TypeInstance objectType = Diamond.of(Map.class);
 
-          boolean answer = objectType.is().partOf(Categories.CONTAINER);
+          boolean answer = objectType.is().a(Categories.CONTAINER);
 
           assertThat(answer).isTrue();
         });
         it("interface types", () -> {
           TypeInstance objectType = Diamond.of(List.class);
 
-          boolean answer = objectType.is().partOf(Categories.INTERFACE);
+          boolean answer = objectType.is().a(Categories.INTERFACE);
 
           assertThat(answer).isTrue();
         });
         it("class types", () -> {
           TypeInstance objectType = Diamond.of(ArrayList.class);
 
-          boolean answer = objectType.is().partOf(Categories.CLASS);
+          boolean answer = objectType.is().a(Categories.CLASS);
 
           assertThat(answer).isTrue();
         });
         it("annotation types", () -> {
           TypeInstance objectType = Diamond.of(Documented.class);
 
-          boolean answer = objectType.is().partOf(Categories.ANNOTATION);
+          boolean answer = objectType.is().a(Categories.ANNOTATION);
 
           assertThat(answer).isTrue();
         });
@@ -159,7 +159,7 @@ public class CategoriesTest extends JavaSpec<DiamondTestContext> {
             }
           }.getClass());
 
-          boolean answer = objectType.is().partOf(Categories.ANONYMOUS);
+          boolean answer = objectType.is().a(Categories.ANONYMOUS);
 
           assertThat(answer).isTrue();
         });
