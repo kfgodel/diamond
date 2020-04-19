@@ -21,17 +21,17 @@ use, types are easily accessible through `Diamond.of()`.
     Gets and array of types from their native reflection counterparts
   - [named](sources/type-sources_api_guide.md#how-to-get-a-type-by-its-name-typesourcesnamed)
     Gets a type from its name, loading into the VM if needed
-- methods
+- [methods](sources/method-sources_api_guide.md#methods-accessor)
   Allows access to different sources to get Diamond abstractions over methods
-  - in
+  - [in](sources/method-sources_api_guide.md#how-to-get-the-diamond-methods-of-a-class-methodsourcesin)
     Allows access to the methods present in a native reflection `Class`
-  - from
+  - [from](sources/method-sources_api_guide.md#how-to-get-the-diamond-representation-of-a-native-method-methodsourcesfrom)
     Gets the Diamond version of a native reflection `Method`
-- fields
+- [fields](sources/field-sources_api_guide.md#fields-accessor)
   Allows access to different sources to get Diamond abstractions over fields
-  - in
+  - [in](sources/field-sources_api_guide.md#how-to-get-the-diamond-fields-of-a-class-fieldsourcesin)
     Allows access to the fields present in a native reflection `Class`
-  - from
+  - [from](sources/field-sources_api_guide.md#how-to-get-the-diamond-representation-of-a-native-field-fieldsourcesfrom)
     Gets the Diamond version of a native reflection `Field`
 - constructors
   Allows access to different sources to get Diamond abstractions over constructors
