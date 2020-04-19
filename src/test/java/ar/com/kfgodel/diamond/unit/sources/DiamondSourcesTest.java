@@ -259,6 +259,23 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
           assertThat(parameter.declaredType().name()).isEqualTo("Object");
         });
 
+        it("can be obtained from the parameters of a method", () -> {
+          Method method = null;
+          try {
+            method = Object.class.getDeclaredMethod("equals", Object.class);
+          } catch (NoSuchMethodException e) {
+            throw new RuntimeException("This is why reflection api turns out difficult to use", e);
+          }
+          final Parameter[] nativeParameters = method.getParameters();
+
+          final Nary<ExecutableParameter> diamondParameters = Diamond.parameters().from(nativeParameters);
+          final List<String> parameterTypeNames = diamondParameters
+            .map(ExecutableParameter::declaredType)
+            .map(TypeInstance::name)
+            .collect(Collectors.toList());
+          assertThat(parameterTypeNames).containsExactly("Object");
+        });
+
         it("can be obtained from a generic method", () -> {
           Method method = null;
           try {
