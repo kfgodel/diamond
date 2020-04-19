@@ -33,11 +33,11 @@ use, types are easily accessible through `Diamond.of()`.
     Allows access to the fields present in a native reflection `Class`
   - [from](sources/field-sources_api_guide.md#how-to-get-the-diamond-representation-of-a-native-field-fieldsourcesfrom)
     Gets the Diamond version of a native reflection `Field`
-- constructors
+- [constructors](sources/constructor-sources_api_guide.md#constructors-accessor)
   Allows access to different sources to get Diamond abstractions over constructors
-  - in
+  - [in](sources/constructor-sources_api_guide.md#how-to-get-the-diamond-constructors-of-a-class-constructorsourcesin)
     Allows access to the constructors present in a native reflection `Class`
-  - from
+  - [from](sources/constructor-sources_api_guide.md#how-to-get-the-diamond-representation-of-a-native-constructor-constructorsourcesfrom)
     Gets the Diamond version of a native reflection `Constructor`
 - modifiers
   Allows access to different sources to get Diamond abstractions over member modifiers
