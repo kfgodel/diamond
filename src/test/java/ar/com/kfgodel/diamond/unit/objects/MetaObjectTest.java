@@ -59,7 +59,7 @@ public class MetaObjectTest extends JavaSpec<DiamondTestContext> {
       });
 
       it("allows access to all the methods bound to the object", () -> {
-        PublicMembersTestObject instance = new PublicMembersTestObject();
+        PublicMembersTestObject instance = new PublicMembersTestObject(45);
         MetaObject metaObject = Diamond.metaObjects().from(instance);
 
         Nary<BoundMethod> allMethods = metaObject.methods().all();
@@ -69,7 +69,7 @@ public class MetaObjectTest extends JavaSpec<DiamondTestContext> {
       });
 
       it("allows access to all the fields bound to the object", () -> {
-        PublicMembersTestObject instance = new PublicMembersTestObject();
+        PublicMembersTestObject instance = new PublicMembersTestObject(22);
         MetaObject metaObject = Diamond.metaObjects().from(instance);
 
         Nary<BoundField> allFields = metaObject.fields().all();

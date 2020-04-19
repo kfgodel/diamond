@@ -61,10 +61,16 @@ use, types are easily accessible through `Diamond.of()`.
     Gets the Diamond representation from a native reflection `Package`
   - [named](sources/package-sources_api_guide.md#how-to-get-a-package-by-name-packagesourcesnamed)
     Gets a package from its name (it must exist in the classpath)
-- metaObjects
+- [metaObjects](sources/metaobject-sources_api_guide.md#metaobjects-accessor)
   Allows access to different sources to get Diamond abstractions over instances
-  - from
-  Gets a MetaObject from an instance that allows operations on the object
+  - [from](sources/metaobject-sources_api_guide.md#how-to-get-a-meta-object-from-any-instance-metaobjectsourcesfrom)
+    Gets a MetaObject from an instance that allows operations on the object
+    - [type](sources/metaobject-sources_api_guide.md#how-to-get-the-type-of-an-instance-metaobjecttype)
+      Gets the type of the instance
+    - [methods](sources/metaobject-sources_api_guide.md#how-to-get-the-methods-bound-to-an-instance-metaobjectmethods)
+      Allows access to the methods of the instance already bound to it
+    - [fields](sources/metaobject-sources_api_guide.md#how-to-get-the-fields-bound-to-an-instance-metaobjectfields)
+      Allows access to the fields of the instance already bound to it
 - lambdas
   Allows you to get a single Diamond representation from different types of native lambdas 
   - fromRunnable
