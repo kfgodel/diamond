@@ -106,20 +106,18 @@ public interface Diamond {
   }
 
   /**
-   * @return An accessor to obtain instances that represent packages
-   */
-  static PackageSources packages() {
-    return API.packages();
-  }
-
-
-  /**
    * @return An accessor to obtain instances that represent parameters
    */
   static ParameterSources parameters() {
     return API.parameters();
   }
 
+  /**
+   * @return An accessor to obtain instances that represent packages
+   */
+  static PackageSources packages() {
+    return API.packages();
+  }
 
   /**
    * @return The cache instance used to reference reused instances

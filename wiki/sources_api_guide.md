@@ -49,11 +49,11 @@ use, types are easily accessible through `Diamond.of()`.
     Gets the modifiers analyzing a member bitmap (fields, methods, or constructors)
   - [fromParameter](sources/modifier-sources_api_guide.md#how-to-get-the-modifiers-from-a-parameter-modifier-bitmap-modifiersourcesfromparameter)
     Gets the modifiers analyzing a parameter bitmap
-- parameters
+- [parameters](sources/parameter-sources_api_guide.md#parameters-accessor)
   Allows access to different sources to get Diamond abstractions over executable parameters
-  - from(Parameter)
+  - [from(Parameter)](sources/parameter-sources_api_guide.md#how-to-get-the-diamond-representation-of-a-native-parameter-parametersourcesfrom)
     Gets a diamond parameter from a native `Parameter`
-  - from(Parameter[])
+  - [from(Parameter[])](sources/parameter-sources_api_guide.md#how-to-get-the-diamond-representation-of-several-parameters-parametersourcesfromparameter)
     Gets an array of parameters from their native counterparts
 - packages
   Allows access to different sources to get Diamond abstractions over packages
