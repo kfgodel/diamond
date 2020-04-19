@@ -71,6 +71,13 @@ public interface Diamond {
   }
 
   /**
+   * @return An accessor to obtain instances that represent types
+   */
+  static TypeSources types() {
+    return API.types();
+  }
+
+  /**
    * @return An accessor to obtain instances of methods that belong to a class
    */
   static MethodSources methods() {
@@ -85,10 +92,10 @@ public interface Diamond {
   }
 
   /**
-   * @return An accessor to obtain instances that represent types
+   * @return An accessor to obtain instances that represent type constructors
    */
-  static TypeSources types() {
-    return API.types();
+  static ConstructorSources constructors() {
+    return API.constructors();
   }
 
   /**
@@ -113,13 +120,6 @@ public interface Diamond {
     return API.parameters();
   }
 
-
-  /**
-   * @return An accessor to obtain instances that represent type constructors
-   */
-  static ConstructorSources constructors() {
-    return API.constructors();
-  }
 
   /**
    * @return The cache instance used to reference reused instances

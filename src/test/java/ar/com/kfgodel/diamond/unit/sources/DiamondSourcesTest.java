@@ -7,6 +7,7 @@ import ar.com.kfgodel.diamond.api.lambdas.Lambda;
 import ar.com.kfgodel.diamond.api.members.modifiers.Modifier;
 import ar.com.kfgodel.diamond.api.members.modifiers.Modifiers;
 import ar.com.kfgodel.diamond.api.methods.TypeMethod;
+import ar.com.kfgodel.diamond.api.naming.Named;
 import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.diamond.api.types.TypeInstance;
 import ar.com.kfgodel.diamond.api.types.packages.TypePackage;
@@ -24,7 +25,9 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -45,6 +48,13 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
           TypeInstance diamondClass = Diamond.types().from(Object.class);
           assertThat(diamondClass.name()).isEqualTo("Object");
         });
+        it("can be obtained from an array of type instances", () -> {
+          final Nary<TypeInstance> typeInstances = Diamond.types().from(new Object[]{Object.class, String.class, List.class});
+          final List<String> typeNames = typeInstances
+            .map(Named::name)
+            .collectToList();
+          assertThat(typeNames).containsExactly("Object","String","List");
+        });
         it("can be obtained from type references", () -> {
           TypeInstance diamondClass = Diamond.types().from(new ReferenceOf<List<String>>() {});
           assertThat(diamondClass.name()).isEqualTo("List");
@@ -53,9 +63,16 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
           TypeInstance diamondClass = Diamond.types().named("java.lang.Object");
           assertThat(diamondClass.name()).isEqualTo("Object");
         });
-        it("have a special shortcut", () -> {
+        it("has a special shortcut", () -> {
           TypeInstance diamondClass = Diamond.of(Object.class);
           assertThat(diamondClass.name()).isEqualTo("Object");
+        });
+        it("has a shortcut for multiple instances",()->{
+          final TypeInstance[] typeInstances = Diamond.ofNative(Object.class, String.class, List.class);
+          final List<String> typeNames = Arrays.stream(typeInstances)
+            .map(Named::name)
+            .collect(Collectors.toList());
+          assertThat(typeNames).containsExactly("Object", "String", "List");
         });
         it("can be obtained from a generic method", () -> {
           TypeInstance diamondRepresentation = Diamond.from(Object.class);
