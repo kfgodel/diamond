@@ -8,6 +8,9 @@ It also adds some operations not possible with native reflection
 
 Status: `Experimental`
 
+## API documentation
+Every important method can be explored in the **[Full API guide here](wiki/api_guide.md)**
+
 ### Code Example
 Every diamond abstraction over reflection is created with `Diamond.of()` which
 receives a native reflection object and adds a DSL over it.
@@ -70,9 +73,6 @@ Here are some examples on accessing fields, methods, and invoking them for a cla
     assertThat(createdString).isEmpty();
   });
 ```
-
-## API documentation
-Every important method can be explored in the **[Full API guide here](wiki/api_guide.md)**
 
 ## Design principles
 Working on this project I have tried to follow these design decisions in order 
