@@ -275,6 +275,26 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
       });
 
       describe("modifiers", () -> {
+        it("can retrieve all language modifiers",()->{
+          final List<String> modifierDeclarations = Diamond.modifiers().all()
+            .map(Modifier::declaration)
+            .collect(Collectors.toList());
+          assertThat(modifierDeclarations).containsExactly(
+            "public",
+            "private",
+            "protected",
+            "",
+            "final",
+            "static",
+            "abstract",
+            "synchronized",
+            "native",
+            "strictfp",
+            "transient",
+            "volatile"
+          );
+        });
+
         it("can be obtained from a class member", () -> {
           Method method = null;
           try {
@@ -286,9 +306,15 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
           Nary<Modifier> methodModifiers = Diamond.modifiers().from(method);
           assertThat((Stream)methodModifiers).isEqualTo(Lists.newArrayList(Modifiers.PUBLIC));
         });
-        it("can be obtained from an int bitmap", () -> {
-          Nary<Modifier> methodModifiers = Diamond.modifiers().fromMember(java.lang.reflect.Modifier.PUBLIC | java.lang.reflect.Modifier.ABSTRACT);
+        it("can be obtained from a member int bitmap", () -> {
+          final int bitmap = java.lang.reflect.Modifier.PUBLIC | java.lang.reflect.Modifier.ABSTRACT;
+          Nary<Modifier> methodModifiers = Diamond.modifiers().fromMember(bitmap);
           assertThat((Stream)methodModifiers).isEqualTo(Lists.newArrayList(Modifiers.PUBLIC, Modifiers.ABSTRACT));
+        });
+        it("can be obtained from a parameter int bitmap", () -> {
+          final int bitmap = java.lang.reflect.Modifier.FINAL;
+          Nary<Modifier> methodModifiers = Diamond.modifiers().fromParameter(bitmap);
+          assertThat((Stream)methodModifiers).isEqualTo(Lists.newArrayList(Modifiers.FINAL));
         });
       });
 
