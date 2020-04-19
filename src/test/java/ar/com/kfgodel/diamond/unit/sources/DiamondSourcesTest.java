@@ -145,7 +145,7 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
           try {
             methodInstance = Object.class.getMethod("equals", Object.class);
           } catch (NoSuchMethodException e) {
-            throw new RuntimeException("This is why reflection api turns difficult to use", e);
+            throw new RuntimeException("This is why reflection api turns out difficult to use", e);
           }
           TypeMethod diamondMethod = Diamond.from(methodInstance);
           assertThat(diamondMethod.name()).isEqualTo("equals");
@@ -157,7 +157,7 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
           try {
             fieldInstance = ClassWithIdField.class.getDeclaredField("id");
           } catch (NoSuchFieldException e) {
-            throw new RuntimeException("This is why reflection api turns difficult to use", e);
+            throw new RuntimeException("This is why reflection api turns out difficult to use", e);
           }
           TypeField diamondField = Diamond.fields().from(fieldInstance);
           assertThat(diamondField.name()).isEqualTo("id");
@@ -174,7 +174,7 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
           try {
             fieldInstance = ClassWithIdField.class.getDeclaredField("id");
           } catch (NoSuchFieldException e) {
-            throw new RuntimeException("This is why reflection api turns difficult to use", e);
+            throw new RuntimeException("This is why reflection api turns out difficult to use", e);
           }
           TypeField diamondField = Diamond.from(fieldInstance);
           assertThat(diamondField.name()).isEqualTo("id");
@@ -187,7 +187,7 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
           try {
             constructor = PublicMembersTestObject.class.getDeclaredConstructor();
           } catch (NoSuchMethodException e) {
-            throw new RuntimeException("This is why reflection api turns difficult to use", e);
+            throw new RuntimeException("This is why reflection api turns out difficult to use", e);
           }
           TypeConstructor diamondConstructor = Diamond.constructors().from(constructor);
           assertThat(diamondConstructor.name()).endsWith("PublicMembersTestObject");
@@ -212,7 +212,7 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
           try {
             constructor = PublicMembersTestObject.class.getDeclaredConstructor();
           } catch (NoSuchMethodException e) {
-            throw new RuntimeException("This is why reflection api turns difficult to use", e);
+            throw new RuntimeException("This is why reflection api turns out difficult to use", e);
           }
           TypeConstructor diamondConstructor = Diamond.from(constructor);
           assertThat(diamondConstructor.name()).endsWith("PublicMembersTestObject");
@@ -250,7 +250,7 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
           try {
             method = Object.class.getDeclaredMethod("equals", Object.class);
           } catch (NoSuchMethodException e) {
-            throw new RuntimeException("This is why reflection api turns difficult to use", e);
+            throw new RuntimeException("This is why reflection api turns out difficult to use", e);
           }
           Parameter nativeParameter = method.getParameters()[0];
 
@@ -264,7 +264,7 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
           try {
             method = Object.class.getDeclaredMethod("equals", Object.class);
           } catch (NoSuchMethodException e) {
-            throw new RuntimeException("This is why reflection api turns difficult to use", e);
+            throw new RuntimeException("This is why reflection api turns out difficult to use", e);
           }
           Parameter nativeParameter = method.getParameters()[0];
 
@@ -280,7 +280,7 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
           try {
             method = Object.class.getDeclaredMethod("equals", Object.class);
           } catch (NoSuchMethodException e) {
-            throw new RuntimeException("This is why reflection api turns difficult to use", e);
+            throw new RuntimeException("This is why reflection api turns out difficult to use", e);
           }
 
           Nary<Modifier> methodModifiers = Diamond.modifiers().from(method);
