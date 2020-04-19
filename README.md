@@ -71,9 +71,10 @@ Here are some examples on accessing fields, methods, and invoking them for a cla
   });
 ```
 
-**[Full API guide here](wiki/api_guide.md)**
+## API documentation
+Every important method can be explored in the **[Full API guide here](wiki/api_guide.md)**
 
-### Design principles
+## Design principles
 Working on this project I have tried to follow these design decisions in order 
 to offer an intuitive and consistent API:
 

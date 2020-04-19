@@ -19,12 +19,12 @@ Outputs the boolean answering the question
 true
 ```
 
-#### How to test if a type represents an interface: `TypeTests#partOf()`
+#### How to test if a type represents an interface: `TypeTests#a()`
 This is a concept added by Diamond and not part of native reflection
  ```java
 TypeInstance objectType = Diamond.of(List.class);
 
-objectType.is().partOf(Categories.INTERFACE);
+objectType.is().a(Categories.INTERFACE);
 ```
 Outputs the boolean answering the question
 ```java
