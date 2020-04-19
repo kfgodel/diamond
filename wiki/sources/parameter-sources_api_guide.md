@@ -1,4 +1,4 @@
-# Diamond API for field sources
+# Diamond API for parameter sources
 This doc shows examples of API usage to get parameter instances 
 from different sources
 
@@ -18,7 +18,7 @@ Parameter nativeParameter = method.getParameters()[0];
 
 Diamond.parameters().from(nativeParameter)
 ```
-Outputs the Diamond pararameter from the native instance
+Outputs the Diamond parameter from the native instance
 ```java
 Object arg0
 ```

@@ -55,11 +55,11 @@ use, types are easily accessible through `Diamond.of()`.
     Gets a diamond parameter from a native `Parameter`
   - [from(Parameter[])](sources/parameter-sources_api_guide.md#how-to-get-the-diamond-representation-of-several-parameters-parametersourcesfromparameter)
     Gets an array of parameters from their native counterparts
-- packages
+- [packages](sources/package-sources_api_guide.md#packages-accessor)
   Allows access to different sources to get Diamond abstractions over packages
-  - from
+  - [from](sources/package-sources_api_guide.md#how-to-get-the-diamond-representation-of-a-native-package-packagesourcesfrom)
     Gets the Diamond representation from a native reflection `Package`
-  - named
+  - [named](sources/package-sources_api_guide.md#how-to-get-a-package-by-name-packagesourcesnamed)
     Gets a package from its name (it must exist in the classpath)
 - metaObjects
   Allows access to different sources to get Diamond abstractions over instances
