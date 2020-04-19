@@ -95,7 +95,7 @@ public class DiamondSourcesTest extends JavaSpec<DiamondTestContext> {
           try {
             methodInstance = Object.class.getMethod("equals", Object.class);
           } catch (NoSuchMethodException e) {
-            throw new RuntimeException("This is why reflection api turns difficult to use", e);
+            throw new RuntimeException("This is why reflection api turns out difficult to use", e);
           }
           TypeMethod diamondMethod = Diamond.methods().from(methodInstance);
           assertThat(diamondMethod.name()).isEqualTo("equals");
