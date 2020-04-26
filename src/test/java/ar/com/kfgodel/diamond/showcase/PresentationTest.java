@@ -44,6 +44,7 @@ import static org.assertj.core.api.Assertions.fail;
 
 /**
  * This class verifies behavior shown on presentation
+ * Code formatted with: https://romannurik.github.io/SlidesCodeHighlighter/
  * Date: 25/4/20 - 16:36
  */
 @RunWith(JavaSpecRunner.class)
