@@ -66,7 +66,7 @@ public class ConstructorDeclaration {
   }
 
   private void withTypeParametersSeparatedBy(String separator, Consumer<String> separatedArgumentsConsumer) {
-    transformTypeAndJoin(constructor.generics().parameters(), separator, separatedArgumentsConsumer);
+    transformTypeAndJoin(constructor.generic().parameters(), separator, separatedArgumentsConsumer);
 
   }
 

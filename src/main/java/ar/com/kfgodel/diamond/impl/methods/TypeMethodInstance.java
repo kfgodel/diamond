@@ -43,37 +43,37 @@ public class TypeMethodInstance extends TypeMemberSupport implements TypeMethod 
 
   @Override
   public Object invoke(Object... arguments) {
-    return asFunction().invoke(arguments);
+    return asLambda().invoke(arguments);
   }
 
   @Override
   public void run() {
-    asFunction().run();
+    asLambda().run();
   }
 
   @Override
   public Object get() {
-    return asFunction().get();
+    return asLambda().get();
   }
 
   @Override
   public void accept(Object argumentOrInstance) {
-    asFunction().accept(argumentOrInstance);
+    asLambda().accept(argumentOrInstance);
   }
 
   @Override
   public Object apply(Object argumentOrInstance) {
-    return asFunction().apply(argumentOrInstance);
+    return asLambda().apply(argumentOrInstance);
   }
 
   @Override
   public void accept(Object argumentOrInstance, Object extraArgument) {
-    asFunction().accept(argumentOrInstance, extraArgument);
+    asLambda().accept(argumentOrInstance, extraArgument);
   }
 
   @Override
   public boolean test(Object argumentOrInstance) {
-    return asFunction().test(argumentOrInstance);
+    return asLambda().test(argumentOrInstance);
   }
 
   @Override

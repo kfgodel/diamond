@@ -26,7 +26,7 @@ public interface TypeMember extends Named, Annotated, Modifiable, Generified, De
    * @return The generics information for this member
    */
   @Override
-  Generics generics();
+  Generics generic();
 
   /**
    * Indicates if this members belongs (an requires) an instance to be used on, or not.<br>

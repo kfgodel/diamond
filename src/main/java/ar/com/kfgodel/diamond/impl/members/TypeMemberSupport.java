@@ -52,7 +52,7 @@ public abstract class TypeMemberSupport implements TypeMember {
   }
 
   @Override
-  public PolymorphicInvokable asFunction() {
+  public PolymorphicInvokable asLambda() {
     return this.invoker.get();
   }
 
@@ -67,7 +67,7 @@ public abstract class TypeMemberSupport implements TypeMember {
   }
 
   @Override
-  public Generics generics() {
+  public Generics generic() {
     return generics.get();
   }
 

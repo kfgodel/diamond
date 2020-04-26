@@ -77,7 +77,7 @@ public interface TypeInstance extends
    * @return The information about this type generification.<br>
    * TypeGenerics holds the relationships between this type and its parameters, arguments and bounds
    */
-  TypeGenerics generics();
+  TypeGenerics generic();
 
   /**
    * @return Sames as calling newInstance()

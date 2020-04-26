@@ -4,7 +4,7 @@ get information about generics from a type
 
 ### Type generics
 Types that are generified have additional information that can be accessed
-using `TypeInstance#generics()`
+using `TypeInstance#generic()`
 
 #### How to get the type arguments of a parameterized type: `TypeGenerics#arguments()`
 Equivalent to `java.lang.reflect.ParameterizedType#getActualTypeArguments()`
@@ -14,7 +14,7 @@ final TypeInstance mapType = Diamond.types().from(new ReferenceOf<Map<
   ? super Serializable
 >>() {});
  
-mapType.generics().arguments()
+mapType.generic().arguments()
   .collectToList()
 ```
 Outputs the type argument list used to parameterize Map  
@@ -30,7 +30,7 @@ final TypeInstance mapType = Diamond.types().from(new ReferenceOf<Map<
   ? super Serializable
 >>() {});
  
-mapType.generics().parameters()
+mapType.generic().parameters()
   .collectToList()
 ```
 Outputs the type parameters list defined with the parameterizable type  
@@ -55,7 +55,7 @@ This combines `java.lang.reflect.TypeVariable#getBounds()` and
    ? super Serializable
    >>() {});
  
- mapType.generics().arguments()
+ mapType.generic().arguments()
    .findFirst()
    .get();
 ```
@@ -72,7 +72,7 @@ final TypeInstance mapType = Diamond.types().from(new ReferenceOf<Map<
   ? super Serializable
   >>() {});
 
-mapType.generics().arguments()
+mapType.generic().arguments()
   .skip(1)
   .findFirst()
   .get();

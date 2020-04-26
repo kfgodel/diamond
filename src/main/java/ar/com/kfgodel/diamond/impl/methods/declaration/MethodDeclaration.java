@@ -70,7 +70,7 @@ public class MethodDeclaration {
   }
 
   private void withTypeParametersSeparatedBy(String separator, Consumer<String> separatedArgumentsConsumer) {
-    transformTypeAndJoin(method.generics().parameters(), separator, separatedArgumentsConsumer);
+    transformTypeAndJoin(method.generic().parameters(), separator, separatedArgumentsConsumer);
 
   }
 

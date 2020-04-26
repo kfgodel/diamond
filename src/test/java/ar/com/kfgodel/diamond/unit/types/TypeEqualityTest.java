@@ -154,22 +154,22 @@ public class TypeEqualityTest extends JavaSpec<DiamondTestContext> {
 
   private TypeInstance getWildcardSubTypeOfString() {
     return getTypeFrom(new ReferenceOf<List<? extends String>>() {})
-      .generics().arguments().findFirst().get();
+      .generic().arguments().findFirst().get();
   }
 
   private TypeInstance getWildcardSubTypeOfNumber() {
     return getTypeFrom(new ReferenceOf<List<? extends Number>>() {})
-      .generics().arguments().findFirst().get();
+      .generic().arguments().findFirst().get();
   }
 
   private TypeInstance getWildcardSupertypeOfString() {
     return getTypeFrom(new ReferenceOf<List<? super String>>() {})
-      .generics().arguments().findFirst().get();
+      .generic().arguments().findFirst().get();
   }
 
   private TypeInstance getWildcardSupertypeOfNumber() {
     return getTypeFrom(new ReferenceOf<List<? super Number>>() {})
-      .generics().arguments().findFirst().get();
+      .generic().arguments().findFirst().get();
   }
 
   private TypeInstance getStringListType() {

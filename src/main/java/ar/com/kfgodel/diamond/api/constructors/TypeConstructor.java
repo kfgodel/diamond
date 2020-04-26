@@ -38,7 +38,7 @@ public interface TypeConstructor extends TypeMember, TypeBehavior, Supplier<Obje
    * @param arguments The arguments needed to invoke this constructor
    * @return The created object
    */
-  Object invoke(Object... arguments);
+  <R> R invoke(Object... arguments);
 
   /**
    * @return Sames as invoke() without arguments

@@ -1,6 +1,7 @@
 package ar.com.kfgodel.diamond.unit.lambdas;
 
 import ar.com.kfgodel.diamond.api.Diamond;
+import ar.com.kfgodel.diamond.api.invokable.Invokable;
 import ar.com.kfgodel.diamond.api.lambdas.Lambda;
 import ar.com.kfgodel.diamond.api.parameters.ExecutableParameter;
 import ar.com.kfgodel.diamond.unit.DiamondTestContext;
@@ -81,7 +82,7 @@ public class LambdaTests extends JavaSpec<DiamondTestContext> {
         });
 
         it("invokable", () -> {
-          Lambda lambda = Diamond.lambdas().fromInvokable((args) -> 1);
+          Lambda lambda = Diamond.lambdas().fromInvokable(this::returnOne);
 
           assertThat(lambda.parameters().count()).isEqualTo(1);
           assertThat(lambda.returnType().name()).isEqualTo("Object");
@@ -126,50 +127,62 @@ public class LambdaTests extends JavaSpec<DiamondTestContext> {
 
         Variable<Integer> argumentCount = Variable.create();
 
-        context().lambda(() -> Diamond.lambdas().fromInvokable((args) -> argumentCount.set(args.length).get()));
+        context().lambda(() -> {
+          return Diamond.lambdas().fromInvokable(new Invokable() {
+            @Override
+            public <R> R invoke(Object... arguments) {
+              return (R) argumentCount.set(arguments.length).get();
+            }
+          });
+        });
 
         it("as runnable", () -> {
 
-          context().lambda().asFunction().run();
+          context().lambda().asLambda().run();
 
           assertThat(argumentCount.get()).isEqualTo(0);
         });
         it("as consumer", () -> {
-          context().lambda().asFunction().accept(1);
+          context().lambda().asLambda().accept(1);
 
           assertThat(argumentCount.get()).isEqualTo(1);
         });
         it("as bi-consumer", () -> {
-          context().lambda().asFunction().accept(1, 2);
+          context().lambda().asLambda().accept(1, 2);
 
           assertThat(argumentCount.get()).isEqualTo(2);
         });
         it("as supplier", () -> {
-          context().lambda().asFunction().get();
+          context().lambda().asLambda().get();
 
           assertThat(argumentCount.get()).isEqualTo(0);
         });
         it("as function", () -> {
-          context().lambda().asFunction().apply(1);
+          context().lambda().asLambda().apply(1);
 
           assertThat(argumentCount.get()).isEqualTo(1);
         });
 
         it("as pseudo bi-function due to incompatible inheritance", () -> {
-          context().lambda().asFunction().apply(1, 2);
+          context().lambda().asLambda().apply(1, 2);
 
           assertThat(argumentCount.get()).isEqualTo(2);
         });
 
         it("as predicate", () -> {
-          context().lambda(() -> Diamond.lambdas().fromInvokable((args) -> argumentCount.set(args.length) != null));
+          context().lambda(() -> Diamond.lambdas().fromInvokable(new Invokable() {
+            @Override
+            public <R> R invoke(Object... arguments) {
+              return (R)Boolean.valueOf(argumentCount.set(arguments.length) != null);
+            }
+          }));
 
-          context().lambda().asFunction().test(1);
+          context().lambda().asLambda().test(1);
 
           assertThat(argumentCount.get()).isEqualTo(1);
         });
         it("as invokable", () -> {
-          context().lambda().asFunction().invoke(1, 2, 3, 4, 5);
+          context().lambda().asLambda().invoke(1, 2, 3, 4, 5);
 
           assertThat(argumentCount.get()).isEqualTo(5);
         });
@@ -194,6 +207,10 @@ public class LambdaTests extends JavaSpec<DiamondTestContext> {
 
     });
 
+  }
+
+  private <R> R returnOne(Object... objects) {
+    return (R)Integer.valueOf(1);
   }
 
   private Object otherMethod(Object o) {

@@ -62,7 +62,7 @@ public class ToStringTest extends JavaSpec<DiamondTestContext> {
       describe("for variable types", () -> {
         context().object(() ->
           Diamond.types().from(new ReferenceOf<List<? extends String>>() {})
-            .generics().arguments().findFirst().get()
+            .generic().arguments().findFirst().get()
         );
 
         it("is name and bounds", () -> {

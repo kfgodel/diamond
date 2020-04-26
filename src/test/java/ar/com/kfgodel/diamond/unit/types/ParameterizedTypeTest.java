@@ -55,7 +55,7 @@ public class ParameterizedTypeTest extends JavaSpec<DiamondTestContext> {
 
       it("has type parameters", () -> {
         List<String> typeParameterNames = context().typeInstance()
-          .generics().parameters()
+          .generic().parameters()
           .map(Named::name)
           .collect(Collectors.toList());
         assertThat(typeParameterNames)
@@ -65,7 +65,7 @@ public class ParameterizedTypeTest extends JavaSpec<DiamondTestContext> {
 
       it("has type arguments", () -> {
         List<String> argumentNames = context().typeInstance()
-          .generics().arguments()
+          .generic().arguments()
           .map(Named::name)
           .collect(Collectors.toList());
         assertThat(argumentNames).isEqualTo(Arrays.asList("String", "Integer"));
@@ -73,7 +73,7 @@ public class ParameterizedTypeTest extends JavaSpec<DiamondTestContext> {
 
       it("type argument declaration names are preserved", () -> {
         List<String> argumentDeclarations = context().typeInstance()
-          .generics().arguments()
+          .generic().arguments()
           .map(TypeInstance::declaration)
           .collect(Collectors.toList());
         assertThat(argumentDeclarations)
@@ -93,7 +93,7 @@ public class ParameterizedTypeTest extends JavaSpec<DiamondTestContext> {
 
       it("type arguments can have attached annotations too", () -> {
         List<Class<? extends Annotation>> annotationTypes = context().typeInstance()
-          .generics().arguments()
+          .generic().arguments()
           .flatMap(Annotated::annotations)
           .map(Annotation::annotationType)
           .collect(Collectors.toList());
@@ -108,7 +108,7 @@ public class ParameterizedTypeTest extends JavaSpec<DiamondTestContext> {
        */
       it("type parameters can't have attached annotations", () -> {
         long parameterAnnotationsCount = context().typeInstance()
-          .generics().parameters()
+          .generic().parameters()
           .flatMap(Annotated::annotations)
           .count();
         // Even though the 1st type parameter has annotations we cannot access it on runtime

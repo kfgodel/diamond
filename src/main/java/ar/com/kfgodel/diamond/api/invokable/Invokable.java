@@ -12,5 +12,5 @@ public interface Invokable {
    * @param arguments The arguments to use with this behavior
    * @return The  optional return value (null can indicate a no-result)
    */
-  Object invoke(Object... arguments);
+  <R> R invoke(Object... arguments);
 }

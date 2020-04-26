@@ -118,7 +118,7 @@ public class AllTypeInterfacesTest extends JavaSpec<DiamondTestContext> {
 
   private static TypeInstance getUnboundedWildcardType() {
     TypeInstance listType = getTypeFrom(new ReferenceOf<List<?>>() {});
-    TypeInstance unboundedWildcard = listType.generics().arguments().findFirst().get();
+    TypeInstance unboundedWildcard = listType.generic().arguments().findFirst().get();
     return unboundedWildcard;
   }
 

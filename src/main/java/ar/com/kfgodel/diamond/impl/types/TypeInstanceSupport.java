@@ -114,7 +114,7 @@ public abstract class TypeInstanceSupport implements TypeInstance {
   }
 
   @Override
-  public TypeGenerics generics() {
+  public TypeGenerics generic() {
     return generics;
   }
 

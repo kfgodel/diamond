@@ -50,7 +50,8 @@ public class BoundMethodTest extends JavaSpec<DiamondTestContext> {
 
         BoundMethod bound = typeMethod.bindTo(context().object());
 
-        assertThat(bound.invoke(1, 2)).isEqualTo(3);
+        final int result = bound.invoke(1, 2);
+        assertThat(result).isEqualTo(3);
 
       });
 

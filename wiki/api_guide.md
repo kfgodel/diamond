@@ -41,13 +41,13 @@ Usually created from a class: `Diamond.of(String.class)`
     Combination of methods, fields and constructors in a single getter
 - [fields](accessing-members_api_guide.md#accessing-fields)
   Ways of accessing the fields of a type
-  - [all](accessing-members_api_guide.md#how-to-get-all-the-fields-of-a-type-typeinstancefields)
+  - [all](accessing-members_api_guide.md#how-to-get-all-the-fields-of-a-type-typefieldsall)
     Access all the fields (including inherited)
-  - [named](accessing-members_api_guide.md#how-to-get-a-field-by-name-typeinstancenamed)
+  - [named](accessing-members_api_guide.md#how-to-get-a-field-by-name-typefieldsnamed)
     Filter fields by name
 - [methods](accessing-members_api_guide.md#accessing-methods)
   Ways of accessing the methods of a type    
-  - [all](accessing-members_api_guide.md#how-to-get-all-the-methods-of-a-type-typeinstancemethods)
+  - [all](accessing-members_api_guide.md#how-to-get-all-the-methods-of-a-type-typemethodsall)
     Access all the methods (including inherited and overriden)
   - [named](accessing-members_api_guide.md#how-to-get-a-method-by-name-typemethodsnamed)
     Filter methods by name
@@ -57,7 +57,7 @@ Usually created from a class: `Diamond.of(String.class)`
     Filter methods by their type parameters
 - [constructors](accessing-members_api_guide.md#accessing-constructors)
     Ways to access the constructors of a type
-  - [all](accessing-members_api_guide.md#how-to-get-all-the-constructors-of-a-type-typeinstanceconstructors)
+  - [all](accessing-members_api_guide.md#how-to-get-all-the-constructors-of-a-type-typeconstructorsall)
     Access all the consctructors of a type
   - [niladic](accessing-members_api_guide.md#how-to-get-the-no-arg-constructor-of-a-type-typeconstructorsniladic)
     Access the no-arg consturctor
@@ -71,17 +71,17 @@ Usually created from a class: `Diamond.of(String.class)`
 
 - [is](type-tests_api_guide.md#is-questions)
   Allows access to several questions that can be made to a type
-  - [instance](type-tests_api_guide.md#how-to-test-if-an-instance-belongs-to-a-type-typetestsinstance)
+  - [instance](type-tests_api_guide.md#how-to-test-if-an-instance-is-from-a-type-typetestsinstance)
     Indicates if an object is instance of the type
-  - [belongsTo](type-tests_api_guide.md#how-to-test-if-a-type-represents-an-interface-typetestspartof)
+  - [a](type-tests_api_guide.md#how-to-test-if-a-type-represents-an-interface-typetestsa)
     Indicates if a type belongs to a category 
   - [subTypeOf](type-tests_api_guide.md#how-to-test-if-a-type-is-a-compile-time-subtype-typetestssubtypeof)
     Indicates if a type is sub-type from another  
   - [superTypeOf](type-tests_api_guide.md#how-to-test-if-a-type-is-a-compile-time-supertype-typetestssupertypeof)
     Indicates if a type is super-type from another  
-  - [assignableFrom](type-tests_api_guide.md#how-to-test-if-a-type-includes-other-type-typetestsassignablefrom)
+  - [assignableFrom](type-tests_api_guide.md#how-to-test-if-a-type-is-a-runtime-subtype-typetestsassignablefrom)
     Indicates if a type can accept instances of another type   
-  - [assignableTo](type-tests_api_guide.md#how-to-test-if-a-type-can-be-assigned-into-other-type-typetestsassignableto)
+  - [assignableTo](type-tests_api_guide.md#how-to-test-if-a-type-is-a-runtime-supertype-typetestsassignableto)
     Indicates if instances of a type can be assigned to another type   
 
 - [declaredPackage](type-info_api_guide.md#how-to-know-the-package-where-a-type-is-declared-typeinstancedeclaredpackage)
@@ -95,7 +95,7 @@ Usually created from a class: `Diamond.of(String.class)`
 - [reflectedAs](type-info_api_guide.md#how-to-get-the-native-reflection-instance-from-a-type-typeinstancereflectedas)
   The native reflection instance     
 
-- [generics](generics_api_guide.md#type-generics)
+- [generic](generics_api_guide.md#type-generics)
   Gives information about the generics used on the type     
   - [bounds](generics_api_guide.md#the-bounds-of-a-type-can-be-accessed-with-typegenericsbounds)
     Allows access to the bounds of the type (if any)     
@@ -110,7 +110,7 @@ Usually created from a class: `Diamond.of(String.class)`
   
 - [hierarchy (compile time)](compile-time-hierarchy_api_guide.md#compile-time-hierarchy)
   Allows access to the compile time hierarchy of the type
-  - [extendedType](compile-time-hierarchy_api_guide.md#how-to-know-the-type-a-type-extends-from-compiletimehierarchyextendedtype)
+  - [extendedType](compile-time-hierarchy_api_guide.md#how-to-know-the-type-a-type-directly-extends-from-compiletimehierarchyextendedtype)
     The directly super type extended by the type at compile time 
   - [implementedTypes](compile-time-hierarchy_api_guide.md#how-to-know-the-different-types-a-type-directly-implements-compiletimehierarchyimplementedtypes)
     The directly super types implemented by the type at compile time 
@@ -137,34 +137,34 @@ Usually created from a class: `Diamond.of(String.class)`
   
 - [runtime](runtime-hierarchy_api_guide.md#runtime-information)
   Allows access to the runtime information of the type
- - [type](runtime-hierarchy_api_guide.md#how-to-get-the-actual-runtime-type-of-a-type-typeruntimetype)
-   Get the actual type used in runtime to represent a type (usually a class type)
- - [classes](runtime-hierarchy_api_guide.md#how-to-get-the-actual-classes-that-can-be-used-at-runtime-to-hold-a-variable-of-a-type-typeruntimeclasses)
-   Get the classes that at run time are used to assign a type (multiple if multi-bound variable)
- - [hierarchy](runtime-hierarchy_api_guide.md#runtime-hierarchy)
+  - [type](runtime-hierarchy_api_guide.md#how-to-get-the-actual-runtime-type-of-a-type-typeruntimetype)
+    Get the actual type used in runtime to represent a type (usually a class type)
+  - [classes](runtime-hierarchy_api_guide.md#how-to-get-the-actual-classes-that-can-be-used-at-runtime-to-hold-a-variable-of-a-type-typeruntimeclasses)
+    Get the classes that at run time are used to assign a type (multiple if multi-bound variable)
+  - [hierarchy](runtime-hierarchy_api_guide.md#runtime-hierarchy)
    Allows access to the run time hierarchy of the type
-   - [superclass](runtime-hierarchy_api_guide.md#how-to-know-the-superclass-a-type-directly-extends-from-runtimetypehierarchysuperclass)
-     The directly super type extended by the type at run time
-   - [interfaces](runtime-hierarchy_api_guide.md#how-to-know-the-interfaces-a-type-directly-implements-runtimetypehierarchyinterfaces)
-     The directly super types implemented by the type at run time
-   - [supertypes](runtime-hierarchy_api_guide.md#how-to-know-all-the-direct-super-types-of-a-type-runtimetypehierarchysupertypes)
-     Get all the directly supertypes. Combination of extended type and extended types.
-   - [lineage](runtime-hierarchy_api_guide.md#runtime-type-lineage)
-     Allows access to the different levels of the hierarchy (at runtime)
-     - [allExtendedTypes](runtime-hierarchy_api_guide.md#how-to-get-all-the-types-extended-from-a-type-typelineageallextendedtypes)
-       All the extended types in the hierarchy (at run time)
-     - [allImplementedTypes](runtime-hierarchy_api_guide.md#how-to-get-all-the-implemented-types-from-a-type-typelineageallimplementedtypes)
-       All implemented types in the hierarchy (at run time)
-     - [allRelatedTypes](runtime-hierarchy_api_guide.md#how-to-get-all-types-involved-in-a-type-hierarchy-typelineageallrelatedtypes)
-       All the types in the hierarchy (at run time)
-     - [ancestorOf](runtime-hierarchy_api_guide.md#how-to-get-the-direct-ancestor-of-a-type-in-a-lineage-typelineageancestorof)
-       Gets the direct ancestor of a type in the extension line of the hierarchy
-     - [descendantOf](runtime-hierarchy_api_guide.md#how-to-get-the-direct-descendant-of-a-type-in-a-lineage-typelineagedescendantof)
-       Gets the direct descendant of a type in the extension line of the hierarchy
-     - [lowestDescendant](runtime-hierarchy_api_guide.md#how-to-get-the-lowest-descendant-in-a-hierarchy-lineage-typelineagelowestdescendant)
-       Gets the lowest descendant in the extension line of the hierarchy
-     - [highestAncestor](runtime-hierarchy_api_guide.md#how-to-get-the-highest-ancestor-in-a-hierarchy-lineage-typelineagehighestancestor)
-       Gets the highest ancestor in the extension line of the hierarchy
+    - [superclass](runtime-hierarchy_api_guide.md#how-to-know-the-superclass-a-type-directly-extends-from-runtimetypehierarchysuperclass)
+      The directly super type extended by the type at run time
+    - [interfaces](runtime-hierarchy_api_guide.md#how-to-know-the-interfaces-a-type-directly-implements-runtimetypehierarchyinterfaces)
+      The directly super types implemented by the type at run time
+    - [supertypes](runtime-hierarchy_api_guide.md#how-to-know-all-the-direct-super-types-of-a-type-runtimetypehierarchysupertypes)
+      Get all the directly supertypes. Combination of extended type and extended types.
+    - [lineage](runtime-hierarchy_api_guide.md#runtime-type-lineage)
+      Allows access to the different levels of the hierarchy (at runtime)
+      - [allExtendedTypes](runtime-hierarchy_api_guide.md#how-to-get-all-the-types-extended-from-a-type-typelineageallextendedtypes)
+        All the extended types in the hierarchy (at run time)
+      - [allImplementedTypes](runtime-hierarchy_api_guide.md#how-to-get-all-the-implemented-types-from-a-type-typelineageallimplementedtypes)
+        All implemented types in the hierarchy (at run time)
+      - [allRelatedTypes](runtime-hierarchy_api_guide.md#how-to-get-all-types-involved-in-a-type-hierarchy-typelineageallrelatedtypes)
+        All the types in the hierarchy (at run time)
+      - [ancestorOf](runtime-hierarchy_api_guide.md#how-to-get-the-direct-ancestor-of-a-type-in-a-lineage-typelineageancestorof)
+        Gets the direct ancestor of a type in the extension line of the hierarchy
+      - [descendantOf](runtime-hierarchy_api_guide.md#how-to-get-the-direct-descendant-of-a-type-in-a-lineage-typelineagedescendantof)
+        Gets the direct descendant of a type in the extension line of the hierarchy
+      - [lowestDescendant](runtime-hierarchy_api_guide.md#how-to-get-the-lowest-descendant-in-a-hierarchy-lineage-typelineagelowestdescendant)
+        Gets the lowest descendant in the extension line of the hierarchy
+      - [highestAncestor](runtime-hierarchy_api_guide.md#how-to-get-the-highest-ancestor-in-a-hierarchy-lineage-typelineagehighestancestor)
+        Gets the highest ancestor in the extension line of the hierarchy
 
 ## Type Members
 If you want to manipulate objects or execute code using reflection you will, 
@@ -177,11 +177,11 @@ usually, access some members of a type (fields, methods or constructors)
   The attached annotations accompanying the member (if any)
 - [modifiers](members_api_guide.md#how-to-access-all-the-modifiers-of-a-member-modifiablemodifiers)
   Any modifiers applied to the member (Diamond reifies modifiers as objects)
-- [generics](members_api_guide.md#how-to-access-the-type-parameters-used-on-a-member-declaration-generifiedgenerics)
+- [generics](members_api_guide.md#how-to-access-the-type-parameters-used-on-a-member-declaration-generifiedgeneric)
   Allows access to generic info like parameters
 - [as an executable](members_api_guide.md#executable)
   Allows treating the member as an executable piece of code
-  - [asFunction](members_api_guide.md#how-to-get-a-polymorphic-lambda-from-a-member-executableasfunction)
+  - [asLambda](members_api_guide.md#how-to-get-a-polymorphic-lambda-from-a-member-executableasLambda)
     Gets a polymorphical lambda that invoked (semantics depends on the member type)
   - [returnType](members_api_guide.md#how-to-know-the-return-type-of-any-member-used-as-function-executablereturntype)
     The type of returned result the member returns
@@ -209,7 +209,7 @@ usually, access some members of a type (fields, methods or constructors)
 ### Specific for TypeMethod
 - [defaultValue](method-api-guide.md#how-to-get-the-default-value-of-a-method-typemethoddefaultvalue)
   The default value this method has (meaningful for annotation methods)
-- [invokeOn](method-api-guide.md#how-to-invoke-a-method-in-an-instance-typemethodinvokeon)
+- [invokeOn](method-api-guide.md#how-to-invoke-a-bound-method-on-an-instance-boundmethodinvoke)
   Invokes the method on a receiver
 - [as a lambda](method-api-guide.md#method-used-as-lambda)
   Allows using the method as a polymorphic lambda whose semantics will depend on the method

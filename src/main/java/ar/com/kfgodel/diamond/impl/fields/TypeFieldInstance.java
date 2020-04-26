@@ -67,7 +67,7 @@ public class TypeFieldInstance extends TypeMemberSupport implements TypeField {
 
   @Override
   public Object invoke(Object... arguments) {
-    return asFunction().invoke(arguments);
+    return asLambda().invoke(arguments);
   }
 
 

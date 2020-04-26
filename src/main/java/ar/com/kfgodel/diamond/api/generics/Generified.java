@@ -11,6 +11,6 @@ public interface Generified {
    * @return The information about this entity generification.<br>
    * The generics metadata for this element
    */
-  Generics generics();
+  Generics generic();
 
 }

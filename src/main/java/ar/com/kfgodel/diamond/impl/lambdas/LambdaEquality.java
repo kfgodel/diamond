@@ -25,7 +25,7 @@ public class LambdaEquality {
       return false;
     }
     Lambda other = (Lambda) obj;
-    return one.asFunction().equals(other.asFunction());
+    return one.asLambda().equals(other.asLambda());
   }
 
   /**
@@ -35,7 +35,7 @@ public class LambdaEquality {
    * @return The code that can be compared
    */
   public int hashcodeFor(Lambda typePackage) {
-    return typePackage.asFunction().hashCode();
+    return typePackage.asLambda().hashCode();
   }
 
 }

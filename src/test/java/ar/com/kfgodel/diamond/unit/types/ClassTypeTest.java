@@ -110,14 +110,14 @@ public class ClassTypeTest extends JavaSpec<DiamondTestContext> {
 
       describe("generics", () -> {
         it("has type parameters", () -> {
-          List<String> parameterNames = context().typeInstance().generics().parameters()
+          List<String> parameterNames = context().typeInstance().generic().parameters()
             .map((typeParameter) -> typeParameter.name())
             .collect(Collectors.toList());
           assertThat(parameterNames).isEqualTo(Arrays.asList("C"));
         });
 
         it("has type arguments", () -> {
-          List<String> parameterNames = context().typeInstance().generics().arguments()
+          List<String> parameterNames = context().typeInstance().generic().arguments()
             .map((typeParameter) -> typeParameter.name())
             .collect(Collectors.toList());
           assertThat(parameterNames).isEqualTo(Arrays.asList());
@@ -129,7 +129,7 @@ public class ClassTypeTest extends JavaSpec<DiamondTestContext> {
         it("has correct type arguments for its superclass", () -> {
           List<String> parameterNames = context().typeInstance().runtime().hierarchy()
             .superclass().get()
-            .generics().arguments()
+            .generic().arguments()
             .map((typeParameter) -> typeParameter.name())
             .collect(Collectors.toList());
           assertThat(parameterNames).isEqualTo(Arrays.asList());
@@ -142,7 +142,7 @@ public class ClassTypeTest extends JavaSpec<DiamondTestContext> {
           List<String> parameterNames = context().typeInstance()
             .hierarchy().extendedType()
             .get()
-            .generics().arguments()
+            .generic().arguments()
             .map((typeParameter) -> typeParameter.name())
             .collect(Collectors.toList());
           assertThat(parameterNames).isEqualTo(Arrays.asList("C", "Integer"));

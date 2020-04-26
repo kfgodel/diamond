@@ -44,12 +44,12 @@ public class TypeVariableTest extends JavaSpec<DiamondTestContext> {
           .isEqualTo("@ar.com.kfgodel.diamond.unit.testobjects.annotations.TestAnnotation1() T extends @ar.com.kfgodel.diamond.unit.testobjects.annotations.TestAnnotation2() java.lang.Number & java.lang.Comparable");
       });
       it("can have upper bounds", () -> {
-        List<String> upperTypeNames = context().typeInstance().generics().bounds().upper().map((upperBound) -> upperBound.name()).collect(Collectors.toList());
+        List<String> upperTypeNames = context().typeInstance().generic().bounds().upper().map((upperBound) -> upperBound.name()).collect(Collectors.toList());
         assertThat(upperTypeNames)
           .isEqualTo(Arrays.asList("Number", "Comparable"));
       });
       it("doesn't have lower bounds", () -> {
-        assertThat(context().typeInstance().generics().bounds().lower().count())
+        assertThat(context().typeInstance().generic().bounds().lower().count())
           .isEqualTo(0);
       });
 
@@ -76,7 +76,7 @@ public class TypeVariableTest extends JavaSpec<DiamondTestContext> {
           .isEqualTo(TestAnnotation1.class);
       });
       it("bounds can have attached annotations too", () -> {
-        List<Class<? extends Annotation>> upperBoundAnnotations = context().typeInstance().generics().bounds().upper()
+        List<Class<? extends Annotation>> upperBoundAnnotations = context().typeInstance().generic().bounds().upper()
           .flatMap((upperBound) -> upperBound.annotations())
           .map((annotation) -> annotation.annotationType())
           .collect(Collectors.toList());

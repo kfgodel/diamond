@@ -36,17 +36,17 @@ public class TypeConstructorInstance extends TypeMemberSupport implements TypeCo
 
   @Override
   public Object invoke(Object... arguments) {
-    return asFunction().invoke(arguments);
+    return asLambda().invoke(arguments);
   }
 
   @Override
   public Object get() {
-    return asFunction().get();
+    return asLambda().get();
   }
 
   @Override
   public Object apply(Object argument) {
-    return asFunction().apply(argument);
+    return asLambda().apply(argument);
   }
 
 

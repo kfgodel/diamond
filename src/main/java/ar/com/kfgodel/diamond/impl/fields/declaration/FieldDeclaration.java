@@ -65,7 +65,7 @@ public class FieldDeclaration {
 
 
   private void withTypeParametersSeparatedBy(String separator, Consumer<String> separatedArgumentsConsumer) {
-    transformTypeAndJoin(field.generics().parameters(), separator, separatedArgumentsConsumer);
+    transformTypeAndJoin(field.generic().parameters(), separator, separatedArgumentsConsumer);
 
   }
 

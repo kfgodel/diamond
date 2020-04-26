@@ -74,20 +74,20 @@ public class CompileTimeLineageTest extends JavaSpec<DiamondTestContext> {
 
       describe("generic arguments", () -> {
         it("start from the lowest descendant", () -> {
-          List<String> argumentNames = context().lineage().lowestDescendant().generics().arguments().map(Named::name).collect(Collectors.toList());
+          List<String> argumentNames = context().lineage().lowestDescendant().generic().arguments().map(Named::name).collect(Collectors.toList());
           assertThat(argumentNames).isEqualTo(Arrays.asList());
         });
         it("bubble up to its parent", () -> {
           TypeInstance childType = context().lineage().lowestDescendant();
           List<String> argumentNames = context().lineage().ancestorOf(childType).get()
-            .generics().arguments().map((arg) -> arg.name()).collect(Collectors.toList());
+            .generic().arguments().map((arg) -> arg.name()).collect(Collectors.toList());
           assertThat(argumentNames).isEqualTo(Arrays.asList("C", "Integer"));
         });
         it("grand parents, and so on", () -> {
           TypeInstance childType = context().lineage().lowestDescendant();
           TypeInstance parentType = context().lineage().ancestorOf(childType).get();
           List<String> argumentNames = context().lineage().ancestorOf(parentType).get()
-            .generics().arguments().map((arg) -> arg.name()).collect(Collectors.toList());
+            .generic().arguments().map((arg) -> arg.name()).collect(Collectors.toList());
           assertThat(argumentNames).isEqualTo(Arrays.asList("Integer"));
         });
       });

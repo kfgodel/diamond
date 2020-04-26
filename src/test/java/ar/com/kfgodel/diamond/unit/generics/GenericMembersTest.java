@@ -36,7 +36,7 @@ public class GenericMembersTest extends JavaSpec<DiamondTestContext> {
 
         it("contains an empty stream for generic parameters", () -> {
 
-          Stream<TypeInstance> parameters = context().field().generics().parameters();
+          Stream<TypeInstance> parameters = context().field().generic().parameters();
 
           assertThat(parameters.count()).isEqualTo(0);
         });
@@ -49,7 +49,7 @@ public class GenericMembersTest extends JavaSpec<DiamondTestContext> {
 
         it("contains only method declared type variables", () -> {
 
-          Stream<TypeInstance> parameters = context().method().generics().parameters();
+          Stream<TypeInstance> parameters = context().method().generic().parameters();
 
           assertThat(parameters.map(TypeInstance::name).collect(Collectors.toList()))
             .isEqualTo(Arrays.asList("R"));
@@ -64,7 +64,7 @@ public class GenericMembersTest extends JavaSpec<DiamondTestContext> {
 
         it("contains only constructor declared type variables", () -> {
 
-          Stream<TypeInstance> parameters = context().constructor().generics().parameters();
+          Stream<TypeInstance> parameters = context().constructor().generic().parameters();
 
           assertThat(parameters.map(TypeInstance::name).collect(Collectors.toList()))
             .isEqualTo(Arrays.asList("S"));

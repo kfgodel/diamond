@@ -29,8 +29,8 @@ public class TypeEquality {
     return ImmutableIdentityParts.create(
       typeInstance.names().bareName(),
       typeInstance.componentType().orElse(null),
-      ImmutableIdentityParts.create(typeInstance.generics().arguments().collect(Collectors.toList())),
-      ImmutableIdentityParts.create(typeInstance.generics().bounds().upper().collect(Collectors.toList())),
-      ImmutableIdentityParts.create(typeInstance.generics().bounds().lower().collect(Collectors.toList())));
+      ImmutableIdentityParts.create(typeInstance.generic().arguments().collect(Collectors.toList())),
+      ImmutableIdentityParts.create(typeInstance.generic().bounds().upper().collect(Collectors.toList())),
+      ImmutableIdentityParts.create(typeInstance.generic().bounds().lower().collect(Collectors.toList())));
   }
 }

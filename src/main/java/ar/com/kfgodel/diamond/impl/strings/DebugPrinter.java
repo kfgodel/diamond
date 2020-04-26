@@ -43,7 +43,7 @@ public class DebugPrinter {
     return builtString((builder) -> {
       builder.append(type.name());
 
-      String argNames = type.generics().arguments()
+      String argNames = type.generic().arguments()
         .map(TypeInstance::name)
         .collect(Collectors.joining(COMA));
       if (!argNames.isEmpty()) {
@@ -52,7 +52,7 @@ public class DebugPrinter {
         builder.append(">");
       }
 
-      String upperBoundName = type.generics().bounds().upper()
+      String upperBoundName = type.generic().bounds().upper()
         .map(TypeInstance::name)
         .collect(Collectors.joining(AND));
       if (!upperBoundName.isEmpty()) {
@@ -60,7 +60,7 @@ public class DebugPrinter {
         builder.append(upperBoundName);
       }
 
-      String lowerBound = type.generics().bounds().lower()
+      String lowerBound = type.generic().bounds().lower()
         .map(TypeInstance::name)
         .collect(Collectors.joining(AND));
       if (!lowerBound.isEmpty()) {

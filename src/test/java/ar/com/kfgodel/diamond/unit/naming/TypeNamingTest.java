@@ -163,7 +163,7 @@ public class TypeNamingTest extends JavaSpec<DiamondTestContext> {
 
   private static TypeInstance getWildcardType() {
     return getTypeFrom(new ReferenceOf<List<@TestAnnotation1 ? extends @TestAnnotation2 String>>() {})
-      .generics().arguments().findFirst().get();
+      .generic().arguments().findFirst().get();
   }
 
 

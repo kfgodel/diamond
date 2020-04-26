@@ -76,15 +76,15 @@ public class TypeNameDeclaration {
   }
 
   private void withTypeArgumentDeclarationsSeparatedBy(String separator, Consumer<String> separatedArgumentsConsumer) {
-    transformTypeAndJoin(type.generics().arguments(), separator, separatedArgumentsConsumer);
+    transformTypeAndJoin(type.generic().arguments(), separator, separatedArgumentsConsumer);
   }
 
   private void withUpperBoundDeclarationsSeparatedBy(String separator, Consumer<String> separatedArgumentsConsumer) {
-    transformTypeAndJoin(type.generics().bounds().upper(), separator, separatedArgumentsConsumer);
+    transformTypeAndJoin(type.generic().bounds().upper(), separator, separatedArgumentsConsumer);
   }
 
   private void withLowerBoundDeclarationsSeparatedBy(String separator, Consumer<String> separatedArgumentsConsumer) {
-    transformTypeAndJoin(type.generics().bounds().lower(), separator, separatedArgumentsConsumer);
+    transformTypeAndJoin(type.generic().bounds().lower(), separator, separatedArgumentsConsumer);
   }
 
   private void transformTypeAndJoin(Stream<TypeInstance> types, String separator, Consumer<String> joinedConsumer) {

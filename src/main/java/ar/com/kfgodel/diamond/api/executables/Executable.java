@@ -18,7 +18,7 @@ public interface Executable extends ParameterizedBehavior, Exceptionable {
   /**
    * @return This member usable as a function with semantics and result depending on this instance, and the used arguments
    */
-  PolymorphicInvokable asFunction();
+  PolymorphicInvokable asLambda();
 
   /**
    * Returns the parameters needed by this instance to be invoked.<br>

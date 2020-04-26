@@ -85,13 +85,13 @@ true
 ### Generified
 Every member can have type parameters used to generify its declaration.
 
-#### How to access the type parameters used on a member declaration: `Generified#generics()`
+#### How to access the type parameters used on a member declaration: `Generified#generic()`
 ```java
 TypeMember typeMember = Diamond.of(GenericMembersTestObject.class))
   .methods().named("method")
   .unique().get());
 
-typeMember.generics().arguments()
+typeMember.generic().arguments()
   .collectToList()
 ```
 Outputs the list of type instances that represent the actual type arguments used on the method
@@ -125,7 +125,7 @@ can be used as lambdas to be executed and produce side effects.
 Depending on the specific type of member, the lambda invocation will have 
 different semantics. 
 
-#### How to get a polymorphic lambda from a member: `Executable#asFunction()`
+#### How to get a polymorphic lambda from a member: `Executable#asLambda()`
 The returned 'lambda' like object implements almost all the lambda interfaces,
 allowing you to use it on several contexts.
 
@@ -134,7 +134,7 @@ TypeMember typeMember = Diamond.of(FunctionalFieldTestObject.class)
   .fields().named("staticField")
   .unique().get();
 
-typeMember.asFunction().accept(3)
+typeMember.asLambda().accept(3)
 ```
 It sets the a value of `3` on the static field named `staticField` in `FunctionalFieldTestObject`.
 Which is equivalent of calling `FunctionalFieldTestObject.staticField = 3` as setter   
@@ -148,7 +148,7 @@ TypeMember typeMember = Diamond.of(FunctionalFieldTestObject.class)
   .fields().named("instanceField")
   .unique().get();
 
-typeMember.asFunction().apply(object)
+typeMember.asLambda().apply(object)
 ```
 Outputs the value we set earlier in the field, taken from the object 
 ```java
@@ -160,7 +160,7 @@ TypeMember typeMember = Diamond.of(FunctionalFieldTestObject.class)
   .fields().named("instanceField")
   .unique().get();
 
-typeMember.asFunction().accept(object, 30)
+typeMember.asLambda().accept(object, 30)
 ```
 It sets the a value of `30` on the instance field named `instanceField` for the passed `object`.
 Which is equivalent of calling `object.instanceField = 30` as setter   

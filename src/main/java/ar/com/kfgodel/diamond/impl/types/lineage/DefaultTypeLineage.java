@@ -80,10 +80,10 @@ public class DefaultTypeLineage implements TypeLineage {
     Optional<TypeInstance> foundType = this.allRelatedTypes()
       .filter((relatedType) ->
         referenceType.names().canonicalName().equals(relatedType.names().canonicalName())
-          && relatedType.generics().arguments().count() > 0
+          && relatedType.generic().arguments().count() > 0
       ).findFirst();
     return foundType
-      .map((type) -> type.generics().arguments())
+      .map((type) -> type.generic().arguments())
       .orElse(Nary.empty());
   }
 

@@ -23,7 +23,7 @@ public class LambdaInstance implements Lambda {
   private Supplier<? extends Nary<TypeInstance>> declaredExceptions;
 
   @Override
-  public PolymorphicInvokable asFunction() {
+  public PolymorphicInvokable asLambda() {
     return function.get();
   }
 
